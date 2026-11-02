@@ -102,3 +102,10 @@ Branch claude/place-visibility from main.
 
 ## O City Route page — 2026-11-02 (Claude Code)
 Branch claude/about-page. #about page: one-line purpose, 4 steps (wybierz, ruszaj, odhaczaj, oceń), what each tab does, principles (real sourced data, booking at the seller with possible future commission that never changes prices or rating order, data stays on the device, early Warsaw-only version, 1001 CAVE). Reached from Profil menu and "Jak to działa?" in the Trasy intro. Checked at 375×812. 21 tests pass.
+
+
+
+## Planner-first navigation — 2026-11-02 (ChatGPT)
+Branch work/planner-first-navigation from main 5d69909. Continued the current Claude implementation, not the stale Work checkout. First tab and default entry now Ułóż trasę (#plan), full page/accessibility label Zaplanuj moją trasę. Ready-made routes stay Trasy; place/event catalogue labelled Miejsca. Zarezerwuj and header profile retained. Moja trasa keeps its stable name with blue Gotowa before starting and red W toku during an active session; completed sessions no longer show W toku. Blank-entry while active resumes My Route. Side questy restored as a separate Miejsca category and legacy #sidequests deep link, without mixing activities into venue categories.
+Validation: 21 Node tests and build pass. Browser verified default planner → generated route → editable basket (Gotowa) → start (W toku) → refresh/resume → done/skip/complete; verified 30 sidequests in Miejsca. Existing live state mechanism reused. Cloudflare auto-builds main; verify deployed v14. The malformed location text shown in the owner's screenshot is not a valid coordinates-bearing Maps URL; parsing/resolving short links remains a separate task. No changes to ratings, photos, worker/events or profile storage.
+Next: physical-phone navigation QA; improve location input guidance/resolution; curate sidequest copy. Earlier historical status sections remain below/above as history, not current blockers.

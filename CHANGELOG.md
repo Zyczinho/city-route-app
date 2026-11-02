@@ -29,3 +29,7 @@ When adding your own place you choose who sees it: only you, or everyone. The pl
 
 ## 2026-11-02 — O City Route
 New page explaining what City Route is, how to use it in four steps, what each tab does and what we promise about data, bookings and privacy. Opens from Profil and from "Jak to działa?" on Trasy.
+
+
+## 2026-11-02 — planner-first route lifecycle
+Default first tab Ułóż trasę; full planner title Zaplanuj moją trasę. Explicit Trasy and Miejsca labels. Moja trasa keeps its name plus Gotowa/W toku, retaining blue/red state colors and resume. Side questy accessible in Miejsca. Current Claude changes preserved. 21 tests/build pass; browser tested full plan/start/resume/complete flow.

@@ -25,7 +25,7 @@ const items=ids=>ids.map(id=>all[id]).filter(Boolean);
 const isLive=()=>!!state.session&&!state.session.finished;
 
 // Navigation and categories
-const TABS=[['routes','route','Trasy'],['places','compass','Odkrywaj'],['plan','wand-sparkles','Zaplanuj'],['my-route','navigation','Moja trasa'],['book','ticket-percent','Zarezerwuj']];
+const TABS=[['plan','wand-sparkles','Ułóż trasę'],['routes','route','Trasy'],['places','compass','Miejsca'],['my-route','navigation','Moja trasa'],['book','ticket-percent','Zarezerwuj']];
 const PLACE_CATS=[['all','Wszystkie','layers'],['zabytki','Zabytki','landmark'],['muzea','Muzea','library'],['zielen','Zieleń','trees'],['widoki','Wisła i widoki','waves'],['okolice','Ulice i okolice','signpost'],['jedzenie','Jedzenie','utensils']];
 const USER_TAGS={zabytki:['sightseeing','culture'],muzea:['culture'],zielen:['nature'],widoki:['views'],okolice:['hidden'],jedzenie:['food']};
 const resident=()=>state.stay==='resident';
@@ -36,12 +36,12 @@ const catalog=()=>[...places,...state.userPlaces].filter(p=>p.kind!=='hotel');
 const ROUTE_CATS=[['all','Wszystkie'],['klasyka','Na pierwszy raz'],['zielen','Zieleń'],['wisla','Nad Wisłą'],['jedzenie','Z jedzeniem'],['lokalnie','Lokalnie']];
 const catName=(id,list=PLACE_CATS)=>list.find(c=>c[0]===id)?.[1]||'';
 const TAB_OF={routes:'routes',route:'routes',places:'places',events:'places','add-place':'places',plan:'plan','my-route':'my-route',book:'book',profile:'profile',sources:'profile',about:'profile'};
-const LEGACY={home:['routes'],explore:['routes'],best:['places'],food:['places','jedzenie'],hotels:['book'],sidequests:['routes'],build:['plan'],active:['my-route'],discounts:['profile'],friends:['profile'],community:['profile'],chat:['profile']};
+const LEGACY={home:['plan'],explore:['routes'],best:['places'],food:['places','jedzenie'],hotels:['book'],sidequests:['places','sidequests'],build:['plan'],active:['my-route'],discounts:['profile'],friends:['profile'],community:['profile'],chat:['profile']};
 const route=()=>{const [t,id]=(location.hash.slice(1)||'').split('/');return [t,id];};
 const avatar=(cls='')=>state.profile.photo?`<img class="avatar ${cls}" src="${esc(state.profile.photo)}" alt="">`:`<span class="avatar ${cls}" aria-hidden="true">${esc((state.tester.nickname==='Explorer'?'O':state.tester.nickname[0]).toUpperCase())}</span>`;
-function nav(){$('#me').innerHTML=avatar('sm');$('#me').classList.toggle('active',['profile','sources','about'].includes(route()[0]));const [h,hid]=route(),t=h==='route'&&hid==='generated'?'plan':TAB_OF[h]||'routes',live=isLive(),chosen=live||state.basket.length>0;
+function nav(){$('#me').innerHTML=avatar('sm');$('#me').classList.toggle('active',['profile','sources','about'].includes(route()[0]));const [h,hid]=route(),t=h==='route'&&hid==='generated'?'plan':TAB_OF[h]||'plan',live=isLive(),chosen=live||state.basket.length>0;
  $('#navigation').innerHTML=TABS.map(([id,icon,label])=>{const mine=id==='my-route',cls=[t===id?'active':'',mine&&chosen?'chosen':'',mine&&live?'live':''].join(' ').trim();
-  return `<a href="#${id}" class="${cls}" ${t===id?'aria-current="page"':''}>${mine&&live?'<span class="pulse" aria-hidden="true"></span>':ic(icon)}<span>${mine&&live?'Na żywo':label}</span>${mine&&!live&&state.basket.length?`<b class="badge" aria-label="${state.basket.length} w trasie">${state.basket.length}</b>`:''}${mine&&live?'<span class="sr-only"> — Moja trasa w toku</span>':''}</a>`;}).join('');}
+  return `<a href="#${id}" class="${cls}" ${id==='plan'?'aria-label="Zaplanuj moją trasę"':''} ${t===id?'aria-current="page"':''}>${mine&&live?'<span class="pulse" aria-hidden="true"></span>':ic(icon)}<span>${label}</span>${mine&&chosen?`<small class="nav-status">${live?'W toku':'Gotowa'}</small>`:''}${mine&&!live&&state.basket.length?`<b class="badge" aria-label="${state.basket.length} w trasie">${state.basket.length}</b>`:''}</a>`;}).join('');}
 
 // Shared pieces
 function photo(p,cls='',eager=false){if(!p?.image)return `<div class="ph ${cls}">${ic(p?.kind==='user'?'map-pin':'camera')}</div>`;const src=/^(https?:|data:image\/)/.test(p.image)?p.image:`./assets/images/${p.image}`;return `<img class="${cls}" src="${esc(src)}" alt="${esc(p.imageCaption||p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer">`;}
@@ -91,14 +91,14 @@ const placeHay=p=>`${p.name} ${p.area} ${p.description||''} ${(p.cuisine||[]).jo
 const away=p=>here?` · ${dec(distance(here,p))} km`:'';
 function placeRow(p){return `<article class="place"><button class="hit" data-action="place" data-id="${p.id}" aria-label="Szczegóły: ${esc(p.name)}"></button><div class="thumb">${photo(p)}${p.top?'<span class="must">Must-see</span>':''}</div><div class="info"><h3>${esc(p.name)}</h3><p class="sub">${esc(p.area)}${p.cuisine?' · '+esc(p.cuisine.join(', ')):p.kind==='sidequest'?'':' · '+esc(catName(p.cats?.[0]))}${p.outside?' · z zewnątrz':''}${away(p)}</p>${scoreLine(p)}</div><div class="side">${addButton(p)}</div></article>`;}
 function placesView(){
- if(!PLACE_CATS.some(c=>c[0]===cat))cat='all';
- let list=catalog().filter(p=>cat==='all'||p.cats[0]===cat);
+ if(cat!=='sidequests'&&!PLACE_CATS.some(c=>c[0]===cat))cat='all';
+ let list=cat==='sidequests'?[...quests]:catalog().filter(p=>cat==='all'||p.cats[0]===cat);
  list=list.filter(p=>matches(placeHay(p),query)&&(cat!=='jedzenie'||cuisine==='all'||(p.cuisine||[]).includes(cuisine)));
  const c=p=>combinedRating(p.ratings);
  if(sort==='default')list.sort((a,b)=>(b.top?1:0)-(a.top?1:0));if(sort==='near'&&here)list.sort((a,b)=>distance(here,a)-distance(here,b));
  if(sort==='rating')list.sort((a,b)=>smoothedRating(b.ratings)-smoothedRating(a.ratings));if(sort==='count')list.sort((a,b)=>c(b).total-c(a).total);
  const cuisines=[...new Set(places.flatMap(p=>p.cuisine||[]))].sort((a,b)=>a.localeCompare(b,'pl'));
- return `${exploreSwitch('places')}<section class="page-head"><p class="kicker">Miejsca</p><h1>Co chcesz zobaczyć?</h1><p class="lead">${catalog().length} ${plural(catalog().length,'miejsce','miejsca','miejsc')} do zobaczenia i zjedzenia, z ocenami z Google Maps i Tripadvisor w jednym wyniku. Noclegi i bilety są w zakładce Zarezerwuj.</p></section>${searchBox('Szukaj: zamek, kebab, park, Praga…')}${chips(PLACE_CATS,cat,'cat',true)}<a class="add-place" href="#add-place">${ic('plus')}<span><strong>Dodaj własne miejsce</strong><small>Twoje ulubione miejsce, którego tu brakuje</small></span>${ic('chevron-right')}</a>
+ return `${exploreSwitch('places')}<section class="page-head"><p class="kicker">Miejsca</p><h1>Co chcesz zobaczyć?</h1><p class="lead">${catalog().length} ${plural(catalog().length,'miejsce','miejsca','miejsc')} do zobaczenia i zjedzenia, z ocenami z Google Maps i Tripadvisor w jednym wyniku. Noclegi i bilety są w zakładce Zarezerwuj.</p></section>${searchBox('Szukaj: zamek, kebab, park, Praga…')}${chips([...PLACE_CATS,['sidequests','Side questy','flag']],cat,'cat',true)}${cat==='sidequests'?'<p class="note">Krótkie zadania przy konkretnych miejscach. Pomysły City Route — rekomendacje społeczności pojawią się później.</p>':''}<a class="add-place" href="#add-place">${ic('plus')}<span><strong>Dodaj własne miejsce</strong><small>Twoje ulubione miejsce, którego tu brakuje</small></span>${ic('chevron-right')}</a>
  ${cat==='jedzenie'?chips([['all','Każda kuchnia'],...cuisines.map(k=>[k,k[0].toUpperCase()+k.slice(1)])],cuisine,'cuisine'):''}
  
  <div class="list-head"><span>${list.length} ${plural(list.length,'wynik','wyniki','wyników')}</span><label class="sort">Sortuj<select id="sort"><option value="default" ${sort==='default'?'selected':''}>Polecane</option><option value="rating" ${sort==='rating'?'selected':''}>Najlepiej oceniane</option><option value="count" ${sort==='count'?'selected':''}>Najwięcej opinii</option><option value="near" ${sort==='near'?'selected':''}>Najbliżej mnie</option></select></label></div>
@@ -154,7 +154,7 @@ const keepDraft=()=>{const f=$('#place-form');if(!f)return;const v=new FormData(
 
 // Plan tab
 const radio=(name,opts,val)=>`<div class="choice" role="radiogroup">${opts.map(([v,l])=>`<label><input type="radio" name="${name}" value="${v}" ${v===val?'checked':''}><span>${l}</span></label>`).join('')}</div>`;
-function planView(){return `<section class="page-head"><p class="kicker">Zaplanuj trasę</p><h1>Twoja trasa w minutę.</h1><p class="lead">Powiedz, ile masz czasu i na co masz ochotę. Ułożymy przystanki w sensownej kolejności.</p></section>
+function planView(){return `<section class="page-head"><p class="kicker">TWÓJ CZAS · TWOJE MIEJSCA</p><h1>Zaplanuj moją trasę.</h1><p class="lead">Powiedz, ile masz czasu i na co masz ochotę. Ułożymy przystanki w sensownej kolejności.</p><a class="inline" href="#routes">Wolisz gotowy pomysł? Zobacz trasy →</a></section>${liveBanner()}
  <form id="build-form" class="planner"><fieldset><legend>Ile masz czasu?</legend>${radio('time',[['60','1 h'],['120','2 h'],['240','4 h'],['360','Pół dnia'],['480','Cały dzień']],'120')}</fieldset>
  <fieldset><legend>Na co masz ochotę?</legend><div class="choice">${[['mix','Wszystko po trochu'],['sightseeing','Klasyka'],['culture','Kultura'],['nature','Zieleń'],['views','Widoki'],['food','Jedzenie'],['hidden','Nieoczywiste']].map(([v,l])=>`<label><input type="checkbox" name="interests" value="${v}" ${v==='mix'?'checked':''}><span>${l}</span></label>`).join('')}</div></fieldset>
  <fieldset><legend>Jak się poruszasz?</legend>${radio('transport',[['walking','Pieszo'],['bike','Rower'],['transit','Komunikacja'],['mix','Różnie']],'walking')}</fieldset>
@@ -173,7 +173,7 @@ function detailView(r){const ps=items(r.stops),own=state.myRoutes.some(x=>x.id==
 // My route tab
 function liveView(){const s=state.session,p=all[s.stops[s.index]],next=items(s.stops.slice(s.index+1));
  const quest=quests.find(x=>x.placeId===p.id),voice='speechSynthesis'in window;
- return `<section class="live"><div class="live-head"><span class="pulse" aria-hidden="true"></span><span>Na żywo · ${esc(s.name)}</span></div><div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="${s.stops.length}" aria-valuenow="${s.index}" aria-label="Postęp trasy"><span style="width:${s.index/s.stops.length*100}%"></span></div><p class="kicker">Przystanek ${s.index+1} z ${s.stops.length}</p>
+ return `<section class="live"><div class="live-head"><span class="pulse" aria-hidden="true"></span><span>W toku · ${esc(s.name)}</span></div><div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="${s.stops.length}" aria-valuenow="${s.index}" aria-label="Postęp trasy"><span style="width:${s.index/s.stops.length*100}%"></span></div><p class="kicker">Przystanek ${s.index+1} z ${s.stops.length}</p>
  <article class="now"><div class="media">${photo(p,'',true)}</div><div class="body"><h1>${esc(p.name)}</h1><p>${esc(p.description)}</p>${p.kind==='sidequest'?scoreLine(p):scoreLine(p,true)}${voice?`<button class="listen" data-action="listen" data-id="${p.id}">${ic(speaking?'x':'radio')}${speaking?'Zatrzymaj':'Posłuchaj o tym miejscu'}</button>`:''}</div></article>${quest?`<div class="quest">${ic('flag')}<div><strong>Side quest przy tym miejscu</strong><p>${esc(quest.description)}</p></div></div>`:''}
  <a class="button primary big" href="${mapsUrl(p,s.transport)}" target="_blank" rel="noopener noreferrer">${ic('navigation')}Prowadź do tego przystanku</a><div class="live-actions"><button class="go" data-action="done">${ic('check')}Jestem tu, dalej</button><button data-action="skip">Pomiń</button></div>
  ${next.length?`<h2>Dalej na trasie</h2><ol class="next">${next.map(x=>`<li><span class="thumb">${photo(x)}</span><span>${esc(x.name)}<small>${esc(x.area)}</small></span></li>`).join('')}</ol>`:'<p class="note">To ostatni przystanek.</p>'}${wholeRoute([p,...next],s.transport)}<button class="text-button danger" data-action="abandon">Zakończ trasę teraz</button></section>`;}
@@ -203,7 +203,7 @@ function profileView(){const name=state.tester.nickname==='Explorer'?'Odkrywca':
 
 // About page: what City Route is, how to use it, and what we do and don't do
 const STEPS=[['route','Wybierz trasę','Gotowy spacer z zakładki Trasy albo własny, ułożony w Zaplanuj w minutę: czas, zainteresowania, kawa po drodze.'],['play','Ruszaj','Moja trasa robi się czerwona i prowadzi Cię przystanek po przystanku. Każdy odcinek otwierasz w Google Maps, całą trasę też jednym linkiem.'],['check','Odhaczaj','Przy każdym przystanku: „Jestem tu, dalej” albo „Pomiń”. Możesz posłuchać opisu i wykonać side quest.'],['flag','Oceń','Na koniec powiedz, czy poleciłbyś trasę. Z takich opinii zbudujemy oceny społeczności.']];
-const TAB_HELP=[['route','Trasy','gotowe spacery i Twoje zapisane trasy'],['compass','Odkrywaj','miejsca z ocenami z Google i Tripadvisor oraz wydarzenia w mieście'],['wand-sparkles','Zaplanuj','trasa dopasowana do Twojego czasu, startu i budżetu'],['navigation','Moja trasa','Twoje przystanki, a w trakcie spaceru tryb Na żywo'],['ticket-percent','Zarezerwuj','noclegi, bilety i stoliki, rezerwowane u sprzedawcy']];
+const TAB_HELP=[['wand-sparkles','Ułóż trasę','zaplanuj moją trasę: dopasowanie do czasu, startu i budżetu'],['route','Trasy','gotowe spacery i Twoje zapisane trasy'],['compass','Miejsca','miejsca z ocenami z Google i Tripadvisor oraz wydarzenia w mieście'],['navigation','Moja trasa','Twoje przystanki, a w trakcie spaceru tryb W toku'],['ticket-percent','Zarezerwuj','noclegi, bilety i stoliki, rezerwowane u sprzedawcy']];
 function aboutView(){return `<section class="page-head"><a class="back" href="#profile">${ic('arrow-left')}Profil</a><p class="kicker">O City Route</p><h1>Mniej planowania, więcej miasta.</h1><p class="lead">City Route odpowiada na jedno pytanie: mam kilka godzin w Warszawie — co naprawdę warto zobaczyć i jak najprościej to obejść? Zamiast skakać między mapą, serwisami z ocenami, rezerwacjami i czatem, masz to w jednym miejscu.</p></section>
  <h2 class="h-sm">Jak to działa</h2><ol class="steps">${STEPS.map(([i,t,d],n)=>`<li><span class="n">${n+1}</span><div><strong>${ic(i)}${t}</strong><p>${d}</p></div></li>`).join('')}</ol>
  <h2 class="h-sm">Co jest gdzie</h2><div class="menu">${TAB_HELP.map(([i,t,d])=>`<div class="help-row">${ic(i)}<span><strong>${t}</strong><small>${d}</small></span></div>`).join('')}<div class="help-row">${avatar('sm')}<span><strong>Profil</strong><small>kółko w prawym górnym rogu: Twoje dane, statystyki i ustawienia</small></span></div></div>
@@ -219,7 +219,7 @@ function sourcesView(){const ps=places,has=s=>ps.filter(p=>Number.isFinite(ratin
 // Render
 function render(){let [tab,id]=route();
  if(LEGACY[tab]){const [t,c]=LEGACY[tab];if(c){cat=c;cuisine='all';}location.replace('#'+t);return;}
- if(!TAB_OF[tab]){location.replace('#'+(isLive()?'my-route':'routes'));return;}
+ if(!TAB_OF[tab]){location.replace('#'+(isLive()?'my-route':'plan'));return;}
  nav();let html='';
  if(tab==='routes')html=routesView();else if(tab==='places')html=placesView();else if(tab==='plan')html=planView();else if(tab==='my-route')html=myRouteView();else if(tab==='profile')html=profileView();else if(tab==='book')html=bookView();else if(tab==='events')html=eventsView();
  else if(tab==='route'){const r=findRoute(id);html=r?detailView(r):`<div class="empty"><p>Ta trasa nie jest już dostępna.</p><a class="button" href="#routes">Wszystkie trasy</a></div>`;}
@@ -305,3 +305,4 @@ try{
  if(state.session&&(!Array.isArray(state.session.stops)||state.session.stops.some(id=>!all[id])||!Array.isArray(state.session.results)||state.session.index<0||state.session.index>state.session.stops.length))state.session=null;
  persist();render();connection();if('serviceWorker'in navigator){const had=!!navigator.serviceWorker.controller;let reloaded=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(had&&!reloaded){reloaded=true;location.reload();}});navigator.serviceWorker.register('./service-worker.js',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});}
 }catch(error){$('#main').innerHTML='<div class="empty"><h1>Nie udało się wczytać miasta.</h1><p>Przy pierwszej wizycie połącz się z internetem i odśwież stronę.</p><button onclick="location.reload()">Spróbuj ponownie</button></div>';console.error(error);}
+

@@ -41,10 +41,11 @@ async function hydrateProfile(user){
   try{
     const local=readLocal();
     if(!local)return;
+    const firstLink=local.tester?.id!==user.id;
     const {data,error}=await supabase.from('profiles').select('nickname,bio,stay,instagram,tiktok,website').eq('id',user.id).maybeSingle();
     if(error){console.warn('City Route profile load:',error.message);return;}
 
-    let changed=local.tester?.id!==user.id;
+    let changed=firstLink,needsPush=!data;
     local.tester=local.tester||{};
     local.profile=local.profile||{};
     local.profile.socials=local.profile.socials||{};
@@ -52,17 +53,31 @@ async function hydrateProfile(user){
 
     if(data){
       const remoteName=meaningful(data.nickname)?data.nickname:'';
-      if(remoteName&&local.tester.nickname!==remoteName){local.tester.nickname=remoteName;changed=true;}
-      if((data.bio||'')!==(local.profile.bio||'')){local.profile.bio=data.bio||'';changed=true;}
-      if((data.stay||'')!==(local.stay||'')){local.stay=data.stay||'';changed=true;}
+      if(remoteName){if(local.tester.nickname!==remoteName){local.tester.nickname=remoteName;changed=true;}}
+      else if(firstLink&&meaningful(local.tester.nickname))needsPush=true;
+
+      if(data.bio){if(data.bio!==(local.profile.bio||'')){local.profile.bio=data.bio;changed=true;}}
+      else if(firstLink&&local.profile.bio)needsPush=true;
+      else if(!firstLink&&local.profile.bio){local.profile.bio='';changed=true;}
+
+      if(data.stay){if(data.stay!==(local.stay||'')){local.stay=data.stay;changed=true;}}
+      else if(firstLink&&local.stay)needsPush=true;
+      else if(!firstLink&&local.stay){local.stay='';changed=true;}
+
       for(const [remoteKey,localKey] of [['instagram','instagram'],['tiktok','tiktok'],['website','web']]){
-        if((data[remoteKey]||'')!==(local.profile.socials[localKey]||'')){local.profile.socials[localKey]=data[remoteKey]||'';changed=true;}
+        const remote=data[remoteKey]||'',current=local.profile.socials[localKey]||'';
+        if(remote){if(remote!==current){local.profile.socials[localKey]=remote;changed=true;}}
+        else if(firstLink&&current)needsPush=true;
+        else if(!firstLink&&current){local.profile.socials[localKey]='';changed=true;}
       }
-    }else{
-      await supabase.from('profiles').upsert(profilePayload(user),{onConflict:'id'});
     }
 
-    if(changed&&writeLocal(local)){
+    const wrote=writeLocal(local);
+    if(needsPush&&wrote){
+      const {error:pushError}=await supabase.from('profiles').upsert(profilePayload(user),{onConflict:'id'});
+      if(pushError)console.warn('City Route profile migration:',pushError.message);
+    }
+    if(changed&&wrote){
       const marker=`city-route-auth-hydrated:${user.id}`;
       if(sessionStorage.getItem(marker)!=='1'){
         sessionStorage.setItem(marker,'1');
@@ -75,7 +90,7 @@ async function hydrateProfile(user){
 function setNotice(text){notice=text;renderAuth();}
 
 function signedOutMarkup(){
-  return `<section class="auth-card" data-city-auth><div><p class="kicker">Konto City Route</p><h2>Zapisz swój profil i korzystaj na różnych urządzeniach</h2><p class="fine">Trasy pozostają dostępne lokalnie. Konto synchronizuje na razie profil; grupy i chat dołączą na tej samej bazie.</p></div>
+  return `<section class="auth-card" data-city-auth data-auth-state="out" data-auth-notice="${esc(notice)}"><div><p class="kicker">Konto City Route</p><h2>Zapisz swój profil i korzystaj na różnych urządzeniach</h2><p class="fine">Trasy pozostają dostępne lokalnie. Konto synchronizuje na razie profil; grupy i chat dołączą na tej samej bazie.</p></div>
   ${notice?`<p class="auth-notice" role="status">${esc(notice)}</p>`:''}
   <form data-auth-form="login" class="auth-form"><h3>Zaloguj się</h3><label>E-mail<input name="email" type="email" autocomplete="email" required></label><label>Hasło<input name="password" type="password" autocomplete="current-password" minlength="6" required></label><button class="primary">Zaloguj</button></form>
   <details class="auth-signup"><summary>Nie masz konta? Utwórz je</summary><form data-auth-form="signup" class="auth-form"><label>Nazwa<input name="nickname" maxlength="40" autocomplete="nickname" placeholder="Odkrywca"></label><label>E-mail<input name="email" type="email" autocomplete="email" required></label><label>Hasło<input name="password" type="password" autocomplete="new-password" minlength="6" required></label><button class="primary">Utwórz konto</button></form></details></section>`;
@@ -83,7 +98,7 @@ function signedOutMarkup(){
 
 function signedInMarkup(){
   const email=session?.user?.email||'';
-  return `<section class="auth-card auth-card-on" data-city-auth><div><p class="kicker">Konto City Route</p><h2>Konto aktywne</h2><p class="fine">${esc(email)} · profil synchronizowany przez Supabase.</p></div>${notice?`<p class="auth-notice" role="status">${esc(notice)}</p>`:''}<button data-auth-action="logout">Wyloguj</button></section>`;
+  return `<section class="auth-card auth-card-on" data-city-auth data-auth-state="in" data-auth-user="${esc(email)}" data-auth-notice="${esc(notice)}"><div><p class="kicker">Konto City Route</p><h2>Konto aktywne</h2><p class="fine">${esc(email)} · profil synchronizowany przez Supabase.</p></div>${notice?`<p class="auth-notice" role="status">${esc(notice)}</p>`:''}<button data-auth-action="logout">Wyloguj</button></section>`;
 }
 
 function renderAuth(){
@@ -92,6 +107,8 @@ function renderAuth(){
   if(!main)return;
   const current=main.querySelector('[data-city-auth]');
   const html=session?signedInMarkup():signedOutMarkup();
+  const wantedState=session?'in':'out',wantedUser=session?.user?.email||'';
+  if(current&&current.dataset.authState===wantedState&&current.dataset.authUser===wantedUser&&current.dataset.authNotice===notice)return;
   if(current){current.outerHTML=html;return;}
   const profile=main.querySelector('.profile-card');
   if(profile)profile.insertAdjacentHTML('afterend',html);
@@ -124,7 +141,7 @@ document.addEventListener('click',async e=>{
   const action=e.target.closest?.('[data-auth-action]')?.dataset.authAction;
   if(action==='logout'){
     await supabase.auth.signOut();
-    notice='Wylogowano.';
+    setNotice('Wylogowano.');
     return;
   }
   if(e.target.closest?.('[data-action="stay"]'))setTimeout(()=>scheduleProfileSync(),180);

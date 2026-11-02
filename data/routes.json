@@ -1,0 +1,137 @@
+[
+  {
+    "id": "old-warsaw",
+    "name": "Warsaw, the first hello",
+    "description": "The classics, with room to wander.",
+    "stops": [
+      "castle",
+      "old-town",
+      "barbican",
+      "new-town"
+    ],
+    "photo": "old"
+  },
+  {
+    "id": "river-time",
+    "name": "Take the riverside",
+    "description": "Gardens, river air and a new perspective.",
+    "stops": [
+      "buw",
+      "copernicus",
+      "boulevards",
+      "mermaid"
+    ],
+    "photo": "river"
+  },
+  {
+    "id": "royal-green",
+    "name": "A little more green",
+    "description": "A slow afternoon in royal gardens.",
+    "stops": [
+      "chopin",
+      "lazienki",
+      "palace-water",
+      "ujazdow"
+    ],
+    "photo": "park"
+  },
+  {
+    "id": "praga",
+    "name": "Across to Praga",
+    "description": "Brick courtyards and streets with character.",
+    "stops": [
+      "praga-cathedral",
+      "zabkowska",
+      "koneser"
+    ],
+    "photo": "praga"
+  },
+  {
+    "id": "city-icons",
+    "name": "City icons, on foot",
+    "description": "A first look at the heart of Warsaw.",
+    "stops": [
+      "palace-culture",
+      "nowy-swiat",
+      "national-museum"
+    ],
+    "photo": "city"
+  },
+  {
+    "id": "quiet-centre",
+    "name": "The quieter centre",
+    "description": "A garden escape between city streets.",
+    "stops": [
+      "mirowska",
+      "saxon",
+      "tomb"
+    ],
+    "photo": "city"
+  },
+  {
+    "id": "food-design",
+    "name": "Powiśle, a slower lunch",
+    "description": "Garden paths and industrial design.",
+    "stops": [
+      "buw",
+      "electrownia",
+      "mermaid"
+    ],
+    "photo": "food"
+  },
+  {
+    "id": "saska-afternoon",
+    "name": "A Saska Kępa afternoon",
+    "description": "Neighbourhood charm and a generous green pause.",
+    "stops": [
+      "saska",
+      "skaryszewski"
+    ],
+    "photo": "praga"
+  },
+  {
+    "id": "old-river",
+    "name": "Old Town to the river",
+    "description": "From cobblestones to open skies.",
+    "stops": [
+      "old-town",
+      "new-town",
+      "fountain",
+      "boulevards"
+    ],
+    "photo": "old"
+  },
+  {
+    "id": "chopin-walk",
+    "name": "In Chopin’s city",
+    "description": "Exterior landmarks for a musical afternoon.",
+    "stops": [
+      "chopin-museum",
+      "nowy-swiat",
+      "saxon"
+    ],
+    "photo": "city"
+  },
+  {
+    "id": "park-pocket",
+    "name": "A pocket of calm",
+    "description": "An easy green break from the city.",
+    "stops": [
+      "ujazdowski-park",
+      "ujazdow",
+      "chopin"
+    ],
+    "photo": "park"
+  },
+  {
+    "id": "sunset",
+    "name": "River perspectives",
+    "description": "Cross the river and find your own favourite view.",
+    "stops": [
+      "copernicus",
+      "mermaid",
+      "rooftop"
+    ],
+    "photo": "river"
+  }
+]

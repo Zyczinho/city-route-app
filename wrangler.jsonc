@@ -1,0 +1,8 @@
+{
+  "name": "city-route-app",
+  "compatibility_date": "2026-11-02",
+  "assets": {
+    "directory": "./dist"
+  },
+  "workers_dev": true
+}

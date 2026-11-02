@@ -1,0 +1,572 @@
+[
+  {
+    "id": "old-town",
+    "name": "Old Town Market Square",
+    "lat": 52.2497,
+    "lng": 21.0122,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "minutes": 25,
+    "cost": 0,
+    "description": "Pastel façades, cobbled streets and the Warsaw mermaid.",
+    "area": "old",
+    "photo": "old",
+    "kind": "place",
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "castle",
+    "name": "Royal Castle Square",
+    "lat": 52.2479,
+    "lng": 21.0142,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "minutes": 20,
+    "cost": 0,
+    "description": "Start at the column and take in the red-brick castle exterior.",
+    "area": "old",
+    "photo": "old",
+    "kind": "place",
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "barbican",
+    "name": "Warsaw Barbican",
+    "lat": 52.2508,
+    "lng": 21.0108,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "minutes": 15,
+    "cost": 0,
+    "description": "Follow the brick fortifications at the edge of the Old Town.",
+    "area": "old",
+    "photo": "old",
+    "kind": "place",
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "new-town",
+    "name": "New Town Market Square",
+    "lat": 52.253,
+    "lng": 21.0088,
+    "tags": [
+      "culture",
+      "hidden"
+    ],
+    "minutes": 20,
+    "cost": 0,
+    "description": "A quieter square just beyond the Old Town walls.",
+    "area": "old",
+    "photo": "old",
+    "kind": "place",
+    "tourist": "local",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "fountain",
+    "name": "Multimedia Fountain Park",
+    "lat": 52.2551,
+    "lng": 21.0106,
+    "tags": [
+      "nature",
+      "views"
+    ],
+    "minutes": 20,
+    "cost": 0,
+    "description": "An open-air riverside pause. Fountain shows are seasonal.",
+    "area": "river",
+    "photo": "river",
+    "kind": "place",
+    "tourist": "local",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "buw",
+    "name": "University Library Garden",
+    "lat": 52.2422,
+    "lng": 21.0247,
+    "tags": [
+      "nature",
+      "views",
+      "hidden"
+    ],
+    "minutes": 35,
+    "cost": 0,
+    "description": "Explore the lower garden; roof access depends on season and hours.",
+    "area": "river",
+    "photo": "river",
+    "kind": "place",
+    "tourist": "local",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "copernicus",
+    "name": "Copernicus Science Centre exterior",
+    "lat": 52.2418,
+    "lng": 21.0287,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "minutes": 20,
+    "cost": 0,
+    "description": "A science landmark beside the river; indoor entry requires a ticket.",
+    "area": "river",
+    "photo": "river",
+    "kind": "place",
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "boulevards",
+    "name": "Vistula Boulevards",
+    "lat": 52.245,
+    "lng": 21.0265,
+    "tags": [
+      "nature",
+      "views"
+    ],
+    "minutes": 35,
+    "cost": 0,
+    "description": "Walk beside the river and watch the city slow down.",
+    "area": "river",
+    "photo": "river",
+    "kind": "place",
+    "tourist": "local",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "mermaid",
+    "name": "Powiśle Mermaid",
+    "lat": 52.2364,
+    "lng": 21.0321,
+    "tags": [
+      "sightseeing",
+      "views"
+    ],
+    "minutes": 15,
+    "cost": 0,
+    "description": "Meet the riverside symbol of Warsaw by Świętokrzyski Bridge.",
+    "area": "river",
+    "photo": "river",
+    "kind": "place",
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "lazienki",
+    "name": "Łazienki Royal Park",
+    "lat": 52.215,
+    "lng": 21.035,
+    "tags": [
+      "nature",
+      "sightseeing"
+    ],
+    "minutes": 50,
+    "cost": 0,
+    "description": "Leafy paths and garden views around the royal park.",
+    "area": "park",
+    "photo": "park",
+    "kind": "place",
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "palace-water",
+    "name": "Palace on the Isle exterior",
+    "lat": 52.2153,
+    "lng": 21.0359,
+    "tags": [
+      "culture",
+      "views"
+    ],
+    "minutes": 20,
+    "cost": 0,
+    "description": "See the palace reflected in the lake; interior admission is separate.",
+    "area": "park",
+    "photo": "park",
+    "kind": "place",
+    "tourist": "local",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "chopin",
+    "name": "Chopin Monument",
+    "lat": 52.2144,
+    "lng": 21.0286,
+    "tags": [
+      "culture",
+      "nature"
+    ],
+    "minutes": 15,
+    "cost": 0,
+    "description": "A quiet pause by the sculptural tribute to Chopin.",
+    "area": "park",
+    "photo": "park",
+    "kind": "place",
+    "tourist": "local",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "ujazdow",
+    "name": "Ujazdowski Castle exterior",
+    "lat": 52.2196,
+    "lng": 21.0302,
+    "tags": [
+      "culture",
+      "views"
+    ],
+    "minutes": 20,
+    "cost": 0,
+    "description": "Castle architecture above the park; exhibitions need a separate ticket.",
+    "area": "park",
+    "photo": "park",
+    "kind": "place",
+    "tourist": "local",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "ujazdowski-park",
+    "name": "Ujazdowski Park",
+    "lat": 52.219,
+    "lng": 21.0255,
+    "tags": [
+      "nature",
+      "hidden"
+    ],
+    "minutes": 25,
+    "cost": 0,
+    "description": "Small bridges, winding paths and an easy green detour.",
+    "area": "park",
+    "photo": "park",
+    "kind": "place",
+    "tourist": "local",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "saxon",
+    "name": "Saxon Garden",
+    "lat": 52.2409,
+    "lng": 21.0089,
+    "tags": [
+      "nature",
+      "sightseeing"
+    ],
+    "minutes": 30,
+    "cost": 0,
+    "description": "A central garden with broad paths and a historic fountain.",
+    "area": "city",
+    "photo": "city",
+    "kind": "place",
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "tomb",
+    "name": "Tomb of the Unknown Soldier",
+    "lat": 52.2419,
+    "lng": 21.0115,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "minutes": 15,
+    "cost": 0,
+    "description": "A place of remembrance on Piłsudski Square.",
+    "area": "city",
+    "photo": "city",
+    "kind": "place",
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "palace-culture",
+    "name": "Palace of Culture exterior",
+    "lat": 52.2317,
+    "lng": 21.006,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "minutes": 25,
+    "cost": 0,
+    "description": "Look up at Warsaw’s landmark tower. Observation deck ticket not included.",
+    "area": "city",
+    "photo": "city",
+    "kind": "place",
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "nowy-swiat",
+    "name": "Nowy Świat",
+    "lat": 52.2325,
+    "lng": 21.0195,
+    "tags": [
+      "sightseeing",
+      "food"
+    ],
+    "minutes": 30,
+    "cost": 0,
+    "description": "A classic city promenade lined with cafés and architecture.",
+    "area": "city",
+    "photo": "city",
+    "kind": "place",
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "chopin-museum",
+    "name": "Chopin Museum exterior",
+    "lat": 52.2367,
+    "lng": 21.0234,
+    "tags": [
+      "culture"
+    ],
+    "minutes": 20,
+    "cost": 0,
+    "description": "Find the palace above Tamka; museum admission is separate.",
+    "area": "city",
+    "photo": "city",
+    "kind": "place",
+    "tourist": "local",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "national-museum",
+    "name": "National Museum exterior",
+    "lat": 52.2316,
+    "lng": 21.0247,
+    "tags": [
+      "culture"
+    ],
+    "minutes": 15,
+    "cost": 0,
+    "description": "A landmark of Polish art; this route includes the exterior only.",
+    "area": "city",
+    "photo": "city",
+    "kind": "place",
+    "tourist": "local",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "praga-cathedral",
+    "name": "St Florian’s Cathedral",
+    "lat": 52.2526,
+    "lng": 21.0294,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "minutes": 20,
+    "cost": 0,
+    "description": "Twin brick spires introduce the Praga side of the city.",
+    "area": "praga",
+    "photo": "praga",
+    "kind": "place",
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "zabkowska",
+    "name": "Ząbkowska Street",
+    "lat": 52.2534,
+    "lng": 21.0372,
+    "tags": [
+      "culture",
+      "hidden",
+      "food"
+    ],
+    "minutes": 30,
+    "cost": 0,
+    "description": "Look up at old façades and explore Praga at street level.",
+    "area": "praga",
+    "photo": "praga",
+    "kind": "place",
+    "tourist": "local",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "koneser",
+    "name": "Praga Koneser Centre",
+    "lat": 52.2546,
+    "lng": 21.0448,
+    "tags": [
+      "culture",
+      "food"
+    ],
+    "minutes": 30,
+    "cost": 0,
+    "description": "Red-brick industrial architecture around a public courtyard.",
+    "area": "praga",
+    "photo": "praga",
+    "kind": "place",
+    "tourist": "local",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "skaryszewski",
+    "name": "Skaryszewski Park",
+    "lat": 52.2409,
+    "lng": 21.0545,
+    "tags": [
+      "nature",
+      "hidden"
+    ],
+    "minutes": 45,
+    "cost": 0,
+    "description": "Lakes, sculpture and broad paths east of the river.",
+    "area": "park",
+    "photo": "park",
+    "kind": "place",
+    "tourist": "local",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "saska",
+    "name": "Francuska Street",
+    "lat": 52.2328,
+    "lng": 21.0603,
+    "tags": [
+      "food",
+      "hidden"
+    ],
+    "minutes": 30,
+    "cost": 0,
+    "description": "Neighbourhood cafés and villa architecture in Saska Kępa.",
+    "area": "praga",
+    "photo": "praga",
+    "kind": "place",
+    "tourist": "local",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "rooftop",
+    "name": "Świętokrzyski Bridge",
+    "lat": 52.2385,
+    "lng": 21.038,
+    "tags": [
+      "views",
+      "nature"
+    ],
+    "minutes": 25,
+    "cost": 0,
+    "description": "Cross on the pedestrian path for river and skyline views.",
+    "area": "river",
+    "photo": "river",
+    "kind": "place",
+    "tourist": "local",
+    "foodStyle": "none",
+    "partner": false
+  },
+  {
+    "id": "koszyki",
+    "name": "Hala Koszyki",
+    "lat": 52.2223,
+    "lng": 21.0104,
+    "tags": [
+      "food",
+      "culture"
+    ],
+    "minutes": 35,
+    "cost": 45,
+    "description": "Browse a restored food hall. Optional meal budget is an estimate.",
+    "area": "food",
+    "photo": "food",
+    "kind": "place",
+    "tourist": "local",
+    "foodStyle": "sit",
+    "partner": false
+  },
+  {
+    "id": "mirowska",
+    "name": "Hala Mirowska",
+    "lat": 52.2388,
+    "lng": 20.9979,
+    "tags": [
+      "food",
+      "hidden"
+    ],
+    "minutes": 30,
+    "cost": 25,
+    "description": "Browse market stalls when open; optional snack budget is an estimate.",
+    "area": "food",
+    "photo": "food",
+    "kind": "place",
+    "tourist": "local",
+    "foodStyle": "quick",
+    "partner": false
+  },
+  {
+    "id": "electrownia",
+    "name": "Elektrownia Powiśle",
+    "lat": 52.2401,
+    "lng": 21.026,
+    "tags": [
+      "food",
+      "culture"
+    ],
+    "minutes": 35,
+    "cost": 45,
+    "description": "Industrial architecture and a food-hall stop; food is optional.",
+    "area": "food",
+    "photo": "food",
+    "kind": "place",
+    "tourist": "local",
+    "foodStyle": "sit",
+    "partner": false
+  },
+  {
+    "id": "wilanow",
+    "name": "Wilanów Palace gates",
+    "lat": 52.1652,
+    "lng": 21.0904,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "minutes": 25,
+    "cost": 0,
+    "description": "View the palace approach. Gardens and interiors require separate admission.",
+    "area": "park",
+    "photo": "park",
+    "kind": "place",
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false
+  }
+]

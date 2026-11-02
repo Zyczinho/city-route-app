@@ -228,7 +228,7 @@
   "partner": false,
   "image": "place-fountain.jpg",
   "cats": [
-   "widoki"
+   "zielen"
   ],
   "ratings": [
    {
@@ -280,7 +280,7 @@
   "partner": false,
   "image": "place-12028385.jpg",
   "cats": [
-   "parki"
+   "zielen"
   ],
   "ratings": [
    {
@@ -434,7 +434,7 @@
   "partner": false,
   "image": "place-mermaid.jpg",
   "cats": [
-   "widoki"
+   "zabytki"
   ],
   "ratings": [
    {
@@ -485,7 +485,7 @@
   "partner": false,
   "image": "place-lazienki.jpg",
   "cats": [
-   "parki"
+   "zielen"
   ],
   "ratings": [
    {
@@ -693,7 +693,7 @@
   "partner": false,
   "image": "place-ujazdowski-park.jpg",
   "cats": [
-   "parki"
+   "zielen"
   ],
   "ratings": [
    {
@@ -744,7 +744,7 @@
   "partner": false,
   "image": "place-saxon.jpg",
   "cats": [
-   "parki"
+   "zielen"
   ],
   "ratings": [
    {
@@ -1205,7 +1205,7 @@
   "partner": false,
   "image": "place-skaryszewski.jpg",
   "cats": [
-   "parki"
+   "zielen"
   ],
   "ratings": [
    {
@@ -1354,7 +1354,7 @@
   "area": "Śródmieście",
   "kind": "place",
   "tourist": "local",
-  "foodStyle": "sit",
+  "foodStyle": "quick",
   "partner": false,
   "image": "place-koszyki.jpg",
   "cats": [
@@ -1454,7 +1454,7 @@
   "area": "Powiśle",
   "kind": "place",
   "tourist": "local",
-  "foodStyle": "sit",
+  "foodStyle": "quick",
   "partner": false,
   "image": "place-electrownia.jpg",
   "cats": [
@@ -2117,7 +2117,7 @@
   "minutes": 60,
   "cost": 100,
   "kind": "restaurant",
-  "foodStyle": "sit",
+  "foodStyle": "quick",
   "tourist": "local",
   "partner": false,
   "image": "place-koneser.jpg",

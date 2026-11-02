@@ -1,708 +1,918 @@
 [
-  {
-    "id": "q-old-town",
-    "name": "Zauważ detale · Rynek Starego Miasta",
-    "lat": 52.2497,
-    "lng": 21.0122,
-    "tags": [
-      "culture",
-      "sightseeing",
-      "hidden"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Kolorowe kamienice, brukowane uliczki i warszawska Syrenka.",
-    "area": "old",
-    "photo": "old",
-    "kind": "sidequest",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "old-town",
-    "image": "photo-18454473.jpg",
-    "imageNote": "Rynek Starego Miasta",
-    "imageVerified": true
+ {
+  "id": "q-old-town",
+  "name": "Zauważ detale · Rynek Starego Miasta",
+  "lat": 52.249789,
+  "lng": 21.012171,
+  "tags": [
+   "culture",
+   "sightseeing",
+   "hidden"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Kolorowe kamienice, brukowane uliczki i warszawska Syrenka.",
+  "area": "Stare Miasto",
+  "kind": "sidequest",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "old-town",
+  "image": "place-old-town.jpg",
+  "imageCredit": {
+   "author": "Matis23",
+   "license": "CC BY 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Kamienice_na_Rynku_Starego_Miasta_w_Warszawie.jpg",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-castle",
-    "name": "Zmień perspektywę · Plac Zamkowy",
-    "lat": 52.2479,
-    "lng": 21.0142,
-    "tags": [
-      "culture",
-      "sightseeing",
-      "hidden"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Kolumna Zygmunta i widok na fasadę Zamku Królewskiego.",
-    "area": "old",
-    "photo": "old",
-    "kind": "sidequest",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "castle",
-    "image": "place-31495562.jpg",
-    "imageNote": "Plac Zamkowy",
-    "imageVerified": true
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-castle",
+  "name": "Zmień perspektywę · Zamek Królewski i Plac Zamkowy",
+  "lat": 52.247744,
+  "lng": 21.014128,
+  "tags": [
+   "culture",
+   "sightseeing",
+   "hidden"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Kolumna Zygmunta i widok na fasadę Zamku Królewskiego.",
+  "area": "Stare Miasto",
+  "kind": "sidequest",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "castle",
+  "image": "place-31495562.jpg",
+  "imageCredit": {
+   "author": "Pexels",
+   "license": "Pexels License",
+   "licenseUrl": "https://www.pexels.com/license/",
+   "source": "https://www.pexels.com/photo/royal-castle-and-castle-square-in-warsaw-poland-31495562/",
+   "via": "Pexels"
   },
-  {
-    "id": "q-barbican",
-    "name": "Zwolnij na chwilę · Barbakan Warszawski",
-    "lat": 52.2508,
-    "lng": 21.0108,
-    "tags": [
-      "culture",
-      "sightseeing",
-      "hidden"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Spacer wzdłuż ceglanych murów na skraju Starego Miasta.",
-    "area": "old",
-    "photo": "old",
-    "kind": "sidequest",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "barbican",
-    "image": "place-35839613.jpg",
-    "imageNote": "Barbakan Warszawski",
-    "imageVerified": true
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-barbican",
+  "name": "Zwolnij na chwilę · Barbakan Warszawski",
+  "lat": 52.2508,
+  "lng": 21.0108,
+  "tags": [
+   "culture",
+   "sightseeing",
+   "hidden"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Spacer wzdłuż ceglanych murów na skraju Starego Miasta.",
+  "area": "Stare Miasto",
+  "kind": "sidequest",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "barbican",
+  "image": "place-35839613.jpg",
+  "imageCredit": {
+   "author": "Pexels",
+   "license": "Pexels License",
+   "licenseUrl": "https://www.pexels.com/license/",
+   "source": "https://www.pexels.com/photo/warsaw-barbican-in-old-town-warsaw-35839613/",
+   "via": "Pexels"
   },
-  {
-    "id": "q-new-town",
-    "name": "Zauważ detale · Rynek Nowego Miasta",
-    "lat": 52.253,
-    "lng": 21.0088,
-    "tags": [
-      "culture",
-      "hidden"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Spokojniejszy rynek tuż za murami Starego Miasta.",
-    "area": "old",
-    "photo": "old",
-    "kind": "sidequest",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "new-town",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-new-town",
+  "name": "Zauważ detale · Rynek Nowego Miasta",
+  "lat": 52.253,
+  "lng": 21.0088,
+  "tags": [
+   "culture",
+   "hidden"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Spokojniejszy rynek tuż za murami Starego Miasta.",
+  "area": "Nowe Miasto",
+  "kind": "sidequest",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "new-town",
+  "image": "place-new-town.jpg",
+  "imageCredit": {
+   "author": "Kapitel",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Warszawa_Rynek_Nowego_Miasta_(dron).jpg",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-fountain",
-    "name": "Zmień perspektywę · Multimedialny Park Fontann",
-    "lat": 52.2551,
-    "lng": 21.0106,
-    "tags": [
-      "views",
-      "hidden",
-      "nature"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Przystanek nad Wisłą. Pokazy fontann odbywają się sezonowo.",
-    "area": "river",
-    "photo": "river",
-    "kind": "sidequest",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "fountain",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-fountain",
+  "name": "Zmień perspektywę · Multimedialny Park Fontann",
+  "lat": 52.2551,
+  "lng": 21.0106,
+  "tags": [
+   "views",
+   "hidden",
+   "nature"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Przystanek nad Wisłą. Pokazy fontann odbywają się sezonowo.",
+  "area": "Podzamcze",
+  "kind": "sidequest",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "fountain",
+  "image": "place-fountain.jpg",
+  "imageCredit": {
+   "author": "Adrian Grycuk",
+   "license": "CC BY-SA 3.0 pl",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Multimedialny_Park_Fontann_Warszawa.JPG",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-buw",
-    "name": "Zwolnij na chwilę · Ogród Biblioteki Uniwersyteckiej",
-    "lat": 52.2422,
-    "lng": 21.0247,
-    "tags": [
-      "views",
-      "hidden",
-      "nature"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Zielony ogród przy bibliotece. Dostęp na dach zależy od sezonu i godzin otwarcia.",
-    "area": "river",
-    "photo": "river",
-    "kind": "sidequest",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "buw",
-    "image": "place-12028385.jpg",
-    "imageNote": "Ogród Biblioteki Uniwersyteckiej",
-    "imageVerified": true
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-buw",
+  "name": "Zwolnij na chwilę · Ogród Biblioteki Uniwersyteckiej",
+  "lat": 52.2422,
+  "lng": 21.0247,
+  "tags": [
+   "views",
+   "hidden",
+   "nature"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Zielony ogród przy bibliotece. Dostęp na dach zależy od sezonu i godzin otwarcia.",
+  "area": "Powiśle",
+  "kind": "sidequest",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "buw",
+  "image": "place-12028385.jpg",
+  "imageCredit": {
+   "author": "Pexels",
+   "license": "Pexels License",
+   "licenseUrl": "https://www.pexels.com/license/",
+   "source": "https://www.pexels.com/photo/flowerbeds-at-warsaw-university-library-garden-12028385/",
+   "via": "Pexels"
   },
-  {
-    "id": "q-copernicus",
-    "name": "Zauważ detale · Centrum Nauki Kopernik — z zewnątrz",
-    "lat": 52.2418,
-    "lng": 21.0287,
-    "tags": [
-      "culture",
-      "sightseeing",
-      "hidden"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Charakterystyczna architektura nad Wisłą. Zwiedzanie wnętrza wymaga biletu.",
-    "area": "river",
-    "photo": "river",
-    "kind": "sidequest",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "copernicus",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-copernicus",
+  "name": "Zauważ detale · Centrum Nauki Kopernik",
+  "lat": 52.241855,
+  "lng": 21.028727,
+  "tags": [
+   "culture",
+   "sightseeing",
+   "hidden"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Charakterystyczna architektura nad Wisłą. Zwiedzanie wnętrza wymaga biletu.",
+  "area": "Powiśle",
+  "kind": "sidequest",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "copernicus",
+  "image": "place-copernicus.jpg",
+  "imageCredit": {
+   "author": "Adrian Grycuk",
+   "license": "CC BY-SA 3.0 pl",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Budynek_Planetarium_Centrum_Nauki_Kopernik_2019.jpg",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-boulevards",
-    "name": "Zmień perspektywę · Bulwary Wiślane",
-    "lat": 52.245,
-    "lng": 21.0265,
-    "tags": [
-      "views",
-      "hidden",
-      "nature"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Spacer nad rzeką i chwila odpoczynku od miejskiego tempa.",
-    "area": "river",
-    "photo": "river",
-    "kind": "sidequest",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "boulevards",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-boulevards",
+  "name": "Zmień perspektywę · Bulwary Wiślane",
+  "lat": 52.245,
+  "lng": 21.0265,
+  "tags": [
+   "views",
+   "hidden",
+   "nature"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Spacer nad rzeką i chwila odpoczynku od miejskiego tempa.",
+  "area": "Powiśle",
+  "kind": "sidequest",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "boulevards",
+  "image": "place-boulevards.jpg",
+  "imageCredit": {
+   "author": "Qkiel",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Bulwary_Wi%C5%9Blane,_Warszawa_(1).jpg",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-mermaid",
-    "name": "Zwolnij na chwilę · Syrenka na Powiślu",
-    "lat": 52.2364,
-    "lng": 21.0321,
-    "tags": [
-      "views",
-      "sightseeing",
-      "hidden"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Symbol Warszawy przy moście Świętokrzyskim.",
-    "area": "river",
-    "photo": "river",
-    "kind": "sidequest",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "mermaid",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-mermaid",
+  "name": "Zwolnij na chwilę · Syrenka na Powiślu",
+  "lat": 52.2364,
+  "lng": 21.0321,
+  "tags": [
+   "views",
+   "sightseeing",
+   "hidden"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Symbol Warszawy przy moście Świętokrzyskim.",
+  "area": "Powiśle",
+  "kind": "sidequest",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "mermaid",
+  "image": "place-mermaid.jpg",
+  "imageCredit": {
+   "author": "M.Komorniczak",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Pomnik_warszawskiej_Syrenki.JPG",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-lazienki",
-    "name": "Zauważ detale · Łazienki Królewskie",
-    "lat": 52.215,
-    "lng": 21.035,
-    "tags": [
-      "sightseeing",
-      "hidden",
-      "nature"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Parkowe alejki i królewskie ogrody.",
-    "area": "park",
-    "photo": "park",
-    "kind": "sidequest",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "lazienki",
-    "image": "photo-8259574.jpg",
-    "imageNote": "Łazienki Królewskie",
-    "imageVerified": true
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-lazienki",
+  "name": "Zauważ detale · Łazienki Królewskie",
+  "lat": 52.214673,
+  "lng": 21.032894,
+  "tags": [
+   "sightseeing",
+   "hidden",
+   "nature"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Parkowe alejki i królewskie ogrody.",
+  "area": "Łazienki",
+  "kind": "sidequest",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "lazienki",
+  "image": "place-lazienki.jpg",
+  "imageCredit": {
+   "author": "Krzysztof Popławski",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Kamienny_most_z_pomnikiem_Jana_III_Sobieskiego_i_jego_odbicie_w_stawie_w_%C5%81azienkach_Kr%C3%B3lewskich_jesieni%C4%85_-_Warszawa_26888.jpg",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-palace-water",
-    "name": "Zmień perspektywę · Pałac na Wyspie — z zewnątrz",
-    "lat": 52.2153,
-    "lng": 21.0359,
-    "tags": [
-      "culture",
-      "views",
-      "hidden"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Widok na pałac odbijający się w wodzie. Wnętrza są płatne osobno.",
-    "area": "park",
-    "photo": "park",
-    "kind": "sidequest",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "palace-water",
-    "image": "photo-17761856.jpg",
-    "imageNote": "Pałac na Wyspie — z zewnątrz",
-    "imageVerified": true
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-palace-water",
+  "name": "Zmień perspektywę · Pałac na Wyspie",
+  "lat": 52.215047,
+  "lng": 21.035814,
+  "tags": [
+   "culture",
+   "views",
+   "hidden"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Widok na pałac odbijający się w wodzie. Wnętrza są płatne osobno.",
+  "area": "Łazienki",
+  "kind": "sidequest",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "palace-water",
+  "image": "place-palace-water.jpg",
+  "imageCredit": {
+   "author": "Aw58",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Warszawa,_Pa%C5%82ac_na_Wyspie_w_%C5%81azienkach_Kr%C3%B3lewskich_-_2026.06.06._MW.jpg",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-chopin",
-    "name": "Zwolnij na chwilę · Pomnik Chopina",
-    "lat": 52.2144,
-    "lng": 21.0286,
-    "tags": [
-      "culture",
-      "hidden",
-      "nature"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Chwila spokoju przy pomniku Fryderyka Chopina.",
-    "area": "park",
-    "photo": "park",
-    "kind": "sidequest",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "chopin",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-chopin",
+  "name": "Zwolnij na chwilę · Pomnik Chopina",
+  "lat": 52.214701,
+  "lng": 21.028142,
+  "tags": [
+   "culture",
+   "hidden",
+   "nature"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Chwila spokoju przy pomniku Fryderyka Chopina.",
+  "area": "Łazienki",
+  "kind": "sidequest",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "chopin",
+  "image": "place-chopin.jpg",
+  "imageCredit": {
+   "author": "A.Osytek",
+   "license": "CC BY-SA 3.0 pl",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Pomnik_Fryderyka_Chopina_w_warszawskich_%C5%81azienkach.jpg",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-ujazdow",
-    "name": "Zauważ detale · Zamek Ujazdowski — z zewnątrz",
-    "lat": 52.2196,
-    "lng": 21.0302,
-    "tags": [
-      "culture",
-      "views",
-      "hidden"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Architektura zamku nad parkiem. Wystawy są płatne osobno.",
-    "area": "park",
-    "photo": "park",
-    "kind": "sidequest",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "ujazdow",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-ujazdow",
+  "name": "Zauważ detale · Zamek Ujazdowski",
+  "lat": 52.2196,
+  "lng": 21.0302,
+  "tags": [
+   "culture",
+   "views",
+   "hidden"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Architektura zamku nad parkiem. Wystawy są płatne osobno.",
+  "area": "Ujazdów",
+  "kind": "sidequest",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "ujazdow",
+  "image": "place-ujazdow.jpg",
+  "imageCredit": {
+   "author": "Chris Olszewski",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Front_facade_of_the_Ujazd%C3%B3w_Castle,_Warsaw,_2019.jpg",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-ujazdowski-park",
-    "name": "Zmień perspektywę · Park Ujazdowski",
-    "lat": 52.219,
-    "lng": 21.0255,
-    "tags": [
-      "hidden",
-      "nature"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Mostki, kręte alejki i krótka zielona przerwa.",
-    "area": "park",
-    "photo": "park",
-    "kind": "sidequest",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "ujazdowski-park",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-ujazdowski-park",
+  "name": "Zmień perspektywę · Park Ujazdowski",
+  "lat": 52.220648,
+  "lng": 21.02687,
+  "tags": [
+   "hidden",
+   "nature"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Mostki, kręte alejki i krótka zielona przerwa.",
+  "area": "Ujazdów",
+  "kind": "sidequest",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "ujazdowski-park",
+  "image": "place-ujazdowski-park.jpg",
+  "imageCredit": {
+   "author": "Emptywords",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:StawUjazdowski2020.jpg",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-saxon",
-    "name": "Zwolnij na chwilę · Ogród Saski",
-    "lat": 52.2409,
-    "lng": 21.0089,
-    "tags": [
-      "sightseeing",
-      "hidden",
-      "nature"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Ogród w centrum z zabytkową fontanną.",
-    "area": "city",
-    "photo": "city",
-    "kind": "sidequest",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "saxon",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-saxon",
+  "name": "Zwolnij na chwilę · Ogród Saski",
+  "lat": 52.240265,
+  "lng": 21.007634,
+  "tags": [
+   "sightseeing",
+   "hidden",
+   "nature"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Ogród w centrum z zabytkową fontanną.",
+  "area": "Śródmieście",
+  "kind": "sidequest",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "saxon",
+  "image": "place-saxon.jpg",
+  "imageCredit": {
+   "author": "Marcin Białek",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:Warszawa-Ogr%C3%B3d_Saski_fontanna.jpg",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-tomb",
-    "name": "Zauważ detale · Grób Nieznanego Żołnierza",
-    "lat": 52.2419,
-    "lng": 21.0115,
-    "tags": [
-      "culture",
-      "sightseeing",
-      "hidden"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Miejsce pamięci na placu Piłsudskiego.",
-    "area": "city",
-    "photo": "city",
-    "kind": "sidequest",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "tomb",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-tomb",
+  "name": "Zauważ detale · Grób Nieznanego Żołnierza",
+  "lat": 52.24095,
+  "lng": 21.011296,
+  "tags": [
+   "culture",
+   "sightseeing",
+   "hidden"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Miejsce pamięci na placu Piłsudskiego.",
+  "area": "Śródmieście",
+  "kind": "sidequest",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "tomb",
+  "image": "place-tomb.jpg",
+  "imageCredit": {
+   "author": "Patryk Duszkiewicz",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Warszawa_-_Gr%C3%B3b_Nieznanego_%C5%BBo%C5%82nierza_(2021).jpg",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-palace-culture",
-    "name": "Zmień perspektywę · Pałac Kultury — z zewnątrz",
-    "lat": 52.2317,
-    "lng": 21.006,
-    "tags": [
-      "culture",
-      "sightseeing",
-      "hidden"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Spójrz na jeden z symboli Warszawy. Taras widokowy wymaga osobnego biletu.",
-    "area": "city",
-    "photo": "city",
-    "kind": "sidequest",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "palace-culture",
-    "image": "place-17131946.jpg",
-    "imageNote": "Pałac Kultury — z zewnątrz",
-    "imageVerified": true
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-palace-culture",
+  "name": "Zmień perspektywę · Pałac Kultury i Nauki",
+  "lat": 52.231838,
+  "lng": 21.005995,
+  "tags": [
+   "culture",
+   "sightseeing",
+   "hidden"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Spójrz na jeden z symboli Warszawy. Taras widokowy wymaga osobnego biletu.",
+  "area": "Śródmieście",
+  "kind": "sidequest",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "palace-culture",
+  "image": "place-17131946.jpg",
+  "imageCredit": {
+   "author": "Pexels",
+   "license": "Pexels License",
+   "licenseUrl": "https://www.pexels.com/license/",
+   "source": "https://www.pexels.com/photo/view-of-the-palace-of-culture-and-science-in-warsaw-poland-17131946/",
+   "via": "Pexels"
   },
-  {
-    "id": "q-nowy-swiat",
-    "name": "Zwolnij na chwilę · Nowy Świat",
-    "lat": 52.2325,
-    "lng": 21.0195,
-    "tags": [
-      "sightseeing",
-      "hidden"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Reprezentacyjna ulica i architektura Śródmieścia. To ulica, nie restauracja.",
-    "area": "city",
-    "photo": "city",
-    "kind": "sidequest",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "nowy-swiat",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-nowy-swiat",
+  "name": "Zwolnij na chwilę · Nowy Świat",
+  "lat": 52.233993,
+  "lng": 21.019078,
+  "tags": [
+   "sightseeing",
+   "hidden"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Reprezentacyjna ulica i architektura Śródmieścia. To ulica, nie restauracja.",
+  "area": "Śródmieście",
+  "kind": "sidequest",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "nowy-swiat",
+  "image": "place-nowy-swiat.jpg",
+  "imageCredit": {
+   "author": "Maksym Kozlenko",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:2023-01-08_Nowy_%C5%9Awiat_Street_in_Warsaw_1.jpg",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-chopin-museum",
-    "name": "Zauważ detale · Muzeum Chopina — z zewnątrz",
-    "lat": 52.2367,
-    "lng": 21.0234,
-    "tags": [
-      "culture",
-      "hidden"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Pałac nad Tamką. Wstęp do muzeum jest płatny osobno.",
-    "area": "city",
-    "photo": "city",
-    "kind": "sidequest",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "chopin-museum",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-chopin-museum",
+  "name": "Zauważ detale · Muzeum Fryderyka Chopina",
+  "lat": 52.23654,
+  "lng": 21.022935,
+  "tags": [
+   "culture",
+   "hidden"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Pałac nad Tamką. Wstęp do muzeum jest płatny osobno.",
+  "area": "Powiśle",
+  "kind": "sidequest",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "chopin-museum",
+  "image": "place-chopin-museum.jpg",
+  "imageCredit": {
+   "author": "Scotch Mist",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Warsaw_2023_306_Chopin_Museum_Fa%C3%A7ade.jpg",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-national-museum",
-    "name": "Zmień perspektywę · Muzeum Narodowe — z zewnątrz",
-    "lat": 52.2316,
-    "lng": 21.0247,
-    "tags": [
-      "culture",
-      "hidden"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Gmach muzeum od strony miasta. Trasa obejmuje tylko teren zewnętrzny.",
-    "area": "city",
-    "photo": "city",
-    "kind": "sidequest",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "national-museum",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-national-museum",
+  "name": "Zmień perspektywę · Muzeum Narodowe",
+  "lat": 52.232117,
+  "lng": 21.024202,
+  "tags": [
+   "culture",
+   "hidden"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Gmach muzeum od strony miasta. Trasa obejmuje tylko teren zewnętrzny.",
+  "area": "Śródmieście",
+  "kind": "sidequest",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "national-museum",
+  "image": "place-national-museum.jpg",
+  "imageCredit": {
+   "author": "Adrian Grycuk",
+   "license": "CC BY-SA 3.0 pl",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Muzeum_Narodowe_w_Warszawie_2019.jpg",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-praga-cathedral",
-    "name": "Zwolnij na chwilę · Katedra św. Floriana",
-    "lat": 52.2526,
-    "lng": 21.0294,
-    "tags": [
-      "culture",
-      "sightseeing",
-      "hidden"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Ceglane wieże wprowadzają w klimat Pragi.",
-    "area": "praga",
-    "photo": "praga",
-    "kind": "sidequest",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "praga-cathedral",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-praga-cathedral",
+  "name": "Zwolnij na chwilę · Katedra św. Floriana",
+  "lat": 52.251787,
+  "lng": 21.030816,
+  "tags": [
+   "culture",
+   "sightseeing",
+   "hidden"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Ceglane wieże wprowadzają w klimat Pragi.",
+  "area": "Praga",
+  "kind": "sidequest",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "praga-cathedral",
+  "image": "place-praga-cathedral.jpg",
+  "imageCredit": {
+   "author": "Simon Burchell",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Cathedral_of_St._Michael_the_Archangel_and_St._Florian,_Praga,_Warsaw_02.jpg",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-zabkowska",
-    "name": "Zauważ detale · Ulica Ząbkowska",
-    "lat": 52.2534,
-    "lng": 21.0372,
-    "tags": [
-      "culture",
-      "hidden"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Stare fasady i spacer po praskiej ulicy.",
-    "area": "praga",
-    "photo": "praga",
-    "kind": "sidequest",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "zabkowska",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-zabkowska",
+  "name": "Zauważ detale · Ulica Ząbkowska",
+  "lat": 52.254243,
+  "lng": 21.04341,
+  "tags": [
+   "culture",
+   "hidden"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Stare fasady i spacer po praskiej ulicy.",
+  "area": "Praga",
+  "kind": "sidequest",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "zabkowska",
+  "image": "place-zabkowska.jpg",
+  "imageCredit": {
+   "author": "geo573",
+   "license": "CC BY 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Pra%C5%BCka_-_ulica_Z%C4%85bkowska_-_panoramio.jpg",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-koneser",
-    "name": "Zmień perspektywę · Centrum Praskie Koneser",
-    "lat": 52.2546,
-    "lng": 21.0448,
-    "tags": [
-      "culture",
-      "hidden"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Ceglana architektura przemysłowa i otwarty dziedziniec.",
-    "area": "praga",
-    "photo": "praga",
-    "kind": "sidequest",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "koneser",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-koneser",
+  "name": "Zmień perspektywę · Centrum Praskie Koneser",
+  "lat": 52.2546,
+  "lng": 21.0448,
+  "tags": [
+   "culture",
+   "hidden"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Ceglana architektura przemysłowa i otwarty dziedziniec.",
+  "area": "Praga",
+  "kind": "sidequest",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "koneser",
+  "image": "place-koneser.jpg",
+  "imageCredit": {
+   "author": "Adrian Grycuk",
+   "license": "CC BY-SA 3.0 pl",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Centrum_Praskie_Koneser_od_strony_ul._Z%C4%85bkowskiej_2019.jpg",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-skaryszewski",
-    "name": "Zwolnij na chwilę · Park Skaryszewski",
-    "lat": 52.2409,
-    "lng": 21.0545,
-    "tags": [
-      "hidden",
-      "nature"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Jeziora, rzeźby i szerokie alejki po prawej stronie Wisły.",
-    "area": "park",
-    "photo": "park",
-    "kind": "sidequest",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "skaryszewski",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-skaryszewski",
+  "name": "Zwolnij na chwilę · Park Skaryszewski",
+  "lat": 52.242052,
+  "lng": 21.054391,
+  "tags": [
+   "hidden",
+   "nature"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Jeziora, rzeźby i szerokie alejki po prawej stronie Wisły.",
+  "area": "Praga-Południe",
+  "kind": "sidequest",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "skaryszewski",
+  "image": "place-skaryszewski.jpg",
+  "imageCredit": {
+   "author": "Andrzej Błaszczak",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Warszawa,_Park_Skaryszewski,_foto053.jpg",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-saska",
-    "name": "Zauważ detale · Ulica Francuska",
-    "lat": 52.2328,
-    "lng": 21.0603,
-    "tags": [
-      "hidden"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Wille i sąsiedzki klimat Saskiej Kępy. To ulica, nie lokal gastronomiczny.",
-    "area": "praga",
-    "photo": "praga",
-    "kind": "sidequest",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "saska",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-saska",
+  "name": "Zauważ detale · Ulica Francuska",
+  "lat": 52.23473,
+  "lng": 21.053862,
+  "tags": [
+   "hidden"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Wille i sąsiedzki klimat Saskiej Kępy. To ulica, nie lokal gastronomiczny.",
+  "area": "Saska Kępa",
+  "kind": "sidequest",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "saska",
+  "image": "place-saska.jpg",
+  "imageCredit": {
+   "author": "Adrian Grycuk",
+   "license": "CC BY-SA 3.0 pl",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Ulica_Francuska_na_wysoko%C5%9Bci_ulicy_Obro%C5%84c%C3%B3w_2016.jpg",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-rooftop",
-    "name": "Zmień perspektywę · Most Świętokrzyski",
-    "lat": 52.2385,
-    "lng": 21.038,
-    "tags": [
-      "views",
-      "hidden",
-      "nature"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Widoki na rzekę i panoramę miasta ze ścieżki dla pieszych.",
-    "area": "river",
-    "photo": "river",
-    "kind": "sidequest",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "rooftop",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-rooftop",
+  "name": "Zmień perspektywę · Most Świętokrzyski",
+  "lat": 52.241726,
+  "lng": 21.034031,
+  "tags": [
+   "views",
+   "hidden",
+   "nature"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Widoki na rzekę i panoramę miasta ze ścieżki dla pieszych.",
+  "area": "Powiśle",
+  "kind": "sidequest",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "rooftop",
+  "image": "place-rooftop.jpg",
+  "imageCredit": {
+   "author": "Qkiel",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Most_%C5%9Awi%C4%99tokrzyski,_Warszawa_(5).jpg",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-koszyki",
-    "name": "Zwolnij na chwilę · Hala Koszyki",
-    "lat": 52.2223,
-    "lng": 21.0104,
-    "tags": [
-      "culture",
-      "hidden"
-    ],
-    "minutes": 20,
-    "cost": 45,
-    "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Zabytkowa hala gastronomiczna. Wydatki na jedzenie są orientacyjne.",
-    "area": "food",
-    "photo": "food",
-    "kind": "sidequest",
-    "tourist": "local",
-    "foodStyle": "sit",
-    "partner": false,
-    "placeId": "koszyki",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-koszyki",
+  "name": "Zwolnij na chwilę · Hala Koszyki",
+  "lat": 52.2223,
+  "lng": 21.0104,
+  "tags": [
+   "culture",
+   "hidden"
+  ],
+  "minutes": 20,
+  "cost": 45,
+  "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Zabytkowa hala gastronomiczna. Wydatki na jedzenie są orientacyjne.",
+  "area": "Śródmieście",
+  "kind": "sidequest",
+  "tourist": "local",
+  "foodStyle": "sit",
+  "partner": false,
+  "placeId": "koszyki",
+  "image": "place-koszyki.jpg",
+  "imageCredit": {
+   "author": "Jakub Dziubak jackuback",
+   "license": "CC0",
+   "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Hala_Koszyki,_Warszawa,_Poland_(Unsplash).jpg",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-mirowska",
-    "name": "Zauważ detale · Hala Mirowska",
-    "lat": 52.2388,
-    "lng": 20.9979,
-    "tags": [
-      "hidden"
-    ],
-    "minutes": 20,
-    "cost": 25,
-    "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Targowisko i stoiska czynne w określonych godzinach.",
-    "area": "food",
-    "photo": "food",
-    "kind": "sidequest",
-    "tourist": "local",
-    "foodStyle": "quick",
-    "partner": false,
-    "placeId": "mirowska",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-mirowska",
+  "name": "Zauważ detale · Hala Mirowska",
+  "lat": 52.2388,
+  "lng": 20.9979,
+  "tags": [
+   "hidden"
+  ],
+  "minutes": 20,
+  "cost": 25,
+  "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Targowisko i stoiska czynne w określonych godzinach.",
+  "area": "Mirów",
+  "kind": "sidequest",
+  "tourist": "local",
+  "foodStyle": "quick",
+  "partner": false,
+  "placeId": "mirowska",
+  "image": "place-mirowska.jpg",
+  "imageCredit": {
+   "author": "tawa",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Warszawa,_Hala_Mirowska_-_panoramio.jpg",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-electrownia",
-    "name": "Zmień perspektywę · Elektrownia Powiśle",
-    "lat": 52.2401,
-    "lng": 21.026,
-    "tags": [
-      "culture",
-      "hidden"
-    ],
-    "minutes": 20,
-    "cost": 45,
-    "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Dawna elektrownia z gastronomią i architekturą przemysłową.",
-    "area": "food",
-    "photo": "food",
-    "kind": "sidequest",
-    "tourist": "local",
-    "foodStyle": "sit",
-    "partner": false,
-    "placeId": "electrownia",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-electrownia",
+  "name": "Zmień perspektywę · Elektrownia Powiśle",
+  "lat": 52.24064,
+  "lng": 21.027514,
+  "tags": [
+   "culture",
+   "hidden"
+  ],
+  "minutes": 20,
+  "cost": 45,
+  "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Dawna elektrownia z gastronomią i architekturą przemysłową.",
+  "area": "Powiśle",
+  "kind": "sidequest",
+  "tourist": "local",
+  "foodStyle": "sit",
+  "partner": false,
+  "placeId": "electrownia",
+  "image": "place-electrownia.jpg",
+  "imageCredit": {
+   "author": "Adrian Grycuk",
+   "license": "CC BY-SA 3.0 pl",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Elektrownia_Powi%C5%9Ble_2021.jpg",
+   "via": "Wikimedia Commons"
   },
-  {
-    "id": "q-wilanow",
-    "name": "Zwolnij na chwilę · Brama pałacu w Wilanowie",
-    "lat": 52.1652,
-    "lng": 21.0904,
-    "tags": [
-      "culture",
-      "sightseeing",
-      "hidden"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Widok na podejście do pałacu. Ogrody i wnętrza wymagają biletu.",
-    "area": "park",
-    "photo": "park",
-    "kind": "sidequest",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "placeId": "wilanow",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  }
+  "cats": [
+   "side"
+  ]
+ },
+ {
+  "id": "q-wilanow",
+  "name": "Zwolnij na chwilę · Pałac w Wilanowie",
+  "lat": 52.165175,
+  "lng": 21.090508,
+  "tags": [
+   "culture",
+   "sightseeing",
+   "hidden"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Widok na podejście do pałacu. Ogrody i wnętrza wymagają biletu.",
+  "area": "Wilanów",
+  "kind": "sidequest",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "placeId": "wilanow",
+  "image": "place-wilanow.jpg",
+  "imageCredit": {
+   "author": "Kulawik.pl",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Pa%C5%82ac_w_Wilanowie_2022_4.jpg",
+   "via": "Wikimedia Commons"
+  },
+  "cats": [
+   "side"
+  ]
+ }
 ]

@@ -1,5 +1,7 @@
 # City Route App experience architecture
 
+> 2026-11-02 update: navigation is now Trasy · Miejsca · Zaplanuj · Moja trasa · Profil. Moja trasa turns cyan once a route is chosen and red "Na żywo" while a route runs. Ratings are real snapshots (see DATA_SOURCES.md), not DEMO. The intent table below describes the earlier four-tab prototype and is kept for history.
+
 Warsaw prototype. One current intent per screen, secondary information on demand.
 
 | Intent | Entry | Scope |

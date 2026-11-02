@@ -128,3 +128,7 @@ Od tej wersji użytkownik może dodać własne miejsce (nazwa, jedna kategoria, 
 - **Globalne:** Ticketmaster Discovery API przez Cloudflare Worker (`worker.js` → `/api/events`, odpowiedź zapamiętywana na godzinę). Klucz wpisuje właściciel w Cloudflare jako sekret `TICKETMASTER_API_KEY`; bez klucza lista jest pusta i aplikacja mówi to wprost. Opcjonalny `TICKETMASTER_AFFILIATE` (szablon linku z Impact zawierający `{url}`) zamienia „Kup bilet” na link partnerski.
 - **Następne źródła:** Going. (program partnerski w sieci Tradedoubler — do potwierdzenia przy zgłoszeniu, czy daje listę wydarzeń), AleBilet (4% prowizji według ich strony), KupBilecik. Bez zgody źródła nie pobieramy danych z ich stron.
 - **Społecznościowe:** tylko od zweryfikowanych użytkowników (konto + telefon, nowi organizatorzy po kilku ukończonych trasach, zgłaszanie i blokowanie, 18+ przy alkoholu). Wymaga kont i serwera; do tego czasu nie pokazujemy przykładowych spotkań.
+
+
+## Official ticket links checked 2026-11-02
+Venue-owned sources: zamek-krolewski.pl/godziny-otwarcia-i-ceny-biletow, kopernik.org.pl/wizyta/ceny-biletow, u-jazdowski.pl/zaplanuj-wizyte/bilety, pkin.pl/zwiedzanie/, bilety.nifc.pl, mnw.pl/bilety, lazienki-krolewskie.pl/pl/zwiedzanie/godziny-otwarcia. Prices and availability are not imported. Exterior stops are explicitly separated from interior admission. Event organiser URL remains unknown unless supplied.

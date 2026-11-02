@@ -41,3 +41,12 @@ test('Ticketmaster events become small records, with optional affiliate links',(
  assert.equal(list.length,1);assert.equal(list[0].kind,'koncerty');assert.equal(list[0].time,'20:00');assert.equal(list[0].image,'b.jpg');assert.deepEqual(list[0].price,{min:120,max:250,currency:'PLN'});assert.equal(list[0].lat,52.22);
  assert.equal(list[0].url,'https://aff.example/c?u='+encodeURIComponent('https://www.ticketmaster.pl/event/1'));assert.equal(withAffiliate('u',''),'u');assert.deepEqual(normalizeTicketmaster({}),[]);
 });
+
+
+test('location accepts pasted coordinates and prioritizes place over camera',()=>{
+ assert.deepEqual(parseLocation('52.23, 21.01'),{lat:52.23,lng:21.01});
+ assert.deepEqual(parseLocation('52.23 21.01'),{lat:52.23,lng:21.01});
+ assert.deepEqual(parseLocation('52,23; 21,01'),{lat:52.23,lng:21.01});
+ assert.deepEqual(parseLocation('https://www.google.com/maps/place/X/@52.1,21.1,12z/data=!3d52.23!4d21.01'),{lat:52.23,lng:21.01});
+ assert.equal(parseLocation('broken % link'),null);assert.equal(parseLocation('91, 21'),null);
+});

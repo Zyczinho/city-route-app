@@ -180,3 +180,5 @@ img.avatar{object-fit:cover;display:block}.avatar.sm{width:36px;height:36px;font
 #navigation a.live .pulse{width:10px;height:10px;margin:3px 0 4px}
 #navigation a.chosen .i{width:20px;height:20px}
 #navigation a.chosen{gap:1px}
+
+.drag-handle{touch-action:none;cursor:grab;padding:4px;min-width:28px;font-size:26px;color:var(--muted);border:0;background:transparent}.stops .dragging{opacity:.5}.stops .drop-target{outline:2px solid #00a7ef;outline-offset:2px}

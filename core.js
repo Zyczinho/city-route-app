@@ -64,9 +64,18 @@ export function routeMapsUrl(stops,transport='walking'){
 }
 // Reads coordinates from a pasted Google Maps link (@lat,lng or ?q=lat,lng) or a plain "lat, lng".
 export function parseLocation(text){
- const s=decodeURIComponent(String(text||'')),m=s.match(/@(-?\d{1,2}\.\d+),\s*(-?\d{1,3}\.\d+)/)||s.match(/!3d(-?\d{1,2}\.\d+)!4d(-?\d{1,3}\.\d+)/)||s.match(/(-?\d{1,2}\.\d{2,})\s*,\s*(-?\d{1,3}\.\d{2,})/);
+ let s=String(text||'').trim();try{s=decodeURIComponent(s);}catch{}
+ const number='(-?\\d{1,3}(?:\\.\\d+)?)';
+ // Place coordinates take precedence over the camera position in Google URLs.
+ let m=s.match(new RegExp('!3d'+number+'!4d'+number));
+ if(!m){try{const u=new URL(s);for(const key of ['query','q','ll','destination']){const v=u.searchParams.get(key);if(v){const r=parseLocation(v);if(r)return r;}}}catch{}}
+ if(!m)m=s.match(new RegExp('@'+number+',\\s*'+number));
+ if(!m){const plain=s.replace(/^(?:geo:)/i,'').trim();m=plain.match(new RegExp('^'+number+'\\s*[,;\\s]\\s*'+number+'$'));}
+ // Polish decimal commas, separated by semicolon (52,23; 21,01).
+ if(!m){const pl=s.match(/^(-?\d{1,3},\d+)\s*;\s*(-?\d{1,3},\d+)$/);if(pl)m=[pl[0],pl[1].replace(',','.'),pl[2].replace(',','.')];}
  if(!m)return null;const lat=Number(m[1]),lng=Number(m[2]);return lat>=-90&&lat<=90&&lng>=-180&&lng<=180?{lat,lng}:null;
 }
+export function moveStop(ids,from,to){const result=[...ids],a=result.indexOf(from),b=result.indexOf(to);if(a<0||b<0||a===b)return result;result.splice(b,0,result.splice(a,1)[0]);return result;}
 export const fold=s=>String(s??'').toLowerCase().replace(/ł/g,'l').normalize('NFD').replace(/[̀-ͯ]/g,'');
 export function matches(text,query){const words=fold(query).split(/\s+/).filter(Boolean),hay=fold(text);return words.every(w=>hay.includes(w));}
 
@@ -75,3 +84,4 @@ export function blendedRating(scores,{weighted=false}={}){
  const total=valid.reduce((n,s)=>n+(weighted?s.reviewCount:1),0);
  return total?valid.reduce((n,s)=>n+s.value/s.max*5*(weighted?s.reviewCount:1),0)/total:null;
 }
+

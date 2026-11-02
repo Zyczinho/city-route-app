@@ -33,3 +33,6 @@ New page explaining what City Route is, how to use it in four steps, what each t
 
 ## 2026-11-02 — planner-first route lifecycle
 Default first tab Ułóż trasę; full planner title Zaplanuj moją trasę. Explicit Trasy and Miejsca labels. Moja trasa keeps its name plus Gotowa/W toku, retaining blue/red state colors and resume. Side questy accessible in Miejsca. Current Claude changes preserved. 21 tests/build pass; browser tested full plan/start/resume/complete flow.
+
+## 2026-11-02 — manual route and Maps repairs
+Manual route entry, pointer drag ordering and sequential stop addition; broader coordinate parsing and safe Cloudflare short-link resolver; official ticket links first and secondary offers separated. Verification stays unclaimed. See STATUS for accounts/photo/catalogue work still outstanding.

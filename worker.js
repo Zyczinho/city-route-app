@@ -2,6 +2,7 @@
 // Secrets live in Cloudflare (Workers → city-route-app → Settings → Variables and Secrets), never in the repo:
 //   TICKETMASTER_API_KEY   Discovery API key from developer.ticketmaster.com
 //   TICKETMASTER_AFFILIATE optional Impact deep-link template containing {url}
+import {resolveMaps} from './location.js';
 import {ticketmasterQuery,normalizeTicketmaster,dedupe} from './events.js';
 
 const json=(body,status=200,maxAge=0)=>new Response(JSON.stringify(body),{status,headers:{'content-type':'application/json; charset=utf-8','cache-control':maxAge?`public, max-age=${maxAge}`:'no-store'}});
@@ -24,7 +25,9 @@ async function events(request,env,ctx){
 export default {
  async fetch(request,env,ctx){
   const {pathname}=new URL(request.url);
+  if(pathname==='/api/location'){if(request.method!=='GET')return json({status:'method-not-allowed'},405);try{const result=await resolveMaps(new URL(request.url).searchParams.get('url'));return json(result,result.status==='ok'?200:422);}catch{return json({status:'unavailable'},502);}}
   if(pathname==='/api/events')return events(request,env,ctx);
   return env.ASSETS.fetch(request);
  }
 };
+

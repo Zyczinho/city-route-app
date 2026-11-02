@@ -349,3 +349,7 @@ WORK EXECUTION INSTRUCTIONTreat this document as the MVP product specification a
 CITY ROUTE APP
 
 Stop planning. Start exploring.
+
+
+## Owner scope update — 2026-11-02
+Manual route authoring (sequential add + drag/drop + accessible reorder) alongside local algorithm; broader Warsaw catalogue of restaurants, bars, clubs, museums, monuments and hotels, excluding everyday utilities. Real accounts requested for friend testing; groups and chats future. Separate editorial and community verification requires actual review records, never inferred from imported source listings. Official event/venue ticket page is primary; actual secondary sellers are disclosed separately; no invented partnership or availability. Free admission must be evidenced and distinguish outside stops from interiors. Maps import should resolve location and ultimately name/photo with provenance.

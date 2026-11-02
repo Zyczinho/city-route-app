@@ -18,6 +18,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Apply resilient anchor resolver
+        run: node scripts/patch-osm-anchor-resolver.mjs
       - name: Generate Krakow POIs from OSM
         run: node scripts/generate-osm-city-dataset.mjs krakow
       - name: Generate Supabase migration
@@ -28,7 +30,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/cities/krakow/places.json data/cities/krakow/dataset-report.json supabase/migrations/006_import_krakow_catalogue.sql
+          git add scripts/generate-osm-city-dataset.mjs data/cities/krakow/places.json data/cities/krakow/dataset-report.json supabase/migrations/006_import_krakow_catalogue.sql
           if git diff --cached --quiet; then
             echo "Generated files already up to date"
           else

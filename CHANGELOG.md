@@ -23,3 +23,6 @@ New Zarezerwuj tab (hotels, tickets, tables) keeps paying apart from exploring; 
 
 ## 2026-11-02 — Odkrywaj with events
 Miejsca becomes Odkrywaj with a Miejsca | Wydarzenia switch. Wydarzenia has Globalne (Ticketmaster via a small Cloudflare Worker, filters for today, weekend, 7 and 30 days and by type, one-click "Kup bilet") and Społecznościowe (planned for verified users, honest empty state). Needs the TICKETMASTER_API_KEY secret in Cloudflare to show events. 21 tests pass.
+
+## 2026-11-02 — private or public places
+When adding your own place you choose who sees it: only you, or everyone. The place card shows the choice and lets you change it. Public places will reach other people once accounts, a shared database and moderation exist; until then they stay on your device and the app says so.

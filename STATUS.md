@@ -93,3 +93,9 @@ Branch claude/events-ticketmaster from main 6ff50c1.
 - wrangler.jsonc now has "main": "worker.js" and an ASSETS binding. `wrangler deploy --dry-run` (wrangler 4.156.1) bundled the worker and read 113 asset files. Not deployed yet.
 - Owner action needed: add Secret TICKETMASTER_API_KEY in Cloudflare; optional TICKETMASTER_AFFILIATE after Impact approval; apply to Going. (Tradedoubler) and AleBilet.
 - 21 tests pass (new: Ticketmaster query window, normalization, dedupe, affiliate wrapping). Browser-checked at 375×812 with a local-only fixture in dist/api/events: cards, filters, community view, switch, nav labels.
+
+## Private or public user places — 2026-11-02 (Claude Code)
+Branch claude/place-visibility from main.
+- Add-place form has "Kto to zobaczy?": Tylko ja (default) / Wszyscy. Stored as visibility on the user place; the place sheet shows it and can switch it; list rows say "prywatne" or "publiczne"; place_add and place_visibility events record it.
+- Public is an intent until accounts and a shared database exist (and moderation): the app says so and nothing leaves the device.
+- 21 tests pass. Browser-checked at 375×812: default private, save as public, sheet text, switch back to private, row label.

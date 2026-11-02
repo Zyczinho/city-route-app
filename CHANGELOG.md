@@ -14,3 +14,6 @@ Restaurant/hotel scores now weighted by per-source review counts, with /10 norma
 
 ## 2026-11-02 — routes first, real ratings, photos, profile
 Five tabs: Trasy, Miejsca, Zaplanuj, Moja trasa (cyan when a route is chosen, red "Na żywo" while walking), Profil. Intent categories replace area chips. Google Maps and Tripadvisor ratings and review counts for all 50 places, checked by hand on 2026-11-02, with per-platform counts on every card and a weighted combined score; DEMO scores removed. A credited photo for every place. Profile with stay type, bio, social links and local stats. Data-sources page in the app and DATA_SOURCES.md. 14 tests pass.
+
+## 2026-11-02 — strict categories and your own places
+Each place now belongs to exactly one category (Zabytki, Muzea, Parki i ogrody, Wisła i widoki, Ulice i okolice, Jedzenie, Noclegi); Side questy are only activities; Must-see is a badge. Users can add their own places with GPS or a Google Maps link and an optional photo (stored on the device). Hotels compare on Google Hotels and Booking. Whole route opens as one Google Maps link. Stops seen only from outside say so and link to tickets. Residents don't see hotels. Sort by distance. New versions apply without closing tabs. Demo social screens removed. 17 tests pass.

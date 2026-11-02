@@ -52,6 +52,24 @@ export function routeFromCatalogue(row,cityId){
  };
 }
 
+export function createRestRpcClient({url,key,fetchImpl=globalThis.fetch}={}){
+ if(!url||!key||typeof fetchImpl!=='function')throw new Error('catalogue-rest-config-missing');
+ return {
+  async rpc(name,args={}){
+   try{
+    const response=await fetchImpl(`${url}/rest/v1/rpc/${name}`,{
+     method:'POST',
+     headers:{apikey:key,'Content-Type':'application/json'},
+     body:JSON.stringify(args)
+    });
+    const text=await response.text();
+    if(!response.ok)return {data:null,error:new Error(`${name} HTTP ${response.status}: ${text.slice(0,300)}`)};
+    return {data:text?JSON.parse(text):[],error:null};
+   }catch(error){return {data:null,error};}
+  }
+ };
+}
+
 export async function loadSupabaseCatalogue(client,city){
  if(!client?.rpc)throw new Error('catalogue-client-missing');
  const citySlug=city?.slug||city?.id;

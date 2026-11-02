@@ -99,3 +99,6 @@ Branch claude/place-visibility from main.
 - Add-place form has "Kto to zobaczy?": Tylko ja (default) / Wszyscy. Stored as visibility on the user place; the place sheet shows it and can switch it; list rows say "prywatne" or "publiczne"; place_add and place_visibility events record it.
 - Public is an intent until accounts and a shared database exist (and moderation): the app says so and nothing leaves the device.
 - 21 tests pass. Browser-checked at 375×812: default private, save as public, sheet text, switch back to private, row label.
+
+## O City Route page — 2026-11-02 (Claude Code)
+Branch claude/about-page. #about page: one-line purpose, 4 steps (wybierz, ruszaj, odhaczaj, oceń), what each tab does, principles (real sourced data, booking at the seller with possible future commission that never changes prices or rating order, data stays on the device, early Warsaw-only version, 1001 CAVE). Reached from Profil menu and "Jak to działa?" in the Trasy intro. Checked at 375×812. 21 tests pass.

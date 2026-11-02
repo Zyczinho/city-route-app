@@ -26,3 +26,6 @@ Miejsca becomes Odkrywaj with a Miejsca | Wydarzenia switch. Wydarzenia has Glob
 
 ## 2026-11-02 — private or public places
 When adding your own place you choose who sees it: only you, or everyone. The place card shows the choice and lets you change it. Public places will reach other people once accounts, a shared database and moderation exist; until then they stay on your device and the app says so.
+
+## 2026-11-02 — O City Route
+New page explaining what City Route is, how to use it in four steps, what each tab does and what we promise about data, bookings and privacy. Opens from Profil and from "Jak to działa?" on Trasy.

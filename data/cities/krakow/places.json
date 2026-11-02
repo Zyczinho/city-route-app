@@ -1,0 +1,7381 @@
+[
+  {
+    "id": "bernatek-footbridge",
+    "name": "Kładka Ojca Bernatka",
+    "lat": 50.0465629,
+    "lng": 19.9474985,
+    "categoryId": "architecture",
+    "area": "Podgórze / Kazimierz",
+    "description": "Kładka łącząca Kazimierz z Podgórzem, popularna szczególnie po zmroku.",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "walk",
+      "views",
+      "free",
+      "romantic"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 242682567,
+        "url": "https://www.openstreetmap.org/way/242682567"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "central-square-nowa-huta",
+    "name": "Plac Centralny w Nowej Hucie",
+    "lat": 50.0719,
+    "lng": 20.0378,
+    "categoryId": "architecture",
+    "area": "Nowa Huta",
+    "description": "Monumentalny plac i dobry punkt startu do odkrywania socrealistycznej Nowej Huty.",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "architecture",
+      "local",
+      "nowa-huta",
+      "free"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "curated-coordinates"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "mercy-brown",
+    "name": "Mercy Brown",
+    "lat": 50.061512,
+    "lng": 19.931628,
+    "categoryId": "cocktail_bar",
+    "area": "Stare Miasto",
+    "description": "Ukryty cocktail bar w stylu speakeasy z jazzowym klimatem.",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "nightlife",
+      "cocktails",
+      "date"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "curated-coordinates"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "stary-kleparz",
+    "name": "Stary Kleparz",
+    "lat": 50.0673844,
+    "lng": 19.9410863,
+    "categoryId": "food_hall",
+    "area": "Kleparz",
+    "description": "Historyczny targ spożywczy blisko Starego Miasta.",
+    "minutes": 45,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "food",
+      "market",
+      "local",
+      "budget"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "nominatim-openstreetmap",
+        "osmType": "way",
+        "id": 25070800,
+        "url": "https://www.openstreetmap.org/way/25070800"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "botanical-garden",
+    "name": "Ogród Botaniczny UJ",
+    "lat": 50.0625074,
+    "lng": 19.9574802,
+    "categoryId": "garden",
+    "area": "Wesoła",
+    "description": "Historyczny ogród botaniczny z kolekcjami roślin i szklarniami.",
+    "minutes": 45,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "nature",
+      "garden",
+      "calm"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 25131339,
+        "url": "https://www.openstreetmap.org/way/25131339"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "barbican",
+    "name": "Barbakan Krakowski",
+    "lat": 50.0654585,
+    "lng": 19.9416339,
+    "categoryId": "landmark",
+    "area": "Stare Miasto",
+    "description": "Zachowany element średniowiecznych fortyfikacji Krakowa.",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "classic",
+      "history",
+      "free"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 13562708,
+        "url": "https://www.openstreetmap.org/relation/13562708"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "florian-gate",
+    "name": "Brama Floriańska",
+    "lat": 50.0651968,
+    "lng": 19.9414982,
+    "categoryId": "landmark",
+    "area": "Stare Miasto",
+    "description": "Jedna z najbardziej rozpoznawalnych bram dawnego Krakowa.",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "classic",
+      "history",
+      "free"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 1013618099,
+        "url": "https://www.openstreetmap.org/way/1013618099"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "ghetto-heroes-square",
+    "name": "Plac Bohaterów Getta",
+    "lat": 50.04672,
+    "lng": 19.9544353,
+    "categoryId": "landmark",
+    "area": "Podgórze",
+    "description": "Miejsce pamięci związane z historią krakowskiego getta.",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "history",
+      "jewish-heritage",
+      "ww2",
+      "free"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 14579005,
+        "url": "https://www.openstreetmap.org/relation/14579005"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "rynek-glowny",
+    "name": "Rynek Główny",
+    "lat": 50.0614961,
+    "lng": 19.9373512,
+    "categoryId": "landmark",
+    "area": "Stare Miasto",
+    "description": "Serce Krakowa i naturalny punkt startu dla pierwszej wizyty.",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "classic",
+      "sightseeing",
+      "free"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 201133718,
+        "url": "https://www.openstreetmap.org/way/201133718"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "cloth-hall",
+    "name": "Sukiennice",
+    "lat": 50.0617002,
+    "lng": 19.9373615,
+    "categoryId": "landmark",
+    "area": "Stare Miasto",
+    "description": "Historyczne hale handlowe w samym środku Rynku Głównego.",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "classic",
+      "sightseeing",
+      "shopping"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 23256528,
+        "url": "https://www.openstreetmap.org/way/23256528"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "wawel-castle",
+    "name": "Zamek Królewski na Wawelu",
+    "lat": 50.0544127,
+    "lng": 19.936564,
+    "categoryId": "landmark",
+    "area": "Wawel",
+    "description": "Królewski kompleks nad Wisłą i jeden z najważniejszych symboli miasta.",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "classic",
+      "history",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 2270819,
+        "url": "https://www.openstreetmap.org/relation/2270819"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "collegium-maius",
+    "name": "Collegium Maius",
+    "lat": 50.0616541,
+    "lng": 19.9336997,
+    "categoryId": "museum",
+    "area": "Stare Miasto",
+    "description": "Najstarszy budynek Uniwersytetu Jagiellońskiego i muzeum uniwersyteckie.",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "culture",
+      "history",
+      "museum"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 214263,
+        "url": "https://www.openstreetmap.org/relation/214263"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "schindler-factory",
+    "name": "Fabryka Schindlera",
+    "lat": 50.0474464,
+    "lng": 19.9617019,
+    "categoryId": "museum",
+    "area": "Zabłocie",
+    "description": "Muzeum opowiadające o Krakowie podczas niemieckiej okupacji.",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "museum",
+      "history",
+      "ww2",
+      "rainy-day"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 136648568,
+        "url": "https://www.openstreetmap.org/way/136648568"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "mocak",
+    "name": "MOCAK",
+    "lat": 50.0478769,
+    "lng": 19.9613687,
+    "categoryId": "museum",
+    "area": "Zabłocie",
+    "description": "Najważniejsze krakowskie muzeum sztuki współczesnej.",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "museum",
+      "art",
+      "zablocie",
+      "rainy-day"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "nominatim-openstreetmap",
+        "osmType": "way",
+        "id": 153173384,
+        "url": "https://www.openstreetmap.org/way/153173384"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "czartoryski-museum",
+    "name": "Muzeum Książąt Czartoryskich",
+    "lat": 50.0648136,
+    "lng": 19.9402301,
+    "categoryId": "museum",
+    "area": "Stare Miasto",
+    "description": "Jedna z najważniejszych kolekcji sztuki w Polsce.",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "museum",
+      "art",
+      "culture",
+      "rainy-day"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 1334317116,
+        "url": "https://www.openstreetmap.org/way/1334317116"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "aviation-museum",
+    "name": "Muzeum Lotnictwa Polskiego",
+    "lat": 50.0788479,
+    "lng": 19.9905573,
+    "categoryId": "museum",
+    "area": "Czyżyny",
+    "description": "Rozbudowana kolekcja samolotów i historii lotnictwa.",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "museum",
+      "aviation",
+      "rainy-day"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 307773166,
+        "url": "https://www.openstreetmap.org/way/307773166"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "manggha",
+    "name": "Muzeum Manggha",
+    "lat": 50.0508748,
+    "lng": 19.931658,
+    "categoryId": "museum",
+    "area": "Dębniki",
+    "description": "Muzeum sztuki i kultury japońskiej nad Wisłą.",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "museum",
+      "art",
+      "culture"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 233371578,
+        "url": "https://www.openstreetmap.org/way/233371578"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "national-museum",
+    "name": "Muzeum Narodowe w Krakowie",
+    "lat": 50.0604376,
+    "lng": 19.923608,
+    "categoryId": "museum",
+    "area": "Błonia",
+    "description": "Główna siedziba Muzeum Narodowego z rozbudowanymi kolekcjami sztuki.",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "museum",
+      "art",
+      "culture",
+      "rainy-day"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 1284375894,
+        "url": "https://www.openstreetmap.org/way/1284375894"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "rynek-underground",
+    "name": "Rynek Podziemny",
+    "lat": 50.062005,
+    "lng": 19.9377768,
+    "categoryId": "museum",
+    "area": "Stare Miasto",
+    "description": "Multimedialna trasa archeologiczna pod płytą Rynku Głównego.",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "museum",
+      "history",
+      "rainy-day"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1332080339,
+        "url": "https://www.openstreetmap.org/node/1332080339"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "old-synagogue",
+    "name": "Stara Synagoga",
+    "lat": 50.0513717,
+    "lng": 19.9486129,
+    "categoryId": "museum",
+    "area": "Kazimierz",
+    "description": "Najstarsza zachowana synagoga w Polsce i ważny punkt historii Kazimierza.",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "history",
+      "jewish-heritage",
+      "museum"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 152104775,
+        "url": "https://www.openstreetmap.org/way/152104775"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "plac-nowy",
+    "name": "Plac Nowy",
+    "lat": 50.0514187,
+    "lng": 19.9453935,
+    "categoryId": "neighborhood",
+    "area": "Kazimierz",
+    "description": "Jeden z najbardziej charakterystycznych punktów Kazimierza, szczególnie wieczorem.",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "local",
+      "food",
+      "nightlife"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 6431927539,
+        "url": "https://www.openstreetmap.org/node/6431927539"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "blonia",
+    "name": "Błonia Krakowskie",
+    "lat": 50.0597168,
+    "lng": 19.9120842,
+    "categoryId": "park",
+    "area": "Błonia",
+    "description": "Ogromna zielona łąka pomiędzy centrum a Zwierzyńcem.",
+    "minutes": 40,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "nature",
+      "sport",
+      "free",
+      "local"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 25113592,
+        "url": "https://www.openstreetmap.org/way/25113592"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "planty",
+    "name": "Planty",
+    "lat": 50.0602487,
+    "lng": 19.9384248,
+    "categoryId": "park",
+    "area": "Stare Miasto",
+    "description": "Zielony pierścień wokół historycznego centrum, idealny na spacer między atrakcjami.",
+    "minutes": 40,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "nature",
+      "walk",
+      "free"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 1221128266,
+        "url": "https://www.openstreetmap.org/way/1221128266"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "st-marys-basilica",
+    "name": "Bazylika Mariacka",
+    "lat": 50.0675436,
+    "lng": 19.9432758,
+    "categoryId": "religious_site",
+    "area": "Stare Miasto",
+    "description": "Gotycka bazylika przy Rynku Głównym, słynąca z hejnału i ołtarza Wita Stwosza.",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "classic",
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 29246492,
+        "url": "https://www.openstreetmap.org/way/29246492"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "wawel-cathedral",
+    "name": "Katedra Wawelska",
+    "lat": 50.0546504,
+    "lng": 19.9354554,
+    "categoryId": "religious_site",
+    "area": "Wawel",
+    "description": "Katedra koronacyjna i miejsce związane z historią polskich monarchów.",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "classic",
+      "history",
+      "culture"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "nominatim-openstreetmap",
+        "osmType": "way",
+        "id": 85151350,
+        "url": "https://www.openstreetmap.org/way/85151350"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "remuh-synagogue",
+    "name": "Synagoga Remuh",
+    "lat": 50.0526539,
+    "lng": 19.9472847,
+    "categoryId": "religious_site",
+    "area": "Kazimierz",
+    "description": "Historyczna synagoga i cmentarz przy ulicy Szerokiej.",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "history",
+      "jewish-heritage",
+      "culture"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 33291034,
+        "url": "https://www.openstreetmap.org/way/33291034"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "kosciuszko-mound",
+    "name": "Kopiec Kościuszki",
+    "lat": 50.054915,
+    "lng": 19.8933537,
+    "categoryId": "viewpoint",
+    "area": "Zwierzyniec",
+    "description": "Jeden z najlepszych punktów widokowych na Kraków i okolice.",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "views",
+      "history",
+      "sunset"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 226153423,
+        "url": "https://www.openstreetmap.org/node/226153423"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "krakus-mound",
+    "name": "Kopiec Krakusa",
+    "lat": 50.0380822,
+    "lng": 19.958435,
+    "categoryId": "viewpoint",
+    "area": "Podgórze",
+    "description": "Bezpłatny punkt widokowy z szeroką panoramą Krakowa.",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "views",
+      "nature",
+      "free",
+      "sunset"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 288621733,
+        "url": "https://www.openstreetmap.org/node/288621733"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "awiteks",
+    "name": "Awiteks",
+    "lat": 50.0414841,
+    "lng": 19.9429922,
+    "categoryId": "bakery",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": "https://awiteks.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 5230890422,
+        "url": "https://www.openstreetmap.org/node/5230890422"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 06:00-20:00; Sa 07:30-15:30; Su 08:00-16:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "buczek",
+    "name": "Buczek",
+    "lat": 50.0576701,
+    "lng": 19.9310693,
+    "categoryId": "bakery",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": "https://piekarniabuczek.pl",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4736558838,
+        "url": "https://www.openstreetmap.org/node/4736558838"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 07:00-19:00; Sa 07:00-16:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "goraco-polecam",
+    "name": "Gorąco Polecam",
+    "lat": 50.0529244,
+    "lng": 19.9170321,
+    "categoryId": "bakery",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": "https://goraco-polecam.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 9346936555,
+        "url": "https://www.openstreetmap.org/node/9346936555"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 07:00-19:00; Sa 08:00-15:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "piekarnia-i-cukiernia-buczek",
+    "name": "Piekarnia i Cukiernia Buczek",
+    "lat": 50.0772032,
+    "lng": 20.0169859,
+    "categoryId": "bakery",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 1089809236,
+        "url": "https://www.openstreetmap.org/way/1089809236"
+      },
+      "osmTags": {
+        "wikidata": "Q139890443",
+        "wikipedia": null,
+        "opening_hours": "Mo-Sa 08:00-21:00; Su 09:00-20:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "cudowne-lata",
+    "name": "Cudowne Lata",
+    "lat": 50.0623806,
+    "lng": 19.9275118,
+    "categoryId": "bar",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "website": "http://www.cudowne-lata.com.pl",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3640795501,
+        "url": "https://www.openstreetmap.org/node/3640795501"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 09:00-00:00; Sa 10:00-00:00; Su 11:00-22:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "daddy-s-pizza-billard",
+    "name": "Daddy's Pizza & Billard",
+    "lat": 50.0695823,
+    "lng": 19.935911,
+    "categoryId": "bar",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife",
+      "pizza"
+    ],
+    "ratings": [],
+    "website": "https://www.facebook.com/DaddysBillard/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 2429269442,
+        "url": "https://www.openstreetmap.org/node/2429269442"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 17:00-00:00",
+        "cuisine": "pizza"
+      }
+    }
+  },
+  {
+    "id": "la-habana",
+    "name": "La Habana",
+    "lat": 50.0528464,
+    "lng": 19.9439983,
+    "categoryId": "bar",
+    "area": "Kazimierz",
+    "description": "Kubański bar na Kazimierzu z rumem, koktajlami i muzyką latynoską.",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife",
+      "cocktails",
+      "kazimierz"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4396294404,
+        "url": "https://www.openstreetmap.org/node/4396294404"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "mr-black",
+    "name": "Mr.Black",
+    "lat": 50.062896,
+    "lng": 19.9344292,
+    "categoryId": "bar",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "website": "https://mrblack.online/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 2000510876,
+        "url": "https://www.openstreetmap.org/node/2000510876"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Su-Th 17:00-01:00; Fr,Sa 17:00-02:30",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "posiadowka",
+    "name": "Posiadówka",
+    "lat": 50.0636949,
+    "lng": 19.9369065,
+    "categoryId": "bar",
+    "area": "",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "website": "https://posiadowka-diner.business.site",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4382937303,
+        "url": "https://www.openstreetmap.org/node/4382937303"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo 16:00-23:00; Tu-Fr 14:00-24:00; Sa 00:00-02:00,14:00-24:00; Su 00:00-02:00,14:00-23:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "propaganda",
+    "name": "Propaganda",
+    "lat": 50.0527703,
+    "lng": 19.9439343,
+    "categoryId": "bar",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "website": "https://www.pubpropaganda.eu/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1937953219,
+        "url": "https://www.openstreetmap.org/node/1937953219"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "12:00-02:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "vis-a-vis",
+    "name": "Vis-à-vis",
+    "lat": 50.0617776,
+    "lng": 19.9357419,
+    "categoryId": "bar",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "website": "https://zvis.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 7818066096,
+        "url": "https://www.openstreetmap.org/node/7818066096"
+      },
+      "osmTags": {
+        "wikidata": "Q9368909",
+        "wikipedia": "pl:Vis-à-vis (bar)",
+        "opening_hours": "Mo-Th 08:00-24:00, Fr-Su 08:00-01:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "winne-grono",
+    "name": "Winne Grono",
+    "lat": 50.0658166,
+    "lng": 19.9254805,
+    "categoryId": "bar",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "website": "https://www.winnegrono.krakow.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3145305435,
+        "url": "https://www.openstreetmap.org/node/3145305435"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 12:00-24:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "blossom-coffee-food",
+    "name": "Blossom Coffee & Food",
+    "lat": 50.0691773,
+    "lng": 19.9528552,
+    "categoryId": "cafe",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": "https://blossom.cafe/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4816256033,
+        "url": "https://www.openstreetmap.org/node/4816256033"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 07:30-19:00; Sa,Su 08:00-16:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "bussola-coffee",
+    "name": "Bussola Coffee",
+    "lat": 50.0565953,
+    "lng": 19.9450548,
+    "categoryId": "cafe",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee-shop",
+      "sandwich",
+      "ice-cream"
+    ],
+    "ratings": [],
+    "website": "https://www.bussolacoffee.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4397856722,
+        "url": "https://www.openstreetmap.org/node/4397856722"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo, Fr 07:00-20:00; Sa-Su 08:00-20:00; Tu-Th 07:00-19:00",
+        "cuisine": "coffee_shop;sandwich;ice_cream;international"
+      }
+    }
+  },
+  {
+    "id": "cafe-lisboa",
+    "name": "Café Lisboa",
+    "lat": 50.0637478,
+    "lng": 19.9279626,
+    "categoryId": "cafe",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": "https://www.cafelisboa.pl",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3037226616,
+        "url": "https://www.openstreetmap.org/node/3037226616"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 08:00-20:00; Sa,Su 12:00-18:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "cytat-cafe",
+    "name": "Cytat cafe",
+    "lat": 50.0527054,
+    "lng": 19.944931,
+    "categoryId": "cafe",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": "https://www.cytatcafe.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4730390135,
+        "url": "https://www.openstreetmap.org/node/4730390135"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Su-Th 08:00-22:00; Fr,Sa 08:00-23:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "czajownia",
+    "name": "Czajownia",
+    "lat": 50.0533837,
+    "lng": 19.9425481,
+    "categoryId": "cafe",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "tea"
+    ],
+    "ratings": [],
+    "website": "https://czajowniakrakow.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 2983741046,
+        "url": "https://www.openstreetmap.org/node/2983741046"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 14:00-22:00, Sa-Su 13:00-23:00",
+        "cuisine": "tea"
+      }
+    }
+  },
+  {
+    "id": "dziorawy-kociol",
+    "name": "Dziórawy Kocioł",
+    "lat": 50.0574554,
+    "lng": 19.9384193,
+    "categoryId": "cafe",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": "https://dziorawykociol.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4030311992,
+        "url": "https://www.openstreetmap.org/node/4030311992"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 08:00-22:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "emigrant-coffee-karmelicka",
+    "name": "Emigrant Coffee Karmelicka",
+    "lat": 50.0684132,
+    "lng": 19.9472002,
+    "categoryId": "cafe",
+    "area": "Piasek",
+    "description": "Specialty coffee niedaleko Starego Miasta.",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "coffee",
+      "local"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 11191651308,
+        "url": "https://www.openstreetmap.org/node/11191651308"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "green-caffe-nero",
+    "name": "Green Caffè Nero",
+    "lat": 50.0636999,
+    "lng": 19.9289423,
+    "categoryId": "cafe",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee-shop"
+    ],
+    "ratings": [],
+    "website": "https://greencaffenero.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1861990920,
+        "url": "https://www.openstreetmap.org/node/1861990920"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 07:00-23:00",
+        "cuisine": "coffee_shop"
+      }
+    }
+  },
+  {
+    "id": "kawiarnia-jama-michalika",
+    "name": "Kawiarnia Jama Michalika",
+    "lat": 50.0640836,
+    "lng": 19.940929,
+    "categoryId": "cafe",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": "https://jamamichalika.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3320712471,
+        "url": "https://www.openstreetmap.org/node/3320712471"
+      },
+      "osmTags": {
+        "wikidata": "Q672804",
+        "wikipedia": "pl:Jama Michalika",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "klub-grota-2",
+    "name": "Klub Grota 2",
+    "lat": 50.069179,
+    "lng": 19.9539733,
+    "categoryId": "cafe",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "sandwich"
+    ],
+    "ratings": [],
+    "website": "https://www.facebook.com/klubgrota2/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4708839320,
+        "url": "https://www.openstreetmap.org/node/4708839320"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 09:00-22:00; Sa 09:00-17:00; Su 09:00-15:00",
+        "cuisine": "sandwich"
+      }
+    }
+  },
+  {
+    "id": "kocia-kawiarnia",
+    "name": "Kocia Kawiarnia",
+    "lat": 50.0644322,
+    "lng": 19.9453995,
+    "categoryId": "cafe",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": "https://kociakawiarniakrakow.pl/lubicz/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 5631274399,
+        "url": "https://www.openstreetmap.org/node/5631274399"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 10:00-20:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "lajkonik",
+    "name": "Lajkonik",
+    "lat": 50.0624045,
+    "lng": 19.9350362,
+    "categoryId": "cafe",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee-shop"
+    ],
+    "ratings": [],
+    "website": "https://lajkonik-pik.pl/en/shop/8-szewska/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4884535935,
+        "url": "https://www.openstreetmap.org/node/4884535935"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 07:00-20:00",
+        "cuisine": "coffee_shop"
+      }
+    }
+  },
+  {
+    "id": "massolit-bakery-cafe",
+    "name": "Massolit Bakery & Cafe",
+    "lat": 50.0590832,
+    "lng": 19.9304282,
+    "categoryId": "cafe",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": "https://www.facebook.com/MassolitBakeryCafe",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 8128853208,
+        "url": "https://www.openstreetmap.org/node/8128853208"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 08:00-17:00; Sa 09:00-16:00; Su 10:00-16:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "mo-ja-cafe-bistro",
+    "name": "Mo-Ja Cafe & Bistro",
+    "lat": 50.0578161,
+    "lng": 19.9441584,
+    "categoryId": "cafe",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "breakfast"
+    ],
+    "ratings": [],
+    "website": "https://www.cafemoja.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4465833389,
+        "url": "https://www.openstreetmap.org/node/4465833389"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 08:30-17:00; Sa,Su 08:00-17:00",
+        "cuisine": "breakfast"
+      }
+    }
+  },
+  {
+    "id": "nic-kawiarnio-ksiegarnia",
+    "name": "NIĆ. Kawiarnio-księgarnia",
+    "lat": 50.0650801,
+    "lng": 19.9381505,
+    "categoryId": "cafe",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee-shop"
+    ],
+    "ratings": [],
+    "website": "https://www.facebook.com/nic.kawiarnio.ksiegarnia",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 8787188401,
+        "url": "https://www.openstreetmap.org/node/8787188401"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 11:00-21:00",
+        "cuisine": "coffee_shop"
+      }
+    }
+  },
+  {
+    "id": "no-32-cafe",
+    "name": "No.32 Cafe",
+    "lat": 50.0586855,
+    "lng": 19.9473899,
+    "categoryId": "cafe",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee-shop"
+    ],
+    "ratings": [],
+    "website": "https://www.instagram.com/no.32cafe/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 12595306167,
+        "url": "https://www.openstreetmap.org/node/12595306167"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 08:00-19:00; Sa-Su 08:00-19:00",
+        "cuisine": "coffee_shop"
+      }
+    }
+  },
+  {
+    "id": "pantograf-cafe",
+    "name": "Pantograf Cafe",
+    "lat": 50.0750522,
+    "lng": 19.9954297,
+    "categoryId": "cafe",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee-shop"
+    ],
+    "ratings": [],
+    "website": "http://www.pantografcafe.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 1414505063,
+        "url": "https://www.openstreetmap.org/way/1414505063"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 07:30-19:00; Sa-Su 08:00-19:00",
+        "cuisine": "coffee_shop"
+      }
+    }
+  },
+  {
+    "id": "starbucks",
+    "name": "Starbucks",
+    "lat": 50.0614615,
+    "lng": 19.9354658,
+    "categoryId": "cafe",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee-shop"
+    ],
+    "ratings": [],
+    "website": "https://www.starbucks.co.uk/store-locator/26671-244964/krakow,-rynek-27",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3944884368,
+        "url": "https://www.openstreetmap.org/node/3944884368"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 06:30-23:00",
+        "cuisine": "coffee_shop"
+      }
+    }
+  },
+  {
+    "id": "stare-miasto",
+    "name": "Stare Miasto",
+    "lat": 50.0601983,
+    "lng": 19.9356853,
+    "categoryId": "cafe",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "breakfast"
+    ],
+    "ratings": [],
+    "website": "http://www.facebook.com/cafestaremiasto",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3801851255,
+        "url": "https://www.openstreetmap.org/node/3801851255"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-We 07:00-16:00; Th-Su 07:00-22:00",
+        "cuisine": "breakfast"
+      }
+    }
+  },
+  {
+    "id": "string-taste-coffee",
+    "name": "String Taste Coffee",
+    "lat": 50.0517834,
+    "lng": 19.9436106,
+    "categoryId": "cafe",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "cake",
+      "breakfast",
+      "coffee-shop"
+    ],
+    "ratings": [],
+    "website": "https://stringtaste.coffee",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 151908267,
+        "url": "https://www.openstreetmap.org/way/151908267"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 08:00-19:00; Sa-Su,PH 08:00-18:00",
+        "cuisine": "cake;breakfast;coffee_shop"
+      }
+    }
+  },
+  {
+    "id": "tartelette-cafe",
+    "name": "Tartelette Cafe",
+    "lat": 50.0526684,
+    "lng": 19.9397724,
+    "categoryId": "cafe",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": "https://tartelette.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 9639891087,
+        "url": "https://www.openstreetmap.org/node/9639891087"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Th,Su 09:00-19:00; Fr,Sa 09:00-21:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "the-white-bear-coffee",
+    "name": "The White Bear Coffee",
+    "lat": 50.0645339,
+    "lng": 19.9288078,
+    "categoryId": "cafe",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee-shop",
+      "polish",
+      "local"
+    ],
+    "ratings": [],
+    "website": "https://thewhitebearcoffee.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 12003819512,
+        "url": "https://www.openstreetmap.org/node/12003819512"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 07:30-21:30",
+        "cuisine": "coffee_shop;polish;local;bagel;breakfast"
+      }
+    }
+  },
+  {
+    "id": "wesola-cafe",
+    "name": "Wesoła Cafe",
+    "lat": 50.0667853,
+    "lng": 19.9521483,
+    "categoryId": "cafe",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "cake",
+      "sandwich",
+      "breakfast"
+    ],
+    "ratings": [],
+    "website": "https://wesolacafe.pl",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3786352664,
+        "url": "https://www.openstreetmap.org/node/3786352664"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo,Fr-Su 07:30-18:00; Tu-Th 07:30-16:00",
+        "cuisine": "cake;sandwich;breakfast;bagel;coffee_shop"
+      }
+    }
+  },
+  {
+    "id": "zarowka-cafe",
+    "name": "Żarówka Cafe",
+    "lat": 50.0634186,
+    "lng": 19.9396978,
+    "categoryId": "cafe",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee-shop"
+    ],
+    "ratings": [],
+    "website": "https://m.facebook.com/profile.php?id=100022948463733&_rdr",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 6805700386,
+        "url": "https://www.openstreetmap.org/node/6805700386"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 09:00-20:00",
+        "cuisine": "coffee_shop"
+      }
+    }
+  },
+  {
+    "id": "nova-klubova",
+    "name": "NOVA KLUBOVA",
+    "lat": 50.0515347,
+    "lng": 19.9456071,
+    "categoryId": "club",
+    "area": "Kazimierz",
+    "description": "Klub na Kazimierzu przy ulicy Estery.",
+    "minutes": 120,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife",
+      "club",
+      "kazimierz"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 10110286131,
+        "url": "https://www.openstreetmap.org/node/10110286131"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "shine",
+    "name": "Shine",
+    "lat": 50.0576382,
+    "lng": 19.9445016,
+    "categoryId": "club",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 120,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "website": "https://krakow.shineclub.com.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 6011254500,
+        "url": "https://www.openstreetmap.org/node/6011254500"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Fr,Sa 22:00-05:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "shine-club",
+    "name": "Shine Club Kraków",
+    "lat": 50.0576382,
+    "lng": 19.9445016,
+    "categoryId": "club",
+    "area": "Stare Miasto",
+    "description": "Duży klub nocny przy Starowiślnej.",
+    "minutes": 120,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife",
+      "club"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 6011254500,
+        "url": "https://www.openstreetmap.org/node/6011254500"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "teatro-cubano",
+    "name": "Teatro Cubano",
+    "lat": 50.0620877,
+    "lng": 19.9346628,
+    "categoryId": "club",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 120,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "website": "https://m.facebook.com/TeatroCubanoKrakow",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4894143121,
+        "url": "https://www.openstreetmap.org/node/4894143121"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Su-Tu 15:00-04:00; We-Th 15:00-05:00; Fr-Sa 15:00-06:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "the-legends",
+    "name": "The Legends",
+    "lat": 50.0634887,
+    "lng": 19.9347486,
+    "categoryId": "club",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 120,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "website": "https://www.facebook.com/The.Legends.Music.Club",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 475387295,
+        "url": "https://www.openstreetmap.org/node/475387295"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Th 00:00-03:00,19:00-24:00; Fr 00:00-04:00,19:00-24:00; Sa,Su 00:00-05:00,19:00-24:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "hala-targowa",
+    "name": "Hala Targowa",
+    "lat": 50.0458606,
+    "lng": 19.9536373,
+    "categoryId": "food_hall",
+    "area": "Grzegórzki",
+    "description": "Targ i popularny punkt lokalnego jedzenia poza głównym turystycznym traktem.",
+    "minutes": 45,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "market",
+      "local",
+      "budget"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 10032225210,
+        "url": "https://www.openstreetmap.org/node/10032225210"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "artemis",
+    "name": "Artemis",
+    "lat": 50.0580033,
+    "lng": 19.9386781,
+    "categoryId": "gallery",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture"
+    ],
+    "ratings": [],
+    "website": "https://www.artemis.art.pl",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 12003544906,
+        "url": "https://www.openstreetmap.org/node/12003544906"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Tu-Fri 11:00-18:00; Sa 11:00-14:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "centrum-kultury-podgorza-fort-borek",
+    "name": "Centrum Kultury Podgórza - Fort Borek",
+    "lat": 50.0005934,
+    "lng": 19.9040157,
+    "categoryId": "gallery",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture"
+    ],
+    "ratings": [],
+    "website": "https://borek.ckpodgorza.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 203757611,
+        "url": "https://www.openstreetmap.org/way/203757611"
+      },
+      "osmTags": {
+        "wikidata": "Q11698488",
+        "wikipedia": "pl:Fort główny artyleryjski 52 „Borek”",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "centrum-kultury-zydowskiej",
+    "name": "Centrum Kultury Żydowskiej",
+    "lat": 50.0513734,
+    "lng": 19.9443835,
+    "categoryId": "gallery",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 472125075,
+        "url": "https://www.openstreetmap.org/node/472125075"
+      },
+      "osmTags": {
+        "wikidata": "Q119084",
+        "wikipedia": "pl:Centrum Kultury Żydowskiej",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "cricoteka",
+    "name": "Cricoteka",
+    "lat": 50.0473243,
+    "lng": 19.9512768,
+    "categoryId": "gallery",
+    "area": "",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture"
+    ],
+    "ratings": [],
+    "website": "www.cricoteka.pl",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 294258929,
+        "url": "https://www.openstreetmap.org/way/294258929"
+      },
+      "osmTags": {
+        "wikidata": "Q11691646",
+        "wikipedia": "pl:Ośrodek Dokumentacji Sztuki Tadeusza Kantora Cricoteka",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "galeria-stanczyk",
+    "name": "Galeria Stańczyk",
+    "lat": 50.0739395,
+    "lng": 19.9105325,
+    "categoryId": "gallery",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture"
+    ],
+    "ratings": [],
+    "website": "https://www.facebook.com/share/1AVVR9z6pp/?mibextid=wwXIfr",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 11481131887,
+        "url": "https://www.openstreetmap.org/node/11481131887"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 11:00-16:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "klub-studio",
+    "name": "Klub Studio",
+    "lat": 50.068076,
+    "lng": 19.9082429,
+    "categoryId": "gallery",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture"
+    ],
+    "ratings": [],
+    "website": "https://www.klubstudio.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 231815725,
+        "url": "https://www.openstreetmap.org/way/231815725"
+      },
+      "osmTags": {
+        "wikidata": "Q9137055",
+        "wikipedia": "pl:Akademickie Centrum Kultury Klub Studio",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "malopolski-ogrod-sztuki",
+    "name": "Małopolski Ogród Sztuki",
+    "lat": 50.0643544,
+    "lng": 19.929697,
+    "categoryId": "gallery",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture"
+    ],
+    "ratings": [],
+    "website": "http://www.mos.art.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 9624017,
+        "url": "https://www.openstreetmap.org/relation/9624017"
+      },
+      "osmTags": {
+        "wikidata": "Q11772478",
+        "wikipedia": "pl:Małopolski Ogród Sztuki w Krakowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "nowohuckie-centrum-kultury",
+    "name": "Nowohuckie Centrum Kultury",
+    "lat": 50.0707971,
+    "lng": 20.0348482,
+    "categoryId": "gallery",
+    "area": "",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 39449013,
+        "url": "https://www.openstreetmap.org/way/39449013"
+      },
+      "osmTags": {
+        "wikidata": "Q11793745",
+        "wikipedia": "pl:Nowohuckie Centrum Kultury",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "ogrody-krolewskie",
+    "name": "Ogrody Królewskie",
+    "lat": 50.0544496,
+    "lng": 19.9374461,
+    "categoryId": "garden",
+    "area": "",
+    "description": "",
+    "minutes": 45,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 5992609,
+        "url": "https://www.openstreetmap.org/relation/5992609"
+      },
+      "osmTags": {
+        "wikidata": "Q7080252",
+        "wikipedia": "pl:Ogrody Królewskie na Wawelu",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "ogrod-botaniczny-uniwersytetu-jagiellonskiego",
+    "name": "Ogród Botaniczny Uniwersytetu Jagiellońskiego",
+    "lat": 50.0625074,
+    "lng": 19.9574802,
+    "categoryId": "garden",
+    "area": "",
+    "description": "",
+    "minutes": 45,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature"
+    ],
+    "ratings": [],
+    "website": "https://www.ogrod.uj.edu.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 25131339,
+        "url": "https://www.openstreetmap.org/way/25131339"
+      },
+      "osmTags": {
+        "wikidata": "Q2619332",
+        "wikipedia": "pl:Ogród Botaniczny Uniwersytetu Jagiellońskiego",
+        "opening_hours": "Apr 1-Sep 25: 09:00-19:00; Sep 26-Oct 24: 09:00-17:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "ogrod-jozefa-mehoffera",
+    "name": "Ogród Józefa Mehoffera",
+    "lat": 50.0630429,
+    "lng": 19.9287542,
+    "categoryId": "garden",
+    "area": "",
+    "description": "",
+    "minutes": 45,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 1434097913,
+        "url": "https://www.openstreetmap.org/way/1434097913"
+      },
+      "osmTags": {
+        "wikidata": "Q11796754",
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "art-mont",
+    "name": "Art Mont",
+    "lat": 50.0684378,
+    "lng": 19.9373858,
+    "categoryId": "guesthouse",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": "http://www.art-mont.com/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 2423264126,
+        "url": "https://www.openstreetmap.org/node/2423264126"
+      },
+      "osmTags": {
+        "wikidata": "Q112000975",
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "old-town-aparthotel",
+    "name": "Old Town Aparthotel",
+    "lat": 50.0572594,
+    "lng": 19.9407991,
+    "categoryId": "guesthouse",
+    "area": "",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": "https://www.aparthoteloldtown.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 10129123053,
+        "url": "https://www.openstreetmap.org/node/10129123053"
+      },
+      "osmTags": {
+        "wikidata": "Q112001014",
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "pokoje-goscinne-cybulskiego",
+    "name": "Pokoje Gościnne Cybulskiego",
+    "lat": 50.0618934,
+    "lng": 19.9268763,
+    "categoryId": "guesthouse",
+    "area": "",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": "https://www.freerooms.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 7736301429,
+        "url": "https://www.openstreetmap.org/node/7736301429"
+      },
+      "osmTags": {
+        "wikidata": "Q111119051",
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "u-pana-cogito",
+    "name": "U Pana Cogito",
+    "lat": 50.0506828,
+    "lng": 19.9266326,
+    "categoryId": "guesthouse",
+    "area": "",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 2896432499,
+        "url": "https://www.openstreetmap.org/node/2896432499"
+      },
+      "osmTags": {
+        "wikidata": "Q112001028",
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "atlantis-hostel",
+    "name": "Atlantis Hostel",
+    "lat": 50.0541233,
+    "lng": 19.942999,
+    "categoryId": "hostel",
+    "area": "",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": "https://www.atlantishostel.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 167349136,
+        "url": "https://www.openstreetmap.org/way/167349136"
+      },
+      "osmTags": {
+        "wikidata": "Q111137579",
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "bubble-hostel",
+    "name": "Bubble Hostel",
+    "lat": 50.0663545,
+    "lng": 19.9403474,
+    "categoryId": "hostel",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": "http://bubblehostel.com/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 9709921788,
+        "url": "https://www.openstreetmap.org/node/9709921788"
+      },
+      "osmTags": {
+        "wikidata": "Q111137580",
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "bursa-jagiellonska",
+    "name": "Bursa Jagiellońska",
+    "lat": 50.0394999,
+    "lng": 19.9409354,
+    "categoryId": "hostel",
+    "area": "",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": "https://www.bursa.krakow.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4872547724,
+        "url": "https://www.openstreetmap.org/node/4872547724"
+      },
+      "osmTags": {
+        "wikidata": "Q9182269",
+        "wikipedia": "pl:Bursa Jagiellońska w Krakowie",
+        "opening_hours": "24/7",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "greg-tom-home-hostel",
+    "name": "Greg & Tom Home Hostel",
+    "lat": 50.0657498,
+    "lng": 19.9447995,
+    "categoryId": "hostel",
+    "area": "Kleparz",
+    "description": "Popularny hostel blisko dworca i Starego Miasta.",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay",
+      "budget",
+      "social"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 994366882,
+        "url": "https://www.openstreetmap.org/node/994366882"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "hostel-deco",
+    "name": "Hostel Deco",
+    "lat": 50.0729115,
+    "lng": 19.931105,
+    "categoryId": "hostel",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": "http://www.hosteldeco.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 2497531100,
+        "url": "https://www.openstreetmap.org/node/2497531100"
+      },
+      "osmTags": {
+        "wikidata": "Q111133363",
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "moon-hostel",
+    "name": "Moon Hostel",
+    "lat": 50.0521133,
+    "lng": 19.9506722,
+    "categoryId": "hostel",
+    "area": "",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": "https://moonhostel.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 6917366687,
+        "url": "https://www.openstreetmap.org/node/6917366687"
+      },
+      "osmTags": {
+        "wikidata": "Q111133361",
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "premium-hostel",
+    "name": "Premium Hostel",
+    "lat": 50.0708191,
+    "lng": 19.9249525,
+    "categoryId": "hostel",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": "https://www.premiumhostel.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4194784489,
+        "url": "https://www.openstreetmap.org/node/4194784489"
+      },
+      "osmTags": {
+        "wikidata": "Q111137581",
+        "wikipedia": null,
+        "opening_hours": "24/7",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "tara",
+    "name": "Tara",
+    "lat": 50.0508081,
+    "lng": 19.9422055,
+    "categoryId": "hostel",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": "http://www.tarahostel.com",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 8195559414,
+        "url": "https://www.openstreetmap.org/node/8195559414"
+      },
+      "osmTags": {
+        "wikidata": "Q111119029",
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "golden-tulip-krakow-kazimierz",
+    "name": "Golden Tulip Krakow Kazimierz",
+    "lat": 50.0497364,
+    "lng": 19.943605,
+    "categoryId": "hotel",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": "https://krakow-kazimierz.goldentulip.com",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 417362630,
+        "url": "https://www.openstreetmap.org/way/417362630"
+      },
+      "osmTags": {
+        "wikidata": "Q111401109",
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "hilton-garden-inn-krakow",
+    "name": "Hilton Garden Inn Krakow",
+    "lat": 50.0440621,
+    "lng": 19.9340716,
+    "categoryId": "hotel",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": "https://www.hilton.com/en/hotels/krkgigi-hilton-garden-inn-krakow/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 104662494,
+        "url": "https://www.openstreetmap.org/way/104662494"
+      },
+      "osmTags": {
+        "wikidata": "Q75018491",
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "hotel-amber",
+    "name": "Hotel Amber",
+    "lat": 50.0866401,
+    "lng": 19.8932969,
+    "categoryId": "hotel",
+    "area": "Stare Miasto",
+    "description": "Kameralny hotel blisko Rynku Głównego.",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay",
+      "central"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 308463670,
+        "url": "https://www.openstreetmap.org/way/308463670"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "hotel-copernicus",
+    "name": "Hotel Copernicus",
+    "lat": 50.0562705,
+    "lng": 19.9375835,
+    "categoryId": "hotel",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1516840255,
+        "url": "https://www.openstreetmap.org/node/1516840255"
+      },
+      "osmTags": {
+        "wikidata": "Q9294055",
+        "wikipedia": "pl:Kamienica Pod Motylem w Krakowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "hotel-europejski",
+    "name": "Hotel Europejski",
+    "lat": 50.0644771,
+    "lng": 19.9461619,
+    "categoryId": "hotel",
+    "area": "",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 2459882718,
+        "url": "https://www.openstreetmap.org/node/2459882718"
+      },
+      "osmTags": {
+        "wikidata": "Q9294061",
+        "wikipedia": "pl:Hotel Europejski w Krakowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "hotel-floryan",
+    "name": "Hotel Floryan",
+    "lat": 50.0644376,
+    "lng": 19.940776,
+    "categoryId": "hotel",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 202294898,
+        "url": "https://www.openstreetmap.org/way/202294898"
+      },
+      "osmTags": {
+        "wikidata": "Q16558534",
+        "wikipedia": "pl:Kamienica przy ul. Floriańskiej 38 w Krakowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "hotel-polonia",
+    "name": "Hotel Polonia",
+    "lat": 50.064886,
+    "lng": 19.9447502,
+    "categoryId": "hotel",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": "https://hotel-polonia.com.pl/hotel-polonia",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 9692024827,
+        "url": "https://www.openstreetmap.org/node/9692024827"
+      },
+      "osmTags": {
+        "wikidata": "Q11710149",
+        "wikipedia": "pl:Hotel Polonia w Krakowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "hyatt-place-krakow",
+    "name": "Hyatt Place Krakow",
+    "lat": 50.0629404,
+    "lng": 19.9097372,
+    "categoryId": "hotel",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": "https://www.hyatt.com/hyatt-place/en-US/krkzk-hyatt-place-krakow",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 1039863514,
+        "url": "https://www.openstreetmap.org/way/1039863514"
+      },
+      "osmTags": {
+        "wikidata": "Q136300370",
+        "wikipedia": null,
+        "opening_hours": "24/7",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "ibis-krakow-centrum",
+    "name": "Ibis Krakow Centrum",
+    "lat": 50.0553681,
+    "lng": 19.9256751,
+    "categoryId": "hotel",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": "https://all.accor.com/hotel/3710/index.en.shtml",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 2217193956,
+        "url": "https://www.openstreetmap.org/node/2217193956"
+      },
+      "osmTags": {
+        "wikidata": "Q111401090",
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "pollera",
+    "name": "Pollera",
+    "lat": 50.0635367,
+    "lng": 19.9415045,
+    "categoryId": "hotel",
+    "area": "",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": "https://pollera.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 153158166,
+        "url": "https://www.openstreetmap.org/way/153158166"
+      },
+      "osmTags": {
+        "wikidata": "Q9294114",
+        "wikipedia": "pl:Hotel Pollera w Krakowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "qubus",
+    "name": "Qubus",
+    "lat": 50.0478857,
+    "lng": 19.9529689,
+    "categoryId": "hotel",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": "https://www.qubushotel.com/hotele.php?lang=1&id_h=1",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 85676236,
+        "url": "https://www.openstreetmap.org/way/85676236"
+      },
+      "osmTags": {
+        "wikidata": "Q111401112",
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "radisson-blu",
+    "name": "Radisson Blu",
+    "lat": 50.0582578,
+    "lng": 19.9330149,
+    "categoryId": "hotel",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": "https://www.radissonhotels.com/pl-pl/hotele/radisson-blu-krakow",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 2064031,
+        "url": "https://www.openstreetmap.org/relation/2064031"
+      },
+      "osmTags": {
+        "wikidata": "Q111401083",
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "residence9",
+    "name": "Residence9",
+    "lat": 50.0625095,
+    "lng": 19.9353005,
+    "categoryId": "hotel",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": "https://www.residence9.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4101750146,
+        "url": "https://www.openstreetmap.org/node/4101750146"
+      },
+      "osmTags": {
+        "wikidata": "Q112000989",
+        "wikipedia": null,
+        "opening_hours": "24/7",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "royal",
+    "name": "Royal",
+    "lat": 50.0545092,
+    "lng": 19.9393285,
+    "categoryId": "hotel",
+    "area": "",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": "http://www.hotelewam.pl/510-hotel-royal-krakow.html",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1387769462,
+        "url": "https://www.openstreetmap.org/node/1387769462"
+      },
+      "osmTags": {
+        "wikidata": "Q11710152",
+        "wikipedia": "pl:Hotel Royal w Krakowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "sheraton",
+    "name": "Sheraton",
+    "lat": 50.056027,
+    "lng": 19.9308936,
+    "categoryId": "hotel",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": "https://www.sheratongrandkrakow.com.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 60420328,
+        "url": "https://www.openstreetmap.org/way/60420328"
+      },
+      "osmTags": {
+        "wikidata": "Q9294147",
+        "wikipedia": "pl:Sheraton Grand Krakow",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "stradom-house",
+    "name": "Stradom House",
+    "lat": 50.0527837,
+    "lng": 19.940874,
+    "categoryId": "hotel",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": "https://www.stradomhouse.com",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 152301837,
+        "url": "https://www.openstreetmap.org/way/152301837"
+      },
+      "osmTags": {
+        "wikidata": "Q11746727",
+        "wikipedia": "pl:Kościół św. Jadwigi w Krakowie (na Stradomiu)",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "bastion-iii-kleparz",
+    "name": "Bastion III \"Kleparz\"",
+    "lat": 50.0750194,
+    "lng": 19.9378041,
+    "categoryId": "landmark",
+    "area": "",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 1801655,
+        "url": "https://www.openstreetmap.org/relation/1801655"
+      },
+      "osmTags": {
+        "wikidata": "Q4868350",
+        "wikipedia": "pl:Bastion (fort reditowy) III „Kleparz”",
+        "opening_hours": "off",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "baszta-pasamonikow",
+    "name": "Baszta Pasamoników",
+    "lat": 50.0647421,
+    "lng": 19.9422443,
+    "categoryId": "landmark",
+    "area": "",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 200814803,
+        "url": "https://www.openstreetmap.org/way/200814803"
+      },
+      "osmTags": {
+        "wikidata": "Q9166818",
+        "wikipedia": "pl:Baszta Pasamoników w Krakowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "baszta-stolarska",
+    "name": "Baszta Stolarska",
+    "lat": 50.0650161,
+    "lng": 19.9406375,
+    "categoryId": "landmark",
+    "area": "",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 200499486,
+        "url": "https://www.openstreetmap.org/way/200499486"
+      },
+      "osmTags": {
+        "wikidata": "Q9166827",
+        "wikipedia": "pl:Baszta Stolarzy w Krakowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "collegium-sniadeckiego",
+    "name": "Collegium Śniadeckiego",
+    "lat": 50.0636743,
+    "lng": 19.9559412,
+    "categoryId": "landmark",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 348252385,
+        "url": "https://www.openstreetmap.org/way/348252385"
+      },
+      "osmTags": {
+        "wikidata": "Q11691335",
+        "wikipedia": "pl:Collegium Śniadeckiego Uniwersytetu Jagiellońskiego",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "czerwony-dom",
+    "name": "Czerwony Dom",
+    "lat": 50.0317785,
+    "lng": 19.9680039,
+    "categoryId": "landmark",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 150025008,
+        "url": "https://www.openstreetmap.org/way/150025008"
+      },
+      "osmTags": {
+        "wikidata": "Q11732950",
+        "wikipedia": "pl:Willa komendanta obozu Plaszow",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "dworek-bialopradnicki",
+    "name": "Dworek Białoprądnicki",
+    "lat": 50.0928279,
+    "lng": 19.9409203,
+    "categoryId": "landmark",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": "https://dworek.eu/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 30825094,
+        "url": "https://www.openstreetmap.org/way/30825094"
+      },
+      "osmTags": {
+        "wikidata": "Q9186321",
+        "wikipedia": "pl:Centrum Kultury „Dworek Białoprądnicki”",
+        "opening_hours": "Mo-Fr 08:00-16:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "fort-31-benedykt",
+    "name": "Fort 31 „Benedykt”",
+    "lat": 50.0427466,
+    "lng": 19.9580588,
+    "categoryId": "landmark",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 19375790,
+        "url": "https://www.openstreetmap.org/relation/19375790"
+      },
+      "osmTags": {
+        "wikidata": "Q16545690",
+        "wikipedia": "pl:Fort (wieża artyleryjska) 31 „Benedykt”",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "fort-49a-dlubnia",
+    "name": "Fort 49a \"Dłubnia\"",
+    "lat": 50.0983552,
+    "lng": 20.0411241,
+    "categoryId": "landmark",
+    "area": "",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 423648163,
+        "url": "https://www.openstreetmap.org/way/423648163"
+      },
+      "osmTags": {
+        "wikidata": "Q9261742",
+        "wikipedia": "pl:Fort pancerny główny 49a „Dłubnia”",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "fort-50-o-kosocice",
+    "name": "Fort 50½ O \"Kosocice\"",
+    "lat": 49.9947784,
+    "lng": 19.9920668,
+    "categoryId": "landmark",
+    "area": "",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 244542996,
+        "url": "https://www.openstreetmap.org/way/244542996"
+      },
+      "osmTags": {
+        "wikidata": "Q30161690",
+        "wikipedia": "pl:Fort pancerny główny 50 ½ OST „Barycz” / „Kosocice”",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "palac-czarkowskich",
+    "name": "Pałac Czarkowskich",
+    "lat": 50.0595856,
+    "lng": 19.9324834,
+    "categoryId": "landmark",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 143916299,
+        "url": "https://www.openstreetmap.org/way/143916299"
+      },
+      "osmTags": {
+        "wikidata": "Q11814745",
+        "wikipedia": "pl:Pałac Czarkowskich w Krakowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "palac-kirchmayerow",
+    "name": "Pałac Kirchmayerów",
+    "lat": 50.0677305,
+    "lng": 20.107984,
+    "categoryId": "landmark",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": "http://dommonarukrakow.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 133328445,
+        "url": "https://www.openstreetmap.org/way/133328445"
+      },
+      "osmTags": {
+        "wikidata": "Q11814783",
+        "wikipedia": "pl:Pałac Kirchmayerów w Pleszowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "palac-tarnowskich",
+    "name": "Pałac Tarnowskich",
+    "lat": 50.0704226,
+    "lng": 19.9423036,
+    "categoryId": "landmark",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 152654173,
+        "url": "https://www.openstreetmap.org/way/152654173"
+      },
+      "osmTags": {
+        "wikidata": "Q11814905",
+        "wikipedia": "pl:Pałac na Szlaku w Krakowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "palac-wolodkowiczow",
+    "name": "Pałac Wołodkowiczów",
+    "lat": 50.0651603,
+    "lng": 19.9459815,
+    "categoryId": "landmark",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 39394967,
+        "url": "https://www.openstreetmap.org/way/39394967"
+      },
+      "osmTags": {
+        "wikidata": "Q11814887",
+        "wikipedia": "pl:Pałac Wołodkowiczów w Krakowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "ruiny-fortu-47-sudol",
+    "name": "Ruiny fortu 47½ \"Sudół\"",
+    "lat": 50.1032128,
+    "lng": 19.9853879,
+    "categoryId": "landmark",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 353656737,
+        "url": "https://www.openstreetmap.org/way/353656737"
+      },
+      "osmTags": {
+        "wikidata": "Q11698491",
+        "wikipedia": "pl:Fort pancerny pomocniczy 47 ½ „Sudół”",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "schron-amunicyjny-swoszowice",
+    "name": "Schron amunicyjny Swoszowice",
+    "lat": 49.9940113,
+    "lng": 19.9472388,
+    "categoryId": "landmark",
+    "area": "",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 337263775,
+        "url": "https://www.openstreetmap.org/way/337263775"
+      },
+      "osmTags": {
+        "wikidata": "Q30161694",
+        "wikipedia": "pl:Schron amunicyjny „Swoszowice”",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "szary-dom",
+    "name": "Szary Dom",
+    "lat": 50.0331326,
+    "lng": 19.9663561,
+    "categoryId": "landmark",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 150633341,
+        "url": "https://www.openstreetmap.org/way/150633341"
+      },
+      "osmTags": {
+        "wikidata": "Q11732951",
+        "wikipedia": "pl:Szary Dom (Kraków)",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "teatr-im-juliusza-slowackiego",
+    "name": "Teatr im. Juliusza Słowackiego",
+    "lat": 50.0639462,
+    "lng": 19.9430484,
+    "categoryId": "landmark",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": "https://teatrwkrakowie.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 153942974,
+        "url": "https://www.openstreetmap.org/way/153942974"
+      },
+      "osmTags": {
+        "wikidata": "Q3527492",
+        "wikipedia": "pl:Teatr im. Juliusza Słowackiego w Krakowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "wyzsze-seminarium-duchowne-archidiecezji-krakowskiej",
+    "name": "Wyższe Seminarium Duchowne Archidiecezji Krakowskiej",
+    "lat": 50.0601912,
+    "lng": 19.9315219,
+    "categoryId": "landmark",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": "https://seminarium-krakow.pl/o-seminarium/historia-2/dzieje-domu-przy-ul-pilsudskiego-4/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 143916294,
+        "url": "https://www.openstreetmap.org/way/143916294"
+      },
+      "osmTags": {
+        "wikidata": "Q11814824",
+        "wikipedia": "pl:Pałac Ogińskich i Potulickich w Krakowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "eagle-pharmacy",
+    "name": "Apteka pod Orłem",
+    "lat": 50.0462364,
+    "lng": 19.9541481,
+    "categoryId": "museum",
+    "area": "Podgórze",
+    "description": "Oddział Muzeum Krakowa poświęcony historii getta i jego mieszkańców.",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "museum",
+      "history",
+      "ww2"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 979972831,
+        "url": "https://www.openstreetmap.org/node/979972831"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "barbakan",
+    "name": "Barbakan",
+    "lat": 50.0654585,
+    "lng": 19.9416339,
+    "categoryId": "museum",
+    "area": "",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture"
+    ],
+    "ratings": [],
+    "website": "https://muzeumkrakowa.pl/oddzialy/barbakan",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 13562708,
+        "url": "https://www.openstreetmap.org/relation/13562708"
+      },
+      "osmTags": {
+        "wikidata": "Q807309",
+        "wikipedia": "pl:Barbakan w Krakowie",
+        "opening_hours": "Mo-Su 10:30-18:00; Nov-Mar off",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "dom-jozefa-mehoffera",
+    "name": "Dom Józefa Mehoffera",
+    "lat": 50.063264,
+    "lng": 19.928418,
+    "categoryId": "museum",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture"
+    ],
+    "ratings": [],
+    "website": "https://mnk.pl/oddzialy/mehoffer/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 39393947,
+        "url": "https://www.openstreetmap.org/way/39393947"
+      },
+      "osmTags": {
+        "wikidata": "Q1715072",
+        "wikipedia": "pl:Dom Józefa Mehoffera w Krakowie",
+        "opening_hours": "Tu-Fr 09:00-16:00; Sa 10:00-18:00; Su 10:00-16:00; Mo off",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "galeria-sztuki-polskiej-xix-wieku",
+    "name": "Galeria Sztuki Polskiej XIX wieku",
+    "lat": 50.061742,
+    "lng": 19.9375879,
+    "categoryId": "museum",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture"
+    ],
+    "ratings": [],
+    "website": "https://mnk.pl/oddzial/galeria-sztuki-polskiej/o-oddziale",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4031826801,
+        "url": "https://www.openstreetmap.org/node/4031826801"
+      },
+      "osmTags": {
+        "wikidata": "Q7635861",
+        "wikipedia": "pl:Galeria Sztuki Polskiej XIX wieku w Sukiennicach",
+        "opening_hours": "Su 10:00-16:00; Th 10:00-20:00; Tu, We, Fr, Sa 10:00-18:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "mufo-rakowicka",
+    "name": "MuFo Rakowicka",
+    "lat": 50.0704026,
+    "lng": 19.9535324,
+    "categoryId": "museum",
+    "area": "Stare Miasto",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture"
+    ],
+    "ratings": [],
+    "website": "https://www.mufo.krakow.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 1025803982,
+        "url": "https://www.openstreetmap.org/way/1025803982"
+      },
+      "osmTags": {
+        "wikidata": "Q9047022",
+        "wikipedia": "pl:Muzeum Fotografii w Krakowie",
+        "opening_hours": "Mo-Fr 10:00-18:00; Sa-Su 11:00-19:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "muzeum-archeologiczne",
+    "name": "Muzeum Archeologiczne",
+    "lat": 50.0575557,
+    "lng": 19.9362547,
+    "categoryId": "museum",
+    "area": "",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture"
+    ],
+    "ratings": [],
+    "website": "https://ma.krakow.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 1863002,
+        "url": "https://www.openstreetmap.org/relation/1863002"
+      },
+      "osmTags": {
+        "wikidata": "Q3329434",
+        "wikipedia": "pl:Muzeum Archeologiczne w Krakowie",
+        "opening_hours": "Mo-Su 10:00-16:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "muzeum-armii-krajowej",
+    "name": "Muzeum Armii Krajowej",
+    "lat": 50.0723886,
+    "lng": 19.9487071,
+    "categoryId": "museum",
+    "area": "Stare Miasto",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture"
+    ],
+    "ratings": [],
+    "website": "https://www.muzeum-ak.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 1765210,
+        "url": "https://www.openstreetmap.org/relation/1765210"
+      },
+      "osmTags": {
+        "wikidata": "Q4793410",
+        "wikipedia": "pl:Muzeum Armii Krajowej w Krakowie",
+        "opening_hours": "Tu-Su 11:00-17:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "muzeum-farmacji-uj",
+    "name": "Muzeum Farmacji UJ",
+    "lat": 50.0632264,
+    "lng": 19.9403302,
+    "categoryId": "museum",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture"
+    ],
+    "ratings": [],
+    "website": "http://muzeum.farmacja.uj.edu.pl",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 471557535,
+        "url": "https://www.openstreetmap.org/node/471557535"
+      },
+      "osmTags": {
+        "wikidata": "Q11786965",
+        "wikipedia": "pl:Muzeum Farmacji Collegium Medicum Uniwersytetu Jagiellońskiego",
+        "opening_hours": "We-Sa 09:30-15:00; Tu 12:00-18:30",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "muzeum-i-archiwum-marii-angeli-truszkowskiej",
+    "name": "Muzeum i Archiwum Marii Angeli Truszkowskiej",
+    "lat": 50.0613744,
+    "lng": 19.9417126,
+    "categoryId": "museum",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture"
+    ],
+    "ratings": [],
+    "website": "http://www.muzeum-mat.cssf.opoka.org.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4281228578,
+        "url": "https://www.openstreetmap.org/node/4281228578"
+      },
+      "osmTags": {
+        "wikidata": "Q11787298",
+        "wikipedia": "pl:Muzeum i Archiwum bł. Marii Angeli Truszkowskiej w Krakowie",
+        "opening_hours": "Tu 14:00-17:00; We-Fr 10:00-14:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "muzeum-im-emeryka-hutten-czapskiego",
+    "name": "Muzeum im. Emeryka Hutten-Czapskiego",
+    "lat": 50.0599089,
+    "lng": 19.930167,
+    "categoryId": "museum",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture"
+    ],
+    "ratings": [],
+    "website": "https://mnk.pl/oddzial/muzeum-im-emeryka-hutten-czapskiego",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 929760911,
+        "url": "https://www.openstreetmap.org/way/929760911"
+      },
+      "osmTags": {
+        "wikidata": "Q1338606",
+        "wikipedia": "pl:Muzeum im. Emeryka Hutten-Czapskiego",
+        "opening_hours": "Tu-Sa 10:00-18:00; Su 10:00-16:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "nowa-huta-museum",
+    "name": "Muzeum Nowej Huty",
+    "lat": 50.0617966,
+    "lng": 19.9459505,
+    "categoryId": "museum",
+    "area": "Nowa Huta",
+    "description": "Muzeum poświęcone historii i dziedzictwu Nowej Huty.",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "museum",
+      "history",
+      "nowa-huta"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 5751039807,
+        "url": "https://www.openstreetmap.org/node/5751039807"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "stained-glass-museum",
+    "name": "Muzeum Witrażu",
+    "lat": 50.0590085,
+    "lng": 19.9257049,
+    "categoryId": "museum",
+    "area": "Piasek",
+    "description": "Muzeum połączone z działającą pracownią witraży.",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "museum",
+      "art",
+      "hidden"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4817320821,
+        "url": "https://www.openstreetmap.org/node/4817320821"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "wieza-ratuszowa",
+    "name": "Wieża Ratuszowa",
+    "lat": 50.0614744,
+    "lng": 19.9364146,
+    "categoryId": "museum",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture"
+    ],
+    "ratings": [],
+    "website": "https://muzeumkrakowa.pl/oddzialy/wieza-ratuszowa",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 25122842,
+        "url": "https://www.openstreetmap.org/way/25122842"
+      },
+      "osmTags": {
+        "wikidata": "Q1786361",
+        "wikipedia": "pl:Wieża ratuszowa w Krakowie",
+        "opening_hours": "Mo 11:00-15:00; Tu-Su 11:00-18:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "podgorze-market-square",
+    "name": "Rynek Podgórski",
+    "lat": 50.0447663,
+    "lng": 19.9491193,
+    "categoryId": "neighborhood",
+    "area": "Podgórze",
+    "description": "Historyczny rynek dawnego miasta Podgórze.",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "local",
+      "architecture",
+      "free"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "nominatim-openstreetmap",
+        "osmType": "way",
+        "id": 233567568,
+        "url": "https://www.openstreetmap.org/way/233567568"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "ogrod-doswiadczen-im-stanislawa-lema",
+    "name": "Ogród Doświadczeń im. Stanisława Lema",
+    "lat": 50.0681673,
+    "lng": 19.9965944,
+    "categoryId": "park",
+    "area": "",
+    "description": "",
+    "minutes": 40,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature"
+    ],
+    "ratings": [],
+    "website": "https://www.ogroddoswiadczen.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 26003892,
+        "url": "https://www.openstreetmap.org/way/26003892"
+      },
+      "osmTags": {
+        "wikidata": "Q11796751",
+        "wikipedia": "pl:Ogród Doświadczeń w Krakowie",
+        "opening_hours": "Apr-Aug: Mo-Fr 09:00-19:00; Apr-Aug: Sa,Su 10:00-19:00; Sep-Oct: Mo-Fr 10:00-17:00; Sep-Oct: Sa,Su 10:00-19:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "bednarski-park",
+    "name": "Park Bednarskiego",
+    "lat": 50.0417372,
+    "lng": 19.9492439,
+    "categoryId": "park",
+    "area": "Podgórze",
+    "description": "Zielony park położony w dawnym kamieniołomie w Podgórzu.",
+    "minutes": 40,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature",
+      "local",
+      "walk",
+      "free"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 26344189,
+        "url": "https://www.openstreetmap.org/way/26344189"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "park-jalu-kurka",
+    "name": "Park Jalu Kurka",
+    "lat": 50.0697906,
+    "lng": 19.9419666,
+    "categoryId": "park",
+    "area": "",
+    "description": "",
+    "minutes": 40,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 44135132,
+        "url": "https://www.openstreetmap.org/way/44135132"
+      },
+      "osmTags": {
+        "wikidata": "Q11811345",
+        "wikipedia": "pl:Park Jalu Kurka",
+        "opening_hours": "06:00-22:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "jordan-park",
+    "name": "Park Jordana",
+    "lat": 50.0627106,
+    "lng": 19.9159858,
+    "categoryId": "park",
+    "area": "Błonia",
+    "description": "Duży park rekreacyjny obok Błoń.",
+    "minutes": 40,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature",
+      "sport",
+      "free"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 25113939,
+        "url": "https://www.openstreetmap.org/way/25113939"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "park-krakowski",
+    "name": "Park Krakowski",
+    "lat": 50.0680746,
+    "lng": 19.9244493,
+    "categoryId": "park",
+    "area": "",
+    "description": "",
+    "minutes": 40,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 25506183,
+        "url": "https://www.openstreetmap.org/way/25506183"
+      },
+      "osmTags": {
+        "wikidata": "Q7137860",
+        "wikipedia": "pl:Park Krakowski im. Marka Grechuty",
+        "opening_hours": "24/7",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "park-planty-krakowskie",
+    "name": "Park Planty Krakowskie",
+    "lat": 50.0602487,
+    "lng": 19.9384248,
+    "categoryId": "park",
+    "area": "",
+    "description": "",
+    "minutes": 40,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 1221128266,
+        "url": "https://www.openstreetmap.org/way/1221128266"
+      },
+      "osmTags": {
+        "wikidata": "Q1945780",
+        "wikipedia": "pl:Planty Krakowskie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "park-reduta",
+    "name": "Park Reduta",
+    "lat": 50.096562,
+    "lng": 19.9851995,
+    "categoryId": "park",
+    "area": "",
+    "description": "",
+    "minutes": 40,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature"
+    ],
+    "ratings": [],
+    "website": "https://zzm.krakow.pl/park-reduta.html",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 595077343,
+        "url": "https://www.openstreetmap.org/way/595077343"
+      },
+      "osmTags": {
+        "wikidata": "Q97186574",
+        "wikipedia": "pl:Park Reduta",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "park-rogozinskich",
+    "name": "Park Rogozińskich",
+    "lat": 50.066531,
+    "lng": 20.0510686,
+    "categoryId": "park",
+    "area": "",
+    "description": "",
+    "minutes": 40,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 54678462,
+        "url": "https://www.openstreetmap.org/way/54678462"
+      },
+      "osmTags": {
+        "wikidata": "Q15505467",
+        "wikipedia": "pl:Park przy ulicy Klasztornej w Krakowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "park-strzelecki",
+    "name": "Park Strzelecki",
+    "lat": 50.0661408,
+    "lng": 19.9500345,
+    "categoryId": "park",
+    "area": "",
+    "description": "",
+    "minutes": 40,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 512161274,
+        "url": "https://www.openstreetmap.org/way/512161274"
+      },
+      "osmTags": {
+        "wikidata": "Q11811515",
+        "wikipedia": "pl:Park Strzelecki w Krakowie",
+        "opening_hours": "Apr 01-Oct 31 06:00-22:00; Nov 01-Mar 31 06:00-20:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "zalew-nowohucki",
+    "name": "Zalew Nowohucki",
+    "lat": 50.0791557,
+    "lng": 20.052952,
+    "categoryId": "park",
+    "area": "Nowa Huta",
+    "description": "Popularna przestrzeń spacerowa i rekreacyjna w Nowej Hucie.",
+    "minutes": 40,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature",
+      "local",
+      "nowa-huta",
+      "free"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 128505095,
+        "url": "https://www.openstreetmap.org/way/128505095"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "beergallery-luxury",
+    "name": "BeerGallery - Luxury",
+    "lat": 50.0621056,
+    "lng": 19.9425357,
+    "categoryId": "pub",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "website": "https://www.beergallery.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3785740451,
+        "url": "https://www.openstreetmap.org/node/3785740451"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Sa 12:00-02:00; Su 14:00-02:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "bropub-craft-beer-burgers",
+    "name": "BroPub Craft Beer & Burgers",
+    "lat": 50.0532009,
+    "lng": 19.9393017,
+    "categoryId": "pub",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife",
+      "burger",
+      "pizza",
+      "mexican"
+    ],
+    "ratings": [],
+    "website": "https://bropub.pl",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 9577894590,
+        "url": "https://www.openstreetmap.org/node/9577894590"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 16:00-24:00, Sa 12:00-01:00, Su 12:00-23:00",
+        "cuisine": "burger;pizza;mexican;fries"
+      }
+    }
+  },
+  {
+    "id": "drevny-kocur",
+    "name": "Dřevný Kocůr",
+    "lat": 50.062998,
+    "lng": 19.9383621,
+    "categoryId": "pub",
+    "area": "",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife",
+      "regional"
+    ],
+    "ratings": [],
+    "website": "https://drevnykocur.pl/krakowjana/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 11237098513,
+        "url": "https://www.openstreetmap.org/node/11237098513"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 12:00-23:00; Sa-Su 12:00-22:00",
+        "cuisine": "regional"
+      }
+    }
+  },
+  {
+    "id": "klub-pod-jaszczurami",
+    "name": "Klub Pod Jaszczurami",
+    "lat": 50.0608516,
+    "lng": 19.9381929,
+    "categoryId": "pub",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "website": "https://podjaszczurami.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 475613654,
+        "url": "https://www.openstreetmap.org/node/475613654"
+      },
+      "osmTags": {
+        "wikidata": "Q11820148",
+        "wikipedia": "pl:Pod Jaszczurami",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "pierwszy-lokal-na-stolarskiej-po-lewej-stronie-idac-od-malego-rynku",
+    "name": "Pierwszy Lokal na Stolarskiej po lewej stronie, idąc od Małego Rynku",
+    "lat": 50.0606523,
+    "lng": 19.9396118,
+    "categoryId": "pub",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "website": "https://www.facebook.com/PierwszyLokal/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4518838415,
+        "url": "https://www.openstreetmap.org/node/4518838415"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 09:00-5:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "radocha",
+    "name": "Radocha",
+    "lat": 50.055844,
+    "lng": 19.9411302,
+    "categoryId": "pub",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "website": "https://www.facebook.com/radochapub",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4047719345,
+        "url": "https://www.openstreetmap.org/node/4047719345"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Su-Th 12:00-00:00; Fr-Sa 12:00-02:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "schizofrenia-cafe",
+    "name": "Schizofrenia Café",
+    "lat": 50.0665053,
+    "lng": 19.9556711,
+    "categoryId": "pub",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "website": "https://www.facebook.com/klubschizofrenia/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4908095421,
+        "url": "https://www.openstreetmap.org/node/4908095421"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Tu-Th 16:00-01:00; Fr-Sa 16:00-05:00; Su 16:00-00:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "tawerna-stary-port",
+    "name": "Tawerna Stary Port",
+    "lat": 50.0612594,
+    "lng": 19.9318205,
+    "categoryId": "pub",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "website": "https://www.staryport.com.pl",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 279040195,
+        "url": "https://www.openstreetmap.org/node/279040195"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-We 10:00-01:00; Th,Fr 10:00-03:00; Sa 12:00-03:00; Su 12:00-01:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "bazylika-archikatedralna-swietych-stanislawa-i-waclawa",
+    "name": "Bazylika archikatedralna Świętych Stanisława i Wacława",
+    "lat": 50.0546439,
+    "lng": 19.9354796,
+    "categoryId": "religious_site",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": "https://katedra-wawelska.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 85151350,
+        "url": "https://www.openstreetmap.org/way/85151350"
+      },
+      "osmTags": {
+        "wikidata": "Q638519",
+        "wikipedia": "pl:Bazylika archikatedralna św. Stanisława i św. Wacława w Krakowie",
+        "opening_hours": "Mo-Sa 06:30-17:00; Su 07:00-17:30; Apr-Oct Mo-Sa 06:30-18:00; Apr-Oct Su 07:00-18:30",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "corpus-christi",
+    "name": "Bazylika Bożego Ciała",
+    "lat": 50.0497673,
+    "lng": 19.9449767,
+    "categoryId": "religious_site",
+    "area": "Kazimierz",
+    "description": "Monumentalna bazylika i jeden z najważniejszych zabytków Kazimierza.",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "history",
+      "architecture",
+      "culture"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 33291029,
+        "url": "https://www.openstreetmap.org/way/33291029"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "bazylika-nawiedzenia-najswietszej-maryi-panny",
+    "name": "Bazylika Nawiedzenia Najświętszej Maryi Panny",
+    "lat": 50.0651407,
+    "lng": 19.931944,
+    "categoryId": "religious_site",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": "https://krakow.karmelici.pl",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 203495624,
+        "url": "https://www.openstreetmap.org/way/203495624"
+      },
+      "osmTags": {
+        "wikidata": "Q5118073",
+        "wikipedia": "pl:Bazylika Nawiedzenia Najświętszej Maryi Panny w Krakowie (Na Piasku)",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "bazylika-wniebowziecia-najswietszej-maryi-panny",
+    "name": "Bazylika Wniebowzięcia Najświętszej Maryi Panny",
+    "lat": 50.0616572,
+    "lng": 19.93945,
+    "categoryId": "religious_site",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": "https://mariacki.com",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 26195267,
+        "url": "https://www.openstreetmap.org/way/26195267"
+      },
+      "osmTags": {
+        "wikidata": "Q1143171",
+        "wikipedia": "pl:Kościół archiprezbiterialny Wniebowzięcia Najświętszej Marii Panny w Krakowie",
+        "opening_hours": "Mo-Sa 11:30-18:00; Su 14:00-18:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "kaplica-pw-swietych-jana-chrzciciela-i-jana-ewangelisty",
+    "name": "Kaplica pw. Świętych Jana Chrzciciela i Jana Ewangelisty",
+    "lat": 50.0888377,
+    "lng": 19.9697134,
+    "categoryId": "religious_site",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": "https://www.janchrzciciel.eu/?page_id=38",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 931439759,
+        "url": "https://www.openstreetmap.org/way/931439759"
+      },
+      "osmTags": {
+        "wikidata": "Q11735262",
+        "wikipedia": "pl:Kaplica św. Jana Chrzciciela w Krakowie",
+        "opening_hours": "closed",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "kosciol-pw-matki-bozej-czestochowskiej",
+    "name": "Kościół pw. Matki Bożej Częstochowskiej",
+    "lat": 50.0032955,
+    "lng": 19.8805029,
+    "categoryId": "religious_site",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": "http://www.mbczestochowska.katolicki.eu/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 140560836,
+        "url": "https://www.openstreetmap.org/way/140560836"
+      },
+      "osmTags": {
+        "wikidata": "Q60855874",
+        "wikipedia": "pl:Kaplica Matki Bożej Częstochowskiej w Krakowie",
+        "opening_hours": "Mo-Sa 14:45-16:00; Su 08:30-10:00,14:45-17:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "kosciol-pw-swietego-krzyza",
+    "name": "Kościół pw. Świętego Krzyża",
+    "lat": 50.0633711,
+    "lng": 19.9433343,
+    "categoryId": "religious_site",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": "https://www.krzyzkrakow.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 138025140,
+        "url": "https://www.openstreetmap.org/way/138025140"
+      },
+      "osmTags": {
+        "wikidata": "Q11746269",
+        "wikipedia": "pl:Kościół Świętego Krzyża w Krakowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "kosciol-pw-swietego-wojciecha-biskupa-i-meczennika",
+    "name": "Kościół pw. Świętego Wojciecha Biskupa i Męczennika",
+    "lat": 50.060888,
+    "lng": 19.9377429,
+    "categoryId": "religious_site",
+    "area": "",
+    "description": "",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": "http://www.kosciolwojciecha.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 29271113,
+        "url": "https://www.openstreetmap.org/way/29271113"
+      },
+      "osmTags": {
+        "wikidata": "Q898260",
+        "wikipedia": "pl:Kościół św. Wojciecha w Krakowie (Rynek Główny)",
+        "opening_hours": "Mo-Sa 09:00-17:00; Su 13:30-18:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "kosciol-pw-swietej-barbary",
+    "name": "Kościół pw. Świętej Barbary",
+    "lat": 50.0613121,
+    "lng": 19.9398407,
+    "categoryId": "religious_site",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": "http://www.swbarbara.jezuici.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 138365337,
+        "url": "https://www.openstreetmap.org/way/138365337"
+      },
+      "osmTags": {
+        "wikidata": "Q606281",
+        "wikipedia": "pl:Kościół św. Barbary w Krakowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "baqaro",
+    "name": "Baqaro",
+    "lat": 50.0663493,
+    "lng": 19.9527922,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": "https://baqaro.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 11537721114,
+        "url": "https://www.openstreetmap.org/node/11537721114"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Tu-Su 12:00-22:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "biala-roza",
+    "name": "Biała Róża",
+    "lat": 50.0579547,
+    "lng": 19.9334184,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "polish"
+    ],
+    "ratings": [],
+    "website": "https://www.restauracjabialaroza.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 7611509719,
+        "url": "https://www.openstreetmap.org/node/7611509719"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 12:00-22:00; Sa-Su 13:00-22:00",
+        "cuisine": "polish"
+      }
+    }
+  },
+  {
+    "id": "bierhalle",
+    "name": "Bierhalle",
+    "lat": 50.0608345,
+    "lng": 19.9403936,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": "https://www.bierhalle.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3785745718,
+        "url": "https://www.openstreetmap.org/node/3785745718"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Th 08:00-24:00; Fr 08:00-03:00; Sa 11:00-03:00; Su 11:00-24:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "browar-lubicz",
+    "name": "Browar Lubicz",
+    "lat": 50.06468,
+    "lng": 19.9498566,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "polish"
+    ],
+    "ratings": [],
+    "website": "https://browar-lubicz.com.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3775841586,
+        "url": "https://www.openstreetmap.org/node/3775841586"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 12:00-24:00; Sa 00:00-01:00,13:00-24:00; Su 00:00-01:00,13:00-23:00",
+        "cuisine": "polish"
+      }
+    }
+  },
+  {
+    "id": "cechowa",
+    "name": "Cechowa",
+    "lat": 50.0619534,
+    "lng": 19.9343435,
+    "categoryId": "restaurant",
+    "area": "",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "local"
+    ],
+    "ratings": [],
+    "website": "https://www.restauracjacechowa.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 475387236,
+        "url": "https://www.openstreetmap.org/node/475387236"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 12:00-22:00",
+        "cuisine": "local"
+      }
+    }
+  },
+  {
+    "id": "ck-browar",
+    "name": "CK Browar",
+    "lat": 50.0634152,
+    "lng": 19.9325288,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "austrian",
+      "polish"
+    ],
+    "ratings": [],
+    "website": "https://ckbrowar.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3649039075,
+        "url": "https://www.openstreetmap.org/node/3649039075"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 12:00+",
+        "cuisine": "austrian;polish"
+      }
+    }
+  },
+  {
+    "id": "corleone",
+    "name": "Corleone",
+    "lat": 50.0581068,
+    "lng": 19.9391766,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "italian"
+    ],
+    "ratings": [],
+    "website": "http://www.corleone.krakow.pl",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4329105373,
+        "url": "https://www.openstreetmap.org/node/4329105373"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 12:00-22:00; Fr,Sa 12:00-23:00",
+        "cuisine": "italian"
+      }
+    }
+  },
+  {
+    "id": "cyrano-de-bergerac",
+    "name": "Cyrano de Bergerac",
+    "lat": 50.0649662,
+    "lng": 19.9383416,
+    "categoryId": "restaurant",
+    "area": "",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "regional",
+      "french"
+    ],
+    "ratings": [],
+    "website": "https://cyranodebergerac.com.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 490986223,
+        "url": "https://www.openstreetmap.org/node/490986223"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 12:00-23:00",
+        "cuisine": "regional;french"
+      }
+    }
+  },
+  {
+    "id": "czarna-kaczka",
+    "name": "Czarna kaczka",
+    "lat": 50.05827,
+    "lng": 19.9391354,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "polish"
+    ],
+    "ratings": [],
+    "website": "https://czarnakaczka.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4986442006,
+        "url": "https://www.openstreetmap.org/node/4986442006"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 13:00-22:00; Fr,Sa 13:00-23:00",
+        "cuisine": "polish"
+      }
+    }
+  },
+  {
+    "id": "falafel-shelanu",
+    "name": "Falafel Shelanu",
+    "lat": 50.0544884,
+    "lng": 19.9466556,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "asian"
+    ],
+    "ratings": [],
+    "website": "https://kosherkrakow.com/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 10226684188,
+        "url": "https://www.openstreetmap.org/node/10226684188"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 10:00-21:00; Sa 10:00-14:00",
+        "cuisine": "asian"
+      }
+    }
+  },
+  {
+    "id": "hard-rock-cafe",
+    "name": "Hard Rock Cafe",
+    "lat": 50.0614058,
+    "lng": 19.938773,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "american"
+    ],
+    "ratings": [],
+    "website": "https://www.hardrockcafe.com/location/krakow/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 475613690,
+        "url": "https://www.openstreetmap.org/node/475613690"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 10:00-00:00; Sa-Su 10:00-01:00",
+        "cuisine": "american"
+      }
+    }
+  },
+  {
+    "id": "hawelka",
+    "name": "Hawełka",
+    "lat": 50.0626523,
+    "lng": 19.936419,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": "https://www.hawelka.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 475387314,
+        "url": "https://www.openstreetmap.org/node/475387314"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 10:00-22:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "jarema",
+    "name": "Jarema",
+    "lat": 50.0664997,
+    "lng": 19.9426269,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "regional"
+    ],
+    "ratings": [],
+    "website": "http://www.jarema.pl",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1936191540,
+        "url": "https://www.openstreetmap.org/node/1936191540"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 12:00-20:00+",
+        "cuisine": "regional"
+      }
+    }
+  },
+  {
+    "id": "ka-vegan-udon-sushi",
+    "name": "Ka Vegan Udon & Sushi",
+    "lat": 50.0676013,
+    "lng": 19.9519997,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "korean",
+      "ramen",
+      "sushi"
+    ],
+    "ratings": [],
+    "website": "https://www.kavegan.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4802175413,
+        "url": "https://www.openstreetmap.org/node/4802175413"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Th-Sa 12:00-22:00; Mo-We 12:00-21:00; Su 12:00-21:00",
+        "cuisine": "korean;ramen;sushi"
+      }
+    }
+  },
+  {
+    "id": "kwadrans",
+    "name": "Kwadrans",
+    "lat": 50.0665538,
+    "lng": 19.9296753,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "polish"
+    ],
+    "ratings": [],
+    "website": "https://kwadrans.pl",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3656292426,
+        "url": "https://www.openstreetmap.org/node/3656292426"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 09:00-18:00",
+        "cuisine": "polish"
+      }
+    }
+  },
+  {
+    "id": "miod-malina",
+    "name": "Miód Malina",
+    "lat": 50.058086,
+    "lng": 19.9382121,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "polish-italian"
+    ],
+    "ratings": [],
+    "website": "https://miodmalina.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4161938189,
+        "url": "https://www.openstreetmap.org/node/4161938189"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 12:00-23:00",
+        "cuisine": "polish,italian"
+      }
+    }
+  },
+  {
+    "id": "morskie-oko",
+    "name": "Morskie Oko",
+    "lat": 50.0637452,
+    "lng": 19.9362107,
+    "categoryId": "restaurant",
+    "area": "",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "regional"
+    ],
+    "ratings": [],
+    "website": "https://www.morskieoko.krakow.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 475387255,
+        "url": "https://www.openstreetmap.org/node/475387255"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 12:00-24:00",
+        "cuisine": "regional"
+      }
+    }
+  },
+  {
+    "id": "novum-bistro",
+    "name": "Novum Bistro",
+    "lat": 50.0655782,
+    "lng": 19.9540376,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": "https://m.facebook.com/novumbistro/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 6216197785,
+        "url": "https://www.openstreetmap.org/node/6216197785"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 09:00-22:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "otto-pompieri",
+    "name": "Otto Pompieri",
+    "lat": 50.058889,
+    "lng": 19.9526805,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "pizza"
+    ],
+    "ratings": [],
+    "website": "https://ottopompieri.pl/kontakt/krakow-ul-grzegorzecka-18",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 13371633310,
+        "url": "https://www.openstreetmap.org/node/13371633310"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Th,Su 12:00-22:00; Fr-Sa 12:00-23:00",
+        "cuisine": "pizza"
+      }
+    }
+  },
+  {
+    "id": "padre",
+    "name": "Padre",
+    "lat": 50.0601914,
+    "lng": 19.9341714,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": "https://epadre.pl",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3801876870,
+        "url": "https://www.openstreetmap.org/node/3801876870"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 13:00-22:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "pasta-bar",
+    "name": "Pasta Bar",
+    "lat": 50.0640371,
+    "lng": 19.9379623,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": "https://pastabar.com.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 5622315212,
+        "url": "https://www.openstreetmap.org/node/5622315212"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 12:00-23:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "paul-s-place-restauant-bar",
+    "name": "Paul's Place Restauant & Bar",
+    "lat": 50.0603927,
+    "lng": 19.9355275,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "european",
+      "polish"
+    ],
+    "ratings": [],
+    "website": "http://paulsplacekrakow.com/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 5931261604,
+        "url": "https://www.openstreetmap.org/node/5931261604"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 08:00-12:00",
+        "cuisine": "european;polish"
+      }
+    }
+  },
+  {
+    "id": "pino",
+    "name": "Pino",
+    "lat": 50.0631354,
+    "lng": 19.9357477,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "international"
+    ],
+    "ratings": [],
+    "website": "https://www.restauracjapino.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 475387250,
+        "url": "https://www.openstreetmap.org/node/475387250"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Th 13:00-23:00; Fr-Su 12:00-23:00",
+        "cuisine": "international"
+      }
+    }
+  },
+  {
+    "id": "pizzeria-trzy-papryczki",
+    "name": "Pizzeria Trzy Papryczki",
+    "lat": 50.0581068,
+    "lng": 19.9387609,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "pizza"
+    ],
+    "ratings": [],
+    "website": "http://trzypapryczki.krakow.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4329105372,
+        "url": "https://www.openstreetmap.org/node/4329105372"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Th 12:00-22:00; Fr 12:00-23:00; Sa 11:30-23:00; Su 11:30-22:00",
+        "cuisine": "pizza"
+      }
+    }
+  },
+  {
+    "id": "pod-leliwa",
+    "name": "Pod Leliwą",
+    "lat": 50.0641562,
+    "lng": 19.9380376,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": "https://www.podleliwa.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 8787180327,
+        "url": "https://www.openstreetmap.org/node/8787180327"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 12:00-22:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "pod-nosem",
+    "name": "Pod Nosem",
+    "lat": 50.0557539,
+    "lng": 19.9372166,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": "http://kanonicza22.pl",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4880291725,
+        "url": "https://www.openstreetmap.org/node/4880291725"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 12:00-22:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "polonia",
+    "name": "Polonia",
+    "lat": 50.0650053,
+    "lng": 19.944798,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": "https://hotel-polonia.com.pl/hotel-polonia/restauracja",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 9692024828,
+        "url": "https://www.openstreetmap.org/node/9692024828"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Sa 12:00-22:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "regale-bar-restaurant",
+    "name": "Regale Bar & Restaurant",
+    "lat": 50.063366,
+    "lng": 19.9378106,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "polish",
+      "international"
+    ],
+    "ratings": [],
+    "website": "https://regale.restaurant/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 10225693547,
+        "url": "https://www.openstreetmap.org/node/10225693547"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 14:00-00:00, Sa-Su 12:00-00:00",
+        "cuisine": "polish;international"
+      }
+    }
+  },
+  {
+    "id": "restauracja-po-krakosku",
+    "name": "Restauracja Po Krakosku",
+    "lat": 50.0608273,
+    "lng": 19.9385367,
+    "categoryId": "restaurant",
+    "area": "Kazimierz",
+    "description": "Kuchnia inspirowana Krakowem i Galicją przy placu Wolnica.",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "polish",
+      "kazimierz"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 9870673217,
+        "url": "https://www.openstreetmap.org/node/9870673217"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "restauracja-sasiedzi",
+    "name": "Restauracja Sąsiedzi",
+    "lat": 50.0608273,
+    "lng": 19.9385367,
+    "categoryId": "restaurant",
+    "area": "Kazimierz",
+    "description": "Restauracja na Kazimierzu z polską kuchnią i spokojniejszą atmosferą.",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "polish",
+      "kazimierz"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 9870673217,
+        "url": "https://www.openstreetmap.org/node/9870673217"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "robimy-to-nago",
+    "name": "Robimy to Nago",
+    "lat": 50.0578287,
+    "lng": 19.9409446,
+    "categoryId": "restaurant",
+    "area": "",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "japanese",
+      "sushi"
+    ],
+    "ratings": [],
+    "website": "https://nagosushiandsake.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 10992038905,
+        "url": "https://www.openstreetmap.org/node/10992038905"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Tu-Th 15:00-22:00; Fr-Sa 13:00-23:00; Su 13:00-22:00",
+        "cuisine": "japanese;sushi"
+      }
+    }
+  },
+  {
+    "id": "sekret-smaku",
+    "name": "Sekret Smaku",
+    "lat": 50.0663405,
+    "lng": 19.9424849,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": "https://sekretsmaku.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 12444973475,
+        "url": "https://www.openstreetmap.org/node/12444973475"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 11:00-21:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "smak-ukrainski",
+    "name": "Smak Ukraiński",
+    "lat": 50.0587819,
+    "lng": 19.9378026,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": "https://ukrainska.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4037009362,
+        "url": "https://www.openstreetmap.org/node/4037009362"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 12:00-22:30",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "stylowa",
+    "name": "Stylowa",
+    "lat": 50.0746969,
+    "lng": 20.0378777,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "polish"
+    ],
+    "ratings": [],
+    "website": "https://stylowa-krakow.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 699696429,
+        "url": "https://www.openstreetmap.org/node/699696429"
+      },
+      "osmTags": {
+        "wikidata": "Q9307519",
+        "wikipedia": "pl:Restauracja Stylowa w Krakowie",
+        "opening_hours": "Mo-Su 10:00-21:30",
+        "cuisine": "polish"
+      }
+    }
+  },
+  {
+    "id": "szalone-widelce",
+    "name": "Szalone Widelce",
+    "lat": 50.0643871,
+    "lng": 19.9422728,
+    "categoryId": "restaurant",
+    "area": "",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "regional",
+      "polish"
+    ],
+    "ratings": [],
+    "website": "https://szalonewidelce.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4368740290,
+        "url": "https://www.openstreetmap.org/node/4368740290"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 09:00-22:00",
+        "cuisine": "regional;polish"
+      }
+    }
+  },
+  {
+    "id": "taco-mexicano",
+    "name": "Taco Mexicano",
+    "lat": 50.0582294,
+    "lng": 19.9389483,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "mexican"
+    ],
+    "ratings": [],
+    "website": "https://tacomexicano.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4037009363,
+        "url": "https://www.openstreetmap.org/node/4037009363"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Th 12:00-22:00; Fr,Sa 12:00-23:00; Su 12:00-21:00",
+        "cuisine": "mexican"
+      }
+    }
+  },
+  {
+    "id": "tajska",
+    "name": "Tajska",
+    "lat": 50.0623697,
+    "lng": 19.9411192,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "thai"
+    ],
+    "ratings": [],
+    "website": "https://taj.menu/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 12005801045,
+        "url": "https://www.openstreetmap.org/node/12005801045"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Th 12:00-21:00; Fr-Sa 12:00-24:00; Su 12:00-22:00",
+        "cuisine": "thai"
+      }
+    }
+  },
+  {
+    "id": "trattoria-soprano",
+    "name": "Trattoria Soprano",
+    "lat": 50.0618232,
+    "lng": 19.9344567,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "italian"
+    ],
+    "ratings": [],
+    "website": "http://www.trattoriasoprano.pl/en/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 475387241,
+        "url": "https://www.openstreetmap.org/node/475387241"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 12:00-22:00",
+        "cuisine": "italian"
+      }
+    }
+  },
+  {
+    "id": "tuzurek",
+    "name": "Tużurek",
+    "lat": 50.0606534,
+    "lng": 19.9444714,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "polish",
+      "european"
+    ],
+    "ratings": [],
+    "website": "https://tuzurek.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 13371633309,
+        "url": "https://www.openstreetmap.org/node/13371633309"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 07:00-21:30",
+        "cuisine": "polish;european"
+      }
+    }
+  },
+  {
+    "id": "u-babci-maliny",
+    "name": "U Babci Maliny",
+    "lat": 50.0645013,
+    "lng": 19.9384744,
+    "categoryId": "restaurant",
+    "area": "",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "regional"
+    ],
+    "ratings": [],
+    "website": "http://kuchniaubabcimaliny.pl/restauracja/krakow-slawkowska-17/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1332072202,
+        "url": "https://www.openstreetmap.org/node/1332072202"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 11:00-23:00; Sa,Su 12:00-23:00",
+        "cuisine": "regional"
+      }
+    }
+  },
+  {
+    "id": "wesele",
+    "name": "Wesele",
+    "lat": 50.0606312,
+    "lng": 19.9380044,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "local"
+    ],
+    "ratings": [],
+    "website": "https://weselerestauracja.pl",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 475613644,
+        "url": "https://www.openstreetmap.org/node/475613644"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Th 13:00-23:00; Fr,Sa 12:00-23:00; Su 12:00-22:00",
+        "cuisine": "local"
+      }
+    }
+  },
+  {
+    "id": "wierzynek",
+    "name": "Wierzynek",
+    "lat": 50.0603841,
+    "lng": 19.9374073,
+    "categoryId": "restaurant",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "polish"
+    ],
+    "ratings": [],
+    "website": "https://wierzynek.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 475613615,
+        "url": "https://www.openstreetmap.org/node/475613615"
+      },
+      "osmTags": {
+        "wikidata": "Q9373377",
+        "wikipedia": "pl:Wierzynek",
+        "opening_hours": "Mo-Su 13:00-23:00",
+        "cuisine": "polish"
+      }
+    }
+  },
+  {
+    "id": "domino-s",
+    "name": "Domino's",
+    "lat": 50.0923994,
+    "lng": 19.9558249,
+    "categoryId": "street_food",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "pizza"
+    ],
+    "ratings": [],
+    "website": "https://www.dominospizza.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 12587358951,
+        "url": "https://www.openstreetmap.org/node/12587358951"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 11:00-23:00; Sa-Su 10:00-23:00",
+        "cuisine": "pizza"
+      }
+    }
+  },
+  {
+    "id": "lunch-bar-tu",
+    "name": "Lunch bar TU",
+    "lat": 50.0669474,
+    "lng": 19.951847,
+    "categoryId": "street_food",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "regional"
+    ],
+    "ratings": [],
+    "website": "https://www.facebook.com/pg/lunchbartu/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 2495829379,
+        "url": "https://www.openstreetmap.org/node/2495829379"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 10:00-18:00; Sa,Su 11:00-17:00",
+        "cuisine": "regional"
+      }
+    }
+  },
+  {
+    "id": "max",
+    "name": "Max",
+    "lat": 50.0573682,
+    "lng": 20.0005762,
+    "categoryId": "street_food",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "burger"
+    ],
+    "ratings": [],
+    "website": "http://www.maxpremiumburgers.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 1095281455,
+        "url": "https://www.openstreetmap.org/way/1095281455"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 08:00-24:00",
+        "cuisine": "burger"
+      }
+    }
+  },
+  {
+    "id": "mazaya",
+    "name": "Mazaya",
+    "lat": 50.0633953,
+    "lng": 19.9289802,
+    "categoryId": "street_food",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "arab"
+    ],
+    "ratings": [],
+    "website": "https://mazaya-falafel.com",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 2532951022,
+        "url": "https://www.openstreetmap.org/node/2532951022"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 10:00-21:00",
+        "cuisine": "arab"
+      }
+    }
+  },
+  {
+    "id": "mcdonald-s",
+    "name": "McDonald's",
+    "lat": 50.0646564,
+    "lng": 19.9413549,
+    "categoryId": "street_food",
+    "area": "",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "burger"
+    ],
+    "ratings": [],
+    "website": "https://mcdonalds.pl/restauracje/malopolskie/krakow/krakow-ul-florianska-55",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 490986259,
+        "url": "https://www.openstreetmap.org/node/490986259"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Su-We 08:00-02:00, Th 08:00-03:00, Fr,Sa 08:00-05:00",
+        "cuisine": "burger"
+      }
+    }
+  },
+  {
+    "id": "stolowka-jablonka",
+    "name": "Stołówka Jabłonka",
+    "lat": 50.0609559,
+    "lng": 19.9302582,
+    "categoryId": "street_food",
+    "area": "Kraków",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "polish"
+    ],
+    "ratings": [],
+    "website": "https://www.facebook.com/stolowkanajablonowskich",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 9074330465,
+        "url": "https://www.openstreetmap.org/node/9074330465"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 12:30-17:00",
+        "cuisine": "polish"
+      }
+    }
+  },
+  {
+    "id": "vegab",
+    "name": "Vegab",
+    "lat": 50.0582803,
+    "lng": 19.9436624,
+    "categoryId": "street_food",
+    "area": "",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "local",
+      "regional"
+    ],
+    "ratings": [],
+    "website": "https://www.vegab.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4440760689,
+        "url": "https://www.openstreetmap.org/node/4440760689"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Th 11:00-21:00; Fr-Sa 11:00-24:00; Su 11:00-21:00",
+        "cuisine": "local;regional"
+      }
+    }
+  },
+  {
+    "id": "z-wloch-do-polski",
+    "name": "Z Włoch do Polski",
+    "lat": 50.0671927,
+    "lng": 19.9514978,
+    "categoryId": "street_food",
+    "area": "",
+    "description": "",
+    "minutes": 25,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "italian"
+    ],
+    "ratings": [],
+    "website": "https://www.instagram.com/zwlochdopolski.official/?next=/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 13355434820,
+        "url": "https://www.openstreetmap.org/node/13355434820"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Tu-Th 15:00-22:00; Fr-Sa 13:00-22:00; Su 13:00-21:00",
+        "cuisine": "italian"
+      }
+    }
+  },
+  {
+    "id": "kopiec-pilsudskiego",
+    "name": "Kopiec Piłsudskiego",
+    "lat": 50.06005,
+    "lng": 19.8471666,
+    "categoryId": "viewpoint",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 274386820,
+        "url": "https://www.openstreetmap.org/node/274386820"
+      },
+      "osmTags": {
+        "wikidata": "Q1985405",
+        "wikipedia": "pl:Kopiec Józefa Piłsudskiego w Krakowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "mala-baszta",
+    "name": "Mała Baszta",
+    "lat": 50.0541117,
+    "lng": 19.9365676,
+    "categoryId": "viewpoint",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": "https://wawel.krakow.pl/wystawa-stala/taras-widokowy",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 12036363610,
+        "url": "https://www.openstreetmap.org/node/12036363610"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Jul 01-Oct 13 Mo 10:00-18:00; Jul 01-Oct 13 Tu-Su 09:00-18:00",
+        "cuisine": null
+      }
+    }
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "cityId": "krakow",
+  "count": 220,
+  "generatedAt": "2026-11-02T23:13:58.239Z",
+  "counts": {
+    "landmark": 24,
+    "religious_site": 12,
+    "park": 12,
+    "museum": 22,
+    "neighborhood": 2,
+    "architecture": 2,
+    "viewpoint": 4,
+    "garden": 4,
+    "food_hall": 2,
+    "cafe": 24,
+    "restaurant": 42,
+    "bar": 8,
+    "cocktail_bar": 1,
+    "club": 5,
+    "hostel": 8,
+    "hotel": 16,
+    "gallery": 8,
+    "pub": 8,
+    "guesthouse": 4,
+    "bakery": 4,
+    "street_food": 8
+  },
+  "source": "OpenStreetMap/Overpass + curated anchors"
+}

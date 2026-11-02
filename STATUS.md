@@ -73,3 +73,14 @@ Branch claude/user-places-strict-categories from main 4521586.
 - Audit quick wins: service worker activates new versions immediately (skipWaiting, fresh precache, page reloads on update; not verified end-to-end because the local python server breaks SW script fetches); outside-only stops say so and offer GetYourGuide tickets (buy_ticket_click logged again); hotels compare via Google Hotels and Booking instead of a fake website; whole route as one Google Maps link (route detail, My Route, live); "Edytuj jako Moją trasę" replaces the basket; own routes deletable; residents don't see hotels and get a different Trasy promise; "Najbliżej mnie" sort with distances; demo friends/meetups/chat removed (old stored data untouched).
 - 17 tests pass. Browser-checked at 375×812: category counts, add-place via pasted link, user place in Jedzenie and in the basket, hotel compare links, route detail actions, resident mode.
 Next: OpenStreetMap import for breadth, Google Places via Worker for live ratings, opening hours, map view, English.
+
+## Zarezerwuj tab, planner v2, profile photo, live extras — 2026-11-02 (Claude Code)
+Branch claude/book-tab-planner-v2 from main 98494e0.
+- Navigation: Trasy · Miejsca · Zaplanuj · Moja trasa · Zarezerwuj. Profil moved to the avatar in the header (photo or initial).
+- Zarezerwuj: Noclegi (10 hotels, Google Hotels / Booking / official site), Bilety i wycieczki (museums and outside-only landmarks: GetYourGuide and an official-ticket search), Stoliki (restaurants: official site, Google Maps). Links only, no prices or commission yet. Residents open on Bilety.
+- Miejsca now only exploring: 40 places, no hotels, no side quests. Category fixes: Parki i ogrody → Zieleń (parks, gardens, open space), Syrenka → Zabytki, Multimedialny Park Fontann → Zieleń. Wisła i widoki now has only 2 places (boulevards, bridge) — it needs real viewpoints added.
+- Side quests appear in live mode at the matching stop. The 30 texts are still three templates and need rewriting.
+- Planner v2 (core.js generate): optional start from current location (walk counted), smoothed rating (prior 4.3, weight 200 reviews) in scoring and in "Najlepiej oceniane", guaranteed food stop in the middle third when requested; food halls and Freya count as quick food. Food/coffee and start choice are on the main form.
+- Audio prototype: "Posłuchaj o tym miejscu" uses the phone's built-in speech (pl-PL); ElevenLabs later.
+- Profile photo (resized to 256 px, stored on the device). Stay type is saved on the device and stated as such.
+- 20 tests pass. Browser-checked at 375×812: nav labels, Zarezerwuj three lists, Miejsca 40 places and categories, planner with coffee stop → live with side quest and listen button, profile via header.

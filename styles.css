@@ -148,3 +148,12 @@ main{max-width:1080px;margin:0 auto;padding:22px 16px 128px;min-height:80vh}main
 fieldset.plain{border:0;padding:0;margin:0;display:grid;gap:10px}fieldset.plain legend{font-weight:600;font-size:14px;margin-bottom:8px}.sub-label{font-weight:500!important;color:var(--muted)}
 label.file{display:flex!important;align-items:center;gap:10px;border:1px dashed var(--line);border-radius:14px;padding:14px;background:var(--surface);cursor:pointer;font-weight:600}label.file input{position:absolute;opacity:0;width:1px;height:1px}label.file:focus-within{outline:3px solid var(--blue);outline-offset:2px}
 .sheet-actions .fine{margin:0}
+
+/* Profile in the header, Zarezerwuj, live extras */
+.right{display:flex;align-items:center;gap:14px}.me{display:block;border-radius:50%;text-decoration:none}.me.active .avatar{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--ink)}
+img.avatar{object-fit:cover;display:block}.avatar.sm{width:36px;height:36px;font-size:15px}
+.segmented.three button{display:flex;flex-direction:column;gap:4px;align-items:center;font-size:12px;min-height:60px}.segmented.three .i{width:20px;height:20px}
+.place.book{align-items:start}.place.book .links{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;position:relative;z-index:2}
+.button.sm{min-height:36px;padding:6px 10px;font-size:13px;border-radius:11px;gap:5px}.button.sm .i{width:14px;height:14px}
+.listen{justify-content:flex-start;gap:8px;margin-top:4px;background:var(--blue-soft);border-color:#cfe2f6;color:var(--blue)}
+.quest{display:flex;gap:12px;background:var(--cyan-soft);border:1px solid #b9ecf6;border-radius:16px;padding:14px}.quest>.i{width:24px;height:24px;color:#007a91;margin-top:2px}.quest p{font-size:14px;color:var(--ink-2);margin-top:2px}

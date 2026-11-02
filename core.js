@@ -11,18 +11,37 @@ export function summary(items,transport='walking'){
  const speed=transport==='bike'?12:transport==='transit'?8:transport==='mix'?6:4.5;
  return {km,minutes:Math.ceil(items.reduce((n,p)=>n+p.minutes,0)+km/speed*60),cost:items.reduce((n,p)=>n+p.cost,0)};
 }
+// Rating pulled toward a city-wide prior until a place has enough reviews, so 5.0 from 3 reviews cannot beat 4.7 from 60 000.
+export function smoothedRating(ratings=[],prior=4.3,weight=200){
+ const parts=ratings.filter(s=>Number.isFinite(s.value)&&Number.isSafeInteger(s.reviewCount)&&s.reviewCount>0);
+ const n=parts.reduce((t,s)=>t+s.reviewCount,0);return (prior*weight+parts.reduce((t,s)=>t+s.value/s.max*5*s.reviewCount,0))/(weight+n);
+}
+// Planner: greedy orienteering. Each pick weighs interest match, quality and must-see against the walk from the previous stop;
+// an optional start point counts the first walk; a requested food stop is guaranteed when one fits.
 export function generate(places,prefs){
- const limit=Number(prefs.time), interests=prefs.interests||['mix'];
- const candidates=places.filter(p=>p.kind!=='hotel'&&(prefs.food!=='none'||p.foodStyle==='none')&&(prefs.food!=='quick'||p.foodStyle!=='sit')&&(prefs.food!=='sit'||p.foodStyle!=='quick')&&(prefs.offers==='yes'||!p.partner)&&(prefs.budget!=='low'||p.cost<=25));
- const score=p=>(interests.includes('mix')?1:p.tags.filter(t=>interests.includes(t)).length*4)+(prefs.tourist==='balanced'?0:prefs.tourist==='must'?(p.tourist==='must'?3:0):(p.tourist==='local'?3:0));
- candidates.sort((a,b)=>score(b)-score(a)||a.id.localeCompare(b.id));
+ const limit=Number(prefs.time), interests=prefs.interests||['mix'], origin=prefs.start?{lat:prefs.start.lat,lng:prefs.start.lng,minutes:0,cost:0}:null;
+ const isFood=p=>p.foodStyle!=='none';
+ const candidates=places.filter(p=>p.kind!=='hotel'&&(prefs.food!=='none'||!isFood(p))&&(prefs.food!=='quick'||p.foodStyle!=='sit')&&(prefs.food!=='sit'||p.foodStyle!=='quick')&&(prefs.offers==='yes'||!p.partner)&&(prefs.budget!=='low'||p.cost<=25));
+ const score=p=>(interests.includes('mix')?1:p.tags.filter(t=>interests.includes(t)).length*4)+(prefs.tourist==='balanced'?0:prefs.tourist==='must'?(p.tourist==='must'?3:0):(p.tourist==='local'?3:0))+(smoothedRating(p.ratings)-4.3)*4+(p.top&&prefs.tourist!=='local'?1:0);
+ const legs=ps=>summary(origin?[origin,...ps]:ps,prefs.transport).minutes;
+ const pool=candidates.filter(p=>!isFood(p)),food=candidates.filter(isFood);
  const result=[];let cost=0;const cap=prefs.budget==='low'?25:prefs.budget==='medium'?100:Infinity;
- while(candidates.length){
-  candidates.sort((a,b)=>(score(b)-(result.length?distance(result.at(-1),b)*2:0))-(score(a)-(result.length?distance(result.at(-1),a)*2:0)));
-  const p=candidates.shift();if(cost+p.cost>cap)continue;
-  if(summary([...result,p],prefs.transport).minutes<=limit){result.push(p);cost+=p.cost;}
-  if(result.length>=10)break;
- }return result;
+ const from=()=>result.at(-1)||origin;
+ while(pool.length&&result.length<9){
+  pool.sort((a,b)=>(score(b)-(from()?distance(from(),b)*2:0))-(score(a)-(from()?distance(from(),a)*2:0))||a.id.localeCompare(b.id));
+  const p=pool.shift();if(cost+p.cost>cap)continue;
+  if(legs([...result,p])<=limit){result.push(p);cost+=p.cost;}
+ }
+ if(food.length){
+  // Meal goes in the middle third of the route, at the spot that adds the least walking; the last sights give way until it fits.
+  const mid={lat:result.reduce((t,p)=>t+p.lat,origin?origin.lat:0)/(result.length+(origin?1:0))||0,lng:result.reduce((t,p)=>t+p.lng,origin?origin.lng:0)/(result.length+(origin?1:0))||0};
+  food.sort((a,b)=>(score(b)-distance(mid,b)*3)-(score(a)-distance(mid,a)*3)||a.id.localeCompare(b.id));
+  const fits=t=>legs(t)<=limit&&t.reduce((n,p)=>n+p.cost,0)<=cap;
+  for(const f of food.slice(0,5)){const base=[...result];while(true){let best=null;const lo=Math.floor(base.length/3),hi=Math.ceil(base.length*2/3);
+   for(let k=lo;k<=hi;k++){const t=[...base];t.splice(k,0,f);if(fits(t)&&(!best||legs(t)<legs(best)))best=t;}
+   if(best)return best;if(!base.length)break;base.pop();}}
+ }
+ return result;
 }
 export function advance(session,status){
  if(!session||session.finished||!['done','skip'].includes(status))return session;

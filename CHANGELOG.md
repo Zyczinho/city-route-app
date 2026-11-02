@@ -17,3 +17,6 @@ Five tabs: Trasy, Miejsca, Zaplanuj, Moja trasa (cyan when a route is chosen, re
 
 ## 2026-11-02 — strict categories and your own places
 Each place now belongs to exactly one category (Zabytki, Muzea, Parki i ogrody, Wisła i widoki, Ulice i okolice, Jedzenie, Noclegi); Side questy are only activities; Must-see is a badge. Users can add their own places with GPS or a Google Maps link and an optional photo (stored on the device). Hotels compare on Google Hotels and Booking. Whole route opens as one Google Maps link. Stops seen only from outside say so and link to tickets. Residents don't see hotels. Sort by distance. New versions apply without closing tabs. Demo social screens removed. 17 tests pass.
+
+## 2026-11-02 — Zarezerwuj and planner v2
+New Zarezerwuj tab (hotels, tickets, tables) keeps paying apart from exploring; Profil opens from the header avatar and can have a photo. Places hold only things to see and eat, with Zieleń replacing Parki i ogrody, Syrenka in Zabytki and the fountain park in Zieleń. The planner can start from your location, ranks places by a rating smoothed by review count, and puts a requested coffee or meal stop in the middle of the route. Live mode shows the side quest for the current stop and can read the stop aloud. 20 tests pass.

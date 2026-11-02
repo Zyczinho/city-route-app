@@ -1,47 +1,646 @@
 [
-  {"id":"rynek-glowny","query":"Rynek Główny, Kraków","name":"Rynek Główny","categoryId":"landmark","area":"Stare Miasto","description":"Serce Krakowa i naturalny punkt startu dla pierwszej wizyty.","tags":["classic","sightseeing","free"],"top":true},
-  {"id":"wawel-castle","query":"Zamek Królewski na Wawelu, Kraków","name":"Zamek Królewski na Wawelu","categoryId":"landmark","area":"Wawel","description":"Królewski kompleks nad Wisłą i jeden z najważniejszych symboli miasta.","tags":["classic","history","sightseeing"],"top":true},
-  {"id":"wawel-cathedral","query":"Katedra Wawelska, Kraków","name":"Katedra Wawelska","categoryId":"religious_site","area":"Wawel","description":"Katedra koronacyjna i miejsce związane z historią polskich monarchów.","tags":["classic","history","culture"],"top":true},
-  {"id":"st-marys-basilica","query":"Bazylika Mariacka, Kraków","name":"Bazylika Mariacka","categoryId":"religious_site","area":"Stare Miasto","description":"Gotycka bazylika przy Rynku Głównym, słynąca z hejnału i ołtarza Wita Stwosza.","tags":["classic","culture","sightseeing"],"top":true},
-  {"id":"cloth-hall","query":"Sukiennice, Kraków","name":"Sukiennice","categoryId":"landmark","area":"Stare Miasto","description":"Historyczne hale handlowe w samym środku Rynku Głównego.","tags":["classic","sightseeing","shopping"],"top":true},
-  {"id":"barbican","query":"Barbakan Krakowski, Kraków","name":"Barbakan Krakowski","categoryId":"landmark","area":"Stare Miasto","description":"Zachowany element średniowiecznych fortyfikacji Krakowa.","tags":["classic","history","free"],"top":true},
-  {"id":"florian-gate","query":"Brama Floriańska, Kraków","name":"Brama Floriańska","categoryId":"landmark","area":"Stare Miasto","description":"Jedna z najbardziej rozpoznawalnych bram dawnego Krakowa.","tags":["classic","history","free"],"top":true},
-  {"id":"planty","query":"Planty, Kraków","name":"Planty","categoryId":"park","area":"Stare Miasto","description":"Zielony pierścień wokół historycznego centrum, idealny na spacer między atrakcjami.","tags":["nature","walk","free"],"top":true},
-  {"id":"collegium-maius","query":"Collegium Maius, Kraków","name":"Collegium Maius","categoryId":"museum","area":"Stare Miasto","description":"Najstarszy budynek Uniwersytetu Jagiellońskiego i muzeum uniwersyteckie.","tags":["culture","history","museum"],"top":true},
-  {"id":"rynek-underground","query":"Rynek Podziemny, Kraków","name":"Rynek Podziemny","categoryId":"museum","area":"Stare Miasto","description":"Multimedialna trasa archeologiczna pod płytą Rynku Głównego.","tags":["museum","history","rainy-day"],"top":true},
-  {"id":"czartoryski-museum","query":"Muzeum Książąt Czartoryskich, Kraków","name":"Muzeum Książąt Czartoryskich","categoryId":"museum","area":"Stare Miasto","description":"Jedna z najważniejszych kolekcji sztuki w Polsce.","tags":["museum","art","culture","rainy-day"],"top":true},
-  {"id":"national-museum","query":"Muzeum Narodowe w Krakowie Gmach Główny","name":"Muzeum Narodowe w Krakowie","categoryId":"museum","area":"Błonia","description":"Główna siedziba Muzeum Narodowego z rozbudowanymi kolekcjami sztuki.","tags":["museum","art","culture","rainy-day"],"top":true},
-  {"id":"stained-glass-museum","query":"Muzeum Witrażu, Kraków","name":"Muzeum Witrażu","categoryId":"museum","area":"Piasek","description":"Muzeum połączone z działającą pracownią witraży.","tags":["museum","art","hidden"],"top":false},
-  {"id":"manggha","query":"Muzeum Sztuki i Techniki Japońskiej Manggha, Kraków","name":"Muzeum Manggha","categoryId":"museum","area":"Dębniki","description":"Muzeum sztuki i kultury japońskiej nad Wisłą.","tags":["museum","art","culture"],"top":true},
-  {"id":"old-synagogue","query":"Stara Synagoga, Kraków","name":"Stara Synagoga","categoryId":"museum","area":"Kazimierz","description":"Najstarsza zachowana synagoga w Polsce i ważny punkt historii Kazimierza.","tags":["history","jewish-heritage","museum"],"top":true},
-  {"id":"remuh-synagogue","query":"Synagoga Remuh, Kraków","name":"Synagoga Remuh","categoryId":"religious_site","area":"Kazimierz","description":"Historyczna synagoga i cmentarz przy ulicy Szerokiej.","tags":["history","jewish-heritage","culture"],"top":true},
-  {"id":"plac-nowy","query":"Plac Nowy, Kraków","name":"Plac Nowy","categoryId":"neighborhood","area":"Kazimierz","description":"Jeden z najbardziej charakterystycznych punktów Kazimierza, szczególnie wieczorem.","tags":["local","food","nightlife"],"top":true},
-  {"id":"corpus-christi","query":"Bazylika Bożego Ciała, Kraków","name":"Bazylika Bożego Ciała","categoryId":"religious_site","area":"Kazimierz","description":"Monumentalna bazylika i jeden z najważniejszych zabytków Kazimierza.","tags":["history","architecture","culture"],"top":false},
-  {"id":"schindler-factory","query":"Fabryka Emalia Oskara Schindlera, Kraków","name":"Fabryka Schindlera","categoryId":"museum","area":"Zabłocie","description":"Muzeum opowiadające o Krakowie podczas niemieckiej okupacji.","tags":["museum","history","ww2","rainy-day"],"top":true},
-  {"id":"mocak","query":"MOCAK Muzeum Sztuki Współczesnej w Krakowie","name":"MOCAK","categoryId":"museum","area":"Zabłocie","description":"Najważniejsze krakowskie muzeum sztuki współczesnej.","tags":["museum","art","zablocie","rainy-day"],"top":true},
-  {"id":"ghetto-heroes-square","query":"Plac Bohaterów Getta, Kraków","name":"Plac Bohaterów Getta","categoryId":"landmark","area":"Podgórze","description":"Miejsce pamięci związane z historią krakowskiego getta.","tags":["history","jewish-heritage","ww2","free"],"top":true},
-  {"id":"eagle-pharmacy","query":"Apteka pod Orłem, Kraków","name":"Apteka pod Orłem","categoryId":"museum","area":"Podgórze","description":"Oddział Muzeum Krakowa poświęcony historii getta i jego mieszkańców.","tags":["museum","history","ww2"],"top":false},
-  {"id":"bernatek-footbridge","query":"Kładka Ojca Bernatka, Kraków","name":"Kładka Ojca Bernatka","categoryId":"architecture","area":"Podgórze / Kazimierz","description":"Kładka łącząca Kazimierz z Podgórzem, popularna szczególnie po zmroku.","tags":["walk","views","free","romantic"],"top":true},
-  {"id":"podgorze-market-square","query":"Rynek Podgórski, Kraków","name":"Rynek Podgórski","categoryId":"neighborhood","area":"Podgórze","description":"Historyczny rynek dawnego miasta Podgórze.","tags":["local","architecture","free"],"top":false},
-  {"id":"bednarski-park","query":"Park Bednarskiego, Kraków","name":"Park Bednarskiego","categoryId":"park","area":"Podgórze","description":"Zielony park położony w dawnym kamieniołomie w Podgórzu.","tags":["nature","local","walk","free"],"top":false},
-  {"id":"krakus-mound","query":"Kopiec Krakusa, Kraków","name":"Kopiec Krakusa","categoryId":"viewpoint","area":"Podgórze","description":"Bezpłatny punkt widokowy z szeroką panoramą Krakowa.","tags":["views","nature","free","sunset"],"top":true},
-  {"id":"kosciuszko-mound","query":"Kopiec Kościuszki, Kraków","name":"Kopiec Kościuszki","categoryId":"viewpoint","area":"Zwierzyniec","description":"Jeden z najlepszych punktów widokowych na Kraków i okolice.","tags":["views","history","sunset"],"top":true},
-  {"id":"blonia","query":"Błonia Krakowskie, Kraków","name":"Błonia Krakowskie","categoryId":"park","area":"Błonia","description":"Ogromna zielona łąka pomiędzy centrum a Zwierzyńcem.","tags":["nature","sport","free","local"],"top":true},
-  {"id":"jordan-park","query":"Park Jordana, Kraków","name":"Park Jordana","categoryId":"park","area":"Błonia","description":"Duży park rekreacyjny obok Błoń.","tags":["nature","sport","free"],"top":false},
-  {"id":"botanical-garden","query":"Ogród Botaniczny Uniwersytetu Jagiellońskiego, Kraków","name":"Ogród Botaniczny UJ","categoryId":"garden","area":"Wesoła","description":"Historyczny ogród botaniczny z kolekcjami roślin i szklarniami.","tags":["nature","garden","calm"],"top":true},
-  {"id":"stary-kleparz","query":"Stary Kleparz, Kraków","name":"Stary Kleparz","categoryId":"food_hall","area":"Kleparz","description":"Historyczny targ spożywczy blisko Starego Miasta.","tags":["food","market","local","budget"],"top":true},
-  {"id":"hala-targowa","query":"Hala Targowa, Grzegórzecka, Kraków","name":"Hala Targowa","categoryId":"food_hall","area":"Grzegórzki","description":"Targ i popularny punkt lokalnego jedzenia poza głównym turystycznym traktem.","tags":["food","market","local","budget"],"top":false},
-  {"id":"emigrant-coffee-karmelicka","query":"Emigrant Coffee Karmelicka 20 Kraków","name":"Emigrant Coffee Karmelicka","categoryId":"cafe","area":"Piasek","description":"Specialty coffee niedaleko Starego Miasta.","tags":["coffee","local"],"top":false},
-  {"id":"restauracja-sasiedzi","query":"Restauracja Sąsiedzi Miodowa 25 Kraków","name":"Restauracja Sąsiedzi","categoryId":"restaurant","area":"Kazimierz","description":"Restauracja na Kazimierzu z polską kuchnią i spokojniejszą atmosferą.","tags":["food","polish","kazimierz"],"top":false},
-  {"id":"restauracja-po-krakosku","query":"Restauracja Po Krakosku plac Wolnica 12 Kraków","name":"Restauracja Po Krakosku","categoryId":"restaurant","area":"Kazimierz","description":"Kuchnia inspirowana Krakowem i Galicją przy placu Wolnica.","tags":["food","polish","kazimierz"],"top":false},
-  {"id":"la-habana","query":"La Habana Miodowa 22 Kraków","name":"La Habana","categoryId":"bar","area":"Kazimierz","description":"Kubański bar na Kazimierzu z rumem, koktajlami i muzyką latynoską.","tags":["nightlife","cocktails","kazimierz"],"top":false},
-  {"id":"mercy-brown","query":"Mercy Brown Straszewskiego 28 Kraków","name":"Mercy Brown","categoryId":"cocktail_bar","area":"Stare Miasto","description":"Ukryty cocktail bar w stylu speakeasy z jazzowym klimatem.","tags":["nightlife","cocktails","date"],"top":true},
-  {"id":"shine-club","query":"Shine Club Starowiślna 16 Kraków","name":"Shine Club Kraków","categoryId":"club","area":"Stare Miasto","description":"Duży klub nocny przy Starowiślnej.","tags":["nightlife","club"],"top":false},
-  {"id":"nova-klubova","query":"NOVA KLUBOVA Estery 18 Kraków","name":"NOVA KLUBOVA","categoryId":"club","area":"Kazimierz","description":"Klub na Kazimierzu przy ulicy Estery.","tags":["nightlife","club","kazimierz"],"top":false},
-  {"id":"central-square-nowa-huta","query":"Plac Centralny im. Ronalda Reagana, Kraków","name":"Plac Centralny w Nowej Hucie","categoryId":"architecture","area":"Nowa Huta","description":"Monumentalny plac i dobry punkt startu do odkrywania socrealistycznej Nowej Huty.","tags":["architecture","local","nowa-huta","free"],"top":true},
-  {"id":"nowa-huta-museum","query":"Muzeum Nowej Huty osiedle Centrum E 1 Kraków","name":"Muzeum Nowej Huty","categoryId":"museum","area":"Nowa Huta","description":"Muzeum poświęcone historii i dziedzictwu Nowej Huty.","tags":["museum","history","nowa-huta"],"top":false},
-  {"id":"zalew-nowohucki","query":"Zalew Nowohucki, Kraków","name":"Zalew Nowohucki","categoryId":"park","area":"Nowa Huta","description":"Popularna przestrzeń spacerowa i rekreacyjna w Nowej Hucie.","tags":["nature","local","nowa-huta","free"],"top":false},
-  {"id":"aviation-museum","query":"Muzeum Lotnictwa Polskiego, Kraków","name":"Muzeum Lotnictwa Polskiego","categoryId":"museum","area":"Czyżyny","description":"Rozbudowana kolekcja samolotów i historii lotnictwa.","tags":["museum","aviation","rainy-day"],"top":true},
-  {"id":"greg-tom-home-hostel","query":"Greg & Tom Home Hostel Pawia 12 Kraków","name":"Greg & Tom Home Hostel","categoryId":"hostel","area":"Kleparz","description":"Popularny hostel blisko dworca i Starego Miasta.","tags":["stay","budget","social"],"top":false},
-  {"id":"hotel-amber","query":"Hotel Amber Garbarska 8 Kraków","name":"Hotel Amber","categoryId":"hotel","area":"Stare Miasto","description":"Kameralny hotel blisko Rynku Głównego.","tags":["stay","central"],"top":false}
+  {
+    "id": "rynek-glowny",
+    "query": "Rynek Główny, Kraków",
+    "name": "Rynek Główny",
+    "categoryId": "landmark",
+    "area": "Stare Miasto",
+    "description": "Serce Krakowa i naturalny punkt startu dla pierwszej wizyty.",
+    "tags": [
+      "classic",
+      "sightseeing",
+      "free"
+    ],
+    "top": true
+  },
+  {
+    "id": "wawel-castle",
+    "query": "Zamek Królewski na Wawelu, Kraków",
+    "name": "Zamek Królewski na Wawelu",
+    "categoryId": "landmark",
+    "area": "Wawel",
+    "description": "Królewski kompleks nad Wisłą i jeden z najważniejszych symboli miasta.",
+    "tags": [
+      "classic",
+      "history",
+      "sightseeing"
+    ],
+    "top": true
+  },
+  {
+    "id": "wawel-cathedral",
+    "query": "Katedra Wawelska, Kraków",
+    "name": "Katedra Wawelska",
+    "categoryId": "religious_site",
+    "area": "Wawel",
+    "description": "Katedra koronacyjna i miejsce związane z historią polskich monarchów.",
+    "tags": [
+      "classic",
+      "history",
+      "culture"
+    ],
+    "top": true
+  },
+  {
+    "id": "st-marys-basilica",
+    "query": "Bazylika Mariacka, Kraków",
+    "name": "Bazylika Mariacka",
+    "categoryId": "religious_site",
+    "area": "Stare Miasto",
+    "description": "Gotycka bazylika przy Rynku Głównym, słynąca z hejnału i ołtarza Wita Stwosza.",
+    "tags": [
+      "classic",
+      "culture",
+      "sightseeing"
+    ],
+    "top": true
+  },
+  {
+    "id": "cloth-hall",
+    "query": "Sukiennice, Kraków",
+    "name": "Sukiennice",
+    "categoryId": "landmark",
+    "area": "Stare Miasto",
+    "description": "Historyczne hale handlowe w samym środku Rynku Głównego.",
+    "tags": [
+      "classic",
+      "sightseeing",
+      "shopping"
+    ],
+    "top": true
+  },
+  {
+    "id": "barbican",
+    "query": "Barbakan Krakowski, Kraków",
+    "name": "Barbakan Krakowski",
+    "categoryId": "landmark",
+    "area": "Stare Miasto",
+    "description": "Zachowany element średniowiecznych fortyfikacji Krakowa.",
+    "tags": [
+      "classic",
+      "history",
+      "free"
+    ],
+    "top": true
+  },
+  {
+    "id": "florian-gate",
+    "query": "Brama Floriańska, Kraków",
+    "name": "Brama Floriańska",
+    "categoryId": "landmark",
+    "area": "Stare Miasto",
+    "description": "Jedna z najbardziej rozpoznawalnych bram dawnego Krakowa.",
+    "tags": [
+      "classic",
+      "history",
+      "free"
+    ],
+    "top": true
+  },
+  {
+    "id": "planty",
+    "query": "Planty, Kraków",
+    "name": "Planty",
+    "categoryId": "park",
+    "area": "Stare Miasto",
+    "description": "Zielony pierścień wokół historycznego centrum, idealny na spacer między atrakcjami.",
+    "tags": [
+      "nature",
+      "walk",
+      "free"
+    ],
+    "top": true
+  },
+  {
+    "id": "collegium-maius",
+    "query": "Collegium Maius, Kraków",
+    "name": "Collegium Maius",
+    "categoryId": "museum",
+    "area": "Stare Miasto",
+    "description": "Najstarszy budynek Uniwersytetu Jagiellońskiego i muzeum uniwersyteckie.",
+    "tags": [
+      "culture",
+      "history",
+      "museum"
+    ],
+    "top": true
+  },
+  {
+    "id": "rynek-underground",
+    "query": "Rynek Podziemny, Kraków",
+    "name": "Rynek Podziemny",
+    "categoryId": "museum",
+    "area": "Stare Miasto",
+    "description": "Multimedialna trasa archeologiczna pod płytą Rynku Głównego.",
+    "tags": [
+      "museum",
+      "history",
+      "rainy-day"
+    ],
+    "top": true
+  },
+  {
+    "id": "czartoryski-museum",
+    "query": "Muzeum Książąt Czartoryskich, Kraków",
+    "name": "Muzeum Książąt Czartoryskich",
+    "categoryId": "museum",
+    "area": "Stare Miasto",
+    "description": "Jedna z najważniejszych kolekcji sztuki w Polsce.",
+    "tags": [
+      "museum",
+      "art",
+      "culture",
+      "rainy-day"
+    ],
+    "top": true
+  },
+  {
+    "id": "national-museum",
+    "query": "Muzeum Narodowe w Krakowie Gmach Główny",
+    "name": "Muzeum Narodowe w Krakowie",
+    "categoryId": "museum",
+    "area": "Błonia",
+    "description": "Główna siedziba Muzeum Narodowego z rozbudowanymi kolekcjami sztuki.",
+    "tags": [
+      "museum",
+      "art",
+      "culture",
+      "rainy-day"
+    ],
+    "top": true
+  },
+  {
+    "id": "stained-glass-museum",
+    "query": "Muzeum Witrażu, Kraków",
+    "name": "Muzeum Witrażu",
+    "categoryId": "museum",
+    "area": "Piasek",
+    "description": "Muzeum połączone z działającą pracownią witraży.",
+    "tags": [
+      "museum",
+      "art",
+      "hidden"
+    ],
+    "top": false
+  },
+  {
+    "id": "manggha",
+    "query": "Muzeum Sztuki i Techniki Japońskiej Manggha, Kraków",
+    "name": "Muzeum Manggha",
+    "categoryId": "museum",
+    "area": "Dębniki",
+    "description": "Muzeum sztuki i kultury japońskiej nad Wisłą.",
+    "tags": [
+      "museum",
+      "art",
+      "culture"
+    ],
+    "top": true
+  },
+  {
+    "id": "old-synagogue",
+    "query": "Stara Synagoga, Kraków",
+    "name": "Stara Synagoga",
+    "categoryId": "museum",
+    "area": "Kazimierz",
+    "description": "Najstarsza zachowana synagoga w Polsce i ważny punkt historii Kazimierza.",
+    "tags": [
+      "history",
+      "jewish-heritage",
+      "museum"
+    ],
+    "top": true
+  },
+  {
+    "id": "remuh-synagogue",
+    "query": "Synagoga Remuh, Kraków",
+    "name": "Synagoga Remuh",
+    "categoryId": "religious_site",
+    "area": "Kazimierz",
+    "description": "Historyczna synagoga i cmentarz przy ulicy Szerokiej.",
+    "tags": [
+      "history",
+      "jewish-heritage",
+      "culture"
+    ],
+    "top": true
+  },
+  {
+    "id": "plac-nowy",
+    "query": "Plac Nowy, Kraków",
+    "name": "Plac Nowy",
+    "categoryId": "neighborhood",
+    "area": "Kazimierz",
+    "description": "Jeden z najbardziej charakterystycznych punktów Kazimierza, szczególnie wieczorem.",
+    "tags": [
+      "local",
+      "food",
+      "nightlife"
+    ],
+    "top": true
+  },
+  {
+    "id": "corpus-christi",
+    "query": "Bazylika Bożego Ciała, Kraków",
+    "name": "Bazylika Bożego Ciała",
+    "categoryId": "religious_site",
+    "area": "Kazimierz",
+    "description": "Monumentalna bazylika i jeden z najważniejszych zabytków Kazimierza.",
+    "tags": [
+      "history",
+      "architecture",
+      "culture"
+    ],
+    "top": false
+  },
+  {
+    "id": "schindler-factory",
+    "query": "Fabryka Emalia Oskara Schindlera, Kraków",
+    "name": "Fabryka Schindlera",
+    "categoryId": "museum",
+    "area": "Zabłocie",
+    "description": "Muzeum opowiadające o Krakowie podczas niemieckiej okupacji.",
+    "tags": [
+      "museum",
+      "history",
+      "ww2",
+      "rainy-day"
+    ],
+    "top": true
+  },
+  {
+    "id": "mocak",
+    "query": "MOCAK Muzeum Sztuki Współczesnej w Krakowie",
+    "name": "MOCAK",
+    "categoryId": "museum",
+    "area": "Zabłocie",
+    "description": "Najważniejsze krakowskie muzeum sztuki współczesnej.",
+    "tags": [
+      "museum",
+      "art",
+      "zablocie",
+      "rainy-day"
+    ],
+    "top": true
+  },
+  {
+    "id": "ghetto-heroes-square",
+    "query": "Plac Bohaterów Getta, Kraków",
+    "name": "Plac Bohaterów Getta",
+    "categoryId": "landmark",
+    "area": "Podgórze",
+    "description": "Miejsce pamięci związane z historią krakowskiego getta.",
+    "tags": [
+      "history",
+      "jewish-heritage",
+      "ww2",
+      "free"
+    ],
+    "top": true
+  },
+  {
+    "id": "eagle-pharmacy",
+    "query": "Apteka pod Orłem, Kraków",
+    "name": "Apteka pod Orłem",
+    "categoryId": "museum",
+    "area": "Podgórze",
+    "description": "Oddział Muzeum Krakowa poświęcony historii getta i jego mieszkańców.",
+    "tags": [
+      "museum",
+      "history",
+      "ww2"
+    ],
+    "top": false
+  },
+  {
+    "id": "bernatek-footbridge",
+    "query": "Kładka Ojca Bernatka, Kraków",
+    "name": "Kładka Ojca Bernatka",
+    "categoryId": "architecture",
+    "area": "Podgórze / Kazimierz",
+    "description": "Kładka łącząca Kazimierz z Podgórzem, popularna szczególnie po zmroku.",
+    "tags": [
+      "walk",
+      "views",
+      "free",
+      "romantic"
+    ],
+    "top": true
+  },
+  {
+    "id": "podgorze-market-square",
+    "query": "Rynek Podgórski, Kraków",
+    "name": "Rynek Podgórski",
+    "categoryId": "neighborhood",
+    "area": "Podgórze",
+    "description": "Historyczny rynek dawnego miasta Podgórze.",
+    "tags": [
+      "local",
+      "architecture",
+      "free"
+    ],
+    "top": false
+  },
+  {
+    "id": "bednarski-park",
+    "query": "Park Bednarskiego, Kraków",
+    "name": "Park Bednarskiego",
+    "categoryId": "park",
+    "area": "Podgórze",
+    "description": "Zielony park położony w dawnym kamieniołomie w Podgórzu.",
+    "tags": [
+      "nature",
+      "local",
+      "walk",
+      "free"
+    ],
+    "top": false
+  },
+  {
+    "id": "krakus-mound",
+    "query": "Kopiec Krakusa, Kraków",
+    "name": "Kopiec Krakusa",
+    "categoryId": "viewpoint",
+    "area": "Podgórze",
+    "description": "Bezpłatny punkt widokowy z szeroką panoramą Krakowa.",
+    "tags": [
+      "views",
+      "nature",
+      "free",
+      "sunset"
+    ],
+    "top": true
+  },
+  {
+    "id": "kosciuszko-mound",
+    "query": "Kopiec Kościuszki, Kraków",
+    "name": "Kopiec Kościuszki",
+    "categoryId": "viewpoint",
+    "area": "Zwierzyniec",
+    "description": "Jeden z najlepszych punktów widokowych na Kraków i okolice.",
+    "tags": [
+      "views",
+      "history",
+      "sunset"
+    ],
+    "top": true
+  },
+  {
+    "id": "blonia",
+    "query": "Błonia Krakowskie, Kraków",
+    "name": "Błonia Krakowskie",
+    "categoryId": "park",
+    "area": "Błonia",
+    "description": "Ogromna zielona łąka pomiędzy centrum a Zwierzyńcem.",
+    "tags": [
+      "nature",
+      "sport",
+      "free",
+      "local"
+    ],
+    "top": true
+  },
+  {
+    "id": "jordan-park",
+    "query": "Park Jordana, Kraków",
+    "name": "Park Jordana",
+    "categoryId": "park",
+    "area": "Błonia",
+    "description": "Duży park rekreacyjny obok Błoń.",
+    "tags": [
+      "nature",
+      "sport",
+      "free"
+    ],
+    "top": false
+  },
+  {
+    "id": "botanical-garden",
+    "query": "Ogród Botaniczny Uniwersytetu Jagiellońskiego, Kraków",
+    "name": "Ogród Botaniczny UJ",
+    "categoryId": "garden",
+    "area": "Wesoła",
+    "description": "Historyczny ogród botaniczny z kolekcjami roślin i szklarniami.",
+    "tags": [
+      "nature",
+      "garden",
+      "calm"
+    ],
+    "top": true
+  },
+  {
+    "id": "stary-kleparz",
+    "query": "Stary Kleparz, Kraków",
+    "name": "Stary Kleparz",
+    "categoryId": "food_hall",
+    "area": "Kleparz",
+    "description": "Historyczny targ spożywczy blisko Starego Miasta.",
+    "tags": [
+      "food",
+      "market",
+      "local",
+      "budget"
+    ],
+    "top": true
+  },
+  {
+    "id": "hala-targowa",
+    "query": "Hala Targowa, Grzegórzecka, Kraków",
+    "name": "Hala Targowa",
+    "categoryId": "food_hall",
+    "area": "Grzegórzki",
+    "description": "Targ i popularny punkt lokalnego jedzenia poza głównym turystycznym traktem.",
+    "tags": [
+      "food",
+      "market",
+      "local",
+      "budget"
+    ],
+    "top": false
+  },
+  {
+    "id": "emigrant-coffee-karmelicka",
+    "query": "Emigrant Coffee Karmelicka 20 Kraków",
+    "name": "Emigrant Coffee Karmelicka",
+    "categoryId": "cafe",
+    "area": "Piasek",
+    "description": "Specialty coffee niedaleko Starego Miasta.",
+    "tags": [
+      "coffee",
+      "local"
+    ],
+    "top": false
+  },
+  {
+    "id": "restauracja-sasiedzi",
+    "query": "Restauracja Sąsiedzi Miodowa 25 Kraków",
+    "name": "Restauracja Sąsiedzi",
+    "categoryId": "restaurant",
+    "area": "Kazimierz",
+    "description": "Restauracja na Kazimierzu z polską kuchnią i spokojniejszą atmosferą.",
+    "tags": [
+      "food",
+      "polish",
+      "kazimierz"
+    ],
+    "top": false
+  },
+  {
+    "id": "restauracja-po-krakosku",
+    "query": "Restauracja Po Krakosku plac Wolnica 12 Kraków",
+    "name": "Restauracja Po Krakosku",
+    "categoryId": "restaurant",
+    "area": "Kazimierz",
+    "description": "Kuchnia inspirowana Krakowem i Galicją przy placu Wolnica.",
+    "tags": [
+      "food",
+      "polish",
+      "kazimierz"
+    ],
+    "top": false
+  },
+  {
+    "id": "la-habana",
+    "query": "La Habana Miodowa 22 Kraków",
+    "name": "La Habana",
+    "categoryId": "bar",
+    "area": "Kazimierz",
+    "description": "Kubański bar na Kazimierzu z rumem, koktajlami i muzyką latynoską.",
+    "tags": [
+      "nightlife",
+      "cocktails",
+      "kazimierz"
+    ],
+    "top": false
+  },
+  {
+    "id": "mercy-brown",
+    "query": "Mercy Brown Straszewskiego 28 Kraków",
+    "name": "Mercy Brown",
+    "categoryId": "cocktail_bar",
+    "area": "Stare Miasto",
+    "description": "Ukryty cocktail bar w stylu speakeasy z jazzowym klimatem.",
+    "tags": [
+      "nightlife",
+      "cocktails",
+      "date"
+    ],
+    "top": true,
+    "lat": 50.061512,
+    "lng": 19.931628
+  },
+  {
+    "id": "shine-club",
+    "query": "Shine Club Starowiślna 16 Kraków",
+    "name": "Shine Club Kraków",
+    "categoryId": "club",
+    "area": "Stare Miasto",
+    "description": "Duży klub nocny przy Starowiślnej.",
+    "tags": [
+      "nightlife",
+      "club"
+    ],
+    "top": false
+  },
+  {
+    "id": "nova-klubova",
+    "query": "NOVA KLUBOVA Estery 18 Kraków",
+    "name": "NOVA KLUBOVA",
+    "categoryId": "club",
+    "area": "Kazimierz",
+    "description": "Klub na Kazimierzu przy ulicy Estery.",
+    "tags": [
+      "nightlife",
+      "club",
+      "kazimierz"
+    ],
+    "top": false
+  },
+  {
+    "id": "central-square-nowa-huta",
+    "query": "Plac Centralny im. Ronalda Reagana, Kraków",
+    "name": "Plac Centralny w Nowej Hucie",
+    "categoryId": "architecture",
+    "area": "Nowa Huta",
+    "description": "Monumentalny plac i dobry punkt startu do odkrywania socrealistycznej Nowej Huty.",
+    "tags": [
+      "architecture",
+      "local",
+      "nowa-huta",
+      "free"
+    ],
+    "top": true,
+    "lat": 50.0719,
+    "lng": 20.0378
+  },
+  {
+    "id": "nowa-huta-museum",
+    "query": "Muzeum Nowej Huty osiedle Centrum E 1 Kraków",
+    "name": "Muzeum Nowej Huty",
+    "categoryId": "museum",
+    "area": "Nowa Huta",
+    "description": "Muzeum poświęcone historii i dziedzictwu Nowej Huty.",
+    "tags": [
+      "museum",
+      "history",
+      "nowa-huta"
+    ],
+    "top": false
+  },
+  {
+    "id": "zalew-nowohucki",
+    "query": "Zalew Nowohucki, Kraków",
+    "name": "Zalew Nowohucki",
+    "categoryId": "park",
+    "area": "Nowa Huta",
+    "description": "Popularna przestrzeń spacerowa i rekreacyjna w Nowej Hucie.",
+    "tags": [
+      "nature",
+      "local",
+      "nowa-huta",
+      "free"
+    ],
+    "top": false
+  },
+  {
+    "id": "aviation-museum",
+    "query": "Muzeum Lotnictwa Polskiego, Kraków",
+    "name": "Muzeum Lotnictwa Polskiego",
+    "categoryId": "museum",
+    "area": "Czyżyny",
+    "description": "Rozbudowana kolekcja samolotów i historii lotnictwa.",
+    "tags": [
+      "museum",
+      "aviation",
+      "rainy-day"
+    ],
+    "top": true
+  },
+  {
+    "id": "greg-tom-home-hostel",
+    "query": "Greg & Tom Home Hostel Pawia 12 Kraków",
+    "name": "Greg & Tom Home Hostel",
+    "categoryId": "hostel",
+    "area": "Kleparz",
+    "description": "Popularny hostel blisko dworca i Starego Miasta.",
+    "tags": [
+      "stay",
+      "budget",
+      "social"
+    ],
+    "top": false
+  },
+  {
+    "id": "hotel-amber",
+    "query": "Hotel Amber Garbarska 8 Kraków",
+    "name": "Hotel Amber",
+    "categoryId": "hotel",
+    "area": "Stare Miasto",
+    "description": "Kameralny hotel blisko Rynku Głównego.",
+    "tags": [
+      "stay",
+      "central"
+    ],
+    "top": false
+  }
 ]

@@ -1,137 +1,148 @@
 [
   {
     "id": "old-warsaw",
-    "name": "Warsaw, the first hello",
-    "description": "The classics, with room to wander.",
+    "name": "Pierwsze spotkanie z Warszawą",
+    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
     "stops": [
       "castle",
       "old-town",
       "barbican",
       "new-town"
     ],
-    "photo": "old"
+    "photo": "old",
+    "image": "photo-20627626.jpg"
   },
   {
     "id": "river-time",
-    "name": "Take the riverside",
-    "description": "Gardens, river air and a new perspective.",
+    "name": "Nadwiślański spacer",
+    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
     "stops": [
       "buw",
       "copernicus",
       "boulevards",
       "mermaid"
     ],
-    "photo": "river"
+    "photo": "river",
+    "image": "photo-18454473.jpg"
   },
   {
     "id": "royal-green",
-    "name": "A little more green",
-    "description": "A slow afternoon in royal gardens.",
+    "name": "Więcej zieleni",
+    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
     "stops": [
       "chopin",
       "lazienki",
       "palace-water",
       "ujazdow"
     ],
-    "photo": "park"
+    "photo": "park",
+    "image": "photo-7115502.jpg"
   },
   {
     "id": "praga",
-    "name": "Across to Praga",
-    "description": "Brick courtyards and streets with character.",
+    "name": "Po drugiej stronie — Praga",
+    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
     "stops": [
       "praga-cathedral",
       "zabkowska",
       "koneser"
     ],
-    "photo": "praga"
+    "photo": "praga",
+    "image": "photo-17741460.jpg"
   },
   {
     "id": "city-icons",
-    "name": "City icons, on foot",
-    "description": "A first look at the heart of Warsaw.",
+    "name": "Symbole centrum",
+    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
     "stops": [
       "palace-culture",
       "nowy-swiat",
       "national-museum"
     ],
-    "photo": "city"
+    "photo": "city",
+    "image": "photo-32468805.jpg"
   },
   {
     "id": "quiet-centre",
-    "name": "The quieter centre",
-    "description": "A garden escape between city streets.",
+    "name": "Spokojniejsze centrum",
+    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
     "stops": [
       "mirowska",
       "saxon",
       "tomb"
     ],
-    "photo": "city"
+    "photo": "city",
+    "image": "photo-37307169.jpg"
   },
   {
     "id": "food-design",
-    "name": "Powiśle, a slower lunch",
-    "description": "Garden paths and industrial design.",
+    "name": "Ogród i dobry obiad",
+    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
     "stops": [
       "buw",
-      "electrownia",
-      "mermaid"
+      "der-elefant"
     ],
-    "photo": "food"
+    "photo": "food",
+    "image": "photo-8259574.jpg"
   },
   {
     "id": "saska-afternoon",
-    "name": "A Saska Kępa afternoon",
-    "description": "Neighbourhood charm and a generous green pause.",
+    "name": "Popołudnie na Saskiej Kępie",
+    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
     "stops": [
       "saska",
       "skaryszewski"
     ],
-    "photo": "praga"
+    "photo": "praga",
+    "image": "photo-17761856.jpg"
   },
   {
     "id": "old-river",
-    "name": "Old Town to the river",
-    "description": "From cobblestones to open skies.",
+    "name": "Ze Starego Miasta nad Wisłę",
+    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
     "stops": [
       "old-town",
       "new-town",
       "fountain",
       "boulevards"
     ],
-    "photo": "old"
+    "photo": "old",
+    "image": "photo-35792461.jpg"
   },
   {
     "id": "chopin-walk",
-    "name": "In Chopin’s city",
-    "description": "Exterior landmarks for a musical afternoon.",
+    "name": "Śladami Chopina",
+    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
     "stops": [
       "chopin-museum",
       "nowy-swiat",
       "saxon"
     ],
-    "photo": "city"
+    "photo": "city",
+    "image": "photo-20054016.jpg"
   },
   {
     "id": "park-pocket",
-    "name": "A pocket of calm",
-    "description": "An easy green break from the city.",
+    "name": "Zielona chwila",
+    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
     "stops": [
       "ujazdowski-park",
       "ujazdow",
       "chopin"
     ],
-    "photo": "park"
+    "photo": "park",
+    "image": "photo-16549195.jpg"
   },
   {
     "id": "sunset",
-    "name": "River perspectives",
-    "description": "Cross the river and find your own favourite view.",
+    "name": "Perspektywy nad Wisłą",
+    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
     "stops": [
       "copernicus",
       "mermaid",
       "rooftop"
     ],
-    "photo": "river"
+    "photo": "river",
+    "image": "photo-20627626.jpg"
   }
 ]

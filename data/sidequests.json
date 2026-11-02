@@ -1,7 +1,7 @@
 [
   {
     "id": "q-old-town",
-    "name": "Notice the details · Old Town Market Square",
+    "name": "Zauważ detale · Rynek Starego Miasta",
     "lat": 52.2497,
     "lng": 21.0122,
     "tags": [
@@ -11,18 +11,20 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Find three architectural details you would normally walk past. Pastel façades, cobbled streets and the Warsaw mermaid.",
+    "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Kolorowe kamienice, brukowane uliczki i warszawska Syrenka.",
     "area": "old",
     "photo": "old",
     "kind": "sidequest",
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "old-town"
+    "placeId": "old-town",
+    "image": "photo-17741460.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-castle",
-    "name": "A different perspective · Royal Castle Square",
+    "name": "Zmień perspektywę · Plac Zamkowy",
     "lat": 52.2479,
     "lng": 21.0142,
     "tags": [
@@ -32,18 +34,20 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Choose a viewpoint and spend ten minutes taking in the scene. Start at the column and take in the red-brick castle exterior.",
+    "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Kolumna Zygmunta i widok na fasadę Zamku Królewskiego.",
     "area": "old",
     "photo": "old",
     "kind": "sidequest",
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "castle"
+    "placeId": "castle",
+    "image": "photo-32468805.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-barbican",
-    "name": "Slow down here · Warsaw Barbican",
+    "name": "Zwolnij na chwilę · Barbakan Warszawski",
     "lat": 52.2508,
     "lng": 21.0108,
     "tags": [
@@ -53,18 +57,20 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Take a short screen-free break and notice the sounds around you. Follow the brick fortifications at the edge of the Old Town.",
+    "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Spacer wzdłuż ceglanych murów na skraju Starego Miasta.",
     "area": "old",
     "photo": "old",
     "kind": "sidequest",
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "barbican"
+    "placeId": "barbican",
+    "image": "photo-37307169.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-new-town",
-    "name": "Notice the details · New Town Market Square",
+    "name": "Zauważ detale · Rynek Nowego Miasta",
     "lat": 52.253,
     "lng": 21.0088,
     "tags": [
@@ -73,18 +79,20 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Find three architectural details you would normally walk past. A quieter square just beyond the Old Town walls.",
+    "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Spokojniejszy rynek tuż za murami Starego Miasta.",
     "area": "old",
     "photo": "old",
     "kind": "sidequest",
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "new-town"
+    "placeId": "new-town",
+    "image": "photo-8259574.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-fountain",
-    "name": "A different perspective · Multimedia Fountain Park",
+    "name": "Zmień perspektywę · Multimedialny Park Fontann",
     "lat": 52.2551,
     "lng": 21.0106,
     "tags": [
@@ -94,18 +102,20 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Choose a viewpoint and spend ten minutes taking in the scene. An open-air riverside pause. Fountain shows are seasonal.",
+    "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Przystanek nad Wisłą. Pokazy fontann odbywają się sezonowo.",
     "area": "river",
     "photo": "river",
     "kind": "sidequest",
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "fountain"
+    "placeId": "fountain",
+    "image": "photo-17761856.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-buw",
-    "name": "Slow down here · University Library Garden",
+    "name": "Zwolnij na chwilę · Ogród Biblioteki Uniwersyteckiej",
     "lat": 52.2422,
     "lng": 21.0247,
     "tags": [
@@ -115,18 +125,20 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Take a short screen-free break and notice the sounds around you. Explore the lower garden; roof access depends on season and hours.",
+    "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Zielony ogród przy bibliotece. Dostęp na dach zależy od sezonu i godzin otwarcia.",
     "area": "river",
     "photo": "river",
     "kind": "sidequest",
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "buw"
+    "placeId": "buw",
+    "image": "photo-35792461.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-copernicus",
-    "name": "Notice the details · Copernicus Science Centre exterior",
+    "name": "Zauważ detale · Centrum Nauki Kopernik — z zewnątrz",
     "lat": 52.2418,
     "lng": 21.0287,
     "tags": [
@@ -136,18 +148,20 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Find three architectural details you would normally walk past. A science landmark beside the river; indoor entry requires a ticket.",
+    "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Charakterystyczna architektura nad Wisłą. Zwiedzanie wnętrza wymaga biletu.",
     "area": "river",
     "photo": "river",
     "kind": "sidequest",
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "copernicus"
+    "placeId": "copernicus",
+    "image": "photo-20054016.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-boulevards",
-    "name": "A different perspective · Vistula Boulevards",
+    "name": "Zmień perspektywę · Bulwary Wiślane",
     "lat": 52.245,
     "lng": 21.0265,
     "tags": [
@@ -157,18 +171,20 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Choose a viewpoint and spend ten minutes taking in the scene. Walk beside the river and watch the city slow down.",
+    "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Spacer nad rzeką i chwila odpoczynku od miejskiego tempa.",
     "area": "river",
     "photo": "river",
     "kind": "sidequest",
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "boulevards"
+    "placeId": "boulevards",
+    "image": "photo-16549195.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-mermaid",
-    "name": "Slow down here · Powiśle Mermaid",
+    "name": "Zwolnij na chwilę · Syrenka na Powiślu",
     "lat": 52.2364,
     "lng": 21.0321,
     "tags": [
@@ -178,18 +194,20 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Take a short screen-free break and notice the sounds around you. Meet the riverside symbol of Warsaw by Świętokrzyski Bridge.",
+    "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Symbol Warszawy przy moście Świętokrzyskim.",
     "area": "river",
     "photo": "river",
     "kind": "sidequest",
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "mermaid"
+    "placeId": "mermaid",
+    "image": "photo-20627626.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-lazienki",
-    "name": "Notice the details · Łazienki Royal Park",
+    "name": "Zauważ detale · Łazienki Królewskie",
     "lat": 52.215,
     "lng": 21.035,
     "tags": [
@@ -199,18 +217,20 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Find three architectural details you would normally walk past. Leafy paths and garden views around the royal park.",
+    "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Parkowe alejki i królewskie ogrody.",
     "area": "park",
     "photo": "park",
     "kind": "sidequest",
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "lazienki"
+    "placeId": "lazienki",
+    "image": "photo-18454473.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-palace-water",
-    "name": "A different perspective · Palace on the Isle exterior",
+    "name": "Zmień perspektywę · Pałac na Wyspie — z zewnątrz",
     "lat": 52.2153,
     "lng": 21.0359,
     "tags": [
@@ -220,18 +240,20 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Choose a viewpoint and spend ten minutes taking in the scene. See the palace reflected in the lake; interior admission is separate.",
+    "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Widok na pałac odbijający się w wodzie. Wnętrza są płatne osobno.",
     "area": "park",
     "photo": "park",
     "kind": "sidequest",
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "palace-water"
+    "placeId": "palace-water",
+    "image": "photo-7115502.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-chopin",
-    "name": "Slow down here · Chopin Monument",
+    "name": "Zwolnij na chwilę · Pomnik Chopina",
     "lat": 52.2144,
     "lng": 21.0286,
     "tags": [
@@ -241,18 +263,20 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Take a short screen-free break and notice the sounds around you. A quiet pause by the sculptural tribute to Chopin.",
+    "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Chwila spokoju przy pomniku Fryderyka Chopina.",
     "area": "park",
     "photo": "park",
     "kind": "sidequest",
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "chopin"
+    "placeId": "chopin",
+    "image": "photo-17741460.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-ujazdow",
-    "name": "Notice the details · Ujazdowski Castle exterior",
+    "name": "Zauważ detale · Zamek Ujazdowski — z zewnątrz",
     "lat": 52.2196,
     "lng": 21.0302,
     "tags": [
@@ -262,18 +286,20 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Find three architectural details you would normally walk past. Castle architecture above the park; exhibitions need a separate ticket.",
+    "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Architektura zamku nad parkiem. Wystawy są płatne osobno.",
     "area": "park",
     "photo": "park",
     "kind": "sidequest",
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "ujazdow"
+    "placeId": "ujazdow",
+    "image": "photo-32468805.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-ujazdowski-park",
-    "name": "A different perspective · Ujazdowski Park",
+    "name": "Zmień perspektywę · Park Ujazdowski",
     "lat": 52.219,
     "lng": 21.0255,
     "tags": [
@@ -282,18 +308,20 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Choose a viewpoint and spend ten minutes taking in the scene. Small bridges, winding paths and an easy green detour.",
+    "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Mostki, kręte alejki i krótka zielona przerwa.",
     "area": "park",
     "photo": "park",
     "kind": "sidequest",
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "ujazdowski-park"
+    "placeId": "ujazdowski-park",
+    "image": "photo-37307169.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-saxon",
-    "name": "Slow down here · Saxon Garden",
+    "name": "Zwolnij na chwilę · Ogród Saski",
     "lat": 52.2409,
     "lng": 21.0089,
     "tags": [
@@ -303,18 +331,20 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Take a short screen-free break and notice the sounds around you. A central garden with broad paths and a historic fountain.",
+    "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Ogród w centrum z zabytkową fontanną.",
     "area": "city",
     "photo": "city",
     "kind": "sidequest",
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "saxon"
+    "placeId": "saxon",
+    "image": "photo-8259574.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-tomb",
-    "name": "Notice the details · Tomb of the Unknown Soldier",
+    "name": "Zauważ detale · Grób Nieznanego Żołnierza",
     "lat": 52.2419,
     "lng": 21.0115,
     "tags": [
@@ -324,18 +354,20 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Find three architectural details you would normally walk past. A place of remembrance on Piłsudski Square.",
+    "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Miejsce pamięci na placu Piłsudskiego.",
     "area": "city",
     "photo": "city",
     "kind": "sidequest",
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "tomb"
+    "placeId": "tomb",
+    "image": "photo-17761856.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-palace-culture",
-    "name": "A different perspective · Palace of Culture exterior",
+    "name": "Zmień perspektywę · Pałac Kultury — z zewnątrz",
     "lat": 52.2317,
     "lng": 21.006,
     "tags": [
@@ -345,39 +377,42 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Choose a viewpoint and spend ten minutes taking in the scene. Look up at Warsaw’s landmark tower. Observation deck ticket not included.",
+    "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Spójrz na jeden z symboli Warszawy. Taras widokowy wymaga osobnego biletu.",
     "area": "city",
     "photo": "city",
     "kind": "sidequest",
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "palace-culture"
+    "placeId": "palace-culture",
+    "image": "photo-35792461.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-nowy-swiat",
-    "name": "Slow down here · Nowy Świat",
+    "name": "Zwolnij na chwilę · Nowy Świat",
     "lat": 52.2325,
     "lng": 21.0195,
     "tags": [
       "sightseeing",
-      "food",
       "hidden"
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Take a short screen-free break and notice the sounds around you. A classic city promenade lined with cafés and architecture.",
+    "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Reprezentacyjna ulica i architektura Śródmieścia. To ulica, nie restauracja.",
     "area": "city",
     "photo": "city",
     "kind": "sidequest",
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "nowy-swiat"
+    "placeId": "nowy-swiat",
+    "image": "photo-20054016.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-chopin-museum",
-    "name": "Notice the details · Chopin Museum exterior",
+    "name": "Zauważ detale · Muzeum Chopina — z zewnątrz",
     "lat": 52.2367,
     "lng": 21.0234,
     "tags": [
@@ -386,18 +421,20 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Find three architectural details you would normally walk past. Find the palace above Tamka; museum admission is separate.",
+    "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Pałac nad Tamką. Wstęp do muzeum jest płatny osobno.",
     "area": "city",
     "photo": "city",
     "kind": "sidequest",
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "chopin-museum"
+    "placeId": "chopin-museum",
+    "image": "photo-16549195.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-national-museum",
-    "name": "A different perspective · National Museum exterior",
+    "name": "Zmień perspektywę · Muzeum Narodowe — z zewnątrz",
     "lat": 52.2316,
     "lng": 21.0247,
     "tags": [
@@ -406,18 +443,20 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Choose a viewpoint and spend ten minutes taking in the scene. A landmark of Polish art; this route includes the exterior only.",
+    "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Gmach muzeum od strony miasta. Trasa obejmuje tylko teren zewnętrzny.",
     "area": "city",
     "photo": "city",
     "kind": "sidequest",
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "national-museum"
+    "placeId": "national-museum",
+    "image": "photo-20627626.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-praga-cathedral",
-    "name": "Slow down here · St Florian’s Cathedral",
+    "name": "Zwolnij na chwilę · Katedra św. Floriana",
     "lat": 52.2526,
     "lng": 21.0294,
     "tags": [
@@ -427,60 +466,64 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Take a short screen-free break and notice the sounds around you. Twin brick spires introduce the Praga side of the city.",
+    "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Ceglane wieże wprowadzają w klimat Pragi.",
     "area": "praga",
     "photo": "praga",
     "kind": "sidequest",
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "praga-cathedral"
+    "placeId": "praga-cathedral",
+    "image": "photo-18454473.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-zabkowska",
-    "name": "Notice the details · Ząbkowska Street",
+    "name": "Zauważ detale · Ulica Ząbkowska",
     "lat": 52.2534,
     "lng": 21.0372,
     "tags": [
       "culture",
-      "food",
       "hidden"
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Find three architectural details you would normally walk past. Look up at old façades and explore Praga at street level.",
+    "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Stare fasady i spacer po praskiej ulicy.",
     "area": "praga",
     "photo": "praga",
     "kind": "sidequest",
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "zabkowska"
+    "placeId": "zabkowska",
+    "image": "photo-7115502.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-koneser",
-    "name": "A different perspective · Praga Koneser Centre",
+    "name": "Zmień perspektywę · Centrum Praskie Koneser",
     "lat": 52.2546,
     "lng": 21.0448,
     "tags": [
       "culture",
-      "food",
       "hidden"
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Choose a viewpoint and spend ten minutes taking in the scene. Red-brick industrial architecture around a public courtyard.",
+    "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Ceglana architektura przemysłowa i otwarty dziedziniec.",
     "area": "praga",
     "photo": "praga",
     "kind": "sidequest",
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "koneser"
+    "placeId": "koneser",
+    "image": "photo-17741460.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-skaryszewski",
-    "name": "Slow down here · Skaryszewski Park",
+    "name": "Zwolnij na chwilę · Park Skaryszewski",
     "lat": 52.2409,
     "lng": 21.0545,
     "tags": [
@@ -489,38 +532,41 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Take a short screen-free break and notice the sounds around you. Lakes, sculpture and broad paths east of the river.",
+    "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Jeziora, rzeźby i szerokie alejki po prawej stronie Wisły.",
     "area": "park",
     "photo": "park",
     "kind": "sidequest",
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "skaryszewski"
+    "placeId": "skaryszewski",
+    "image": "photo-32468805.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-saska",
-    "name": "Notice the details · Francuska Street",
+    "name": "Zauważ detale · Ulica Francuska",
     "lat": 52.2328,
     "lng": 21.0603,
     "tags": [
-      "food",
       "hidden"
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Find three architectural details you would normally walk past. Neighbourhood cafés and villa architecture in Saska Kępa.",
+    "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Wille i sąsiedzki klimat Saskiej Kępy. To ulica, nie lokal gastronomiczny.",
     "area": "praga",
     "photo": "praga",
     "kind": "sidequest",
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "saska"
+    "placeId": "saska",
+    "image": "photo-37307169.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-rooftop",
-    "name": "A different perspective · Świętokrzyski Bridge",
+    "name": "Zmień perspektywę · Most Świętokrzyski",
     "lat": 52.2385,
     "lng": 21.038,
     "tags": [
@@ -530,80 +576,85 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Choose a viewpoint and spend ten minutes taking in the scene. Cross on the pedestrian path for river and skyline views.",
+    "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Widoki na rzekę i panoramę miasta ze ścieżki dla pieszych.",
     "area": "river",
     "photo": "river",
     "kind": "sidequest",
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "rooftop"
+    "placeId": "rooftop",
+    "image": "photo-8259574.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-koszyki",
-    "name": "Slow down here · Hala Koszyki",
+    "name": "Zwolnij na chwilę · Hala Koszyki",
     "lat": 52.2223,
     "lng": 21.0104,
     "tags": [
       "culture",
-      "food",
       "hidden"
     ],
     "minutes": 20,
     "cost": 45,
-    "description": "Take a short screen-free break and notice the sounds around you. Browse a restored food hall. Optional meal budget is an estimate.",
+    "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Zabytkowa hala gastronomiczna. Wydatki na jedzenie są orientacyjne.",
     "area": "food",
     "photo": "food",
     "kind": "sidequest",
     "tourist": "local",
     "foodStyle": "sit",
     "partner": false,
-    "placeId": "koszyki"
+    "placeId": "koszyki",
+    "image": "photo-17761856.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-mirowska",
-    "name": "Notice the details · Hala Mirowska",
+    "name": "Zauważ detale · Hala Mirowska",
     "lat": 52.2388,
     "lng": 20.9979,
     "tags": [
-      "food",
       "hidden"
     ],
     "minutes": 20,
     "cost": 25,
-    "description": "Find three architectural details you would normally walk past. Browse market stalls when open; optional snack budget is an estimate.",
+    "description": "Znajdź trzy detale architektoniczne, które zwykle mijasz. Targowisko i stoiska czynne w określonych godzinach.",
     "area": "food",
     "photo": "food",
     "kind": "sidequest",
     "tourist": "local",
     "foodStyle": "quick",
     "partner": false,
-    "placeId": "mirowska"
+    "placeId": "mirowska",
+    "image": "photo-35792461.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-electrownia",
-    "name": "A different perspective · Elektrownia Powiśle",
+    "name": "Zmień perspektywę · Elektrownia Powiśle",
     "lat": 52.2401,
     "lng": 21.026,
     "tags": [
       "culture",
-      "food",
       "hidden"
     ],
     "minutes": 20,
     "cost": 45,
-    "description": "Choose a viewpoint and spend ten minutes taking in the scene. Industrial architecture and a food-hall stop; food is optional.",
+    "description": "Wybierz ciekawy kadr i przez chwilę obserwuj otoczenie. Dawna elektrownia z gastronomią i architekturą przemysłową.",
     "area": "food",
     "photo": "food",
     "kind": "sidequest",
     "tourist": "local",
     "foodStyle": "sit",
     "partner": false,
-    "placeId": "electrownia"
+    "placeId": "electrownia",
+    "image": "photo-20054016.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "q-wilanow",
-    "name": "Slow down here · Wilanów Palace gates",
+    "name": "Zwolnij na chwilę · Brama pałacu w Wilanowie",
     "lat": 52.1652,
     "lng": 21.0904,
     "tags": [
@@ -613,13 +664,15 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Take a short screen-free break and notice the sounds around you. View the palace approach. Gardens and interiors require separate admission.",
+    "description": "Zrób krótką przerwę bez telefonu i wsłuchaj się w miasto. Widok na podejście do pałacu. Ogrody i wnętrza wymagają biletu.",
     "area": "park",
     "photo": "park",
     "kind": "sidequest",
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "placeId": "wilanow"
+    "placeId": "wilanow",
+    "image": "photo-16549195.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   }
 ]

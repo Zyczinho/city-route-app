@@ -13,7 +13,7 @@ export function summary(items,transport='walking'){
 }
 export function generate(places,prefs){
  const limit=Number(prefs.time), interests=prefs.interests||['mix'];
- const candidates=places.filter(p=>(prefs.food!=='none'||p.foodStyle==='none')&&(prefs.food!=='quick'||p.foodStyle!=='sit')&&(prefs.food!=='sit'||p.foodStyle!=='quick')&&(prefs.offers==='yes'||!p.partner)&&(prefs.budget!=='low'||p.cost<=25));
+ const candidates=places.filter(p=>p.kind!=='hotel'&&(prefs.food!=='none'||p.foodStyle==='none')&&(prefs.food!=='quick'||p.foodStyle!=='sit')&&(prefs.food!=='sit'||p.foodStyle!=='quick')&&(prefs.offers==='yes'||!p.partner)&&(prefs.budget!=='low'||p.cost<=25));
  const score=p=>(interests.includes('mix')?1:p.tags.filter(t=>interests.includes(t)).length*4)+(prefs.tourist==='balanced'?0:prefs.tourist==='must'?(p.tourist==='must'?3:0):(p.tourist==='local'?3:0));
  candidates.sort((a,b)=>score(b)-score(a)||a.id.localeCompare(b.id));
  const result=[];let cost=0;const cap=prefs.budget==='low'?25:prefs.budget==='medium'?100:Infinity;
@@ -32,3 +32,5 @@ export function advance(session,status){
 export function mapsUrl(p,transport='walking'){
  return `https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}&travelmode=${transport==='bike'?'bicycling':transport==='transit'?'transit':'walking'}`;
 }
+
+export function blendedRating(scores){const valid=scores.filter(s=>Number.isFinite(s.value)&&Number.isFinite(s.max)&&s.max>0&&s.value>=0&&s.value<=s.max);return valid.length?valid.reduce((n,s)=>n+s.value/s.max*5,0)/valid.length:null;}

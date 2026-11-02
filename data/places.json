@@ -1,7 +1,7 @@
 [
   {
     "id": "old-town",
-    "name": "Old Town Market Square",
+    "name": "Rynek Starego Miasta",
     "lat": 52.2497,
     "lng": 21.0122,
     "tags": [
@@ -10,17 +10,19 @@
     ],
     "minutes": 25,
     "cost": 0,
-    "description": "Pastel façades, cobbled streets and the Warsaw mermaid.",
+    "description": "Kolorowe kamienice, brukowane uliczki i warszawska Syrenka.",
     "area": "old",
     "photo": "old",
     "kind": "place",
     "tourist": "must",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-20627626.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "castle",
-    "name": "Royal Castle Square",
+    "name": "Plac Zamkowy",
     "lat": 52.2479,
     "lng": 21.0142,
     "tags": [
@@ -29,17 +31,19 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Start at the column and take in the red-brick castle exterior.",
+    "description": "Kolumna Zygmunta i widok na fasadę Zamku Królewskiego.",
     "area": "old",
     "photo": "old",
     "kind": "place",
     "tourist": "must",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-18454473.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "barbican",
-    "name": "Warsaw Barbican",
+    "name": "Barbakan Warszawski",
     "lat": 52.2508,
     "lng": 21.0108,
     "tags": [
@@ -48,17 +52,19 @@
     ],
     "minutes": 15,
     "cost": 0,
-    "description": "Follow the brick fortifications at the edge of the Old Town.",
+    "description": "Spacer wzdłuż ceglanych murów na skraju Starego Miasta.",
     "area": "old",
     "photo": "old",
     "kind": "place",
     "tourist": "must",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-7115502.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "new-town",
-    "name": "New Town Market Square",
+    "name": "Rynek Nowego Miasta",
     "lat": 52.253,
     "lng": 21.0088,
     "tags": [
@@ -67,17 +73,19 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "A quieter square just beyond the Old Town walls.",
+    "description": "Spokojniejszy rynek tuż za murami Starego Miasta.",
     "area": "old",
     "photo": "old",
     "kind": "place",
     "tourist": "local",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-17741460.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "fountain",
-    "name": "Multimedia Fountain Park",
+    "name": "Multimedialny Park Fontann",
     "lat": 52.2551,
     "lng": 21.0106,
     "tags": [
@@ -86,17 +94,19 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "An open-air riverside pause. Fountain shows are seasonal.",
+    "description": "Przystanek nad Wisłą. Pokazy fontann odbywają się sezonowo.",
     "area": "river",
     "photo": "river",
     "kind": "place",
     "tourist": "local",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-32468805.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "buw",
-    "name": "University Library Garden",
+    "name": "Ogród Biblioteki Uniwersyteckiej",
     "lat": 52.2422,
     "lng": 21.0247,
     "tags": [
@@ -106,17 +116,19 @@
     ],
     "minutes": 35,
     "cost": 0,
-    "description": "Explore the lower garden; roof access depends on season and hours.",
+    "description": "Zielony ogród przy bibliotece. Dostęp na dach zależy od sezonu i godzin otwarcia.",
     "area": "river",
     "photo": "river",
     "kind": "place",
     "tourist": "local",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-37307169.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "copernicus",
-    "name": "Copernicus Science Centre exterior",
+    "name": "Centrum Nauki Kopernik — z zewnątrz",
     "lat": 52.2418,
     "lng": 21.0287,
     "tags": [
@@ -125,17 +137,19 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "A science landmark beside the river; indoor entry requires a ticket.",
+    "description": "Charakterystyczna architektura nad Wisłą. Zwiedzanie wnętrza wymaga biletu.",
     "area": "river",
     "photo": "river",
     "kind": "place",
     "tourist": "must",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-8259574.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "boulevards",
-    "name": "Vistula Boulevards",
+    "name": "Bulwary Wiślane",
     "lat": 52.245,
     "lng": 21.0265,
     "tags": [
@@ -144,17 +158,19 @@
     ],
     "minutes": 35,
     "cost": 0,
-    "description": "Walk beside the river and watch the city slow down.",
+    "description": "Spacer nad rzeką i chwila odpoczynku od miejskiego tempa.",
     "area": "river",
     "photo": "river",
     "kind": "place",
     "tourist": "local",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-17761856.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "mermaid",
-    "name": "Powiśle Mermaid",
+    "name": "Syrenka na Powiślu",
     "lat": 52.2364,
     "lng": 21.0321,
     "tags": [
@@ -163,17 +179,19 @@
     ],
     "minutes": 15,
     "cost": 0,
-    "description": "Meet the riverside symbol of Warsaw by Świętokrzyski Bridge.",
+    "description": "Symbol Warszawy przy moście Świętokrzyskim.",
     "area": "river",
     "photo": "river",
     "kind": "place",
     "tourist": "must",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-35792461.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "lazienki",
-    "name": "Łazienki Royal Park",
+    "name": "Łazienki Królewskie",
     "lat": 52.215,
     "lng": 21.035,
     "tags": [
@@ -182,17 +200,19 @@
     ],
     "minutes": 50,
     "cost": 0,
-    "description": "Leafy paths and garden views around the royal park.",
+    "description": "Parkowe alejki i królewskie ogrody.",
     "area": "park",
     "photo": "park",
     "kind": "place",
     "tourist": "must",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-20054016.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "palace-water",
-    "name": "Palace on the Isle exterior",
+    "name": "Pałac na Wyspie — z zewnątrz",
     "lat": 52.2153,
     "lng": 21.0359,
     "tags": [
@@ -201,17 +221,19 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "See the palace reflected in the lake; interior admission is separate.",
+    "description": "Widok na pałac odbijający się w wodzie. Wnętrza są płatne osobno.",
     "area": "park",
     "photo": "park",
     "kind": "place",
     "tourist": "local",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-16549195.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "chopin",
-    "name": "Chopin Monument",
+    "name": "Pomnik Chopina",
     "lat": 52.2144,
     "lng": 21.0286,
     "tags": [
@@ -220,17 +242,19 @@
     ],
     "minutes": 15,
     "cost": 0,
-    "description": "A quiet pause by the sculptural tribute to Chopin.",
+    "description": "Chwila spokoju przy pomniku Fryderyka Chopina.",
     "area": "park",
     "photo": "park",
     "kind": "place",
     "tourist": "local",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-20627626.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "ujazdow",
-    "name": "Ujazdowski Castle exterior",
+    "name": "Zamek Ujazdowski — z zewnątrz",
     "lat": 52.2196,
     "lng": 21.0302,
     "tags": [
@@ -239,17 +263,19 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Castle architecture above the park; exhibitions need a separate ticket.",
+    "description": "Architektura zamku nad parkiem. Wystawy są płatne osobno.",
     "area": "park",
     "photo": "park",
     "kind": "place",
     "tourist": "local",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-18454473.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "ujazdowski-park",
-    "name": "Ujazdowski Park",
+    "name": "Park Ujazdowski",
     "lat": 52.219,
     "lng": 21.0255,
     "tags": [
@@ -258,17 +284,19 @@
     ],
     "minutes": 25,
     "cost": 0,
-    "description": "Small bridges, winding paths and an easy green detour.",
+    "description": "Mostki, kręte alejki i krótka zielona przerwa.",
     "area": "park",
     "photo": "park",
     "kind": "place",
     "tourist": "local",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-7115502.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "saxon",
-    "name": "Saxon Garden",
+    "name": "Ogród Saski",
     "lat": 52.2409,
     "lng": 21.0089,
     "tags": [
@@ -277,17 +305,19 @@
     ],
     "minutes": 30,
     "cost": 0,
-    "description": "A central garden with broad paths and a historic fountain.",
+    "description": "Ogród w centrum z zabytkową fontanną.",
     "area": "city",
     "photo": "city",
     "kind": "place",
     "tourist": "must",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-17741460.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "tomb",
-    "name": "Tomb of the Unknown Soldier",
+    "name": "Grób Nieznanego Żołnierza",
     "lat": 52.2419,
     "lng": 21.0115,
     "tags": [
@@ -296,17 +326,19 @@
     ],
     "minutes": 15,
     "cost": 0,
-    "description": "A place of remembrance on Piłsudski Square.",
+    "description": "Miejsce pamięci na placu Piłsudskiego.",
     "area": "city",
     "photo": "city",
     "kind": "place",
     "tourist": "must",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-32468805.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "palace-culture",
-    "name": "Palace of Culture exterior",
+    "name": "Pałac Kultury — z zewnątrz",
     "lat": 52.2317,
     "lng": 21.006,
     "tags": [
@@ -315,13 +347,15 @@
     ],
     "minutes": 25,
     "cost": 0,
-    "description": "Look up at Warsaw’s landmark tower. Observation deck ticket not included.",
+    "description": "Spójrz na jeden z symboli Warszawy. Taras widokowy wymaga osobnego biletu.",
     "area": "city",
     "photo": "city",
     "kind": "place",
     "tourist": "must",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-37307169.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "nowy-swiat",
@@ -329,22 +363,23 @@
     "lat": 52.2325,
     "lng": 21.0195,
     "tags": [
-      "sightseeing",
-      "food"
+      "sightseeing"
     ],
     "minutes": 30,
     "cost": 0,
-    "description": "A classic city promenade lined with cafés and architecture.",
+    "description": "Reprezentacyjna ulica i architektura Śródmieścia. To ulica, nie restauracja.",
     "area": "city",
     "photo": "city",
     "kind": "place",
     "tourist": "must",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-8259574.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "chopin-museum",
-    "name": "Chopin Museum exterior",
+    "name": "Muzeum Chopina — z zewnątrz",
     "lat": 52.2367,
     "lng": 21.0234,
     "tags": [
@@ -352,17 +387,19 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Find the palace above Tamka; museum admission is separate.",
+    "description": "Pałac nad Tamką. Wstęp do muzeum jest płatny osobno.",
     "area": "city",
     "photo": "city",
     "kind": "place",
     "tourist": "local",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-17761856.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "national-museum",
-    "name": "National Museum exterior",
+    "name": "Muzeum Narodowe — z zewnątrz",
     "lat": 52.2316,
     "lng": 21.0247,
     "tags": [
@@ -370,17 +407,19 @@
     ],
     "minutes": 15,
     "cost": 0,
-    "description": "A landmark of Polish art; this route includes the exterior only.",
+    "description": "Gmach muzeum od strony miasta. Trasa obejmuje tylko teren zewnętrzny.",
     "area": "city",
     "photo": "city",
     "kind": "place",
     "tourist": "local",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-35792461.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "praga-cathedral",
-    "name": "St Florian’s Cathedral",
+    "name": "Katedra św. Floriana",
     "lat": 52.2526,
     "lng": 21.0294,
     "tags": [
@@ -389,56 +428,60 @@
     ],
     "minutes": 20,
     "cost": 0,
-    "description": "Twin brick spires introduce the Praga side of the city.",
+    "description": "Ceglane wieże wprowadzają w klimat Pragi.",
     "area": "praga",
     "photo": "praga",
     "kind": "place",
     "tourist": "must",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-20054016.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "zabkowska",
-    "name": "Ząbkowska Street",
+    "name": "Ulica Ząbkowska",
     "lat": 52.2534,
     "lng": 21.0372,
     "tags": [
       "culture",
-      "hidden",
-      "food"
+      "hidden"
     ],
     "minutes": 30,
     "cost": 0,
-    "description": "Look up at old façades and explore Praga at street level.",
+    "description": "Stare fasady i spacer po praskiej ulicy.",
     "area": "praga",
     "photo": "praga",
     "kind": "place",
     "tourist": "local",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-16549195.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "koneser",
-    "name": "Praga Koneser Centre",
+    "name": "Centrum Praskie Koneser",
     "lat": 52.2546,
     "lng": 21.0448,
     "tags": [
-      "culture",
-      "food"
+      "culture"
     ],
     "minutes": 30,
     "cost": 0,
-    "description": "Red-brick industrial architecture around a public courtyard.",
+    "description": "Ceglana architektura przemysłowa i otwarty dziedziniec.",
     "area": "praga",
     "photo": "praga",
     "kind": "place",
     "tourist": "local",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-20627626.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "skaryszewski",
-    "name": "Skaryszewski Park",
+    "name": "Park Skaryszewski",
     "lat": 52.2409,
     "lng": 21.0545,
     "tags": [
@@ -447,36 +490,39 @@
     ],
     "minutes": 45,
     "cost": 0,
-    "description": "Lakes, sculpture and broad paths east of the river.",
+    "description": "Jeziora, rzeźby i szerokie alejki po prawej stronie Wisły.",
     "area": "park",
     "photo": "park",
     "kind": "place",
     "tourist": "local",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-18454473.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "saska",
-    "name": "Francuska Street",
+    "name": "Ulica Francuska",
     "lat": 52.2328,
     "lng": 21.0603,
     "tags": [
-      "food",
       "hidden"
     ],
     "minutes": 30,
     "cost": 0,
-    "description": "Neighbourhood cafés and villa architecture in Saska Kępa.",
+    "description": "Wille i sąsiedzki klimat Saskiej Kępy. To ulica, nie lokal gastronomiczny.",
     "area": "praga",
     "photo": "praga",
     "kind": "place",
     "tourist": "local",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-7115502.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "rooftop",
-    "name": "Świętokrzyski Bridge",
+    "name": "Most Świętokrzyski",
     "lat": 52.2385,
     "lng": 21.038,
     "tags": [
@@ -485,13 +531,15 @@
     ],
     "minutes": 25,
     "cost": 0,
-    "description": "Cross on the pedestrian path for river and skyline views.",
+    "description": "Widoki na rzekę i panoramę miasta ze ścieżki dla pieszych.",
     "area": "river",
     "photo": "river",
     "kind": "place",
     "tourist": "local",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-17741460.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "koszyki",
@@ -499,18 +547,19 @@
     "lat": 52.2223,
     "lng": 21.0104,
     "tags": [
-      "food",
       "culture"
     ],
     "minutes": 35,
     "cost": 45,
-    "description": "Browse a restored food hall. Optional meal budget is an estimate.",
+    "description": "Zabytkowa hala gastronomiczna. Wydatki na jedzenie są orientacyjne.",
     "area": "food",
     "photo": "food",
     "kind": "place",
     "tourist": "local",
     "foodStyle": "sit",
-    "partner": false
+    "partner": false,
+    "image": "photo-32468805.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "mirowska",
@@ -518,18 +567,19 @@
     "lat": 52.2388,
     "lng": 20.9979,
     "tags": [
-      "food",
       "hidden"
     ],
     "minutes": 30,
     "cost": 25,
-    "description": "Browse market stalls when open; optional snack budget is an estimate.",
+    "description": "Targowisko i stoiska czynne w określonych godzinach.",
     "area": "food",
     "photo": "food",
     "kind": "place",
     "tourist": "local",
     "foodStyle": "quick",
-    "partner": false
+    "partner": false,
+    "image": "photo-37307169.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "electrownia",
@@ -537,22 +587,23 @@
     "lat": 52.2401,
     "lng": 21.026,
     "tags": [
-      "food",
       "culture"
     ],
     "minutes": 35,
     "cost": 45,
-    "description": "Industrial architecture and a food-hall stop; food is optional.",
+    "description": "Dawna elektrownia z gastronomią i architekturą przemysłową.",
     "area": "food",
     "photo": "food",
     "kind": "place",
     "tourist": "local",
     "foodStyle": "sit",
-    "partner": false
+    "partner": false,
+    "image": "photo-8259574.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
   },
   {
     "id": "wilanow",
-    "name": "Wilanów Palace gates",
+    "name": "Brama pałacu w Wilanowie",
     "lat": 52.1652,
     "lng": 21.0904,
     "tags": [
@@ -561,12 +612,94 @@
     ],
     "minutes": 25,
     "cost": 0,
-    "description": "View the palace approach. Gardens and interiors require separate admission.",
+    "description": "Widok na podejście do pałacu. Ogrody i wnętrza wymagają biletu.",
     "area": "park",
     "photo": "park",
     "kind": "place",
     "tourist": "must",
     "foodStyle": "none",
-    "partner": false
+    "partner": false,
+    "image": "photo-17761856.jpg",
+    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+  },
+  {
+    "id": "stary-dom",
+    "name": "Restauracja Stary Dom",
+    "lat": 52.199,
+    "lng": 21.0244,
+    "description": "Kuchnia polska przy ul. Puławskiej 104/106. Budżet i oceny to dane demonstracyjne.",
+    "website": "https://restauracjastarydom.pl/",
+    "image": "photo-37658721.jpg",
+    "imageNote": "Zdjęcie ilustracyjne kuchni polskiej, nie danie z tego lokalu.",
+    "tags": [
+      "food"
+    ],
+    "minutes": 60,
+    "cost": 100,
+    "kind": "restaurant",
+    "foodStyle": "sit",
+    "tourist": "local",
+    "partner": false,
+    "photo": "food"
+  },
+  {
+    "id": "der-elefant",
+    "name": "Der Elefant",
+    "lat": 52.2442,
+    "lng": 21.0024,
+    "description": "Restauracja przy placu Bankowym 1. Budżet i oceny to dane demonstracyjne.",
+    "website": "https://derelefant.com/pl",
+    "image": "photo-37616026.jpg",
+    "imageNote": "Zdjęcie ilustracyjne kuchni polskiej, nie danie z tego lokalu.",
+    "tags": [
+      "food"
+    ],
+    "minutes": 60,
+    "cost": 100,
+    "kind": "restaurant",
+    "foodStyle": "sit",
+    "tourist": "local",
+    "partner": false,
+    "photo": "food"
+  },
+  {
+    "id": "polonia-palace",
+    "name": "Hotel Polonia Palace",
+    "lat": 52.2285,
+    "lng": 21.0102,
+    "description": "Hotel przy Alejach Jerozolimskich 45. Sprawdź dostępność i ceny na stronie obiektu.",
+    "website": "https://www.poloniapalace.com/pl",
+    "image": "photo-15273732.jpg",
+    "imageNote": "Zdjęcie ilustracyjne pokoju hotelowego, nie zdjęcie tego hotelu.",
+    "tags": [
+      "hotels"
+    ],
+    "minutes": 15,
+    "cost": 0,
+    "kind": "hotel",
+    "foodStyle": "none",
+    "tourist": "local",
+    "partner": false,
+    "photo": "city"
+  },
+  {
+    "id": "bristol",
+    "name": "Hotel Bristol",
+    "lat": 52.2422,
+    "lng": 21.0156,
+    "description": "Hotel przy Krakowskim Przedmieściu 42/44. Sprawdź dostępność i ceny na stronie obiektu.",
+    "website": "https://www.hotelbristolwarsaw.pl/",
+    "image": "photo-19045884.jpg",
+    "imageNote": "Zdjęcie ilustracyjne pokoju hotelowego, nie zdjęcie tego hotelu.",
+    "tags": [
+      "hotels"
+    ],
+    "minutes": 15,
+    "cost": 0,
+    "kind": "hotel",
+    "foodStyle": "none",
+    "tourist": "local",
+    "partner": false,
+    "photo": "city"
   }
 ]

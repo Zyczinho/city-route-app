@@ -3,8 +3,7 @@
   "sources": [
     "Google Maps",
     "TripAdvisor",
-    "GetYourGuide",
-    "Atlas Obscura"
+    "GetYourGuide"
   ],
   "signals": []
 }

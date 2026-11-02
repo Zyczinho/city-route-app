@@ -34,3 +34,7 @@ PWA manifest/cache foundation is implemented; offline install on HTTPS and physi
 
 ## Visual/social iteration — 2026-11-02
 Added photo covers to all discovery/sidequest cards, blue palette and primary actions, distinct source chip colors/icons, illustrative per-source scores and arithmetic blended mean (3 numeric scores only). Atlas editorial pick excluded. All invented scores/picks explicitly marked DEMO per owner request; no real reviews claimed. Community demo route collection appears first in Explore. Friends nicknames can be added/removed locally with persistence, no invitations or backend. Discounts is a coming-soon tab. Existing route flow retained. Six core tests pass; browser checked source widgets and friend add/reload. Next: real images per place, verified source records, physical-phone navigation QA. Service worker cache bumped v2.
+
+## Focused navigation — 2026-11-02
+Four primary destinations: Explore, Places, Build, My Route. Sidequests accessible within Places. Friends/Discounts available in profile shortcuts. Local Lucide SVG UI icons and Simple Icons Maps/Tripadvisor marks; GYG/Atlas use brand-name color buttons. Cache v3. Six tests pass; browser checked discovery switch and source rendering.
+Cloudflare transfer blocked by account authentication: GitHub sign-in returned Unable to sign in in dashboard. No independent deployment created. User must complete Cloudflare authentication to continue setup. Keep existing private mirror until independent deployment verified.

@@ -90,7 +90,7 @@ async function hydrateProfile(user){
 function setNotice(text){notice=text;renderAuth();}
 
 function signedOutMarkup(){
-  return `<section class="auth-card" data-city-auth data-auth-state="out" data-auth-notice="${esc(notice)}"><div><p class="kicker">Konto City Route</p><h2>Zapisz swój profil i korzystaj na różnych urządzeniach</h2><p class="fine">Trasy pozostają dostępne lokalnie. Konto synchronizuje na razie profil; grupy i chat dołączą na tej samej bazie.</p></div>
+  return `<section class="auth-card" data-city-auth data-auth-state="out" data-auth-user="" data-auth-notice="${esc(notice)}"><div><p class="kicker">Konto City Route</p><h2>Zapisz swój profil i korzystaj na różnych urządzeniach</h2><p class="fine">Trasy pozostają dostępne lokalnie. Konto synchronizuje na razie profil; grupy i chat dołączą na tej samej bazie.</p></div>
   ${notice?`<p class="auth-notice" role="status">${esc(notice)}</p>`:''}
   <form data-auth-form="login" class="auth-form"><h3>Zaloguj się</h3><label>E-mail<input name="email" type="email" autocomplete="email" required></label><label>Hasło<input name="password" type="password" autocomplete="current-password" minlength="6" required></label><button class="primary">Zaloguj</button></form>
   <details class="auth-signup"><summary>Nie masz konta? Utwórz je</summary><form data-auth-form="signup" class="auth-form"><label>Nazwa<input name="nickname" maxlength="40" autocomplete="nickname" placeholder="Odkrywca"></label><label>E-mail<input name="email" type="email" autocomplete="email" required></label><label>Hasło<input name="password" type="password" autocomplete="new-password" minlength="6" required></label><button class="primary">Utwórz konto</button></form></details></section>`;
@@ -123,7 +123,7 @@ async function handleSubmit(form){
     if(error)setNotice(error.message);else setNotice('Zalogowano. Synchronizuję profil…');
   }else{
     const nickname=String(fd.get('nickname')||'').trim()||'Odkrywca';
-    const {data,error}=await supabase.auth.signUp({email,password,options:{data:{nickname},emailRedirectTo:`${location.origin}${location.pathname}#profile`}});
+    const {data,error}=await supabase.auth.signUp({email,password,options:{data:{nickname},emailRedirectTo:`${location.origin}${location.pathname}`}});
     if(error)setNotice(error.message);
     else if(!data.session)setNotice('Konto utworzone. Sprawdź e-mail i potwierdź adres.');
     else setNotice('Konto utworzone. Synchronizuję profil…');

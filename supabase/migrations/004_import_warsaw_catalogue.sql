@@ -31,7 +31,7 @@ begin
   insert into public.place_tags(place_id,tag) values(v_place,'sightseeing') on conflict do nothing;
   delete from public.place_sources where place_id=v_place;
   insert into public.place_sources(place_id,source,external_id,listing,url,rating,rating_max,review_count,checked_at,metadata) values(
-    v_place,'google',null,'Rynek Starego Miasta','https://www.google.com/maps/search/?api=1&query=Rynek%20Starego%20Miasta%2C%20Warszawa',0,5,null,'2026-11-02'::timestamptz,'{"method":"Google Maps, panel miejsca, odczyt ręczny","reason":"Google Maps pokazuje to miejsce jako adres, bez ocen."}'::jsonb
+    v_place,'google',null,'Rynek Starego Miasta','https://www.google.com/maps/search/?api=1&query=Rynek%20Starego%20Miasta%2C%20Warszawa',null,5,null,'2026-11-02'::timestamptz,'{"method":"Google Maps, panel miejsca, odczyt ręczny","reason":"Google Maps pokazuje to miejsce jako adres, bez ocen."}'::jsonb
   );
   insert into public.place_sources(place_id,source,external_id,listing,url,rating,rating_max,review_count,checked_at,metadata) values(
     v_place,'tripadvisor',null,'Rynek Starego Miasta','https://www.tripadvisor.com/Attraction_Review-g274856-d274989-Reviews-Rynek_Starego_Miasta-Warsaw_Mazovia_Province_Central_Poland.html',4.5,5,4874,'2026-11-02'::timestamptz,'{"method":"Tripadvisor, ocena strony obiektu z wyników wyszukiwania","reason":null}'::jsonb
@@ -94,7 +94,7 @@ begin
   insert into public.place_tags(place_id,tag) values(v_place,'hidden') on conflict do nothing;
   delete from public.place_sources where place_id=v_place;
   insert into public.place_sources(place_id,source,external_id,listing,url,rating,rating_max,review_count,checked_at,metadata) values(
-    v_place,'google',null,'rynek Nowego Miasta','https://www.google.com/maps/search/?api=1&query=rynek%20Nowego%20Miasta%2C%20Warszawa',0,5,null,'2026-11-02'::timestamptz,'{"method":"Google Maps, panel miejsca, odczyt ręczny","reason":"Google Maps pokazuje to miejsce jako adres, bez ocen."}'::jsonb
+    v_place,'google',null,'rynek Nowego Miasta','https://www.google.com/maps/search/?api=1&query=rynek%20Nowego%20Miasta%2C%20Warszawa',null,5,null,'2026-11-02'::timestamptz,'{"method":"Google Maps, panel miejsca, odczyt ręczny","reason":"Google Maps pokazuje to miejsce jako adres, bez ocen."}'::jsonb
   );
   insert into public.place_sources(place_id,source,external_id,listing,url,rating,rating_max,review_count,checked_at,metadata) values(
     v_place,'tripadvisor',null,'New Town Square','https://www.tripadvisor.com/Attraction_Review-g274856-d274988-Reviews-New_Town_Square-Warsaw_Mazovia_Province_Central_Poland.html',3.8,5,120,'2026-11-02'::timestamptz,'{"method":"Tripadvisor, ocena strony obiektu z wyników wyszukiwania","reason":null}'::jsonb
@@ -388,7 +388,7 @@ begin
   insert into public.place_tags(place_id,tag) values(v_place,'sightseeing') on conflict do nothing;
   delete from public.place_sources where place_id=v_place;
   insert into public.place_sources(place_id,source,external_id,listing,url,rating,rating_max,review_count,checked_at,metadata) values(
-    v_place,'google',null,'Nowy Świat','https://www.google.com/maps/search/?api=1&query=Nowy%20%C5%9Awiat%2C%20Warszawa',0,5,null,'2026-11-02'::timestamptz,'{"method":"Google Maps, panel miejsca, odczyt ręczny","reason":"Google Maps pokazuje to miejsce jako adres, bez ocen."}'::jsonb
+    v_place,'google',null,'Nowy Świat','https://www.google.com/maps/search/?api=1&query=Nowy%20%C5%9Awiat%2C%20Warszawa',null,5,null,'2026-11-02'::timestamptz,'{"method":"Google Maps, panel miejsca, odczyt ręczny","reason":"Google Maps pokazuje to miejsce jako adres, bez ocen."}'::jsonb
   );
   insert into public.place_sources(place_id,source,external_id,listing,url,rating,rating_max,review_count,checked_at,metadata) values(
     v_place,'tripadvisor',null,'Nowy Swiat','https://www.tripadvisor.com/Attraction_Review-g274856-d293063-Reviews-Nowy_Swiat-Warsaw_Mazovia_Province_Central_Poland.html',4.4,5,2151,'2026-11-02'::timestamptz,'{"method":"Tripadvisor, ocena strony obiektu z wyników wyszukiwania","reason":null}'::jsonb
@@ -470,7 +470,7 @@ begin
   insert into public.place_tags(place_id,tag) values(v_place,'hidden') on conflict do nothing;
   delete from public.place_sources where place_id=v_place;
   insert into public.place_sources(place_id,source,external_id,listing,url,rating,rating_max,review_count,checked_at,metadata) values(
-    v_place,'google',null,'Ząbkowska','https://www.google.com/maps/search/?api=1&query=Z%C4%85bkowska%2C%20Warszawa',0,5,null,'2026-11-02'::timestamptz,'{"method":"Google Maps, panel miejsca, odczyt ręczny","reason":"Google Maps pokazuje to miejsce jako adres, bez ocen."}'::jsonb
+    v_place,'google',null,'Ząbkowska','https://www.google.com/maps/search/?api=1&query=Z%C4%85bkowska%2C%20Warszawa',null,5,null,'2026-11-02'::timestamptz,'{"method":"Google Maps, panel miejsca, odczyt ręczny","reason":"Google Maps pokazuje to miejsce jako adres, bez ocen."}'::jsonb
   );
   insert into public.place_sources(place_id,source,external_id,listing,url,rating,rating_max,review_count,checked_at,metadata) values(
     v_place,'tripadvisor',null,'Zabkowska Street','https://www.tripadvisor.com/Attraction_Review-g274856-d10822086-Reviews-Zabkowska_Street-Warsaw_Mazovia_Province_Central_Poland.html',3.1,5,14,'2026-11-02'::timestamptz,'{"method":"Tripadvisor, ocena strony obiektu z wyników wyszukiwania","reason":null}'::jsonb
@@ -531,10 +531,10 @@ begin
   insert into public.place_tags(place_id,tag) values(v_place,'hidden') on conflict do nothing;
   delete from public.place_sources where place_id=v_place;
   insert into public.place_sources(place_id,source,external_id,listing,url,rating,rating_max,review_count,checked_at,metadata) values(
-    v_place,'google',null,'Francuska','https://www.google.com/maps/search/?api=1&query=Francuska%2C%20Warszawa',0,5,null,'2026-11-02'::timestamptz,'{"method":"Google Maps, panel miejsca, odczyt ręczny","reason":"Google Maps pokazuje to miejsce jako adres, bez ocen."}'::jsonb
+    v_place,'google',null,'Francuska','https://www.google.com/maps/search/?api=1&query=Francuska%2C%20Warszawa',null,5,null,'2026-11-02'::timestamptz,'{"method":"Google Maps, panel miejsca, odczyt ręczny","reason":"Google Maps pokazuje to miejsce jako adres, bez ocen."}'::jsonb
   );
   insert into public.place_sources(place_id,source,external_id,listing,url,rating,rating_max,review_count,checked_at,metadata) values(
-    v_place,'tripadvisor',null,'-',null,0,5,null,'2026-11-02'::timestamptz,'{"method":"Tripadvisor, ocena strony obiektu z wyników wyszukiwania","reason":"Nie znaleźliśmy tego miejsca na Tripadvisor."}'::jsonb
+    v_place,'tripadvisor',null,'-',null,null,5,null,'2026-11-02'::timestamptz,'{"method":"Tripadvisor, ocena strony obiektu z wyników wyszukiwania","reason":"Nie znaleźliśmy tego miejsca na Tripadvisor."}'::jsonb
   );
 
   -- place: rooftop
@@ -615,7 +615,7 @@ begin
     v_place,'google',null,'Elektrownia Powiśle','https://www.google.com/maps/search/?api=1&query=Elektrownia%20Powi%C5%9Ble%2C%20Warszawa',4.7,5,19970,'2026-11-02'::timestamptz,'{"method":"Google Maps, panel miejsca, odczyt ręczny","reason":null}'::jsonb
   );
   insert into public.place_sources(place_id,source,external_id,listing,url,rating,rating_max,review_count,checked_at,metadata) values(
-    v_place,'tripadvisor',null,'Elektrownia Powiśle','https://www.tripadvisor.com/Attraction_Review-g274856-d20927145-Reviews-Elektrownia_PowiSle-Warsaw_Mazovia_Province_Central_Poland.html',0,5,null,'2026-11-02'::timestamptz,'{"method":"Tripadvisor, ocena strony obiektu z wyników wyszukiwania","reason":"Tripadvisor ma stronę, ale bez widocznej oceny."}'::jsonb
+    v_place,'tripadvisor',null,'Elektrownia Powiśle','https://www.tripadvisor.com/Attraction_Review-g274856-d20927145-Reviews-Elektrownia_PowiSle-Warsaw_Mazovia_Province_Central_Poland.html',null,5,null,'2026-11-02'::timestamptz,'{"method":"Tripadvisor, ocena strony obiektu z wyników wyszukiwania","reason":"Tripadvisor ma stronę, ale bez widocznej oceny."}'::jsonb
   );
 
   -- place: wilanow
@@ -856,7 +856,7 @@ begin
     v_place,'google',null,'FREYA CAFE KONESER','https://www.google.com/maps/search/?api=1&query=FREYA%20CAFE%20KONESER%2C%20Warszawa',4.5,5,348,'2026-11-02'::timestamptz,'{"method":"Google Maps, panel miejsca, odczyt ręczny","reason":null}'::jsonb
   );
   insert into public.place_sources(place_id,source,external_id,listing,url,rating,rating_max,review_count,checked_at,metadata) values(
-    v_place,'tripadvisor',null,'Freya Cafe Koneser','https://www.tripadvisor.com/Restaurant_Review-g274856-d27575797-Reviews-Freya_Cafe_Koneser-Warsaw_Mazovia_Province_Central_Poland.html',0,5,null,'2026-11-02'::timestamptz,'{"method":"Tripadvisor, ocena strony obiektu z wyników wyszukiwania","reason":"Tripadvisor ma stronę, ale bez opinii."}'::jsonb
+    v_place,'tripadvisor',null,'Freya Cafe Koneser','https://www.tripadvisor.com/Restaurant_Review-g274856-d27575797-Reviews-Freya_Cafe_Koneser-Warsaw_Mazovia_Province_Central_Poland.html',null,5,null,'2026-11-02'::timestamptz,'{"method":"Tripadvisor, ocena strony obiektu z wyników wyszukiwania","reason":"Tripadvisor ma stronę, ale bez opinii."}'::jsonb
   );
 
   -- place: spoldzielnia

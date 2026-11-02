@@ -1,0 +1,28 @@
+{
+  "cityId": "krakow",
+  "bbox": [49.985, 19.78, 50.135, 20.13],
+  "targetCount": 220,
+  "quotas": {
+    "landmark": 24,
+    "museum": 22,
+    "gallery": 8,
+    "architecture": 8,
+    "religious_site": 12,
+    "viewpoint": 8,
+    "park": 12,
+    "garden": 5,
+    "restaurant": 42,
+    "cafe": 24,
+    "street_food": 8,
+    "food_hall": 5,
+    "bakery": 8,
+    "bar": 14,
+    "pub": 12,
+    "cocktail_bar": 6,
+    "club": 8,
+    "live_music": 4,
+    "hotel": 16,
+    "hostel": 8,
+    "guesthouse": 8
+  }
+}

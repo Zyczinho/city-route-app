@@ -24,3 +24,10 @@ Known limitations: 30 sidequests are simple prompts anchored to 30 places; sourc
 
 Current branch work/mvp; previous pushed checkpoint f6e5ab1c413954079db9ee3cd71fec8a435bc734. This checkpoint hash: git log -1 after fetching. Run npm test, npm run build, python3 -m http.server 4180 --directory dist.
 Cloudflare Pages is prepared: main, npm run build, dist. Direct account connection is not configured. Optional private Sites mirror registered as appgprj_6ae878f238188191ad1c9de840ad1bc7; not yet deployed. No secrets required.
+
+## Published handoff
+Canonical main MVP commit: 859f2e557e7de647bf611a9a780e48e1bc7f8de5 (work/mvp also points here). Current branch for next work: create claude/* from current main, which additionally includes this handoff.
+Private convenience mirror deployed successfully: https://city-route-app.pocztowka.chatgpt.site (requires owner ChatGPT login). Mirror packaging commit e8ae4b752656ff7c33f7c2fd1ea54bb34ac6fe56; GitHub remains canonical. Do not develop against the mirror repository.
+Studio card commit: 2df9f0c30a0b3bfaa13a75235b95c0cf1b87a35f, branch codex/city-route-app, PR https://github.com/Zyczinho/1001-cave/pull/6. PR is open, not merged or live. Contains logo, status, description and repo link. Add live URL after independent Cloudflare deployment.
+Independent Cloudflare account deployment not completed: no connected Cloudflare management tool/account session was established. Next agent: connect GitHub repo in Cloudflare Pages, main / npm run build / dist; no env vars. See https://developers.cloudflare.com/pages/get-started/git-integration/ . Private mirror is not a substitute for this independence requirement.
+PWA manifest/cache foundation is implemented; offline install on HTTPS and physical phone still needs verification. Source aggregation remains a staged feature: source tabs currently open searches, no verified rating records yet. Do not describe it as finished multi-source rankings.

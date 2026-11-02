@@ -10,7 +10,9 @@
       "new-town"
     ],
     "photo": "old",
-    "image": "photo-20627626.jpg"
+    "image": "place-31495562.jpg",
+    "imageNote": "Pierwszy przystanek: Plac Zamkowy",
+    "imageVerified": true
   },
   {
     "id": "river-time",
@@ -23,7 +25,9 @@
       "mermaid"
     ],
     "photo": "river",
-    "image": "photo-18454473.jpg"
+    "image": "place-12028385.jpg",
+    "imageNote": "Pierwszy przystanek: Ogród Biblioteki Uniwersyteckiej",
+    "imageVerified": true
   },
   {
     "id": "royal-green",
@@ -36,7 +40,9 @@
       "ujazdow"
     ],
     "photo": "park",
-    "image": "photo-7115502.jpg"
+    "image": null,
+    "imageNote": "Pierwszy przystanek: Pomnik Chopina",
+    "imageVerified": false
   },
   {
     "id": "praga",
@@ -48,7 +54,9 @@
       "koneser"
     ],
     "photo": "praga",
-    "image": "photo-17741460.jpg"
+    "image": null,
+    "imageNote": "Pierwszy przystanek: Katedra św. Floriana",
+    "imageVerified": false
   },
   {
     "id": "city-icons",
@@ -60,7 +68,9 @@
       "national-museum"
     ],
     "photo": "city",
-    "image": "photo-32468805.jpg"
+    "image": "place-17131946.jpg",
+    "imageNote": "Pierwszy przystanek: Pałac Kultury — z zewnątrz",
+    "imageVerified": true
   },
   {
     "id": "quiet-centre",
@@ -72,7 +82,9 @@
       "tomb"
     ],
     "photo": "city",
-    "image": "photo-37307169.jpg"
+    "image": null,
+    "imageNote": "Pierwszy przystanek: Hala Mirowska",
+    "imageVerified": false
   },
   {
     "id": "food-design",
@@ -83,7 +95,9 @@
       "der-elefant"
     ],
     "photo": "food",
-    "image": "photo-8259574.jpg"
+    "image": "place-12028385.jpg",
+    "imageNote": "Pierwszy przystanek: Ogród Biblioteki Uniwersyteckiej",
+    "imageVerified": true
   },
   {
     "id": "saska-afternoon",
@@ -94,7 +108,9 @@
       "skaryszewski"
     ],
     "photo": "praga",
-    "image": "photo-17761856.jpg"
+    "image": null,
+    "imageNote": "Pierwszy przystanek: Ulica Francuska",
+    "imageVerified": false
   },
   {
     "id": "old-river",
@@ -107,7 +123,9 @@
       "boulevards"
     ],
     "photo": "old",
-    "image": "photo-35792461.jpg"
+    "image": "photo-18454473.jpg",
+    "imageNote": "Pierwszy przystanek: Rynek Starego Miasta",
+    "imageVerified": true
   },
   {
     "id": "chopin-walk",
@@ -119,7 +137,9 @@
       "saxon"
     ],
     "photo": "city",
-    "image": "photo-20054016.jpg"
+    "image": null,
+    "imageNote": "Pierwszy przystanek: Muzeum Chopina — z zewnątrz",
+    "imageVerified": false
   },
   {
     "id": "park-pocket",
@@ -131,7 +151,9 @@
       "chopin"
     ],
     "photo": "park",
-    "image": "photo-16549195.jpg"
+    "image": null,
+    "imageNote": "Pierwszy przystanek: Park Ujazdowski",
+    "imageVerified": false
   },
   {
     "id": "sunset",
@@ -143,6 +165,8 @@
       "rooftop"
     ],
     "photo": "river",
-    "image": "photo-20627626.jpg"
+    "image": null,
+    "imageNote": "Pierwszy przystanek: Centrum Nauki Kopernik — z zewnątrz",
+    "imageVerified": false
   }
 ]

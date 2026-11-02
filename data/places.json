@@ -17,8 +17,9 @@
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-20627626.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": "photo-18454473.jpg",
+    "imageNote": "Rynek Starego Miasta",
+    "imageVerified": true
   },
   {
     "id": "castle",
@@ -38,8 +39,9 @@
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-18454473.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": "place-31495562.jpg",
+    "imageNote": "Plac Zamkowy",
+    "imageVerified": true
   },
   {
     "id": "barbican",
@@ -59,8 +61,9 @@
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-7115502.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": "place-35839613.jpg",
+    "imageNote": "Barbakan Warszawski",
+    "imageVerified": true
   },
   {
     "id": "new-town",
@@ -80,8 +83,9 @@
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-17741460.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "fountain",
@@ -101,8 +105,9 @@
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-32468805.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "buw",
@@ -123,8 +128,9 @@
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-37307169.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": "place-12028385.jpg",
+    "imageNote": "Ogród Biblioteki Uniwersyteckiej",
+    "imageVerified": true
   },
   {
     "id": "copernicus",
@@ -144,8 +150,9 @@
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-8259574.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "boulevards",
@@ -165,8 +172,9 @@
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-17761856.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "mermaid",
@@ -186,8 +194,9 @@
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-35792461.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "lazienki",
@@ -207,8 +216,9 @@
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-20054016.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": "photo-8259574.jpg",
+    "imageNote": "Łazienki Królewskie",
+    "imageVerified": true
   },
   {
     "id": "palace-water",
@@ -228,8 +238,9 @@
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-16549195.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": "photo-17761856.jpg",
+    "imageNote": "Pałac na Wyspie — z zewnątrz",
+    "imageVerified": true
   },
   {
     "id": "chopin",
@@ -249,8 +260,9 @@
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-20627626.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "ujazdow",
@@ -270,8 +282,9 @@
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-18454473.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "ujazdowski-park",
@@ -291,8 +304,9 @@
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-7115502.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "saxon",
@@ -312,8 +326,9 @@
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-17741460.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "tomb",
@@ -333,8 +348,9 @@
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-32468805.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "palace-culture",
@@ -354,8 +370,10 @@
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-37307169.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": "place-17131946.jpg",
+    "imageNote": "Pałac Kultury — z zewnątrz",
+    "imageVerified": true,
+    "portrait": true
   },
   {
     "id": "nowy-swiat",
@@ -374,8 +392,9 @@
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-8259574.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "chopin-museum",
@@ -394,8 +413,9 @@
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-17761856.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "national-museum",
@@ -414,8 +434,9 @@
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-35792461.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "praga-cathedral",
@@ -435,8 +456,9 @@
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-20054016.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "zabkowska",
@@ -456,8 +478,9 @@
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-16549195.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "koneser",
@@ -476,8 +499,9 @@
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-20627626.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "skaryszewski",
@@ -497,8 +521,9 @@
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-18454473.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "saska",
@@ -517,8 +542,9 @@
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-7115502.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "rooftop",
@@ -538,8 +564,9 @@
     "tourist": "local",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-17741460.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "koszyki",
@@ -558,8 +585,9 @@
     "tourist": "local",
     "foodStyle": "sit",
     "partner": false,
-    "image": "photo-32468805.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "mirowska",
@@ -578,8 +606,9 @@
     "tourist": "local",
     "foodStyle": "quick",
     "partner": false,
-    "image": "photo-37307169.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "electrownia",
@@ -598,8 +627,9 @@
     "tourist": "local",
     "foodStyle": "sit",
     "partner": false,
-    "image": "photo-8259574.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "wilanow",
@@ -619,8 +649,9 @@
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
-    "image": "photo-17761856.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "stary-dom",
@@ -629,8 +660,8 @@
     "lng": 21.0244,
     "description": "Kuchnia polska przy ul. Puławskiej 104/106. Budżet i oceny to dane demonstracyjne.",
     "website": "https://restauracjastarydom.pl/",
-    "image": "photo-37658721.jpg",
-    "imageNote": "Zdjęcie ilustracyjne kuchni polskiej, nie danie z tego lokalu.",
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
     "tags": [
       "food"
     ],
@@ -640,7 +671,32 @@
     "foodStyle": "sit",
     "tourist": "local",
     "partner": false,
-    "photo": "food"
+    "photo": "food",
+    "imageVerified": false,
+    "cuisine": [
+      "polska"
+    ],
+    "address": "Puławska 104/106",
+    "ratings": [
+      {
+        "name": "Google Maps",
+        "max": 5,
+        "value": 4.6,
+        "demo": true
+      },
+      {
+        "name": "TripAdvisor",
+        "max": 5,
+        "value": 4.4,
+        "demo": true
+      },
+      {
+        "name": "Yelp",
+        "max": 5,
+        "value": null,
+        "reason": "Brak zweryfikowanej oceny w prototypie"
+      }
+    ]
   },
   {
     "id": "der-elefant",
@@ -649,8 +705,8 @@
     "lng": 21.0024,
     "description": "Restauracja przy placu Bankowym 1. Budżet i oceny to dane demonstracyjne.",
     "website": "https://derelefant.com/pl",
-    "image": "photo-37616026.jpg",
-    "imageNote": "Zdjęcie ilustracyjne kuchni polskiej, nie danie z tego lokalu.",
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
     "tags": [
       "food"
     ],
@@ -660,7 +716,34 @@
     "foodStyle": "sit",
     "tourist": "local",
     "partner": false,
-    "photo": "food"
+    "photo": "food",
+    "imageVerified": false,
+    "cuisine": [
+      "międzynarodowa",
+      "steki",
+      "owoce morza"
+    ],
+    "address": "plac Bankowy 1",
+    "ratings": [
+      {
+        "name": "Google Maps",
+        "max": 5,
+        "value": 4.8,
+        "demo": true
+      },
+      {
+        "name": "TripAdvisor",
+        "max": 5,
+        "value": 4.6000000000000005,
+        "demo": true
+      },
+      {
+        "name": "Yelp",
+        "max": 5,
+        "value": null,
+        "reason": "Brak zweryfikowanej oceny w prototypie"
+      }
+    ]
   },
   {
     "id": "polonia-palace",
@@ -669,8 +752,8 @@
     "lng": 21.0102,
     "description": "Hotel przy Alejach Jerozolimskich 45. Sprawdź dostępność i ceny na stronie obiektu.",
     "website": "https://www.poloniapalace.com/pl",
-    "image": "photo-15273732.jpg",
-    "imageNote": "Zdjęcie ilustracyjne pokoju hotelowego, nie zdjęcie tego hotelu.",
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
     "tags": [
       "hotels"
     ],
@@ -680,7 +763,34 @@
     "foodStyle": "none",
     "tourist": "local",
     "partner": false,
-    "photo": "city"
+    "photo": "city",
+    "imageVerified": false,
+    "ratings": [
+      {
+        "name": "Google Maps",
+        "max": 5,
+        "value": 4.6,
+        "demo": true
+      },
+      {
+        "name": "TripAdvisor",
+        "max": 5,
+        "value": 4.5,
+        "demo": true
+      },
+      {
+        "name": "Booking",
+        "max": 10,
+        "value": 9.1,
+        "demo": true
+      },
+      {
+        "name": "Airbnb",
+        "max": 5,
+        "value": null,
+        "reason": "Brak dopasowanej oferty tego obiektu"
+      }
+    ]
   },
   {
     "id": "bristol",
@@ -689,8 +799,8 @@
     "lng": 21.0156,
     "description": "Hotel przy Krakowskim Przedmieściu 42/44. Sprawdź dostępność i ceny na stronie obiektu.",
     "website": "https://www.hotelbristolwarsaw.pl/",
-    "image": "photo-19045884.jpg",
-    "imageNote": "Zdjęcie ilustracyjne pokoju hotelowego, nie zdjęcie tego hotelu.",
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
     "tags": [
       "hotels"
     ],
@@ -700,6 +810,393 @@
     "foodStyle": "none",
     "tourist": "local",
     "partner": false,
-    "photo": "city"
+    "photo": "city",
+    "imageVerified": false,
+    "ratings": [
+      {
+        "name": "Google Maps",
+        "max": 5,
+        "value": 4.6,
+        "demo": true
+      },
+      {
+        "name": "TripAdvisor",
+        "max": 5,
+        "value": 4.5,
+        "demo": true
+      },
+      {
+        "name": "Booking",
+        "max": 10,
+        "value": 9.1,
+        "demo": true
+      },
+      {
+        "name": "Airbnb",
+        "max": 5,
+        "value": null,
+        "reason": "Brak dopasowanej oferty tego obiektu"
+      }
+    ]
+  },
+  {
+    "id": "sapko",
+    "name": "Sapko Kebab",
+    "address": "al. Jana Pawła II 46/48, pawilon 5",
+    "cuisine": [
+      "kebab",
+      "turecka"
+    ],
+    "description": "Kebab · turecka. al. Jana Pawła II 46/48, pawilon 5. Wybór do testów prototypu, nie ranking najlepszych lokali.",
+    "website": "https://www.sapkokebab.com/",
+    "lat": 52.246,
+    "lng": 20.989,
+    "tags": [
+      "food"
+    ],
+    "minutes": 45,
+    "cost": 40,
+    "kind": "restaurant",
+    "foodStyle": "quick",
+    "tourist": "local",
+    "partner": false,
+    "photo": "food",
+    "image": null,
+    "imageNote": "Zdjęcie tego lokalu w przygotowaniu",
+    "ratings": [
+      {
+        "name": "Google Maps",
+        "max": 5,
+        "value": 4.8,
+        "demo": true
+      },
+      {
+        "name": "TripAdvisor",
+        "max": 5,
+        "value": 4.7,
+        "demo": true
+      },
+      {
+        "name": "Yelp",
+        "max": 5,
+        "value": null,
+        "reason": "Brak zweryfikowanej oceny w prototypie"
+      }
+    ]
+  },
+  {
+    "id": "efes",
+    "name": "EFES — Francuska",
+    "address": "Francuska 1",
+    "cuisine": [
+      "kebab",
+      "turecka"
+    ],
+    "description": "Kebab · turecka. Francuska 1. Wybór do testów prototypu, nie ranking najlepszych lokali.",
+    "website": "https://www.restauracjaefes.pl/kontakt/",
+    "lat": 52.233,
+    "lng": 21.058,
+    "tags": [
+      "food"
+    ],
+    "minutes": 45,
+    "cost": 40,
+    "kind": "restaurant",
+    "foodStyle": "quick",
+    "tourist": "local",
+    "partner": false,
+    "photo": "food",
+    "image": null,
+    "imageNote": "Zdjęcie tego lokalu w przygotowaniu",
+    "ratings": [
+      {
+        "name": "Google Maps",
+        "max": 5,
+        "value": 4.7,
+        "demo": true
+      },
+      {
+        "name": "TripAdvisor",
+        "max": 5,
+        "value": 4.6000000000000005,
+        "demo": true
+      },
+      {
+        "name": "Yelp",
+        "max": 5,
+        "value": null,
+        "reason": "Brak zweryfikowanej oceny w prototypie"
+      }
+    ]
+  },
+  {
+    "id": "fukiera",
+    "name": "U Fukiera",
+    "address": "Rynek Starego Miasta 27",
+    "cuisine": [
+      "polska"
+    ],
+    "description": "Polska. Rynek Starego Miasta 27. Wybór do testów prototypu, nie ranking najlepszych lokali.",
+    "website": "https://www.ufukiera.pl/",
+    "lat": 52.2498,
+    "lng": 21.0117,
+    "tags": [
+      "food"
+    ],
+    "minutes": 60,
+    "cost": 100,
+    "kind": "restaurant",
+    "foodStyle": "sit",
+    "tourist": "local",
+    "partner": false,
+    "photo": "food",
+    "image": null,
+    "imageNote": "Zdjęcie tego lokalu w przygotowaniu",
+    "ratings": [
+      {
+        "name": "Google Maps",
+        "max": 5,
+        "value": 4.3999999999999995,
+        "demo": true
+      },
+      {
+        "name": "TripAdvisor",
+        "max": 5,
+        "value": 4.2,
+        "demo": true
+      },
+      {
+        "name": "Yelp",
+        "max": 5,
+        "value": null,
+        "reason": "Brak zweryfikowanej oceny w prototypie"
+      }
+    ]
+  },
+  {
+    "id": "koneser-grill",
+    "name": "Koneser Grill",
+    "address": "Centrum Praskie Koneser",
+    "cuisine": [
+      "grill",
+      "steki"
+    ],
+    "description": "Grill · steki. Centrum Praskie Koneser. Wybór do testów prototypu, nie ranking najlepszych lokali.",
+    "website": "https://koneser.eu/restauracje-bary/koneser-grill/",
+    "lat": 52.255,
+    "lng": 21.045,
+    "tags": [
+      "food"
+    ],
+    "minutes": 60,
+    "cost": 100,
+    "kind": "restaurant",
+    "foodStyle": "sit",
+    "tourist": "local",
+    "partner": false,
+    "photo": "food",
+    "image": null,
+    "imageNote": "Zdjęcie tego lokalu w przygotowaniu",
+    "ratings": [
+      {
+        "name": "Google Maps",
+        "max": 5,
+        "value": 4.3999999999999995,
+        "demo": true
+      },
+      {
+        "name": "TripAdvisor",
+        "max": 5,
+        "value": 4.8,
+        "demo": true
+      },
+      {
+        "name": "Yelp",
+        "max": 5,
+        "value": null,
+        "reason": "Brak zweryfikowanej oceny w prototypie"
+      }
+    ]
+  },
+  {
+    "id": "azia",
+    "name": "Azia Koneser",
+    "address": "plac Konesera 4",
+    "cuisine": [
+      "azjatycka",
+      "sushi",
+      "tajska"
+    ],
+    "description": "Azjatycka · sushi · tajska. plac Konesera 4. Wybór do testów prototypu, nie ranking najlepszych lokali.",
+    "website": "https://koneser.azia.pl/",
+    "lat": 52.255,
+    "lng": 21.045,
+    "tags": [
+      "food"
+    ],
+    "minutes": 60,
+    "cost": 100,
+    "kind": "restaurant",
+    "foodStyle": "sit",
+    "tourist": "local",
+    "partner": false,
+    "photo": "food",
+    "image": null,
+    "imageNote": "Zdjęcie tego lokalu w przygotowaniu",
+    "ratings": [
+      {
+        "name": "Google Maps",
+        "max": 5,
+        "value": 4.7,
+        "demo": true
+      },
+      {
+        "name": "TripAdvisor",
+        "max": 5,
+        "value": 4.6000000000000005,
+        "demo": true
+      },
+      {
+        "name": "Yelp",
+        "max": 5,
+        "value": null,
+        "reason": "Brak zweryfikowanej oceny w prototypie"
+      }
+    ]
+  },
+  {
+    "id": "concept",
+    "name": "Concept Food & Wine",
+    "address": "plac Konesera 5",
+    "cuisine": [
+      "międzynarodowa",
+      "polska"
+    ],
+    "description": "Międzynarodowa · polska. plac Konesera 5. Wybór do testów prototypu, nie ranking najlepszych lokali.",
+    "website": "https://conceptfoodandwine.pl/",
+    "lat": 52.255,
+    "lng": 21.045,
+    "tags": [
+      "food"
+    ],
+    "minutes": 60,
+    "cost": 100,
+    "kind": "restaurant",
+    "foodStyle": "sit",
+    "tourist": "local",
+    "partner": false,
+    "photo": "food",
+    "image": null,
+    "imageNote": "Zdjęcie tego lokalu w przygotowaniu",
+    "ratings": [
+      {
+        "name": "Google Maps",
+        "max": 5,
+        "value": 4.3999999999999995,
+        "demo": true
+      },
+      {
+        "name": "TripAdvisor",
+        "max": 5,
+        "value": 4.2,
+        "demo": true
+      },
+      {
+        "name": "Yelp",
+        "max": 5,
+        "value": null,
+        "reason": "Brak zweryfikowanej oceny w prototypie"
+      }
+    ]
+  },
+  {
+    "id": "freya",
+    "name": "Freya Cafe & Deli",
+    "address": "Centrum Praskie Koneser",
+    "cuisine": [
+      "wegańska",
+      "wegetariańska"
+    ],
+    "description": "Wegańska · wegetariańska. Centrum Praskie Koneser. Wybór do testów prototypu, nie ranking najlepszych lokali.",
+    "website": "https://koneser.eu/o-koneserze-old/",
+    "lat": 52.255,
+    "lng": 21.045,
+    "tags": [
+      "food"
+    ],
+    "minutes": 60,
+    "cost": 100,
+    "kind": "restaurant",
+    "foodStyle": "sit",
+    "tourist": "local",
+    "partner": false,
+    "photo": "food",
+    "image": null,
+    "imageNote": "Zdjęcie tego lokalu w przygotowaniu",
+    "ratings": [
+      {
+        "name": "Google Maps",
+        "max": 5,
+        "value": 4.8,
+        "demo": true
+      },
+      {
+        "name": "TripAdvisor",
+        "max": 5,
+        "value": 4.7,
+        "demo": true
+      },
+      {
+        "name": "Yelp",
+        "max": 5,
+        "value": null,
+        "reason": "Brak zweryfikowanej oceny w prototypie"
+      }
+    ]
+  },
+  {
+    "id": "spoldzielnia",
+    "name": "Spółdzielnia.Koneser",
+    "address": "Centrum Praskie Koneser",
+    "cuisine": [
+      "polska",
+      "międzynarodowa"
+    ],
+    "description": "Polska · międzynarodowa. Centrum Praskie Koneser. Wybór do testów prototypu, nie ranking najlepszych lokali.",
+    "website": "https://koneser.eu/o-koneserze-old/",
+    "lat": 52.255,
+    "lng": 21.045,
+    "tags": [
+      "food"
+    ],
+    "minutes": 60,
+    "cost": 100,
+    "kind": "restaurant",
+    "foodStyle": "sit",
+    "tourist": "local",
+    "partner": false,
+    "photo": "food",
+    "image": null,
+    "imageNote": "Zdjęcie tego lokalu w przygotowaniu",
+    "ratings": [
+      {
+        "name": "Google Maps",
+        "max": 5,
+        "value": 4.3,
+        "demo": true
+      },
+      {
+        "name": "TripAdvisor",
+        "max": 5,
+        "value": 4.7,
+        "demo": true
+      },
+      {
+        "name": "Yelp",
+        "max": 5,
+        "value": null,
+        "reason": "Brak zweryfikowanej oceny w prototypie"
+      }
+    ]
   }
 ]

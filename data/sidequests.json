@@ -19,8 +19,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "old-town",
-    "image": "photo-17741460.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": "photo-18454473.jpg",
+    "imageNote": "Rynek Starego Miasta",
+    "imageVerified": true
   },
   {
     "id": "q-castle",
@@ -42,8 +43,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "castle",
-    "image": "photo-32468805.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": "place-31495562.jpg",
+    "imageNote": "Plac Zamkowy",
+    "imageVerified": true
   },
   {
     "id": "q-barbican",
@@ -65,8 +67,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "barbican",
-    "image": "photo-37307169.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": "place-35839613.jpg",
+    "imageNote": "Barbakan Warszawski",
+    "imageVerified": true
   },
   {
     "id": "q-new-town",
@@ -87,8 +90,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "new-town",
-    "image": "photo-8259574.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "q-fountain",
@@ -110,8 +114,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "fountain",
-    "image": "photo-17761856.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "q-buw",
@@ -133,8 +138,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "buw",
-    "image": "photo-35792461.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": "place-12028385.jpg",
+    "imageNote": "Ogród Biblioteki Uniwersyteckiej",
+    "imageVerified": true
   },
   {
     "id": "q-copernicus",
@@ -156,8 +162,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "copernicus",
-    "image": "photo-20054016.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "q-boulevards",
@@ -179,8 +186,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "boulevards",
-    "image": "photo-16549195.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "q-mermaid",
@@ -202,8 +210,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "mermaid",
-    "image": "photo-20627626.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "q-lazienki",
@@ -225,8 +234,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "lazienki",
-    "image": "photo-18454473.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": "photo-8259574.jpg",
+    "imageNote": "Łazienki Królewskie",
+    "imageVerified": true
   },
   {
     "id": "q-palace-water",
@@ -248,8 +258,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "palace-water",
-    "image": "photo-7115502.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": "photo-17761856.jpg",
+    "imageNote": "Pałac na Wyspie — z zewnątrz",
+    "imageVerified": true
   },
   {
     "id": "q-chopin",
@@ -271,8 +282,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "chopin",
-    "image": "photo-17741460.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "q-ujazdow",
@@ -294,8 +306,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "ujazdow",
-    "image": "photo-32468805.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "q-ujazdowski-park",
@@ -316,8 +329,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "ujazdowski-park",
-    "image": "photo-37307169.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "q-saxon",
@@ -339,8 +353,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "saxon",
-    "image": "photo-8259574.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "q-tomb",
@@ -362,8 +377,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "tomb",
-    "image": "photo-17761856.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "q-palace-culture",
@@ -385,8 +401,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "palace-culture",
-    "image": "photo-35792461.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": "place-17131946.jpg",
+    "imageNote": "Pałac Kultury — z zewnątrz",
+    "imageVerified": true
   },
   {
     "id": "q-nowy-swiat",
@@ -407,8 +424,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "nowy-swiat",
-    "image": "photo-20054016.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "q-chopin-museum",
@@ -429,8 +447,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "chopin-museum",
-    "image": "photo-16549195.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "q-national-museum",
@@ -451,8 +470,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "national-museum",
-    "image": "photo-20627626.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "q-praga-cathedral",
@@ -474,8 +494,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "praga-cathedral",
-    "image": "photo-18454473.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "q-zabkowska",
@@ -496,8 +517,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "zabkowska",
-    "image": "photo-7115502.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "q-koneser",
@@ -518,8 +540,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "koneser",
-    "image": "photo-17741460.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "q-skaryszewski",
@@ -540,8 +563,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "skaryszewski",
-    "image": "photo-32468805.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "q-saska",
@@ -561,8 +585,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "saska",
-    "image": "photo-37307169.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "q-rooftop",
@@ -584,8 +609,9 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "rooftop",
-    "image": "photo-8259574.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "q-koszyki",
@@ -606,8 +632,9 @@
     "foodStyle": "sit",
     "partner": false,
     "placeId": "koszyki",
-    "image": "photo-17761856.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "q-mirowska",
@@ -627,8 +654,9 @@
     "foodStyle": "quick",
     "partner": false,
     "placeId": "mirowska",
-    "image": "photo-35792461.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "q-electrownia",
@@ -649,8 +677,9 @@
     "foodStyle": "sit",
     "partner": false,
     "placeId": "electrownia",
-    "image": "photo-20054016.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   },
   {
     "id": "q-wilanow",
@@ -672,7 +701,8 @@
     "foodStyle": "none",
     "partner": false,
     "placeId": "wilanow",
-    "image": "photo-16549195.jpg",
-    "imageNote": "Zdjęcie ilustracyjne Warszawy; nie musi przedstawiać tego przystanku."
+    "image": null,
+    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
+    "imageVerified": false
   }
 ]

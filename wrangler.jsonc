@@ -1,8 +1,11 @@
 {
   "name": "city-route-app",
   "compatibility_date": "2026-11-02",
+  // worker.js answers /api/events; every other request is a static file from dist/.
+  "main": "worker.js",
   "assets": {
-    "directory": "./dist"
+    "directory": "./dist",
+    "binding": "ASSETS"
   },
   "workers_dev": true
 }

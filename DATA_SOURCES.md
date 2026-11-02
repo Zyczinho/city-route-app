@@ -122,3 +122,9 @@ Proponowana kolejność: (1) Google Places przez Cloudflare Worker z kluczem w z
 ## Miejsca dodane przez użytkowników
 
 Od tej wersji użytkownik może dodać własne miejsce (nazwa, jedna kategoria, opis, lokalizacja z GPS albo z linku Google Maps, opcjonalne zdjęcie). Zapisuje się tylko w jego przeglądarce, bez ocen. Żeby inni je zobaczyli, potrzebny jest serwer z bazą (np. Cloudflare D1) i moderacja; tego jeszcze nie ma.
+
+## Wydarzenia
+
+- **Globalne:** Ticketmaster Discovery API przez Cloudflare Worker (`worker.js` → `/api/events`, odpowiedź zapamiętywana na godzinę). Klucz wpisuje właściciel w Cloudflare jako sekret `TICKETMASTER_API_KEY`; bez klucza lista jest pusta i aplikacja mówi to wprost. Opcjonalny `TICKETMASTER_AFFILIATE` (szablon linku z Impact zawierający `{url}`) zamienia „Kup bilet” na link partnerski.
+- **Następne źródła:** Going. (program partnerski w sieci Tradedoubler — do potwierdzenia przy zgłoszeniu, czy daje listę wydarzeń), AleBilet (4% prowizji według ich strony), KupBilecik. Bez zgody źródła nie pobieramy danych z ich stron.
+- **Społecznościowe:** tylko od zweryfikowanych użytkowników (konto + telefon, nowi organizatorzy po kilku ukończonych trasach, zgłaszanie i blokowanie, 18+ przy alkoholu). Wymaga kont i serwera; do tego czasu nie pokazujemy przykładowych spotkań.

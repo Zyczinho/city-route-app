@@ -157,3 +157,12 @@ img.avatar{object-fit:cover;display:block}.avatar.sm{width:36px;height:36px;font
 .button.sm{min-height:36px;padding:6px 10px;font-size:13px;border-radius:11px;gap:5px}.button.sm .i{width:14px;height:14px}
 .listen{justify-content:flex-start;gap:8px;margin-top:4px;background:var(--blue-soft);border-color:#cfe2f6;color:var(--blue)}
 .quest{display:flex;gap:12px;background:var(--cyan-soft);border:1px solid #b9ecf6;border-radius:16px;padding:14px}.quest>.i{width:24px;height:24px;color:#007a91;margin-top:2px}.quest p{font-size:14px;color:var(--ink-2);margin-top:2px}
+
+/* Odkrywaj: places and events */
+.segmented.two{display:grid;grid-template-columns:1fr 1fr;margin-bottom:16px}.segmented.two>a,.segmented.two>button{display:flex;align-items:center;justify-content:center;gap:6px;min-height:44px;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;border:0;background:none}.segmented.two>.selected{background:var(--surface);box-shadow:var(--shadow);color:var(--blue)}.segmented.two .i{width:18px;height:18px}
+.event-grid{display:grid;gap:12px}.event{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}.event .media{position:relative;aspect-ratio:16/9;background:var(--line-2)}.event .media img,.event .media .ph{width:100%;height:100%;object-fit:cover}.event .media img{display:block}
+.event .body{padding:14px 16px;display:grid;gap:6px}.event h3{font-size:17px}.event .sub{display:flex;gap:5px;align-items:center;font-size:13px;color:var(--muted)}.event .sub .i{width:14px;height:14px}
+.event-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14px;font-weight:600;margin-top:4px}.event .fine{margin:0}
+.empty>.i{width:30px;height:30px;color:var(--blue)}
+@media(min-width:700px){.event-grid{grid-template-columns:repeat(2,1fr)}}@media(min-width:1000px){.event-grid{grid-template-columns:repeat(3,1fr)}}
+.list-head{flex-wrap:wrap;gap:4px 12px}

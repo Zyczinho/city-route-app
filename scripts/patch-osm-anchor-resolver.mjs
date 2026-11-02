@@ -1,6 +1,23 @@
 import {readFile,writeFile} from 'node:fs/promises';
 const path='scripts/generate-osm-city-dataset.mjs';
 let s=await readFile(path,'utf8');
+
+const oldOverpass="const overpassData=await fetchJson('https://overpass-api.de/api/interpreter',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({data:overpass})});";
+const nextOverpass=`const overpassEndpoints=[
+  'https://overpass-api.de/api/interpreter',
+  'https://overpass.kumi.systems/api/interpreter',
+  'https://overpass.nchc.org.tw/api/interpreter'
+];
+let overpassData=null,overpassError=null;
+for(const endpoint of overpassEndpoints){
+  try{
+    overpassData=await fetchJson(endpoint,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({data:overpass})},2);
+    if(overpassData?.elements)break;
+  }catch(error){overpassError=error;await sleep(1000);}
+}
+if(!overpassData?.elements)throw overpassError||new Error('All Overpass endpoints failed');`;
+if(s.includes(oldOverpass))s=s.replace(oldOverpass,nextOverpass);
+
 const old=`async function geocodeAnchor(anchor){
   const exact=candidates.filter(p=>fold(p.name)===fold(anchor.name)).sort((a,b)=>hav(city.center,a)-hav(city.center,b))[0];
   if(exact)return {lat:exact.lat,lng:exact.lng,source:exact.metadata.source};
@@ -12,6 +29,7 @@ const old=`async function geocodeAnchor(anchor){
   return {lat:Number(r.lat),lng:Number(r.lon),source:{provider:'nominatim-openstreetmap',osmType:r.osm_type||null,id:r.osm_id||null,url:r.osm_type&&r.osm_id?\`https://www.openstreetmap.org/\${r.osm_type}/\${r.osm_id}\`:null}};
 }`;
 const next=`async function geocodeAnchor(anchor){
+  if(Number.isFinite(Number(anchor.lat))&&Number.isFinite(Number(anchor.lng)))return {lat:Number(anchor.lat),lng:Number(anchor.lng),source:{provider:'curated-coordinates'}};
   const wanted=new Set(fold(anchor.name).split(' ').filter(x=>x.length>2));
   const ranked=candidates.map(p=>{
     const have=new Set(fold(p.name).split(' ').filter(x=>x.length>2));
@@ -32,9 +50,9 @@ const next=`async function geocodeAnchor(anchor){
   }
   throw new Error(\`Could not geocode anchor: \${anchor.id} (\${anchor.query})\`);
 }`;
-if(!s.includes(old))throw new Error('Expected geocodeAnchor block not found');
+if(!s.includes(old)&&!s.includes('const distancePenalty='))throw new Error('Expected geocodeAnchor block not found');
 const marker="const candidates=[...byName.values()];";
 if(!s.includes('const distancePenalty='))s=s.replace(marker,`${marker}\nconst distancePenalty=p=>Math.min(0.45,hav(city.center,p)/80);`);
-s=s.replace(old,next);
+if(s.includes(old))s=s.replace(old,next);
 await writeFile(path,s);
-console.log('Patched resilient anchor resolver.');
+console.log('Patched resilient Overpass + anchor resolver.');

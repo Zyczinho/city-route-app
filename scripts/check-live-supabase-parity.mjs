@@ -7,10 +7,10 @@ const [places,routes,taxonomy]=await Promise.all([
   readJson('data/taxonomy.json')
 ]);
 
-const clientSource=await readFile('supabase-client.js','utf8');
+const configSource=await readFile('supabase-config.js','utf8');
 const pick=name=>{
-  const m=clientSource.match(new RegExp(`export const ${name}='([^']+)'`));
-  if(!m)throw new Error(`Missing ${name} in supabase-client.js`);
+  const m=configSource.match(new RegExp(`export const ${name}='([^']+)'`));
+  if(!m)throw new Error(`Missing ${name} in supabase-config.js`);
   return m[1];
 };
 const SUPABASE_URL=pick('SUPABASE_URL');

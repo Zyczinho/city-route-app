@@ -1025,7 +1025,9 @@
     "cuisine": [
       "azjatycka",
       "sushi",
-      "tajska"
+      "tajska",
+      "tajska",
+      "japońska"
     ],
     "description": "Azjatycka · sushi · tajska. plac Konesera 4. Wybór do testów prototypu, nie ranking najlepszych lokali.",
     "website": "https://koneser.azia.pl/",
@@ -1198,5 +1200,389 @@
         "reason": "Brak zweryfikowanej oceny w prototypie"
       }
     ]
+  },
+  {
+    "id": "raffles",
+    "name": "Raffles Europejski Warsaw",
+    "lat": 52.23,
+    "lng": 21.01,
+    "description": "Miejsce na Twój pobyt w Warszawie. Szczegółowy opis w przygotowaniu.",
+    "website": "https://www.booking.com/searchresults.pl.html?ss=Raffles%20Europejski%20Warsaw%20Warsaw",
+    "image": null,
+    "imageNote": "Zdjęcie tego hotelu w przygotowaniu",
+    "tags": [
+      "hotels"
+    ],
+    "minutes": 15,
+    "cost": 0,
+    "kind": "hotel",
+    "foodStyle": "none",
+    "tourist": "local",
+    "partner": false,
+    "photo": "city",
+    "imageVerified": false,
+    "ratings": [
+      {
+        "name": "Google Maps",
+        "max": 5,
+        "value": 4.6,
+        "demo": true
+      },
+      {
+        "name": "TripAdvisor",
+        "max": 5,
+        "value": 4.5,
+        "demo": true
+      },
+      {
+        "name": "Booking",
+        "max": 10,
+        "value": 9.1,
+        "demo": true
+      },
+      {
+        "name": "Airbnb",
+        "max": 5,
+        "value": null,
+        "reason": "Brak dopasowanej oferty tego obiektu"
+      }
+    ],
+    "coordinatesApproximate": true
+  },
+  {
+    "id": "nobu",
+    "name": "Nobu Hotel Warsaw",
+    "lat": 52.23,
+    "lng": 21.01,
+    "description": "Miejsce na Twój pobyt w Warszawie. Szczegółowy opis w przygotowaniu.",
+    "website": "https://www.booking.com/searchresults.pl.html?ss=Nobu%20Hotel%20Warsaw%20Warsaw",
+    "image": null,
+    "imageNote": "Zdjęcie tego hotelu w przygotowaniu",
+    "tags": [
+      "hotels"
+    ],
+    "minutes": 15,
+    "cost": 0,
+    "kind": "hotel",
+    "foodStyle": "none",
+    "tourist": "local",
+    "partner": false,
+    "photo": "city",
+    "imageVerified": false,
+    "ratings": [
+      {
+        "name": "Google Maps",
+        "max": 5,
+        "value": 4.6,
+        "demo": true
+      },
+      {
+        "name": "TripAdvisor",
+        "max": 5,
+        "value": 4.5,
+        "demo": true
+      },
+      {
+        "name": "Booking",
+        "max": 10,
+        "value": 9.1,
+        "demo": true
+      },
+      {
+        "name": "Airbnb",
+        "max": 5,
+        "value": null,
+        "reason": "Brak dopasowanej oferty tego obiektu"
+      }
+    ],
+    "coordinatesApproximate": true
+  },
+  {
+    "id": "intercontinental",
+    "name": "InterContinental Warszawa",
+    "lat": 52.23,
+    "lng": 21.01,
+    "description": "Miejsce na Twój pobyt w Warszawie. Szczegółowy opis w przygotowaniu.",
+    "website": "https://www.booking.com/searchresults.pl.html?ss=InterContinental%20Warszawa%20Warsaw",
+    "image": null,
+    "imageNote": "Zdjęcie tego hotelu w przygotowaniu",
+    "tags": [
+      "hotels"
+    ],
+    "minutes": 15,
+    "cost": 0,
+    "kind": "hotel",
+    "foodStyle": "none",
+    "tourist": "local",
+    "partner": false,
+    "photo": "city",
+    "imageVerified": false,
+    "ratings": [
+      {
+        "name": "Google Maps",
+        "max": 5,
+        "value": 4.6,
+        "demo": true
+      },
+      {
+        "name": "TripAdvisor",
+        "max": 5,
+        "value": 4.5,
+        "demo": true
+      },
+      {
+        "name": "Booking",
+        "max": 10,
+        "value": 9.1,
+        "demo": true
+      },
+      {
+        "name": "Airbnb",
+        "max": 5,
+        "value": null,
+        "reason": "Brak dopasowanej oferty tego obiektu"
+      }
+    ],
+    "coordinatesApproximate": true
+  },
+  {
+    "id": "puro",
+    "name": "PURO Warszawa Centrum",
+    "lat": 52.23,
+    "lng": 21.01,
+    "description": "Miejsce na Twój pobyt w Warszawie. Szczegółowy opis w przygotowaniu.",
+    "website": "https://www.booking.com/searchresults.pl.html?ss=PURO%20Warszawa%20Centrum%20Warsaw",
+    "image": null,
+    "imageNote": "Zdjęcie tego hotelu w przygotowaniu",
+    "tags": [
+      "hotels"
+    ],
+    "minutes": 15,
+    "cost": 0,
+    "kind": "hotel",
+    "foodStyle": "none",
+    "tourist": "local",
+    "partner": false,
+    "photo": "city",
+    "imageVerified": false,
+    "ratings": [
+      {
+        "name": "Google Maps",
+        "max": 5,
+        "value": 4.6,
+        "demo": true
+      },
+      {
+        "name": "TripAdvisor",
+        "max": 5,
+        "value": 4.5,
+        "demo": true
+      },
+      {
+        "name": "Booking",
+        "max": 10,
+        "value": 9.1,
+        "demo": true
+      },
+      {
+        "name": "Airbnb",
+        "max": 5,
+        "value": null,
+        "reason": "Brak dopasowanej oferty tego obiektu"
+      }
+    ],
+    "coordinatesApproximate": true
+  },
+  {
+    "id": "sofitel",
+    "name": "Sofitel Warsaw Victoria",
+    "lat": 52.23,
+    "lng": 21.01,
+    "description": "Miejsce na Twój pobyt w Warszawie. Szczegółowy opis w przygotowaniu.",
+    "website": "https://www.booking.com/searchresults.pl.html?ss=Sofitel%20Warsaw%20Victoria%20Warsaw",
+    "image": null,
+    "imageNote": "Zdjęcie tego hotelu w przygotowaniu",
+    "tags": [
+      "hotels"
+    ],
+    "minutes": 15,
+    "cost": 0,
+    "kind": "hotel",
+    "foodStyle": "none",
+    "tourist": "local",
+    "partner": false,
+    "photo": "city",
+    "imageVerified": false,
+    "ratings": [
+      {
+        "name": "Google Maps",
+        "max": 5,
+        "value": 4.6,
+        "demo": true
+      },
+      {
+        "name": "TripAdvisor",
+        "max": 5,
+        "value": 4.5,
+        "demo": true
+      },
+      {
+        "name": "Booking",
+        "max": 10,
+        "value": 9.1,
+        "demo": true
+      },
+      {
+        "name": "Airbnb",
+        "max": 5,
+        "value": null,
+        "reason": "Brak dopasowanej oferty tego obiektu"
+      }
+    ],
+    "coordinatesApproximate": true
+  },
+  {
+    "id": "novotel",
+    "name": "Novotel Warszawa Centrum",
+    "lat": 52.23,
+    "lng": 21.01,
+    "description": "Miejsce na Twój pobyt w Warszawie. Szczegółowy opis w przygotowaniu.",
+    "website": "https://www.booking.com/searchresults.pl.html?ss=Novotel%20Warszawa%20Centrum%20Warsaw",
+    "image": null,
+    "imageNote": "Zdjęcie tego hotelu w przygotowaniu",
+    "tags": [
+      "hotels"
+    ],
+    "minutes": 15,
+    "cost": 0,
+    "kind": "hotel",
+    "foodStyle": "none",
+    "tourist": "local",
+    "partner": false,
+    "photo": "city",
+    "imageVerified": false,
+    "ratings": [
+      {
+        "name": "Google Maps",
+        "max": 5,
+        "value": 4.6,
+        "demo": true
+      },
+      {
+        "name": "TripAdvisor",
+        "max": 5,
+        "value": 4.5,
+        "demo": true
+      },
+      {
+        "name": "Booking",
+        "max": 10,
+        "value": 9.1,
+        "demo": true
+      },
+      {
+        "name": "Airbnb",
+        "max": 5,
+        "value": null,
+        "reason": "Brak dopasowanej oferty tego obiektu"
+      }
+    ],
+    "coordinatesApproximate": true
+  },
+  {
+    "id": "westin",
+    "name": "The Westin Warsaw",
+    "lat": 52.23,
+    "lng": 21.01,
+    "description": "Miejsce na Twój pobyt w Warszawie. Szczegółowy opis w przygotowaniu.",
+    "website": "https://www.booking.com/searchresults.pl.html?ss=The%20Westin%20Warsaw%20Warsaw",
+    "image": null,
+    "imageNote": "Zdjęcie tego hotelu w przygotowaniu",
+    "tags": [
+      "hotels"
+    ],
+    "minutes": 15,
+    "cost": 0,
+    "kind": "hotel",
+    "foodStyle": "none",
+    "tourist": "local",
+    "partner": false,
+    "photo": "city",
+    "imageVerified": false,
+    "ratings": [
+      {
+        "name": "Google Maps",
+        "max": 5,
+        "value": 4.6,
+        "demo": true
+      },
+      {
+        "name": "TripAdvisor",
+        "max": 5,
+        "value": 4.5,
+        "demo": true
+      },
+      {
+        "name": "Booking",
+        "max": 10,
+        "value": 9.1,
+        "demo": true
+      },
+      {
+        "name": "Airbnb",
+        "max": 5,
+        "value": null,
+        "reason": "Brak dopasowanej oferty tego obiektu"
+      }
+    ],
+    "coordinatesApproximate": true
+  },
+  {
+    "id": "hilton",
+    "name": "Hilton Warsaw City",
+    "lat": 52.23,
+    "lng": 21.01,
+    "description": "Miejsce na Twój pobyt w Warszawie. Szczegółowy opis w przygotowaniu.",
+    "website": "https://www.booking.com/searchresults.pl.html?ss=Hilton%20Warsaw%20City%20Warsaw",
+    "image": null,
+    "imageNote": "Zdjęcie tego hotelu w przygotowaniu",
+    "tags": [
+      "hotels"
+    ],
+    "minutes": 15,
+    "cost": 0,
+    "kind": "hotel",
+    "foodStyle": "none",
+    "tourist": "local",
+    "partner": false,
+    "photo": "city",
+    "imageVerified": false,
+    "ratings": [
+      {
+        "name": "Google Maps",
+        "max": 5,
+        "value": 4.6,
+        "demo": true
+      },
+      {
+        "name": "TripAdvisor",
+        "max": 5,
+        "value": 4.5,
+        "demo": true
+      },
+      {
+        "name": "Booking",
+        "max": 10,
+        "value": 9.1,
+        "demo": true
+      },
+      {
+        "name": "Airbnb",
+        "max": 5,
+        "value": null,
+        "reason": "Brak dopasowanej oferty tego obiektu"
+      }
+    ],
+    "coordinatesApproximate": true
   }
 ]

@@ -1,4 +1,4 @@
-const CACHE='city-route-v1';
+const CACHE='city-route-v2';
 const FILES=['./','./index.html','./styles.css','./app.js','./core.js','./manifest.webmanifest','./data/places.json','./data/routes.json','./data/sidequests.json','./data/rankings.json','./assets/logo.png','./assets/icons/icon-180.png','./assets/icons/icon-192.png','./assets/icons/icon-512.png','./assets/images/warsaw.jpg'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES))));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('city-route-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));

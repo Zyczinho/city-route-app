@@ -166,3 +166,4 @@ img.avatar{object-fit:cover;display:block}.avatar.sm{width:36px;height:36px;font
 .empty>.i{width:30px;height:30px;color:var(--blue)}
 @media(min-width:700px){.event-grid{grid-template-columns:repeat(2,1fr)}}@media(min-width:1000px){.event-grid{grid-template-columns:repeat(3,1fr)}}
 .list-head{flex-wrap:wrap;gap:4px 12px}
+.note.vis{display:grid;gap:6px}.note.vis p{margin:0}.note.vis button{justify-self:start;min-height:36px;padding:6px 12px;font-size:13px}

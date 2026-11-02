@@ -15,3 +15,11 @@ test('food discovery contains only named restaurants, hotels excluded from gener
 test('restaurant variety and missing Airbnb/Yelp records are explicit',()=>{assert.equal(places.filter(p=>p.kind==='restaurant').length,10);assert.ok(places.filter(p=>p.kind==='restaurant'&&p.cuisine.includes('kebab')).length>=2);for(const h of places.filter(p=>p.kind==='hotel'))assert.equal(h.ratings.find(r=>r.name==='Airbnb').value,null);assert.equal(blendedRating([{value:null,max:5},{value:4,max:5}]),4);assert.equal(blendedRating([{value:null,max:5}]),null);});
 
 test('ten demo hotels and Airbnb gaps remain explicit',()=>{assert.equal(places.filter(p=>p.kind==='hotel').length,10);for(const h of places.filter(p=>p.kind==='hotel'))assert.equal(h.ratings.find(x=>x.name==='Airbnb').value,null);});
+
+test('review-volume weighted mean honors counts and normalizes Booking',()=>{
+ assert.ok(Math.abs(blendedRating([{value:4.5,max:5,reviewCount:5000},{value:4,max:5,reviewCount:500}],{weighted:true})-4.4545454545)<1e-8);
+ assert.equal(blendedRating([{value:9,max:10,reviewCount:1000},{value:4.5,max:5,reviewCount:200}],{weighted:true}),4.5);
+ assert.equal(blendedRating([{value:null,max:5,reviewCount:100},{value:5,max:5,reviewCount:null},{value:1,max:5,reviewCount:0},{value:1,max:5,reviewCount:-2},{value:4,max:5,reviewCount:100}],{weighted:true}),4);
+ assert.equal(blendedRating([{value:5,max:5}],{weighted:true}),null);
+});
+test('source policy uses only the selected restaurant/hotel platforms',()=>{for(const p of places.filter(p=>p.kind==='restaurant')){assert.deepEqual(p.ratings.map(s=>s.name),['Google Maps','TripAdvisor']);assert.ok(p.ratings.every(s=>s.demo&&s.reviewCount>0));}for(const p of places.filter(p=>p.kind==='hotel'))assert.deepEqual(p.ratings.map(s=>s.name),['Google Maps','Booking','Airbnb']);});

@@ -8,3 +8,6 @@ Explore, Best of City source discovery, Sidequests, preference builder, shared b
 
 ## 2026-11-02 — intent-first experience and social demo
 Start screen separates plan/food/stay/people. Four navigation destinations. Resident/visitor/1–12 month profile with local activity stats. 10 demo hotels. Nieoczywiste is an activity layer separate from place catalogue. Expandable source details and per-place description/review dialog with private local rating. Sample daily meetups, device-local join/chat and friend connection simulation. Empty community ranking. Real GetYourGuide SVG. System font stack. EXPERIENCE.md defines UX/data boundaries and future backend. Ten automated tests passed; browser tested stay persistence, demo join/chat, description/review and saved private rating.
+
+## 2026-11-02 — review volumes and source policy
+Restaurant/hotel scores now weighted by per-source review counts, with /10 normalized to /5. Counts on card and source rows; unknown/zero counts excluded. Restaurants Google/Tripadvisor; hotels Google/Booking/Airbnb. City Route opinions shown separately, not in ranking. Demo counts explicitly labeled. Twelve tests pass, including 5000×4.5 + 500×4.0 = 4.4545 and missing-count exclusions; browser verified source counts and 4,45 display.

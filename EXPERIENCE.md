@@ -30,3 +30,6 @@ Keep catalog places/routes separate from identity/social records. A later authen
 ## Continue
 
 Start from GitHub main, read AGENTS.md and STATUS.md, test app locally. Expand seeded restaurants to ten per cuisine only after sourcing actual named venues. Verify source identity and review availability before replacing DEMO labels. Keep genuine source logos and image provenance. Production is independent Cloudflare Workers with automatic main builds.
+
+## Review-volume weighting policy
+Restaurants use Google Maps and Tripadvisor only; hotels use Google Maps, Booking and Airbnb only. Numeric rating records have value, max, reviewCount and demo status. Weighted result on /5 = sum(value/max*5*reviewCount) / sum(reviewCount). A source without a valid numeric rating or positive integer reviewCount is excluded. No fallback weight of 1 for missing counts. Booking /10 is normalized first. Display total review counts as sum of included sources, not unique people. Current counts/scores are illustrative DEMO. Per-platform counts are visible in expandable comparison. City Route private/community opinions remain separate and excluded until eligibility/threshold rules are decided; do not silently add them to blended ratings. Other attraction categories keep their existing demo mean until separately specified.

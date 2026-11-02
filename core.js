@@ -33,4 +33,8 @@ export function mapsUrl(p,transport='walking'){
  return `https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}&travelmode=${transport==='bike'?'bicycling':transport==='transit'?'transit':'walking'}`;
 }
 
-export function blendedRating(scores){const valid=scores.filter(s=>Number.isFinite(s.value)&&Number.isFinite(s.max)&&s.max>0&&s.value>=0&&s.value<=s.max);return valid.length?valid.reduce((n,s)=>n+s.value/s.max*5,0)/valid.length:null;}
+export function blendedRating(scores,{weighted=false}={}){
+ const valid=scores.filter(s=>Number.isFinite(s.value)&&Number.isFinite(s.max)&&s.max>0&&s.value>=0&&s.value<=s.max&&(!weighted||(Number.isSafeInteger(s.reviewCount)&&s.reviewCount>0)));
+ const total=valid.reduce((n,s)=>n+(weighted?s.reviewCount:1),0);
+ return total?valid.reduce((n,s)=>n+s.value/s.max*5*(weighted?s.reviewCount:1),0)/total:null;
+}

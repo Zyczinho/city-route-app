@@ -681,20 +681,16 @@
       {
         "name": "Google Maps",
         "max": 5,
-        "value": 4.6,
-        "demo": true
+        "value": 4.5,
+        "demo": true,
+        "reviewCount": 5000
       },
       {
         "name": "TripAdvisor",
         "max": 5,
-        "value": 4.4,
-        "demo": true
-      },
-      {
-        "name": "Yelp",
-        "max": 5,
-        "value": null,
-        "reason": "Brak zweryfikowanej oceny w prototypie"
+        "value": 4.0,
+        "demo": true,
+        "reviewCount": 500
       }
     ]
   },
@@ -729,19 +725,15 @@
         "name": "Google Maps",
         "max": 5,
         "value": 4.8,
-        "demo": true
+        "demo": true,
+        "reviewCount": 5170
       },
       {
         "name": "TripAdvisor",
         "max": 5,
         "value": 4.6000000000000005,
-        "demo": true
-      },
-      {
-        "name": "Yelp",
-        "max": 5,
-        "value": null,
-        "reason": "Brak zweryfikowanej oceny w prototypie"
+        "demo": true,
+        "reviewCount": 535
       }
     ]
   },
@@ -770,25 +762,23 @@
         "name": "Google Maps",
         "max": 5,
         "value": 4.6,
-        "demo": true
-      },
-      {
-        "name": "TripAdvisor",
-        "max": 5,
-        "value": 4.5,
-        "demo": true
+        "demo": true,
+        "reviewCount": 4200
       },
       {
         "name": "Booking",
         "max": 10,
         "value": 9.1,
-        "demo": true
+        "demo": true,
+        "reviewCount": 3100
       },
       {
         "name": "Airbnb",
         "max": 5,
         "value": null,
-        "reason": "Brak dopasowanej oferty tego obiektu"
+        "reason": "Brak dopasowanej oferty tego obiektu",
+        "reviewCount": null,
+        "demo": true
       }
     ]
   },
@@ -817,25 +807,23 @@
         "name": "Google Maps",
         "max": 5,
         "value": 4.6,
-        "demo": true
-      },
-      {
-        "name": "TripAdvisor",
-        "max": 5,
-        "value": 4.5,
-        "demo": true
+        "demo": true,
+        "reviewCount": 4440
       },
       {
         "name": "Booking",
         "max": 10,
         "value": 9.1,
-        "demo": true
+        "demo": true,
+        "reviewCount": 3260
       },
       {
         "name": "Airbnb",
         "max": 5,
         "value": null,
-        "reason": "Brak dopasowanej oferty tego obiektu"
+        "reason": "Brak dopasowanej oferty tego obiektu",
+        "reviewCount": null,
+        "demo": true
       }
     ]
   },
@@ -868,19 +856,15 @@
         "name": "Google Maps",
         "max": 5,
         "value": 4.8,
-        "demo": true
+        "demo": true,
+        "reviewCount": 5340
       },
       {
         "name": "TripAdvisor",
         "max": 5,
         "value": 4.7,
-        "demo": true
-      },
-      {
-        "name": "Yelp",
-        "max": 5,
-        "value": null,
-        "reason": "Brak zweryfikowanej oceny w prototypie"
+        "demo": true,
+        "reviewCount": 570
       }
     ]
   },
@@ -913,19 +897,15 @@
         "name": "Google Maps",
         "max": 5,
         "value": 4.7,
-        "demo": true
+        "demo": true,
+        "reviewCount": 5510
       },
       {
         "name": "TripAdvisor",
         "max": 5,
         "value": 4.6000000000000005,
-        "demo": true
-      },
-      {
-        "name": "Yelp",
-        "max": 5,
-        "value": null,
-        "reason": "Brak zweryfikowanej oceny w prototypie"
+        "demo": true,
+        "reviewCount": 605
       }
     ]
   },
@@ -957,19 +937,15 @@
         "name": "Google Maps",
         "max": 5,
         "value": 4.3999999999999995,
-        "demo": true
+        "demo": true,
+        "reviewCount": 5680
       },
       {
         "name": "TripAdvisor",
         "max": 5,
         "value": 4.2,
-        "demo": true
-      },
-      {
-        "name": "Yelp",
-        "max": 5,
-        "value": null,
-        "reason": "Brak zweryfikowanej oceny w prototypie"
+        "demo": true,
+        "reviewCount": 640
       }
     ]
   },
@@ -1002,19 +978,15 @@
         "name": "Google Maps",
         "max": 5,
         "value": 4.3999999999999995,
-        "demo": true
+        "demo": true,
+        "reviewCount": 5850
       },
       {
         "name": "TripAdvisor",
         "max": 5,
         "value": 4.8,
-        "demo": true
-      },
-      {
-        "name": "Yelp",
-        "max": 5,
-        "value": null,
-        "reason": "Brak zweryfikowanej oceny w prototypie"
+        "demo": true,
+        "reviewCount": 675
       }
     ]
   },
@@ -1050,19 +1022,15 @@
         "name": "Google Maps",
         "max": 5,
         "value": 4.7,
-        "demo": true
+        "demo": true,
+        "reviewCount": 6020
       },
       {
         "name": "TripAdvisor",
         "max": 5,
         "value": 4.6000000000000005,
-        "demo": true
-      },
-      {
-        "name": "Yelp",
-        "max": 5,
-        "value": null,
-        "reason": "Brak zweryfikowanej oceny w prototypie"
+        "demo": true,
+        "reviewCount": 710
       }
     ]
   },
@@ -1095,19 +1063,15 @@
         "name": "Google Maps",
         "max": 5,
         "value": 4.3999999999999995,
-        "demo": true
+        "demo": true,
+        "reviewCount": 6190
       },
       {
         "name": "TripAdvisor",
         "max": 5,
         "value": 4.2,
-        "demo": true
-      },
-      {
-        "name": "Yelp",
-        "max": 5,
-        "value": null,
-        "reason": "Brak zweryfikowanej oceny w prototypie"
+        "demo": true,
+        "reviewCount": 745
       }
     ]
   },
@@ -1140,19 +1104,15 @@
         "name": "Google Maps",
         "max": 5,
         "value": 4.8,
-        "demo": true
+        "demo": true,
+        "reviewCount": 6360
       },
       {
         "name": "TripAdvisor",
         "max": 5,
         "value": 4.7,
-        "demo": true
-      },
-      {
-        "name": "Yelp",
-        "max": 5,
-        "value": null,
-        "reason": "Brak zweryfikowanej oceny w prototypie"
+        "demo": true,
+        "reviewCount": 780
       }
     ]
   },
@@ -1185,19 +1145,15 @@
         "name": "Google Maps",
         "max": 5,
         "value": 4.3,
-        "demo": true
+        "demo": true,
+        "reviewCount": 6530
       },
       {
         "name": "TripAdvisor",
         "max": 5,
         "value": 4.7,
-        "demo": true
-      },
-      {
-        "name": "Yelp",
-        "max": 5,
-        "value": null,
-        "reason": "Brak zweryfikowanej oceny w prototypie"
+        "demo": true,
+        "reviewCount": 815
       }
     ]
   },
@@ -1226,25 +1182,23 @@
         "name": "Google Maps",
         "max": 5,
         "value": 4.6,
-        "demo": true
-      },
-      {
-        "name": "TripAdvisor",
-        "max": 5,
-        "value": 4.5,
-        "demo": true
+        "demo": true,
+        "reviewCount": 4680
       },
       {
         "name": "Booking",
         "max": 10,
         "value": 9.1,
-        "demo": true
+        "demo": true,
+        "reviewCount": 3420
       },
       {
         "name": "Airbnb",
         "max": 5,
         "value": null,
-        "reason": "Brak dopasowanej oferty tego obiektu"
+        "reason": "Brak dopasowanej oferty tego obiektu",
+        "reviewCount": null,
+        "demo": true
       }
     ],
     "coordinatesApproximate": true
@@ -1274,25 +1228,23 @@
         "name": "Google Maps",
         "max": 5,
         "value": 4.6,
-        "demo": true
-      },
-      {
-        "name": "TripAdvisor",
-        "max": 5,
-        "value": 4.5,
-        "demo": true
+        "demo": true,
+        "reviewCount": 4920
       },
       {
         "name": "Booking",
         "max": 10,
         "value": 9.1,
-        "demo": true
+        "demo": true,
+        "reviewCount": 3580
       },
       {
         "name": "Airbnb",
         "max": 5,
         "value": null,
-        "reason": "Brak dopasowanej oferty tego obiektu"
+        "reason": "Brak dopasowanej oferty tego obiektu",
+        "reviewCount": null,
+        "demo": true
       }
     ],
     "coordinatesApproximate": true
@@ -1322,25 +1274,23 @@
         "name": "Google Maps",
         "max": 5,
         "value": 4.6,
-        "demo": true
-      },
-      {
-        "name": "TripAdvisor",
-        "max": 5,
-        "value": 4.5,
-        "demo": true
+        "demo": true,
+        "reviewCount": 5160
       },
       {
         "name": "Booking",
         "max": 10,
         "value": 9.1,
-        "demo": true
+        "demo": true,
+        "reviewCount": 3740
       },
       {
         "name": "Airbnb",
         "max": 5,
         "value": null,
-        "reason": "Brak dopasowanej oferty tego obiektu"
+        "reason": "Brak dopasowanej oferty tego obiektu",
+        "reviewCount": null,
+        "demo": true
       }
     ],
     "coordinatesApproximate": true
@@ -1370,25 +1320,23 @@
         "name": "Google Maps",
         "max": 5,
         "value": 4.6,
-        "demo": true
-      },
-      {
-        "name": "TripAdvisor",
-        "max": 5,
-        "value": 4.5,
-        "demo": true
+        "demo": true,
+        "reviewCount": 5400
       },
       {
         "name": "Booking",
         "max": 10,
         "value": 9.1,
-        "demo": true
+        "demo": true,
+        "reviewCount": 3900
       },
       {
         "name": "Airbnb",
         "max": 5,
         "value": null,
-        "reason": "Brak dopasowanej oferty tego obiektu"
+        "reason": "Brak dopasowanej oferty tego obiektu",
+        "reviewCount": null,
+        "demo": true
       }
     ],
     "coordinatesApproximate": true
@@ -1418,25 +1366,23 @@
         "name": "Google Maps",
         "max": 5,
         "value": 4.6,
-        "demo": true
-      },
-      {
-        "name": "TripAdvisor",
-        "max": 5,
-        "value": 4.5,
-        "demo": true
+        "demo": true,
+        "reviewCount": 5640
       },
       {
         "name": "Booking",
         "max": 10,
         "value": 9.1,
-        "demo": true
+        "demo": true,
+        "reviewCount": 4060
       },
       {
         "name": "Airbnb",
         "max": 5,
         "value": null,
-        "reason": "Brak dopasowanej oferty tego obiektu"
+        "reason": "Brak dopasowanej oferty tego obiektu",
+        "reviewCount": null,
+        "demo": true
       }
     ],
     "coordinatesApproximate": true
@@ -1466,25 +1412,23 @@
         "name": "Google Maps",
         "max": 5,
         "value": 4.6,
-        "demo": true
-      },
-      {
-        "name": "TripAdvisor",
-        "max": 5,
-        "value": 4.5,
-        "demo": true
+        "demo": true,
+        "reviewCount": 5880
       },
       {
         "name": "Booking",
         "max": 10,
         "value": 9.1,
-        "demo": true
+        "demo": true,
+        "reviewCount": 4220
       },
       {
         "name": "Airbnb",
         "max": 5,
         "value": null,
-        "reason": "Brak dopasowanej oferty tego obiektu"
+        "reason": "Brak dopasowanej oferty tego obiektu",
+        "reviewCount": null,
+        "demo": true
       }
     ],
     "coordinatesApproximate": true
@@ -1514,25 +1458,23 @@
         "name": "Google Maps",
         "max": 5,
         "value": 4.6,
-        "demo": true
-      },
-      {
-        "name": "TripAdvisor",
-        "max": 5,
-        "value": 4.5,
-        "demo": true
+        "demo": true,
+        "reviewCount": 6120
       },
       {
         "name": "Booking",
         "max": 10,
         "value": 9.1,
-        "demo": true
+        "demo": true,
+        "reviewCount": 4380
       },
       {
         "name": "Airbnb",
         "max": 5,
         "value": null,
-        "reason": "Brak dopasowanej oferty tego obiektu"
+        "reason": "Brak dopasowanej oferty tego obiektu",
+        "reviewCount": null,
+        "demo": true
       }
     ],
     "coordinatesApproximate": true
@@ -1562,25 +1504,23 @@
         "name": "Google Maps",
         "max": 5,
         "value": 4.6,
-        "demo": true
-      },
-      {
-        "name": "TripAdvisor",
-        "max": 5,
-        "value": 4.5,
-        "demo": true
+        "demo": true,
+        "reviewCount": 6360
       },
       {
         "name": "Booking",
         "max": 10,
         "value": 9.1,
-        "demo": true
+        "demo": true,
+        "reviewCount": 4540
       },
       {
         "name": "Airbnb",
         "max": 5,
         "value": null,
-        "reason": "Brak dopasowanej oferty tego obiektu"
+        "reason": "Brak dopasowanej oferty tego obiektu",
+        "reviewCount": null,
+        "demo": true
       }
     ],
     "coordinatesApproximate": true

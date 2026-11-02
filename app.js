@@ -8,7 +8,7 @@ if(!state||state.version!==1||!Array.isArray(state.basket)||!Array.isArray(state
 state.connections=state.connections||{};state.stay=state.stay||'';state.joined=state.joined||[];state.messages=state.messages||{};state.placeReviews=state.placeReviews||{};
 state.friends=Array.isArray(state.friends)?state.friends:[];state.myRoutes=Array.isArray(state.myRoutes)?state.myRoutes:[];state.userPlaces=Array.isArray(state.userPlaces)?state.userPlaces:[];
 state.profile={bio:'',...state.profile,socials:{instagram:'',tiktok:'',web:'',...state.profile?.socials}};
-let places=[],quests=[],routes=[],all={},cat='all',rcat='all',query='',cuisine='all',sort='default',pending=null,generated=null,editing=false,keepQuery=false,here=null,draft=null,bookTab=null,speaking=false;
+let places=[],quests=[],routes=[],all={},cat='all',rcat='all',query='',cuisine='all',sort='default',pending=null,generated=null,editing=false,keepQuery=false,here=null,draft=null,bookTab=null,speaking=false,evScope='global',evWhen='week',evKind='all';const evCache={};
 const persist=()=>{try{localStorage.setItem(key,JSON.stringify(state));}catch{storageOK=false;$('#connection').textContent='Zapis lokalny niedostępny. Wyeksportuj dane przed zamknięciem karty.';}};
 const log=(type,data={})=>{state.events.push({type,...data,tester_id:state.tester.id,at:new Date().toISOString()});state.events=state.events.slice(-5000);persist();};
 let toastTimer;function toast(s){$('#toast').textContent=s;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),2600);}
@@ -25,14 +25,14 @@ const items=ids=>ids.map(id=>all[id]).filter(Boolean);
 const isLive=()=>!!state.session&&!state.session.finished;
 
 // Navigation and categories
-const TABS=[['routes','route','Trasy'],['places','map-pin','Miejsca'],['plan','wand-sparkles','Zaplanuj'],['my-route','navigation','Moja trasa'],['book','ticket-percent','Zarezerwuj']];
+const TABS=[['routes','route','Trasy'],['places','compass','Odkrywaj'],['plan','wand-sparkles','Zaplanuj'],['my-route','navigation','Moja trasa'],['book','ticket-percent','Zarezerwuj']];
 const PLACE_CATS=[['all','Wszystkie','layers'],['zabytki','Zabytki','landmark'],['muzea','Muzea','library'],['zielen','Zieleń','trees'],['widoki','Wisła i widoki','waves'],['okolice','Ulice i okolice','signpost'],['jedzenie','Jedzenie','utensils']];
 const USER_TAGS={zabytki:['sightseeing','culture'],muzea:['culture'],zielen:['nature'],widoki:['views'],okolice:['hidden'],jedzenie:['food']};
 const resident=()=>state.stay==='resident';
 const catalog=()=>[...places,...state.userPlaces].filter(p=>p.kind!=='hotel');
 const ROUTE_CATS=[['all','Wszystkie'],['klasyka','Na pierwszy raz'],['zielen','Zieleń'],['wisla','Nad Wisłą'],['jedzenie','Z jedzeniem'],['lokalnie','Lokalnie']];
 const catName=(id,list=PLACE_CATS)=>list.find(c=>c[0]===id)?.[1]||'';
-const TAB_OF={routes:'routes',route:'routes',places:'places','add-place':'places',plan:'plan','my-route':'my-route',book:'book',profile:'profile',sources:'profile'};
+const TAB_OF={routes:'routes',route:'routes',places:'places',events:'places','add-place':'places',plan:'plan','my-route':'my-route',book:'book',profile:'profile',sources:'profile'};
 const LEGACY={home:['routes'],explore:['routes'],best:['places'],food:['places','jedzenie'],hotels:['book'],sidequests:['routes'],build:['plan'],active:['my-route'],discounts:['profile'],friends:['profile'],community:['profile'],chat:['profile']};
 const route=()=>{const [t,id]=(location.hash.slice(1)||'').split('/');return [t,id];};
 const avatar=(cls='')=>state.profile.photo?`<img class="avatar ${cls}" src="${esc(state.profile.photo)}" alt="">`:`<span class="avatar ${cls}" aria-hidden="true">${esc((state.tester.nickname==='Explorer'?'O':state.tester.nickname[0]).toUpperCase())}</span>`;
@@ -83,6 +83,7 @@ function routesView(){
  <div class="community-note">${ic('users')}<div><strong>Społeczność dopiero startuje.</strong><p>Tu pojawią się trasy innych osób, gdy dołączą pierwsi użytkownicy. Nie pokazujemy wymyślonych tras ani ocen. Zapisz własną trasę w zakładce Moja trasa, a trafi tutaj.</p></div></div>`;}
 
 // Places tab
+const exploreSwitch=on=>`<div class="segmented two" role="group" aria-label="Odkrywaj"><a href="#places" class="${on==='places'?'selected':''}" ${on==='places'?'aria-current="page"':''}>${ic('map-pin')}Miejsca</a><a href="#events" class="${on==='events'?'selected':''}" ${on==='events'?'aria-current="page"':''}>${ic('ticket-percent')}Wydarzenia</a></div>`;
 const placeHay=p=>`${p.name} ${p.area} ${p.description||''} ${(p.cuisine||[]).join(' ')} ${(p.cats||[]).map(c=>catName(c)).join(' ')} ${(p.ratings||[]).map(r=>r.listing).join(' ')} ${p.address||''}`;
 const away=p=>here?` · ${dec(distance(here,p))} km`:'';
 function placeRow(p){return `<article class="place"><button class="hit" data-action="place" data-id="${p.id}" aria-label="Szczegóły: ${esc(p.name)}"></button><div class="thumb">${photo(p)}${p.top?'<span class="must">Must-see</span>':''}</div><div class="info"><h3>${esc(p.name)}</h3><p class="sub">${esc(p.area)}${p.cuisine?' · '+esc(p.cuisine.join(', ')):p.kind==='sidequest'?'':' · '+esc(catName(p.cats?.[0]))}${p.outside?' · z zewnątrz':''}${away(p)}</p>${scoreLine(p)}</div><div class="side">${addButton(p)}</div></article>`;}
@@ -94,7 +95,7 @@ function placesView(){
  if(sort==='default')list.sort((a,b)=>(b.top?1:0)-(a.top?1:0));if(sort==='near'&&here)list.sort((a,b)=>distance(here,a)-distance(here,b));
  if(sort==='rating')list.sort((a,b)=>smoothedRating(b.ratings)-smoothedRating(a.ratings));if(sort==='count')list.sort((a,b)=>c(b).total-c(a).total);
  const cuisines=[...new Set(places.flatMap(p=>p.cuisine||[]))].sort((a,b)=>a.localeCompare(b,'pl'));
- return `<section class="page-head"><p class="kicker">Miejsca</p><h1>Co chcesz zobaczyć?</h1><p class="lead">${catalog().length} miejsc do zobaczenia i zjedzenia, z ocenami z Google Maps i Tripadvisor w jednym wyniku. Noclegi i bilety są w zakładce Zarezerwuj.</p></section>${searchBox('Szukaj: zamek, kebab, park, Praga…')}${chips(PLACE_CATS,cat,'cat',true)}<a class="add-place" href="#add-place">${ic('plus')}<span><strong>Dodaj własne miejsce</strong><small>Twoje ulubione miejsce, którego tu brakuje</small></span>${ic('chevron-right')}</a>
+ return `${exploreSwitch('places')}<section class="page-head"><p class="kicker">Miejsca</p><h1>Co chcesz zobaczyć?</h1><p class="lead">${catalog().length} miejsc do zobaczenia i zjedzenia, z ocenami z Google Maps i Tripadvisor w jednym wyniku. Noclegi i bilety są w zakładce Zarezerwuj.</p></section>${searchBox('Szukaj: zamek, kebab, park, Praga…')}${chips(PLACE_CATS,cat,'cat',true)}<a class="add-place" href="#add-place">${ic('plus')}<span><strong>Dodaj własne miejsce</strong><small>Twoje ulubione miejsce, którego tu brakuje</small></span>${ic('chevron-right')}</a>
  ${cat==='jedzenie'?chips([['all','Każda kuchnia'],...cuisines.map(k=>[k,k[0].toUpperCase()+k.slice(1)])],cuisine,'cuisine'):''}
  
  <div class="list-head"><span>${list.length} ${plural(list.length,'wynik','wyniki','wyników')}</span><label class="sort">Sortuj<select id="sort"><option value="default" ${sort==='default'?'selected':''}>Polecane</option><option value="rating" ${sort==='rating'?'selected':''}>Najlepiej oceniane</option><option value="count" ${sort==='count'?'selected':''}>Najwięcej opinii</option><option value="near" ${sort==='near'?'selected':''}>Najbliżej mnie</option></select></label></div>
@@ -106,6 +107,25 @@ function openPlace(id){const p=all[id];if(!p)return;const d=$('#place-dialog'),a
  <div class="sheet-actions">${addButton(p,true)}${p.kind!=='hotel'?`<a class="button wide" href="${mapsUrl(p)}" target="_blank" rel="noopener noreferrer">${ic('navigation')}Prowadź w Google Maps</a>`:''}${p.outside?`<a class="button wide" href="https://www.getyourguide.com/s/?q=${q(p)}" target="_blank" rel="noopener noreferrer" data-action="ticket" data-id="${p.id}">${ic('ticket-percent')}Bilety i wycieczki (GetYourGuide)</a>`:''}${p.website&&p.kind!=='hotel'?`<a class="button wide" href="${esc(p.website)}" target="_blank" rel="noopener noreferrer">${ic('arrow-up-right')}Strona i menu</a>`:''}${p.kind==='user'?`<button class="wide danger" data-action="delete-place" data-id="${p.id}">${ic('trash-2')}Usuń moje miejsce</button>`:''}</div>
  <form id="place-review-form" class="my-review" data-id="${p.id}"><label>Twoja ocena<select name="rating">${[5,4,3,2,1].map(n=>`<option value="${n}" ${state.placeReviews[p.id]===n?'selected':''}>${'★'.repeat(n)} ${n}/5</option>`).join('')}</select></label><button>${state.placeReviews[p.id]?'Zmień':'Zapisz'}</button><p class="fine">Twoja ocena zostaje na tym urządzeniu i nie zmienia wyniku z platform. Oceny społeczności włączymy, gdy będzie ich dość.</p></form>${credit(p)}</div>`;
  if(!d.open)d.showModal();d.scrollTop=0;}
+
+// Events: global ones from ticket platforms, community ones later from verified users
+const EV_WHEN=[['today','Dziś',1],['weekend','Weekend',7],['week','7 dni',7],['month','30 dni',30]];
+const EV_KIND=[['all','Wszystko'],['koncerty','Koncerty'],['teatr','Teatr'],['sport','Sport'],['kino','Kino'],['inne','Inne']];
+const dayKey=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+function weekendDays(now=new Date()){const d=new Date(now),out=[];const toFri=(5-d.getDay()+7)%7;if(d.getDay()===0||d.getDay()===6){d.setDate(d.getDate()-(d.getDay()===0?2:1));}else d.setDate(d.getDate()+toFri);for(let i=0;i<3;i++){out.push(dayKey(d));d.setDate(d.getDate()+1);}return out;}
+function loadEvents(days){if(evCache[days])return evCache[days];evCache[days]={status:'loading'};fetch(`./api/events?days=${days}`).then(r=>r.ok||r.status===502?r.json():{status:'unavailable'}).catch(()=>({status:navigator.onLine?'unavailable':'offline'})).then(d=>{evCache[days]=d;if(route()[0]==='events')render();});return evCache[days];}
+const when=e=>{const d=new Date(`${e.date}T${e.time||'12:00'}`);return d.toLocaleDateString('pl-PL',{weekday:'short',day:'numeric',month:'short'})+(e.time?' · '+e.time:'');};
+function eventCard(e){return `<article class="event"><div class="media">${e.image?`<img src="${esc(e.image)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">`:`<div class="ph">${ic('ticket-percent')}</div>`}<span class="pill">${ic('clock')}${esc(when(e))}</span></div><div class="body"><p class="kicker">${esc(catName(e.kind,EV_KIND))}${e.genre?' · '+esc(e.genre):''}</p><h3>${esc(e.name)}</h3><p class="sub">${ic('map-pin')}${esc(e.venue)}${e.address?', '+esc(e.address):''}</p><div class="event-foot"><span>${e.price?`od ${fmt(Math.round(e.price.min))} ${e.price.currency==='PLN'?'zł':esc(e.price.currency)}`:'Cena u sprzedawcy'}</span><a class="button primary sm" href="${esc(e.url)}" target="_blank" rel="noopener noreferrer sponsored" data-action="event-ticket" data-id="${esc(e.id)}" data-source="${esc(e.source)}">Kup bilet${ic('arrow-up-right')}</a></div><p class="fine">Sprzedaje: ${e.source==='ticketmaster'?'Ticketmaster':esc(e.source)}</p></div></article>`;}
+function globalEvents(){const days=EV_WHEN.find(w=>w[0]===evWhen)[2],d=loadEvents(days);
+ if(d.status==='loading')return '<div class="empty"><p>Sprawdzamy, co dzieje się w Warszawie…</p></div>';
+ if(d.status==='no-key')return `<div class="empty">${ic('ticket-percent')}<p><strong>Podłączamy źródła wydarzeń.</strong></p><p>Pierwsze będzie Ticketmaster, potem Going. i inne serwisy biletowe. Nie pokazujemy wymyślonych wydarzeń, więc do tego czasu ta lista jest pusta.</p></div>`;
+ if(d.status!=='ok')return `<div class="empty"><p>${d.status==='offline'?'Jesteś offline. Wydarzenia wymagają internetu.':'Nie udało się teraz pobrać wydarzeń. Spróbuj za chwilę.'}</p><button data-action="events-retry">Spróbuj ponownie</button></div>`;
+ const today=dayKey(new Date()),wk=weekendDays();let list=d.events.filter(e=>evWhen==='today'?e.date===today:evWhen==='weekend'?wk.includes(e.date):true).filter(e=>evKind==='all'||e.kind===evKind).filter(e=>matches(`${e.name} ${e.venue} ${e.genre} ${catName(e.kind,EV_KIND)}`,query));
+ return `<div class="list-head"><span>${list.length} ${plural(list.length,'wydarzenie','wydarzenia','wydarzeń')}</span><span>Źródło: Ticketmaster · aktualizacja co godzinę</span></div><div class="event-grid">${list.map(eventCard).join('')||'<div class="empty"><p>Nic w tym terminie. Wybierz dłuższy okres albo inny rodzaj.</p></div>'}</div>`;}
+const communityEvents=()=>`<div class="community-note">${ic('users')}<div><strong>Wydarzenia od ludzi: wspólne piwo, pub crawl, spacer o świcie.</strong><p>Dodawać je będą tylko zweryfikowani użytkownicy: z potwierdzonym telefonem i kontem, a nowi organizatorzy dopiero po kilku ukończonych trasach. Każde wydarzenie będzie można zgłosić, a organizatora zablokować. Wydarzenia z alkoholem tylko dla osób 18+.</p><p>Ruszy razem z kontami. Do tego czasu nie pokazujemy przykładowych spotkań.</p></div></div>`;
+function eventsView(){return `${exploreSwitch('events')}<section class="page-head"><p class="kicker">Wydarzenia</p><h1>Co się dzieje w Warszawie?</h1><p class="lead">Koncerty, teatr i sport z serwisów biletowych w jednym miejscu. Bilet kupujesz jednym kliknięciem u sprzedawcy.</p></section>
+ <div class="segmented two" role="group">${[['global','Globalne'],['community','Społecznościowe']].map(([k,l])=>`<button data-action="ev-scope" data-value="${k}" aria-pressed="${evScope===k}" class="${evScope===k?'selected':''}">${l}</button>`).join('')}</div>
+ ${evScope==='community'?communityEvents():`${searchBox('Szukaj: artysta, miejsce, gatunek…')}${chips(EV_WHEN.map(([k,l])=>[k,l]),evWhen,'ev-when')}${chips(EV_KIND,evKind,'ev-kind')}${globalEvents()}`}`;}
 
 // Book tab: everything you pay for, kept apart from exploring
 const BOOK=[['hotels','Noclegi','bed-double'],['tickets','Bilety i wycieczki','ticket-percent'],['tables','Stoliki','utensils']];
@@ -188,7 +208,7 @@ function render(){let [tab,id]=route();
  if(LEGACY[tab]){const [t,c]=LEGACY[tab];if(c){cat=c;cuisine='all';}location.replace('#'+t);return;}
  if(!TAB_OF[tab]){location.replace('#'+(isLive()?'my-route':'routes'));return;}
  nav();let html='';
- if(tab==='routes')html=routesView();else if(tab==='places')html=placesView();else if(tab==='plan')html=planView();else if(tab==='my-route')html=myRouteView();else if(tab==='profile')html=profileView();else if(tab==='book')html=bookView();
+ if(tab==='routes')html=routesView();else if(tab==='places')html=placesView();else if(tab==='plan')html=planView();else if(tab==='my-route')html=myRouteView();else if(tab==='profile')html=profileView();else if(tab==='book')html=bookView();else if(tab==='events')html=eventsView();
  else if(tab==='route'){const r=findRoute(id);html=r?detailView(r):`<div class="empty"><p>Ta trasa nie jest już dostępna.</p><a class="button" href="#routes">Wszystkie trasy</a></div>`;}
  else if(tab==='sources')html=sourcesView();else if(tab==='add-place')html=addPlaceView();
  $('#main').innerHTML=html;document.body.classList.toggle('is-live',isLive());}
@@ -216,6 +236,11 @@ document.addEventListener('click',e=>{
  if(action==='ticket')log('buy_ticket_click',{place_id:id,source:b.dataset.source||'getyourguide'});
  if(action==='table')log('table_click',{place_id:id,source:b.dataset.source});
  if(action==='book-tab'){bookTab=value;render();}
+ if(action==='ev-scope'){evScope=value;render();}
+ if(action==='ev-when'){evWhen=value;render();}
+ if(action==='ev-kind'){evKind=value;render();}
+ if(action==='events-retry'){for(const k in evCache)delete evCache[k];render();}
+ if(action==='event-ticket')log('event_ticket_click',{event_id:id,source:b.dataset.source});
  if(action==='remove-avatar'){delete state.profile.photo;persist();render();}
  if(action==='listen'){if(speaking){speechSynthesis.cancel();speaking=false;render();}else{const p=all[id],qq=quests.find(x=>x.placeId===id),u=new SpeechSynthesisUtterance(`${p.name}. ${p.description}${p.outside?' Na trasie oglądasz je z zewnątrz.':''}${qq?' Zadanie: '+qq.description:''}`);u.lang='pl-PL';u.rate=.95;u.onend=u.onerror=()=>{speaking=false;render();};speechSynthesis.cancel();speechSynthesis.speak(u);speaking=true;render();log('audio_play',{place_id:id});}}
  if(action==='compare')log('hotel_compare_click',{place_id:id,source:b.dataset.source});

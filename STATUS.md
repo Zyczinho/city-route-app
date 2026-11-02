@@ -84,3 +84,12 @@ Branch claude/book-tab-planner-v2 from main 98494e0.
 - Audio prototype: "Posłuchaj o tym miejscu" uses the phone's built-in speech (pl-PL); ElevenLabs later.
 - Profile photo (resized to 256 px, stored on the device). Stay type is saved on the device and stated as such.
 - 20 tests pass. Browser-checked at 375×812: nav labels, Zarezerwuj three lists, Miejsca 40 places and categories, planner with coffee stop → live with side quest and listen button, profile via header.
+
+## Odkrywaj and events — 2026-11-02 (Claude Code)
+Branch claude/events-ticketmaster from main 6ff50c1.
+- Tab Miejsca renamed Odkrywaj (compass icon) with a Miejsca | Wydarzenia switch; #events deep link.
+- Wydarzenia → Globalne: fetched from /api/events (worker.js + events.js), Ticketmaster Discovery API for Warsaw, dedupe by name/date/venue, 1-hour edge cache, filters Dziś / Weekend / 7 dni / 30 dni and Koncerty / Teatr / Sport / Kino / Inne, search, "Kup bilet" logged as event_ticket_click. States: loading, no-key, source error, offline.
+- Wydarzenia → Społecznościowe: explains verified-organiser rules; no sample events.
+- wrangler.jsonc now has "main": "worker.js" and an ASSETS binding. `wrangler deploy --dry-run` (wrangler 4.156.1) bundled the worker and read 113 asset files. Not deployed yet.
+- Owner action needed: add Secret TICKETMASTER_API_KEY in Cloudflare; optional TICKETMASTER_AFFILIATE after Impact approval; apply to Going. (Tradedoubler) and AleBilet.
+- 21 tests pass (new: Ticketmaster query window, normalization, dedupe, affiliate wrapping). Browser-checked at 375×812 with a local-only fixture in dist/api/events: cards, filters, community view, switch, nav labels.

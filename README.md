@@ -19,3 +19,7 @@ Read PRODUCT.md, AGENTS.md and STATUS.md before editing. DATA_SOURCES.md lists w
 https://city-route-app.jakublojek.workers.dev
 
 Deployed independently on the owner's Cloudflare Workers account, using Workers Builds with build command `npm run build` and deploy command `npx wrangler deploy`. `wrangler.jsonc` serves `dist/`. No ChatGPT Work session is required to keep this deployment available. GitHub remains canonical. Confirm automatic main-branch triggers in Cloudflare build settings; first deployment was manually initiated. The Pages instructions above remain an optional alternative, not the current production path.
+
+## Events endpoint
+
+`worker.js` serves `dist/` and one endpoint, `/api/events` (Ticketmaster Discovery API, cached for an hour). Set the secret `TICKETMASTER_API_KEY` in Cloudflare → Workers → city-route-app → Settings → Variables and Secrets (type: Secret). Optional `TICKETMASTER_AFFILIATE`: an Impact deep-link template containing `{url}`. Without the key the app shows an honest empty state. The static app still works without the Worker.

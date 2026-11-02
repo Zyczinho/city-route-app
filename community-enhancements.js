@@ -169,12 +169,15 @@ async function sendMessage(form){
   button?.removeAttribute('disabled');
   if(error){status(error.message,'error');return;}
   form.reset();
+  await renderGroup(id);
 }
 
 async function deleteMessage(id){
   if(!session)return;
   const {error}=await supabase.from('messages').delete().eq('id',id).eq('user_id',session.user.id);
-  if(error)status(error.message,'error');
+  if(error){status(error.message,'error');return;}
+  const current=groupId();
+  if(current)await renderGroup(current);
 }
 
 document.addEventListener('submit',e=>{

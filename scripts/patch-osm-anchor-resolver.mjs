@@ -21,7 +21,8 @@ const next=`async function geocodeAnchor(anchor){
     return {p,rank:similarity+categoryBonus-distancePenalty(p)};
   }).filter(x=>x.rank>=0.7).sort((a,b)=>b.rank-a.rank);
   if(ranked[0])return {lat:ranked[0].p.lat,lng:ranked[0].p.lng,source:ranked[0].p.metadata.source};
-  const queries=[anchor.query,\`\${anchor.name}, \${city.name}, \${city.country}\`];
+  const addressOnly=String(anchor.query||'').replace(anchor.name,'').replace(/^\\s*[,;-]?\\s*|\\s*[,;-]?\\s*$/g,'').trim();
+  const queries=[anchor.query,addressOnly&&\`\${addressOnly}, \${city.name}\`,\`\${anchor.name}, \${city.name}, \${city.country}\`];
   for(const query of [...new Set(queries.filter(Boolean))]){
     const params=new URLSearchParams({q:query,format:'jsonv2',limit:'3',countrycodes:city.countryCode.toLowerCase()});
     const result=await fetchJson(\`https://nominatim.openstreetmap.org/search?\${params.toString()}\`);

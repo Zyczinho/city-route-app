@@ -1,7 +1,7 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+import {SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY} from './supabase-config.js';
 
-export const SUPABASE_URL='https://ycfhpvtsnsmzdmpvliif.supabase.co';
-export const SUPABASE_PUBLISHABLE_KEY='sb_publishable_SUxib5qZxqMwpVx1j8DVUg_7QQJjd8F';
+export {SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY} from './supabase-config.js';
 
 export const supabase=createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{
   auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}

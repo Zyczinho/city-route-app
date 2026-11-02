@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {loadCatalogueWithFallback,loadSupabaseCatalogue,placeFromCatalogue,routeFromCatalogue} from '../catalogue-client.js';
+import {createRestRpcClient,loadCatalogueWithFallback,loadSupabaseCatalogue,placeFromCatalogue,routeFromCatalogue} from '../catalogue-client.js';
 
 const city={id:'warsaw',slug:'warsaw',name:'Warszawa'};
 
@@ -23,6 +23,18 @@ test('route adapter keeps ordered stop slugs and route tags',()=>{
  assert.equal(r.cityId,'warsaw');
  assert.deepEqual(r.stops,['castle','old-town']);
  assert.deepEqual(r.cats,['klasyka']);
+});
+
+test('REST client calls Supabase RPC without depending on supabase-js CDN',async()=>{
+ const calls=[];
+ const fetchImpl=async(url,init)=>{calls.push([url,init]);return {ok:true,status:200,text:async()=>JSON.stringify([{id:'x'}])};};
+ const client=createRestRpcClient({url:'https://example.supabase.co',key:'publishable',fetchImpl});
+ const result=await client.rpc('catalogue_places',{city_slug:'warsaw'});
+ assert.equal(result.error,null);
+ assert.equal(result.data[0].id,'x');
+ assert.equal(calls[0][0],'https://example.supabase.co/rest/v1/rpc/catalogue_places');
+ assert.equal(calls[0][1].headers.apikey,'publishable');
+ assert.equal(calls[0][1].body,JSON.stringify({city_slug:'warsaw'}));
 });
 
 test('Supabase loader calls only city-scoped catalogue RPCs',async()=>{

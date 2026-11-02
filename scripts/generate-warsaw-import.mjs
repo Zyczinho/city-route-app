@@ -8,7 +8,7 @@ const [places,routes,taxonomy]=await Promise.all([
 const aliases=taxonomy.legacyAliases||{};
 const validCategories=new Set(taxonomy.groups.flatMap(g=>g.types.map(t=>t.id)));
 const q=v=>v==null?'null':`'${String(v).replaceAll("'","''")}'`;
-const n=v=>Number.isFinite(Number(v))?String(Number(v)):'null';
+const n=v=>v===null||v===undefined||v===''?'null':Number.isFinite(Number(v))?String(Number(v)):'null';
 const b=v=>v?'true':'false';
 const json=v=>`${q(JSON.stringify(v??{}))}::jsonb`;
 const slug=v=>{

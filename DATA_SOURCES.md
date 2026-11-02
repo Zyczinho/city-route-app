@@ -110,3 +110,15 @@ Proponowana kolejność: (1) Google Places przez Cloudflare Worker z kluczem w z
 | Novotel Warszawa Centrum | 4.5 (18771) | 4.1 (6803) | Wikimedia Commons: Petroniusz (CC BY-SA 3.0) |
 | The Westin Warsaw | 4.6 (5123) | 4.4 (2894) | Wikimedia Commons: Masti (CC BY-SA 4.0) |
 | Hilton Warsaw City | 4.5 (7494) | 4.4 (2884) | Wikimedia Commons: Panek (CC BY-SA 4.0) |
+
+## Jak zebrać dużo więcej miejsc (stan na 2 listopada 2026)
+
+**Google Maps.** Masowe pobieranie miejsc z Google jest możliwe tylko przez Google Places API (wyszukiwanie tekstowe i „w pobliżu”). Warunki: klucz i rozliczenie w Google Cloud; regulamin pozwala trwale zapisać u nas tylko identyfikator miejsca (place ID), a ocenę, liczbę opinii i zdjęcia trzeba pobierać na bieżąco i podpisać jako Google. Realny model: nasz katalog trzyma place ID + naszą kategorię, a Cloudflare Worker z kluczem w zmiennych środowiska dociąga resztę na żywo. Scrapowanie Google jest zabronione.
+
+**OpenStreetMap.** Darmowa i legalna droga do setek miejsc od razu (licencja ODbL: wolno zapisać, trzeba podpisać „© OpenStreetMap”). Daje nazwę, współrzędne, typ, często godziny otwarcia i stronę www, ale bez ocen i zdjęć. Typ z OSM pozwala trzymać ścisły podział: muzeum → Muzea, zabytek → Zabytki, park/ogród → Parki i ogrody, restauracja/kawiarnia → Jedzenie, hotel → Noclegi.
+
+**Rekomendacja:** OpenStreetMap jako szeroka baza miejsc (z jedną kategorią wynikającą z typu), Google Places API dla ocen na żywo, Tripadvisor Content API jako druga ocena, a nasza redakcja jako wybór „Must-see” i side questy.
+
+## Miejsca dodane przez użytkowników
+
+Od tej wersji użytkownik może dodać własne miejsce (nazwa, jedna kategoria, opis, lokalizacja z GPS albo z linku Google Maps, opcjonalne zdjęcie). Zapisuje się tylko w jego przeglądarce, bez ocen. Żeby inni je zobaczyli, potrzebny jest serwer z bazą (np. Cloudflare D1) i moderacja; tego jeszcze nie ma.

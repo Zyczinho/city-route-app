@@ -18,8 +18,7 @@
   "partner": false,
   "image": "place-old-town.jpg",
   "cats": [
-   "klasyka",
-   "historia"
+   "zabytki"
   ],
   "ratings": [
    {
@@ -50,7 +49,8 @@
    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
    "source": "https://commons.wikimedia.org/wiki/File:Kamienice_na_Rynku_Starego_Miasta_w_Warszawie.jpg",
    "via": "Wikimedia Commons"
-  }
+  },
+  "top": true
  },
  {
   "id": "castle",
@@ -71,8 +71,7 @@
   "partner": false,
   "image": "place-31495562.jpg",
   "cats": [
-   "klasyka",
-   "historia"
+   "zabytki"
   ],
   "ratings": [
    {
@@ -102,7 +101,9 @@
    "licenseUrl": "https://www.pexels.com/license/",
    "source": "https://www.pexels.com/photo/royal-castle-and-castle-square-in-warsaw-poland-31495562/",
    "via": "Pexels"
-  }
+  },
+  "top": true,
+  "outside": true
  },
  {
   "id": "barbican",
@@ -123,8 +124,7 @@
   "partner": false,
   "image": "place-35839613.jpg",
   "cats": [
-   "klasyka",
-   "historia"
+   "zabytki"
   ],
   "ratings": [
    {
@@ -154,7 +154,8 @@
    "licenseUrl": "https://www.pexels.com/license/",
    "source": "https://www.pexels.com/photo/warsaw-barbican-in-old-town-warsaw-35839613/",
    "via": "Pexels"
-  }
+  },
+  "top": true
  },
  {
   "id": "new-town",
@@ -175,8 +176,7 @@
   "partner": false,
   "image": "place-new-town.jpg",
   "cats": [
-   "historia",
-   "side"
+   "zabytki"
   ],
   "ratings": [
    {
@@ -280,9 +280,7 @@
   "partner": false,
   "image": "place-12028385.jpg",
   "cats": [
-   "zielen",
-   "widoki",
-   "side"
+   "parki"
   ],
   "ratings": [
    {
@@ -333,8 +331,7 @@
   "partner": false,
   "image": "place-copernicus.jpg",
   "cats": [
-   "historia",
-   "widoki"
+   "muzea"
   ],
   "ratings": [
    {
@@ -364,7 +361,8 @@
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
    "source": "https://commons.wikimedia.org/wiki/File:Budynek_Planetarium_Centrum_Nauki_Kopernik_2019.jpg",
    "via": "Wikimedia Commons"
-  }
+  },
+  "outside": true
  },
  {
   "id": "boulevards",
@@ -487,8 +485,7 @@
   "partner": false,
   "image": "place-lazienki.jpg",
   "cats": [
-   "klasyka",
-   "zielen"
+   "parki"
   ],
   "ratings": [
    {
@@ -518,7 +515,8 @@
    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
    "source": "https://commons.wikimedia.org/wiki/File:Kamienny_most_z_pomnikiem_Jana_III_Sobieskiego_i_jego_odbicie_w_stawie_w_%C5%81azienkach_Kr%C3%B3lewskich_jesieni%C4%85_-_Warszawa_26888.jpg",
    "via": "Wikimedia Commons"
-  }
+  },
+  "top": true
  },
  {
   "id": "palace-water",
@@ -539,9 +537,7 @@
   "partner": false,
   "image": "place-palace-water.jpg",
   "cats": [
-   "klasyka",
-   "historia",
-   "zielen"
+   "zabytki"
   ],
   "ratings": [
    {
@@ -571,7 +567,9 @@
    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
    "source": "https://commons.wikimedia.org/wiki/File:Warszawa,_Pa%C5%82ac_na_Wyspie_w_%C5%81azienkach_Kr%C3%B3lewskich_-_2026.06.06._MW.jpg",
    "via": "Wikimedia Commons"
-  }
+  },
+  "top": true,
+  "outside": true
  },
  {
   "id": "chopin",
@@ -592,8 +590,7 @@
   "partner": false,
   "image": "place-chopin.jpg",
   "cats": [
-   "zielen",
-   "historia"
+   "zabytki"
   ],
   "ratings": [
    {
@@ -644,8 +641,7 @@
   "partner": false,
   "image": "place-ujazdow.jpg",
   "cats": [
-   "historia",
-   "side"
+   "muzea"
   ],
   "ratings": [
    {
@@ -675,7 +671,8 @@
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
    "source": "https://commons.wikimedia.org/wiki/File:Front_facade_of_the_Ujazd%C3%B3w_Castle,_Warsaw,_2019.jpg",
    "via": "Wikimedia Commons"
-  }
+  },
+  "outside": true
  },
  {
   "id": "ujazdowski-park",
@@ -696,8 +693,7 @@
   "partner": false,
   "image": "place-ujazdowski-park.jpg",
   "cats": [
-   "zielen",
-   "side"
+   "parki"
   ],
   "ratings": [
    {
@@ -748,7 +744,7 @@
   "partner": false,
   "image": "place-saxon.jpg",
   "cats": [
-   "zielen"
+   "parki"
   ],
   "ratings": [
    {
@@ -799,7 +795,7 @@
   "partner": false,
   "image": "place-tomb.jpg",
   "cats": [
-   "historia"
+   "zabytki"
   ],
   "ratings": [
    {
@@ -850,8 +846,7 @@
   "partner": false,
   "image": "place-17131946.jpg",
   "cats": [
-   "klasyka",
-   "widoki"
+   "zabytki"
   ],
   "ratings": [
    {
@@ -881,7 +876,9 @@
    "licenseUrl": "https://www.pexels.com/license/",
    "source": "https://www.pexels.com/photo/view-of-the-palace-of-culture-and-science-in-warsaw-poland-17131946/",
    "via": "Pexels"
-  }
+  },
+  "top": true,
+  "outside": true
  },
  {
   "id": "nowy-swiat",
@@ -901,7 +898,7 @@
   "partner": false,
   "image": "place-nowy-swiat.jpg",
   "cats": [
-   "klasyka"
+   "okolice"
   ],
   "ratings": [
    {
@@ -952,7 +949,7 @@
   "partner": false,
   "image": "place-chopin-museum.jpg",
   "cats": [
-   "historia"
+   "muzea"
   ],
   "ratings": [
    {
@@ -982,7 +979,8 @@
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
    "source": "https://commons.wikimedia.org/wiki/File:Warsaw_2023_306_Chopin_Museum_Fa%C3%A7ade.jpg",
    "via": "Wikimedia Commons"
-  }
+  },
+  "outside": true
  },
  {
   "id": "national-museum",
@@ -1002,7 +1000,7 @@
   "partner": false,
   "image": "place-national-museum.jpg",
   "cats": [
-   "historia"
+   "muzea"
   ],
   "ratings": [
    {
@@ -1032,7 +1030,8 @@
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
    "source": "https://commons.wikimedia.org/wiki/File:Muzeum_Narodowe_w_Warszawie_2019.jpg",
    "via": "Wikimedia Commons"
-  }
+  },
+  "outside": true
  },
  {
   "id": "praga-cathedral",
@@ -1053,8 +1052,7 @@
   "partner": false,
   "image": "place-praga-cathedral.jpg",
   "cats": [
-   "historia",
-   "side"
+   "zabytki"
   ],
   "ratings": [
    {
@@ -1105,7 +1103,7 @@
   "partner": false,
   "image": "place-zabkowska.jpg",
   "cats": [
-   "side"
+   "okolice"
   ],
   "ratings": [
    {
@@ -1156,7 +1154,7 @@
   "partner": false,
   "image": "place-koneser.jpg",
   "cats": [
-   "side"
+   "okolice"
   ],
   "ratings": [
    {
@@ -1207,8 +1205,7 @@
   "partner": false,
   "image": "place-skaryszewski.jpg",
   "cats": [
-   "zielen",
-   "side"
+   "parki"
   ],
   "ratings": [
    {
@@ -1258,7 +1255,7 @@
   "partner": false,
   "image": "place-saska.jpg",
   "cats": [
-   "side"
+   "okolice"
   ],
   "ratings": [
    {
@@ -1411,8 +1408,7 @@
   "partner": false,
   "image": "place-mirowska.jpg",
   "cats": [
-   "jedzenie",
-   "side"
+   "jedzenie"
   ],
   "ratings": [
    {
@@ -1514,9 +1510,7 @@
   "partner": false,
   "image": "place-wilanow.jpg",
   "cats": [
-   "klasyka",
-   "historia",
-   "zielen"
+   "zabytki"
   ],
   "ratings": [
    {
@@ -1546,7 +1540,9 @@
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
    "source": "https://commons.wikimedia.org/wiki/File:Pa%C5%82ac_w_Wilanowie_2022_4.jpg",
    "via": "Wikimedia Commons"
-  }
+  },
+  "top": true,
+  "outside": true
  },
  {
   "id": "stary-dom",
@@ -2224,7 +2220,6 @@
   "lat": 52.241701,
   "lng": 21.014654,
   "description": "Hotel. Ceny i dostępność sprawdzisz na stronie obiektu.",
-  "website": "https://www.booking.com/searchresults.pl.html?ss=Raffles%20Europejski%20Warsaw%20Warsaw",
   "image": "place-raffles.jpg",
   "tags": [
    "hotels"
@@ -2268,7 +2263,8 @@
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
    "source": "https://commons.wikimedia.org/wiki/File:Warszawa_-_Hotel_Europejski_(2021).jpg",
    "via": "Wikimedia Commons"
-  }
+  },
+  "bookingSearch": "https://www.booking.com/searchresults.pl.html?ss=Raffles%20Europejski%20Warsaw%20Warsaw"
  },
  {
   "id": "nobu",
@@ -2276,7 +2272,6 @@
   "lat": 52.22314,
   "lng": 21.007868,
   "description": "Hotel. Ceny i dostępność sprawdzisz na stronie obiektu.",
-  "website": "https://www.booking.com/searchresults.pl.html?ss=Nobu%20Hotel%20Warsaw%20Warsaw",
   "image": "place-nobu.jpg",
   "tags": [
    "hotels"
@@ -2320,7 +2315,8 @@
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
    "source": "https://commons.wikimedia.org/wiki/File:Nobu_Hotel_Warsaw.jpg",
    "via": "Wikimedia Commons"
-  }
+  },
+  "bookingSearch": "https://www.booking.com/searchresults.pl.html?ss=Nobu%20Hotel%20Warsaw%20Warsaw"
  },
  {
   "id": "intercontinental",
@@ -2328,7 +2324,6 @@
   "lat": 52.232373,
   "lng": 21.002463,
   "description": "Hotel. Ceny i dostępność sprawdzisz na stronie obiektu.",
-  "website": "https://www.booking.com/searchresults.pl.html?ss=InterContinental%20Warszawa%20Warsaw",
   "image": "place-intercontinental.jpg",
   "tags": [
    "hotels"
@@ -2372,7 +2367,8 @@
    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
    "source": "https://commons.wikimedia.org/wiki/File:Warszawa_-_InterContinental_Warsaw.jpg",
    "via": "Wikimedia Commons"
-  }
+  },
+  "bookingSearch": "https://www.booking.com/searchresults.pl.html?ss=InterContinental%20Warszawa%20Warsaw"
  },
  {
   "id": "puro",
@@ -2380,7 +2376,6 @@
   "lat": 52.231165,
   "lng": 21.014873,
   "description": "Hotel. Ceny i dostępność sprawdzisz na stronie obiektu.",
-  "website": "https://www.booking.com/searchresults.pl.html?ss=PURO%20Warszawa%20Centrum%20Warsaw",
   "image": "place-puro.jpg",
   "tags": [
    "hotels"
@@ -2424,7 +2419,8 @@
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
    "source": "https://commons.wikimedia.org/wiki/File:5-7-9_Widok_Street_in_Warsaw,_Puro_Hotel.jpg",
    "via": "Wikimedia Commons"
-  }
+  },
+  "bookingSearch": "https://www.booking.com/searchresults.pl.html?ss=PURO%20Warszawa%20Centrum%20Warsaw"
  },
  {
   "id": "sofitel",
@@ -2432,7 +2428,6 @@
   "lat": 52.239789,
   "lng": 21.013406,
   "description": "Hotel. Ceny i dostępność sprawdzisz na stronie obiektu.",
-  "website": "https://www.booking.com/searchresults.pl.html?ss=Sofitel%20Warsaw%20Victoria%20Warsaw",
   "image": "place-sofitel.jpg",
   "tags": [
    "hotels"
@@ -2476,7 +2471,8 @@
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
    "source": "https://commons.wikimedia.org/wiki/File:Hotel_Sofitel_Warsaw_Victoria_2023.jpg",
    "via": "Wikimedia Commons"
-  }
+  },
+  "bookingSearch": "https://www.booking.com/searchresults.pl.html?ss=Sofitel%20Warsaw%20Victoria%20Warsaw"
  },
  {
   "id": "novotel",
@@ -2484,7 +2480,6 @@
   "lat": 52.229299,
   "lng": 21.013051,
   "description": "Hotel. Ceny i dostępność sprawdzisz na stronie obiektu.",
-  "website": "https://www.booking.com/searchresults.pl.html?ss=Novotel%20Warszawa%20Centrum%20Warsaw",
   "image": "place-novotel.jpg",
   "tags": [
    "hotels"
@@ -2528,7 +2523,8 @@
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
    "source": "https://commons.wikimedia.org/wiki/File:Warszawa,_Novotel_Warszawa_Centrum_-_fotopolska.eu_(252193).jpg",
    "via": "Wikimedia Commons"
-  }
+  },
+  "bookingSearch": "https://www.booking.com/searchresults.pl.html?ss=Novotel%20Warszawa%20Centrum%20Warsaw"
  },
  {
   "id": "westin",
@@ -2536,7 +2532,6 @@
   "lat": 52.235334,
   "lng": 20.996465,
   "description": "Hotel. Ceny i dostępność sprawdzisz na stronie obiektu.",
-  "website": "https://www.booking.com/searchresults.pl.html?ss=The%20Westin%20Warsaw%20Warsaw",
   "image": "place-westin.jpg",
   "tags": [
    "hotels"
@@ -2580,7 +2575,8 @@
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
    "source": "https://commons.wikimedia.org/wiki/File:The_westin_warsaw.JPG",
    "via": "Wikimedia Commons"
-  }
+  },
+  "bookingSearch": "https://www.booking.com/searchresults.pl.html?ss=The%20Westin%20Warsaw%20Warsaw"
  },
  {
   "id": "hilton",
@@ -2588,7 +2584,6 @@
   "lat": 52.233523,
   "lng": 20.985885,
   "description": "Hotel. Ceny i dostępność sprawdzisz na stronie obiektu.",
-  "website": "https://www.booking.com/searchresults.pl.html?ss=Hilton%20Warsaw%20City%20Warsaw",
   "image": "place-hilton.jpg",
   "tags": [
    "hotels"
@@ -2632,6 +2627,7 @@
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
    "source": "https://commons.wikimedia.org/wiki/File:Hilton_Warsaw_City_2026.jpg",
    "via": "Wikimedia Commons"
-  }
+  },
+  "bookingSearch": "https://www.booking.com/searchresults.pl.html?ss=Hilton%20Warsaw%20City%20Warsaw"
  }
 ]

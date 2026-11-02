@@ -38,6 +38,16 @@ export function combinedRating(ratings=[]){
  const parts=ratings.filter(s=>Number.isFinite(s.value)&&Number.isSafeInteger(s.reviewCount)&&s.reviewCount>0);
  return {value:blendedRating(parts,{weighted:true}),total:parts.reduce((n,s)=>n+s.reviewCount,0),parts};
 }
+// One Google Maps link for a whole route: start from wherever the phone is, then every stop in order.
+export function routeMapsUrl(stops,transport='walking'){
+ if(!stops.length)return '';const pt=p=>`${p.lat},${p.lng}`,last=stops.at(-1),via=stops.slice(0,-1).slice(0,9);
+ return `https://www.google.com/maps/dir/?api=1&destination=${pt(last)}${via.length?'&waypoints='+via.map(pt).join('%7C'):''}&travelmode=${transport==='bike'?'bicycling':transport==='transit'?'transit':'walking'}`;
+}
+// Reads coordinates from a pasted Google Maps link (@lat,lng or ?q=lat,lng) or a plain "lat, lng".
+export function parseLocation(text){
+ const s=decodeURIComponent(String(text||'')),m=s.match(/@(-?\d{1,2}\.\d+),\s*(-?\d{1,3}\.\d+)/)||s.match(/!3d(-?\d{1,2}\.\d+)!4d(-?\d{1,3}\.\d+)/)||s.match(/(-?\d{1,2}\.\d{2,})\s*,\s*(-?\d{1,3}\.\d{2,})/);
+ if(!m)return null;const lat=Number(m[1]),lng=Number(m[2]);return lat>=-90&&lat<=90&&lng>=-180&&lng<=180?{lat,lng}:null;
+}
 export const fold=s=>String(s??'').toLowerCase().replace(/ł/g,'l').normalize('NFD').replace(/[̀-ͯ]/g,'');
 export function matches(text,query){const words=fold(query).split(/\s+/).filter(Boolean),hay=fold(text);return words.every(w=>hay.includes(w));}
 

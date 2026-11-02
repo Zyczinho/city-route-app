@@ -1,9 +1,23 @@
 {
-  "note": "Editorial seed content, not live aggregated ratings. Source search links are discovery aids, not proof of endorsement. No numeric ratings verified yet.",
-  "sources": [
-    "Google Maps",
-    "TripAdvisor",
-    "GetYourGuide"
-  ],
-  "signals": []
+ "checked": "2026-11-02",
+ "note": "Snapshot of public ratings, entered by hand. Not live data. Per-place values and their source URLs live in places.json under ratings.",
+ "sources": {
+  "google": {
+   "label": "Google Maps",
+   "method": "Rating and review count read from the Google Maps place panel in a browser.",
+   "coverage": "places with a Google rating"
+  },
+  "tripadvisor": {
+   "label": "Tripadvisor",
+   "method": "Rating and review count of the Tripadvisor listing as shown in web search results for that listing URL.",
+   "coverage": "places with a Tripadvisor listing"
+  }
+ },
+ "combined": "Weighted mean by review count: sum(value*count)/sum(count). A platform without a rating or count is left out.",
+ "notConnected": [
+  "GetYourGuide",
+  "Atlas Obscura",
+  "Booking",
+  "City Route community"
+ ]
 }

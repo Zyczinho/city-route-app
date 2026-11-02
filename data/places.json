@@ -1,1528 +1,2637 @@
 [
-  {
-    "id": "old-town",
-    "name": "Rynek Starego Miasta",
-    "lat": 52.2497,
-    "lng": 21.0122,
-    "tags": [
-      "culture",
-      "sightseeing"
-    ],
-    "minutes": 25,
-    "cost": 0,
-    "description": "Kolorowe kamienice, brukowane uliczki i warszawska Syrenka.",
-    "area": "old",
-    "photo": "old",
-    "kind": "place",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "image": "photo-18454473.jpg",
-    "imageNote": "Rynek Starego Miasta",
-    "imageVerified": true
-  },
-  {
-    "id": "castle",
-    "name": "Plac Zamkowy",
-    "lat": 52.2479,
-    "lng": 21.0142,
-    "tags": [
-      "culture",
-      "sightseeing"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Kolumna Zygmunta i widok na fasadę Zamku Królewskiego.",
-    "area": "old",
-    "photo": "old",
-    "kind": "place",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "image": "place-31495562.jpg",
-    "imageNote": "Plac Zamkowy",
-    "imageVerified": true
-  },
-  {
-    "id": "barbican",
-    "name": "Barbakan Warszawski",
-    "lat": 52.2508,
-    "lng": 21.0108,
-    "tags": [
-      "culture",
-      "sightseeing"
-    ],
-    "minutes": 15,
-    "cost": 0,
-    "description": "Spacer wzdłuż ceglanych murów na skraju Starego Miasta.",
-    "area": "old",
-    "photo": "old",
-    "kind": "place",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "image": "place-35839613.jpg",
-    "imageNote": "Barbakan Warszawski",
-    "imageVerified": true
-  },
-  {
-    "id": "new-town",
-    "name": "Rynek Nowego Miasta",
-    "lat": 52.253,
-    "lng": 21.0088,
-    "tags": [
-      "culture",
-      "hidden"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Spokojniejszy rynek tuż za murami Starego Miasta.",
-    "area": "old",
-    "photo": "old",
-    "kind": "place",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  },
-  {
-    "id": "fountain",
-    "name": "Multimedialny Park Fontann",
-    "lat": 52.2551,
-    "lng": 21.0106,
-    "tags": [
-      "nature",
-      "views"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Przystanek nad Wisłą. Pokazy fontann odbywają się sezonowo.",
-    "area": "river",
-    "photo": "river",
-    "kind": "place",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  },
-  {
-    "id": "buw",
-    "name": "Ogród Biblioteki Uniwersyteckiej",
-    "lat": 52.2422,
-    "lng": 21.0247,
-    "tags": [
-      "nature",
-      "views",
-      "hidden"
-    ],
-    "minutes": 35,
-    "cost": 0,
-    "description": "Zielony ogród przy bibliotece. Dostęp na dach zależy od sezonu i godzin otwarcia.",
-    "area": "river",
-    "photo": "river",
-    "kind": "place",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "image": "place-12028385.jpg",
-    "imageNote": "Ogród Biblioteki Uniwersyteckiej",
-    "imageVerified": true
-  },
-  {
-    "id": "copernicus",
-    "name": "Centrum Nauki Kopernik — z zewnątrz",
-    "lat": 52.2418,
-    "lng": 21.0287,
-    "tags": [
-      "culture",
-      "sightseeing"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Charakterystyczna architektura nad Wisłą. Zwiedzanie wnętrza wymaga biletu.",
-    "area": "river",
-    "photo": "river",
-    "kind": "place",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  },
-  {
-    "id": "boulevards",
-    "name": "Bulwary Wiślane",
-    "lat": 52.245,
-    "lng": 21.0265,
-    "tags": [
-      "nature",
-      "views"
-    ],
-    "minutes": 35,
-    "cost": 0,
-    "description": "Spacer nad rzeką i chwila odpoczynku od miejskiego tempa.",
-    "area": "river",
-    "photo": "river",
-    "kind": "place",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  },
-  {
-    "id": "mermaid",
-    "name": "Syrenka na Powiślu",
-    "lat": 52.2364,
-    "lng": 21.0321,
-    "tags": [
-      "sightseeing",
-      "views"
-    ],
-    "minutes": 15,
-    "cost": 0,
-    "description": "Symbol Warszawy przy moście Świętokrzyskim.",
-    "area": "river",
-    "photo": "river",
-    "kind": "place",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  },
-  {
-    "id": "lazienki",
-    "name": "Łazienki Królewskie",
-    "lat": 52.215,
-    "lng": 21.035,
-    "tags": [
-      "nature",
-      "sightseeing"
-    ],
-    "minutes": 50,
-    "cost": 0,
-    "description": "Parkowe alejki i królewskie ogrody.",
-    "area": "park",
-    "photo": "park",
-    "kind": "place",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "image": "photo-8259574.jpg",
-    "imageNote": "Łazienki Królewskie",
-    "imageVerified": true
-  },
-  {
-    "id": "palace-water",
-    "name": "Pałac na Wyspie — z zewnątrz",
-    "lat": 52.2153,
-    "lng": 21.0359,
-    "tags": [
-      "culture",
-      "views"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Widok na pałac odbijający się w wodzie. Wnętrza są płatne osobno.",
-    "area": "park",
-    "photo": "park",
-    "kind": "place",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "image": "photo-17761856.jpg",
-    "imageNote": "Pałac na Wyspie — z zewnątrz",
-    "imageVerified": true
-  },
-  {
-    "id": "chopin",
-    "name": "Pomnik Chopina",
-    "lat": 52.2144,
-    "lng": 21.0286,
-    "tags": [
-      "culture",
-      "nature"
-    ],
-    "minutes": 15,
-    "cost": 0,
-    "description": "Chwila spokoju przy pomniku Fryderyka Chopina.",
-    "area": "park",
-    "photo": "park",
-    "kind": "place",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  },
-  {
-    "id": "ujazdow",
-    "name": "Zamek Ujazdowski — z zewnątrz",
-    "lat": 52.2196,
-    "lng": 21.0302,
-    "tags": [
-      "culture",
-      "views"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Architektura zamku nad parkiem. Wystawy są płatne osobno.",
-    "area": "park",
-    "photo": "park",
-    "kind": "place",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  },
-  {
-    "id": "ujazdowski-park",
-    "name": "Park Ujazdowski",
-    "lat": 52.219,
-    "lng": 21.0255,
-    "tags": [
-      "nature",
-      "hidden"
-    ],
-    "minutes": 25,
-    "cost": 0,
-    "description": "Mostki, kręte alejki i krótka zielona przerwa.",
-    "area": "park",
-    "photo": "park",
-    "kind": "place",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  },
-  {
-    "id": "saxon",
-    "name": "Ogród Saski",
-    "lat": 52.2409,
-    "lng": 21.0089,
-    "tags": [
-      "nature",
-      "sightseeing"
-    ],
-    "minutes": 30,
-    "cost": 0,
-    "description": "Ogród w centrum z zabytkową fontanną.",
-    "area": "city",
-    "photo": "city",
-    "kind": "place",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  },
-  {
-    "id": "tomb",
-    "name": "Grób Nieznanego Żołnierza",
-    "lat": 52.2419,
-    "lng": 21.0115,
-    "tags": [
-      "culture",
-      "sightseeing"
-    ],
-    "minutes": 15,
-    "cost": 0,
-    "description": "Miejsce pamięci na placu Piłsudskiego.",
-    "area": "city",
-    "photo": "city",
-    "kind": "place",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  },
-  {
-    "id": "palace-culture",
-    "name": "Pałac Kultury — z zewnątrz",
-    "lat": 52.2317,
-    "lng": 21.006,
-    "tags": [
-      "culture",
-      "sightseeing"
-    ],
-    "minutes": 25,
-    "cost": 0,
-    "description": "Spójrz na jeden z symboli Warszawy. Taras widokowy wymaga osobnego biletu.",
-    "area": "city",
-    "photo": "city",
-    "kind": "place",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "image": "place-17131946.jpg",
-    "imageNote": "Pałac Kultury — z zewnątrz",
-    "imageVerified": true,
-    "portrait": true
-  },
-  {
-    "id": "nowy-swiat",
-    "name": "Nowy Świat",
-    "lat": 52.2325,
-    "lng": 21.0195,
-    "tags": [
-      "sightseeing"
-    ],
-    "minutes": 30,
-    "cost": 0,
-    "description": "Reprezentacyjna ulica i architektura Śródmieścia. To ulica, nie restauracja.",
-    "area": "city",
-    "photo": "city",
-    "kind": "place",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  },
-  {
-    "id": "chopin-museum",
-    "name": "Muzeum Chopina — z zewnątrz",
-    "lat": 52.2367,
-    "lng": 21.0234,
-    "tags": [
-      "culture"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Pałac nad Tamką. Wstęp do muzeum jest płatny osobno.",
-    "area": "city",
-    "photo": "city",
-    "kind": "place",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  },
-  {
-    "id": "national-museum",
-    "name": "Muzeum Narodowe — z zewnątrz",
-    "lat": 52.2316,
-    "lng": 21.0247,
-    "tags": [
-      "culture"
-    ],
-    "minutes": 15,
-    "cost": 0,
-    "description": "Gmach muzeum od strony miasta. Trasa obejmuje tylko teren zewnętrzny.",
-    "area": "city",
-    "photo": "city",
-    "kind": "place",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  },
-  {
-    "id": "praga-cathedral",
-    "name": "Katedra św. Floriana",
-    "lat": 52.2526,
-    "lng": 21.0294,
-    "tags": [
-      "culture",
-      "sightseeing"
-    ],
-    "minutes": 20,
-    "cost": 0,
-    "description": "Ceglane wieże wprowadzają w klimat Pragi.",
-    "area": "praga",
-    "photo": "praga",
-    "kind": "place",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  },
-  {
-    "id": "zabkowska",
-    "name": "Ulica Ząbkowska",
-    "lat": 52.2534,
-    "lng": 21.0372,
-    "tags": [
-      "culture",
-      "hidden"
-    ],
-    "minutes": 30,
-    "cost": 0,
-    "description": "Stare fasady i spacer po praskiej ulicy.",
-    "area": "praga",
-    "photo": "praga",
-    "kind": "place",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  },
-  {
-    "id": "koneser",
-    "name": "Centrum Praskie Koneser",
-    "lat": 52.2546,
-    "lng": 21.0448,
-    "tags": [
-      "culture"
-    ],
-    "minutes": 30,
-    "cost": 0,
-    "description": "Ceglana architektura przemysłowa i otwarty dziedziniec.",
-    "area": "praga",
-    "photo": "praga",
-    "kind": "place",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  },
-  {
-    "id": "skaryszewski",
-    "name": "Park Skaryszewski",
-    "lat": 52.2409,
-    "lng": 21.0545,
-    "tags": [
-      "nature",
-      "hidden"
-    ],
-    "minutes": 45,
-    "cost": 0,
-    "description": "Jeziora, rzeźby i szerokie alejki po prawej stronie Wisły.",
-    "area": "park",
-    "photo": "park",
-    "kind": "place",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  },
-  {
-    "id": "saska",
-    "name": "Ulica Francuska",
-    "lat": 52.2328,
-    "lng": 21.0603,
-    "tags": [
-      "hidden"
-    ],
-    "minutes": 30,
-    "cost": 0,
-    "description": "Wille i sąsiedzki klimat Saskiej Kępy. To ulica, nie lokal gastronomiczny.",
-    "area": "praga",
-    "photo": "praga",
-    "kind": "place",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  },
-  {
-    "id": "rooftop",
-    "name": "Most Świętokrzyski",
-    "lat": 52.2385,
-    "lng": 21.038,
-    "tags": [
-      "views",
-      "nature"
-    ],
-    "minutes": 25,
-    "cost": 0,
-    "description": "Widoki na rzekę i panoramę miasta ze ścieżki dla pieszych.",
-    "area": "river",
-    "photo": "river",
-    "kind": "place",
-    "tourist": "local",
-    "foodStyle": "none",
-    "partner": false,
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  },
-  {
-    "id": "koszyki",
-    "name": "Hala Koszyki",
-    "lat": 52.2223,
-    "lng": 21.0104,
-    "tags": [
-      "culture"
-    ],
-    "minutes": 35,
-    "cost": 45,
-    "description": "Zabytkowa hala gastronomiczna. Wydatki na jedzenie są orientacyjne.",
-    "area": "food",
-    "photo": "food",
-    "kind": "place",
-    "tourist": "local",
-    "foodStyle": "sit",
-    "partner": false,
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  },
-  {
-    "id": "mirowska",
-    "name": "Hala Mirowska",
-    "lat": 52.2388,
-    "lng": 20.9979,
-    "tags": [
-      "hidden"
-    ],
-    "minutes": 30,
-    "cost": 25,
-    "description": "Targowisko i stoiska czynne w określonych godzinach.",
-    "area": "food",
-    "photo": "food",
-    "kind": "place",
-    "tourist": "local",
-    "foodStyle": "quick",
-    "partner": false,
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  },
-  {
-    "id": "electrownia",
-    "name": "Elektrownia Powiśle",
-    "lat": 52.2401,
-    "lng": 21.026,
-    "tags": [
-      "culture"
-    ],
-    "minutes": 35,
-    "cost": 45,
-    "description": "Dawna elektrownia z gastronomią i architekturą przemysłową.",
-    "area": "food",
-    "photo": "food",
-    "kind": "place",
-    "tourist": "local",
-    "foodStyle": "sit",
-    "partner": false,
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  },
-  {
-    "id": "wilanow",
-    "name": "Brama pałacu w Wilanowie",
-    "lat": 52.1652,
-    "lng": 21.0904,
-    "tags": [
-      "culture",
-      "sightseeing"
-    ],
-    "minutes": 25,
-    "cost": 0,
-    "description": "Widok na podejście do pałacu. Ogrody i wnętrza wymagają biletu.",
-    "area": "park",
-    "photo": "park",
-    "kind": "place",
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "imageVerified": false
-  },
-  {
-    "id": "stary-dom",
-    "name": "Restauracja Stary Dom",
-    "lat": 52.199,
-    "lng": 21.0244,
-    "description": "Kuchnia polska przy ul. Puławskiej 104/106. Budżet i oceny to dane demonstracyjne.",
-    "website": "https://restauracjastarydom.pl/",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "tags": [
-      "food"
-    ],
-    "minutes": 60,
-    "cost": 100,
-    "kind": "restaurant",
-    "foodStyle": "sit",
-    "tourist": "local",
-    "partner": false,
-    "photo": "food",
-    "imageVerified": false,
-    "cuisine": [
-      "polska"
-    ],
-    "address": "Puławska 104/106",
-    "ratings": [
-      {
-        "name": "Google Maps",
-        "max": 5,
-        "value": 4.5,
-        "demo": true,
-        "reviewCount": 5000
-      },
-      {
-        "name": "TripAdvisor",
-        "max": 5,
-        "value": 4.0,
-        "demo": true,
-        "reviewCount": 500
-      }
-    ]
-  },
-  {
-    "id": "der-elefant",
-    "name": "Der Elefant",
-    "lat": 52.2442,
-    "lng": 21.0024,
-    "description": "Restauracja przy placu Bankowym 1. Budżet i oceny to dane demonstracyjne.",
-    "website": "https://derelefant.com/pl",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "tags": [
-      "food"
-    ],
-    "minutes": 60,
-    "cost": 100,
-    "kind": "restaurant",
-    "foodStyle": "sit",
-    "tourist": "local",
-    "partner": false,
-    "photo": "food",
-    "imageVerified": false,
-    "cuisine": [
-      "międzynarodowa",
-      "steki",
-      "owoce morza"
-    ],
-    "address": "plac Bankowy 1",
-    "ratings": [
-      {
-        "name": "Google Maps",
-        "max": 5,
-        "value": 4.8,
-        "demo": true,
-        "reviewCount": 5170
-      },
-      {
-        "name": "TripAdvisor",
-        "max": 5,
-        "value": 4.6000000000000005,
-        "demo": true,
-        "reviewCount": 535
-      }
-    ]
-  },
-  {
-    "id": "polonia-palace",
-    "name": "Hotel Polonia Palace",
-    "lat": 52.2285,
-    "lng": 21.0102,
-    "description": "Hotel przy Alejach Jerozolimskich 45. Sprawdź dostępność i ceny na stronie obiektu.",
-    "website": "https://www.poloniapalace.com/pl",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "tags": [
-      "hotels"
-    ],
-    "minutes": 15,
-    "cost": 0,
-    "kind": "hotel",
-    "foodStyle": "none",
-    "tourist": "local",
-    "partner": false,
-    "photo": "city",
-    "imageVerified": false,
-    "ratings": [
-      {
-        "name": "Google Maps",
-        "max": 5,
-        "value": 4.6,
-        "demo": true,
-        "reviewCount": 4200
-      },
-      {
-        "name": "Booking",
-        "max": 10,
-        "value": 9.1,
-        "demo": true,
-        "reviewCount": 3100
-      },
-      {
-        "name": "Airbnb",
-        "max": 5,
-        "value": null,
-        "reason": "Brak dopasowanej oferty tego obiektu",
-        "reviewCount": null,
-        "demo": true
-      }
-    ]
-  },
-  {
-    "id": "bristol",
-    "name": "Hotel Bristol",
-    "lat": 52.2422,
-    "lng": 21.0156,
-    "description": "Hotel przy Krakowskim Przedmieściu 42/44. Sprawdź dostępność i ceny na stronie obiektu.",
-    "website": "https://www.hotelbristolwarsaw.pl/",
-    "image": null,
-    "imageNote": "Zdjęcie tego obiektu w przygotowaniu",
-    "tags": [
-      "hotels"
-    ],
-    "minutes": 15,
-    "cost": 0,
-    "kind": "hotel",
-    "foodStyle": "none",
-    "tourist": "local",
-    "partner": false,
-    "photo": "city",
-    "imageVerified": false,
-    "ratings": [
-      {
-        "name": "Google Maps",
-        "max": 5,
-        "value": 4.6,
-        "demo": true,
-        "reviewCount": 4440
-      },
-      {
-        "name": "Booking",
-        "max": 10,
-        "value": 9.1,
-        "demo": true,
-        "reviewCount": 3260
-      },
-      {
-        "name": "Airbnb",
-        "max": 5,
-        "value": null,
-        "reason": "Brak dopasowanej oferty tego obiektu",
-        "reviewCount": null,
-        "demo": true
-      }
-    ]
-  },
-  {
-    "id": "sapko",
-    "name": "Sapko Kebab",
-    "address": "al. Jana Pawła II 46/48, pawilon 5",
-    "cuisine": [
-      "kebab",
-      "turecka"
-    ],
-    "description": "Kebab · turecka. al. Jana Pawła II 46/48, pawilon 5. Wybór do testów prototypu, nie ranking najlepszych lokali.",
-    "website": "https://www.sapkokebab.com/",
-    "lat": 52.246,
-    "lng": 20.989,
-    "tags": [
-      "food"
-    ],
-    "minutes": 45,
-    "cost": 40,
-    "kind": "restaurant",
-    "foodStyle": "quick",
-    "tourist": "local",
-    "partner": false,
-    "photo": "food",
-    "image": null,
-    "imageNote": "Zdjęcie tego lokalu w przygotowaniu",
-    "ratings": [
-      {
-        "name": "Google Maps",
-        "max": 5,
-        "value": 4.8,
-        "demo": true,
-        "reviewCount": 5340
-      },
-      {
-        "name": "TripAdvisor",
-        "max": 5,
-        "value": 4.7,
-        "demo": true,
-        "reviewCount": 570
-      }
-    ]
-  },
-  {
-    "id": "efes",
-    "name": "EFES — Francuska",
-    "address": "Francuska 1",
-    "cuisine": [
-      "kebab",
-      "turecka"
-    ],
-    "description": "Kebab · turecka. Francuska 1. Wybór do testów prototypu, nie ranking najlepszych lokali.",
-    "website": "https://www.restauracjaefes.pl/kontakt/",
-    "lat": 52.233,
-    "lng": 21.058,
-    "tags": [
-      "food"
-    ],
-    "minutes": 45,
-    "cost": 40,
-    "kind": "restaurant",
-    "foodStyle": "quick",
-    "tourist": "local",
-    "partner": false,
-    "photo": "food",
-    "image": null,
-    "imageNote": "Zdjęcie tego lokalu w przygotowaniu",
-    "ratings": [
-      {
-        "name": "Google Maps",
-        "max": 5,
-        "value": 4.7,
-        "demo": true,
-        "reviewCount": 5510
-      },
-      {
-        "name": "TripAdvisor",
-        "max": 5,
-        "value": 4.6000000000000005,
-        "demo": true,
-        "reviewCount": 605
-      }
-    ]
-  },
-  {
-    "id": "fukiera",
-    "name": "U Fukiera",
-    "address": "Rynek Starego Miasta 27",
-    "cuisine": [
-      "polska"
-    ],
-    "description": "Polska. Rynek Starego Miasta 27. Wybór do testów prototypu, nie ranking najlepszych lokali.",
-    "website": "https://www.ufukiera.pl/",
-    "lat": 52.2498,
-    "lng": 21.0117,
-    "tags": [
-      "food"
-    ],
-    "minutes": 60,
-    "cost": 100,
-    "kind": "restaurant",
-    "foodStyle": "sit",
-    "tourist": "local",
-    "partner": false,
-    "photo": "food",
-    "image": null,
-    "imageNote": "Zdjęcie tego lokalu w przygotowaniu",
-    "ratings": [
-      {
-        "name": "Google Maps",
-        "max": 5,
-        "value": 4.3999999999999995,
-        "demo": true,
-        "reviewCount": 5680
-      },
-      {
-        "name": "TripAdvisor",
-        "max": 5,
-        "value": 4.2,
-        "demo": true,
-        "reviewCount": 640
-      }
-    ]
-  },
-  {
-    "id": "koneser-grill",
-    "name": "Koneser Grill",
-    "address": "Centrum Praskie Koneser",
-    "cuisine": [
-      "grill",
-      "steki"
-    ],
-    "description": "Grill · steki. Centrum Praskie Koneser. Wybór do testów prototypu, nie ranking najlepszych lokali.",
-    "website": "https://koneser.eu/restauracje-bary/koneser-grill/",
-    "lat": 52.255,
-    "lng": 21.045,
-    "tags": [
-      "food"
-    ],
-    "minutes": 60,
-    "cost": 100,
-    "kind": "restaurant",
-    "foodStyle": "sit",
-    "tourist": "local",
-    "partner": false,
-    "photo": "food",
-    "image": null,
-    "imageNote": "Zdjęcie tego lokalu w przygotowaniu",
-    "ratings": [
-      {
-        "name": "Google Maps",
-        "max": 5,
-        "value": 4.3999999999999995,
-        "demo": true,
-        "reviewCount": 5850
-      },
-      {
-        "name": "TripAdvisor",
-        "max": 5,
-        "value": 4.8,
-        "demo": true,
-        "reviewCount": 675
-      }
-    ]
-  },
-  {
-    "id": "azia",
-    "name": "Azia Koneser",
-    "address": "plac Konesera 4",
-    "cuisine": [
-      "azjatycka",
-      "sushi",
-      "tajska",
-      "tajska",
-      "japońska"
-    ],
-    "description": "Azjatycka · sushi · tajska. plac Konesera 4. Wybór do testów prototypu, nie ranking najlepszych lokali.",
-    "website": "https://koneser.azia.pl/",
-    "lat": 52.255,
-    "lng": 21.045,
-    "tags": [
-      "food"
-    ],
-    "minutes": 60,
-    "cost": 100,
-    "kind": "restaurant",
-    "foodStyle": "sit",
-    "tourist": "local",
-    "partner": false,
-    "photo": "food",
-    "image": null,
-    "imageNote": "Zdjęcie tego lokalu w przygotowaniu",
-    "ratings": [
-      {
-        "name": "Google Maps",
-        "max": 5,
-        "value": 4.7,
-        "demo": true,
-        "reviewCount": 6020
-      },
-      {
-        "name": "TripAdvisor",
-        "max": 5,
-        "value": 4.6000000000000005,
-        "demo": true,
-        "reviewCount": 710
-      }
-    ]
-  },
-  {
-    "id": "concept",
-    "name": "Concept Food & Wine",
-    "address": "plac Konesera 5",
-    "cuisine": [
-      "międzynarodowa",
-      "polska"
-    ],
-    "description": "Międzynarodowa · polska. plac Konesera 5. Wybór do testów prototypu, nie ranking najlepszych lokali.",
-    "website": "https://conceptfoodandwine.pl/",
-    "lat": 52.255,
-    "lng": 21.045,
-    "tags": [
-      "food"
-    ],
-    "minutes": 60,
-    "cost": 100,
-    "kind": "restaurant",
-    "foodStyle": "sit",
-    "tourist": "local",
-    "partner": false,
-    "photo": "food",
-    "image": null,
-    "imageNote": "Zdjęcie tego lokalu w przygotowaniu",
-    "ratings": [
-      {
-        "name": "Google Maps",
-        "max": 5,
-        "value": 4.3999999999999995,
-        "demo": true,
-        "reviewCount": 6190
-      },
-      {
-        "name": "TripAdvisor",
-        "max": 5,
-        "value": 4.2,
-        "demo": true,
-        "reviewCount": 745
-      }
-    ]
-  },
-  {
-    "id": "freya",
-    "name": "Freya Cafe & Deli",
-    "address": "Centrum Praskie Koneser",
-    "cuisine": [
-      "wegańska",
-      "wegetariańska"
-    ],
-    "description": "Wegańska · wegetariańska. Centrum Praskie Koneser. Wybór do testów prototypu, nie ranking najlepszych lokali.",
-    "website": "https://koneser.eu/o-koneserze-old/",
-    "lat": 52.255,
-    "lng": 21.045,
-    "tags": [
-      "food"
-    ],
-    "minutes": 60,
-    "cost": 100,
-    "kind": "restaurant",
-    "foodStyle": "sit",
-    "tourist": "local",
-    "partner": false,
-    "photo": "food",
-    "image": null,
-    "imageNote": "Zdjęcie tego lokalu w przygotowaniu",
-    "ratings": [
-      {
-        "name": "Google Maps",
-        "max": 5,
-        "value": 4.8,
-        "demo": true,
-        "reviewCount": 6360
-      },
-      {
-        "name": "TripAdvisor",
-        "max": 5,
-        "value": 4.7,
-        "demo": true,
-        "reviewCount": 780
-      }
-    ]
-  },
-  {
-    "id": "spoldzielnia",
-    "name": "Spółdzielnia.Koneser",
-    "address": "Centrum Praskie Koneser",
-    "cuisine": [
-      "polska",
-      "międzynarodowa"
-    ],
-    "description": "Polska · międzynarodowa. Centrum Praskie Koneser. Wybór do testów prototypu, nie ranking najlepszych lokali.",
-    "website": "https://koneser.eu/o-koneserze-old/",
-    "lat": 52.255,
-    "lng": 21.045,
-    "tags": [
-      "food"
-    ],
-    "minutes": 60,
-    "cost": 100,
-    "kind": "restaurant",
-    "foodStyle": "sit",
-    "tourist": "local",
-    "partner": false,
-    "photo": "food",
-    "image": null,
-    "imageNote": "Zdjęcie tego lokalu w przygotowaniu",
-    "ratings": [
-      {
-        "name": "Google Maps",
-        "max": 5,
-        "value": 4.3,
-        "demo": true,
-        "reviewCount": 6530
-      },
-      {
-        "name": "TripAdvisor",
-        "max": 5,
-        "value": 4.7,
-        "demo": true,
-        "reviewCount": 815
-      }
-    ]
-  },
-  {
-    "id": "raffles",
-    "name": "Raffles Europejski Warsaw",
-    "lat": 52.23,
-    "lng": 21.01,
-    "description": "Miejsce na Twój pobyt w Warszawie. Szczegółowy opis w przygotowaniu.",
-    "website": "https://www.booking.com/searchresults.pl.html?ss=Raffles%20Europejski%20Warsaw%20Warsaw",
-    "image": null,
-    "imageNote": "Zdjęcie tego hotelu w przygotowaniu",
-    "tags": [
-      "hotels"
-    ],
-    "minutes": 15,
-    "cost": 0,
-    "kind": "hotel",
-    "foodStyle": "none",
-    "tourist": "local",
-    "partner": false,
-    "photo": "city",
-    "imageVerified": false,
-    "ratings": [
-      {
-        "name": "Google Maps",
-        "max": 5,
-        "value": 4.6,
-        "demo": true,
-        "reviewCount": 4680
-      },
-      {
-        "name": "Booking",
-        "max": 10,
-        "value": 9.1,
-        "demo": true,
-        "reviewCount": 3420
-      },
-      {
-        "name": "Airbnb",
-        "max": 5,
-        "value": null,
-        "reason": "Brak dopasowanej oferty tego obiektu",
-        "reviewCount": null,
-        "demo": true
-      }
-    ],
-    "coordinatesApproximate": true
-  },
-  {
-    "id": "nobu",
-    "name": "Nobu Hotel Warsaw",
-    "lat": 52.23,
-    "lng": 21.01,
-    "description": "Miejsce na Twój pobyt w Warszawie. Szczegółowy opis w przygotowaniu.",
-    "website": "https://www.booking.com/searchresults.pl.html?ss=Nobu%20Hotel%20Warsaw%20Warsaw",
-    "image": null,
-    "imageNote": "Zdjęcie tego hotelu w przygotowaniu",
-    "tags": [
-      "hotels"
-    ],
-    "minutes": 15,
-    "cost": 0,
-    "kind": "hotel",
-    "foodStyle": "none",
-    "tourist": "local",
-    "partner": false,
-    "photo": "city",
-    "imageVerified": false,
-    "ratings": [
-      {
-        "name": "Google Maps",
-        "max": 5,
-        "value": 4.6,
-        "demo": true,
-        "reviewCount": 4920
-      },
-      {
-        "name": "Booking",
-        "max": 10,
-        "value": 9.1,
-        "demo": true,
-        "reviewCount": 3580
-      },
-      {
-        "name": "Airbnb",
-        "max": 5,
-        "value": null,
-        "reason": "Brak dopasowanej oferty tego obiektu",
-        "reviewCount": null,
-        "demo": true
-      }
-    ],
-    "coordinatesApproximate": true
-  },
-  {
-    "id": "intercontinental",
-    "name": "InterContinental Warszawa",
-    "lat": 52.23,
-    "lng": 21.01,
-    "description": "Miejsce na Twój pobyt w Warszawie. Szczegółowy opis w przygotowaniu.",
-    "website": "https://www.booking.com/searchresults.pl.html?ss=InterContinental%20Warszawa%20Warsaw",
-    "image": null,
-    "imageNote": "Zdjęcie tego hotelu w przygotowaniu",
-    "tags": [
-      "hotels"
-    ],
-    "minutes": 15,
-    "cost": 0,
-    "kind": "hotel",
-    "foodStyle": "none",
-    "tourist": "local",
-    "partner": false,
-    "photo": "city",
-    "imageVerified": false,
-    "ratings": [
-      {
-        "name": "Google Maps",
-        "max": 5,
-        "value": 4.6,
-        "demo": true,
-        "reviewCount": 5160
-      },
-      {
-        "name": "Booking",
-        "max": 10,
-        "value": 9.1,
-        "demo": true,
-        "reviewCount": 3740
-      },
-      {
-        "name": "Airbnb",
-        "max": 5,
-        "value": null,
-        "reason": "Brak dopasowanej oferty tego obiektu",
-        "reviewCount": null,
-        "demo": true
-      }
-    ],
-    "coordinatesApproximate": true
-  },
-  {
-    "id": "puro",
-    "name": "PURO Warszawa Centrum",
-    "lat": 52.23,
-    "lng": 21.01,
-    "description": "Miejsce na Twój pobyt w Warszawie. Szczegółowy opis w przygotowaniu.",
-    "website": "https://www.booking.com/searchresults.pl.html?ss=PURO%20Warszawa%20Centrum%20Warsaw",
-    "image": null,
-    "imageNote": "Zdjęcie tego hotelu w przygotowaniu",
-    "tags": [
-      "hotels"
-    ],
-    "minutes": 15,
-    "cost": 0,
-    "kind": "hotel",
-    "foodStyle": "none",
-    "tourist": "local",
-    "partner": false,
-    "photo": "city",
-    "imageVerified": false,
-    "ratings": [
-      {
-        "name": "Google Maps",
-        "max": 5,
-        "value": 4.6,
-        "demo": true,
-        "reviewCount": 5400
-      },
-      {
-        "name": "Booking",
-        "max": 10,
-        "value": 9.1,
-        "demo": true,
-        "reviewCount": 3900
-      },
-      {
-        "name": "Airbnb",
-        "max": 5,
-        "value": null,
-        "reason": "Brak dopasowanej oferty tego obiektu",
-        "reviewCount": null,
-        "demo": true
-      }
-    ],
-    "coordinatesApproximate": true
-  },
-  {
-    "id": "sofitel",
-    "name": "Sofitel Warsaw Victoria",
-    "lat": 52.23,
-    "lng": 21.01,
-    "description": "Miejsce na Twój pobyt w Warszawie. Szczegółowy opis w przygotowaniu.",
-    "website": "https://www.booking.com/searchresults.pl.html?ss=Sofitel%20Warsaw%20Victoria%20Warsaw",
-    "image": null,
-    "imageNote": "Zdjęcie tego hotelu w przygotowaniu",
-    "tags": [
-      "hotels"
-    ],
-    "minutes": 15,
-    "cost": 0,
-    "kind": "hotel",
-    "foodStyle": "none",
-    "tourist": "local",
-    "partner": false,
-    "photo": "city",
-    "imageVerified": false,
-    "ratings": [
-      {
-        "name": "Google Maps",
-        "max": 5,
-        "value": 4.6,
-        "demo": true,
-        "reviewCount": 5640
-      },
-      {
-        "name": "Booking",
-        "max": 10,
-        "value": 9.1,
-        "demo": true,
-        "reviewCount": 4060
-      },
-      {
-        "name": "Airbnb",
-        "max": 5,
-        "value": null,
-        "reason": "Brak dopasowanej oferty tego obiektu",
-        "reviewCount": null,
-        "demo": true
-      }
-    ],
-    "coordinatesApproximate": true
-  },
-  {
-    "id": "novotel",
-    "name": "Novotel Warszawa Centrum",
-    "lat": 52.23,
-    "lng": 21.01,
-    "description": "Miejsce na Twój pobyt w Warszawie. Szczegółowy opis w przygotowaniu.",
-    "website": "https://www.booking.com/searchresults.pl.html?ss=Novotel%20Warszawa%20Centrum%20Warsaw",
-    "image": null,
-    "imageNote": "Zdjęcie tego hotelu w przygotowaniu",
-    "tags": [
-      "hotels"
-    ],
-    "minutes": 15,
-    "cost": 0,
-    "kind": "hotel",
-    "foodStyle": "none",
-    "tourist": "local",
-    "partner": false,
-    "photo": "city",
-    "imageVerified": false,
-    "ratings": [
-      {
-        "name": "Google Maps",
-        "max": 5,
-        "value": 4.6,
-        "demo": true,
-        "reviewCount": 5880
-      },
-      {
-        "name": "Booking",
-        "max": 10,
-        "value": 9.1,
-        "demo": true,
-        "reviewCount": 4220
-      },
-      {
-        "name": "Airbnb",
-        "max": 5,
-        "value": null,
-        "reason": "Brak dopasowanej oferty tego obiektu",
-        "reviewCount": null,
-        "demo": true
-      }
-    ],
-    "coordinatesApproximate": true
-  },
-  {
-    "id": "westin",
-    "name": "The Westin Warsaw",
-    "lat": 52.23,
-    "lng": 21.01,
-    "description": "Miejsce na Twój pobyt w Warszawie. Szczegółowy opis w przygotowaniu.",
-    "website": "https://www.booking.com/searchresults.pl.html?ss=The%20Westin%20Warsaw%20Warsaw",
-    "image": null,
-    "imageNote": "Zdjęcie tego hotelu w przygotowaniu",
-    "tags": [
-      "hotels"
-    ],
-    "minutes": 15,
-    "cost": 0,
-    "kind": "hotel",
-    "foodStyle": "none",
-    "tourist": "local",
-    "partner": false,
-    "photo": "city",
-    "imageVerified": false,
-    "ratings": [
-      {
-        "name": "Google Maps",
-        "max": 5,
-        "value": 4.6,
-        "demo": true,
-        "reviewCount": 6120
-      },
-      {
-        "name": "Booking",
-        "max": 10,
-        "value": 9.1,
-        "demo": true,
-        "reviewCount": 4380
-      },
-      {
-        "name": "Airbnb",
-        "max": 5,
-        "value": null,
-        "reason": "Brak dopasowanej oferty tego obiektu",
-        "reviewCount": null,
-        "demo": true
-      }
-    ],
-    "coordinatesApproximate": true
-  },
-  {
-    "id": "hilton",
-    "name": "Hilton Warsaw City",
-    "lat": 52.23,
-    "lng": 21.01,
-    "description": "Miejsce na Twój pobyt w Warszawie. Szczegółowy opis w przygotowaniu.",
-    "website": "https://www.booking.com/searchresults.pl.html?ss=Hilton%20Warsaw%20City%20Warsaw",
-    "image": null,
-    "imageNote": "Zdjęcie tego hotelu w przygotowaniu",
-    "tags": [
-      "hotels"
-    ],
-    "minutes": 15,
-    "cost": 0,
-    "kind": "hotel",
-    "foodStyle": "none",
-    "tourist": "local",
-    "partner": false,
-    "photo": "city",
-    "imageVerified": false,
-    "ratings": [
-      {
-        "name": "Google Maps",
-        "max": 5,
-        "value": 4.6,
-        "demo": true,
-        "reviewCount": 6360
-      },
-      {
-        "name": "Booking",
-        "max": 10,
-        "value": 9.1,
-        "demo": true,
-        "reviewCount": 4540
-      },
-      {
-        "name": "Airbnb",
-        "max": 5,
-        "value": null,
-        "reason": "Brak dopasowanej oferty tego obiektu",
-        "reviewCount": null,
-        "demo": true
-      }
-    ],
-    "coordinatesApproximate": true
+ {
+  "id": "old-town",
+  "name": "Rynek Starego Miasta",
+  "lat": 52.249789,
+  "lng": 21.012171,
+  "tags": [
+   "culture",
+   "sightseeing"
+  ],
+  "minutes": 25,
+  "cost": 0,
+  "description": "Kolorowe kamienice, brukowane uliczki i warszawska Syrenka.",
+  "area": "Stare Miasto",
+  "kind": "place",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-old-town.jpg",
+  "cats": [
+   "klasyka",
+   "historia"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": null,
+    "max": 5,
+    "reviewCount": null,
+    "listing": "Rynek Starego Miasta",
+    "url": "https://www.google.com/maps/search/?api=1&query=Rynek%20Starego%20Miasta%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny",
+    "reason": "Google Maps pokazuje to miejsce jako adres, bez ocen."
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.5,
+    "max": 5,
+    "reviewCount": 4874,
+    "listing": "Rynek Starego Miasta",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d274989-Reviews-Rynek_Starego_Miasta-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Matis23",
+   "license": "CC BY 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Kamienice_na_Rynku_Starego_Miasta_w_Warszawie.jpg",
+   "via": "Wikimedia Commons"
   }
+ },
+ {
+  "id": "castle",
+  "name": "Zamek Królewski i Plac Zamkowy",
+  "lat": 52.247744,
+  "lng": 21.014128,
+  "tags": [
+   "culture",
+   "sightseeing"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Kolumna Zygmunta i widok na fasadę Zamku Królewskiego.",
+  "area": "Stare Miasto",
+  "kind": "place",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-31495562.jpg",
+  "cats": [
+   "klasyka",
+   "historia"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.7,
+    "max": 5,
+    "reviewCount": 60179,
+    "listing": "Zamek Królewski w Warszawie",
+    "url": "https://www.google.com/maps/search/?api=1&query=Zamek%20Kr%C3%B3lewski%20w%20Warszawie%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.3,
+    "max": 5,
+    "reviewCount": 2744,
+    "listing": "Royal Castle in Warsaw - Museum",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d274990-Reviews-Royal_Castle_in_Warsaw_Museum-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Pexels",
+   "license": "Pexels License",
+   "licenseUrl": "https://www.pexels.com/license/",
+   "source": "https://www.pexels.com/photo/royal-castle-and-castle-square-in-warsaw-poland-31495562/",
+   "via": "Pexels"
+  }
+ },
+ {
+  "id": "barbican",
+  "name": "Barbakan Warszawski",
+  "lat": 52.2508,
+  "lng": 21.0108,
+  "tags": [
+   "culture",
+   "sightseeing"
+  ],
+  "minutes": 15,
+  "cost": 0,
+  "description": "Spacer wzdłuż ceglanych murów na skraju Starego Miasta.",
+  "area": "Stare Miasto",
+  "kind": "place",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-35839613.jpg",
+  "cats": [
+   "klasyka",
+   "historia"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.7,
+    "max": 5,
+    "reviewCount": 11216,
+    "listing": "Barbakan Warszawski",
+    "url": "https://www.google.com/maps/search/?api=1&query=Barbakan%20Warszawski%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.2,
+    "max": 5,
+    "reviewCount": 1135,
+    "listing": "Warsaw Barbican (Barbakan Warszawski)",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d274981-Reviews-Warsaw_Barbican_Barbakan_Warszawski-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Pexels",
+   "license": "Pexels License",
+   "licenseUrl": "https://www.pexels.com/license/",
+   "source": "https://www.pexels.com/photo/warsaw-barbican-in-old-town-warsaw-35839613/",
+   "via": "Pexels"
+  }
+ },
+ {
+  "id": "new-town",
+  "name": "Rynek Nowego Miasta",
+  "lat": 52.253,
+  "lng": 21.0088,
+  "tags": [
+   "culture",
+   "hidden"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Spokojniejszy rynek tuż za murami Starego Miasta.",
+  "area": "Nowe Miasto",
+  "kind": "place",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-new-town.jpg",
+  "cats": [
+   "historia",
+   "side"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": null,
+    "max": 5,
+    "reviewCount": null,
+    "listing": "rynek Nowego Miasta",
+    "url": "https://www.google.com/maps/search/?api=1&query=rynek%20Nowego%20Miasta%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny",
+    "reason": "Google Maps pokazuje to miejsce jako adres, bez ocen."
+   },
+   {
+    "source": "tripadvisor",
+    "value": 3.8,
+    "max": 5,
+    "reviewCount": 120,
+    "listing": "New Town Square",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d274988-Reviews-New_Town_Square-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Kapitel",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Warszawa_Rynek_Nowego_Miasta_(dron).jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "fountain",
+  "name": "Multimedialny Park Fontann",
+  "lat": 52.2551,
+  "lng": 21.0106,
+  "tags": [
+   "nature",
+   "views"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Przystanek nad Wisłą. Pokazy fontann odbywają się sezonowo.",
+  "area": "Podzamcze",
+  "kind": "place",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-fountain.jpg",
+  "cats": [
+   "widoki"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.7,
+    "max": 5,
+    "reviewCount": 46476,
+    "listing": "Multimedialny Park Fontann",
+    "url": "https://www.google.com/maps/search/?api=1&query=Multimedialny%20Park%20Fontann%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.2,
+    "max": 5,
+    "reviewCount": 603,
+    "listing": "Multimedia Fountain Park",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d3454548-Reviews-Multimedia_Fountain_Park-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Adrian Grycuk",
+   "license": "CC BY-SA 3.0 pl",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Multimedialny_Park_Fontann_Warszawa.JPG",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "buw",
+  "name": "Ogród Biblioteki Uniwersyteckiej",
+  "lat": 52.2422,
+  "lng": 21.0247,
+  "tags": [
+   "nature",
+   "views",
+   "hidden"
+  ],
+  "minutes": 35,
+  "cost": 0,
+  "description": "Zielony ogród przy bibliotece. Dostęp na dach zależy od sezonu i godzin otwarcia.",
+  "area": "Powiśle",
+  "kind": "place",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-12028385.jpg",
+  "cats": [
+   "zielen",
+   "widoki",
+   "side"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.8,
+    "max": 5,
+    "reviewCount": 7139,
+    "listing": "Ogród Biblioteki Uniwersyteckiej",
+    "url": "https://www.google.com/maps/search/?api=1&query=Ogr%C3%B3d%20Biblioteki%20Uniwersyteckiej%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.5,
+    "max": 5,
+    "reviewCount": 794,
+    "listing": "University of Warsaw Library",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d2037685-Reviews-University_of_Warsaw_Library-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Pexels",
+   "license": "Pexels License",
+   "licenseUrl": "https://www.pexels.com/license/",
+   "source": "https://www.pexels.com/photo/flowerbeds-at-warsaw-university-library-garden-12028385/",
+   "via": "Pexels"
+  }
+ },
+ {
+  "id": "copernicus",
+  "name": "Centrum Nauki Kopernik",
+  "lat": 52.241855,
+  "lng": 21.028727,
+  "tags": [
+   "culture",
+   "sightseeing"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Charakterystyczna architektura nad Wisłą. Zwiedzanie wnętrza wymaga biletu.",
+  "area": "Powiśle",
+  "kind": "place",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-copernicus.jpg",
+  "cats": [
+   "historia",
+   "widoki"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.6,
+    "max": 5,
+    "reviewCount": 58854,
+    "listing": "Centrum Nauki Kopernik",
+    "url": "https://www.google.com/maps/search/?api=1&query=Centrum%20Nauki%20Kopernik%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.4,
+    "max": 5,
+    "reviewCount": 3152,
+    "listing": "Copernicus Science Centre",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d2178256-Reviews-Copernicus_Science_Centre-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Adrian Grycuk",
+   "license": "CC BY-SA 3.0 pl",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Budynek_Planetarium_Centrum_Nauki_Kopernik_2019.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "boulevards",
+  "name": "Bulwary Wiślane",
+  "lat": 52.245,
+  "lng": 21.0265,
+  "tags": [
+   "nature",
+   "views"
+  ],
+  "minutes": 35,
+  "cost": 0,
+  "description": "Spacer nad rzeką i chwila odpoczynku od miejskiego tempa.",
+  "area": "Powiśle",
+  "kind": "place",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-boulevards.jpg",
+  "cats": [
+   "widoki"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.7,
+    "max": 5,
+    "reviewCount": 14483,
+    "listing": "Bulwary nad Wisłą",
+    "url": "https://www.google.com/maps/search/?api=1&query=Bulwary%20nad%20Wis%C5%82%C4%85%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.2,
+    "max": 5,
+    "reviewCount": 65,
+    "listing": "Vistula Boulevards",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d12968134-Reviews-Vistula_Boulevards-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Qkiel",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Bulwary_Wi%C5%9Blane,_Warszawa_(1).jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "mermaid",
+  "name": "Syrenka na Powiślu",
+  "lat": 52.2364,
+  "lng": 21.0321,
+  "tags": [
+   "sightseeing",
+   "views"
+  ],
+  "minutes": 15,
+  "cost": 0,
+  "description": "Symbol Warszawy przy moście Świętokrzyskim.",
+  "area": "Powiśle",
+  "kind": "place",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-mermaid.jpg",
+  "cats": [
+   "widoki"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.8,
+    "max": 5,
+    "reviewCount": 12365,
+    "listing": "Pomnik Syreny nad Wisłą",
+    "url": "https://www.google.com/maps/search/?api=1&query=Pomnik%20Syreny%20nad%20Wis%C5%82%C4%85%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 3.4,
+    "max": 5,
+    "reviewCount": 5,
+    "listing": "Pomnik Syreny",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d18218669-Reviews-Pomnik_Syreny-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "M.Komorniczak",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Pomnik_warszawskiej_Syrenki.JPG",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "lazienki",
+  "name": "Łazienki Królewskie",
+  "lat": 52.214673,
+  "lng": 21.032894,
+  "tags": [
+   "nature",
+   "sightseeing"
+  ],
+  "minutes": 50,
+  "cost": 0,
+  "description": "Parkowe alejki i królewskie ogrody.",
+  "area": "Łazienki",
+  "kind": "place",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-lazienki.jpg",
+  "cats": [
+   "klasyka",
+   "zielen"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.8,
+    "max": 5,
+    "reviewCount": 98364,
+    "listing": "Łazienki Królewskie",
+    "url": "https://www.google.com/maps/search/?api=1&query=%C5%81azienki%20Kr%C3%B3lewskie%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.7,
+    "max": 5,
+    "reviewCount": 8774,
+    "listing": "Łazienki Królewskie w Warszawie",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d284409-Reviews-Lazienki_Krolewskie_w_Warszawie-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Krzysztof Popławski",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Kamienny_most_z_pomnikiem_Jana_III_Sobieskiego_i_jego_odbicie_w_stawie_w_%C5%81azienkach_Kr%C3%B3lewskich_jesieni%C4%85_-_Warszawa_26888.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "palace-water",
+  "name": "Pałac na Wyspie",
+  "lat": 52.215047,
+  "lng": 21.035814,
+  "tags": [
+   "culture",
+   "views"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Widok na pałac odbijający się w wodzie. Wnętrza są płatne osobno.",
+  "area": "Łazienki",
+  "kind": "place",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-palace-water.jpg",
+  "cats": [
+   "klasyka",
+   "historia",
+   "zielen"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.8,
+    "max": 5,
+    "reviewCount": 22341,
+    "listing": "Pałac na Wyspie",
+    "url": "https://www.google.com/maps/search/?api=1&query=Pa%C5%82ac%20na%20Wyspie%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.5,
+    "max": 5,
+    "reviewCount": 950,
+    "listing": "Palace on the Island",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d275002-Reviews-Palace_on_the_Island-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Aw58",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Warszawa,_Pa%C5%82ac_na_Wyspie_w_%C5%81azienkach_Kr%C3%B3lewskich_-_2026.06.06._MW.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "chopin",
+  "name": "Pomnik Chopina",
+  "lat": 52.214701,
+  "lng": 21.028142,
+  "tags": [
+   "culture",
+   "nature"
+  ],
+  "minutes": 15,
+  "cost": 0,
+  "description": "Chwila spokoju przy pomniku Fryderyka Chopina.",
+  "area": "Łazienki",
+  "kind": "place",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-chopin.jpg",
+  "cats": [
+   "zielen",
+   "historia"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.8,
+    "max": 5,
+    "reviewCount": 14459,
+    "listing": "Pomnik Fryderyka Chopina",
+    "url": "https://www.google.com/maps/search/?api=1&query=Pomnik%20Fryderyka%20Chopina%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.4,
+    "max": 5,
+    "reviewCount": 1278,
+    "listing": "Chopin Monument",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d593070-Reviews-Chopin_Monument-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "A.Osytek",
+   "license": "CC BY-SA 3.0 pl",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Pomnik_Fryderyka_Chopina_w_warszawskich_%C5%81azienkach.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "ujazdow",
+  "name": "Zamek Ujazdowski",
+  "lat": 52.2196,
+  "lng": 21.0302,
+  "tags": [
+   "culture",
+   "views"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Architektura zamku nad parkiem. Wystawy są płatne osobno.",
+  "area": "Ujazdów",
+  "kind": "place",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-ujazdow.jpg",
+  "cats": [
+   "historia",
+   "side"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.6,
+    "max": 5,
+    "reviewCount": 4379,
+    "listing": "Centrum Sztuki Współczesnej Zamek Ujazdowski",
+    "url": "https://www.google.com/maps/search/?api=1&query=Centrum%20Sztuki%20Wsp%C3%B3%C5%82czesnej%20Zamek%20Ujazdowski%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 3.9,
+    "max": 5,
+    "reviewCount": 32,
+    "listing": "Centrum Sztuki Współczesnej Zamek Ujazdowski",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d275011-Reviews-Centrum_Sztuki_Wspolczesnej_Zamek_Ujazdowski-Warsaw_Mazovia_Province_Central_Polan.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Chris Olszewski",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Front_facade_of_the_Ujazd%C3%B3w_Castle,_Warsaw,_2019.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "ujazdowski-park",
+  "name": "Park Ujazdowski",
+  "lat": 52.220648,
+  "lng": 21.02687,
+  "tags": [
+   "nature",
+   "hidden"
+  ],
+  "minutes": 25,
+  "cost": 0,
+  "description": "Mostki, kręte alejki i krótka zielona przerwa.",
+  "area": "Ujazdów",
+  "kind": "place",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-ujazdowski-park.jpg",
+  "cats": [
+   "zielen",
+   "side"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.7,
+    "max": 5,
+    "reviewCount": 8589,
+    "listing": "Park Ujazdowski",
+    "url": "https://www.google.com/maps/search/?api=1&query=Park%20Ujazdowski%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.4,
+    "max": 5,
+    "reviewCount": 98,
+    "listing": "Park Ujazdowski",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d3626199-Reviews-Park_Ujazdowski-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Emptywords",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:StawUjazdowski2020.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "saxon",
+  "name": "Ogród Saski",
+  "lat": 52.240265,
+  "lng": 21.007634,
+  "tags": [
+   "nature",
+   "sightseeing"
+  ],
+  "minutes": 30,
+  "cost": 0,
+  "description": "Ogród w centrum z zabytkową fontanną.",
+  "area": "Śródmieście",
+  "kind": "place",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-saxon.jpg",
+  "cats": [
+   "zielen"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.7,
+    "max": 5,
+    "reviewCount": 29079,
+    "listing": "Ogród Saski",
+    "url": "https://www.google.com/maps/search/?api=1&query=Ogr%C3%B3d%20Saski%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.4,
+    "max": 5,
+    "reviewCount": 580,
+    "listing": "Saxon Gardens",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d274999-Reviews-Saxon_Gardens-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Marcin Białek",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:Warszawa-Ogr%C3%B3d_Saski_fontanna.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "tomb",
+  "name": "Grób Nieznanego Żołnierza",
+  "lat": 52.24095,
+  "lng": 21.011296,
+  "tags": [
+   "culture",
+   "sightseeing"
+  ],
+  "minutes": 15,
+  "cost": 0,
+  "description": "Miejsce pamięci na placu Piłsudskiego.",
+  "area": "Śródmieście",
+  "kind": "place",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-tomb.jpg",
+  "cats": [
+   "historia"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.8,
+    "max": 5,
+    "reviewCount": 8752,
+    "listing": "Grób Nieznanego Żołnierza",
+    "url": "https://www.google.com/maps/search/?api=1&query=Gr%C3%B3b%20Nieznanego%20%C5%BBo%C5%82nierza%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.4,
+    "max": 5,
+    "reviewCount": 1237,
+    "listing": "Tomb of the Unknown Soldier",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d274993-Reviews-Tomb_of_the_Unknown_Soldier-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Patryk Duszkiewicz",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Warszawa_-_Gr%C3%B3b_Nieznanego_%C5%BBo%C5%82nierza_(2021).jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "palace-culture",
+  "name": "Pałac Kultury i Nauki",
+  "lat": 52.231838,
+  "lng": 21.005995,
+  "tags": [
+   "culture",
+   "sightseeing"
+  ],
+  "minutes": 25,
+  "cost": 0,
+  "description": "Spójrz na jeden z symboli Warszawy. Taras widokowy wymaga osobnego biletu.",
+  "area": "Śródmieście",
+  "kind": "place",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-17131946.jpg",
+  "cats": [
+   "klasyka",
+   "widoki"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.6,
+    "max": 5,
+    "reviewCount": 87429,
+    "listing": "Pałac Kultury i Nauki",
+    "url": "https://www.google.com/maps/search/?api=1&query=Pa%C5%82ac%20Kultury%20i%20Nauki%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.1,
+    "max": 5,
+    "reviewCount": 5375,
+    "listing": "Palace of Culture and Science",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d275001-Reviews-Palace_of_Culture_and_Science-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Pexels",
+   "license": "Pexels License",
+   "licenseUrl": "https://www.pexels.com/license/",
+   "source": "https://www.pexels.com/photo/view-of-the-palace-of-culture-and-science-in-warsaw-poland-17131946/",
+   "via": "Pexels"
+  }
+ },
+ {
+  "id": "nowy-swiat",
+  "name": "Nowy Świat",
+  "lat": 52.233993,
+  "lng": 21.019078,
+  "tags": [
+   "sightseeing"
+  ],
+  "minutes": 30,
+  "cost": 0,
+  "description": "Reprezentacyjna ulica i architektura Śródmieścia. To ulica, nie restauracja.",
+  "area": "Śródmieście",
+  "kind": "place",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-nowy-swiat.jpg",
+  "cats": [
+   "klasyka"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": null,
+    "max": 5,
+    "reviewCount": null,
+    "listing": "Nowy Świat",
+    "url": "https://www.google.com/maps/search/?api=1&query=Nowy%20%C5%9Awiat%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny",
+    "reason": "Google Maps pokazuje to miejsce jako adres, bez ocen."
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.4,
+    "max": 5,
+    "reviewCount": 2151,
+    "listing": "Nowy Swiat",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d293063-Reviews-Nowy_Swiat-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Maksym Kozlenko",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:2023-01-08_Nowy_%C5%9Awiat_Street_in_Warsaw_1.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "chopin-museum",
+  "name": "Muzeum Fryderyka Chopina",
+  "lat": 52.23654,
+  "lng": 21.022935,
+  "tags": [
+   "culture"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Pałac nad Tamką. Wstęp do muzeum jest płatny osobno.",
+  "area": "Powiśle",
+  "kind": "place",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-chopin-museum.jpg",
+  "cats": [
+   "historia"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.5,
+    "max": 5,
+    "reviewCount": 6994,
+    "listing": "Muzeum Fryderyka Chopina w Warszawie",
+    "url": "https://www.google.com/maps/search/?api=1&query=Muzeum%20Fryderyka%20Chopina%20w%20Warszawie%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 3.9,
+    "max": 5,
+    "reviewCount": 1184,
+    "listing": "Fryderyk Chopin Museum",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d591143-Reviews-Fryderyk_Chopin_Museum-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Scotch Mist",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Warsaw_2023_306_Chopin_Museum_Fa%C3%A7ade.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "national-museum",
+  "name": "Muzeum Narodowe",
+  "lat": 52.232117,
+  "lng": 21.024202,
+  "tags": [
+   "culture"
+  ],
+  "minutes": 15,
+  "cost": 0,
+  "description": "Gmach muzeum od strony miasta. Trasa obejmuje tylko teren zewnętrzny.",
+  "area": "Śródmieście",
+  "kind": "place",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-national-museum.jpg",
+  "cats": [
+   "historia"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.6,
+    "max": 5,
+    "reviewCount": 23084,
+    "listing": "Muzeum Narodowe w Warszawie",
+    "url": "https://www.google.com/maps/search/?api=1&query=Muzeum%20Narodowe%20w%20Warszawie%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.2,
+    "max": 5,
+    "reviewCount": 673,
+    "listing": "Muzeum Narodowe W Warszawie",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d274996-Reviews-Muzeum_Narodowe_W_Warszawie-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Adrian Grycuk",
+   "license": "CC BY-SA 3.0 pl",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Muzeum_Narodowe_w_Warszawie_2019.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "praga-cathedral",
+  "name": "Katedra św. Floriana",
+  "lat": 52.251787,
+  "lng": 21.030816,
+  "tags": [
+   "culture",
+   "sightseeing"
+  ],
+  "minutes": 20,
+  "cost": 0,
+  "description": "Ceglane wieże wprowadzają w klimat Pragi.",
+  "area": "Praga",
+  "kind": "place",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-praga-cathedral.jpg",
+  "cats": [
+   "historia",
+   "side"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.7,
+    "max": 5,
+    "reviewCount": 3241,
+    "listing": "Katedra św. Michała Archanioła i św. Floriana",
+    "url": "https://www.google.com/maps/search/?api=1&query=Katedra%20%C5%9Bw.%20Micha%C5%82a%20Archanio%C5%82a%20i%20%C5%9Bw.%20Floriana%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.4,
+    "max": 5,
+    "reviewCount": 52,
+    "listing": "Bazylika katedralna św. Michała Archanioła i św. Floriana",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d10743814-Reviews-Bazylika_katedralna_Sw_Michala_Archaniola_i_Sw_Floriana_Meczennika-Warsaw_Mazovi.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Simon Burchell",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Cathedral_of_St._Michael_the_Archangel_and_St._Florian,_Praga,_Warsaw_02.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "zabkowska",
+  "name": "Ulica Ząbkowska",
+  "lat": 52.254243,
+  "lng": 21.04341,
+  "tags": [
+   "culture",
+   "hidden"
+  ],
+  "minutes": 30,
+  "cost": 0,
+  "description": "Stare fasady i spacer po praskiej ulicy.",
+  "area": "Praga",
+  "kind": "place",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-zabkowska.jpg",
+  "cats": [
+   "side"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": null,
+    "max": 5,
+    "reviewCount": null,
+    "listing": "Ząbkowska",
+    "url": "https://www.google.com/maps/search/?api=1&query=Z%C4%85bkowska%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny",
+    "reason": "Google Maps pokazuje to miejsce jako adres, bez ocen."
+   },
+   {
+    "source": "tripadvisor",
+    "value": 3.1,
+    "max": 5,
+    "reviewCount": 14,
+    "listing": "Zabkowska Street",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d10822086-Reviews-Zabkowska_Street-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "geo573",
+   "license": "CC BY 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Pra%C5%BCka_-_ulica_Z%C4%85bkowska_-_panoramio.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "koneser",
+  "name": "Centrum Praskie Koneser",
+  "lat": 52.2546,
+  "lng": 21.0448,
+  "tags": [
+   "culture"
+  ],
+  "minutes": 30,
+  "cost": 0,
+  "description": "Ceglana architektura przemysłowa i otwarty dziedziniec.",
+  "area": "Praga",
+  "kind": "place",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-koneser.jpg",
+  "cats": [
+   "side"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.7,
+    "max": 5,
+    "reviewCount": 9896,
+    "listing": "Centrum Praskie Koneser",
+    "url": "https://www.google.com/maps/search/?api=1&query=Centrum%20Praskie%20Koneser%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.5,
+    "max": 5,
+    "reviewCount": 46,
+    "listing": "Centrum Praskie Koneser",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d546471-Reviews-Centrum_Praskie_Koneser-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Adrian Grycuk",
+   "license": "CC BY-SA 3.0 pl",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Centrum_Praskie_Koneser_od_strony_ul._Z%C4%85bkowskiej_2019.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "skaryszewski",
+  "name": "Park Skaryszewski",
+  "lat": 52.242052,
+  "lng": 21.054391,
+  "tags": [
+   "nature",
+   "hidden"
+  ],
+  "minutes": 45,
+  "cost": 0,
+  "description": "Jeziora, rzeźby i szerokie alejki po prawej stronie Wisły.",
+  "area": "Praga-Południe",
+  "kind": "place",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-skaryszewski.jpg",
+  "cats": [
+   "zielen",
+   "side"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.7,
+    "max": 5,
+    "reviewCount": 16141,
+    "listing": "Park Skaryszewski im. I. J. Paderewskiego",
+    "url": "https://www.google.com/maps/search/?api=1&query=Park%20Skaryszewski%20im.%20I.%20J.%20Paderewskiego%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.5,
+    "max": 5,
+    "reviewCount": 81,
+    "listing": "Skaryszewski Park",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d2711167-Reviews-Skaryszewski_Park-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Andrzej Błaszczak",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Warszawa,_Park_Skaryszewski,_foto053.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "saska",
+  "name": "Ulica Francuska",
+  "lat": 52.23473,
+  "lng": 21.053862,
+  "tags": [
+   "hidden"
+  ],
+  "minutes": 30,
+  "cost": 0,
+  "description": "Wille i sąsiedzki klimat Saskiej Kępy. To ulica, nie lokal gastronomiczny.",
+  "area": "Saska Kępa",
+  "kind": "place",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-saska.jpg",
+  "cats": [
+   "side"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": null,
+    "max": 5,
+    "reviewCount": null,
+    "listing": "Francuska",
+    "url": "https://www.google.com/maps/search/?api=1&query=Francuska%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny",
+    "reason": "Google Maps pokazuje to miejsce jako adres, bez ocen."
+   },
+   {
+    "source": "tripadvisor",
+    "value": null,
+    "max": 5,
+    "reviewCount": null,
+    "listing": "-",
+    "url": null,
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania",
+    "reason": "Nie znaleźliśmy tego miejsca na Tripadvisor."
+   }
+  ],
+  "imageCredit": {
+   "author": "Adrian Grycuk",
+   "license": "CC BY-SA 3.0 pl",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Ulica_Francuska_na_wysoko%C5%9Bci_ulicy_Obro%C5%84c%C3%B3w_2016.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "rooftop",
+  "name": "Most Świętokrzyski",
+  "lat": 52.241726,
+  "lng": 21.034031,
+  "tags": [
+   "views",
+   "nature"
+  ],
+  "minutes": 25,
+  "cost": 0,
+  "description": "Widoki na rzekę i panoramę miasta ze ścieżki dla pieszych.",
+  "area": "Powiśle",
+  "kind": "place",
+  "tourist": "local",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-rooftop.jpg",
+  "cats": [
+   "widoki"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.7,
+    "max": 5,
+    "reviewCount": 2665,
+    "listing": "Most Świętokrzyski",
+    "url": "https://www.google.com/maps/search/?api=1&query=Most%20%C5%9Awi%C4%99tokrzyski%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.0,
+    "max": 5,
+    "reviewCount": 38,
+    "listing": "Swietokrzyski Bridge",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d9783119-Reviews-Swietokrzyski_Bridge-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Qkiel",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Most_%C5%9Awi%C4%99tokrzyski,_Warszawa_(5).jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "koszyki",
+  "name": "Hala Koszyki",
+  "lat": 52.2223,
+  "lng": 21.0104,
+  "tags": [
+   "culture"
+  ],
+  "minutes": 35,
+  "cost": 45,
+  "description": "Zabytkowa hala gastronomiczna. Wydatki na jedzenie są orientacyjne.",
+  "area": "Śródmieście",
+  "kind": "place",
+  "tourist": "local",
+  "foodStyle": "sit",
+  "partner": false,
+  "image": "place-koszyki.jpg",
+  "cats": [
+   "jedzenie"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.6,
+    "max": 5,
+    "reviewCount": 25153,
+    "listing": "Hala Koszyki",
+    "url": "https://www.google.com/maps/search/?api=1&query=Hala%20Koszyki%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.4,
+    "max": 5,
+    "reviewCount": 770,
+    "listing": "Hala Koszyki",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d11732298-Reviews-Hala_Koszyki-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Jakub Dziubak jackuback",
+   "license": "CC0",
+   "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Hala_Koszyki,_Warszawa,_Poland_(Unsplash).jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "mirowska",
+  "name": "Hala Mirowska",
+  "lat": 52.2388,
+  "lng": 20.9979,
+  "tags": [
+   "hidden"
+  ],
+  "minutes": 30,
+  "cost": 25,
+  "description": "Targowisko i stoiska czynne w określonych godzinach.",
+  "area": "Mirów",
+  "kind": "place",
+  "tourist": "local",
+  "foodStyle": "quick",
+  "partner": false,
+  "image": "place-mirowska.jpg",
+  "cats": [
+   "jedzenie",
+   "side"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.4,
+    "max": 5,
+    "reviewCount": 9924,
+    "listing": "Hala Mirowska",
+    "url": "https://www.google.com/maps/search/?api=1&query=Hala%20Mirowska%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.1,
+    "max": 5,
+    "reviewCount": 167,
+    "listing": "Hala Mirowska",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d3198885-Reviews-Hala_Mirowska-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "tawa",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Warszawa,_Hala_Mirowska_-_panoramio.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "electrownia",
+  "name": "Elektrownia Powiśle",
+  "lat": 52.24064,
+  "lng": 21.027514,
+  "tags": [
+   "culture"
+  ],
+  "minutes": 35,
+  "cost": 45,
+  "description": "Dawna elektrownia z gastronomią i architekturą przemysłową.",
+  "area": "Powiśle",
+  "kind": "place",
+  "tourist": "local",
+  "foodStyle": "sit",
+  "partner": false,
+  "image": "place-electrownia.jpg",
+  "cats": [
+   "jedzenie"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.7,
+    "max": 5,
+    "reviewCount": 19970,
+    "listing": "Elektrownia Powiśle",
+    "url": "https://www.google.com/maps/search/?api=1&query=Elektrownia%20Powi%C5%9Ble%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": null,
+    "max": 5,
+    "reviewCount": null,
+    "listing": "Elektrownia Powiśle",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d20927145-Reviews-Elektrownia_PowiSle-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania",
+    "reason": "Tripadvisor ma stronę, ale bez widocznej oceny."
+   }
+  ],
+  "imageCredit": {
+   "author": "Adrian Grycuk",
+   "license": "CC BY-SA 3.0 pl",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Elektrownia_Powi%C5%9Ble_2021.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "wilanow",
+  "name": "Pałac w Wilanowie",
+  "lat": 52.165175,
+  "lng": 21.090508,
+  "tags": [
+   "culture",
+   "sightseeing"
+  ],
+  "minutes": 25,
+  "cost": 0,
+  "description": "Widok na podejście do pałacu. Ogrody i wnętrza wymagają biletu.",
+  "area": "Wilanów",
+  "kind": "place",
+  "tourist": "must",
+  "foodStyle": "none",
+  "partner": false,
+  "image": "place-wilanow.jpg",
+  "cats": [
+   "klasyka",
+   "historia",
+   "zielen"
+  ],
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.7,
+    "max": 5,
+    "reviewCount": 31434,
+    "listing": "Muzeum Pałacu Króla Jana III w Wilanowie",
+    "url": "https://www.google.com/maps/search/?api=1&query=Muzeum%20Pa%C5%82acu%20Kr%C3%B3la%20Jana%20III%20w%20Wilanowie%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.5,
+    "max": 5,
+    "reviewCount": 1868,
+    "listing": "Museum of King Jan III's Palace at Wilanow",
+    "url": "https://www.tripadvisor.com/Attraction_Review-g274856-d275005-Reviews-Museum_of_King_Jan_III_s_Palace_at_Wilanow-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "imageCredit": {
+   "author": "Kulawik.pl",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Pa%C5%82ac_w_Wilanowie_2022_4.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "stary-dom",
+  "name": "Restauracja Stary Dom",
+  "lat": 52.195555,
+  "lng": 21.023832,
+  "description": "Kuchnia: polska.",
+  "website": "https://restauracjastarydom.pl/",
+  "image": "https://restauracjastarydom.pl/wp-content/uploads/2026/05/Stary-Dom-1-1.webp",
+  "tags": [
+   "food"
+  ],
+  "minutes": 60,
+  "cost": 100,
+  "kind": "restaurant",
+  "foodStyle": "sit",
+  "tourist": "local",
+  "partner": false,
+  "cuisine": [
+   "polska"
+  ],
+  "address": "Puławska 104/106",
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.7,
+    "max": 5,
+    "reviewCount": 11781,
+    "listing": "Stary Dom",
+    "url": "https://www.google.com/maps/search/?api=1&query=Stary%20Dom%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.6,
+    "max": 5,
+    "reviewCount": 2270,
+    "listing": "Stary Dom Restaurant",
+    "url": "https://www.tripadvisor.com/Restaurant_Review-g274856-d2299324-Reviews-Stary_Dom_Restaurant-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "cats": [
+   "jedzenie"
+  ],
+  "area": "Mokotów",
+  "imageCredit": {
+   "author": "restauracjastarydom.pl",
+   "license": "zdjęcie ze strony lokalu",
+   "licenseUrl": "",
+   "source": "https://restauracjastarydom.pl/",
+   "via": "oficjalna strona"
+  }
+ },
+ {
+  "id": "der-elefant",
+  "name": "Der Elefant",
+  "lat": 52.24179,
+  "lng": 21.003514,
+  "description": "Kuchnia: międzynarodowa, steki, owoce morza.",
+  "website": "https://derelefant.com/pl",
+  "image": "https://derelefant.com/media/yootheme/cache/d4/home-nasza-restauracja-d43b9a1b.webp",
+  "tags": [
+   "food"
+  ],
+  "minutes": 60,
+  "cost": 100,
+  "kind": "restaurant",
+  "foodStyle": "sit",
+  "tourist": "local",
+  "partner": false,
+  "cuisine": [
+   "międzynarodowa",
+   "steki",
+   "owoce morza"
+  ],
+  "address": "Plac Bankowy 1",
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.6,
+    "max": 5,
+    "reviewCount": 15007,
+    "listing": "Restauracja Der Elefant",
+    "url": "https://www.google.com/maps/search/?api=1&query=Restauracja%20Der%20Elefant%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.3,
+    "max": 5,
+    "reviewCount": 1724,
+    "listing": "Der Elefant",
+    "url": "https://www.tripadvisor.com/Restaurant_Review-g274856-d2700992-Reviews-Der_Elefant-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "cats": [
+   "jedzenie"
+  ],
+  "area": "Plac Bankowy",
+  "imageCredit": {
+   "author": "derelefant.com",
+   "license": "zdjęcie ze strony lokalu",
+   "licenseUrl": "",
+   "source": "https://derelefant.com/pl",
+   "via": "oficjalna strona"
+  }
+ },
+ {
+  "id": "polonia-palace",
+  "name": "Hotel Polonia Palace",
+  "lat": 52.229285,
+  "lng": 21.010251,
+  "description": "Hotel. Ceny i dostępność sprawdzisz na stronie obiektu.",
+  "website": "https://www.poloniapalace.com/pl",
+  "image": "place-polonia-palace.jpg",
+  "tags": [
+   "hotels"
+  ],
+  "minutes": 15,
+  "cost": 0,
+  "kind": "hotel",
+  "foodStyle": "none",
+  "tourist": "local",
+  "partner": false,
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.7,
+    "max": 5,
+    "reviewCount": 3667,
+    "listing": "Polonia Palace Hotel",
+    "url": "https://www.google.com/maps/search/?api=1&query=Polonia%20Palace%20Hotel%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.6,
+    "max": 5,
+    "reviewCount": 3574,
+    "listing": "Polonia Palace Hotel",
+    "url": "https://www.tripadvisor.com/Hotel_Review-g274856-d276699-Reviews-Polonia_Palace_Hotel-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "cats": [
+   "noclegi"
+  ],
+  "area": "Śródmieście",
+  "address": "Al. Jerozolimskie 45",
+  "imageCredit": {
+   "author": "WeronikaPawlak",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Hotel_Polonia_Palace_3.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "bristol",
+  "name": "Hotel Bristol",
+  "lat": 52.24223,
+  "lng": 21.015882,
+  "description": "Hotel. Ceny i dostępność sprawdzisz na stronie obiektu.",
+  "website": "https://www.hotelbristolwarsaw.pl/",
+  "image": "place-bristol.jpg",
+  "tags": [
+   "hotels"
+  ],
+  "minutes": 15,
+  "cost": 0,
+  "kind": "hotel",
+  "foodStyle": "none",
+  "tourist": "local",
+  "partner": false,
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.7,
+    "max": 5,
+    "reviewCount": 3716,
+    "listing": "Hotel Bristol",
+    "url": "https://www.google.com/maps/search/?api=1&query=Hotel%20Bristol%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.6,
+    "max": 5,
+    "reviewCount": 2827,
+    "listing": "Hotel Bristol, a Luxury Collection Hotel",
+    "url": "https://www.tripadvisor.com/Hotel_Review-g274856-d275056-Reviews-Hotel_Bristol_a_Luxury_Collection_Hotel_Warsaw-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "cats": [
+   "noclegi"
+  ],
+  "area": "Krakowskie Przedmieście",
+  "address": "Krakowskie Przedmieście 42/44",
+  "imageCredit": {
+   "author": "Diego Delso",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Bristol_Hotel,_Warsaw,_Poland.JPG",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "sapko",
+  "name": "Sapko Kebab",
+  "address": "Al. Jana Pawła II 46, pawilon",
+  "cuisine": [
+   "kebab",
+   "turecka"
+  ],
+  "description": "Kuchnia: kebab, turecka.",
+  "website": "https://www.sapkokebab.com/",
+  "lat": 52.243221,
+  "lng": 20.993055,
+  "tags": [
+   "food"
+  ],
+  "minutes": 45,
+  "cost": 40,
+  "kind": "restaurant",
+  "foodStyle": "quick",
+  "tourist": "local",
+  "partner": false,
+  "image": "https://www.sapkokebab.com/wp-content/uploads/2014/06/iskender-kebap.jpg",
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.3,
+    "max": 5,
+    "reviewCount": 17899,
+    "listing": "SAPKO KEBAB",
+    "url": "https://www.google.com/maps/search/?api=1&query=SAPKO%20KEBAB%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 3.9,
+    "max": 5,
+    "reviewCount": 57,
+    "listing": "Sapko Kebab",
+    "url": "https://www.tripadvisor.com/Restaurant_Review-g274856-d1015415-Reviews-Sapko_Kebab-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "cats": [
+   "jedzenie"
+  ],
+  "area": "Mirów",
+  "imageCredit": {
+   "author": "sapkokebab.com",
+   "license": "zdjęcie ze strony lokalu",
+   "licenseUrl": "",
+   "source": "https://www.sapkokebab.com/",
+   "via": "oficjalna strona"
+  }
+ },
+ {
+  "id": "efes",
+  "name": "EFES — Francuska",
+  "address": "Francuska 1",
+  "cuisine": [
+   "kebab",
+   "turecka"
+  ],
+  "description": "Kuchnia: kebab, turecka.",
+  "website": "https://www.restauracjaefes.pl/kontakt/",
+  "lat": 52.231713,
+  "lng": 21.055512,
+  "tags": [
+   "food"
+  ],
+  "minutes": 45,
+  "cost": 40,
+  "kind": "restaurant",
+  "foodStyle": "quick",
+  "tourist": "local",
+  "partner": false,
+  "image": "place-saska.jpg",
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.3,
+    "max": 5,
+    "reviewCount": 9861,
+    "listing": "EFES KEBAB",
+    "url": "https://www.google.com/maps/search/?api=1&query=EFES%20KEBAB%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.3,
+    "max": 5,
+    "reviewCount": 195,
+    "listing": "Efes (ul. Francuska 1)",
+    "url": "https://www.tripadvisor.com/Restaurant_Review-g274856-d1216450-Reviews-Efes-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "cats": [
+   "jedzenie"
+  ],
+  "area": "Saska Kępa",
+  "imageCaption": "ul. Francuska, przy której jest lokal",
+  "imageCredit": {
+   "author": "Adrian Grycuk",
+   "license": "CC BY-SA 3.0 pl",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Ulica_Francuska_na_wysoko%C5%9Bci_ulicy_Obro%C5%84c%C3%B3w_2016.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "fukiera",
+  "name": "U Fukiera",
+  "address": "Rynek Starego Miasta 27",
+  "cuisine": [
+   "polska"
+  ],
+  "description": "Kuchnia: polska.",
+  "website": "https://www.ufukiera.pl/",
+  "lat": 52.249697,
+  "lng": 21.011609,
+  "tags": [
+   "food"
+  ],
+  "minutes": 60,
+  "cost": 100,
+  "kind": "restaurant",
+  "foodStyle": "sit",
+  "tourist": "local",
+  "partner": false,
+  "image": "place-fukiera.jpg",
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.0,
+    "max": 5,
+    "reviewCount": 4784,
+    "listing": "U Fukiera",
+    "url": "https://www.google.com/maps/search/?api=1&query=U%20Fukiera%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 3.9,
+    "max": 5,
+    "reviewCount": 1648,
+    "listing": "U Fukiera",
+    "url": "https://www.tripadvisor.com/Restaurant_Review-g274856-d697170-Reviews-U_Fukiera-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "cats": [
+   "jedzenie"
+  ],
+  "area": "Stare Miasto",
+  "imageCredit": {
+   "author": "Аимаина хикари",
+   "license": "CC0",
+   "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Kamienica_Fukier%C3%B3w_Warszawa_01.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "koneser-grill",
+  "name": "Koneser Grill",
+  "address": "Ząbkowska 29",
+  "cuisine": [
+   "grill",
+   "steki"
+  ],
+  "description": "Kuchnia: grill, steki.",
+  "website": "https://koneser.eu/restauracje-bary/koneser-grill/",
+  "lat": 52.254965,
+  "lng": 21.044421,
+  "tags": [
+   "food"
+  ],
+  "minutes": 60,
+  "cost": 100,
+  "kind": "restaurant",
+  "foodStyle": "sit",
+  "tourist": "local",
+  "partner": false,
+  "image": "https://koneser.eu/wp-content/uploads/2025/03/grill.png",
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.7,
+    "max": 5,
+    "reviewCount": 1027,
+    "listing": "Koneser Grill",
+    "url": "https://www.google.com/maps/search/?api=1&query=Koneser%20Grill%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.5,
+    "max": 5,
+    "reviewCount": 75,
+    "listing": "Koneser Grill",
+    "url": "https://www.tripadvisor.com/Restaurant_Review-g274856-d19331211-Reviews-Koneser_Grill-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "cats": [
+   "jedzenie"
+  ],
+  "area": "Praga",
+  "imageCredit": {
+   "author": "koneser.eu",
+   "license": "zdjęcie ze strony lokalu",
+   "licenseUrl": "",
+   "source": "https://koneser.eu/restauracje-bary/koneser-grill/",
+   "via": "oficjalna strona"
+  }
+ },
+ {
+  "id": "azia",
+  "name": "Azia Koneser",
+  "address": "Plac Konesera 4",
+  "cuisine": [
+   "azjatycka",
+   "sushi",
+   "tajska",
+   "japońska"
+  ],
+  "description": "Kuchnia: azjatycka, sushi, tajska, japońska.",
+  "website": "https://koneser.azia.pl/",
+  "lat": 52.255638,
+  "lng": 21.045249,
+  "tags": [
+   "food"
+  ],
+  "minutes": 60,
+  "cost": 100,
+  "kind": "restaurant",
+  "foodStyle": "sit",
+  "tourist": "local",
+  "partner": false,
+  "image": "place-koneser.jpg",
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.7,
+    "max": 5,
+    "reviewCount": 2323,
+    "listing": "Azia Restaurants - Centrum Praskie Koneser",
+    "url": "https://www.google.com/maps/search/?api=1&query=Azia%20Restaurants%20-%20Centrum%20Praskie%20Koneser%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 5.0,
+    "max": 5,
+    "reviewCount": 13,
+    "listing": "Azia Restaurants (Plac Konesera 4)",
+    "url": "https://www.tripadvisor.com/Restaurant_Review-g274856-d34461392-Reviews-Azia_Restaurants-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "cats": [
+   "jedzenie"
+  ],
+  "area": "Praga",
+  "imageCaption": "Centrum Praskie Koneser, w którym jest lokal",
+  "imageCredit": {
+   "author": "Adrian Grycuk",
+   "license": "CC BY-SA 3.0 pl",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Centrum_Praskie_Koneser_od_strony_ul._Z%C4%85bkowskiej_2019.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "concept",
+  "name": "Concept Food & Wine",
+  "address": "Plac Konesera 5",
+  "cuisine": [
+   "międzynarodowa",
+   "polska"
+  ],
+  "description": "Kuchnia: międzynarodowa, polska.",
+  "website": "https://conceptfoodandwine.pl/",
+  "lat": 52.255323,
+  "lng": 21.044374,
+  "tags": [
+   "food"
+  ],
+  "minutes": 60,
+  "cost": 100,
+  "kind": "restaurant",
+  "foodStyle": "sit",
+  "tourist": "local",
+  "partner": false,
+  "image": "https://conceptfoodandwine.pl/images/gseo.jpg",
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.6,
+    "max": 5,
+    "reviewCount": 550,
+    "listing": "Concept Food & Wine",
+    "url": "https://www.google.com/maps/search/?api=1&query=Concept%20Food%20%26%20Wine%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 5.0,
+    "max": 5,
+    "reviewCount": 3,
+    "listing": "Concept Food & Wine",
+    "url": "https://www.tripadvisor.com/Restaurant_Review-g274856-d25260573-Reviews-Concept_Food_Wine-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "cats": [
+   "jedzenie"
+  ],
+  "area": "Praga",
+  "imageCredit": {
+   "author": "conceptfoodandwine.pl",
+   "license": "zdjęcie ze strony lokalu",
+   "licenseUrl": "",
+   "source": "https://conceptfoodandwine.pl/",
+   "via": "oficjalna strona"
+  }
+ },
+ {
+  "id": "freya",
+  "name": "Freya Cafe & Deli",
+  "address": "Plac Konesera 9",
+  "cuisine": [
+   "wegańska",
+   "wegetariańska"
+  ],
+  "description": "Kuchnia: wegańska, wegetariańska.",
+  "website": "https://koneser.eu/o-koneserze-old/",
+  "lat": 52.256149,
+  "lng": 21.044944,
+  "tags": [
+   "food"
+  ],
+  "minutes": 60,
+  "cost": 100,
+  "kind": "restaurant",
+  "foodStyle": "sit",
+  "tourist": "local",
+  "partner": false,
+  "image": "place-koneser.jpg",
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.5,
+    "max": 5,
+    "reviewCount": 348,
+    "listing": "FREYA CAFE KONESER",
+    "url": "https://www.google.com/maps/search/?api=1&query=FREYA%20CAFE%20KONESER%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": null,
+    "max": 5,
+    "reviewCount": null,
+    "listing": "Freya Cafe Koneser",
+    "url": "https://www.tripadvisor.com/Restaurant_Review-g274856-d27575797-Reviews-Freya_Cafe_Koneser-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania",
+    "reason": "Tripadvisor ma stronę, ale bez opinii."
+   }
+  ],
+  "cats": [
+   "jedzenie"
+  ],
+  "area": "Praga",
+  "imageCaption": "Centrum Praskie Koneser, w którym jest lokal",
+  "imageCredit": {
+   "author": "Adrian Grycuk",
+   "license": "CC BY-SA 3.0 pl",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Centrum_Praskie_Koneser_od_strony_ul._Z%C4%85bkowskiej_2019.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "spoldzielnia",
+  "name": "Spółdzielnia.Koneser",
+  "address": "Plac Konesera 4",
+  "cuisine": [
+   "polska",
+   "międzynarodowa"
+  ],
+  "description": "Kuchnia: polska, międzynarodowa.",
+  "website": "https://koneser.eu/o-koneserze-old/",
+  "lat": 52.255498,
+  "lng": 21.045314,
+  "tags": [
+   "food"
+  ],
+  "minutes": 60,
+  "cost": 100,
+  "kind": "restaurant",
+  "foodStyle": "sit",
+  "tourist": "local",
+  "partner": false,
+  "image": "place-koneser.jpg",
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.6,
+    "max": 5,
+    "reviewCount": 1365,
+    "listing": "Spółdzielnia Koneser Sports Bar & restauracja",
+    "url": "https://www.google.com/maps/search/?api=1&query=Sp%C3%B3%C5%82dzielnia%20Koneser%20Sports%20Bar%20%26%20restauracja%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.0,
+    "max": 5,
+    "reviewCount": 6,
+    "listing": "Spółdzielnia Koneser",
+    "url": "https://www.tripadvisor.com/Restaurant_Review-g274856-d26830829-Reviews-Spoldzielnia_Koneser-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "cats": [
+   "jedzenie"
+  ],
+  "area": "Praga",
+  "imageCaption": "Centrum Praskie Koneser, w którym jest lokal",
+  "imageCredit": {
+   "author": "Adrian Grycuk",
+   "license": "CC BY-SA 3.0 pl",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Centrum_Praskie_Koneser_od_strony_ul._Z%C4%85bkowskiej_2019.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "raffles",
+  "name": "Raffles Europejski Warsaw",
+  "lat": 52.241701,
+  "lng": 21.014654,
+  "description": "Hotel. Ceny i dostępność sprawdzisz na stronie obiektu.",
+  "website": "https://www.booking.com/searchresults.pl.html?ss=Raffles%20Europejski%20Warsaw%20Warsaw",
+  "image": "place-raffles.jpg",
+  "tags": [
+   "hotels"
+  ],
+  "minutes": 15,
+  "cost": 0,
+  "kind": "hotel",
+  "foodStyle": "none",
+  "tourist": "local",
+  "partner": false,
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.8,
+    "max": 5,
+    "reviewCount": 2045,
+    "listing": "Raffles Europejski",
+    "url": "https://www.google.com/maps/search/?api=1&query=Raffles%20Europejski%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.8,
+    "max": 5,
+    "reviewCount": 448,
+    "listing": "Raffles Europejski Warsaw",
+    "url": "https://www.tripadvisor.com/Hotel_Review-g274856-d276990-Reviews-Raffles_Europejski_Warsaw-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "cats": [
+   "noclegi"
+  ],
+  "area": "Krakowskie Przedmieście",
+  "address": "Krakowskie Przedmieście 13",
+  "imageCredit": {
+   "author": "Patryk Duszkiewicz",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Warszawa_-_Hotel_Europejski_(2021).jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "nobu",
+  "name": "Nobu Hotel Warsaw",
+  "lat": 52.22314,
+  "lng": 21.007868,
+  "description": "Hotel. Ceny i dostępność sprawdzisz na stronie obiektu.",
+  "website": "https://www.booking.com/searchresults.pl.html?ss=Nobu%20Hotel%20Warsaw%20Warsaw",
+  "image": "place-nobu.jpg",
+  "tags": [
+   "hotels"
+  ],
+  "minutes": 15,
+  "cost": 0,
+  "kind": "hotel",
+  "foodStyle": "none",
+  "tourist": "local",
+  "partner": false,
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.4,
+    "max": 5,
+    "reviewCount": 1561,
+    "listing": "Nobu Hotel Warsaw",
+    "url": "https://www.google.com/maps/search/?api=1&query=Nobu%20Hotel%20Warsaw%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.4,
+    "max": 5,
+    "reviewCount": 309,
+    "listing": "Nobu Hotel Warsaw",
+    "url": "https://www.tripadvisor.com/Hotel_Review-g274856-d284135-Reviews-Nobu_Hotel_Warsaw-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "cats": [
+   "noclegi"
+  ],
+  "area": "Śródmieście",
+  "address": "Wilcza 73",
+  "imageCredit": {
+   "author": "Wistula",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Nobu_Hotel_Warsaw.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "intercontinental",
+  "name": "InterContinental Warszawa",
+  "lat": 52.232373,
+  "lng": 21.002463,
+  "description": "Hotel. Ceny i dostępność sprawdzisz na stronie obiektu.",
+  "website": "https://www.booking.com/searchresults.pl.html?ss=InterContinental%20Warszawa%20Warsaw",
+  "image": "place-intercontinental.jpg",
+  "tags": [
+   "hotels"
+  ],
+  "minutes": 15,
+  "cost": 0,
+  "kind": "hotel",
+  "foodStyle": "none",
+  "tourist": "local",
+  "partner": false,
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.7,
+    "max": 5,
+    "reviewCount": 9016,
+    "listing": "InterContinental Warszawa",
+    "url": "https://www.google.com/maps/search/?api=1&query=InterContinental%20Warszawa%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.6,
+    "max": 5,
+    "reviewCount": 4104,
+    "listing": "Intercontinental Warsaw By IHG",
+    "url": "https://www.tripadvisor.com/Hotel_Review-g274856-d284134-Reviews-Intercontinental_Warsaw_By_IHG-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "cats": [
+   "noclegi"
+  ],
+  "area": "Śródmieście",
+  "address": "Emilii Plater 49",
+  "imageCredit": {
+   "author": "Fred Romero from Paris, France",
+   "license": "CC BY 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Warszawa_-_InterContinental_Warsaw.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "puro",
+  "name": "PURO Warszawa Centrum",
+  "lat": 52.231165,
+  "lng": 21.014873,
+  "description": "Hotel. Ceny i dostępność sprawdzisz na stronie obiektu.",
+  "website": "https://www.booking.com/searchresults.pl.html?ss=PURO%20Warszawa%20Centrum%20Warsaw",
+  "image": "place-puro.jpg",
+  "tags": [
+   "hotels"
+  ],
+  "minutes": 15,
+  "cost": 0,
+  "kind": "hotel",
+  "foodStyle": "none",
+  "tourist": "local",
+  "partner": false,
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.7,
+    "max": 5,
+    "reviewCount": 2157,
+    "listing": "PURO Hotel Warszawa Centrum",
+    "url": "https://www.google.com/maps/search/?api=1&query=PURO%20Hotel%20Warszawa%20Centrum%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.8,
+    "max": 5,
+    "reviewCount": 977,
+    "listing": "PURO Warszawa Centrum",
+    "url": "https://www.tripadvisor.com/Hotel_Review-g274856-d15751681-Reviews-PURO_Warszawa_Centrum-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "cats": [
+   "noclegi"
+  ],
+  "area": "Śródmieście",
+  "address": "Widok 9",
+  "imageCredit": {
+   "author": "Wistula",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:5-7-9_Widok_Street_in_Warsaw,_Puro_Hotel.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "sofitel",
+  "name": "Sofitel Warsaw Victoria",
+  "lat": 52.239789,
+  "lng": 21.013406,
+  "description": "Hotel. Ceny i dostępność sprawdzisz na stronie obiektu.",
+  "website": "https://www.booking.com/searchresults.pl.html?ss=Sofitel%20Warsaw%20Victoria%20Warsaw",
+  "image": "place-sofitel.jpg",
+  "tags": [
+   "hotels"
+  ],
+  "minutes": 15,
+  "cost": 0,
+  "kind": "hotel",
+  "foodStyle": "none",
+  "tourist": "local",
+  "partner": false,
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.7,
+    "max": 5,
+    "reviewCount": 8113,
+    "listing": "Sofitel Warszawa Victoria",
+    "url": "https://www.google.com/maps/search/?api=1&query=Sofitel%20Warszawa%20Victoria%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.6,
+    "max": 5,
+    "reviewCount": 5356,
+    "listing": "Sofitel Warsaw Victoria",
+    "url": "https://www.tripadvisor.com/Hotel_Review-g274856-d275059-Reviews-Sofitel_Warsaw_Victoria-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "cats": [
+   "noclegi"
+  ],
+  "area": "Śródmieście",
+  "address": "Królewska 11",
+  "imageCredit": {
+   "author": "Adrian Grycuk",
+   "license": "CC BY-SA 3.0 pl",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Hotel_Sofitel_Warsaw_Victoria_2023.jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "novotel",
+  "name": "Novotel Warszawa Centrum",
+  "lat": 52.229299,
+  "lng": 21.013051,
+  "description": "Hotel. Ceny i dostępność sprawdzisz na stronie obiektu.",
+  "website": "https://www.booking.com/searchresults.pl.html?ss=Novotel%20Warszawa%20Centrum%20Warsaw",
+  "image": "place-novotel.jpg",
+  "tags": [
+   "hotels"
+  ],
+  "minutes": 15,
+  "cost": 0,
+  "kind": "hotel",
+  "foodStyle": "none",
+  "tourist": "local",
+  "partner": false,
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.5,
+    "max": 5,
+    "reviewCount": 18771,
+    "listing": "Novotel Warszawa Centrum",
+    "url": "https://www.google.com/maps/search/?api=1&query=Novotel%20Warszawa%20Centrum%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.1,
+    "max": 5,
+    "reviewCount": 6803,
+    "listing": "Novotel Warszawa Centrum",
+    "url": "https://www.tripadvisor.com/Hotel_Review-g274856-d275049-Reviews-Novotel_Warszawa_Centrum-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "cats": [
+   "noclegi"
+  ],
+  "area": "Śródmieście",
+  "address": "Marszałkowska 94/98",
+  "imageCredit": {
+   "author": "Petroniusz",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Warszawa,_Novotel_Warszawa_Centrum_-_fotopolska.eu_(252193).jpg",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "westin",
+  "name": "The Westin Warsaw",
+  "lat": 52.235334,
+  "lng": 20.996465,
+  "description": "Hotel. Ceny i dostępność sprawdzisz na stronie obiektu.",
+  "website": "https://www.booking.com/searchresults.pl.html?ss=The%20Westin%20Warsaw%20Warsaw",
+  "image": "place-westin.jpg",
+  "tags": [
+   "hotels"
+  ],
+  "minutes": 15,
+  "cost": 0,
+  "kind": "hotel",
+  "foodStyle": "none",
+  "tourist": "local",
+  "partner": false,
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.6,
+    "max": 5,
+    "reviewCount": 5123,
+    "listing": "The Westin Warsaw",
+    "url": "https://www.google.com/maps/search/?api=1&query=The%20Westin%20Warsaw%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.4,
+    "max": 5,
+    "reviewCount": 2894,
+    "listing": "The Westin Warsaw",
+    "url": "https://www.tripadvisor.com/Hotel_Review-g274856-d276995-Reviews-The_Westin_Warsaw-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "cats": [
+   "noclegi"
+  ],
+  "area": "Wola",
+  "address": "Al. Jana Pawła II 21",
+  "imageCredit": {
+   "author": "Masti",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:The_westin_warsaw.JPG",
+   "via": "Wikimedia Commons"
+  }
+ },
+ {
+  "id": "hilton",
+  "name": "Hilton Warsaw City",
+  "lat": 52.233523,
+  "lng": 20.985885,
+  "description": "Hotel. Ceny i dostępność sprawdzisz na stronie obiektu.",
+  "website": "https://www.booking.com/searchresults.pl.html?ss=Hilton%20Warsaw%20City%20Warsaw",
+  "image": "place-hilton.jpg",
+  "tags": [
+   "hotels"
+  ],
+  "minutes": 15,
+  "cost": 0,
+  "kind": "hotel",
+  "foodStyle": "none",
+  "tourist": "local",
+  "partner": false,
+  "ratings": [
+   {
+    "source": "google",
+    "value": 4.5,
+    "max": 5,
+    "reviewCount": 7494,
+    "listing": "Hilton Warsaw City",
+    "url": "https://www.google.com/maps/search/?api=1&query=Hilton%20Warsaw%20City%2C%20Warszawa",
+    "checked": "2026-11-02",
+    "method": "Google Maps, panel miejsca, odczyt ręczny"
+   },
+   {
+    "source": "tripadvisor",
+    "value": 4.4,
+    "max": 5,
+    "reviewCount": 2884,
+    "listing": "Hilton Warsaw City",
+    "url": "https://www.tripadvisor.com/Hotel_Review-g274856-d602759-Reviews-Hilton_Warsaw_City-Warsaw_Mazovia_Province_Central_Poland.html",
+    "checked": "2026-11-02",
+    "method": "Tripadvisor, ocena strony obiektu z wyników wyszukiwania"
+   }
+  ],
+  "cats": [
+   "noclegi"
+  ],
+  "area": "Wola",
+  "address": "Grzybowska 63",
+  "imageCredit": {
+   "author": "Panek",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Hilton_Warsaw_City_2026.jpg",
+   "via": "Wikimedia Commons"
+  }
+ }
 ]

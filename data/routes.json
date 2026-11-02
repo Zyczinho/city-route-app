@@ -1,172 +1,166 @@
 [
-  {
-    "id": "old-warsaw",
-    "name": "Pierwsze spotkanie z Warszawą",
-    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
-    "stops": [
-      "castle",
-      "old-town",
-      "barbican",
-      "new-town"
-    ],
-    "photo": "old",
-    "image": "place-31495562.jpg",
-    "imageNote": "Pierwszy przystanek: Plac Zamkowy",
-    "imageVerified": true
-  },
-  {
-    "id": "river-time",
-    "name": "Nadwiślański spacer",
-    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
-    "stops": [
-      "buw",
-      "copernicus",
-      "boulevards",
-      "mermaid"
-    ],
-    "photo": "river",
-    "image": "place-12028385.jpg",
-    "imageNote": "Pierwszy przystanek: Ogród Biblioteki Uniwersyteckiej",
-    "imageVerified": true
-  },
-  {
-    "id": "royal-green",
-    "name": "Więcej zieleni",
-    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
-    "stops": [
-      "chopin",
-      "lazienki",
-      "palace-water",
-      "ujazdow"
-    ],
-    "photo": "park",
-    "image": null,
-    "imageNote": "Pierwszy przystanek: Pomnik Chopina",
-    "imageVerified": false
-  },
-  {
-    "id": "praga",
-    "name": "Po drugiej stronie — Praga",
-    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
-    "stops": [
-      "praga-cathedral",
-      "zabkowska",
-      "koneser"
-    ],
-    "photo": "praga",
-    "image": null,
-    "imageNote": "Pierwszy przystanek: Katedra św. Floriana",
-    "imageVerified": false
-  },
-  {
-    "id": "city-icons",
-    "name": "Symbole centrum",
-    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
-    "stops": [
-      "palace-culture",
-      "nowy-swiat",
-      "national-museum"
-    ],
-    "photo": "city",
-    "image": "place-17131946.jpg",
-    "imageNote": "Pierwszy przystanek: Pałac Kultury — z zewnątrz",
-    "imageVerified": true
-  },
-  {
-    "id": "quiet-centre",
-    "name": "Spokojniejsze centrum",
-    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
-    "stops": [
-      "mirowska",
-      "saxon",
-      "tomb"
-    ],
-    "photo": "city",
-    "image": null,
-    "imageNote": "Pierwszy przystanek: Hala Mirowska",
-    "imageVerified": false
-  },
-  {
-    "id": "food-design",
-    "name": "Ogród i dobry obiad",
-    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
-    "stops": [
-      "buw",
-      "der-elefant"
-    ],
-    "photo": "food",
-    "image": "place-12028385.jpg",
-    "imageNote": "Pierwszy przystanek: Ogród Biblioteki Uniwersyteckiej",
-    "imageVerified": true
-  },
-  {
-    "id": "saska-afternoon",
-    "name": "Popołudnie na Saskiej Kępie",
-    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
-    "stops": [
-      "saska",
-      "skaryszewski"
-    ],
-    "photo": "praga",
-    "image": null,
-    "imageNote": "Pierwszy przystanek: Ulica Francuska",
-    "imageVerified": false
-  },
-  {
-    "id": "old-river",
-    "name": "Ze Starego Miasta nad Wisłę",
-    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
-    "stops": [
-      "old-town",
-      "new-town",
-      "fountain",
-      "boulevards"
-    ],
-    "photo": "old",
-    "image": "photo-18454473.jpg",
-    "imageNote": "Pierwszy przystanek: Rynek Starego Miasta",
-    "imageVerified": true
-  },
-  {
-    "id": "chopin-walk",
-    "name": "Śladami Chopina",
-    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
-    "stops": [
-      "chopin-museum",
-      "nowy-swiat",
-      "saxon"
-    ],
-    "photo": "city",
-    "image": null,
-    "imageNote": "Pierwszy przystanek: Muzeum Chopina — z zewnątrz",
-    "imageVerified": false
-  },
-  {
-    "id": "park-pocket",
-    "name": "Zielona chwila",
-    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
-    "stops": [
-      "ujazdowski-park",
-      "ujazdow",
-      "chopin"
-    ],
-    "photo": "park",
-    "image": null,
-    "imageNote": "Pierwszy przystanek: Park Ujazdowski",
-    "imageVerified": false
-  },
-  {
-    "id": "sunset",
-    "name": "Perspektywy nad Wisłą",
-    "description": "Gotowy spacer po Warszawie. Zobacz przystanki i ruszaj w swoim tempie.",
-    "stops": [
-      "copernicus",
-      "mermaid",
-      "rooftop"
-    ],
-    "photo": "river",
-    "image": null,
-    "imageNote": "Pierwszy przystanek: Centrum Nauki Kopernik — z zewnątrz",
-    "imageVerified": false
-  }
+ {
+  "id": "old-warsaw",
+  "name": "Pierwsze spotkanie z Warszawą",
+  "description": "Zamek, Rynek, Barbakan i spokojniejsze Nowe Miasto. Najlepszy początek, jeśli jesteś tu pierwszy raz.",
+  "stops": [
+   "castle",
+   "old-town",
+   "barbican",
+   "new-town"
+  ],
+  "cats": [
+   "klasyka"
+  ]
+ },
+ {
+  "id": "river-time",
+  "name": "Nadwiślański spacer",
+  "description": "Ogród na dachu BUW, Kopernik i bulwary aż do Syrenki. Najładniej po południu.",
+  "stops": [
+   "buw",
+   "copernicus",
+   "boulevards",
+   "mermaid"
+  ],
+  "cats": [
+   "wisla"
+  ]
+ },
+ {
+  "id": "royal-green",
+  "name": "Więcej zieleni",
+  "description": "Pomnik Chopina, Łazienki i Pałac na Wyspie, na koniec Zamek Ujazdowski.",
+  "stops": [
+   "chopin",
+   "lazienki",
+   "palace-water",
+   "ujazdow"
+  ],
+  "cats": [
+   "zielen",
+   "klasyka"
+  ]
+ },
+ {
+  "id": "praga",
+  "name": "Po drugiej stronie — Praga",
+  "description": "Katedra, kamienice Ząbkowskiej i dawna wytwórnia wódek Koneser.",
+  "stops": [
+   "praga-cathedral",
+   "zabkowska",
+   "koneser"
+  ],
+  "cats": [
+   "lokalnie"
+  ]
+ },
+ {
+  "id": "city-icons",
+  "name": "Symbole centrum",
+  "description": "Pałac Kultury, Nowy Świat i Muzeum Narodowe. Centrum w trzech odsłonach.",
+  "stops": [
+   "palace-culture",
+   "nowy-swiat",
+   "national-museum"
+  ],
+  "cats": [
+   "klasyka"
+  ]
+ },
+ {
+  "id": "quiet-centre",
+  "name": "Spokojniejsze centrum",
+  "description": "Hala Mirowska, Ogród Saski i Grób Nieznanego Żołnierza. Centrum bez pośpiechu.",
+  "stops": [
+   "mirowska",
+   "saxon",
+   "tomb"
+  ],
+  "cats": [
+   "lokalnie",
+   "zielen"
+  ]
+ },
+ {
+  "id": "food-design",
+  "name": "Ogród i dobry obiad",
+  "description": "Ogród na dachu BUW, a potem obiad w Der Elefant przy placu Bankowym.",
+  "stops": [
+   "buw",
+   "der-elefant"
+  ],
+  "cats": [
+   "jedzenie",
+   "wisla"
+  ]
+ },
+ {
+  "id": "saska-afternoon",
+  "name": "Popołudnie na Saskiej Kępie",
+  "description": "Ulica Francuska i Park Skaryszewski. Lokalna, spokojna strona miasta.",
+  "stops": [
+   "saska",
+   "skaryszewski"
+  ],
+  "cats": [
+   "lokalnie",
+   "zielen"
+  ]
+ },
+ {
+  "id": "old-river",
+  "name": "Ze Starego Miasta nad Wisłę",
+  "description": "Ze Starówki przez Nowe Miasto i Park Fontann prosto na bulwary.",
+  "stops": [
+   "old-town",
+   "new-town",
+   "fountain",
+   "boulevards"
+  ],
+  "cats": [
+   "klasyka",
+   "wisla"
+  ]
+ },
+ {
+  "id": "chopin-walk",
+  "name": "Śladami Chopina",
+  "description": "Muzeum Chopina, Nowy Świat i Ogród Saski.",
+  "stops": [
+   "chopin-museum",
+   "nowy-swiat",
+   "saxon"
+  ],
+  "cats": [
+   "klasyka"
+  ]
+ },
+ {
+  "id": "park-pocket",
+  "name": "Zielona chwila",
+  "description": "Krótka zielona przerwa: Park Ujazdowski, zamek i pomnik Chopina.",
+  "stops": [
+   "ujazdowski-park",
+   "ujazdow",
+   "chopin"
+  ],
+  "cats": [
+   "zielen",
+   "lokalnie"
+  ]
+ },
+ {
+  "id": "sunset",
+  "name": "Perspektywy nad Wisłą",
+  "description": "Kopernik, Syrenka i widok na Wisłę z Mostu Świętokrzyskiego.",
+  "stops": [
+   "copernicus",
+   "mermaid",
+   "rooftop"
+  ],
+  "cats": [
+   "wisla"
+  ]
+ }
 ]

@@ -1,16 +1,15 @@
 # Image provenance
 
-warsaw.jpg: Old Town Market Place in Warsaw, Poland, Anna Holodna / Pexels.
-Source: https://www.pexels.com/photo/old-town-market-place-in-warsaw-poland-18454473/
-License: https://www.pexels.com/license/
-This is a general Warsaw cover, not a photo of each route or stop.
-Logo extracted unchanged from user-provided City Route App brief v1.3; app icons derived from its mark.
+Every place and sidequest names its photo in `data/places.json` / `data/sidequests.json` under `image` and `imageCredit` (author, license, license URL, source page). The app shows that credit under the photo in the place sheet, and the "Skąd są dane" page summarises it.
 
-Additional illustrative covers: Pexels photo IDs 32468805, 18454473, 7115502, 6466290, 20054016, 17741460, 37307169, 37658721, 26729545, 37616026, 19045884, 19947936, 35792461, 20627626, 16549195, 17761856, 15273732, 8259574. Canonical source format https://www.pexels.com/photo/ID/ ; downloads https://images.pexels.com/photos/ID/pexels-photo-ID.jpeg . Pexels license https://www.pexels.com/license/ . These are Warsaw/category illustrations, NOT verified photographs of the named restaurants or hotels. UI alt text identifies illustrative use.
+Rules used on 2026-11-02:
 
-2026-11-02 exact-subject replacements (Pexels License, 1400px, JPEG quality87):
-Plac Zamkowy — https://www.pexels.com/photo/royal-castle-and-castle-square-in-warsaw-poland-31495562/
-Barbakan — https://www.pexels.com/photo/warsaw-barbican-in-old-town-warsaw-35839613/
-BUW garden — https://www.pexels.com/photo/flowerbeds-at-warsaw-university-library-garden-12028385/
-Palace of Culture — https://www.pexels.com/photo/view-of-the-palace-of-culture-and-science-in-warsaw-poland-17131946/
-Visual contact sheet reviewed. Other mismatched place photos removed; missing photos display explicit placeholders. Sidequests inherit exact anchor images. Source names and illustrative scores remain demo, not verified live ratings.
+- First choice: Wikimedia Commons, free licenses only (CC0, CC BY, CC BY-SA, public domain). Downloaded through the Commons API thumbnail, resized to max 960 px, JPEG q78. Nothing else was edited. Files: `place-<place id>.jpg`.
+- Four earlier Pexels photos remain (Pexels License): `place-31495562.jpg` Royal Castle and Castle Square, `place-35839613.jpg` Barbican, `place-12028385.jpg` University Library garden, `place-17131946.jpg` Palace of Culture. Source pages are in each place's `imageCredit.source`. Re-encoded to 960 px.
+- Five restaurants had no free photo, so the app loads one image from the venue's own website (hotlinked, not stored in this repo): Stary Dom, Der Elefant, Sapko Kebab, Concept Food & Wine, Koneser Grill (koneser.eu). These need the venue's permission before a public launch; replace them with own or licensed photos if permission is not given.
+- Azia, Freya and Spółdzielnia show the Centrum Praskie Koneser building they are in; EFES shows ul. Francuska. The photo caption says so (`imageCaption`).
+- Photos from Google Maps and Tripadvisor are not copied: their terms do not allow re-hosting user photos.
+
+A contact sheet of every photo was reviewed by eye to confirm it shows the named place.
+
+UI icons: Lucide (lucide-static 0.454.0, ISC, see `../icons/LUCIDE-LICENSE.txt`). Google Maps and Tripadvisor marks: Simple Icons, CC0; trademarks belong to their owners and are used only to identify the rating source. Logo extracted unchanged from the City Route App brief v1.3.

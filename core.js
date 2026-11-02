@@ -33,6 +33,14 @@ export function mapsUrl(p,transport='walking'){
  return `https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}&travelmode=${transport==='bike'?'bicycling':transport==='transit'?'transit':'walking'}`;
 }
 
+// Combined score across platforms: every review counts once, wherever it was written.
+export function combinedRating(ratings=[]){
+ const parts=ratings.filter(s=>Number.isFinite(s.value)&&Number.isSafeInteger(s.reviewCount)&&s.reviewCount>0);
+ return {value:blendedRating(parts,{weighted:true}),total:parts.reduce((n,s)=>n+s.reviewCount,0),parts};
+}
+export const fold=s=>String(s??'').toLowerCase().replace(/ł/g,'l').normalize('NFD').replace(/[̀-ͯ]/g,'');
+export function matches(text,query){const words=fold(query).split(/\s+/).filter(Boolean),hay=fold(text);return words.every(w=>hay.includes(w));}
+
 export function blendedRating(scores,{weighted=false}={}){
  const valid=scores.filter(s=>Number.isFinite(s.value)&&Number.isFinite(s.max)&&s.max>0&&s.value>=0&&s.value<=s.max&&(!weighted||(Number.isSafeInteger(s.reviewCount)&&s.reviewCount>0)));
  const total=valid.reduce((n,s)=>n+(weighted?s.reviewCount:1),0);

@@ -1,0 +1,34 @@
+name: Generate Warsaw import migration
+
+on:
+  push:
+    branches: [work/warsaw-supabase-import]
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: work/warsaw-supabase-import
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/generate-warsaw-import.mjs
+      - run: npm test
+      - run: npm run build
+      - name: Commit generated migration
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add supabase/migrations/004_import_warsaw_catalogue.sql
+          if git diff --cached --quiet; then
+            echo "Migration already up to date"
+          else
+            git commit -m "feat: generate Warsaw Supabase catalogue import"
+            git push origin HEAD:work/warsaw-supabase-import
+          fi

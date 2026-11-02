@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "groups": [
+    {
+      "id": "sightseeing",
+      "labelPl": "Zwiedzanie",
+      "types": [
+        {"id": "landmark", "labelPl": "Zabytki"},
+        {"id": "museum", "labelPl": "Muzea"},
+        {"id": "gallery", "labelPl": "Galerie"},
+        {"id": "architecture", "labelPl": "Architektura"},
+        {"id": "religious_site", "labelPl": "Obiekty sakralne"},
+        {"id": "viewpoint", "labelPl": "Punkty widokowe"},
+        {"id": "neighborhood", "labelPl": "Dzielnice i ulice"},
+        {"id": "hidden_gem", "labelPl": "Hidden gems"}
+      ]
+    },
+    {
+      "id": "nature",
+      "labelPl": "Natura",
+      "types": [
+        {"id": "park", "labelPl": "Parki"},
+        {"id": "garden", "labelPl": "Ogrody"},
+        {"id": "waterfront", "labelPl": "Nabrzeża"},
+        {"id": "beach", "labelPl": "Plaże"},
+        {"id": "walk", "labelPl": "Trasy spacerowe"}
+      ]
+    },
+    {
+      "id": "food",
+      "labelPl": "Jedzenie i picie",
+      "types": [
+        {"id": "restaurant", "labelPl": "Restauracje"},
+        {"id": "cafe", "labelPl": "Kawiarnie"},
+        {"id": "breakfast", "labelPl": "Śniadania"},
+        {"id": "street_food", "labelPl": "Street food"},
+        {"id": "food_hall", "labelPl": "Food halls"},
+        {"id": "bakery", "labelPl": "Piekarnie"},
+        {"id": "dessert", "labelPl": "Desery"}
+      ]
+    },
+    {
+      "id": "nightlife",
+      "labelPl": "Życie nocne",
+      "types": [
+        {"id": "bar", "labelPl": "Bary"},
+        {"id": "pub", "labelPl": "Puby"},
+        {"id": "cocktail_bar", "labelPl": "Cocktail bary"},
+        {"id": "wine_bar", "labelPl": "Wine bary"},
+        {"id": "club", "labelPl": "Kluby"},
+        {"id": "live_music", "labelPl": "Live music"}
+      ]
+    },
+    {
+      "id": "activities",
+      "labelPl": "Aktywności",
+      "types": [
+        {"id": "sport", "labelPl": "Sport"},
+        {"id": "spa", "labelPl": "SPA i wellness"},
+        {"id": "workshop", "labelPl": "Warsztaty"},
+        {"id": "experience", "labelPl": "Experiences"}
+      ]
+    },
+    {
+      "id": "stay",
+      "labelPl": "Noclegi",
+      "types": [
+        {"id": "hotel", "labelPl": "Hotele"},
+        {"id": "hostel", "labelPl": "Hostele"},
+        {"id": "apartment", "labelPl": "Apartamenty"},
+        {"id": "guesthouse", "labelPl": "Pensjonaty"}
+      ]
+    }
+  ],
+  "legacyAliases": {
+    "zabytki": "landmark",
+    "muzea": "museum",
+    "zielen": "park",
+    "widoki": "viewpoint",
+    "okolice": "neighborhood",
+    "jedzenie": "restaurant",
+    "noclegi": "hotel"
+  }
+}

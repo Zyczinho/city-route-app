@@ -1,0 +1,37 @@
+name: Generate Krakow dataset
+
+on:
+  push:
+    branches: [work/krakow-dataset-v1]
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: work/krakow-dataset-v1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Generate Krakow POIs from OSM
+        run: node scripts/generate-osm-city-dataset.mjs krakow
+      - name: Generate Supabase migration
+        run: node scripts/generate-city-import.mjs krakow 006
+      - run: npm test
+      - run: npm run build
+      - name: Commit generated dataset and migration
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/cities/krakow/places.json data/cities/krakow/dataset-report.json supabase/migrations/006_import_krakow_catalogue.sql
+          if git diff --cached --quiet; then
+            echo "Generated files already up to date"
+          else
+            git commit -m "feat: generate Krakow catalogue from OSM"
+            git push origin HEAD:work/krakow-dataset-v1
+          fi

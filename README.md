@@ -13,3 +13,9 @@ No runtime dependencies. Run `python3 -m http.server 4180` (Windows: `py -m http
 Cloudflare Pages: connect Zyczinho/city-route-app, production branch main, framework None, build command `npm run build`, output `dist`. No environment variables or paid API needed. Alternative matching Vowl: Workers Builds, build `npm run build`, deploy `npx wrangler deploy` (wrangler.jsonc provided). These are alternative deployment paths; do not configure both unless needed.
 
 Read PRODUCT.md, AGENTS.md and STATUS.md before editing. Keep meaningful increments pushed. No backend, auth or payments. Browser-local test data is not synchronized and can be exported as JSON.
+
+## Production
+
+https://city-route-app.jakublojek.workers.dev
+
+Deployed independently on the owner's Cloudflare Workers account, using Workers Builds with build command `npm run build` and deploy command `npx wrangler deploy`. `wrangler.jsonc` serves `dist/`. No ChatGPT Work session is required to keep this deployment available. GitHub remains canonical. Confirm automatic main-branch triggers in Cloudflare build settings; first deployment was manually initiated. The Pages instructions above remain an optional alternative, not the current production path.

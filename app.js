@@ -1,5 +1,7 @@
 import {summary,optimize,generate,advance,mapsUrl,routeMapsUrl,parseLocation,moveStop,distance,combinedRating,smoothedRating,matches} from './core.js';
 import {DEFAULT_CITY_ID,cityById,cityPoint,forCity,isInsideCity,routeTitle,searchQuery,withCityId} from './city-context.js';
+import {createRestRpcClient,loadCatalogueWithFallback} from './catalogue-client.js';
+import {SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY} from './supabase-config.js';
 const $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const key='city-route-v1';let storageOK=true,state;
 try{state=JSON.parse(localStorage.getItem(key)||'null');}catch{storageOK=false;}
@@ -305,9 +307,14 @@ window.addEventListener('hashchange',()=>{const t=route()[0];if(speaking){speech
 function connection(){$('#connection').textContent=!storageOK?'Zapis lokalny niedostępny. Wyeksportuj dane przed zamknięciem.':navigator.onLine?'':'Offline · zapisane trasy działają. Mapy i strony źródeł wymagają internetu.';}
 window.addEventListener('online',connection);window.addEventListener('offline',connection);
 try{
- [cities,taxonomy,places,quests,routes]=await Promise.all(['cities','taxonomy','places','sidequests','routes'].map(async n=>{const r=await fetch(`./data/${n}.json`);if(!r.ok)throw Error(n);return r.json();}));
+ let staticPlaces,staticRoutes;
+ [cities,taxonomy,staticPlaces,quests,staticRoutes]=await Promise.all(['cities','taxonomy','places','sidequests','routes'].map(async n=>{const r=await fetch(`./data/${n}.json`);if(!r.ok)throw Error(n);return r.json();}));
  activeCity=cityById(cities,state.cityId);if(!activeCity)throw Error('city');state.cityId=activeCity.id;
- places=forCity(withCityId(places,DEFAULT_CITY_ID),activeCity.id);quests=forCity(withCityId(quests,DEFAULT_CITY_ID),activeCity.id);routes=forCity(withCityId(routes,DEFAULT_CITY_ID),activeCity.id);
+ const jsonCatalogue={places:forCity(withCityId(staticPlaces,DEFAULT_CITY_ID),activeCity.id),routes:forCity(withCityId(staticRoutes,DEFAULT_CITY_ID),activeCity.id)};
+ const catalogueClient=createRestRpcClient({url:SUPABASE_URL,key:SUPABASE_PUBLISHABLE_KEY});
+ const catalogueData=await loadCatalogueWithFallback({client:catalogueClient,city:activeCity,fallback:jsonCatalogue});
+ places=catalogueData.places;routes=catalogueData.routes;quests=forCity(withCityId(quests,DEFAULT_CITY_ID),activeCity.id);
+ document.documentElement.dataset.catalogueSource=catalogueData.source;
  state.userPlaces=withCityId(state.userPlaces,DEFAULT_CITY_ID);state.myRoutes=withCityId(state.myRoutes,DEFAULT_CITY_ID);
  all=Object.fromEntries([...places,...quests,...forCity(state.userPlaces,activeCity.id)].map(p=>[p.id,p]));state.basket=state.basket.filter(id=>all[id]);state.myRoutes=state.myRoutes.filter(r=>r.stops.every(id=>all[id]));
  if(state.session&&(!Array.isArray(state.session.stops)||state.session.stops.some(id=>!all[id])||!Array.isArray(state.session.results)||state.session.index<0||state.session.index>state.session.stops.length))state.session=null;

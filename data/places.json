@@ -1337,7 +1337,7 @@
       },
       {
         "source": "tripadvisor",
-        "value": 4.0,
+        "value": 4,
         "max": 5,
         "reviewCount": 38,
         "listing": "Swietokrzyski Bridge",
@@ -1912,7 +1912,7 @@
     "ratings": [
       {
         "source": "google",
-        "value": 4.0,
+        "value": 4,
         "max": 5,
         "reviewCount": 4784,
         "listing": "U Fukiera",
@@ -2036,7 +2036,7 @@
       },
       {
         "source": "tripadvisor",
-        "value": 5.0,
+        "value": 5,
         "max": 5,
         "reviewCount": 13,
         "listing": "Azia Restaurants (Plac Konesera 4)",
@@ -2093,7 +2093,7 @@
       },
       {
         "source": "tripadvisor",
-        "value": 5.0,
+        "value": 5,
         "max": 5,
         "reviewCount": 3,
         "listing": "Concept Food & Wine",
@@ -2207,7 +2207,7 @@
       },
       {
         "source": "tripadvisor",
-        "value": 4.0,
+        "value": 4,
         "max": 5,
         "reviewCount": 6,
         "listing": "Spółdzielnia Koneser",
@@ -2644,5 +2644,594 @@
       "via": "Wikimedia Commons"
     },
     "bookingSearch": "https://www.booking.com/searchresults.pl.html?ss=Hilton%20Warsaw%20City%20Warsaw"
+  },
+  {
+    "id": "warsaw-uprising-museum",
+    "name": "Muzeum Powstania Warszawskiego",
+    "lat": 52.2323936,
+    "lng": 20.9810185,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "minutes": 100,
+    "cost": 35,
+    "description": "Historia Powstania Warszawskiego i losów mieszkańców miasta podczas 1944 roku.",
+    "area": "Wola",
+    "kind": "place",
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "image": null,
+    "cats": [
+      "muzea"
+    ],
+    "categoryId": "museum",
+    "ratings": [],
+    "address": "Grzybowska 79",
+    "website": "https://www.1944.pl/",
+    "imageCredit": null,
+    "metadata": {
+      "source": {
+        "provider": "editorial",
+        "verifiedAt": "2026-11-03",
+        "officialWebsite": "https://www.1944.pl/",
+        "coordinateSource": "https://muzea.org/muzeum/muzeum-powstania-warszawskiego/",
+        "coordinatePrecision": "building"
+      },
+      "priceSource": "editorial-budget-estimate",
+      "photoStatus": "not-sourced",
+      "ratingsStatus": "not-sourced"
+    }
+  },
+  {
+    "id": "polin-museum",
+    "name": "Muzeum Historii Żydów Polskich POLIN",
+    "lat": 52.24936,
+    "lng": 20.99313,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "minutes": 120,
+    "cost": 35,
+    "description": "Interaktywna opowieść o tysiącletniej historii Żydów polskich.",
+    "area": "Muranów",
+    "kind": "place",
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "image": null,
+    "cats": [
+      "muzea"
+    ],
+    "categoryId": "museum",
+    "ratings": [],
+    "address": "Mordechaja Anielewicza 6",
+    "website": "https://polin.pl/pl/o-muzeum",
+    "imageCredit": null,
+    "metadata": {
+      "source": {
+        "provider": "editorial",
+        "verifiedAt": "2026-11-03",
+        "officialWebsite": "https://polin.pl/pl/o-muzeum",
+        "coordinateSource": "https://mapcarta.com/pt/W186141946",
+        "coordinatePrecision": "building"
+      },
+      "priceSource": "editorial-budget-estimate",
+      "photoStatus": "not-sourced",
+      "ratingsStatus": "not-sourced"
+    }
+  },
+  {
+    "id": "warsaw-city-museum",
+    "name": "Muzeum Warszawy",
+    "lat": 52.24997,
+    "lng": 21.01139,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "minutes": 80,
+    "cost": 30,
+    "description": "Historia i przedmioty codziennego życia Warszawy w staromiejskich kamienicach.",
+    "area": "Stare Miasto",
+    "kind": "place",
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "image": null,
+    "cats": [
+      "muzea"
+    ],
+    "categoryId": "museum",
+    "ratings": [],
+    "address": "Rynek Starego Miasta 28–42",
+    "website": "https://muzeumwarszawy.pl/",
+    "imageCredit": null,
+    "metadata": {
+      "source": {
+        "provider": "editorial",
+        "verifiedAt": "2026-11-03",
+        "officialWebsite": "https://muzeumwarszawy.pl/",
+        "coordinateSource": "https://mapcarta.com/36022060",
+        "coordinatePrecision": "building"
+      },
+      "priceSource": "editorial-budget-estimate",
+      "photoStatus": "not-sourced",
+      "ratingsStatus": "not-sourced"
+    }
+  },
+  {
+    "id": "modern-art-museum-warsaw",
+    "name": "Muzeum Sztuki Nowoczesnej",
+    "lat": 52.2331,
+    "lng": 21.009,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "minutes": 75,
+    "cost": 30,
+    "description": "Wystawy współczesnej sztuki polskiej i międzynarodowej przy placu Defilad.",
+    "area": "Śródmieście",
+    "kind": "place",
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "image": null,
+    "cats": [
+      "muzea"
+    ],
+    "categoryId": "museum",
+    "ratings": [],
+    "address": "Marszałkowska 103",
+    "website": "https://artmuseum.pl/",
+    "imageCredit": null,
+    "metadata": {
+      "source": {
+        "provider": "editorial",
+        "verifiedAt": "2026-11-03",
+        "officialWebsite": "https://artmuseum.pl/",
+        "coordinateSource": "https://mapcarta.com/pt/W944207076",
+        "coordinatePrecision": "building"
+      },
+      "priceSource": "editorial-budget-estimate",
+      "photoStatus": "not-sourced",
+      "ratingsStatus": "not-sourced"
+    }
+  },
+  {
+    "id": "polish-history-museum",
+    "name": "Muzeum Historii Polski",
+    "lat": 52.26497,
+    "lng": 21.001,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "minutes": 90,
+    "cost": 30,
+    "description": "Muzeum historii Polski w Cytadeli Warszawskiej; program wystaw zmienia się w czasie.",
+    "area": "Cytadela",
+    "kind": "place",
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "image": null,
+    "cats": [
+      "muzea"
+    ],
+    "categoryId": "museum",
+    "ratings": [],
+    "address": "Gwardii 1",
+    "website": "https://muzhp.pl/zaplanuj-wizyte",
+    "imageCredit": null,
+    "metadata": {
+      "source": {
+        "provider": "editorial",
+        "verifiedAt": "2026-11-03",
+        "officialWebsite": "https://muzhp.pl/zaplanuj-wizyte",
+        "coordinateSource": "https://mapcarta.com/W31102954",
+        "coordinatePrecision": "building"
+      },
+      "priceSource": "editorial-budget-estimate",
+      "photoStatus": "not-sourced",
+      "ratingsStatus": "not-sourced"
+    }
+  },
+  {
+    "id": "polish-army-museum",
+    "name": "Muzeum Wojska Polskiego",
+    "lat": 52.26392,
+    "lng": 20.99962,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "minutes": 80,
+    "cost": 30,
+    "description": "Zbiory wojskowe, uzbrojenie i historia armii polskiej w Cytadeli.",
+    "area": "Cytadela",
+    "kind": "place",
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "image": null,
+    "cats": [
+      "muzea"
+    ],
+    "categoryId": "museum",
+    "ratings": [],
+    "address": "Gwardii 4",
+    "website": "https://muzeumwp.pl/",
+    "imageCredit": null,
+    "metadata": {
+      "source": {
+        "provider": "editorial",
+        "verifiedAt": "2026-11-03",
+        "officialWebsite": "https://muzeumwp.pl/",
+        "coordinateSource": "https://mapcarta.com/W31102940",
+        "coordinatePrecision": "building"
+      },
+      "priceSource": "editorial-budget-estimate",
+      "photoStatus": "not-sourced",
+      "ratingsStatus": "not-sourced"
+    }
+  },
+  {
+    "id": "asia-pacific-museum",
+    "name": "Muzeum Azji i Pacyfiku",
+    "lat": 52.2334,
+    "lng": 21.03684,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "minutes": 70,
+    "cost": 20,
+    "description": "Sztuka i kultury Azji i Oceanii: wystawy stałe i czasowe.",
+    "area": "Powiśle",
+    "kind": "place",
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "image": null,
+    "cats": [
+      "muzea"
+    ],
+    "categoryId": "museum",
+    "ratings": [],
+    "address": "Solec 24",
+    "website": "https://www.muzeumazji.pl/wizyta/",
+    "imageCredit": null,
+    "metadata": {
+      "source": {
+        "provider": "editorial",
+        "verifiedAt": "2026-11-03",
+        "officialWebsite": "https://www.muzeumazji.pl/wizyta/",
+        "coordinateSource": "https://mapcarta.com/N11196230956",
+        "coordinatePrecision": "point"
+      },
+      "priceSource": "editorial-budget-estimate",
+      "photoStatus": "not-sourced",
+      "ratingsStatus": "not-sourced"
+    }
+  },
+  {
+    "id": "polish-vodka-museum",
+    "name": "Muzeum Polskiej Wódki",
+    "lat": 52.25539,
+    "lng": 21.04599,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "minutes": 65,
+    "cost": 50,
+    "description": "Wystawa o polskich tradycjach gorzelniczych w dawnej fabryce na Pradze.",
+    "area": "Praga-Północ",
+    "kind": "place",
+    "tourist": "local",
+    "foodStyle": "none",
+    "partner": false,
+    "image": null,
+    "cats": [
+      "muzea"
+    ],
+    "categoryId": "museum",
+    "ratings": [],
+    "address": "Plac Konesera 1",
+    "website": "https://muzeumpolskiejwodki.pl/",
+    "imageCredit": null,
+    "metadata": {
+      "source": {
+        "provider": "editorial",
+        "verifiedAt": "2026-11-03",
+        "officialWebsite": "https://muzeumpolskiejwodki.pl/",
+        "coordinateSource": "https://mapcarta.com/N6566541885",
+        "coordinatePrecision": "point"
+      },
+      "priceSource": "editorial-budget-estimate",
+      "photoStatus": "not-sourced",
+      "ratingsStatus": "not-sourced"
+    }
+  },
+  {
+    "id": "printing-museum-warsaw",
+    "name": "Muzeum Drukarstwa Warszawskiego",
+    "lat": 52.25413,
+    "lng": 21.04257,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "minutes": 55,
+    "cost": 20,
+    "description": "Prasy, techniki drukarskie i historia książki, z pokazami tradycyjnego druku.",
+    "area": "Praga-Północ",
+    "kind": "place",
+    "tourist": "local",
+    "foodStyle": "none",
+    "partner": false,
+    "image": null,
+    "cats": [
+      "muzea"
+    ],
+    "categoryId": "museum",
+    "ratings": [],
+    "address": "Ząbkowska 23/25",
+    "website": "https://muzeumdrukarstwa.muzeumwarszawy.pl/o-muzeum/",
+    "imageCredit": null,
+    "metadata": {
+      "source": {
+        "provider": "editorial",
+        "verifiedAt": "2026-11-03",
+        "officialWebsite": "https://muzeumdrukarstwa.muzeumwarszawy.pl/o-muzeum/",
+        "coordinateSource": "https://mapcarta.com/N9937530280",
+        "coordinatePrecision": "point"
+      },
+      "priceSource": "editorial-budget-estimate",
+      "photoStatus": "not-sourced",
+      "ratingsStatus": "not-sourced"
+    }
+  },
+  {
+    "id": "bibenda-nowogrodzka",
+    "name": "Bibenda",
+    "lat": 52.2297,
+    "lng": 21.0164,
+    "tags": [
+      "food",
+      "small-plates"
+    ],
+    "minutes": 60,
+    "cost": 60,
+    "description": "Sezonowe talerzyki do dzielenia i kuchnia autorska.",
+    "area": "Śródmieście",
+    "kind": "restaurant",
+    "tourist": "local",
+    "foodStyle": "sit",
+    "partner": false,
+    "image": null,
+    "cats": [
+      "jedzenie"
+    ],
+    "categoryId": "restaurant",
+    "ratings": [],
+    "address": "Nowogrodzka 10",
+    "cuisine": "międzynarodowa",
+    "imageCredit": null,
+    "metadata": {
+      "source": {
+        "provider": "editorial",
+        "verifiedAt": "2026-11-03",
+        "officialWebsite": null,
+        "coordinateSource": "https://sprawdzadres.pl/mazowieckie/warszawa/nowogrodzka/10",
+        "coordinatePrecision": "address"
+      },
+      "priceSource": "editorial-budget-estimate",
+      "photoStatus": "not-sourced",
+      "ratingsStatus": "not-sourced"
+    }
+  },
+  {
+    "id": "maka-i-woda-chmielna",
+    "name": "Mąka i Woda",
+    "lat": 52.2324,
+    "lng": 21.0165,
+    "tags": [
+      "food",
+      "pizza"
+    ],
+    "minutes": 60,
+    "cost": 60,
+    "description": "Włoska pizza neapolitańska i ręcznie robione makarony.",
+    "area": "Śródmieście",
+    "kind": "restaurant",
+    "tourist": "local",
+    "foodStyle": "sit",
+    "partner": false,
+    "image": null,
+    "cats": [
+      "jedzenie"
+    ],
+    "categoryId": "restaurant",
+    "ratings": [],
+    "address": "Chmielna 13A",
+    "website": "https://makaiwoda.pl/",
+    "cuisine": "włoska",
+    "imageCredit": null,
+    "metadata": {
+      "source": {
+        "provider": "editorial",
+        "verifiedAt": "2026-11-03",
+        "officialWebsite": "https://makaiwoda.pl/",
+        "coordinateSource": "https://sprawdzadres.pl/mazowieckie/warszawa/chmielna/13A",
+        "coordinatePrecision": "address"
+      },
+      "priceSource": "editorial-budget-estimate",
+      "photoStatus": "not-sourced",
+      "ratingsStatus": "not-sourced"
+    }
+  },
+  {
+    "id": "uki-uki-krucza",
+    "name": "UKI UKI (Krucza)",
+    "lat": 52.2275,
+    "lng": 21.0176,
+    "tags": [
+      "food",
+      "noodles"
+    ],
+    "minutes": 60,
+    "cost": 60,
+    "description": "Japoński bar z udonem i innymi daniami z makaronem.",
+    "area": "Śródmieście",
+    "kind": "restaurant",
+    "tourist": "local",
+    "foodStyle": "sit",
+    "partner": false,
+    "image": null,
+    "cats": [
+      "jedzenie"
+    ],
+    "categoryId": "restaurant",
+    "ratings": [],
+    "address": "Krucza 23",
+    "cuisine": "japońska",
+    "imageCredit": null,
+    "metadata": {
+      "source": {
+        "provider": "editorial",
+        "verifiedAt": "2026-11-03",
+        "officialWebsite": null,
+        "coordinateSource": "https://sprawdzadres.pl/mazowieckie/warszawa/krucza/23_31",
+        "coordinatePrecision": "address"
+      },
+      "priceSource": "editorial-budget-estimate",
+      "photoStatus": "not-sourced",
+      "ratingsStatus": "not-sourced"
+    }
+  },
+  {
+    "id": "pyzy-flaki-brzeska",
+    "name": "Pyzy, Flaki Gorące! (Brzeska)",
+    "lat": 52.2531,
+    "lng": 21.041,
+    "tags": [
+      "food",
+      "traditional"
+    ],
+    "minutes": 60,
+    "cost": 60,
+    "description": "Tradycyjne warszawskie pyzy i flaki w swobodnym, praskim lokalu.",
+    "area": "Praga-Północ",
+    "kind": "restaurant",
+    "tourist": "local",
+    "foodStyle": "sit",
+    "partner": false,
+    "image": null,
+    "cats": [
+      "jedzenie"
+    ],
+    "categoryId": "restaurant",
+    "ratings": [],
+    "address": "Brzeska 29/31",
+    "website": "https://www.pyzyflakigorace.pl/",
+    "cuisine": "polska",
+    "imageCredit": null,
+    "metadata": {
+      "source": {
+        "provider": "editorial",
+        "verifiedAt": "2026-11-03",
+        "officialWebsite": "https://www.pyzyflakigorace.pl/",
+        "coordinateSource": "https://sprawdzadres.pl/mazowieckie/warszawa/brzeska/29_31",
+        "coordinatePrecision": "address"
+      },
+      "priceSource": "editorial-budget-estimate",
+      "photoStatus": "not-sourced",
+      "ratingsStatus": "not-sourced"
+    }
+  },
+  {
+    "id": "vegan-ramen-finlandzka",
+    "name": "Vegan Ramen Shop (Finlandzka)",
+    "lat": 52.2372,
+    "lng": 21.05031,
+    "tags": [
+      "food",
+      "vegan",
+      "ramen"
+    ],
+    "minutes": 60,
+    "cost": 60,
+    "description": "Roślinny ramen i japońskie dania bez produktów zwierzęcych.",
+    "area": "Saska Kępa",
+    "kind": "restaurant",
+    "tourist": "local",
+    "foodStyle": "sit",
+    "partner": false,
+    "image": null,
+    "cats": [
+      "jedzenie"
+    ],
+    "categoryId": "restaurant",
+    "ratings": [],
+    "address": "Finlandzka 12A",
+    "website": "https://veganramenshop.pl/contact/",
+    "cuisine": "japońska",
+    "imageCredit": null,
+    "metadata": {
+      "source": {
+        "provider": "editorial",
+        "verifiedAt": "2026-11-03",
+        "officialWebsite": "https://veganramenshop.pl/contact/",
+        "coordinateSource": "https://pl.aroundus.com/p/171939459-vegan-ramen-shop-finlandzka",
+        "coordinatePrecision": "point"
+      },
+      "priceSource": "editorial-budget-estimate",
+      "photoStatus": "not-sourced",
+      "ratingsStatus": "not-sourced"
+    }
+  },
+  {
+    "id": "soul-kitchen-nowogrodzka",
+    "name": "Soul Kitchen",
+    "lat": 52.2294,
+    "lng": 21.0149,
+    "tags": [
+      "food",
+      "european"
+    ],
+    "minutes": 60,
+    "cost": 60,
+    "description": "Sezonowa kuchnia polska i europejska w restauracji przy Nowogrodzkiej.",
+    "area": "Śródmieście",
+    "kind": "restaurant",
+    "tourist": "local",
+    "foodStyle": "sit",
+    "partner": false,
+    "image": null,
+    "cats": [
+      "jedzenie"
+    ],
+    "categoryId": "restaurant",
+    "ratings": [],
+    "address": "Nowogrodzka 18A",
+    "cuisine": "polska",
+    "imageCredit": null,
+    "metadata": {
+      "source": {
+        "provider": "editorial",
+        "verifiedAt": "2026-11-03",
+        "officialWebsite": null,
+        "coordinateSource": "https://sprawdzadres.pl/mazowieckie/warszawa/nowogrodzka/18A",
+        "coordinatePrecision": "address"
+      },
+      "priceSource": "editorial-budget-estimate",
+      "photoStatus": "not-sourced",
+      "ratingsStatus": "not-sourced"
+    }
   }
 ]

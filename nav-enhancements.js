@@ -2,21 +2,29 @@
 const nav=document.querySelector('#navigation');
 const headerRight=document.querySelector('.top .right');
 const toast=document.querySelector('#toast');
+const desiredNav=['#plan','#routes','#my-route','#places'];
+let navSyncing=false;
 
 function ensureHeaderBooking(){
  if(!headerRight||headerRight.querySelector('[data-header-book]'))return;
  const link=document.createElement('a');
  link.href='#book';link.className='header-book';link.dataset.headerBook='';link.setAttribute('aria-label','Zarezerwuj');
- link.innerHTML='<span class="i" style="--i:url(./assets/icons/ui/ticket-percent.svg)" aria-hidden="true"></span><span>Zarezerwuj</span>';
+ link.innerHTML='<span class="i" style="--i:url(./assets/icons/ui/ticket-percent.svg)" aria-hidden="true"></span><span class="header-book-label">Zarezerwuj</span>';
  const profile=headerRight.querySelector('#me');headerRight.insertBefore(link,profile||null);
 }
 
 function enforceBottomNav(){
- if(!nav)return;
- const ids=['plan','routes','my-route','places'];
- for(const id of ids){const a=nav.querySelector(`a[href="#${id}"]`);if(a)nav.append(a);}
- nav.querySelector('a[href="#book"]')?.remove();
- const mine=nav.querySelector('a[href="#my-route"]');if(mine)mine.classList.add('my-route-primary');
+ if(!nav||navSyncing)return;
+ const book=nav.querySelector('a[href="#book"]');
+ const current=[...nav.querySelectorAll(':scope > a')].filter(a=>a.getAttribute('href')!=='#book').map(a=>a.getAttribute('href'));
+ const ordered=current.length===desiredNav.length&&desiredNav.every((href,i)=>current[i]===href);
+ if(!book&&ordered){nav.querySelector('a[href="#my-route"]')?.classList.add('my-route-primary');return;}
+ navSyncing=true;
+ try{
+  book?.remove();
+  for(const href of desiredNav){const a=nav.querySelector(`a[href="${href}"]`);if(a)nav.append(a);}
+  nav.querySelector('a[href="#my-route"]')?.classList.add('my-route-primary');
+ }finally{navSyncing=false;}
 }
 
 function makeAddToastActionable(){

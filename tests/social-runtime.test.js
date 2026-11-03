@@ -54,3 +54,9 @@ test('Founder-approved A+B navigation leaves four bottom tabs and promotes My Ro
 test('new browser modules are syntax-valid before deployment',()=>{
  for(const file of ['social-routes-enhancements.js','nav-enhancements.js'])execFileSync(process.execPath,['--check',file],{stdio:'pipe'});
 });
+
+
+test('core router recognizes Social Routes custom hashes',async()=>{
+ const app=await read('app.js');
+ for(const token of ["'community-route':'routes'","'social-profile':'routes'","'social-saved':'routes'"])assert.match(app,new RegExp(token));
+});

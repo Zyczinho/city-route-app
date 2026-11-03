@@ -304,9 +304,9 @@ document.addEventListener('click',e=>{
  if(action==='remove'){const r=applyBuilder(removeStop(builderDraft,id,{now:now()}),{eventType:'builder_remove',eventData:{place_id:id}});if(r?.changed)render();}
  if(action==='up'||action==='down'){const r=applyBuilder(moveStopBy(builderDraft,id,action==='up'?-1:1,{now:now()}),{eventType:'builder_move',eventData:{place_id:id,method:'buttons'}});if(r?.changed)render();}
  if(action==='optimize'){
-  const result=optimizeRoutePlaces(items(state.basket),{origin:here&&isInsideCity(here,city())?here:null,transport:builderDraft?.transport||'walking'});
+  const result=optimizeRoutePlaces(items(state.basket),{origin:null,transport:builderDraft?.transport||'walking'});
   if(result.status==='invalid-coordinates')return toast('Brakuje współrzędnych. Popraw lokalizację punktu.');
-  if(result.changed&&setBuilderOrder(result.places.map(p=>p.id),'optimize')){nearbyAfterId=null;render();const saved=Math.max(0,Math.round(result.estimatedSavingsMinutes));toast('Ułożono trasę efektywniej. Szacowana oszczędność przejazdu/spaceru: '+saved+' min.');}
+  if(result.changed&&setBuilderOrder(result.places.map(p=>p.id),'optimize')){nearbyAfterId=null;render();const saved=Math.max(0,Math.round(result.estimatedSavingsMinutes));toast(saved>0?'Ułożono trasę efektywniej. Szacowana oszczędność przemieszczania: '+saved+' min.':'Ułożono trasę efektywniej.');}
   else toast('Trasa jest już ułożona efektywnie według szacowanych odległości.');
  }
  if(action==='nearby-stop'){if(isLive())return toast('Najpierw zakończ aktywną trasę.');nearbyAfterId=nearbyAfterId===id?null:id;nearbyRadiusM=500;render();document.querySelector('#nearby-stop-suggestions')?.scrollIntoView?.({block:'nearest'});}
@@ -316,7 +316,7 @@ document.addEventListener('click',e=>{
    if(at<0||!all[id])return toast('Przystanek nie jest już dostępny.');
    const added=applyBuilder(addStop(builderDraft,all[id],{at:at+1,now:now()}),{eventType:'builder_add',eventData:{place_id:id,source:'nearby-stop',after_id:b.dataset.after}});
    if(added?.changed){log('add_to_route',{place_id:id,source:'nearby-stop'});nearbyAfterId=null;render();toast('Dodano miejsce bezpośrednio po wybranym przystanku.');}
-   else toast(added?.error==='duplicate'?'To miejsce jest już na trasie.':'Nie można dodać miejsca do trasy.');
+   else toast(added?.error==='duplicate'?'To miejsce jest już na trasie.':added?.error==='limit'?'Trasa ma już 20 przystanków. Usuń jeden, aby dodać kolejny.':'Nie można dodać miejsca do trasy.');
  }
  if(action==='nearby-custom'){addNewPlaceAfterId=b.dataset.after||null;nearbyAfterId=null;}
  if(action==='save-route'){const r=findRoute(id);loadRouteIntoBuilder(r);location.hash='my-route';toast('Trasa jest w Mojej trasie. Zmieniaj ją dowolnie.');}
@@ -375,7 +375,7 @@ document.addEventListener('submit',async e=>{const f=e.target,data=new FormData(
   addNewPlaceAfterId=null;draft=null;cat=c;
   location.hash=added?.changed?'my-route':'places';
   if(!added?.changed){justSavedPlaceId=p.id;setTimeout(()=>openPlace(p.id),50);}
-  toast(added?.changed?'Miejsce zapisane i wstawione do Mojej trasy.':'Miejsce zapisane.');}
+  toast(added?.changed?'Miejsce zapisane i wstawione do Mojej trasy.':added?.error==='limit'?'Miejsce zapisane, ale trasa ma już 20 przystanków.':'Miejsce zapisane.');}
  if(f.id==='build-form'){e.preventDefault();const prefs=Object.fromEntries(data);
   prefs.interests=data.getAll('interests');if(prefs.start==='here'){if(!navigator.geolocation){toast('Brak lokalizacji — układam trasę bez punktu startu.');}else{toast('Sprawdzam, gdzie jesteś…');navigator.geolocation.getCurrentPosition(pos=>{here={lat:pos.coords.latitude,lng:pos.coords.longitude};plan(prefs,here);},()=>{toast('Bez lokalizacji — trasa bez punktu startu.');plan(prefs,null);},{timeout:10000});return;}}
   plan(prefs,null);}

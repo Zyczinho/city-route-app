@@ -99,7 +99,7 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 |---|---|---|---|---|---|---|---|---|
 | P1 | REQ-ADMIN-004 | DONE | Claude | ChatGPT | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE | PR #44 + fix PR #48, merged to `main` at `d9eb8e8` | No code action. Hosted migration is tracked separately below. | 2026-11-03 |
 | P1 | REQ-UI-003 | DONE | ChatGPT | Claude | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE; SOCIAL-RUNTIME-004 DONE | PR #47 merged to `main` at `58694df` | Claude targeted re-review was CLEAN; no further code action. | 2026-11-03 |
-| P1 | PLAN-UI-MOBILE-006 | REVIEW | ChatGPT | Claude | REQ-UI-003 DONE | `chatgpt/plan-ui-mobile-006` / PR #49, synced with `main` after #47 | Claude review was CLEAN. ChatGPT added the mechanical post-sync delivery hardening (`enhancements.js?v=22`, SW cache v31). Wait for fresh GitHub CI; if green, mark MERGE_READY and merge without another Claude round. | 2026-11-03 |
+| P1 | PLAN-UI-MOBILE-006 | MERGE_READY | ChatGPT | Claude | REQ-UI-003 DONE | `chatgpt/plan-ui-mobile-006` / PR #49 | Claude review CLEAN. Post-#47 sync and explicit delivery hardening complete (`enhancements.js?v=22`, SW cache v31). GitHub CI #142 green. Merge PR #49; no further Claude round required. | 2026-11-03 |
 | P1 | SOCIAL-PROD-SMOKE-005 | READY | ChatGPT + Jakub | Claude | SOCIAL-RUNTIME-004 DONE; production deploy of `09dad87` confirmed | no branch | Two-account production smoke: publish → feed → author → save → saved list → mobile nav. | 2026-11-03 |
 | P2 | MIGRATION-013-HOSTED | READY | Jakub | — | REQ-ADMIN-004 DONE | merged PR #48 | Apply `013_app_admins.sql` from current `main`, then add the founder admin row with the SQL in `REQUESTS_ADMIN.md`. Code is fixed and merged; hosted 013 is still not applied. | 2026-11-03 |
 | P3 | INFRA-CF-PREVIEW-001 | BACKLOG | Jakub | — | Cloudflare dashboard access | — | Workers preview builds fail on PR branches while `main` builds succeed. Treat GitHub `test` as required CI until preview configuration is fixed. | 2026-11-03 |
@@ -125,8 +125,9 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 - Time + interests stay primary; transport, food, start, budget, sightseeing style and partner offers move behind `Dopasuj szczegóły` with a compact selected-values summary.
 - No generator/backend/Supabase/request/social contract changes.
 - Claude review was CLEAN for semantics, idempotence, value preservation and progressive disclosure.
-- After #47 merged, #49 was synchronized with current `main` via merge commit. Delivery hardening was added mechanically: `enhancements.js?v=22` and service-worker cache v31 so installed clients refresh the shell instead of depending on Cloudflare/browser revalidation behavior.
-- No additional Claude review is required unless the mechanical cache change exposes a material regression.
+- After #47 merged, #49 was synchronized with current `main`. Delivery hardening is explicit: `enhancements.js?v=22` and service-worker cache v31 so installed clients refresh the shell instead of depending on Cloudflare/browser revalidation behavior.
+- Five legacy tests hardcoded to v30 were mechanically updated to v31; GitHub CI #142 passed on head `31b8ebc` before this board-only commit.
+- No additional Claude review is required unless a material regression appears.
 
 ## Database / hosted state
 

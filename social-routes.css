@@ -7,4 +7,5 @@
 #navigation a[href="#my-route"]{min-height:62px;margin-top:-10px;background:var(--surface);border:2px solid var(--cyan);color:#00788f;box-shadow:0 7px 20px #16b8d82b;z-index:2}
 #navigation a[href="#my-route"] .i{width:25px;height:25px}#navigation a[href="#my-route"].active{background:var(--cyan);color:#fff}#navigation a[href="#my-route"].chosen{background:var(--cyan-soft)}#navigation a[href="#my-route"].chosen.active{background:var(--cyan);color:#fff}#navigation a[href="#my-route"].live{background:var(--live);border-color:var(--live);color:#fff}
 #toast a[data-toast-my-route]{color:#fff;font-weight:800;text-underline-offset:2px}
+@media(max-width:420px){.top{padding-left:12px;padding-right:12px}.top .logo{width:128px}.top .right{gap:5px}.top .city-select select{max-width:96px;padding-right:16px}.header-book{width:34px;height:34px}.avatar.sm{width:34px;height:34px}}
 @media(min-width:700px){.social-grid{grid-template-columns:repeat(2,1fr)}#navigation a[href="#my-route"]{margin-top:-12px}.header-book{width:auto;padding:0 10px;gap:6px}.header-book-label{display:inline;font-size:13px;font-weight:700}}

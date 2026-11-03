@@ -42,7 +42,11 @@ This file is a compact async handoff board between agents. It is not a chat log.
 
 [DONE] BUILDER-MODEL-FIX-003 — Claude + ChatGPT review — cross-city hydration blocker fixed and final re-review clean. Foreign-city drafts now hydrate to a fresh requested-city draft with no metadata leak; `moveStopToTargetIndex` semantics and insertion-line formula are documented/tested. PR #34 merged to main with green CI.
 
-[OPEN] MAP-PROD-SMOKE-006 — ChatGPT — run after COVER-WIRE-001 reaches merge-ready so one final production pass covers both map/Nearby and route-cover rendering. Verify Warsaw and Kraków separately: map/tiles/attribution, filters/search, place detail, add-to-route, Nearby 500 m on/off and exact ordering, city switch/baskets, geolocation/RPC fallback, mobile layout, editorial hero uniqueness and visible credit/licence.
+[ACK] BUILDER-RUNTIME-001 — ChatGPT — wire `route-builder-model.js` into the live app runtime on a dedicated branch. Own `app.js`, general app styles/build/SW/tests needed for persistence and builder interactions. Required: hydrate/persist draft from `basketsByCity` + `builderMetaByCity`, route all add/remove/reorder/clear/save flows through the model, preserve current live-route lock, city isolation and backwards compatibility, and keep current `state.basket` mirror working. Do not edit Claude-owned map package while active.
+
+[OPEN] BUILDER-MAP-002 — Claude — isolated Route Builder map package. Add `setRouteStops(places)` to `map-view.js` plus focused tests and only map-specific CSS if needed. It must render numbered draft-stop markers in order plus a straight polyline between consecutive stops, clear on `[]`, coexist with normal place markers/cards/Nearby, preserve OSM attribution and mobile behavior, and never mutate/reorder the input. Do not edit `app.js`, general styles, persistence, service worker or Route Builder model. Open a PR and request ChatGPT cross-review. GREEN.
+
+[OPEN] MAP-PROD-SMOKE-006 — ChatGPT — run after BUILDER-RUNTIME-001 and BUILDER-MAP-002 are merged so one final production pass covers map/Nearby, route-cover rendering and the manual Route Builder. Verify Warsaw and Kraków separately: map/tiles/attribution, filters/search, place detail, add-to-route, Nearby 500 m on/off and exact ordering, city switch/drafts, geolocation/RPC fallback, mobile layout, editorial hero uniqueness/credit and builder numbered route stops.
 
 ## Required database actions before live parity
 

@@ -110,7 +110,7 @@ test('migration 011 implements the reviewed contract',async()=>{
   assert.match(sql,/function public\.catalogue_routes\(city_slug text\)[\s\S]*?r\.route_type='editorial'/);
   // 2 nickname via definer RPCs; profiles RLS untouched; no stay/email in the read model
   assert.doesNotMatch(sql,/policy[^;]*on public\.profiles/i);
-  const view=sql.match(/create or replace view public\.community_route_cards as([\s\S]*?);\n/)[1];
+  const view=sql.match(/create or replace view public\.community_route_cards as([\s\S]*?);\r?\n/)[1];
   assert.doesNotMatch(view,/\bstay\b|email/i);
   assert.match(sql,/revoke all on public\.community_route_cards from public,anon,authenticated/);
   for(const fn of ['community_routes','community_route','author_routes','public_profile','saved_routes'])

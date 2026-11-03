@@ -51,7 +51,7 @@ const VIS_NOTE={private:'Prywatne widzisz tylko Ty.',public:'Publiczne pokażemy
 const catalog=()=>[...places,...forCity(state.userPlaces,city().id)].filter(p=>p.kind!=='hotel');
 const ROUTE_CATS=[['all','Wszystkie'],['klasyka','Na pierwszy raz'],['zielen','Zieleń'],['wisla','Nad wodą'],['jedzenie','Z jedzeniem'],['lokalnie','Lokalnie']];
 const catName=(id,list=PLACE_CATS)=>list.find(c=>c[0]===id)?.[1]||'';
-const TAB_OF={routes:'routes',route:'routes',places:'places',events:'places','add-place':'places',plan:'plan','my-route':'my-route',book:'book',profile:'profile',sources:'profile',about:'profile'};
+const TAB_OF={routes:'routes',route:'routes',places:'places',events:'places','add-place':'places',plan:'plan','my-route':'my-route',book:'book',profile:'profile',sources:'profile',about:'profile','community-route':'routes','social-profile':'routes','social-saved':'routes'};
 const LEGACY={home:['plan'],explore:['routes'],best:['places'],food:['places','jedzenie'],hotels:['book'],sidequests:['places','sidequests'],build:['plan'],active:['my-route'],discounts:['profile'],friends:['profile'],community:['profile'],chat:['profile']};
 const route=()=>{const [t,id]=(location.hash.slice(1)||'').split('/');return [t,id];};
 const avatar=(cls='')=>state.profile.photo?`<img class="avatar ${cls}" src="${esc(state.profile.photo)}" alt="">`:`<span class="avatar ${cls}" aria-hidden="true">${esc((state.tester.nickname==='Explorer'?'O':state.tester.nickname[0]).toUpperCase())}</span>`;

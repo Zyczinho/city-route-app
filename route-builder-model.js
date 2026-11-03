@@ -22,9 +22,10 @@ export function createDraft(cityId,{name='',transport='walking',now=null}={}){
 export function hydrateDraft(raw,{cityId,isKnown=()=>true,now=null}={}){
   const meta=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{};
   const list=Array.isArray(raw)?raw:Array.isArray(meta.stops)?meta.stops:[];
+  // A draft stored for another city is refused whole: its stops and its metadata (name, transport, revision, updatedAt).
+  if(meta.cityId&&meta.cityId!==cityId)return {draft:createDraft(cityId,{now}),report:{dropped:list.map(idOf).filter(Boolean),deduped:[],crossCity:true}};
   const base=createDraft(cityId,{name:meta.name,transport:meta.transport,now:meta.updatedAt??now});
   const stops=[],dropped=[],deduped=[];
-  if(meta.cityId&&meta.cityId!==cityId)return {draft:base,report:{dropped:list.map(idOf).filter(Boolean),deduped,crossCity:true}};
   for(const v of list){
     const id=idOf(v);
     if(!id||!isKnown(id)){if(id)dropped.push(id);continue;}
@@ -68,8 +69,10 @@ export const moveStopBy=(draft,id,delta,opts)=>{
   return from<0?same(draft):moveStop(draft,id,from+Math.trunc(Number(delta)||0),opts);
 };
 
-// Drag-and-drop drop target: same semantics as core.moveStop(ids, from, to) — the moved stop takes the target's index.
-export function moveStopBefore(draft,id,targetId,opts){
+// Drop onto a target row: the moved stop takes the target's current index, exactly like core.moveStop(ids, from, to).
+// Moving up lands it before the target; moving down lands it after the target. Drag hit-testing must pick the
+// target row accordingly (ROUTE_BUILDER.md → Reorder by pointer or touch).
+export function moveStopToTargetIndex(draft,id,targetId,opts){
   const to=draft.stops.indexOf(idOf(targetId));
   return to<0?same(draft):moveStop(draft,id,to,opts);
 }

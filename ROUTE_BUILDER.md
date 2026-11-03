@@ -41,7 +41,29 @@ Draft = {
 - `basketsByCity[cityId]` stays the canonical stop list, so old clients and the live-route flow keep working. The model reads it with `hydrateDraft` and writes it back with `serializeDraft(draft).stops`.
 - The optional metadata (`name`, `transport`, `revision`, `updatedAt`) lives in a new sibling object `state.builderMetaByCity[cityId]`. It is ignored by code that doesn't know it.
 - Hydration never throws on bad input. It returns a valid draft plus a report `{dropped:[ids], deduped:[ids], crossCity:boolean}` so the UI can say "2 miejsca nie są już dostępne".
+- A draft object whose `cityId` is another city is refused whole: the result is a fresh draft for the requested city (no stops, `name:''`, `transport:'walking'`, `revision:0`, `updatedAt:now`). No foreign field survives.
 - `version` allows a later move to a single `drafts` store; unknown versions are hydrated as v1 where possible, or to an empty draft.
+
+#### Runtime integration: one source per field
+
+The basket is the only source of stops, and the meta object is the only source of everything else. Combine them on load and split them on save, always in the same `persist()`:
+
+```js
+// load (app start, city switch)
+const basket = state.basketsByCity[cityId] || [];
+const stored = state.builderMetaByCity?.[cityId];
+const meta = stored && (!stored.cityId || stored.cityId === cityId) ? stored : {}; // corrupt/foreign meta is ignored; the basket still loads
+const {draft, report} = hydrateDraft({...meta, cityId, stops: basket}, {cityId, isKnown: id => !!all[id], now: new Date().toISOString()});
+if (report.dropped.length) toast(`${report.dropped.length} miejsca nie są już dostępne`);
+
+// save (after every changed operation)
+const {stops, name, transport, revision, updatedAt} = serializeDraft(draft);
+state.basketsByCity[cityId] = stops;       // canonical stops; state.basket mirrors it for the active city
+state.builderMetaByCity[cityId] = {cityId, name, transport, revision, updatedAt}; // never store stops here
+persist();
+```
+
+Never pass `builderMetaByCity` alone to `hydrateDraft`, and never write stops anywhere except `basketsByCity`.
 
 ## Operations (pure, in `route-builder-model.js`)
 
@@ -59,7 +81,7 @@ Every operation takes a draft and returns `{draft, changed, error?}`.
 | `removeStop(draft, id)` | removes | `changed:false` if absent |
 | `moveStop(draft, id, toIndex)` | moves to an absolute index, clamped | `changed:false` if same position or absent |
 | `moveStopBy(draft, id, delta)` | keyboard/arrow move (±1) | `changed:false` at the edges |
-| `moveStopBefore(draft, id, targetId)` | drag-and-drop drop target, same semantics as `core.moveStop` | `changed:false` if the same or absent |
+| `moveStopToTargetIndex(draft, id, targetId)` | the moved stop takes the target row's current index, exactly like legacy `core.moveStop`. Moving up lands it **before** the target; moving down lands it **after** the target | `changed:false` if the same or absent |
 | `clearDraft(draft)` | empty stops, keep name/transport | `changed:false` if already empty |
 | `setName`, `setTransport` | trimmed name ≤ 80 chars; transport whitelist | `invalid` for an unknown transport |
 | `serializeDraft(draft)` | plain JSON for storage / `saveRoute` | — |
@@ -85,7 +107,8 @@ Rules:
 - Drag only by the visible handle, so scrolling stays scrolling.
 - The row lifts and the drop position shows as a line between rows.
 - Auto-scroll near the edges of the scroll container.
-- The drop commits through `moveStopBefore`. A cancel (pointer leaves the window or Escape) restores the order.
+- The drop commits from the insertion line, not from the row under the pointer. With the line at gap `g` (0 = above the first row, n = below the last) and the stop's current index `from`, call `moveStop(draft, id, g > from ? g - 1 : g)`. The visible line then always equals the result. `moveStopToTargetIndex` stays for row-based drops that must match today's `core.moveStop`.
+- A cancel (pointer leaves the window or Escape) restores the order.
 
 ### Reorder by keyboard (WCAG 2.1.1 / 2.5.7)
 - **Up/down buttons:** the per-row "Wyżej" / "Niżej" buttons stay, so a single tap or press is always available as a non-drag alternative.

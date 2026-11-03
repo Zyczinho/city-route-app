@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {moveStop as coreMoveStop} from '../core.js';
-import {MAX_STOPS,createDraft,hydrateDraft,addStop,removeStop,moveStop,moveStopBy,moveStopBefore,clearDraft,setName,setTransport,serializeDraft,toRoute,hasStop,stopPosition} from '../route-builder-model.js';
+import {MAX_STOPS,createDraft,hydrateDraft,addStop,removeStop,moveStop,moveStopBy,moveStopToTargetIndex,clearDraft,setName,setTransport,serializeDraft,toRoute,hasStop,stopPosition} from '../route-builder-model.js';
 
 const NOW='2026-11-03T10:00:00.000Z';
 const krk=id=>({id,cityId:'krakow',name:id});
@@ -23,11 +23,13 @@ test('create and hydrate a city draft from today\'s basket array',()=>{
 });
 
 test('hydration never crosses cities and respects the stop limit',()=>{
-  const stored={cityId:'warsaw',stops:['castle','old-town']};
-  const {draft,report}=hydrateDraft(stored,{cityId:'krakow'});
-  assert.deepEqual(draft.stops,[]);
-  assert.equal(report.crossCity,true);
-  assert.deepEqual(report.dropped,['castle','old-town']);
+  const stored={version:1,cityId:'warsaw',stops:['castle','old-town','castle'],name:'Warszawa wieczorem',transport:'bike',revision:7,updatedAt:'2026-10-01T08:00:00.000Z',extra:'foreign'};
+  const {draft,report}=hydrateDraft(stored,{cityId:'krakow',now:NOW});
+  assert.deepEqual(serializeDraft(draft),{version:1,cityId:'krakow',stops:[],name:'',transport:'walking',revision:0,updatedAt:NOW},'no foreign metadata survives');
+  assert.deepEqual(draft,createDraft('krakow',{now:NOW}),'identical to a fresh draft for the requested city');
+  assert.equal('extra' in draft,false);
+  assert.deepEqual(report,{dropped:['castle','old-town','castle'],deduped:[],crossCity:true});
+  assert.equal(hydrateDraft(stored,{cityId:'krakow'}).draft.updatedAt,null,'time comes only from the caller');
   const many=Array.from({length:MAX_STOPS+3},(_,i)=>`p${i}`);
   const h=hydrateDraft(many,{cityId:'krakow'});
   assert.equal(h.draft.stops.length,MAX_STOPS);
@@ -54,7 +56,7 @@ test('add keeps places unique, ordered and inside the draft city',()=>{
 
 test('operations never mutate their input',()=>{
   const d=build('a','b','c'),snapshot=JSON.stringify(d);
-  addStop(d,'d');removeStop(d,'a');moveStop(d,'a',2);moveStopBy(d,'c',-1);moveStopBefore(d,'c','a');clearDraft(d);setName(d,'X');setTransport(d,'bike');
+  addStop(d,'d');removeStop(d,'a');moveStop(d,'a',2);moveStopBy(d,'c',-1);moveStopToTargetIndex(d,'c','a');clearDraft(d);setName(d,'X');setTransport(d,'bike');
   assert.equal(JSON.stringify(d),snapshot);
   assert.ok(Object.isFrozen(d)&&Object.isFrozen(d.stops));
 });
@@ -80,13 +82,21 @@ test('move by index, by keyboard step and by drop target',()=>{
   assert.deepEqual(moveStopBy(d,'c',-1).draft.stops,['a','c','b','d']);
   assert.equal(moveStopBy(d,'a',-1).changed,false,'top edge');
   assert.equal(moveStopBy(d,'d',1).changed,false,'bottom edge');
-  assert.equal(moveStopBefore(d,'a','a').changed,false);
-  assert.equal(moveStopBefore(d,'a','missing').changed,false);
+  assert.equal(moveStopToTargetIndex(d,'a','a').changed,false);
+  assert.equal(moveStopToTargetIndex(d,'a','missing').changed,false);
 });
 
 test('drag-and-drop matches the existing core.moveStop for every pair',()=>{
   const ids=['a','b','c','d','e'],d=build(...ids);
-  for(const from of ids)for(const to of ids)assert.deepEqual([...moveStopBefore(d,from,to).draft.stops],coreMoveStop(ids,from,to),`${from}->${to}`);
+  for(const from of ids)for(const to of ids)assert.deepEqual([...moveStopToTargetIndex(d,from,to).draft.stops],coreMoveStop(ids,from,to),`${from}->${to}`);
+});
+
+test('insertion-line drops land exactly at the shown gap (ROUTE_BUILDER.md formula)',()=>{
+  const ids=['a','b','c','d'],d=build(...ids);
+  for(const [from,id] of ids.entries())for(let g=0;g<=ids.length;g++){
+    const expected=[...ids.slice(0,g),id,...ids.slice(g)].filter((x,i,arr)=>x!==id||i===g);
+    assert.deepEqual([...moveStop(d,id,g>from?g-1:g).draft.stops],expected,`${id} to gap ${g}`);
+  }
 });
 
 test('transport, serialization and route shape',()=>{

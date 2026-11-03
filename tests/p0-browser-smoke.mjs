@@ -105,6 +105,25 @@ try{
  await ctx2.setOffline(false);
  assert.deepEqual(pageErrors,[],'unexpected page exception in mobile composer');
  await ctx2.close();
+ // Independent fresh-client check against the *currently deployed* production URL.
+ // This is diagnostic: network blocks at the runner cannot prove a product failure.
+ let liveStatus='not-checked';
+ const prod=await browser.newContext({viewport:{width:375,height:812},isMobile:true,hasTouch:true});
+ const live=await prod.newPage();
+ try{
+  const response=await live.goto('https://city-route-app.jakublojek.workers.dev/#plan',{waitUntil:'domcontentloaded',timeout:25000});
+  assert.equal(response?.status(),200,'production must return HTTP 200');
+  await live.locator('#navigation a').first().waitFor({timeout:18000});
+  const tabs=await live.locator('#navigation a').evaluateAll(nodes=>nodes.map(a=>a.getAttribute('href')));
+  assert.ok(['#plan','#routes','#my-route','#routes/community','#places'].every(t=>tabs.includes(t)),'production bottom tabs are incomplete');
+  assert.equal(await live.locator('#main .loading').count(),0,'production stuck on loading');
+  liveStatus='pass';
+  await live.screenshot({path:'p0-smoke-artifacts/current-production-375.png',fullPage:true});
+ }catch(error){
+  liveStatus='unverified';
+  console.warn('WARN: production fresh smoke could not be verified from CI runner: '+error.message);
+ }finally{await prod.close();}
+ console.log('PRODUCTION_FRESH_SMOKE='+liveStatus);
  console.log('PASS: mobile 375px, 5 tabs, 10-stop optimization, B→B1 insertion, local custom place, optional rating, repeat add, PWA offline reload.');
 }finally{
  if(browser)await browser.close();

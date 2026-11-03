@@ -85,23 +85,32 @@ Template:
 
 | Priority | ID | Status | Owner | Reviewer | Depends on | Branch / PR | Next action | Last update |
 |---|---|---|---|---|---|---|---|---|
-| P0 | SOCIAL-RUNTIME-004 + NAV-MYROUTE-001 | MERGE_READY | ChatGPT | Claude | SOCIAL-DATA-003 DONE | `work/social-runtime-004` / PR #42 | Claude targeted browser retest on `0d34d71` is clear (community-route, social-profile, saved links stay on their hash). #43 merged since: re-check mergeability/CI, then merge. Signed-in saved list goes to MAP-PROD-SMOKE-006. | 2026-11-03 |
-| P0 | REQ-DATA-002 | DONE | Claude | ChatGPT | REQ-SPEC-001 DONE | PR #43 merged | Migration 012 applied to hosted Supabase by Jakub. | 2026-11-03 |
-| P1 | REQ-UI-003 | READY | ChatGPT | Claude | REQ-DATA-002 DONE; migration 012 applied | no branch | Dependencies cleared: claim and implement request entry points, duplicate/+1 flow, ranked active requests, support/unsupport and `Profil -> Twoje prosby`; no new permanent bottom-nav tab. | 2026-11-03 |
-| P1 | REQ-ADMIN-004 | REVIEW | Claude | ChatGPT | REQ-DATA-002 DONE; migration 012 applied | `claude/req-admin-004` / PR #44 | YELLOW (migration 013). ChatGPT cross-review. Scope: `013_app_admins.sql` (allow-list with no policies/grants, no UUID, no admin inserted; admin RPCs check it), isolated `admin/` page (unlinked, noindex, no `app.js`), `build.mjs` ships `admin/`, docs/tests. Do not apply 013 before merge; then Jakub adds himself by SQL (`REQUESTS_ADMIN.md`). Duplicate merging deferred (needs 012 schema change). | 2026-11-03 |
+| P0 | SOCIAL-RUNTIME-004 + NAV-MYROUTE-001 | REVIEW | ChatGPT | Claude | SOCIAL-DATA-003 DONE | `work/social-runtime-004` / PR #42 | Claude performs only the targeted browser retest of direct/internal `community-route`, `social-profile` and `social-saved` links on head `0d34d71`; if clear -> `MERGE_READY`. Do not start another full review cycle unless a new material regression appears. | 2026-11-03 |
+| P0 | REQ-DATA-002 | MERGE_READY | Claude | ChatGPT | REQ-SPEC-001 DONE | `claude/requests-data-002` / PR #43 | Final cross-review cycle 2/2 is CLEAR TO MERGE on head `0db5ed2`; merge #43. After merge, hosted migration 012 remains a separate explicit release action. | 2026-11-03 |
+| P1 | REQ-UI-003 | BLOCKED | ChatGPT | Claude | REQ-DATA-002 DONE **and** migration 012 applied to hosted Supabase | no branch | When both dependencies are true, promote to `READY` before coding. Implement request entry points, duplicate/+1 flow, ranked active requests, support/unsupport and `Profil -> Twoje prosby`; no new permanent bottom-nav tab. | 2026-11-03 |
+| P1 | REQ-ADMIN-004 | BLOCKED | Claude | ChatGPT | REQ-DATA-002 DONE; migration 012 applied; privacy/admin boundary respected | no branch | After dependencies clear, promote to `READY`. Build isolated founder/admin ranking surface without editing `app.js`; aggregate ranking is allowed, private notes/links need an explicitly authorized admin path. | 2026-11-03 |
 
 ## Current package facts
 
 ### SOCIAL-RUNTIME-004 + NAV-MYROUTE-001 — PR #42
 
-- Head `0d34d71`; router blocker fixed; Claude targeted retest clear (A+B nav verified at 375 px, no overflow).
-- `scripts/build.mjs` is touched by both #42 and #44 (one line each): trivial conflict for whichever merges second.
+- PR is open and mergeable.
+- Current head: `0d34d71`.
+- Current CI on that head is green.
+- Social Routes runtime and founder-approved A+B navigation are implemented.
+- Final browser review found one blocker: core routing redirected custom social hashes to `#plan`.
+- ChatGPT patched `TAB_OF` so `community-route`, `social-profile` and `social-saved` are recognized, added regression coverage and removed the temporary patch workflow from the final diff.
+- Remaining action is **Claude targeted browser retest only**. Until that happens, this package stays `REVIEW`.
 
-### REQ-ADMIN-004 — PR #44
+### REQ-DATA-002 — PR #43
 
-- Tests 128/128, build OK, PGlite 011 -> 012 -> 013 (applied twice) pass; signed-out browser gate verified at 375 px.
-- Admin rows show private note and http(s) link, never requester/supporter identities.
-- Signed-in admin flow not yet tested against hosted Supabase (needs 013 applied and the admin row).
+- PR is open and mergeable.
+- Current head: `0db5ed2`.
+- ChatGPT final cross-review cycle 2/2 is **CLEAR TO MERGE**.
+- Previous blockers are closed: no direct write bypass, public reads expose only active demand, own lifecycle has a private authenticated path, and creator auto-support cannot be withdrawn.
+- Scope is migration/client/docs/harness/tests plus the CRLF test fix.
+- Migration 012 has **not** been applied to hosted Supabase.
+- Remaining action is merge #43; hosted migration is a separate approved release step from merged `main`.
 
 ## Dependency rules for the current request track
 
@@ -117,15 +126,13 @@ Template:
 - Migration 009: applied.
 - Migration 010: applied.
 - Migration 011: applied successfully on 2026-11-03.
-- Migration 012: merged in PR #43 and applied on 2026-11-03.
-- Migration 013: PR #44 in review, **not applied**; apply only from merged `main`, after 012.
+- Migration 012: implemented in PR #43, final review clean, **not merged and not applied** at the time of this board update.
 
 ## Recently completed dependencies
 
 - `SOCIAL-SPEC-001` — DONE — PR #39.
 - `SOCIAL-DATA-003` — DONE — PR #40; migration 011 applied.
 - `REQ-SPEC-001` — DONE — PR #41; canonical request product contract established.
-- `REQ-DATA-002` — DONE — PR #43; migration 012 applied.
 - Route Builder / map / covers packages through PR #38 are DONE and on `main`.
 
 Older completed package history remains available in Git and merged PRs; do not keep the active control plane bloated with a full chat-style archive.

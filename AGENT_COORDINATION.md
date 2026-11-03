@@ -56,11 +56,17 @@ This file is a compact async handoff board between agents. It is not a chat log.
 
 [DONE] SOCIAL-DATA-003 — Claude + ChatGPT review — migration 011, `social-routes-client.js`, Postgres/PGlite harness, tests and `SOCIAL_ROUTES_DATA.md` merged in PR #40 after review cycle 2/2. Final fixes prevent unlisted/archived fork-source provenance from leaking through public cards/`route_ref`, while preserving provenance for both editorial and public community forks via server-side reference resolution. Hosted migration 011 applied successfully by Jakub on 2026-11-03.
 
-[ACK] SOCIAL-RUNTIME-004 — ChatGPT — branch `work/social-runtime-004` active. Integrate Social Routes into runtime UI using merged `social-routes-client.js`: publish from Route Builder, city-scoped Community feed, save/unsave, fork with draft-replacement confirmation, 1–5 rating, author profile, owned route archive/delete/edit, analytics, build inclusion and PWA cache bump. Preserve editorial routes and ADR-010 cover semantics. Also make `Moja trasa` materially more prominent on mobile navigation; founder feedback indicates current five-tab density makes the core route destination too easy to lose. Open PR and request one Claude cross-review before merge.
+[ACK] SOCIAL-RUNTIME-004 — ChatGPT + Claude review cycle 1 — PR #42 (`work/social-runtime-004`) is implementation-complete on head `103a179`. Social Routes feed/publish/save/fork/rate/author/owned-route flows, city-scoped custom views, render-loop guards, build inclusion and PWA v29 are implemented. Claude cycle-1 blockers (A+B module not shipped; suspected self-refetch loop) are fixed. CI #102: full tests + build green. Waiting only for Claude final cross-review cycle 2/2 before merge.
 
-[DONE] REQUESTS-SPEC-001 — ChatGPT — `REQUESTS.md` added to main. Requests are catalogue-demand signals, not generic support tickets: support both specific missing places and category gaps (e.g. more kebabs/bars/clubs), city-scoped, ranked by unique signed-in supporters, with a founder-facing top-demand view. Requests live under Places/Discover rather than adding a sixth bottom-nav tab.
+[DONE] REQ-SPEC-001 — Claude + ChatGPT review — `PLACE_REQUESTS.md` merged in PR #41 and reconciled with the earlier `REQUESTS.md`. Canonical product contract: city-scoped specific-place and category-gap requests, duplicate/+1 flow, one supporter per account, private notes/links, founder demand ranking, lifecycle, and no sixth bottom-nav tab. Category-gap free-text intent such as “więcej kebabów” must be preserved even when mapped to a broader taxonomy category.
 
-[OPEN] REQUESTS-DATA-002 — Claude — build the isolated Requests data package from `REQUESTS.md`. Own forward-only migration 012, `requests-client.js`, focused tests and DB/read-contract docs. Do not edit `app.js`, general styles, navigation, Social Routes runtime or service worker. Required: `catalogue_requests`, `catalogue_request_supports`, city scoping, request kinds `place|category_gap`, open/planned/added/declined lifecycle, safe public aggregate read, signed-in create/support/unsupport, no supporter identity exposure, likely-duplicate lookup, no hard-coded admin UUID, and no mutable support counters unless measured need appears. Migration 012 is YELLOW: open a PR and request ChatGPT cross-review; do not apply to hosted Supabase before merge/review.
+[ACK] REQ-DATA-002 — Claude + ChatGPT review cycle 1 — PR #43 (`claude/requests-data-002`) contains migration 012, `requests-client.js`, tests, PGlite harness and `REQUESTS_DATA.md`; CI is green and 012 has NOT been applied to hosted Supabase. ChatGPT cycle-1 review found 3 BLOCKERs: direct authenticated INSERT bypasses validated create/rate-limit/creator-support; public ranking can enumerate added/declined rows contrary to privacy spec and needs an own-request lifecycle read; creator can unsupport their automatic support. Claude owns the scoped fix; after push request final ChatGPT review cycle 2/2. Do not apply 012 before clean final review + merge.
+
+[OPEN] REQ-UI-003 — ChatGPT — start only after REQ-DATA-002 is clean, merged and migration 012 is available on hosted Supabase. Implement request entry points (search gap, category end, user-place sheet), request form with likely-duplicate/+1 suggestions, ranked active requests, support/unsupport and Profil → Twoje prośby. Do not add another permanent bottom-nav tab.
+
+[OPEN] REQ-ADMIN-004 — Claude — after REQ-DATA-002 is clean/merged, build an isolated founder/admin surface without editing `app.js`. Respect the approved privacy boundary: aggregate ranking can be operational; private notes/links require an explicit admin-authorized path. Do not expose requester/supporter identities in the ranking.
+
+[ACK] NAV-MYROUTE-001 — ChatGPT + Claude review cycle 1 — founder decision A+B is implemented inside PR #42: four bottom tabs `Ułóż trasę · Trasy · Moja trasa · Miejsca`; `Moja trasa` stays raised/prominent with existing stop badge and cyan/live-red states; `Zarezerwuj` moves to the header; add-place toast gains `Zobacz trasę`; ≤420 px header-fit guard added. Shipped in build/PWA v29, CI #102 green. Waiting for the same Claude final review cycle 2/2 as SOCIAL-RUNTIME-004.
 
 ## Required database actions before live parity
 
@@ -69,17 +75,7 @@ This file is a compact async handoff board between agents. It is not a chat log.
 - Migration 009: applied successfully.
 - Migration 010: applied successfully.
 - Migration 011: applied successfully by Jakub on 2026-11-03.
-- Migration 012: not yet implemented; do not apply until REQUESTS-DATA-002 is reviewed and merged.
-
-[OPEN] REQ-SPEC-001 — ChatGPT — review `PLACE_REQUESTS.md` (product owner request 2026-11-03): place/category requests with one-vote-per-user ranking, isolated admin ranking page gated by `app_admins`, privacy/abuse limits, and the "Moja trasa" mobile-nav proposal. Docs only.
-
-[OPEN] REQ-DATA-002 — Claude — after REQ-SPEC-001 review: forward-only migration (number after 011) + RLS/RPCs + `place-requests-client.js` + PGlite harness. YELLOW.
-
-[OPEN] REQ-UI-003 — ChatGPT — after REQ-DATA-002: request entry points (search with few results, category list end, user-place sheet), form with "+1" suggestions, Profil → Twoje prośby. YELLOW.
-
-[OPEN] REQ-ADMIN-004 — Claude — after REQ-DATA-002: isolated admin ranking page (new files only, no `app.js`). YELLOW.
-
-[OPEN] NAV-MYROUTE-001 — ChatGPT — product owner decision (Jakub, 2026-11-03): **option A+B** from `PLACE_REQUESTS.md` Part 2. A: order Ułóż trasę · Trasy · **Moja trasa** · Miejsca; Moja trasa is the raised centre tab (filled cyan, always visible) with a stop-count badge; existing chosen/live states kept; add toast "Dodano jako N. przystanek · Zobacz trasę". B: move Zarezerwuj from the bottom bar to the header menu next to Profil, leaving 4 bottom tabs. Acceptance in Part 2. Independent of the requests packages; can start now.
+- Migration 012: implemented in PR #43 but **NOT approved/merged/applied**; do not apply until REQ-DATA-002 review cycle 2/2 is clean.
 
 ## Handoff / checkpoint rule
 

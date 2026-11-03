@@ -139,16 +139,19 @@ async function renderMyRequests(force=false){
  root.innerHTML='<p class="loading" data-my-requests>Wczytuję Twoje prośby…</p>';
  try{
   await ensureTaxonomy();const rows=await api.loadMyRequests();
-  root.innerHTML=`<section data-my-requests><section class="page-head"><a class="back" href="#profile">← Profil</a><p class="kicker">Twoje prośby</p><h1>Co zgłosiłeś?</h1><p class="lead">Tutaj zobaczysz decyzję City Route i liczbę osób, które dołączyły do Twojej prośby.</p></section><a class="button primary" href="#places/request" data-request-entry data-kind="place">Nowa prośba</a>${rows.length?`<div class="request-list mine">${rows.map(r=>`<article class="request-card my-request"><div class="request-card-main"><p class="kicker">${esc(kindLabel(r.kind))}${r.categoryId?` · ${esc(catLabel(r.categoryId))}`:''}</p><h3>${esc(r.title)}</h3><p><span class="request-status-${esc(r.status)}">${esc(statusLabel(r.status))}</span> · ${r.supports} ${plural(r.supports,'osoba','osoby','osób')} · ${esc(date(r.createdAt))}</p>${r.note?`<p class="request-note">${esc(r.note)}</p>`:''}${r.sourceUrl?`<p><a href="${esc(r.sourceUrl)}" target="_blank" rel="noopener noreferrer nofollow">Twój link ↗</a></p>`:''}</div><div class="request-card-action">${r.status==='added'&&r.resolvedPlaceId?`<button class="primary" data-request-open-place="${esc(r.resolvedPlaceId)}">Zobacz dodane miejsce</button>`:''}${r.canEdit?`<button class="danger" data-request-delete="${esc(r.id)}">Usuń prośbę</button>`:''}</div></article>`).join('')}</div>`:'<div class="empty"><p>Nie wysłałeś jeszcze żadnej prośby.</p><a class="button primary" href="#places/request" data-request-entry data-kind="place">Poproś o pierwsze miejsce</a></div>'}</section>`;
+  root.innerHTML=`<section data-my-requests><section class="page-head"><a class="back" href="#profile">← Profil</a><p class="kicker">Twoje prośby</p><h1>Co zgłosiłeś?</h1><p class="lead">Tutaj zobaczysz decyzję City Route i liczbę osób, które dołączyły do Twojej prośby.</p></section><a class="button primary" href="#places/request" data-request-entry data-kind="place">Nowa prośba</a>${rows.length?`<div class="request-list mine">${rows.map(r=>`<article class="request-card my-request"><div class="request-card-main"><p class="kicker">${esc(kindLabel(r.kind))}${r.categoryId?` · ${esc(catLabel(r.categoryId))}`:''}</p><h3>${esc(r.title)}</h3><p><span class="request-status-${esc(r.status)}">${esc(statusLabel(r.status))}</span> · ${r.supports} ${plural(r.supports,'osoba','osoby','osób')} · ${esc(date(r.createdAt))}</p>${r.note?`<p class="request-note">${esc(r.note)}</p>`:''}${r.sourceUrl?`<p><a href="${esc(r.sourceUrl)}" target="_blank" rel="noopener noreferrer nofollow">Twój link ↗</a></p>`:''}</div><div class="request-card-action">${r.status==='added'&&r.resolvedPlaceId?`<button class="primary" data-request-open-place="${esc(r.resolvedPlaceId)}" data-request-open-city="${esc(r.cityId||'')}">Zobacz dodane miejsce</button>`:''}${r.canEdit?`<button class="danger" data-request-delete="${esc(r.id)}">Usuń prośbę</button>`:''}</div></article>`).join('')}</div>`:'<div class="empty"><p>Nie wysłałeś jeszcze żadnej prośby.</p><a class="button primary" href="#places/request" data-request-entry data-kind="place">Poproś o pierwsze miejsce</a></div>'}</section>`;
  }catch(error){root.innerHTML=`<section data-my-requests><a class="back" href="#profile">← Profil</a><div class="empty"><p>Nie udało się wczytać Twoich próśb (${esc(error.code||'błąd')}).</p></div></section>`;}
 }
 
 function maybeOpenResolvedPlace(){
- const id=sessionStorage.getItem(OPEN_PLACE_KEY);if(!id||route().kind!=='places'||route().id)return;
+ const raw=sessionStorage.getItem(OPEN_PLACE_KEY);if(!raw||route().kind!=='places'||route().id)return;
+ sessionStorage.removeItem(OPEN_PLACE_KEY);
+ let target;try{target=JSON.parse(raw);}catch{target={placeId:raw,cityId:null};}
+ const id=String(target?.placeId||'').trim(),targetCity=String(target?.cityId||'').trim();if(!id)return;
+ if(targetCity&&targetCity!==cityId()){toast('To miejsce jest w innym mieście albo nie jest jeszcze w katalogu.');return;}
  const root=main(),hit=[...root.querySelectorAll('[data-action="place"][data-id]')].find(x=>String(x.dataset.id)===id);
- if(hit){sessionStorage.removeItem(OPEN_PLACE_KEY);hit.click();return;}
- const clear=root.querySelector('[data-action="clear-search"]');if(clear){clear.click();return;}
- const all=root.querySelector('[data-action="cat"][data-value="all"]');if(all&&all.getAttribute('aria-pressed')!=='true')all.click();
+ if(hit){hit.click();return;}
+ toast('To miejsce jest w innym mieście albo nie jest jeszcze w katalogu.');
 }
 
 async function enhance(){
@@ -171,7 +174,7 @@ document.addEventListener('click',async e=>{
  const entry=e.target.closest?.('[data-request-entry]');if(entry){savePrefill({kind:entry.dataset.kind||'place',title:entry.dataset.title||'',categoryId:entry.dataset.category||'',sourceUrl:entry.dataset.source||''});return;}
  const support=e.target.closest?.('[data-request-support]');if(support){e.preventDefault();if(authRequired())return;support.disabled=true;try{if(support.dataset.requestSupport==='unsupport'){await api.unsupportRequest(support.dataset.id);log('place_request_unvote',{request_id:support.dataset.id});toast('Wycofano +1.');}else{await api.supportRequest(support.dataset.id);log('place_request_vote',{request_id:support.dataset.id});toast('Dodano +1.');}const {kind,id}=route();if(kind==='places'&&id==='requests')await renderRanking(true);else if(kind==='places'&&id==='request')await loadSimilar(document.querySelector('[data-request-form]'));}catch(error){alert(requestError(error.code));support.disabled=false;}return;}
  const del=e.target.closest?.('[data-request-delete]');if(del){if(!confirm('Usunąć tę prośbę?'))return;del.disabled=true;try{await api.deleteMyRequest(del.dataset.requestDelete);toast('Prośba usunięta.');await renderMyRequests(true);}catch(error){alert(requestError(error.code));del.disabled=false;}return;}
- const open=e.target.closest?.('[data-request-open-place]');if(open){sessionStorage.setItem(OPEN_PLACE_KEY,open.dataset.requestOpenPlace);location.hash='#places';return;}
+ const open=e.target.closest?.('[data-request-open-place]');if(open){sessionStorage.setItem(OPEN_PLACE_KEY,JSON.stringify({placeId:open.dataset.requestOpenPlace,cityId:open.dataset.requestOpenCity||''}));location.hash='#places';return;}
 });
 
 document.addEventListener('input',e=>{const form=e.target.closest?.('[data-request-form]');if(form&&['title','category'].includes(e.target.name))scheduleSimilar(form);});

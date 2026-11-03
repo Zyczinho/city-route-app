@@ -86,7 +86,7 @@ document.addEventListener('submit',async e=>{
   const button=form.querySelector('button');button.disabled=true;
   const status=form.elements.status.value,place=form.elements.place.value;
   try{await api.setStatus(form.dataset.statusForm,status,place);announce(`Zapisano status: ${STATUS_PL[status]}.`);await load();}
-  catch(error){announce(error.code==='unknown-place'?'Nie ma takiego opublikowanego miejsca w tym mieście.':`Nie udało się zapisać (${error.code||'błąd'}).`);alert($('#admin-status').textContent);button.disabled=false;}
+  catch(error){announce(error.code==='place-required'?'Status „Dodane” wymaga ID miejsca z katalogu.':error.code==='unknown-place'?'Nie ma takiego opublikowanego miejsca w tym mieście.':`Nie udało się zapisać (${error.code||'błąd'}).`);alert($('#admin-status').textContent);button.disabled=false;}
 });
 supabase.auth.onAuthStateChange((event)=>{if(event==='SIGNED_OUT')location.reload();});
 start().catch(error=>{console.error(error);gate('<h1>Coś poszło nie tak</h1><p class="lead">Odśwież stronę albo spróbuj później.</p>');});

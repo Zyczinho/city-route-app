@@ -134,7 +134,7 @@ try{
  await writeFile(swPath,latestSW.replace("city-route-v35","city-route-v33"));
  try{
   const upgradeCtx=await browser.newContext({viewport:{width:375,height:812},isMobile:true,hasTouch:true});
-  await upgradeCtx.route(/supabase\\.co/,route=>route.abort());
+  await upgradeCtx.route(/supabase\.co/,route=>route.abort());
   const upgradePage=await upgradeCtx.newPage();
   await upgradePage.goto(BASE+'/#plan',{waitUntil:'domcontentloaded'});
   await upgradePage.waitForFunction(async()=>{const names=await caches.keys();return names.includes('city-route-v33');},undefined,{timeout:25000});

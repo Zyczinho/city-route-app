@@ -6,11 +6,22 @@ const desiredNav=['#plan','#routes','#my-route','#places'];
 let navSyncing=false;
 
 function ensureHeaderBooking(){
- if(!headerRight||headerRight.querySelector('[data-header-book]'))return;
- const link=document.createElement('a');
- link.href='#book';link.className='header-book';link.dataset.headerBook='';link.setAttribute('aria-label','Zarezerwuj');
- link.innerHTML='<span class="i" style="--i:url(./assets/icons/ui/ticket-percent.svg)" aria-hidden="true"></span><span class="header-book-label">Zarezerwuj</span>';
- const profile=headerRight.querySelector('#me');headerRight.insertBefore(link,profile||null);
+ if(!headerRight)return null;
+ let link=headerRight.querySelector('[data-header-book]');
+ if(!link){
+  link=document.createElement('a');
+  link.href='#book';link.className='header-book';link.dataset.headerBook='';link.setAttribute('aria-label','Zarezerwuj');
+  link.innerHTML='<span class="i" style="--i:url(./assets/icons/ui/ticket-percent.svg)" aria-hidden="true"></span><span class="header-book-label">Zarezerwuj</span>';
+  const profile=headerRight.querySelector('#me');headerRight.insertBefore(link,profile||null);
+ }
+ return link;
+}
+
+function syncHeaderBooking(){
+ const link=ensureHeaderBooking();if(!link)return;
+ const active=(location.hash.split('/')[0]||'#plan')==='#book';
+ link.classList.toggle('active',active);
+ if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');
 }
 
 function enforceBottomNav(){
@@ -18,7 +29,8 @@ function enforceBottomNav(){
  const book=nav.querySelector('a[href="#book"]');
  const current=[...nav.querySelectorAll(':scope > a')].filter(a=>a.getAttribute('href')!=='#book').map(a=>a.getAttribute('href'));
  const ordered=current.length===desiredNav.length&&desiredNav.every((href,i)=>current[i]===href);
- if(!book&&ordered){nav.querySelector('a[href="#my-route"]')?.classList.add('my-route-primary');return;}
+ const primary=nav.querySelector('a[href="#my-route"]');
+ if(!book&&ordered&&primary?.classList.contains('my-route-primary'))return;
  navSyncing=true;
  try{
   book?.remove();
@@ -35,6 +47,8 @@ function makeAddToastActionable(){
  toast.append(' · ',a);
 }
 
-ensureHeaderBooking();enforceBottomNav();makeAddToastActionable();
+function syncNavigation(){syncHeaderBooking();enforceBottomNav();}
+syncNavigation();makeAddToastActionable();
+window.addEventListener('hashchange',syncHeaderBooking);
 if(nav)new MutationObserver(enforceBottomNav).observe(nav,{childList:true});
 if(toast)new MutationObserver(makeAddToastActionable).observe(toast,{childList:true,characterData:true,subtree:true});

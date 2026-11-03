@@ -97,7 +97,7 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 
 | Priority | ID | Status | Owner | Reviewer | Depends on | Branch / PR | Next action | Last update |
 |---|---|---|---|---|---|---|---|---|
-| P1 | UX-CLEANUP-007 | REVIEW | ChatGPT | Jakub (visual) | PLAN-UI-MOBILE-006 DONE; SOCIAL-RUNTIME-004 DONE | `chatgpt/ux-cleanup-007` / PR #50 | Founder visual acceptance of the five-tab nav, slimmer My Route tab and brutally simple planner. GitHub CI #147 is green; merge only after visual acceptance or an explicit production-check decision. | 2026-11-03 |
+| P1 | UX-CLEANUP-007 | REVIEW | ChatGPT | Jakub (visual) | PLAN-UI-MOBILE-006 DONE; SOCIAL-RUNTIME-004 DONE | PR #50 merged to `main` at `da82633` | Code merged 2026-11-03 16:30 UTC; founder to verify actual production deploy and visual UX on desktop/mobile. Mark DONE after that acceptance. | 2026-11-03 |
 | P1 | REQ-ADMIN-004 | DONE | Claude | ChatGPT | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE | PR #44 + fix PR #48, merged to `main` at `d9eb8e8` | No code action. Hosted migration is tracked separately below. | 2026-11-03 |
 | P1 | REQ-UI-003 | DONE | ChatGPT | Claude | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE; SOCIAL-RUNTIME-004 DONE | PR #47 merged to `main` at `58694df` | Claude targeted re-review was CLEAN; no further code action. | 2026-11-03 |
 | P1 | PLAN-UI-MOBILE-006 | DONE | ChatGPT | Claude | REQ-UI-003 DONE | PR #49 merged to `main` at `c9d2681` | No code action. Claude review CLEAN; post-sync cache hardening and GitHub CI #143 were green before merge. | 2026-11-03 |
@@ -107,7 +107,7 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 
 ## Current package facts
 
-### UX-CLEANUP-007 — PR #50 — REVIEW
+### UX-CLEANUP-007 — PR #50 — merged, visual production acceptance pending
 
 - Founder feedback from production screenshots: add a dedicated **Społeczność** tab, reduce the oversized/raised `Moja trasa` treatment and make the planner substantially calmer than PR #49 achieved visually.
 - Bottom navigation now has five entries: Ułóż trasę, Trasy, Moja trasa, Społeczność, Miejsca. Społeczność reuses the existing Social Routes feed instead of duplicating backend/data logic.

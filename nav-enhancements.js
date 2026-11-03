@@ -50,7 +50,13 @@ function enforceBottomNav(){
  try{
   const book=nav.querySelector('a[href="#book"]');book?.remove();
   ensureCommunityTab();
-  for(const href of desiredNav){const a=nav.querySelector(`a[href="${href}"]`);if(a)nav.append(a);}
+  // MutationObserver watches childList. Appending already-ordered nodes also emits
+  // mutations and would re-schedule this function forever, starving app startup.
+  const ordered=desiredNav.map(href=>nav.querySelector(`a[href="${href}"]`)).filter(Boolean);
+  const current=[...nav.children];
+  if(current.length!==ordered.length||ordered.some((node,i)=>current[i]!==node)){
+   for(const node of ordered)nav.append(node);
+  }
   nav.querySelector('a[href="#my-route"]')?.classList.add('my-route-primary');
   syncCommunityActive();
  }finally{navSyncing=false;}

@@ -4,14 +4,15 @@
 
 export const KINDS=['place','category_gap'];
 export const SORTS=['popular','newest'];
-export const STATUSES=['active','open','planned','added','declined','all'];
+// Public demand is active demand only; your own added/declined requests come from loadMyRequests().
+export const STATUSES=['active','open','planned'];
 const MAX_TITLE=120,MAX_NOTE=500,MAX_URL=500,PAGE_MAX=50;
 
 export class RequestsError extends Error{
   constructor(code,detail=null,cause=null){super(detail?`${code}:${detail}`:code);this.name='RequestsError';this.code=code;this.detail=detail;this.cause=cause;}
 }
 
-const KNOWN=/\b(auth-required|city-not-found|invalid-kind|invalid-title|invalid-category|category-required|invalid-note|invalid-url|rate-limited|request-not-supportable|not-deletable)\b/;
+const KNOWN=/\b(auth-required|city-not-found|invalid-kind|invalid-title|invalid-category|category-required|invalid-note|invalid-url|rate-limited|request-not-supportable|not-deletable|not-editable|creator-support-required)\b/;
 export function toRequestsError(error){
   if(error instanceof RequestsError)return error;
   const message=String(error?.message||error||'');
@@ -64,7 +65,7 @@ export function createRequestsClient({client}={}){
   const scalar=data=>String(Array.isArray(data)?data[0]:data);
 
   return {
-    // Ranking for one city. status: 'active' (open+planned, default) | open | planned | added | declined | all.
+    // Ranking for one city. status: 'active' (open+planned, default) | open | planned.
     async loadRequests({citySlug,kind=null,category=null,status='active',sort='popular',limit=20,cursor=null}={}){
       if(!citySlug)throw new RequestsError('city-not-found');
       const size=Math.min(Math.max(int(limit)||20,1),PAGE_MAX),offset=Math.max(int(cursor),0);
@@ -92,6 +93,15 @@ export function createRequestsClient({client}={}){
     async supportRequest(requestId){return scalar(await call('support_catalogue_request',{p_request_id:requestId}));},
     async unsupportRequest(requestId){return scalar(await call('unsupport_catalogue_request',{p_request_id:requestId}));},
     async deleteMyRequest(requestId){return scalar(await call('delete_my_catalogue_request',{p_request_id:requestId}));},
+    // Edit your own request while it is open and only you support it (kind and city never change).
+    async updateMyRequest(requestId,{kind,title,categoryId=null,note='',sourceUrl=null}={}){
+      const invalid=validateRequest({citySlug:'-',kind,title,categoryId,note,sourceUrl});if(invalid)throw new RequestsError(invalid);
+      return scalar(await call('update_my_catalogue_request',{p_request_id:requestId,p_title:String(title).replace(/\s+/g,' ').trim(),p_category:categoryId||null,p_note:String(note||''),p_source_url:String(sourceUrl||'').trim()||null}));
+    },
+    // Profil → Twoje prośby: your requests in every status, with your own note, link and the resolved place.
+    async loadMyRequests(){
+      return rows(await call('my_catalogue_requests',{})).map(r=>({...requestFromRow(r),note:r.note||'',sourceUrl:r.source_url||null,canEdit:!!r.can_edit}));
+    },
     // Supported/mine state for a page of cards in one call: Map(id -> {supported, mine}).
     async loadMyRequestMarks(requestIds=[]){
       const ids=[...new Set(requestIds.map(String))];if(!ids.length)return new Map();

@@ -1,8 +1,9 @@
 -- 012 Catalogue requests / missing-place demand (REQUESTS.md, REQUESTS-DATA-002). Forward-only and safe to re-run.
 -- Users request a missing place or a category gap in a city and support each other's requests (one support per
 -- user). Ranking aggregates support rows; no counters. Public reads go through definer RPCs that never return
--- note, source URL, creator or supporter identities. Status is changed only by the service role / SQL until an
--- admin-role contract exists: authenticated users have no UPDATE privilege on it.
+-- note, source URL, creator or supporter identities, and only for open/planned demand. Clients cannot write any
+-- table directly: every write is a validated definer RPC. Status is changed only by the service role / SQL until
+-- an admin-role contract exists.
 
 -- 1. Duplicate-discovery key: lowercase, Polish diacritics folded, punctuation collapsed to single spaces ------
 create or replace function public.catalogue_request_key(p_text text)
@@ -57,52 +58,33 @@ create trigger catalogue_requests_set_updated_at before update on public.catalog
 for each row execute function public.set_updated_at();
 
 -- 3. Privileges and RLS --------------------------------------------------------------------------------------
--- Column-level UPDATE: users can fix their own title/category/note/link while allowed, never status,
--- resolution, city, kind or creator. Status mutation stays a service-role/SQL operation (see the docs).
+-- Clients may only READ their own rows. Every write (create, edit, delete, support, unsupport) goes through the
+-- security-definer RPCs in section 6, which check auth.uid() and all rules explicitly, so validation, the
+-- 20/24 h limit, the creator's automatic support and "status is never client-writable" cannot be bypassed with
+-- a direct table INSERT/UPDATE/DELETE.
 alter table public.catalogue_requests enable row level security;
 alter table public.catalogue_request_supports enable row level security;
-revoke all on public.catalogue_requests,public.catalogue_request_supports from anon,authenticated;
-grant select,insert,delete on public.catalogue_requests to authenticated;
-grant update (title,category_id,note,source_url) on public.catalogue_requests to authenticated;
-grant select,insert,delete on public.catalogue_request_supports to authenticated;
+revoke all on public.catalogue_requests,public.catalogue_request_supports from public,anon,authenticated;
+grant select on public.catalogue_requests,public.catalogue_request_supports to authenticated;
 
--- RLS hides other users' rows from the caller, so policies that must look across users use these narrow definer
--- helpers. Each answers one yes/no question about a request and returns nothing else.
-create or replace function public.catalogue_request_supportable(p_request_id uuid)
-returns boolean set search_path='' language sql stable security definer as $$
-  select exists(select 1 from public.catalogue_requests r where r.id=p_request_id and r.status in ('open','planned'));
-$$;
+drop policy if exists catalogue_requests_select_own on public.catalogue_requests;
+create policy catalogue_requests_select_own on public.catalogue_requests for select to authenticated using (created_by=(select auth.uid()));
+drop policy if exists catalogue_request_supports_select_own on public.catalogue_request_supports;
+create policy catalogue_request_supports_select_own on public.catalogue_request_supports for select to authenticated using (user_id=(select auth.uid()));
+-- Write policies from the first draft of 012 are dropped if present: no client role has write privileges.
+drop policy if exists catalogue_requests_insert_own on public.catalogue_requests;
+drop policy if exists catalogue_requests_update_own on public.catalogue_requests;
+drop policy if exists catalogue_requests_delete_own on public.catalogue_requests;
+drop policy if exists catalogue_request_supports_insert_own on public.catalogue_request_supports;
+drop policy if exists catalogue_request_supports_delete_own on public.catalogue_request_supports;
+
+-- Edit/delete is allowed only while a request is open and nobody but its creator supports it.
 create or replace function public.catalogue_request_has_other_supporters(p_request_id uuid)
-returns boolean set search_path='' language sql stable security definer as $$
+returns boolean set search_path='' language sql stable as $$
   select exists(select 1 from public.catalogue_request_supports s
                 join public.catalogue_requests r on r.id=s.request_id
                 where s.request_id=p_request_id and s.user_id<>r.created_by);
 $$;
-
--- Own rows only. Public demand is read through the aggregate RPCs below.
-drop policy if exists catalogue_requests_select_own on public.catalogue_requests;
-create policy catalogue_requests_select_own on public.catalogue_requests for select to authenticated using (created_by=(select auth.uid()));
-drop policy if exists catalogue_requests_insert_own on public.catalogue_requests;
-create policy catalogue_requests_insert_own on public.catalogue_requests for insert to authenticated
-with check (created_by=(select auth.uid()) and status='open' and resolved_place_id is null);
--- Edit/delete your own request only while it is open and nobody else supports it (shared demand is preserved).
-drop policy if exists catalogue_requests_update_own on public.catalogue_requests;
-create policy catalogue_requests_update_own on public.catalogue_requests for update to authenticated
-using (created_by=(select auth.uid()) and status='open' and not public.catalogue_request_has_other_supporters(id))
-with check (created_by=(select auth.uid()) and status='open');
-drop policy if exists catalogue_requests_delete_own on public.catalogue_requests;
-create policy catalogue_requests_delete_own on public.catalogue_requests for delete to authenticated
-using (created_by=(select auth.uid()) and status='open' and not public.catalogue_request_has_other_supporters(id));
-
-drop policy if exists catalogue_request_supports_select_own on public.catalogue_request_supports;
-create policy catalogue_request_supports_select_own on public.catalogue_request_supports for select to authenticated using (user_id=(select auth.uid()));
-drop policy if exists catalogue_request_supports_delete_own on public.catalogue_request_supports;
-create policy catalogue_request_supports_delete_own on public.catalogue_request_supports for delete to authenticated using (user_id=(select auth.uid()));
-
--- Supports count only while a request is still open or planned.
-drop policy if exists catalogue_request_supports_insert_own on public.catalogue_request_supports;
-create policy catalogue_request_supports_insert_own on public.catalogue_request_supports for insert to authenticated
-with check (user_id=(select auth.uid()) and public.catalogue_request_supportable(request_id));
 
 -- 4. Read model: safe public card + aggregates, revoked from clients ----------------------------------------
 -- Never contains note, source_url, created_by or supporter identities.
@@ -134,7 +116,9 @@ cross join lateral (
 revoke all on public.catalogue_request_cards from public,anon,authenticated;
 
 -- 5. Read RPCs (definer: aggregates across users; every one filters to safe card columns) -------------------
--- p_status: 'active' (open+planned, default), 'open', 'planned', 'added', 'declined' or 'all'.
+-- Public demand is active demand only: open and planned. Added/declined requests are never enumerable here;
+-- each creator sees their own lifecycle through my_catalogue_requests(). p_status: 'active' (default) | 'open' |
+-- 'planned'; anything else is treated as 'active'.
 create or replace function public.catalogue_requests_ranked(
   p_city_slug text,p_kind text default null,p_category text default null,p_status text default 'active',
   p_sort text default 'popular',p_limit integer default 20,p_offset integer default 0
@@ -149,16 +133,32 @@ as $$
   where c.city_slug=p_city_slug
     and (p_kind is null or c.request_kind=p_kind)
     and (p_category is null or c.category_id=p_category)
-    and case coalesce(p_status,'active')
-          when 'active' then c.status in ('open','planned')
-          when 'all' then true
-          else c.status=p_status end
+    and c.status in ('open','planned')
+    and case when p_status in ('open','planned') then c.status=p_status else true end
   order by
     case when p_sort='newest' then extract(epoch from c.created_at) else c.support_count end desc,
     case when p_sort='newest' then c.support_count else extract(epoch from c.created_at) end desc,
     c.id
   limit least(greatest(coalesce(p_limit,20),1),50)
   offset greatest(coalesce(p_offset,0),0);
+$$;
+
+-- Your own requests in every status (Profil → Twoje prośby), newest first, with your private note and link.
+create or replace function public.my_catalogue_requests()
+returns table(id uuid,city_slug text,request_kind text,title text,category_id text,note text,source_url text,status text,
+              resolved_place_id text,created_at timestamptz,updated_at timestamptz,support_count integer,can_edit boolean)
+set search_path=''
+language sql
+stable
+security definer
+as $$
+  select c.id,c.city_slug,c.request_kind,c.title,c.category_id,r.note,r.source_url,c.status,c.resolved_place_id,
+         c.created_at,c.updated_at,c.support_count,
+         (c.status='open' and not public.catalogue_request_has_other_supporters(c.id))
+  from public.catalogue_requests r
+  join public.catalogue_request_cards c on c.id=r.id
+  where r.created_by=(select auth.uid())
+  order by c.created_at desc,c.id;
 $$;
 
 -- Likely duplicates before creating: same city, still open/planned, scored by shared words of the normalized
@@ -209,11 +209,25 @@ as $$
   from unnest(coalesce(p_request_ids,'{}'::uuid[])) as ids(id);
 $$;
 
--- 6. Write RPCs (security invoker: the RLS and column privileges above decide) -----------------------------
+-- 6. Write RPCs. security definer with an empty search_path: they are the only write path (no client role has
+-- table write privileges), so each one checks auth.uid() and every rule itself.
+create or replace function public.catalogue_request_validate(
+  p_kind text,p_title text,p_category text,p_note text,p_source_url text
+) returns void set search_path='' language plpgsql stable as $$
+begin
+  if p_kind not in ('place','category_gap') then raise exception 'invalid-kind' using errcode='22023'; end if;
+  if char_length(p_title) not between 2 and 120 or public.catalogue_request_key(p_title)='' then raise exception 'invalid-title' using errcode='22023'; end if;
+  if p_category is not null and not exists(select 1 from public.place_categories pc where pc.id=p_category and pc.active)
+  then raise exception 'invalid-category' using errcode='22023'; end if;
+  if p_kind='category_gap' and p_category is null then raise exception 'category-required' using errcode='22023'; end if;
+  if char_length(coalesce(p_note,''))>500 then raise exception 'invalid-note' using errcode='22023'; end if;
+  if p_source_url is not null and (char_length(p_source_url)>500 or p_source_url !~* '^https?://') then raise exception 'invalid-url' using errcode='22023'; end if;
+end $$;
+
 create or replace function public.create_catalogue_request(
   p_city_slug text,p_kind text,p_title text,p_category text default null,p_note text default '',p_source_url text default null
 )
-returns uuid set search_path='' language plpgsql volatile as $$
+returns uuid set search_path='' language plpgsql volatile security definer as $$
 declare
   v_uid uuid:=(select auth.uid());
   v_city uuid;
@@ -224,17 +238,11 @@ begin
   if v_uid is null then raise exception 'auth-required' using errcode='28000'; end if;
   select id into v_city from public.cities where slug=p_city_slug and status<>'hidden';
   if v_city is null then raise exception 'city-not-found' using errcode='P0002'; end if;
-  if p_kind not in ('place','category_gap') then raise exception 'invalid-kind' using errcode='22023'; end if;
-  if char_length(v_title) not between 2 and 120 or public.catalogue_request_key(v_title)='' then raise exception 'invalid-title' using errcode='22023'; end if;
-  if p_category is not null and not exists(select 1 from public.place_categories pc where pc.id=p_category and pc.active)
-  then raise exception 'invalid-category' using errcode='22023'; end if;
-  if p_kind='category_gap' and p_category is null then raise exception 'category-required' using errcode='22023'; end if;
-  if char_length(coalesce(p_note,''))>500 then raise exception 'invalid-note' using errcode='22023'; end if;
-  if v_url is not null and (char_length(v_url)>500 or v_url !~* '^https?://') then raise exception 'invalid-url' using errcode='22023'; end if;
-  -- Abuse limit: 20 new requests per user per 24 h (own rows are visible to the caller through RLS).
+  perform public.catalogue_request_validate(p_kind,v_title,p_category,p_note,v_url);
+  -- 20 live requests per user per 24 h. Counts surviving rows: deleting an unsupported request frees a slot
+  -- (documented; it cannot persist spam because deleted rows are gone).
   if (select count(*) from public.catalogue_requests r where r.created_by=v_uid and r.created_at>now()-interval '24 hours')>=20
   then raise exception 'rate-limited' using errcode='54000'; end if;
-
   insert into public.catalogue_requests(city_id,request_kind,title,normalized_key,category_id,note,source_url,created_by)
   values(v_city,p_kind,v_title,'',p_category,coalesce(p_note,''),v_url,v_uid)
   returning id into v_id;
@@ -242,47 +250,74 @@ begin
   return v_id;
 end $$;
 
-create or replace function public.support_catalogue_request(p_request_id uuid)
-returns uuid set search_path='' language plpgsql volatile as $$
+-- Edit your own request while it is open and only you support it. Kind, city, status and creator never change.
+create or replace function public.update_my_catalogue_request(
+  p_request_id uuid,p_title text,p_category text default null,p_note text default '',p_source_url text default null
+)
+returns uuid set search_path='' language plpgsql volatile security definer as $$
+declare
+  v_uid uuid:=(select auth.uid());
+  v_kind text;
+  v_title text:=btrim(regexp_replace(coalesce(p_title,''),'\s+',' ','g'));
+  v_url text:=nullif(btrim(coalesce(p_source_url,'')),'');
 begin
-  if (select auth.uid()) is null then raise exception 'auth-required' using errcode='28000'; end if;
-  if not public.catalogue_request_supportable(p_request_id) then raise exception 'request-not-supportable' using errcode='P0002'; end if;
-  insert into public.catalogue_request_supports(request_id,user_id) values(p_request_id,(select auth.uid())) on conflict do nothing;
-  return p_request_id;
-end $$;
-
-create or replace function public.unsupport_catalogue_request(p_request_id uuid)
-returns uuid set search_path='' language plpgsql volatile as $$
-begin
-  if (select auth.uid()) is null then raise exception 'auth-required' using errcode='28000'; end if;
-  delete from public.catalogue_request_supports where request_id=p_request_id and user_id=(select auth.uid());
+  if v_uid is null then raise exception 'auth-required' using errcode='28000'; end if;
+  select r.request_kind into v_kind from public.catalogue_requests r
+  where r.id=p_request_id and r.created_by=v_uid and r.status='open' and not public.catalogue_request_has_other_supporters(r.id);
+  if v_kind is null then raise exception 'not-editable' using errcode='42501'; end if;
+  perform public.catalogue_request_validate(v_kind,v_title,p_category,p_note,v_url);
+  update public.catalogue_requests set title=v_title,category_id=p_category,note=coalesce(p_note,''),source_url=v_url where id=p_request_id;
   return p_request_id;
 end $$;
 
 create or replace function public.delete_my_catalogue_request(p_request_id uuid)
-returns uuid set search_path='' language plpgsql volatile as $$
+returns uuid set search_path='' language plpgsql volatile security definer as $$
 declare v_id uuid;
 begin
   if (select auth.uid()) is null then raise exception 'auth-required' using errcode='28000'; end if;
-  delete from public.catalogue_requests where id=p_request_id returning id into v_id;-- RLS: own, open, no third-party support
+  delete from public.catalogue_requests r
+  where r.id=p_request_id and r.created_by=(select auth.uid()) and r.status='open' and not public.catalogue_request_has_other_supporters(r.id)
+  returning r.id into v_id;
   if v_id is null then raise exception 'not-deletable' using errcode='42501'; end if;
   return v_id;
 end $$;
 
+create or replace function public.support_catalogue_request(p_request_id uuid)
+returns uuid set search_path='' language plpgsql volatile security definer as $$
+begin
+  if (select auth.uid()) is null then raise exception 'auth-required' using errcode='28000'; end if;
+  if not exists(select 1 from public.catalogue_requests r where r.id=p_request_id and r.status in ('open','planned'))
+  then raise exception 'request-not-supportable' using errcode='P0002'; end if;
+  insert into public.catalogue_request_supports(request_id,user_id) values(p_request_id,(select auth.uid())) on conflict do nothing;
+  return p_request_id;
+end $$;
+
+-- The creator's support is part of owning the request: it cannot be withdrawn (delete the request instead).
+create or replace function public.unsupport_catalogue_request(p_request_id uuid)
+returns uuid set search_path='' language plpgsql volatile security definer as $$
+begin
+  if (select auth.uid()) is null then raise exception 'auth-required' using errcode='28000'; end if;
+  if exists(select 1 from public.catalogue_requests r where r.id=p_request_id and r.created_by=(select auth.uid()))
+  then raise exception 'creator-support-required' using errcode='42501'; end if;
+  delete from public.catalogue_request_supports where request_id=p_request_id and user_id=(select auth.uid());
+  return p_request_id;
+end $$;
+
 -- 7. Execute grants. Supabase default privileges grant EXECUTE to anon/authenticated explicitly, so revoke from
--- all three before granting exactly what each role needs.
+-- all three before granting exactly what each role needs. Helpers are not callable by clients at all.
 revoke execute on function
-  public.catalogue_request_key(text),public.catalogue_requests_set_key(),public.catalogue_request_supportable(uuid),public.catalogue_request_has_other_supporters(uuid),
+  public.catalogue_request_key(text),public.catalogue_requests_set_key(),public.catalogue_request_has_other_supporters(uuid),
+  public.catalogue_request_validate(text,text,text,text,text),
   public.catalogue_requests_ranked(text,text,text,text,text,integer,integer),public.similar_catalogue_requests(text,text,text,text,integer),
-  public.my_catalogue_request_marks(uuid[]),public.create_catalogue_request(text,text,text,text,text,text),
+  public.my_catalogue_request_marks(uuid[]),public.my_catalogue_requests(),
+  public.create_catalogue_request(text,text,text,text,text,text),public.update_my_catalogue_request(uuid,text,text,text,text),
   public.support_catalogue_request(uuid),public.unsupport_catalogue_request(uuid),public.delete_my_catalogue_request(uuid)
 from public,anon,authenticated;
 grant execute on function
   public.catalogue_requests_ranked(text,text,text,text,text,integer,integer),public.similar_catalogue_requests(text,text,text,text,integer)
 to anon,authenticated;
--- catalogue_request_key and catalogue_request_supportable are called by the trigger/policy/RPCs as the caller.
 grant execute on function
-  public.catalogue_request_key(text),public.catalogue_request_supportable(uuid),public.catalogue_request_has_other_supporters(uuid),
-  public.my_catalogue_request_marks(uuid[]),public.create_catalogue_request(text,text,text,text,text,text),
+  public.my_catalogue_request_marks(uuid[]),public.my_catalogue_requests(),
+  public.create_catalogue_request(text,text,text,text,text,text),public.update_my_catalogue_request(uuid,text,text,text,text),
   public.support_catalogue_request(uuid),public.unsupport_catalogue_request(uuid),public.delete_my_catalogue_request(uuid)
 to authenticated;

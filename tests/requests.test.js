@@ -30,7 +30,9 @@ test('ranking is one city-scoped RPC with whitelisted filters, sorts and a curso
   assert.deepEqual(calls[0],['catalogue_requests_ranked',{p_city_slug:'krakow',p_kind:'category_gap',p_category:'club',p_status:'active',p_sort:'popular',p_limit:2,p_offset:2}]);
   assert.equal(page.requests.length,2);assert.equal(page.nextCursor,'4');
   await api.loadRequests({citySlug:'krakow',kind:'bogus',status:'added',sort:'newest',limit:500});
-  assert.deepEqual(calls[1][1],{p_city_slug:'krakow',p_kind:null,p_category:null,p_status:'added',p_sort:'newest',p_limit:50,p_offset:0});
+  assert.deepEqual(calls[1][1],{p_city_slug:'krakow',p_kind:null,p_category:null,p_status:'active',p_sort:'newest',p_limit:50,p_offset:0},'added/declined are never requested publicly');
+  await api.loadRequests({citySlug:'krakow',status:'planned'});
+  assert.equal(calls[2][1].p_status,'planned');
   await assert.rejects(api.loadRequests({}),{code:'city-not-found'});
 });
 
@@ -75,7 +77,20 @@ test('support, unsupport, delete and page marks',async()=>{
   assert.equal((await api.loadMyRequestMarks([])).size,0);
 });
 
+test('own requests: lifecycle read and validated edit',async()=>{
+  const {client,calls}=fake({my_catalogue_requests:{data:[{...row,status:'added',resolved_place_id:'w1',note:'dobry',source_url:'https://x.example',can_edit:false}],error:null},update_my_catalogue_request:{data:R,error:null}});
+  const api=createRequestsClient({client});
+  const [mine]=await api.loadMyRequests();
+  assert.equal(mine.status,'added');assert.equal(mine.resolvedPlaceId,'w1');assert.equal(mine.note,'dobry');assert.equal(mine.sourceUrl,'https://x.example');assert.equal(mine.canEdit,false);
+  await api.updateMyRequest(R,{kind:'place',title:'  Bar   Słoneczny  s ',categoryId:'bar'});
+  assert.deepEqual(calls[1],['update_my_catalogue_request',{p_request_id:R,p_title:'Bar Słoneczny s',p_category:'bar',p_note:'',p_source_url:null}]);
+  await assert.rejects(api.updateMyRequest(R,{kind:'category_gap',title:'Więcej barów'}),{code:'category-required'});
+  assert.equal(calls.length,2);
+});
+
 test('server errors map to stable codes',async()=>{
+  assert.equal(toRequestsError({message:'creator-support-required'}).code,'creator-support-required');
+  assert.equal(toRequestsError({message:'not-editable'}).code,'not-editable');
   assert.equal(toRequestsError({message:'rate-limited'}).code,'rate-limited');
   assert.equal(toRequestsError({message:'request-not-supportable'}).code,'request-not-supportable');
   assert.equal(toRequestsError({message:'permission denied for function support_catalogue_request',code:'42501'}).code,'forbidden');
@@ -96,14 +111,20 @@ test('migration 012 implements the REQUESTS.md contract',async()=>{
   assert.doesNotMatch(sql,/support_count\s+(int|integer)\s/i);
   assert.match(sql,/count\(\*\)::int as support_count/);
   // public cards never carry private fields
-  const view=sql.match(/create or replace view public\.catalogue_request_cards as([\s\S]*?);\n/)[1];
+  const view=sql.match(/create or replace view public\.catalogue_request_cards as([\s\S]*?);\r?\n/)[1];
   for(const k of ['note','source_url','created_by','user_id','email'])assert.doesNotMatch(view.split('from public.catalogue_requests')[0],new RegExp(`\\b${k}\\b`),`card exposes ${k}`);
   assert.match(sql,/revoke all on public\.catalogue_request_cards from public,anon,authenticated/);
-  // status never writable by users; no admin UUID
-  assert.match(sql,/grant update \(title,category_id,note,source_url\) on public\.catalogue_requests to authenticated/);
+  // no client role can write either table: every write is a validated definer RPC; no admin UUID
+  assert.match(sql,/grant select on public\.catalogue_requests,public\.catalogue_request_supports to authenticated;/);
+  assert.doesNotMatch(sql,/grant (insert|update|delete|all)[^;]* on public\.catalogue_request/i);
+  for(const fn of ['create_catalogue_request','update_my_catalogue_request','delete_my_catalogue_request','support_catalogue_request','unsupport_catalogue_request'])
+    assert.match(sql,new RegExp(`function public\\.${fn}\\([\\s\\S]*?security definer`),`${fn} must be the definer write path`);
+  // public demand only open/planned; owners read their own lifecycle; creator support is permanent
+  assert.match(sql.match(/function public\.catalogue_requests_ranked[\s\S]*?\$\$;/)[0],/c\.status in \('open','planned'\)/);
+  assert.match(sql,/function public\.my_catalogue_requests\(\)/);
+  assert.match(sql,/creator-support-required/);
   assert.doesNotMatch(sql,/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i,'no hard-coded UUIDs');
   // cross-user checks via narrow definers, explicit EXECUTE revokes, creator auto-support
-  assert.match(sql,/function public\.catalogue_request_has_other_supporters[\s\S]*?security definer/);
   assert.match(sql,/from public,anon,authenticated;/);
   assert.match(sql,/-- creator counts as a supporter/);
   assert.doesNotMatch(sql,/drop table|drop column|truncate/i);

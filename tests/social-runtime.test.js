@@ -27,32 +27,34 @@ test('Social custom views are idempotent and city-scoped',async()=>{
  assert.doesNotMatch(runtime,/root\.dataset\.socialRoute=id/,'a persistent dataset marker would survive core innerHTML replacement');
 });
 
-test('Social Routes UI and navigation modules ship in index, build and PWA cache v31',async()=>{
+test('Social Routes UI and navigation modules ship in index, build and PWA cache v32',async()=>{
  const [index,build,sw]=await Promise.all([read('index.html'),read('scripts/build.mjs'),read('service-worker.js')]);
- for(const file of ['social-routes-client.js','social-routes-enhancements.js','social-routes.css','nav-enhancements.js']){
+ for(const file of ['social-routes-client.js','social-routes-enhancements.js','social-routes.css','nav-enhancements.js','ux-cleanup.js','ux-cleanup.css']){
   const re=new RegExp(file.replaceAll('.','\\.'));
   assert.match(build,re);assert.match(sw,re);
  }
  assert.match(index,/social-routes\.css/);
  assert.match(index,/social-routes-enhancements\.js/);
- assert.match(index,/nav-enhancements\.js/);
- assert.match(sw,/city-route-v31/);
+ assert.match(index,/nav-enhancements\.js\?v=2/);
+ assert.match(index,/ux-cleanup\.js\?v=1/);
+ assert.match(index,/ux-cleanup\.css\?v=1/);
+ assert.match(sw,/city-route-v32/);
 });
 
-test('Founder-approved A+B navigation leaves four bottom tabs and promotes My Route',async()=>{
- const [nav,css]=await Promise.all([read('nav-enhancements.js'),read('social-routes.css')]);
- assert.match(nav,/desiredNav=\['#plan','#routes','#my-route','#places'\]/);
+test('Bottom navigation has Community and keeps My Route compact and central',async()=>{
+ const [nav,ux]=await Promise.all([read('nav-enhancements.js'),read('ux-cleanup.css')]);
+ assert.match(nav,/desiredNav=\['#plan','#routes','#my-route','#routes\/community','#places'\]/);
+ assert.match(nav,/Społeczność/);
+ assert.match(nav,/users\.svg/);
  assert.match(nav,/book\?\.remove\(\)/);
  assert.match(nav,/dataset\.headerBook/);
  assert.match(nav,/Zobacz trasę/);
- assert.match(css,/#navigation\{grid-template-columns:repeat\(4,1fr\)\}/);
- assert.match(css,/#navigation a\[href="#my-route"\][\s\S]*border:2px solid var\(--cyan\)/);
- assert.match(css,/#navigation a\[href="#my-route"\]\.live/);
- assert.match(css,/\.header-book/);
+ assert.match(ux,/#navigation\{grid-template-columns:repeat\(5,minmax\(0,1fr\)\)\}/);
+ assert.match(ux,/a\[href="#my-route"\][\s\S]*min-height:56px/);
 });
 
 test('new browser modules are syntax-valid before deployment',()=>{
- for(const file of ['social-routes-enhancements.js','nav-enhancements.js'])execFileSync(process.execPath,['--check',file],{stdio:'pipe'});
+ for(const file of ['social-routes-enhancements.js','nav-enhancements.js','ux-cleanup.js'])execFileSync(process.execPath,['--check',file],{stdio:'pipe'});
 });
 
 

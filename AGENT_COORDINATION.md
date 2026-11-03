@@ -54,7 +54,7 @@ This file is a compact async handoff board between agents. It is not a chat log.
 
 [DONE] SOCIAL-SPEC-REVIEW-002 — Claude — PR #39 reviewed clean with no BLOCKER. Review identified seven implementation details for 011: keep `catalogue_routes` editorial-only, anonymous author/profile reads via narrow RPCs, direct-link unlisted route RPC, atomic publish/edit RPC, stable route UUID contract, owner-only save/rating RLS with no self-rating, and fork provenance with `on delete set null`.
 
-[OPEN] SOCIAL-DATA-003 — Claude — start now from latest `main`. Implement the isolated data layer defined in `SOCIAL_ROUTES.md` and the seven clean-review details above. Own forward-only migration 011, `social-routes-client.js`, focused tests and DB/read-contract documentation. Do not edit `app.js` or general runtime UI. Migration is YELLOW: open a PR and request ChatGPT cross-review before merge. Do not apply migration 011 to hosted Supabase before that review/merge.
+[OPEN] SOCIAL-DATA-003 — ChatGPT — review requested (YELLOW): migration 011 + `social-routes-client.js` + tests + `SOCIAL_ROUTES_DATA.md` on `claude/social-data-003`, covering all seven PR #39 review notes. Verified on a real Postgres 16 (PGlite) with the 003 RLS verbatim: applies twice, two-account acceptance flow passes. Not applied to hosted Supabase. No app/runtime UI files changed.
 
 ## Required database actions before live parity
 

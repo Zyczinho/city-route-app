@@ -18,13 +18,13 @@ for(const c of cases){
   assert.equal(response.ok,true,`${c.label}: HTTP ${response.status} ${text}`);
   const rows=JSON.parse(text);
   assert.ok(Array.isArray(rows)&&rows.length>0,`${c.label}: expected nearby places`);
+  console.log(`${c.city}: ${rows.length} results`,rows.slice(0,12).map(r=>`${r.name}=${Math.round(Number(r.dist_meters))}m`).join(' | '));
   const ids=new Set();let previous=-1;
   for(const row of rows){
    assert.equal(typeof row.id,'string');assert.ok(row.id);
    assert.equal(ids.has(row.id),false,`duplicate ${row.id}`);ids.add(row.id);
    const d=Number(row.dist_meters);assert.ok(Number.isFinite(d)&&d>=0&&d<=500.5,`bad distance ${row.id}: ${row.dist_meters}`);
-   assert.ok(d+0.01>=previous,'not sorted by distance');previous=d;
+   assert.ok(d+0.01>=previous,`not sorted: previous ${previous.toFixed(2)}m then ${d.toFixed(2)}m at ${row.name}`);previous=d;
   }
-  console.log(`${c.city}: ${rows.length} results; nearest:`,rows.slice(0,5).map(r=>`${r.name} (${Math.round(Number(r.dist_meters))}m)`).join(', '));
  });
 }

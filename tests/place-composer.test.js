@@ -185,3 +185,32 @@ test('composer ships, loads after app.js and leaves app.js the only writer of pl
   assert.equal(r.status,0,r.stderr);
  }
 });
+
+test('a new query drops the earlier pick unless the pin was placed by hand',async()=>{
+ const {keepsSelection,normalizeQuery}=await import('../place-composer-model.js');
+ const picked={source:'photon-osm',query:'Wawel',location:{lat:50.054,lng:19.935}};
+ assert.equal(keepsSelection(picked,'Wawel'),true,'same query keeps the pick (re-render, repeated input event)');
+ assert.equal(keepsSelection(picked,'  Wawel '),true);
+ assert.equal(keepsSelection(picked,'Wawel Zamek'),false,'A → B drops A');
+ assert.equal(keepsSelection(picked,''),false,'clearing the box drops A');
+ assert.equal(keepsSelection({source:'google',query:'Nudlani',location:{lat:1,lng:1}},'Nudlani Kraków'),false,'an adjusted Google pick is still a pick');
+ assert.equal(keepsSelection({source:'pin',query:'Punkt',location:{lat:1,lng:1}},'Sekretny punkt'),true,'a hand-placed pin survives renaming');
+ assert.equal(keepsSelection({source:'pin',query:'Punkt'},'Inny'),false,'a pin not placed yet is not kept');
+ assert.equal(keepsSelection(null,'x'),false);
+ assert.equal(normalizeQuery(' a   b '),'a b');
+});
+
+test('composer clears stale coordinates on every new query, async pick and re-render',async()=>{
+ const code=await read('place-composer.js');
+ const onQuery=code.slice(code.indexOf('function onQuery'),code.indexOf('const MARKUP'));
+ assert.ok(onQuery.indexOf('resetSelection(form)')<onQuery.indexOf("input.kind==='empty'"),'reset runs before any branch, including an emptied box');
+ const choose=code.slice(code.indexOf('async function choose'),code.indexOf('function renderPreview'));
+ assert.equal((choose.match(/gen!==generation/g)||[]).length,2,'a pick resolving after a new query is dropped');
+ const pick=code.slice(code.indexOf('async function pick'),code.indexOf('async function readMapsLink'));
+ assert.match(pick,/if\(gen!==generation\)return;/,'Google details arriving late are dropped');
+ const reset=code.slice(code.indexOf('function resetSelection'),code.indexOf('async function choose'));
+ assert.match(reset,/where\.value===form\.dataset\.pcWhere/,'only coordinates the composer wrote are cleared');
+ assert.match(reset,/pcAuto/,'an auto-filled name is cleared, a typed one is kept');
+ const decorate=code.slice(code.indexOf('function decorate'),code.indexOf("window.addEventListener('hashchange'"));
+ assert.match(decorate,/staleWhere&&where\?\.value===staleWhere/,'re-render from an old draft cannot restore A');
+});

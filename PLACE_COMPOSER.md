@@ -11,6 +11,8 @@ One search box on `#add-place` replaces the old multi-step "where" input. It dec
 | Coordinates (`52.23, 21.01`, `52,23; 21,01`, `52,230123, 21,012345`) | Parsed locally, checked against the active city radius. |
 | Nothing found | Name is prefilled, an OSM map opens, the user taps or drags the pin. Save is blocked only until a pin is placed. |
 
+A new query drops the previous pick (its coordinates, preview, map and auto-filled name), so place B is never saved at place A's location; only a pin placed by hand survives renaming. Picks that resolve after a newer query, and app.js re-renders from an older draft, cannot bring A back.
+
 After a pick: name (editable), suggested category, location written to `where` as coordinates, preview card with source label, and a duplicate warning when a known place sits within ~120 m with a shared name word (or within 25 m). Picking a catalogue match shows "Już mamy to miejsce" with `Zobacz` / `Dodaj do Mojej trasy` (app.js actions `place` and `add`).
 
 ## Providers and cost

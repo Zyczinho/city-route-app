@@ -30,6 +30,16 @@ export function classifyInput(text){
 
 export const formatCoords=p=>`${Number(p.lat).toFixed(6)}, ${Number(p.lng).toFixed(6)}`;
 
+export const normalizeQuery=v=>String(v||'').replace(/\s+/g,' ').trim();
+
+// A new search drops the earlier pick, so place B is never saved at place A's coordinates.
+// Only a pin the user placed by hand survives: the query then only named the place.
+export function keepsSelection(selection,query){
+ if(!selection)return false;
+ if(selection.source==='pin'&&selection.location)return true;
+ return normalizeQuery(query)===selection.query;
+}
+
 export function cityCheck(point,city){
  if(!point||!city?.center)return {ok:false,km:null};
  const km=distance(point,city.center),limit=Number(city.radiusKm)||40;

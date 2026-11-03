@@ -1,7 +1,7 @@
 // CLAUDE-PLACE-017: one input to add a place fast (name, address, Google Maps link or coordinates).
 // It decorates the existing #place-form rendered by app.js; app.js still validates and saves the place on submit,
 // so this module only fills `name`, `where` (as coordinates) and `cat`. Saved places stay on this device.
-import {MIN_QUERY,SUGGEST_DELAY_MS,classifyInput,formatCoords,cityCheck,activeCity,cityParams,catalogueMatches,findDuplicate,categoryFromTypes,SOURCE_LABEL,latestOnly,sessionToken} from './place-composer-model.js';
+import {MIN_QUERY,SUGGEST_DELAY_MS,classifyInput,formatCoords,normalizeQuery,keepsSelection,cityCheck,activeCity,cityParams,catalogueMatches,findDuplicate,categoryFromTypes,SOURCE_LABEL,latestOnly,sessionToken} from './place-composer-model.js';
 import {loadLeaflet} from './map-view.js';
 
 const STATE_KEY='city-route-v1';
@@ -9,7 +9,7 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const $=(s,root=document)=>root.querySelector(s);
 const appState=()=>{try{return JSON.parse(localStorage.getItem(STATE_KEY)||'null');}catch{return null;}};
 
-let cities=null,catalogueByCity={},selection=null,lastQuery='',session=sessionToken(),timer=0,controller=null,map=null,marker=null,activeIndex=-1,options=[];
+let cities=null,catalogueByCity={},selection=null,generation=0,staleWhere='',lastQuery='',session=sessionToken(),timer=0,controller=null,map=null,marker=null,activeIndex=-1,options=[];
 const requests=latestOnly();
 
 async function jsonOrNull(url,opts){
@@ -88,7 +88,17 @@ function setCategory(form,cat){
 function writeLocation(form,location){
  const where=$('input[name="where"]',form);if(!where)return;
  where.value=location?formatCoords(location):'';
- if(location)form.dataset.placeResolved='1';else delete form.dataset.placeResolved;
+ if(location){form.dataset.placeResolved='1';form.dataset.pcWhere=where.value;if(where.value===staleWhere)staleWhere='';}else{delete form.dataset.placeResolved;delete form.dataset.pcWhere;}
+}
+
+// Forget the previous pick: its coordinates (only if the composer wrote them), preview, map and auto-filled name.
+// Bumping `generation` also discards picks that are still resolving.
+function resetSelection(form){
+ selection=null;generation++;
+ const where=$('input[name="where"]',form),name=$('input[name="name"]',form);
+ if(where&&(where.value===form.dataset.pcWhere||!where.value)){if(where.value)staleWhere=where.value;where.value='';delete form.dataset.placeResolved;delete form.dataset.pcWhere;}
+ if(name?.dataset.pcAuto==='1'){name.value='';delete name.dataset.pcAuto;}
+ renderPreview(form,null);hideMap(form);
 }
 
 function fillName(form,name){
@@ -97,14 +107,15 @@ function fillName(form,name){
 }
 
 async function choose(form,picked){
- const city=await currentCity();
+ const gen=generation,city=await currentCity();if(gen!==generation)return;
  const check=cityCheck(picked.location,city);
  if(picked.location&&!check.ok){
-  writeLocation(form,null);renderPreview(form,null);
+  selection=null;writeLocation(form,null);renderPreview(form,null);
   return status(form,`To miejsce jest ${check.km} km od centrum: ${city.name} (limit ${check.limit} km). Zmień miasto u góry albo wybierz inny wynik.`,'error');
  }
  const dup=picked.source==='catalogue'||picked.source==='mine'?null:findDuplicate(picked,await knownPlaces(city));
- selection={...picked,category:picked.category||categoryFromTypes(picked.types||[],picked.name||''),dup};
+ if(gen!==generation)return;
+ selection={...picked,query:normalizeQuery(lastQuery),category:picked.category||categoryFromTypes(picked.types||[],picked.name||''),dup};
  if(picked.name)fillName(form,picked.name);
  setCategory(form,selection.category);
  writeLocation(form,picked.location||null);
@@ -155,7 +166,7 @@ function hideMap(form){const {mapWrap}=ui(form);if(mapWrap)mapWrap.hidden=true;}
 async function movePin(form,latlng){
  const location={lat:latlng.lat,lng:latlng.lng},city=await currentCity(),check=cityCheck(location,city);
  if(!check.ok)return status(form,`Pinezka jest poza miastem ${city.name} (${check.km} km od centrum).`,'error');
- selection={...(selection||{source:'pin',name:$('input[name="name"]',form)?.value||''}),location,source:selection?.source==='google'?'google':'pin'};
+ selection={...(selection||{source:'pin',name:$('input[name="name"]',form)?.value||'',query:normalizeQuery(lastQuery)}),location,source:selection?.source==='google'?'google':'pin'};
  selection.dup=findDuplicate(selection,await knownPlaces(city));
  writeLocation(form,location);renderPreview(form,selection);
  status(form,$('input[name="name"]',form)?.value.trim()?'Pinezka ustawiona. Możesz dodać miejsce.':'Pinezka ustawiona. Dodaj jeszcze nazwę.','ok');
@@ -166,15 +177,16 @@ async function pick(form,option){
  if(option.kind==='known')return knownCard(form,option.place);
  if(option.kind==='custom'){
   const city=await currentCity();fillName(form,option.query);
-  selection={source:'pin',name:option.query,category:categoryFromTypes([],option.query)};setCategory(form,selection.category);
+  selection={source:'pin',name:option.query,query:normalizeQuery(lastQuery),category:categoryFromTypes([],option.query)};setCategory(form,selection.category);
   renderPreview(form,null);status(form,'Przesuń pinezkę na właściwe miejsce, wklej współrzędne albo użyj swojej lokalizacji.');
   return showMap(form,selection.location||city.center);
  }
  const s=option.suggestion;
  if(s.location)return choose(form,{...s,source:s.provider});
  status(form,'Pobieram lokalizację…');
- const city=await currentCity(),r=await jsonOrNull(`/api/place-details?id=${encodeURIComponent(s.placeId)}&${cityParams(city)}&session=${session}`);
+ const gen=generation,city=await currentCity(),r=await jsonOrNull(`/api/place-details?id=${encodeURIComponent(s.placeId)}&${cityParams(city)}&session=${session}`);
  session=sessionToken();
+ if(gen!==generation)return;
  if(r?.data?.status==='ok')return choose(form,{...r.data,source:'google'});
  fillName(form,s.name);
  if(r?.data?.status==='outside-city')return status(form,`Ten wynik leży poza miastem ${city.name}. Zmień miasto u góry albo wybierz inny.`,'error');
@@ -196,6 +208,7 @@ async function readMapsLink(form,link){
 
 function onQuery(form,value){
  lastQuery=value;
+ if(!keepsSelection(selection,value))resetSelection(form);
  const input=classifyInput(value);
  clearTimeout(timer);controller?.abort();requests.cancel();
  if(input.kind==='empty'||input.kind==='short'){closeList(form);status(form,input.kind==='short'?`Wpisz co najmniej ${MIN_QUERY} znaki.`:'');return;}
@@ -239,10 +252,14 @@ function decorate(){
  if(selection){
   renderPreview(form,selection);
   if(selection.location){writeLocation(form,selection.location);if(selection.source!=='google')showMap(form,selection.location);}
+ }else{
+  // app.js may re-render from a draft taken before the pick was dropped; never let those coordinates come back.
+  const where=$('input[name="where"]',form);
+  if(staleWhere&&where?.value===staleWhere){where.value='';delete form.dataset.placeResolved;where.closest('label').hidden=true;}
  }
 }
 
-window.addEventListener('hashchange',()=>{if(location.hash.slice(1).split('/')[0]!=='add-place'){selection=null;lastQuery='';session=sessionToken();}});
+window.addEventListener('hashchange',()=>{if(location.hash.slice(1).split('/')[0]!=='add-place'){selection=null;staleWhere='';lastQuery='';session=sessionToken();}});
 
 // Runs before enhancements.js (window capture precedes document capture): a typed address that was not picked
 // from the list goes to `where`, so the existing save-time address lookup still finds it.

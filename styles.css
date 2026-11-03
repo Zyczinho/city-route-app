@@ -182,3 +182,5 @@ img.avatar{object-fit:cover;display:block}.avatar.sm{width:36px;height:36px;font
 #navigation a.chosen{gap:1px}
 
 .drag-handle{touch-action:none;cursor:grab;padding:4px;min-width:28px;font-size:26px;color:var(--muted);border:0;background:transparent}.stops .dragging{opacity:.5}.stops .drop-target{outline:2px solid #00a7ef;outline-offset:2px}
+
+.city-select{display:inline-flex;align-items:center;gap:5px;color:var(--muted)}.city-select .i{width:15px;height:15px}.city-select select{max-width:132px;border:0;background:transparent;color:inherit;font:inherit;font-weight:700;padding:6px 20px 6px 0;cursor:pointer}.city-select select:disabled{cursor:default;opacity:.7}

@@ -1,9 +1,11 @@
 import {readFile} from 'node:fs/promises';
 
+const cityId=process.argv[2]||'warsaw';
+const base=cityId==='warsaw'?'data':`data/cities/${cityId}`;
 const readJson=async path=>JSON.parse(await readFile(path,'utf8'));
 const [places,routes,taxonomy]=await Promise.all([
-  readJson('data/places.json'),
-  readJson('data/routes.json'),
+  readJson(`${base}/places.json`),
+  readJson(`${base}/routes.json`),
   readJson('data/taxonomy.json')
 ]);
 
@@ -28,8 +30,8 @@ async function rpc(name,payload){
 }
 
 const [livePlaces,liveRoutes]=await Promise.all([
-  rpc('catalogue_places',{city_slug:'warsaw'}),
-  rpc('catalogue_routes',{city_slug:'warsaw'})
+  rpc('catalogue_places',{city_slug:cityId}),
+  rpc('catalogue_routes',{city_slug:cityId})
 ]);
 
 const aliases=taxonomy.legacyAliases||{};
@@ -88,4 +90,4 @@ if(fail.length){
   process.exit(1);
 }
 
-console.log(`LIVE PARITY OK: ${livePlaces.length} Warsaw places, ${liveRoutes.length} editorial routes.`);
+console.log(`LIVE PARITY OK: ${livePlaces.length} ${cityId} places, ${liveRoutes.length} editorial routes.`);

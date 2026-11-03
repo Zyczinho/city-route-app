@@ -97,8 +97,8 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 
 | Priority | ID | Status | Owner | Reviewer | Depends on | Branch / PR | Next action | Last update |
 |---|---|---|---|---|---|---|---|---|
-| P0 | PWA-RECOVERY-009 | IN_PROGRESS | ChatGPT | Jakub (production smoke) | NAV-HOTFIX-008 PR #53 merged | `chatgpt/pwa-recovery-009` | Fix stale service worker cache and startup-independent SW updates; harden network-first navigation; testing CI and production smoke required. No Supabase changes. | 2026-11-03 |
-| P0 | NAV-HOTFIX-008 | MERGE_READY | ChatGPT | Jakub (production smoke) | UX-CLEANUP-007 PR #50 merged | `chatgpt/hotfix-nav-observer-008` / PR #53 | PR #53 contains nav idempotence guard + executable observer convergence regression; GitHub CI #153 test/build green. Merge next, wait Cloudflare Ready, confirm loading clears and all five tabs; only then DONE. No Supabase changes. | 2026-11-03 |
+| P0 | PWA-RECOVERY-009 | MERGE_READY | ChatGPT | Jakub (production smoke) | NAV-HOTFIX-008 PR #53 merged | `chatgpt/pwa-recovery-009` / PR #54 | Bump SW cache to v33 and nav URL to v3; independent SW bootstrap and network-first HTML; GitHub CI #160 test/build green. Founder merge, Cloudflare Ready and fresh/InPrivate production smoke still needed. | 2026-11-03 |
+| P0 | NAV-HOTFIX-008 | REVIEW | ChatGPT | Jakub (production smoke) | UX-CLEANUP-007 PR #50 merged | PR #53 merged `4a85483` | Code merged and CI #156 green, but founder production smoke still failed on old browser. Root-cause follow-up cache/PWA tracked separately as PWA-RECOVERY-009. Do not mark DONE before production smoke. | 2026-11-03 |
 | P1 | UX-CLEANUP-007 | REVIEW | ChatGPT | Jakub (visual) | PLAN-UI-MOBILE-006 DONE; SOCIAL-RUNTIME-004 DONE | PR #50 merged to `main` at `da82633` | Code merged 2026-11-03 16:30 UTC; founder to verify actual production deploy and visual UX on desktop/mobile. Mark DONE after that acceptance. | 2026-11-03 |
 | P1 | REQ-ADMIN-004 | DONE | Claude | ChatGPT | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE | PR #44 + fix PR #48, merged to `main` at `d9eb8e8` | No code action. Hosted migration is tracked separately below. | 2026-11-03 |
 | P1 | REQ-UI-003 | DONE | ChatGPT | Claude | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE; SOCIAL-RUNTIME-004 DONE | PR #47 merged to `main` at `58694df` | Claude targeted re-review was CLEAN; no further code action. | 2026-11-03 |
@@ -109,7 +109,7 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 
 ## Current package facts
 
-### PWA-RECOVERY-009 — startup failure after merged PR #53
+### PWA-RECOVERY-009 — PR #54 CI #160 green, merge ready, production confirmation pending
 
 - Founder screenshot still shows `Wczytujemy miasto…` and only Community on existing browser; #53 changed nav code but did not bump SW cache v32 / nav URL v2.
 - Browser may continue to use the cached, pre-hotfix navigation module and HTML; underlying issue requires independent early SW update + new cache + URL version, while preserving localStorage and routes.
@@ -118,7 +118,7 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 
 
 
-### NAV-HOTFIX-008 — PR #53 CI green, merge ready (production verification still required)
+### NAV-HOTFIX-008 — PR #53 merged; production smoke failed and follow-up PR #54 required
 
 - Founder screenshot following Cloudflare Ready: initial loading screen never resolves and bottom nav only shows Społeczność.
 - Root cause isolated in `nav-enhancements.js`: MutationObserver calls `enforceBottomNav`, which appends the same links unconditionally and queues itself indefinitely. `navSyncing` is reset before callbacks run, so guard is ineffective against microtask re-entry.

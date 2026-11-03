@@ -101,7 +101,7 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 | P1 | REQ-UI-003 | DONE | ChatGPT | Claude | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE; SOCIAL-RUNTIME-004 DONE | PR #47 merged to `main` at `58694df` | Claude targeted re-review was CLEAN; no further code action. | 2026-11-03 |
 | P1 | PLAN-UI-MOBILE-006 | DONE | ChatGPT | Claude | REQ-UI-003 DONE | PR #49 merged to `main` at `c9d2681` | No code action. Claude review CLEAN; post-sync cache hardening and GitHub CI #143 were green before merge. | 2026-11-03 |
 | P1 | SOCIAL-PROD-SMOKE-005 | READY | ChatGPT + Jakub | Claude | SOCIAL-RUNTIME-004 DONE; production deploy of `09dad87` confirmed | no branch | Two-account production smoke: publish → feed → author → save → saved list → mobile nav. | 2026-11-03 |
-| P2 | MIGRATION-013-HOSTED | READY | Jakub | — | REQ-ADMIN-004 DONE | merged PR #48 | Apply `013_app_admins.sql` from current `main`, then add the founder admin row with the SQL in `REQUESTS_ADMIN.md`. Code is fixed and merged; hosted 013 is still not applied. | 2026-11-03 |
+| P2 | MIGRATION-013-HOSTED | DONE | Jakub | — | REQ-ADMIN-004 DONE | merged PR #48 + hosted Supabase | Migration 013 applied to hosted Supabase and founder admin allow-list entry confirmed in SQL Editor. No further migration action. | 2026-11-03 |
 | P3 | INFRA-CF-PREVIEW-001 | BACKLOG | Jakub | — | Cloudflare dashboard access | — | Workers preview builds fail on PR branches while `main` builds succeed. Treat GitHub `test` as required CI until preview configuration is fixed. | 2026-11-03 |
 
 ## Current package facts
@@ -110,7 +110,7 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 
 - #44 merged to `main` at `47d48a5` before its cycle-1 blocker was fixed.
 - PR #48 fixed `added` without a linked place and merged at `d9eb8e8`.
-- Migration 013 is safe in code but remains a separate hosted action.
+- Migration 013 is safe in code and has now been applied to hosted Supabase; founder admin access was confirmed manually in the SQL Editor.
 
 ### REQ-UI-003 — PR #47 — DONE
 
@@ -137,10 +137,11 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 | 007–010 | yes | yes | earlier board records |
 | 011 | yes | yes, 2026-11-03 | social RPCs answer on hosted |
 | 012 | yes (PR #43) | yes, 2026-11-03 | hosted read-only request RPC check succeeded |
-| 013 | **yes, fixed on `main` via PR #48** | **no** | hosted migration remains a separate READY task |
+| 013 | **yes, fixed on `main` via PR #48** | **yes, 2026-11-03** | Jakub ran 013 in hosted Supabase and confirmed the founder row in `public.app_admins` via SQL Editor |
 
 ## Recently completed
 
+- `MIGRATION-013-HOSTED` — DONE — migration 013 applied to hosted Supabase on 2026-11-03; founder admin row confirmed in SQL Editor.
 - `PLAN-UI-MOBILE-006` — DONE — PR #49 merged at `c9d2681`; Claude review CLEAN; cache delivery hardened to v22/v31.
 - `REQ-UI-003` — DONE — PR #47 merged at `58694df`; Claude targeted re-review CLEAN.
 - `REQ-ADMIN-004` — DONE — PR #44 + fix PR #48; final blocker fixed and merged at `d9eb8e8`.

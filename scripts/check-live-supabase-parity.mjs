@@ -1,16 +1,13 @@
 import {readFile} from 'node:fs/promises';
 
 const cityId=process.argv[2]||'warsaw';
+const base=cityId==='warsaw'?'data':`data/cities/${cityId}`;
 const readJson=async path=>JSON.parse(await readFile(path,'utf8'));
-const [cities,taxonomy]=await Promise.all([
-  readJson('data/cities.json'),
+const [places,routes,taxonomy]=await Promise.all([
+  readJson(`${base}/places.json`),
+  readJson(`${base}/routes.json`),
   readJson('data/taxonomy.json')
 ]);
-const city=cities.find(item=>item.id===cityId);
-if(!city)throw new Error(`Unknown city: ${cityId}`);
-const placesPath=cityId==='warsaw'?'data/places.json':`data/cities/${cityId}/places.json`;
-const routesPath=cityId==='warsaw'?'data/routes.json':`data/cities/${cityId}/routes.json`;
-const [places,routes]=await Promise.all([readJson(placesPath),readJson(routesPath)]);
 
 const configSource=await readFile('supabase-config.js','utf8');
 const pick=name=>{
@@ -33,8 +30,8 @@ async function rpc(name,payload){
 }
 
 const [livePlaces,liveRoutes]=await Promise.all([
-  rpc('catalogue_places',{city_slug:city.slug||city.id}),
-  rpc('catalogue_routes',{city_slug:city.slug||city.id})
+  rpc('catalogue_places',{city_slug:cityId}),
+  rpc('catalogue_routes',{city_slug:cityId})
 ]);
 
 const aliases=taxonomy.legacyAliases||{};
@@ -57,8 +54,8 @@ for(const expected of places){
   const legacy=expected.categoryId||expected.cats?.[0];
   eq(actual.category_id,aliases[legacy]||legacy,`${expected.id}.category`);
   eq(sortStrings(actual.tags),sortStrings(expected.tags),`${expected.id}.tags`);
-  const expectedRatings=[...(expected.ratings||[])].sort((a,b)=>String(a.source||'').localeCompare(String(b.source||'')));
-  const actualRatings=[...(actual.ratings||[])].sort((a,b)=>String(a.source||'').localeCompare(String(b.source||'')));
+  const expectedRatings=[...(expected.ratings||[])].sort((a,b)=>a.source.localeCompare(b.source));
+  const actualRatings=[...(actual.ratings||[])].sort((a,b)=>a.source.localeCompare(b.source));
   eq(actualRatings.map(r=>r.source),expectedRatings.map(r=>r.source),`${expected.id}.rating sources`);
   for(let i=0;i<Math.min(actualRatings.length,expectedRatings.length);i++){
     const a=actualRatings[i],e=expectedRatings[i],prefix=`${expected.id}.${e.source}`;
@@ -78,7 +75,7 @@ for(const expected of routes){
   eq(actual.name,expected.name,`${expected.id}.name`);
   eq(actual.description||'',expected.description||'',`${expected.id}.description`);
   eq(actual.transport||'walking',expected.transport||'walking',`${expected.id}.transport`);
-  eq(sortStrings(actual.tags),sortStrings(expected.cats||expected.tags),`${expected.id}.tags`);
+  eq(sortStrings(actual.tags),sortStrings(expected.cats),`${expected.id}.tags`);
   eq(actual.stops||[],expected.stops||[],`${expected.id}.stops`);
   for(const stop of actual.stops||[])if(!livePlaceById.has(stop))fail.push(`${expected.id}: live stop ${stop} missing from live places`);
 }
@@ -87,10 +84,10 @@ for(const p of livePlaces)if(!places.some(x=>x.id===p.id))fail.push(`unexpected 
 for(const r of liveRoutes)if(!routes.some(x=>x.id===r.id))fail.push(`unexpected live route ${r.id}`);
 
 if(fail.length){
-  console.error(`LIVE PARITY FAILED for ${city.name} (${fail.length} mismatches)`);
+  console.error(`LIVE PARITY FAILED (${fail.length} mismatches)`);
   for(const item of fail.slice(0,100))console.error(`- ${item}`);
   if(fail.length>100)console.error(`...and ${fail.length-100} more`);
   process.exit(1);
 }
 
-console.log(`LIVE PARITY OK: ${livePlaces.length} ${city.name} places, ${liveRoutes.length} editorial routes.`);
+console.log(`LIVE PARITY OK: ${livePlaces.length} ${cityId} places, ${liveRoutes.length} editorial routes.`);

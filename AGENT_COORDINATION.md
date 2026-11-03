@@ -97,6 +97,7 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 
 | Priority | ID | Status | Owner | Reviewer | Depends on | Branch / PR | Next action | Last update |
 |---|---|---|---|---|---|---|---|---|
+| P0 | CATALOG-WAW-001 | IN_PROGRESS | ChatGPT | Jakub (data QA) | #10 founder P0; Warsaw schema live | `chatgpt/p0-warsaw-museums-restaurants-01` | Pilot batch: museums and restaurants with official identity/address plus sourced map positions, no invented ratings/photos, a new forward-only hosted sync, tests; PR for review. No hosted DB apply or production merge without founder approval. | 2026-11-03 |
 | P1 | UX-CLEANUP-007 | REVIEW | ChatGPT | Jakub (visual) | PLAN-UI-MOBILE-006 DONE; SOCIAL-RUNTIME-004 DONE | PR #50 merged to `main` at `da82633` | Code merged 2026-11-03 16:30 UTC; founder to verify actual production deploy and visual UX on desktop/mobile. Mark DONE after that acceptance. | 2026-11-03 |
 | P1 | REQ-ADMIN-004 | DONE | Claude | ChatGPT | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE | PR #44 + fix PR #48, merged to `main` at `d9eb8e8` | No code action. Hosted migration is tracked separately below. | 2026-11-03 |
 | P1 | REQ-UI-003 | DONE | ChatGPT | Claude | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE; SOCIAL-RUNTIME-004 DONE | PR #47 merged to `main` at `58694df` | Claude targeted re-review was CLEAN; no further code action. | 2026-11-03 |
@@ -106,6 +107,15 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 | P3 | INFRA-CF-PREVIEW-001 | BACKLOG | Jakub | — | Cloudflare dashboard access | — | Workers preview builds fail on PR branches while `main` builds succeed. Treat GitHub `test` as required CI until preview configuration is fixed. | 2026-11-03 |
 
 ## Current package facts
+
+### CATALOG-WAW-001 — founder P0, batch 01
+
+- User priority: broaden Warsaw museums and restaurants first, paired with frictionless place and route UX tracked in #51.
+- One owner: ChatGPT, data and forward-only catalogue migration, no changes to shared runtime/nav/social flows.
+- Review required: source identity, GPS provenance, missing ratings/photos remain absent, no duplicates, SQL isolated to new slugs, browser smoke after separately approved hosted application.
+- Do not edit applied migrations 003–013. Do not claim a GitHub merge means hosted data is live.
+
+
 
 ### UX-CLEANUP-007 — PR #50 — merged, visual production acceptance pending
 

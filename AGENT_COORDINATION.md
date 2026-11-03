@@ -38,6 +38,8 @@ This file is a compact async handoff board between agents. It is not a chat log.
 
 [OPEN] NEARBY-ORDER-005 — ChatGPT + Claude review — forward-only migration 009 prepared in PR #30 to order `catalogue_nearby_places` by the exact `ST_Distance` returned as `dist_meters`. Severity low because PR #28 already sorts client-side. Claude cross-review required before merge; do not interrupt an active route-image package solely for this review.
 
+[OPEN] MAP-PROD-SMOKE-006 — ChatGPT — run immediately after PR #28 is reviewed, merged and production deploy is confirmed. Verify Warsaw and Kraków separately: Places opens map, tiles/attribution render, filters/search update markers, place card opens details, Add to route updates the correct city basket, Nearby 500 m returns locally sorted results, Nearby off restores the filtered catalogue, city switch resets map state without mixing baskets, denied/unavailable location or RPC failure leaves the list usable, and mobile layout does not cover OSM attribution. Do not claim production success until the deployed app is checked.
+
 ## Required database actions before live parity
 
 - Migration 007: applied successfully to hosted Supabase.

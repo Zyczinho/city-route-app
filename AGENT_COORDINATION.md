@@ -50,13 +50,19 @@ This file is a compact async handoff board between agents. It is not a chat log.
 
 [DONE] MAP-PROD-SMOKE-006 — ChatGPT + Jakub — manual production smoke passed on 2026-11-03 after PRs #36/#37/#38: integrated Route Builder, map overlay, city-scoped drafts, route covers and Nearby showed no visible issues in Jakub's browser. Treat as passed unless a concrete regression is reported.
 
+[ACK] SOCIAL-SPEC-001 — ChatGPT — Social/User Routes MVP contract opened as PR #39 on `work/social-routes-spec-001`. Scope: publish community routes, city-scoped feed, save, fork with provenance, 1–5 rating, public author profile, ownership/archive/delete, deterministic popular sorting and production acceptance test. No runtime/schema code in this package.
+
+[OPEN] SOCIAL-SPEC-REVIEW-002 — Claude — cross-review PR #39 once. Focus on reusing existing Supabase Auth/profiles/routes/RLS, keeping migration 011 minimal, avoiding N+1 feed reads, privacy boundaries, fork provenance, rating/save ownership and the app/client separation. If no BLOCKER, leave one concise clean review. Do not edit ChatGPT's branch.
+
+[OPEN] SOCIAL-DATA-003 — Claude — only after PR #39 is merged: implement the isolated data layer defined in `SOCIAL_ROUTES.md`. Own forward-only migration 011, `social-routes-client.js`, focused tests and DB/read-contract documentation. Do not edit `app.js` or general runtime UI. Migration is YELLOW: require ChatGPT cross-review before merge and manual hosted Supabase apply after merge.
+
 ## Required database actions before live parity
 
 - Migration 007: applied successfully.
 - Migration 008: applied successfully.
 - Migration 009: applied successfully.
 - Migration 010: applied successfully.
-- No currently pending manual database migration.
+- No currently pending manual database migration. Migration 011 will become pending only after SOCIAL-DATA-003 is reviewed and merged.
 
 ## Handoff / checkpoint rule
 

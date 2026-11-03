@@ -4,17 +4,28 @@ let enriching=false,lastPreview='',lastDirectSearchAt=0;
 const mapsInput=()=>document.querySelector('#place-form input[name="where"]');
 const placeForm=()=>document.querySelector('#place-form');
 const nameInput=()=>document.querySelector('#place-form input[name="name"]');
-const photoInput=()=>document.querySelector('#place-form input[type="file"][name="photo"]');
 const isMaps=v=>/^https:\/\/(?:www\.)?(?:google\.[^/]+\/maps|maps\.google\.[^/]+|maps\.app\.goo\.gl|goo\.gl\/maps)/i.test(String(v||'').trim());
 const isCoords=v=>/^\s*[-+]?\d{1,2}(?:[.,]\d+)?\s*[,;]\s*[-+]?\d{1,3}(?:[.,]\d+)?\s*$/.test(String(v||''));
 const isAddress=v=>{const s=String(v||'').trim();return s.length>=3&&!/^https?:\/\//i.test(s)&&!isCoords(s);};
-const WARSAW={lat:52.2297,lng:21.0122};
-const GEOCODE_CACHE='city-route-geocode-cache-v1';
+const WARSAW={id:'warsaw',name:'Warszawa',center:{lat:52.2297,lng:21.0122},radiusKm:40};
+const GEOCODE_CACHE='city-route-geocode-cache-v2';
+let citiesPromise=null;
+
+// Active city = the header picker, else the saved app state. Address lookups must never assume Warsaw.
+async function activeCity(){
+ citiesPromise=citiesPromise||fetch('./data/cities.json').then(r=>r.json()).catch(()=>[]);
+ const list=Array.isArray(await citiesPromise)?await citiesPromise:[];
+ let id=document.querySelector('#city-select')?.value;
+ if(!id){try{id=JSON.parse(localStorage.getItem('city-route-v1')||'null')?.cityId;}catch{}}
+ const c=list.find(x=>x.id===(id||'warsaw'));
+ return c?.center?{id:c.id,name:c.name,center:{lat:Number(c.center.lat),lng:Number(c.center.lng)},radiusKm:Number(c.radiusKm)||40}:WARSAW;
+}
+const cityQuery=city=>new URLSearchParams({city:city.id,name:city.name,lat:String(city.center.lat),lng:String(city.center.lng),r:String(city.radiusKm)}).toString();
 
 function decorateWhereInput(){
  const input=mapsInput(),label=input?.closest('label');if(!input||!label||label.dataset.addressReady==='1')return;
  for(const node of label.childNodes){if(node.nodeType===Node.TEXT_NODE&&node.textContent.trim()){node.textContent='albo wpisz adres, wklej link z Google Maps lub współrzędne';break;}}
- input.placeholder='Np. Francuska 3A, Warszawa · link Maps · 52.23, 21.01';
+ input.placeholder='Np. ulica i numer · link Maps · 52.23, 21.01';
  label.dataset.addressReady='1';
  const note=document.createElement('small');note.className='fine address-geocoder-note';note.innerHTML='Adres wyszukujemy dopiero po kliknięciu „Zapisz miejsce”. Geokodowanie adresu: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap contributors</a>.';label.append(note);
 }
@@ -30,15 +41,15 @@ function status(text,kind='',provider=''){
 }
 
 async function preview(url){
- const r=await fetch('/api/place-preview?url='+encodeURIComponent(url));
+ const r=await fetch('/api/place-preview?url='+encodeURIComponent(url)+'&'+cityQuery(await activeCity()));
  const data=await r.json().catch(()=>({status:'unavailable'}));
  if(!r.ok||data.status!=='ok')throw new Error(data.status||'unavailable');
  return data;
 }
 
-function kmFromWarsaw(lat,lng){
- const rad=x=>x*Math.PI/180,R=6371,dLat=rad(lat-WARSAW.lat),dLng=rad(lng-WARSAW.lng);
- const a=Math.sin(dLat/2)**2+Math.cos(rad(WARSAW.lat))*Math.cos(rad(lat))*Math.sin(dLng/2)**2;
+function kmFromCenter(city,lat,lng){
+ const c=city.center,rad=x=>x*Math.PI/180,R=6371,dLat=rad(lat-c.lat),dLng=rad(lng-c.lng);
+ const a=Math.sin(dLat/2)**2+Math.cos(rad(c.lat))*Math.cos(rad(lat))*Math.sin(dLng/2)**2;
  return 2*R*Math.asin(Math.min(1,Math.sqrt(a)));
 }
 
@@ -65,55 +76,62 @@ async function throttleDirectSearch(){
  lastDirectSearchAt=Date.now();
 }
 
-function queryWithWarsaw(query){return /warszaw|warsaw/i.test(query)?query:`${query}, Warszawa, Polska`;}
+const fold=s=>String(s||'').toLowerCase().replace(/ł/g,'l').normalize('NFD').replace(/[̀-ͯ]/g,'');
+function queryWithCity(query,city){return fold(query).includes(fold(city.name))?query:`${query}, ${city.name}, Polska`;}
+function viewbox(city){
+ const dLat=city.radiusKm/111,dLng=city.radiusKm/(111*Math.cos(city.center.lat*Math.PI/180)),c=city.center;
+ return [c.lng-dLng,c.lat+dLat,c.lng+dLng,c.lat-dLat].map(n=>n.toFixed(2)).join(',');
+}
 
-async function nominatimOnce(query){
+// Nominatim is called only on an explicit save, at most once per second, never as type-ahead.
+async function nominatimOnce(query,city){
  await throttleDirectSearch();
  const u=new URL('https://nominatim.openstreetmap.org/search');
- u.searchParams.set('q',queryWithWarsaw(query));
+ u.searchParams.set('q',queryWithCity(query,city));
  u.searchParams.set('format','jsonv2');
  u.searchParams.set('limit','5');
  u.searchParams.set('countrycodes','pl');
  u.searchParams.set('addressdetails','1');
  u.searchParams.set('accept-language','pl');
- u.searchParams.set('viewbox','20.35,52.55,21.55,51.90');
+ u.searchParams.set('viewbox',viewbox(city));
  const r=await fetch(u.href,{headers:{accept:'application/json'}});
  if(!r.ok)throw new Error('geocoder-http-'+r.status);
  const rows=await r.json();
  for(const row of Array.isArray(rows)?rows:[]){
-  const lat=Number(row.lat),lng=Number(row.lon);if(!Number.isFinite(lat)||!Number.isFinite(lng)||kmFromWarsaw(lat,lng)>40)continue;
+  const lat=Number(row.lat),lng=Number(row.lon);if(!Number.isFinite(lat)||!Number.isFinite(lng)||kmFromCenter(city,lat,lng)>city.radiusKm)continue;
   return {status:'ok',provider:'nominatim-osm',location:{lat,lng},name:String(row.name||row.display_name?.split(',')[0]||''),address:String(row.display_name||''),types:[row.type,row.class].filter(Boolean)};
  }
  return null;
 }
 
-async function directAddressSearch(query){
- const cached=cacheRead(query);if(cached)return cached;
+async function directAddressSearch(query,city){
+ const cacheKey=`${city.id}|${query}`,cached=cacheRead(cacheKey);if(cached)return cached;
  const variants=[query];
  const parts=query.split(',').map(x=>x.trim()).filter(Boolean);
  if(parts.length>1&&/[A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż]\s*\d/.test(parts.slice(1).join(' ')))variants.push(parts.slice(1).join(', '));
  for(const variant of [...new Set(variants)]){
-  const found=await nominatimOnce(variant);if(found){cacheWrite(query,found);return found;}
+  const found=await nominatimOnce(variant,city);if(found){cacheWrite(cacheKey,found);return found;}
  }
  throw new Error('not-found');
 }
 
-async function searchAddress(query){
+async function searchAddress(query,city){
  // Dynamic Worker APIs are unavailable on the current static hosting target.
  // Keep this attempt for a future Worker deployment, then fall back to a browser-safe, user-triggered lookup.
  try{
-  const r=await fetch('/api/place-search?q='+encodeURIComponent(query),{headers:{accept:'application/json'}});
+  const r=await fetch('/api/place-search?q='+encodeURIComponent(query)+'&'+cityQuery(city),{headers:{accept:'application/json'}});
   const type=r.headers.get('content-type')||'';
   if(type.includes('application/json')){
    const data=await r.json();if(r.ok&&data.status==='ok'&&data.location)return data;
   }
  }catch{}
- return directAddressSearch(query);
+ return directAddressSearch(query,city);
 }
 
 async function resolveAddress(query){
- status('Szukam tego adresu w Warszawie…');
- const data=await searchAddress(query),input=mapsInput(),name=nameInput();
+ const city=await activeCity();
+ status(`Szukam tego adresu: ${city.name}…`);
+ const data=await searchAddress(query,city),input=mapsInput(),name=nameInput();
  if(!input)throw new Error('form-gone');
  input.value=`${Number(data.location.lat).toFixed(6)}, ${Number(data.location.lng).toFixed(6)}`;
  input.dataset.originalAddress=query;
@@ -123,22 +141,14 @@ async function resolveAddress(query){
  return data;
 }
 
-async function attachPhoto(url){
- const input=photoInput();if(!input||input.files?.length)return false;
- const r=await fetch('/api/place-photo?url='+encodeURIComponent(url));if(!r.ok)return false;
- const blob=await r.blob();if(!blob.type.startsWith('image/'))return false;
- const file=new File([blob],'google-place.jpg',{type:blob.type||'image/jpeg'}),dt=new DataTransfer();dt.items.add(file);input.files=dt.files;input.dispatchEvent(new Event('change',{bubbles:true}));
- for(let i=0;i<30;i++){await wait(100);const f=placeForm();if(f?.textContent.includes('Zdjęcie dodane'))return true;}
- return true;
-}
-
-async function enrich(url,{photo=false}={}){
+// Google photos are never copied into the user's own photo field: Places content may be shown with attribution,
+// not re-saved as City Route media. The quick composer (place-composer.js) shows a display-only preview instead.
+async function enrich(url){
  if(!isMaps(url))return null;
  status('Odczytuję miejsce z Google Maps…');
  const data=await preview(url),name=nameInput();
  if(data.name&&name&&!name.value.trim())name.value=data.name;
- if(photo&&data.photo?.available)await attachPhoto(url);
- const bits=[];if(data.name)bits.push(`rozpoznano: ${data.name}`);if(data.photo?.available)bits.push('zdjęcie dostępne');else if(data.photoEnabled===false)bits.push('zdjęcie wymaga podłączenia Google Places');
+ const bits=[];if(data.name)bits.push(`rozpoznano: ${data.name}`);
  status(bits.length?bits.join(' · '):'Lokalizacja rozpoznana.','ok');lastPreview=url;return data;
 }
 
@@ -161,14 +171,14 @@ document.addEventListener('submit',async e=>{
   e.preventDefault();e.stopImmediatePropagation();enriching=true;
   let ok=false;
   try{await resolveAddress(value);form.dataset.placeResolved='1';ok=true;}
-  catch{status('Nie znalazłem tego adresu. Wpisz ulicę i numer, np. „Francuska 3A, Warszawa”, albo użyj swojej lokalizacji.','error');}
+  catch{status('Nie znalazłem tego adresu. Wpisz ulicę i numer z miastem albo użyj swojej lokalizacji.','error');}
   enriching=false;
   const current=placeForm();if(ok&&current){current.dataset.placeResolved='1';current.requestSubmit();}
   return;
  }
  if(!isMaps(value))return;
  e.preventDefault();e.stopImmediatePropagation();enriching=true;form.dataset.mapsEnriched='1';
- try{await enrich(value,{photo:true});}catch{status('Nie udało się automatycznie odczytać linku Maps. Wklej pełny link ze współrzędnymi albo wpisz zwykły adres.','error');}
+ try{await enrich(value);}catch{status('Nie udało się automatycznie odczytać linku Maps. Wklej pełny link ze współrzędnymi albo wpisz zwykły adres.','error');}
  enriching=false;const current=placeForm();if(current){current.dataset.mapsEnriched='1';current.requestSubmit();}
 },true);
 

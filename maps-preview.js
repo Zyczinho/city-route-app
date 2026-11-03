@@ -27,23 +27,27 @@ export async function resolveMapsPreview(value,fetcher=fetch){
 }
 
 const distance2=(a,b)=>{if(!a||!b||!Number.isFinite(a.latitude)||!Number.isFinite(a.longitude))return Infinity;const x=(a.latitude-b.lat)*Math.cos((a.latitude+b.lat)*Math.PI/360),y=a.longitude-b.lng;return x*x+y*y;};
-async function searchPlace(key,name,location,fetcher=fetch){
+// The link already carries coordinates, so the lookup is biased there instead of to a hard-coded city.
+// Only when a link has no coordinates is the active city's name added to the text query.
+async function searchPlace(key,name,location,fetcher=fetch,city=null){
  if(!key||!name)return null;
- const body={textQuery:`${name} Warszawa`};
- if(location)body.locationBias={circle:{center:{latitude:location.lat,longitude:location.lng},radius:1500}};
- const r=await fetcher('https://places.googleapis.com/v1/places:searchText',{method:'POST',headers:{'content-type':'application/json','x-goog-api-key':key,'x-goog-fieldmask':'places.id,places.location,places.photos,places.types'},body:JSON.stringify(body),signal:AbortSignal.timeout(6000)});
- if(!r.ok)return null;const data=await r.json(),list=Array.isArray(data.places)?data.places:[];return list.sort((a,b)=>distance2(a.location,location)-distance2(b.location,location))[0]||null;
+ const body={textQuery:location||!city?.name?name:`${name} ${city.name}`,languageCode:'pl'};
+ const center=location||city?.center;
+ if(center)body.locationBias={circle:{center:{latitude:center.lat,longitude:center.lng},radius:location?1500:Math.min(50000,(city?.radiusKm||40)*1000)}};
+ const r=await fetcher('https://places.googleapis.com/v1/places:searchText',{method:'POST',headers:{'content-type':'application/json','x-goog-api-key':key,'x-goog-fieldmask':'places.id,places.displayName,places.formattedAddress,places.location,places.photos,places.types'},body:JSON.stringify(body),signal:AbortSignal.timeout(6000)});
+ if(!r.ok)return null;const data=await r.json(),list=Array.isArray(data.places)?data.places:[];return list.sort((a,b)=>distance2(a.location,location||center)-distance2(b.location,location||center))[0]||null;
 }
 
-export async function placePreview(value,key,fetcher=fetch){
+export async function placePreview(value,key,fetcher=fetch,city=null){
  const resolved=await resolveMapsPreview(value,fetcher);if(resolved.status!=='ok')return resolved;
- const place=await searchPlace(key,resolved.name,resolved.location,fetcher),photo=place?.photos?.[0],attr=photo?.authorAttributions?.[0];
- return {status:'ok',location:resolved.location,name:resolved.name||'',finalUrl:resolved.finalUrl,types:place?.types||[],photoEnabled:!!key,photo:photo?{available:true,authorName:attr?.displayName||'Google Maps',authorUri:attr?.uri||''}:{available:false}};
+ const place=await searchPlace(key,resolved.name,resolved.location,fetcher,city),photo=place?.photos?.[0],attr=photo?.authorAttributions?.[0];
+ return {status:'ok',location:resolved.location,name:resolved.name||place?.displayName?.text||'',address:place?.formattedAddress||'',placeId:place?.id||'',finalUrl:resolved.finalUrl,types:place?.types||[],photoEnabled:!!key,photo:photo?{available:true,authorName:attr?.displayName||'Google Maps',authorUri:attr?.uri||''}:{available:false}};
 }
 
-export async function placePhoto(value,key,fetcher=fetch){
+// Display-only stream (private, no-store). City Route never saves Google photos as its own files.
+export async function placePhoto(value,key,fetcher=fetch,city=null){
  if(!key)return null;const resolved=await resolveMapsPreview(value,fetcher);if(resolved.status!=='ok'||!resolved.name)return null;
- const place=await searchPlace(key,resolved.name,resolved.location,fetcher),photo=place?.photos?.[0];if(!photo)return null;
+ const place=await searchPlace(key,resolved.name,resolved.location,fetcher,city),photo=place?.photos?.[0];if(!photo)return null;
  const r=await fetcher(`https://places.googleapis.com/v1/${photo.name}/media?key=${encodeURIComponent(key)}&maxWidthPx=1200`,{redirect:'follow',signal:AbortSignal.timeout(8000)});if(!r.ok)return null;
  const headers=new Headers();headers.set('content-type',r.headers.get('content-type')||'image/jpeg');headers.set('cache-control','private, no-store');return new Response(r.body,{status:200,headers});
 }

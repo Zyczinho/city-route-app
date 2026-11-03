@@ -1,3 +1,5 @@
 import {mkdir,cp,rm} from 'node:fs/promises';
 await rm('dist',{recursive:true,force:true}); await mkdir('dist');
 for (const p of ['index.html','styles.css','auth.css','community.css','social-routes.css','requests.css','ux-cleanup.css','app.js','core.js','city-context.js','catalogue-client.js','nearby-client.js','map-view.js','map.css','route-covers.js','route-builder-model.js','social-routes-client.js','requests-client.js','enhancements.js','auth-enhancements.js','community-enhancements.js','social-routes-enhancements.js','nav-enhancements.js','sw-update.js','requests-enhancements.js','ux-cleanup.js','supabase-config.js','supabase-client.js','data','assets','admin','manifest.webmanifest','service-worker.js','_headers']) await cp(p,`dist/${p}`,{recursive:true});
+// CLAUDE-PLACE-017: quick place composer (kept on its own line to stay merge-friendly with parallel packages).
+for (const p of ['place-composer.js','place-composer-model.js','place-composer.css']) await cp(p,`dist/${p}`);

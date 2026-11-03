@@ -33,7 +33,9 @@ test('status changes: lifecycle whitelist, place link only for added',async()=>{
   await api.setStatus(R,'added',' wawel-castle ');await api.setStatus(R,'declined','wawel-castle');
   assert.deepEqual(calls.map(c=>c[1]),[{p_request_id:R,p_status:'added',p_resolved_place:'wawel-castle'},{p_request_id:R,p_status:'declined',p_resolved_place:null}]);
   await assert.rejects(api.setStatus(R,'merged'),{code:'invalid-status'});
-  assert.equal(calls.length,2);
+  for(const p of [null,undefined,'','   '])await assert.rejects(api.setStatus(R,'added',p),{code:'place-required'});
+  assert.equal(calls.length,2,'invalid requests never reach the server');
+  assert.equal(toAdminError({message:'place-required'}).code,'place-required');
 });
 
 test('isAdmin is false for non-admins and signed-out users, errors map to codes',async()=>{
@@ -69,6 +71,7 @@ test('migration 013 and the admin page keep the contract',async()=>{
     assert.match(sql,new RegExp(`function public\\.${fn}\\([\\s\\S]*?security definer[\\s\\S]*?if not public\\.is_app_admin\\(\\) then raise exception 'forbidden'`),`${fn} must check the allow-list`);
   const ranking=sql.match(/function public\.admin_catalogue_requests[\s\S]*?end \$\$;/)[0];
   assert.doesNotMatch(ranking.split('from public.catalogue_request_cards')[0],/created_by|user_id|email/,'no identities in admin rows');
+  assert.match(sql,/if p_status='added' then[\s\S]*?raise exception 'place-required'/,'added requires a place on the server');
   assert.match(sql,/from public,anon,authenticated;/);
   const code=sql.split(/\r?\n/).filter(l=>!l.trim().startsWith('--')).join('\n');
   assert.doesNotMatch(code,/grant[^;]*anon[^;]*;/i,'nothing is granted to anon');

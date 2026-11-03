@@ -76,6 +76,10 @@ await as('authenticated',ADMIN,async()=>{
   assert.equal((await q(`select id from public.admin_catalogue_requests('warsaw',null,null,'all','newest')`))[0].id,rg,'newest first');
 
   await fails(q(`select public.admin_set_catalogue_request_status($1,'merged')`,[rk]),/invalid-status/,'unknown status');
+  await fails(q(`select public.admin_set_catalogue_request_status($1,'added')`,[rk]),/place-required/,'added without a place');
+  await fails(q(`select public.admin_set_catalogue_request_status($1,'added',null)`,[rk]),/place-required/,'added with a null place');
+  await fails(q(`select public.admin_set_catalogue_request_status($1,'added','  ')`,[rk]),/place-required/,'added with a blank place');
+  assert.equal((await q(`select * from public.admin_catalogue_requests('warsaw',null,null,'all')`)).find(r=>r.id===rk).status,'open','rejected added leaves the request unchanged');
   await fails(q(`select public.admin_set_catalogue_request_status($1,'added','k1')`,[rk]),/unknown-place/,'place from another city');
   await fails(q(`select public.admin_set_catalogue_request_status($1,'added','wx')`,[rk]),/unknown-place/,'unpublished place');
   await fails(q(`select public.admin_set_catalogue_request_status('00000000-0000-4000-8000-000000000000','planned')`),/request-not-found/,'missing request');

@@ -9,7 +9,7 @@ export const KINDS=['place','category_gap'];
 export class AdminError extends Error{
   constructor(code,cause=null){super(code);this.name='AdminError';this.code=code;this.cause=cause;}
 }
-const KNOWN=/\b(forbidden|invalid-status|unknown-place|request-not-found|auth-required)\b/;
+const KNOWN=/\b(forbidden|invalid-status|place-required|unknown-place|request-not-found|auth-required)\b/;
 export function toAdminError(error){
   if(error instanceof AdminError)return error;
   const message=String(error?.message||error||'');
@@ -61,10 +61,11 @@ export function createAdminRequestsClient({client}={}){
       });
       return (Array.isArray(data)?data:[]).map(adminRequestFromRow).filter(Boolean);
     },
-    // resolvedPlace: public place id (slug) in the request's city; only kept for 'added'.
+    // resolvedPlace: public place id (slug) in the request's city; required for 'added', dropped otherwise.
     async setStatus(requestId,status,resolvedPlace=null){
       if(!LIFECYCLE.includes(status))throw new AdminError('invalid-status');
       const place=status==='added'?String(resolvedPlace||'').trim()||null:null;
+      if(status==='added'&&!place)throw new AdminError('place-required');
       return String(await call('admin_set_catalogue_request_status',{p_request_id:requestId,p_status:status,p_resolved_place:place}));
     }
   };

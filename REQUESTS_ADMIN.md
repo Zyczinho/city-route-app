@@ -34,7 +34,7 @@ To remove access: `delete from public.app_admins where user_id=(select id from a
 - **Filters:** city (active cities), status (`active` = open + planned (default), open, planned, added, declined, all), kind (places / category gaps), category.
 - **Sorts:** most supports, most supports in the last 30 days, newest.
 - **Each row:** rank, title, kind, category, created date, private note and link, support count (unique signed-in users), 30-day count and last support.
-- **Status change:** open, planned, added or declined. For **added** you may enter the public id of the place now in the catalogue (e.g. `wawel-castle`); it must be a published place in the request's city (`unknown-place` otherwise). Any other status clears the link. The creator then sees the decision in *Twoje prośby* (`my_catalogue_requests`).
+- **Status change:** open, planned, added or declined. For **added** you must enter the public id of the place now in the catalogue (e.g. `wawel-castle`): a missing or blank id is rejected with `place-required`, and it must be a published place in the request's city (`unknown-place` otherwise). Any other status clears the link. The creator then sees the decision in *Twoje prośby* (`my_catalogue_requests`).
 - **CSV export** of the current view (UTF-8 with BOM for Excel). Cells that a spreadsheet could run as a formula (`= + - @`) are prefixed with `'`, so a user-written title can't execute.
 
 ## Not in this package
@@ -50,7 +50,7 @@ To remove access: `delete from public.app_admins where user_id=(select id from a
   - anonymous and normal users: no ranking, no status change, allow-list unreadable and unwritable
   - the admin sees ranked rows with note and link, no identities
   - filters and sorts
-  - status validation (`invalid-status`, `unknown-place` for another city or an unpublished place, `request-not-found`)
+  - status validation (`invalid-status`, `place-required` for `added` with a missing or blank place, `unknown-place` for another city or an unpublished place, `request-not-found`)
   - an `added` link that clears on other statuses
   - the creator sees the decision, and the public ranking stays active-only
 - In a browser at 375 px, signed out: only the sign-in prompt is shown, no RPC is called, there's no horizontal scroll and no console error.

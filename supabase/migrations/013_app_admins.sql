@@ -65,7 +65,9 @@ begin
   if p_status not in ('open','planned','added','declined') then raise exception 'invalid-status' using errcode='22023'; end if;
   select r.city_id into v_city from public.catalogue_requests r where r.id=p_request_id;
   if v_city is null then raise exception 'request-not-found' using errcode='P0002'; end if;
-  if p_status='added' and nullif(btrim(coalesce(p_resolved_place,'')),'') is not null then
+  if p_status='added' then
+    -- 'added' means "now in the catalogue": it always needs the published place in the request's city.
+    if nullif(btrim(coalesce(p_resolved_place,'')),'') is null then raise exception 'place-required' using errcode='22023'; end if;
     select p.id into v_place from public.places p
     where p.city_id=v_city and p.status='published' and coalesce(p.legacy_id,p.slug)=btrim(p_resolved_place);
     if v_place is null then raise exception 'unknown-place' using errcode='22023'; end if;

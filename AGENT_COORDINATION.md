@@ -97,19 +97,22 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 
 | Priority | ID | Status | Owner | Reviewer | Depends on | Branch / PR | Next action | Last update |
 |---|---|---|---|---|---|---|---|---|
-| P1 | REQ-ADMIN-004 | REVIEW | Claude | ChatGPT | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE | `claude/req-admin-004` / PR #44, head `fc7d230` | ChatGPT cross-review, cycle 1/2 (YELLOW, migration 013). Synced with `main` after #42: the `scripts/build.mjs` conflict is resolved (social files + `'admin'`), 134/134, build OK. | 2026-11-03 |
+| P1 | REQ-ADMIN-004 | REVIEW | Claude | ChatGPT | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE | `claude/req-admin-004-fix` / PR #48 (the #44 code is on `main` since `47d48a5`, merged before the blocker was fixed) | ChatGPT final re-review of the `place-required` fix only (cycle 1 blocker). No new full round. | 2026-11-03 |
 | P1 | REQ-UI-003 | READY | ChatGPT | Claude | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE; SOCIAL-RUNTIME-004 DONE | no branch | All dependencies are met (#42 merged at `09dad87`). Claim it here (`IN_PROGRESS`, branch) before coding. Scope: request entry points, duplicate/+1 flow, ranked active requests, support/unsupport, `Profil -> Twoje prośby`; no new permanent bottom-nav tab. Shares only `scripts/build.mjs` with #44. | 2026-11-03 |
 | P1 | SOCIAL-PROD-SMOKE-005 | READY | ChatGPT + Jakub | Claude | SOCIAL-RUNTIME-004 DONE; production deploy of `09dad87` confirmed | no branch | First confirm that Cloudflare deployed `09dad87`. Then, with two test accounts: publish a route, open it from the Społeczność feed, open the author's profile, save the route and check the signed-in `#social-saved` list, and check the mobile nav. | 2026-11-03 |
-| P2 | MIGRATION-013-HOSTED | BLOCKED | Jakub | — | REQ-ADMIN-004 merged | PR #44 | After merge, apply `013_app_admins.sql` from merged `main`, then add the admin row with the SQL in `REQUESTS_ADMIN.md`. Not applied: at the reset, `is_app_admin` doesn't exist on hosted (PGRST202). | 2026-11-03 |
+| P2 | MIGRATION-013-HOSTED | BLOCKED | Jakub | — | REQ-ADMIN-004 fix (PR #48) merged | PR #48 | **Do not apply 013 from the current `main`**: that version still lets `added` through without a place. After #48 merges, apply `013_app_admins.sql` from `main`, then add the admin row with the SQL in `REQUESTS_ADMIN.md`. | 2026-11-03 |
 | P3 | INFRA-CF-PREVIEW-001 | BACKLOG | Jakub | — | Cloudflare dashboard access | — | The "Workers Builds: city-route-app" check fails on every PR branch, while builds of `main` succeed (e.g. `0d23fb9`). Classified as a deployment-configuration problem (non-production branch builds), not an app regression: GitHub `test` passes and the local build is OK. The build log is behind the Cloudflare login and hasn't been read. Until fixed, treat GitHub `test` as the required CI. | 2026-11-03 |
 
 ## Current package facts
 
-### REQ-ADMIN-004 — PR #44
+### REQ-ADMIN-004 — PR #44 (merged) + fix PR #48
 
-- Scope: `supabase/migrations/013_app_admins.sql`, `admin/` (unlinked, noindex, no `app.js`), `scripts/build.mjs` (+`'admin'`), `REQUESTS_ADMIN.md`, tests and the PGlite harness. It doesn't touch the main runtime.
-- Tests 128/128 and build OK. Trial merge with current `main` is clean. PGlite 011 -> 012 -> 013 (applied twice) passes.
-- Process note: this was implemented before the canonical board existed. Under the new board, its dependencies (012 merged and applied) are now met, so `REVIEW` is the correct state. No hosted change was made.
+- #44 merged to `main` at `47d48a5` while ChatGPT's cycle 1 blocker was still open: `admin_set_catalogue_request_status(..., 'added', NULL/'')` was accepted.
+- PR #48 fixes it in place in 013. Editing 013 is safe because it has never been applied anywhere, and the functions are `create or replace`.
+  - Server: `added` without a place raises `place-required`; `unknown-place` checks are unchanged.
+  - Client and form: the same check runs before the RPC call, with a Polish message.
+  - Tests: unit regression, and PGlite regression for missing/null/blank places (rejected, request unchanged) and a valid place (accepted).
+  - The new PGlite regression fails against the old 013 on `main` and passes with the fix.
 
 ## Dependency rules for the current request track
 
@@ -123,7 +126,7 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 | 007–010 | yes | yes | earlier board records |
 | 011 | yes | yes, 2026-11-03 | earlier board record; social RPCs answer on hosted |
 | 012 | yes (PR #43) | **yes, 2026-11-03** | Jakub confirmed in chat. At the reset, a read-only anon call to `catalogue_requests_ranked('warsaw')` returned 0 rows without error, while a control call to a missing function returned PGRST202. |
-| 013 | no (PR #44, in review) | **no** | at the reset, `is_app_admin` returns PGRST202 on hosted |
+| 013 | yes since #44, but fix pending in PR #48 | **no** (blocked until #48 merges) | at the reset, `is_app_admin` returns PGRST202 on hosted |
 
 ## Recently completed
 

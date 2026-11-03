@@ -27,7 +27,7 @@ test('Social custom views are idempotent and city-scoped',async()=>{
  assert.doesNotMatch(runtime,/root\.dataset\.socialRoute=id/,'a persistent dataset marker would survive core innerHTML replacement');
 });
 
-test('Social Routes UI and navigation modules ship in index, build and PWA cache v32',async()=>{
+test('Social Routes UI and navigation modules ship in index, build and PWA cache v33',async()=>{
  const [index,build,sw]=await Promise.all([read('index.html'),read('scripts/build.mjs'),read('service-worker.js')]);
  for(const file of ['social-routes-client.js','social-routes-enhancements.js','social-routes.css','nav-enhancements.js','ux-cleanup.js','ux-cleanup.css']){
   const re=new RegExp(file.replaceAll('.','\\.'));
@@ -38,7 +38,7 @@ test('Social Routes UI and navigation modules ship in index, build and PWA cache
  assert.match(index,/nav-enhancements\.js\?v=2/);
  assert.match(index,/ux-cleanup\.js\?v=1/);
  assert.match(index,/ux-cleanup\.css\?v=1/);
- assert.match(sw,/city-route-v32/);
+ assert.match(sw,/city-route-v33/);
 });
 
 test('Bottom navigation has Community and keeps My Route compact and central',async()=>{

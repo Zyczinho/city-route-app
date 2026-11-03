@@ -97,6 +97,7 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 
 | Priority | ID | Status | Owner | Reviewer | Depends on | Branch / PR | Next action | Last update |
 |---|---|---|---|---|---|---|---|---|
+| P0 | NAV-HOTFIX-008 | IN_PROGRESS | ChatGPT | Jakub (production smoke) | UX-CLEANUP-007 PR #50 merged | `chatgpt/hotfix-nav-observer-008` | Fix non-idempotent MutationObserver reordering navigation; prevent starvation of async app initialization. Add runtime regression test, CI; production verification required. No Supabase changes. | 2026-11-03 |
 | P1 | UX-CLEANUP-007 | REVIEW | ChatGPT | Jakub (visual) | PLAN-UI-MOBILE-006 DONE; SOCIAL-RUNTIME-004 DONE | PR #50 merged to `main` at `da82633` | Code merged 2026-11-03 16:30 UTC; founder to verify actual production deploy and visual UX on desktop/mobile. Mark DONE after that acceptance. | 2026-11-03 |
 | P1 | REQ-ADMIN-004 | DONE | Claude | ChatGPT | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE | PR #44 + fix PR #48, merged to `main` at `d9eb8e8` | No code action. Hosted migration is tracked separately below. | 2026-11-03 |
 | P1 | REQ-UI-003 | DONE | ChatGPT | Claude | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE; SOCIAL-RUNTIME-004 DONE | PR #47 merged to `main` at `58694df` | Claude targeted re-review was CLEAN; no further code action. | 2026-11-03 |
@@ -106,6 +107,14 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 | P3 | INFRA-CF-PREVIEW-001 | BACKLOG | Jakub | — | Cloudflare dashboard access | — | Workers preview builds fail on PR branches while `main` builds succeed. Treat GitHub `test` as required CI until preview configuration is fixed. | 2026-11-03 |
 
 ## Current package facts
+
+### NAV-HOTFIX-008 — production blocker
+
+- Founder screenshot following Cloudflare Ready: initial loading screen never resolves and bottom nav only shows Społeczność.
+- Root cause isolated in `nav-enhancements.js`: MutationObserver calls `enforceBottomNav`, which appends the same links unconditionally and queues itself indefinitely. `navSyncing` is reset before callbacks run, so guard is ineffective against microtask re-entry.
+- Fix only that module and a focused runtime regression test; release must be visually smoke-tested on production before marking DONE. Supabase unaffected. Separate P0 catalogue branch remains independent.
+
+
 
 ### UX-CLEANUP-007 — PR #50 — merged, visual production acceptance pending
 

@@ -204,3 +204,22 @@ img.avatar{object-fit:cover;display:block}.avatar.sm{width:36px;height:36px;font
 .start-guide-menu .help-row>span:not(.i){min-width:0;gap:2px}
 .start-guide-menu .help-row>span>small{line-height:1.4}
 .start-guide-menu .help-row>.i:last-child{width:17px;height:17px;margin-left:auto;color:var(--muted)}
+
+
+/* ROUTE-CHOICES-022: compact, accessible choices before the generated route details. */
+.generated-picker{margin:0 0 18px}.generated-picker h2{margin:0 0 5px;font-size:19px}
+.generated-picker>.lead{font-size:14px;margin:0 0 12px}
+.generated-options{display:grid;gap:9px}
+.generated-option{display:grid;justify-content:stretch;align-items:start;width:100%;gap:3px;text-align:left;padding:13px 14px;border:1px solid var(--line);border-radius:15px;background:var(--surface);box-shadow:var(--shadow);font-weight:400}
+.generated-option:hover{border-color:var(--blue)}
+.generated-option.selected{background:var(--blue-soft);border-color:var(--blue);box-shadow:0 0 0 1px #0a66c220}
+.generated-option-title{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:15px}
+.generated-option-title strong{font-weight:750}
+.generated-option-title>span{font-size:12px;color:var(--blue);font-weight:650}
+.generated-option small{font-size:12px;color:var(--ink-2)}
+.generated-option-stops{font-size:12px;color:var(--muted);line-height:1.45;overflow-wrap:anywhere}
+.generated-picker-actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:11px 0 18px}
+.generated-picker-actions button{min-height:42px;font-size:13px;padding:9px 12px}
+.generated-picker-actions button .i{width:16px;height:16px}
+.generated-picker-actions>a{font-size:13px;color:var(--blue);font-weight:650}
+@media(min-width:680px){.generated-options{grid-template-columns:repeat(3,minmax(0,1fr))}.generated-option{min-width:0}}

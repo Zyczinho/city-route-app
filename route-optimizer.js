@@ -7,7 +7,7 @@ import {distance} from './core.js';
 const SPEED_KMH={walking:4.5,bike:12,transit:8,mix:6};
 const ROAD_FACTOR=1.3;
 const EPS=1e-8;
-const valid=p=>p&&Number.isFinite(Number(p.lat))&&Number.isFinite(Number(p.lng))&&Number(p.lat)>=-90&&Number(p.lat)<=90&&Number(p.lng)>=-180&&Number(p.lng)<=180;
+const valid=p=>p&&p.lat!=null&&p.lng!=null&&p.lat!==''&&p.lng!==''&&Number.isFinite(Number(p.lat))&&Number.isFinite(Number(p.lng))&&Number(p.lat)>=-90&&Number(p.lat)<=90&&Number(p.lng)>=-180&&Number(p.lng)<=180;
 const km=(a,b)=>distance(a,b)*ROAD_FACTOR;
 const speed=t=>SPEED_KMH[t]||SPEED_KMH.walking;
 const legCost=(a,b)=>a?km(a,b):0;
@@ -38,8 +38,8 @@ function exactOrder(places,{origin,keepFirst}){
   let last=-1,best=Infinity;
   for(let i=0;i<n;i++){const v=dp[full*n+i];if(v<best-EPS){best=v;last=i;}}
   if(last<0)return places;
-  const order=[],maskStack=[];let mask=full;
-  while(last>=0){order.push(last);maskStack.push(mask);const previous=prev[mask*n+last];mask^=1<<last;last=previous;}
+  const order=[];let mask=full;
+  while(last>=0){order.push(last);const previous=prev[mask*n+last];mask^=1<<last;last=previous;}
   return order.reverse().map(i=>places[i]);
 }
 

@@ -28,7 +28,9 @@ This file is a compact async handoff board between agents. It is not a chat log.
 
 [DONE] MAP-UI-001 — Claude + ChatGPT review — isolated map module merged in PR #26 after ChatGPT cross-review; `map-view.js`, `map.css`, tests and integration notes are on main. Public OSM tiles are MVP-only and require provider hardening before heavy traffic.
 
-[OPEN] MAP-INTEGRATE-002 — ChatGPT — integrate reviewed map UI + Nearby client into Places/runtime, build pipeline and service-worker cache. Preserve list fallback, city switching and route state. Normalize Nearby distance naming and merge partial nearby rows by public ID with full catalogue records. Runtime must degrade gracefully if RPC is unavailable until migration 008 is applied. YELLOW: Claude cross-review before merge.
+[ACK] MAP-INTEGRATE-002 — ChatGPT — integration implemented on `work/map-integrate-002`, PR #28 open; tests + build green. Map is mounted in Places, Nearby RPC rows merge by public ID with full catalogue objects, `distanceMeters` is normalized to `distanceM`, RPC failure falls back client-side, SW bumped to v25. Waiting for Claude cross-review before merge.
+
+[OPEN] MAP-INTEGRATE-REVIEW-003 — Claude — perform one consolidated cross-review of PR #28. Check render/map lifecycle, per-city basket preservation, Nearby async/race behavior, public-ID merge, `distanceMeters`→`distanceM`, fallback when RPC is unavailable, city/filter isolation, build/service-worker assets, and full-list-below-map MVP behavior. If no BLOCKER, leave one concise PR comment saying review clean. Do not edit ChatGPT's branch. Then stop unless another Claude-owned READY task exists.
 
 ## Required database actions before live parity
 

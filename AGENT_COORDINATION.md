@@ -54,9 +54,13 @@ This file is a compact async handoff board between agents. It is not a chat log.
 
 [DONE] SOCIAL-SPEC-REVIEW-002 — Claude — PR #39 reviewed clean with no BLOCKER. Review identified seven implementation details for 011: keep `catalogue_routes` editorial-only, anonymous author/profile reads via narrow RPCs, direct-link unlisted route RPC, atomic publish/edit RPC, stable route UUID contract, owner-only save/rating RLS with no self-rating, and fork provenance with `on delete set null`.
 
-[DONE] SOCIAL-DATA-003 — Claude + ChatGPT review — migration 011, `social-routes-client.js`, Postgres/PGlite harness, tests and `SOCIAL_ROUTES_DATA.md` merged in PR #40 after review cycle 2/2. Final fixes prevent unlisted/archived fork-source provenance from leaking through public cards/`route_ref`, while preserving provenance for both editorial and public community forks via server-side reference resolution. Hosted migration 011 is not applied yet.
+[DONE] SOCIAL-DATA-003 — Claude + ChatGPT review — migration 011, `social-routes-client.js`, Postgres/PGlite harness, tests and `SOCIAL_ROUTES_DATA.md` merged in PR #40 after review cycle 2/2. Final fixes prevent unlisted/archived fork-source provenance from leaking through public cards/`route_ref`, while preserving provenance for both editorial and public community forks via server-side reference resolution. Hosted migration 011 applied successfully by Jakub on 2026-11-03.
 
-[OPEN] SOCIAL-RUNTIME-004 — ChatGPT — after migration 011 is available on hosted Supabase, integrate Social Routes into runtime UI using the merged `social-routes-client.js`: publish from Route Builder, city-scoped Community feed, save/unsave, fork with draft-replacement confirmation, 1–5 rating, author profile, owned route archive/delete/edit, analytics events, build inclusion and PWA cache bump. Preserve editorial routes and ADR-010 cover semantics. Open PR and request one Claude cross-review before merge.
+[ACK] SOCIAL-RUNTIME-004 — ChatGPT — branch `work/social-runtime-004` active. Integrate Social Routes into runtime UI using merged `social-routes-client.js`: publish from Route Builder, city-scoped Community feed, save/unsave, fork with draft-replacement confirmation, 1–5 rating, author profile, owned route archive/delete/edit, analytics, build inclusion and PWA cache bump. Preserve editorial routes and ADR-010 cover semantics. Also make `Moja trasa` materially more prominent on mobile navigation; founder feedback indicates current five-tab density makes the core route destination too easy to lose. Open PR and request one Claude cross-review before merge.
+
+[DONE] REQUESTS-SPEC-001 — ChatGPT — `REQUESTS.md` added to main. Requests are catalogue-demand signals, not generic support tickets: support both specific missing places and category gaps (e.g. more kebabs/bars/clubs), city-scoped, ranked by unique signed-in supporters, with a founder-facing top-demand view. Requests live under Places/Discover rather than adding a sixth bottom-nav tab.
+
+[OPEN] REQUESTS-DATA-002 — Claude — build the isolated Requests data package from `REQUESTS.md`. Own forward-only migration 012, `requests-client.js`, focused tests and DB/read-contract docs. Do not edit `app.js`, general styles, navigation, Social Routes runtime or service worker. Required: `catalogue_requests`, `catalogue_request_supports`, city scoping, request kinds `place|category_gap`, open/planned/added/declined lifecycle, safe public aggregate read, signed-in create/support/unsupport, no supporter identity exposure, likely-duplicate lookup, no hard-coded admin UUID, and no mutable support counters unless measured need appears. Migration 012 is YELLOW: open a PR and request ChatGPT cross-review; do not apply to hosted Supabase before merge/review.
 
 ## Required database actions before live parity
 
@@ -64,7 +68,8 @@ This file is a compact async handoff board between agents. It is not a chat log.
 - Migration 008: applied successfully.
 - Migration 009: applied successfully.
 - Migration 010: applied successfully.
-- Migration 011: merged in PR #40; **pending manual apply to hosted Supabase before Social Routes runtime can be production-tested**.
+- Migration 011: applied successfully by Jakub on 2026-11-03.
+- Migration 012: not yet implemented; do not apply until REQUESTS-DATA-002 is reviewed and merged.
 
 ## Handoff / checkpoint rule
 

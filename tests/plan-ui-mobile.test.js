@@ -7,9 +7,10 @@ const read=p=>readFile(p,'utf8');
 
 test('PLAN-UI-MOBILE-006 keeps planner semantics and adds progressive disclosure',async()=>{
  const [app,enhancements]=await Promise.all([read('app.js'),read('enhancements.js')]);
- for(const name of ['time','interests','transport','food','start','budget','tourist','offers']){
-  assert.ok(app.includes(`name="${name}"`),`core planner must keep ${name}`);
+ for(const name of ['time','transport','food','start','budget','tourist','offers']){
+  assert.match(app,new RegExp(`radio\\('${name}'`),`core planner must keep ${name}`);
  }
+ assert.match(app,/name="interests"/,'core planner must keep interests');
  assert.match(enhancements,/function simplifyPlanner\(\)/);
  assert.match(enhancements,/planner-primary/);
  assert.match(enhancements,/planner-advanced/);

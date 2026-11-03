@@ -5,17 +5,17 @@
     "lat": 50.0465629,
     "lng": 19.9474985,
     "categoryId": "architecture",
-    "area": "Podgórze / Kazimierz",
-    "description": "Kładka łącząca Kazimierz z Podgórzem, popularna szczególnie po zmroku.",
-    "minutes": 30,
+    "area": "Kazimierz",
+    "description": "Kładka pieszo-rowerowa nad Wisłą z akrobatycznymi rzeźbami, łącząca Kazimierz z Podgórzem. Dobry widok na rzekę.",
+    "minutes": 15,
     "cost": 0,
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
     "top": true,
     "tags": [
-      "walk",
       "views",
+      "walk",
       "free",
       "romantic"
     ],
@@ -31,130 +31,14 @@
     }
   },
   {
-    "id": "central-square-nowa-huta",
-    "name": "Plac Centralny w Nowej Hucie",
-    "lat": 50.0719,
-    "lng": 20.0378,
-    "categoryId": "architecture",
-    "area": "Nowa Huta",
-    "description": "Monumentalny plac i dobry punkt startu do odkrywania socrealistycznej Nowej Huty.",
-    "minutes": 30,
-    "cost": 0,
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "top": true,
-    "tags": [
-      "architecture",
-      "local",
-      "nowa-huta",
-      "free"
-    ],
-    "ratings": [],
-    "metadata": {
-      "source": {
-        "provider": "curated-coordinates"
-      },
-      "curated": true
-    }
-  },
-  {
-    "id": "mercy-brown",
-    "name": "Mercy Brown",
-    "lat": 50.061512,
-    "lng": 19.931628,
-    "categoryId": "cocktail_bar",
-    "area": "Stare Miasto",
-    "description": "Ukryty cocktail bar w stylu speakeasy z jazzowym klimatem.",
-    "minutes": 75,
-    "cost": 0,
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "top": true,
-    "tags": [
-      "nightlife",
-      "cocktails",
-      "date"
-    ],
-    "ratings": [],
-    "metadata": {
-      "source": {
-        "provider": "curated-coordinates"
-      },
-      "curated": true
-    }
-  },
-  {
-    "id": "stary-kleparz",
-    "name": "Stary Kleparz",
-    "lat": 50.0673844,
-    "lng": 19.9410863,
-    "categoryId": "food_hall",
-    "area": "Kleparz",
-    "description": "Historyczny targ spożywczy blisko Starego Miasta.",
-    "minutes": 45,
-    "cost": 0,
-    "tourist": "must",
-    "foodStyle": "quick",
-    "partner": false,
-    "top": true,
-    "tags": [
-      "food",
-      "market",
-      "local",
-      "budget"
-    ],
-    "ratings": [],
-    "metadata": {
-      "source": {
-        "provider": "nominatim-openstreetmap",
-        "osmType": "way",
-        "id": 25070800,
-        "url": "https://www.openstreetmap.org/way/25070800"
-      },
-      "curated": true
-    }
-  },
-  {
-    "id": "botanical-garden",
-    "name": "Ogród Botaniczny UJ",
-    "lat": 50.0625074,
-    "lng": 19.9574802,
-    "categoryId": "garden",
-    "area": "Wesoła",
-    "description": "Historyczny ogród botaniczny z kolekcjami roślin i szklarniami.",
-    "minutes": 45,
-    "cost": 0,
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "top": true,
-    "tags": [
-      "nature",
-      "garden",
-      "calm"
-    ],
-    "ratings": [],
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "way",
-        "id": 25131339,
-        "url": "https://www.openstreetmap.org/way/25131339"
-      },
-      "curated": true
-    }
-  },
-  {
     "id": "barbican",
     "name": "Barbakan Krakowski",
     "lat": 50.0654585,
     "lng": 19.9416339,
     "categoryId": "landmark",
     "area": "Stare Miasto",
-    "description": "Zachowany element średniowiecznych fortyfikacji Krakowa.",
-    "minutes": 25,
+    "description": "Ceglany barbakan z końca XV wieku, który bronił wejścia do miasta przez Bramę Floriańską.",
+    "minutes": 15,
     "cost": 0,
     "tourist": "must",
     "foodStyle": "none",
@@ -162,8 +46,8 @@
     "top": true,
     "tags": [
       "classic",
-      "history",
-      "free"
+      "sightseeing",
+      "history"
     ],
     "ratings": [],
     "metadata": {
@@ -183,8 +67,8 @@
     "lng": 19.9414982,
     "categoryId": "landmark",
     "area": "Stare Miasto",
-    "description": "Jedna z najbardziej rozpoznawalnych bram dawnego Krakowa.",
-    "minutes": 25,
+    "description": "Gotycka brama w dawnych murach miejskich. Stąd Droga Królewska prowadzi Floriańską przez Rynek aż na Wawel.",
+    "minutes": 10,
     "cost": 0,
     "tourist": "must",
     "foodStyle": "none",
@@ -192,6 +76,7 @@
     "top": true,
     "tags": [
       "classic",
+      "sightseeing",
       "history",
       "free"
     ],
@@ -213,14 +98,15 @@
     "lng": 19.9544353,
     "categoryId": "landmark",
     "area": "Podgórze",
-    "description": "Miejsce pamięci związane z historią krakowskiego getta.",
-    "minutes": 25,
+    "description": "Plac z instalacją pustych krzeseł upamiętniającą Żydów z krakowskiego getta. To stąd wywożono ich do obozów.",
+    "minutes": 15,
     "cost": 0,
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
     "top": true,
     "tags": [
+      "sightseeing",
       "history",
       "jewish-heritage",
       "ww2",
@@ -244,8 +130,8 @@
     "lng": 19.9373512,
     "categoryId": "landmark",
     "area": "Stare Miasto",
-    "description": "Serce Krakowa i naturalny punkt startu dla pierwszej wizyty.",
-    "minutes": 25,
+    "description": "Jeden z największych średniowiecznych rynków Europy, z Sukiennicami, Wieżą Ratuszową i Mariackim. Dobry punkt startu każdej trasy.",
+    "minutes": 20,
     "cost": 0,
     "tourist": "must",
     "foodStyle": "none",
@@ -254,6 +140,7 @@
     "tags": [
       "classic",
       "sightseeing",
+      "architecture",
       "free"
     ],
     "ratings": [],
@@ -274,8 +161,8 @@
     "lng": 19.9373615,
     "categoryId": "landmark",
     "area": "Stare Miasto",
-    "description": "Historyczne hale handlowe w samym środku Rynku Głównego.",
-    "minutes": 25,
+    "description": "Renesansowe hale targowe na środku Rynku: stragany z rękodziełem na parterze, galeria malarstwa XIX wieku na piętrze.",
+    "minutes": 20,
     "cost": 0,
     "tourist": "must",
     "foodStyle": "none",
@@ -284,7 +171,8 @@
     "tags": [
       "classic",
       "sightseeing",
-      "shopping"
+      "architecture",
+      "free"
     ],
     "ratings": [],
     "metadata": {
@@ -304,8 +192,8 @@
     "lng": 19.936564,
     "categoryId": "landmark",
     "area": "Wawel",
-    "description": "Królewski kompleks nad Wisłą i jeden z najważniejszych symboli miasta.",
-    "minutes": 25,
+    "description": "Wzgórze z zamkiem królewskim nad Wisłą. Dziedzińce są dostępne bez biletu, komnaty i skarbiec wymagają wejściówek.",
+    "minutes": 45,
     "cost": 0,
     "tourist": "must",
     "foodStyle": "none",
@@ -313,8 +201,9 @@
     "top": true,
     "tags": [
       "classic",
+      "sightseeing",
       "history",
-      "sightseeing"
+      "views"
     ],
     "ratings": [],
     "metadata": {
@@ -334,8 +223,8 @@
     "lng": 19.9336997,
     "categoryId": "museum",
     "area": "Stare Miasto",
-    "description": "Najstarszy budynek Uniwersytetu Jagiellońskiego i muzeum uniwersyteckie.",
-    "minutes": 75,
+    "description": "Najstarszy budynek Uniwersytetu Jagiellońskiego z gotyckim dziedzińcem i muzeum uniwersyteckim. Dziedziniec można zobaczyć bez biletu.",
+    "minutes": 45,
     "cost": 0,
     "tourist": "must",
     "foodStyle": "none",
@@ -344,7 +233,8 @@
     "tags": [
       "culture",
       "history",
-      "museum"
+      "sightseeing",
+      "student"
     ],
     "ratings": [],
     "metadata": {
@@ -364,15 +254,15 @@
     "lng": 19.9617019,
     "categoryId": "museum",
     "area": "Zabłocie",
-    "description": "Muzeum opowiadające o Krakowie podczas niemieckiej okupacji.",
-    "minutes": 75,
+    "description": "Muzeum w dawnej fabryce Oskara Schindlera z wystawą o Krakowie pod okupacją niemiecką 1939–1945. Bilety warto zarezerwować wcześniej.",
+    "minutes": 90,
     "cost": 0,
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
     "top": true,
     "tags": [
-      "museum",
+      "culture",
       "history",
       "ww2",
       "rainy-day"
@@ -395,7 +285,7 @@
     "lng": 19.9613687,
     "categoryId": "museum",
     "area": "Zabłocie",
-    "description": "Najważniejsze krakowskie muzeum sztuki współczesnej.",
+    "description": "Muzeum Sztuki Współczesnej na terenie dawnej fabryki Schindlera, ze zmieniającymi się wystawami polskiej i zagranicznej sztuki.",
     "minutes": 75,
     "cost": 0,
     "tourist": "must",
@@ -403,9 +293,8 @@
     "partner": false,
     "top": true,
     "tags": [
-      "museum",
+      "culture",
       "art",
-      "zablocie",
       "rainy-day"
     ],
     "ratings": [],
@@ -426,7 +315,7 @@
     "lng": 19.9402301,
     "categoryId": "museum",
     "area": "Stare Miasto",
-    "description": "Jedna z najważniejszych kolekcji sztuki w Polsce.",
+    "description": "Kolekcja sztuki i pamiątek historycznych, w której można zobaczyć „Damę z gronostajem” Leonarda da Vinci.",
     "minutes": 75,
     "cost": 0,
     "tourist": "must",
@@ -434,9 +323,9 @@
     "partner": false,
     "top": true,
     "tags": [
-      "museum",
-      "art",
       "culture",
+      "art",
+      "history",
       "rainy-day"
     ],
     "ratings": [],
@@ -451,83 +340,22 @@
     }
   },
   {
-    "id": "aviation-museum",
-    "name": "Muzeum Lotnictwa Polskiego",
-    "lat": 50.0788479,
-    "lng": 19.9905573,
-    "categoryId": "museum",
-    "area": "Czyżyny",
-    "description": "Rozbudowana kolekcja samolotów i historii lotnictwa.",
-    "minutes": 75,
-    "cost": 0,
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "top": true,
-    "tags": [
-      "museum",
-      "aviation",
-      "rainy-day"
-    ],
-    "ratings": [],
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "way",
-        "id": 307773166,
-        "url": "https://www.openstreetmap.org/way/307773166"
-      },
-      "curated": true
-    }
-  },
-  {
-    "id": "manggha",
-    "name": "Muzeum Manggha",
-    "lat": 50.0508748,
-    "lng": 19.931658,
-    "categoryId": "museum",
-    "area": "Dębniki",
-    "description": "Muzeum sztuki i kultury japońskiej nad Wisłą.",
-    "minutes": 75,
-    "cost": 0,
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "top": true,
-    "tags": [
-      "museum",
-      "art",
-      "culture"
-    ],
-    "ratings": [],
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "way",
-        "id": 233371578,
-        "url": "https://www.openstreetmap.org/way/233371578"
-      },
-      "curated": true
-    }
-  },
-  {
     "id": "national-museum",
     "name": "Muzeum Narodowe w Krakowie",
     "lat": 50.0604376,
     "lng": 19.923608,
     "categoryId": "museum",
     "area": "Błonia",
-    "description": "Główna siedziba Muzeum Narodowego z rozbudowanymi kolekcjami sztuki.",
-    "minutes": 75,
+    "description": "Gmach Główny Muzeum Narodowego z galeriami sztuki polskiej, rzemiosła i militariów. Dobry wybór na dłuższą wizytę lub deszczowy dzień.",
+    "minutes": 90,
     "cost": 0,
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
     "top": true,
     "tags": [
-      "museum",
-      "art",
       "culture",
+      "art",
       "rainy-day"
     ],
     "ratings": [],
@@ -548,7 +376,7 @@
     "lng": 19.9377768,
     "categoryId": "museum",
     "area": "Stare Miasto",
-    "description": "Multimedialna trasa archeologiczna pod płytą Rynku Głównego.",
+    "description": "Trasa pod płytą Rynku z odkopanymi fragmentami średniowiecznego miasta i ekspozycją multimedialną. Dobra opcja na deszcz.",
     "minutes": 75,
     "cost": 0,
     "tourist": "must",
@@ -556,7 +384,7 @@
     "partner": false,
     "top": true,
     "tags": [
-      "museum",
+      "culture",
       "history",
       "rainy-day"
     ],
@@ -578,17 +406,18 @@
     "lng": 19.9486129,
     "categoryId": "museum",
     "area": "Kazimierz",
-    "description": "Najstarsza zachowana synagoga w Polsce i ważny punkt historii Kazimierza.",
-    "minutes": 75,
+    "description": "Najstarsza zachowana synagoga w Polsce, dziś oddział Muzeum Krakowa o historii i kulturze krakowskich Żydów.",
+    "minutes": 45,
     "cost": 0,
     "tourist": "must",
     "foodStyle": "none",
     "partner": false,
     "top": true,
     "tags": [
+      "culture",
       "history",
       "jewish-heritage",
-      "museum"
+      "rainy-day"
     ],
     "ratings": [],
     "metadata": {
@@ -608,7 +437,7 @@
     "lng": 19.9453935,
     "categoryId": "neighborhood",
     "area": "Kazimierz",
-    "description": "Jeden z najbardziej charakterystycznych punktów Kazimierza, szczególnie wieczorem.",
+    "description": "Plac z okrąglakiem, w którym sprzedaje się zapiekanki, otoczony barami i kawiarniami. Rano targ, wieczorem centrum życia Kazimierza.",
     "minutes": 30,
     "cost": 0,
     "tourist": "must",
@@ -618,7 +447,8 @@
     "tags": [
       "local",
       "food",
-      "nightlife"
+      "nightlife",
+      "budget"
     ],
     "ratings": [],
     "metadata": {
@@ -632,45 +462,14 @@
     }
   },
   {
-    "id": "blonia",
-    "name": "Błonia Krakowskie",
-    "lat": 50.0597168,
-    "lng": 19.9120842,
-    "categoryId": "park",
-    "area": "Błonia",
-    "description": "Ogromna zielona łąka pomiędzy centrum a Zwierzyńcem.",
-    "minutes": 40,
-    "cost": 0,
-    "tourist": "must",
-    "foodStyle": "none",
-    "partner": false,
-    "top": true,
-    "tags": [
-      "nature",
-      "sport",
-      "free",
-      "local"
-    ],
-    "ratings": [],
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "way",
-        "id": 25113592,
-        "url": "https://www.openstreetmap.org/way/25113592"
-      },
-      "curated": true
-    }
-  },
-  {
     "id": "planty",
     "name": "Planty",
-    "lat": 50.0602487,
-    "lng": 19.9384248,
+    "lat": 50.0612,
+    "lng": 19.9322,
     "categoryId": "park",
     "area": "Stare Miasto",
-    "description": "Zielony pierścień wokół historycznego centrum, idealny na spacer między atrakcjami.",
-    "minutes": 40,
+    "description": "Park w miejscu dawnych murów miejskich, okalający całe Stare Miasto. Najprzyjemniejsze przejście między atrakcjami centrum.",
+    "minutes": 20,
     "cost": 0,
     "tourist": "must",
     "foodStyle": "none",
@@ -679,7 +478,8 @@
     "tags": [
       "nature",
       "walk",
-      "free"
+      "free",
+      "classic"
     ],
     "ratings": [],
     "metadata": {
@@ -695,11 +495,11 @@
   {
     "id": "st-marys-basilica",
     "name": "Bazylika Mariacka",
-    "lat": 50.0675436,
-    "lng": 19.9432758,
+    "lat": 50.0616547,
+    "lng": 19.9394485,
     "categoryId": "religious_site",
     "area": "Stare Miasto",
-    "description": "Gotycka bazylika przy Rynku Głównym, słynąca z hejnału i ołtarza Wita Stwosza.",
+    "description": "Gotycka bazylika z ołtarzem Wita Stwosza. Co godzinę z wyższej wieży grany jest hejnał mariacki.",
     "minutes": 30,
     "cost": 0,
     "tourist": "must",
@@ -708,16 +508,17 @@
     "top": true,
     "tags": [
       "classic",
-      "culture",
-      "sightseeing"
+      "sightseeing",
+      "art",
+      "history"
     ],
     "ratings": [],
     "metadata": {
       "source": {
         "provider": "openstreetmap",
         "type": "way",
-        "id": 29246492,
-        "url": "https://www.openstreetmap.org/way/29246492"
+        "id": 26195267,
+        "url": "https://www.openstreetmap.org/way/26195267"
       },
       "curated": true
     }
@@ -729,8 +530,8 @@
     "lng": 19.9354554,
     "categoryId": "religious_site",
     "area": "Wawel",
-    "description": "Katedra koronacyjna i miejsce związane z historią polskich monarchów.",
-    "minutes": 30,
+    "description": "Miejsce koronacji i pochówku polskich królów. Warto wejść na wieżę z dzwonem Zygmunta.",
+    "minutes": 45,
     "cost": 0,
     "tourist": "must",
     "foodStyle": "none",
@@ -738,8 +539,8 @@
     "top": true,
     "tags": [
       "classic",
-      "history",
-      "culture"
+      "sightseeing",
+      "history"
     ],
     "ratings": [],
     "metadata": {
@@ -759,7 +560,7 @@
     "lng": 19.9472847,
     "categoryId": "religious_site",
     "area": "Kazimierz",
-    "description": "Historyczna synagoga i cmentarz przy ulicy Szerokiej.",
+    "description": "Mała, wciąż czynna synagoga z XVI wieku i przylegający do niej stary cmentarz żydowski.",
     "minutes": 30,
     "cost": 0,
     "tourist": "must",
@@ -767,9 +568,9 @@
     "partner": false,
     "top": true,
     "tags": [
+      "sightseeing",
       "history",
-      "jewish-heritage",
-      "culture"
+      "jewish-heritage"
     ],
     "ratings": [],
     "metadata": {
@@ -789,8 +590,8 @@
     "lng": 19.8933537,
     "categoryId": "viewpoint",
     "area": "Zwierzyniec",
-    "description": "Jeden z najlepszych punktów widokowych na Kraków i okolice.",
-    "minutes": 35,
+    "description": "Kopiec z XIX wieku z panoramą Krakowa, a przy dobrej pogodzie także Tatr. Wstęp jest płatny i obejmuje wystawy w forcie.",
+    "minutes": 60,
     "cost": 0,
     "tourist": "must",
     "foodStyle": "none",
@@ -799,7 +600,7 @@
     "tags": [
       "views",
       "history",
-      "sunset"
+      "nature"
     ],
     "ratings": [],
     "metadata": {
@@ -819,8 +620,8 @@
     "lng": 19.958435,
     "categoryId": "viewpoint",
     "area": "Podgórze",
-    "description": "Bezpłatny punkt widokowy z szeroką panoramą Krakowa.",
-    "minutes": 35,
+    "description": "Najstarszy z krakowskich kopców, z bezpłatną panoramą na Stare Miasto i Wawel. Szczególnie dobry o zachodzie słońca.",
+    "minutes": 40,
     "cost": 0,
     "tourist": "must",
     "foodStyle": "none",
@@ -828,9 +629,9 @@
     "top": true,
     "tags": [
       "views",
-      "nature",
+      "history",
       "free",
-      "sunset"
+      "romantic"
     ],
     "ratings": [],
     "metadata": {
@@ -844,12 +645,351 @@
     }
   },
   {
+    "id": "old-town-aparthotel",
+    "name": "Old Town Aparthotel",
+    "lat": 50.0572594,
+    "lng": 19.9407991,
+    "categoryId": "apartment",
+    "area": "Stare Miasto",
+    "description": "",
+    "minutes": 0,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "website": "https://www.aparthoteloldtown.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 10129123053,
+        "url": "https://www.openstreetmap.org/node/10129123053"
+      },
+      "osmTags": {
+        "wikidata": "Q112001014",
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "collegium-sniadeckiego",
+    "name": "Collegium Śniadeckiego",
+    "lat": 50.0636743,
+    "lng": 19.9559412,
+    "categoryId": "architecture",
+    "area": "Wesoła",
+    "description": "Dawne obserwatorium astronomiczne UJ na terenie Ogrodu Botanicznego.",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing",
+      "history",
+      "hidden"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 348252385,
+        "url": "https://www.openstreetmap.org/way/348252385"
+      },
+      "osmTags": {
+        "wikidata": "Q11691335",
+        "wikipedia": "pl:Collegium Śniadeckiego Uniwersytetu Jagiellońskiego",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "dworek-bialopradnicki",
+    "name": "Dworek Białoprądnicki",
+    "lat": 50.0928279,
+    "lng": 19.9409203,
+    "categoryId": "architecture",
+    "area": "Prądnik Biały",
+    "description": "Szlachecki dworek w Prądniku Białym, dziś centrum kultury z koncertami.",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing",
+      "culture",
+      "hidden"
+    ],
+    "ratings": [],
+    "website": "https://dworek.eu/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 30825094,
+        "url": "https://www.openstreetmap.org/way/30825094"
+      },
+      "osmTags": {
+        "wikidata": "Q9186321",
+        "wikipedia": "pl:Centrum Kultury „Dworek Białoprądnicki”",
+        "opening_hours": "Mo-Fr 08:00-16:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "palac-czarkowskich",
+    "name": "Pałac Czarkowskich",
+    "lat": 50.0595856,
+    "lng": 19.9324834,
+    "categoryId": "architecture",
+    "area": "Nowy Świat",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 143916299,
+        "url": "https://www.openstreetmap.org/way/143916299"
+      },
+      "osmTags": {
+        "wikidata": "Q11814745",
+        "wikipedia": "pl:Pałac Czarkowskich w Krakowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "palac-kirchmayerow",
+    "name": "Pałac Kirchmayerów",
+    "lat": 50.0677305,
+    "lng": 20.107984,
+    "categoryId": "architecture",
+    "area": "Nowa Huta",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": "http://dommonarukrakow.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 133328445,
+        "url": "https://www.openstreetmap.org/way/133328445"
+      },
+      "osmTags": {
+        "wikidata": "Q11814783",
+        "wikipedia": "pl:Pałac Kirchmayerów w Pleszowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "palac-tarnowskich",
+    "name": "Pałac Tarnowskich",
+    "lat": 50.0704226,
+    "lng": 19.9423036,
+    "categoryId": "architecture",
+    "area": "Kleparz",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 152654173,
+        "url": "https://www.openstreetmap.org/way/152654173"
+      },
+      "osmTags": {
+        "wikidata": "Q11814905",
+        "wikipedia": "pl:Pałac na Szlaku w Krakowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "palac-wolodkowiczow",
+    "name": "Pałac Wołodkowiczów",
+    "lat": 50.0651603,
+    "lng": 19.9459815,
+    "categoryId": "architecture",
+    "area": "Wesoła",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": null,
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 39394967,
+        "url": "https://www.openstreetmap.org/way/39394967"
+      },
+      "osmTags": {
+        "wikidata": "Q11814887",
+        "wikipedia": "pl:Pałac Wołodkowiczów w Krakowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "central-square-nowa-huta",
+    "name": "Plac Centralny w Nowej Hucie",
+    "lat": 50.0719,
+    "lng": 20.0378,
+    "categoryId": "architecture",
+    "area": "Nowa Huta",
+    "description": "Monumentalny plac w socrealistycznym centrum Nowej Huty, od którego rozchodzą się główne aleje dzielnicy. Dobry punkt startu.",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "local",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing",
+      "history",
+      "nowa-huta",
+      "free"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "curated-coordinates"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "teatr-im-juliusza-slowackiego",
+    "name": "Teatr im. Juliusza Słowackiego",
+    "lat": 50.0639462,
+    "lng": 19.9430484,
+    "categoryId": "architecture",
+    "area": "Stare Miasto",
+    "description": "Eklektyczny gmach teatru z końca XIX wieku przy placu Świętego Ducha, wzorowany na paryskiej operze.",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing",
+      "classic"
+    ],
+    "ratings": [],
+    "website": "https://teatrwkrakowie.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 153942974,
+        "url": "https://www.openstreetmap.org/way/153942974"
+      },
+      "osmTags": {
+        "wikidata": "Q3527492",
+        "wikipedia": "pl:Teatr im. Juliusza Słowackiego w Krakowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "wyzsze-seminarium-duchowne-archidiecezji-krakowskiej",
+    "name": "Wyższe Seminarium Duchowne Archidiecezji Krakowskiej",
+    "lat": 50.0601912,
+    "lng": 19.9315219,
+    "categoryId": "architecture",
+    "area": "Nowy Świat",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing"
+    ],
+    "ratings": [],
+    "website": "https://seminarium-krakow.pl/o-seminarium/historia-2/dzieje-domu-przy-ul-pilsudskiego-4/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 143916294,
+        "url": "https://www.openstreetmap.org/way/143916294"
+      },
+      "osmTags": {
+        "wikidata": "Q11814824",
+        "wikipedia": "pl:Pałac Ogińskich i Potulickich w Krakowie",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
     "id": "awiteks",
     "name": "Awiteks",
     "lat": 50.0414841,
     "lng": 19.9429922,
     "categoryId": "bakery",
-    "area": "Kraków",
+    "area": "Podgórze",
     "description": "",
     "minutes": 20,
     "cost": 0,
@@ -883,7 +1023,7 @@
     "lat": 50.0576701,
     "lng": 19.9310693,
     "categoryId": "bakery",
-    "area": "Kraków",
+    "area": "Nowy Świat",
     "description": "",
     "minutes": 20,
     "cost": 0,
@@ -917,7 +1057,7 @@
     "lat": 50.0529244,
     "lng": 19.9170321,
     "categoryId": "bakery",
-    "area": "Kraków",
+    "area": "Zwierzyniec",
     "description": "",
     "minutes": 20,
     "cost": 0,
@@ -946,46 +1086,12 @@
     }
   },
   {
-    "id": "piekarnia-i-cukiernia-buczek",
-    "name": "Piekarnia i Cukiernia Buczek",
-    "lat": 50.0772032,
-    "lng": 20.0169859,
-    "categoryId": "bakery",
-    "area": "Kraków",
-    "description": "",
-    "minutes": 20,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "quick",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "food"
-    ],
-    "ratings": [],
-    "website": null,
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "way",
-        "id": 1089809236,
-        "url": "https://www.openstreetmap.org/way/1089809236"
-      },
-      "osmTags": {
-        "wikidata": "Q139890443",
-        "wikipedia": null,
-        "opening_hours": "Mo-Sa 08:00-21:00; Su 09:00-20:00",
-        "cuisine": null
-      }
-    }
-  },
-  {
     "id": "cudowne-lata",
     "name": "Cudowne Lata",
     "lat": 50.0623806,
     "lng": 19.9275118,
     "categoryId": "bar",
-    "area": "Kraków",
+    "area": "Piasek",
     "description": "",
     "minutes": 60,
     "cost": 0,
@@ -1019,7 +1125,7 @@
     "lat": 50.0695823,
     "lng": 19.935911,
     "categoryId": "bar",
-    "area": "Kraków",
+    "area": "Kleparz",
     "description": "",
     "minutes": 60,
     "cost": 0,
@@ -1049,42 +1155,12 @@
     }
   },
   {
-    "id": "la-habana",
-    "name": "La Habana",
-    "lat": 50.0528464,
-    "lng": 19.9439983,
-    "categoryId": "bar",
-    "area": "Kazimierz",
-    "description": "Kubański bar na Kazimierzu z rumem, koktajlami i muzyką latynoską.",
-    "minutes": 60,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "none",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "nightlife",
-      "cocktails",
-      "kazimierz"
-    ],
-    "ratings": [],
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "node",
-        "id": 4396294404,
-        "url": "https://www.openstreetmap.org/node/4396294404"
-      },
-      "curated": true
-    }
-  },
-  {
     "id": "mr-black",
     "name": "Mr.Black",
     "lat": 50.062896,
     "lng": 19.9344292,
     "categoryId": "bar",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 60,
     "cost": 0,
@@ -1118,7 +1194,7 @@
     "lat": 50.0636949,
     "lng": 19.9369065,
     "categoryId": "bar",
-    "area": "",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 60,
     "cost": 0,
@@ -1152,8 +1228,8 @@
     "lat": 50.0527703,
     "lng": 19.9439343,
     "categoryId": "bar",
-    "area": "Kraków",
-    "description": "",
+    "area": "Kazimierz",
+    "description": "Bar przy Miodowej z wystrojem z czasów PRL.",
     "minutes": 60,
     "cost": 0,
     "tourist": "balanced",
@@ -1161,7 +1237,9 @@
     "partner": false,
     "top": false,
     "tags": [
-      "nightlife"
+      "nightlife",
+      "local",
+      "budget"
     ],
     "ratings": [],
     "website": "https://www.pubpropaganda.eu/",
@@ -1186,8 +1264,8 @@
     "lat": 50.0617776,
     "lng": 19.9357419,
     "categoryId": "bar",
-    "area": "Kraków",
-    "description": "",
+    "area": "Stare Miasto",
+    "description": "Mały, kultowy bar przy Rynku, z pomnikiem Piotra Skrzyneckiego przy wejściu.",
     "minutes": 60,
     "cost": 0,
     "tourist": "balanced",
@@ -1195,7 +1273,9 @@
     "partner": false,
     "top": false,
     "tags": [
-      "nightlife"
+      "nightlife",
+      "classic",
+      "local"
     ],
     "ratings": [],
     "website": "https://zvis.pl/",
@@ -1215,36 +1295,70 @@
     }
   },
   {
-    "id": "winne-grono",
-    "name": "Winne Grono",
-    "lat": 50.0658166,
-    "lng": 19.9254805,
-    "categoryId": "bar",
-    "area": "Kraków",
+    "id": "mo-ja-cafe-bistro",
+    "name": "Mo-Ja Cafe & Bistro",
+    "lat": 50.0578161,
+    "lng": 19.9441584,
+    "categoryId": "breakfast",
+    "area": "Stradom",
     "description": "",
-    "minutes": 60,
+    "minutes": 45,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "none",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [
-      "nightlife"
+      "food"
     ],
     "ratings": [],
-    "website": "https://www.winnegrono.krakow.pl/",
+    "website": "https://www.cafemoja.pl/",
     "metadata": {
       "source": {
         "provider": "openstreetmap",
         "type": "node",
-        "id": 3145305435,
-        "url": "https://www.openstreetmap.org/node/3145305435"
+        "id": 4465833389,
+        "url": "https://www.openstreetmap.org/node/4465833389"
       },
       "osmTags": {
         "wikidata": null,
         "wikipedia": null,
-        "opening_hours": "Mo-Su 12:00-24:00",
-        "cuisine": null
+        "opening_hours": "Mo-Fr 08:30-17:00; Sa,Su 08:00-17:00",
+        "cuisine": "breakfast"
+      }
+    }
+  },
+  {
+    "id": "wesola-cafe",
+    "name": "Wesoła Cafe",
+    "lat": 50.0667853,
+    "lng": 19.9521483,
+    "categoryId": "breakfast",
+    "area": "Wesoła",
+    "description": "",
+    "minutes": 45,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "website": "https://wesolacafe.pl",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3786352664,
+        "url": "https://www.openstreetmap.org/node/3786352664"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo,Fr-Su 07:30-18:00; Tu-Th 07:30-16:00",
+        "cuisine": "cake;sandwich;breakfast;bagel;coffee_shop"
       }
     }
   },
@@ -1254,7 +1368,7 @@
     "lat": 50.0691773,
     "lng": 19.9528552,
     "categoryId": "cafe",
-    "area": "",
+    "area": "Grzegórzki",
     "description": "",
     "minutes": 35,
     "cost": 0,
@@ -1263,7 +1377,8 @@
     "partner": false,
     "top": false,
     "tags": [
-      "food"
+      "food",
+      "coffee"
     ],
     "ratings": [],
     "website": "https://blossom.cafe/",
@@ -1288,7 +1403,7 @@
     "lat": 50.0565953,
     "lng": 19.9450548,
     "categoryId": "cafe",
-    "area": "Kraków",
+    "area": "Stradom",
     "description": "",
     "minutes": 35,
     "cost": 0,
@@ -1298,9 +1413,7 @@
     "top": false,
     "tags": [
       "food",
-      "coffee-shop",
-      "sandwich",
-      "ice-cream"
+      "coffee"
     ],
     "ratings": [],
     "website": "https://www.bussolacoffee.pl/",
@@ -1325,7 +1438,7 @@
     "lat": 50.0637478,
     "lng": 19.9279626,
     "categoryId": "cafe",
-    "area": "Kraków",
+    "area": "Piasek",
     "description": "",
     "minutes": 35,
     "cost": 0,
@@ -1334,7 +1447,8 @@
     "partner": false,
     "top": false,
     "tags": [
-      "food"
+      "food",
+      "coffee"
     ],
     "ratings": [],
     "website": "https://www.cafelisboa.pl",
@@ -1359,7 +1473,7 @@
     "lat": 50.0527054,
     "lng": 19.944931,
     "categoryId": "cafe",
-    "area": "Kraków",
+    "area": "Kazimierz",
     "description": "",
     "minutes": 35,
     "cost": 0,
@@ -1368,7 +1482,8 @@
     "partner": false,
     "top": false,
     "tags": [
-      "food"
+      "food",
+      "coffee"
     ],
     "ratings": [],
     "website": "https://www.cytatcafe.pl/",
@@ -1393,8 +1508,8 @@
     "lat": 50.0533837,
     "lng": 19.9425481,
     "categoryId": "cafe",
-    "area": "Kraków",
-    "description": "",
+    "area": "Stradom",
+    "description": "Herbaciarnia z dużym wyborem herbat, spokojne miejsce na przerwę.",
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
@@ -1403,7 +1518,8 @@
     "top": false,
     "tags": [
       "food",
-      "tea"
+      "tea",
+      "local"
     ],
     "ratings": [],
     "website": "https://czajowniakrakow.pl/",
@@ -1428,8 +1544,8 @@
     "lat": 50.0574554,
     "lng": 19.9384193,
     "categoryId": "cafe",
-    "area": "Kraków",
-    "description": "",
+    "area": "Stare Miasto",
+    "description": "Kawiarnia w klimacie Harry'ego Pottera przy Grodzkiej.",
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
@@ -1437,7 +1553,8 @@
     "partner": false,
     "top": false,
     "tags": [
-      "food"
+      "food",
+      "coffee"
     ],
     "ratings": [],
     "website": "https://dziorawykociol.pl/",
@@ -1459,41 +1576,12 @@
   {
     "id": "emigrant-coffee-karmelicka",
     "name": "Emigrant Coffee Karmelicka",
-    "lat": 50.0684132,
-    "lng": 19.9472002,
+    "lat": 50.0647097,
+    "lng": 19.9314842,
     "categoryId": "cafe",
     "area": "Piasek",
-    "description": "Specialty coffee niedaleko Starego Miasta.",
-    "minutes": 35,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "quick",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "coffee",
-      "local"
-    ],
-    "ratings": [],
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "node",
-        "id": 11191651308,
-        "url": "https://www.openstreetmap.org/node/11191651308"
-      },
-      "curated": true
-    }
-  },
-  {
-    "id": "green-caffe-nero",
-    "name": "Green Caffè Nero",
-    "lat": 50.0636999,
-    "lng": 19.9289423,
-    "categoryId": "cafe",
-    "area": "Kraków",
-    "description": "",
-    "minutes": 35,
+    "description": "Kawiarnia specialty przy Karmelickiej, dobra na kawę między Starym Miastem a Krowodrzą.",
+    "minutes": 30,
     "cost": 0,
     "tourist": "balanced",
     "foodStyle": "quick",
@@ -1501,23 +1589,15 @@
     "top": false,
     "tags": [
       "food",
-      "coffee-shop"
+      "coffee",
+      "local"
     ],
     "ratings": [],
-    "website": "https://greencaffenero.pl/",
     "metadata": {
       "source": {
-        "provider": "openstreetmap",
-        "type": "node",
-        "id": 1861990920,
-        "url": "https://www.openstreetmap.org/node/1861990920"
+        "provider": "curated-coordinates"
       },
-      "osmTags": {
-        "wikidata": null,
-        "wikipedia": null,
-        "opening_hours": "Mo-Su 07:00-23:00",
-        "cuisine": "coffee_shop"
-      }
+      "curated": true
     }
   },
   {
@@ -1526,8 +1606,8 @@
     "lat": 50.0640836,
     "lng": 19.940929,
     "categoryId": "cafe",
-    "area": "Kraków",
-    "description": "",
+    "area": "Stare Miasto",
+    "description": "Historyczna kawiarnia przy Floriańskiej z secesyjnymi wnętrzami, w której narodził się kabaret Zielony Balonik.",
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
@@ -1535,7 +1615,10 @@
     "partner": false,
     "top": false,
     "tags": [
-      "food"
+      "food",
+      "coffee",
+      "classic",
+      "history"
     ],
     "ratings": [],
     "website": "https://jamamichalika.pl/",
@@ -1560,7 +1643,7 @@
     "lat": 50.069179,
     "lng": 19.9539733,
     "categoryId": "cafe",
-    "area": "",
+    "area": "Grzegórzki",
     "description": "",
     "minutes": 35,
     "cost": 0,
@@ -1570,7 +1653,7 @@
     "top": false,
     "tags": [
       "food",
-      "sandwich"
+      "coffee"
     ],
     "ratings": [],
     "website": "https://www.facebook.com/klubgrota2/",
@@ -1595,8 +1678,8 @@
     "lat": 50.0644322,
     "lng": 19.9453995,
     "categoryId": "cafe",
-    "area": "Kraków",
-    "description": "",
+    "area": "Wesoła",
+    "description": "Kawiarnia z kotami, kilka minut od Starego Miasta.",
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
@@ -1604,7 +1687,8 @@
     "partner": false,
     "top": false,
     "tags": [
-      "food"
+      "food",
+      "coffee"
     ],
     "ratings": [],
     "website": "https://kociakawiarniakrakow.pl/lubicz/",
@@ -1629,7 +1713,7 @@
     "lat": 50.0624045,
     "lng": 19.9350362,
     "categoryId": "cafe",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 35,
     "cost": 0,
@@ -1639,7 +1723,7 @@
     "top": false,
     "tags": [
       "food",
-      "coffee-shop"
+      "coffee"
     ],
     "ratings": [],
     "website": "https://lajkonik-pik.pl/en/shop/8-szewska/",
@@ -1664,8 +1748,8 @@
     "lat": 50.0590832,
     "lng": 19.9304282,
     "categoryId": "cafe",
-    "area": "Kraków",
-    "description": "",
+    "area": "Nowy Świat",
+    "description": "Piekarnia i kawiarnia z wypiekami w stylu amerykańskim, dobra na śniadanie.",
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
@@ -1673,7 +1757,9 @@
     "partner": false,
     "top": false,
     "tags": [
-      "food"
+      "food",
+      "coffee",
+      "breakfast"
     ],
     "ratings": [],
     "website": "https://www.facebook.com/MassolitBakeryCafe",
@@ -1693,48 +1779,13 @@
     }
   },
   {
-    "id": "mo-ja-cafe-bistro",
-    "name": "Mo-Ja Cafe & Bistro",
-    "lat": 50.0578161,
-    "lng": 19.9441584,
-    "categoryId": "cafe",
-    "area": "",
-    "description": "",
-    "minutes": 35,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "quick",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "food",
-      "breakfast"
-    ],
-    "ratings": [],
-    "website": "https://www.cafemoja.pl/",
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "node",
-        "id": 4465833389,
-        "url": "https://www.openstreetmap.org/node/4465833389"
-      },
-      "osmTags": {
-        "wikidata": null,
-        "wikipedia": null,
-        "opening_hours": "Mo-Fr 08:30-17:00; Sa,Su 08:00-17:00",
-        "cuisine": "breakfast"
-      }
-    }
-  },
-  {
     "id": "nic-kawiarnio-ksiegarnia",
     "name": "NIĆ. Kawiarnio-księgarnia",
     "lat": 50.0650801,
     "lng": 19.9381505,
     "categoryId": "cafe",
-    "area": "",
-    "description": "",
+    "area": "Stare Miasto",
+    "description": "Kawiarnia połączona z księgarnią przy Sławkowskiej.",
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
@@ -1743,7 +1794,8 @@
     "top": false,
     "tags": [
       "food",
-      "coffee-shop"
+      "coffee",
+      "hidden"
     ],
     "ratings": [],
     "website": "https://www.facebook.com/nic.kawiarnio.ksiegarnia",
@@ -1768,7 +1820,7 @@
     "lat": 50.0586855,
     "lng": 19.9473899,
     "categoryId": "cafe",
-    "area": "Kraków",
+    "area": "Wesoła",
     "description": "",
     "minutes": 35,
     "cost": 0,
@@ -1778,7 +1830,7 @@
     "top": false,
     "tags": [
       "food",
-      "coffee-shop"
+      "coffee"
     ],
     "ratings": [],
     "website": "https://www.instagram.com/no.32cafe/",
@@ -1803,7 +1855,7 @@
     "lat": 50.0750522,
     "lng": 19.9954297,
     "categoryId": "cafe",
-    "area": "",
+    "area": "Czyżyny",
     "description": "",
     "minutes": 35,
     "cost": 0,
@@ -1813,7 +1865,7 @@
     "top": false,
     "tags": [
       "food",
-      "coffee-shop"
+      "coffee"
     ],
     "ratings": [],
     "website": "http://www.pantografcafe.pl/",
@@ -1833,47 +1885,12 @@
     }
   },
   {
-    "id": "starbucks",
-    "name": "Starbucks",
-    "lat": 50.0614615,
-    "lng": 19.9354658,
-    "categoryId": "cafe",
-    "area": "",
-    "description": "",
-    "minutes": 35,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "quick",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "food",
-      "coffee-shop"
-    ],
-    "ratings": [],
-    "website": "https://www.starbucks.co.uk/store-locator/26671-244964/krakow,-rynek-27",
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "node",
-        "id": 3944884368,
-        "url": "https://www.openstreetmap.org/node/3944884368"
-      },
-      "osmTags": {
-        "wikidata": null,
-        "wikipedia": null,
-        "opening_hours": "Mo-Su 06:30-23:00",
-        "cuisine": "coffee_shop"
-      }
-    }
-  },
-  {
     "id": "stare-miasto",
     "name": "Stare Miasto",
     "lat": 50.0601983,
     "lng": 19.9356853,
     "categoryId": "cafe",
-    "area": "",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 35,
     "cost": 0,
@@ -1883,7 +1900,8 @@
     "top": false,
     "tags": [
       "food",
-      "breakfast"
+      "breakfast",
+      "coffee"
     ],
     "ratings": [],
     "website": "http://www.facebook.com/cafestaremiasto",
@@ -1908,7 +1926,7 @@
     "lat": 50.0517834,
     "lng": 19.9436106,
     "categoryId": "cafe",
-    "area": "Kraków",
+    "area": "Kazimierz",
     "description": "",
     "minutes": 35,
     "cost": 0,
@@ -1918,9 +1936,8 @@
     "top": false,
     "tags": [
       "food",
-      "cake",
       "breakfast",
-      "coffee-shop"
+      "coffee"
     ],
     "ratings": [],
     "website": "https://stringtaste.coffee",
@@ -1945,7 +1962,7 @@
     "lat": 50.0526684,
     "lng": 19.9397724,
     "categoryId": "cafe",
-    "area": "",
+    "area": "Stradom",
     "description": "",
     "minutes": 35,
     "cost": 0,
@@ -1954,7 +1971,8 @@
     "partner": false,
     "top": false,
     "tags": [
-      "food"
+      "food",
+      "coffee"
     ],
     "ratings": [],
     "website": "https://tartelette.pl/",
@@ -1979,7 +1997,7 @@
     "lat": 50.0645339,
     "lng": 19.9288078,
     "categoryId": "cafe",
-    "area": "",
+    "area": "Piasek",
     "description": "",
     "minutes": 35,
     "cost": 0,
@@ -1989,9 +2007,7 @@
     "top": false,
     "tags": [
       "food",
-      "coffee-shop",
-      "polish",
-      "local"
+      "coffee"
     ],
     "ratings": [],
     "website": "https://thewhitebearcoffee.pl/",
@@ -2011,49 +2027,12 @@
     }
   },
   {
-    "id": "wesola-cafe",
-    "name": "Wesoła Cafe",
-    "lat": 50.0667853,
-    "lng": 19.9521483,
-    "categoryId": "cafe",
-    "area": "Kraków",
-    "description": "",
-    "minutes": 35,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "quick",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "food",
-      "cake",
-      "sandwich",
-      "breakfast"
-    ],
-    "ratings": [],
-    "website": "https://wesolacafe.pl",
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "node",
-        "id": 3786352664,
-        "url": "https://www.openstreetmap.org/node/3786352664"
-      },
-      "osmTags": {
-        "wikidata": null,
-        "wikipedia": null,
-        "opening_hours": "Mo,Fr-Su 07:30-18:00; Tu-Th 07:30-16:00",
-        "cuisine": "cake;sandwich;breakfast;bagel;coffee_shop"
-      }
-    }
-  },
-  {
     "id": "zarowka-cafe",
     "name": "Żarówka Cafe",
     "lat": 50.0634186,
     "lng": 19.9396978,
     "categoryId": "cafe",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 35,
     "cost": 0,
@@ -2063,7 +2042,7 @@
     "top": false,
     "tags": [
       "food",
-      "coffee-shop"
+      "coffee"
     ],
     "ratings": [],
     "website": "https://m.facebook.com/profile.php?id=100022948463733&_rdr",
@@ -2089,7 +2068,7 @@
     "lng": 19.9456071,
     "categoryId": "club",
     "area": "Kazimierz",
-    "description": "Klub na Kazimierzu przy ulicy Estery.",
+    "description": "Klub przy Estery, kilka kroków od Placu Nowego.",
     "minutes": 120,
     "cost": 0,
     "tourist": "balanced",
@@ -2098,8 +2077,8 @@
     "top": false,
     "tags": [
       "nightlife",
-      "club",
-      "kazimierz"
+      "dance",
+      "local"
     ],
     "ratings": [],
     "metadata": {
@@ -2113,47 +2092,13 @@
     }
   },
   {
-    "id": "shine",
-    "name": "Shine",
-    "lat": 50.0576382,
-    "lng": 19.9445016,
-    "categoryId": "club",
-    "area": "Kraków",
-    "description": "",
-    "minutes": 120,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "none",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "nightlife"
-    ],
-    "ratings": [],
-    "website": "https://krakow.shineclub.com.pl/",
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "node",
-        "id": 6011254500,
-        "url": "https://www.openstreetmap.org/node/6011254500"
-      },
-      "osmTags": {
-        "wikidata": null,
-        "wikipedia": null,
-        "opening_hours": "Fr,Sa 22:00-05:00",
-        "cuisine": null
-      }
-    }
-  },
-  {
     "id": "shine-club",
     "name": "Shine Club Kraków",
     "lat": 50.0576382,
     "lng": 19.9445016,
     "categoryId": "club",
-    "area": "Stare Miasto",
-    "description": "Duży klub nocny przy Starowiślnej.",
+    "area": "Stradom",
+    "description": "Duży klub taneczny przy Starowiślnej, na późny wieczór.",
     "minutes": 120,
     "cost": 0,
     "tourist": "balanced",
@@ -2162,7 +2107,7 @@
     "top": false,
     "tags": [
       "nightlife",
-      "club"
+      "dance"
     ],
     "ratings": [],
     "metadata": {
@@ -2181,7 +2126,7 @@
     "lat": 50.0620877,
     "lng": 19.9346628,
     "categoryId": "club",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 120,
     "cost": 0,
@@ -2215,7 +2160,7 @@
     "lat": 50.0634887,
     "lng": 19.9347486,
     "categoryId": "club",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 120,
     "cost": 0,
@@ -2244,32 +2189,119 @@
     }
   },
   {
-    "id": "hala-targowa",
-    "name": "Hala Targowa",
-    "lat": 50.0458606,
-    "lng": 19.9536373,
-    "categoryId": "food_hall",
-    "area": "Grzegórzki",
-    "description": "Targ i popularny punkt lokalnego jedzenia poza głównym turystycznym traktem.",
-    "minutes": 45,
+    "id": "la-habana",
+    "name": "La Habana",
+    "lat": 50.0528464,
+    "lng": 19.9439983,
+    "categoryId": "cocktail_bar",
+    "area": "Kazimierz",
+    "description": "Kubański bar przy Miodowej z rumem, mojito i latynoską muzyką.",
+    "minutes": 75,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "quick",
+    "foodStyle": "none",
     "partner": false,
     "top": false,
     "tags": [
-      "food",
-      "market",
-      "local",
-      "budget"
+      "nightlife",
+      "cocktails",
+      "date"
     ],
     "ratings": [],
     "metadata": {
       "source": {
         "provider": "openstreetmap",
         "type": "node",
-        "id": 10032225210,
-        "url": "https://www.openstreetmap.org/node/10032225210"
+        "id": 4396294404,
+        "url": "https://www.openstreetmap.org/node/4396294404"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "mercy-brown",
+    "name": "Mercy Brown",
+    "lat": 50.061512,
+    "lng": 19.931628,
+    "categoryId": "cocktail_bar",
+    "area": "Piasek",
+    "description": "Ukryty cocktail bar w stylu speakeasy z jazzowym klimatem, dobry na randkę.",
+    "minutes": 75,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife",
+      "cocktails",
+      "date"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "curated-coordinates"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "hala-targowa",
+    "name": "Hala Targowa",
+    "lat": 50.0581001,
+    "lng": 19.9492878,
+    "categoryId": "food_hall",
+    "area": "Grzegórzki",
+    "description": "Targ przy Grzegórzeckiej z warzywami i niedzielnym pchlim targiem. Wieczorami obok działa znana budka z kiełbaskami z nyski.",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "local",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "local",
+      "budget",
+      "hidden"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 175160079,
+        "url": "https://www.openstreetmap.org/way/175160079"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "stary-kleparz",
+    "name": "Stary Kleparz",
+    "lat": 50.0673844,
+    "lng": 19.9410863,
+    "categoryId": "food_hall",
+    "area": "Kleparz",
+    "description": "Jeden z najstarszych targów w mieście: warzywa, sery, wędliny i kwiaty kilka minut od Barbakanu.",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "local",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "local",
+      "budget"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "nominatim-openstreetmap",
+        "osmType": "way",
+        "id": 25070800,
+        "url": "https://www.openstreetmap.org/way/25070800"
       },
       "curated": true
     }
@@ -2280,7 +2312,7 @@
     "lat": 50.0580033,
     "lng": 19.9386781,
     "categoryId": "gallery",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 60,
     "cost": 0,
@@ -2289,7 +2321,8 @@
     "partner": false,
     "top": false,
     "tags": [
-      "culture"
+      "culture",
+      "rainy-day"
     ],
     "ratings": [],
     "website": "https://www.artemis.art.pl",
@@ -2314,7 +2347,7 @@
     "lat": 50.0005934,
     "lng": 19.9040157,
     "categoryId": "gallery",
-    "area": "Kraków",
+    "area": "Swoszowice",
     "description": "",
     "minutes": 60,
     "cost": 0,
@@ -2323,7 +2356,8 @@
     "partner": false,
     "top": false,
     "tags": [
-      "culture"
+      "culture",
+      "rainy-day"
     ],
     "ratings": [],
     "website": "https://borek.ckpodgorza.pl/",
@@ -2348,8 +2382,8 @@
     "lat": 50.0513734,
     "lng": 19.9443835,
     "categoryId": "gallery",
-    "area": "Kraków",
-    "description": "",
+    "area": "Kazimierz",
+    "description": "Centrum kultury w dawnym domu modlitwy na Kazimierzu, z wystawami, spotkaniami i koncertami.",
     "minutes": 60,
     "cost": 0,
     "tourist": "balanced",
@@ -2357,7 +2391,10 @@
     "partner": false,
     "top": false,
     "tags": [
-      "culture"
+      "culture",
+      "rainy-day",
+      "jewish-heritage",
+      "history"
     ],
     "ratings": [],
     "website": null,
@@ -2377,46 +2414,12 @@
     }
   },
   {
-    "id": "cricoteka",
-    "name": "Cricoteka",
-    "lat": 50.0473243,
-    "lng": 19.9512768,
-    "categoryId": "gallery",
-    "area": "",
-    "description": "",
-    "minutes": 60,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "none",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "culture"
-    ],
-    "ratings": [],
-    "website": "www.cricoteka.pl",
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "way",
-        "id": 294258929,
-        "url": "https://www.openstreetmap.org/way/294258929"
-      },
-      "osmTags": {
-        "wikidata": "Q11691646",
-        "wikipedia": "pl:Ośrodek Dokumentacji Sztuki Tadeusza Kantora Cricoteka",
-        "opening_hours": null,
-        "cuisine": null
-      }
-    }
-  },
-  {
     "id": "galeria-stanczyk",
     "name": "Galeria Stańczyk",
     "lat": 50.0739395,
     "lng": 19.9105325,
     "categoryId": "gallery",
-    "area": "Kraków",
+    "area": "Krowodrza",
     "description": "",
     "minutes": 60,
     "cost": 0,
@@ -2425,7 +2428,8 @@
     "partner": false,
     "top": false,
     "tags": [
-      "culture"
+      "culture",
+      "rainy-day"
     ],
     "ratings": [],
     "website": "https://www.facebook.com/share/1AVVR9z6pp/?mibextid=wwXIfr",
@@ -2445,47 +2449,13 @@
     }
   },
   {
-    "id": "klub-studio",
-    "name": "Klub Studio",
-    "lat": 50.068076,
-    "lng": 19.9082429,
-    "categoryId": "gallery",
-    "area": "Kraków",
-    "description": "",
-    "minutes": 60,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "none",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "culture"
-    ],
-    "ratings": [],
-    "website": "https://www.klubstudio.pl/",
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "way",
-        "id": 231815725,
-        "url": "https://www.openstreetmap.org/way/231815725"
-      },
-      "osmTags": {
-        "wikidata": "Q9137055",
-        "wikipedia": "pl:Akademickie Centrum Kultury Klub Studio",
-        "opening_hours": null,
-        "cuisine": null
-      }
-    }
-  },
-  {
     "id": "malopolski-ogrod-sztuki",
     "name": "Małopolski Ogród Sztuki",
     "lat": 50.0643544,
     "lng": 19.929697,
     "categoryId": "gallery",
-    "area": "Kraków",
-    "description": "",
+    "area": "Piasek",
+    "description": "Nowoczesna scena Teatru im. Słowackiego przy Rajskiej, ze spektaklami, wystawami i koncertami.",
     "minutes": 60,
     "cost": 0,
     "tourist": "balanced",
@@ -2493,7 +2463,9 @@
     "partner": false,
     "top": false,
     "tags": [
-      "culture"
+      "culture",
+      "rainy-day",
+      "art"
     ],
     "ratings": [],
     "website": "http://www.mos.art.pl/",
@@ -2518,8 +2490,8 @@
     "lat": 50.0707971,
     "lng": 20.0348482,
     "categoryId": "gallery",
-    "area": "",
-    "description": "",
+    "area": "Nowa Huta",
+    "description": "Największy dom kultury Nowej Huty, ze stałą galerią prac Zdzisława Beksińskiego.",
     "minutes": 60,
     "cost": 0,
     "tourist": "balanced",
@@ -2527,7 +2499,10 @@
     "partner": false,
     "top": false,
     "tags": [
-      "culture"
+      "culture",
+      "rainy-day",
+      "art",
+      "nowa-huta"
     ],
     "ratings": [],
     "website": null,
@@ -2552,8 +2527,8 @@
     "lat": 50.0544496,
     "lng": 19.9374461,
     "categoryId": "garden",
-    "area": "",
-    "description": "",
+    "area": "Wawel",
+    "description": "Odtworzone renesansowe ogrody na Wawelu, otwarte sezonowo.",
     "minutes": 45,
     "cost": 0,
     "tourist": "balanced",
@@ -2561,7 +2536,8 @@
     "partner": false,
     "top": false,
     "tags": [
-      "nature"
+      "nature",
+      "history"
     ],
     "ratings": [],
     "website": null,
@@ -2581,24 +2557,25 @@
     }
   },
   {
-    "id": "ogrod-botaniczny-uniwersytetu-jagiellonskiego",
-    "name": "Ogród Botaniczny Uniwersytetu Jagiellońskiego",
+    "id": "botanical-garden",
+    "name": "Ogród Botaniczny UJ",
     "lat": 50.0625074,
     "lng": 19.9574802,
     "categoryId": "garden",
-    "area": "",
-    "description": "",
-    "minutes": 45,
+    "area": "Wesoła",
+    "description": "Najstarszy ogród botaniczny w Polsce, prowadzony przez UJ, ze szklarniami i dawnym obserwatorium. Wstęp płatny.",
+    "minutes": 60,
     "cost": 0,
     "tourist": "balanced",
     "foodStyle": "none",
     "partner": false,
     "top": false,
     "tags": [
-      "nature"
+      "nature",
+      "history",
+      "walk"
     ],
     "ratings": [],
-    "website": "https://www.ogrod.uj.edu.pl/",
     "metadata": {
       "source": {
         "provider": "openstreetmap",
@@ -2606,46 +2583,7 @@
         "id": 25131339,
         "url": "https://www.openstreetmap.org/way/25131339"
       },
-      "osmTags": {
-        "wikidata": "Q2619332",
-        "wikipedia": "pl:Ogród Botaniczny Uniwersytetu Jagiellońskiego",
-        "opening_hours": "Apr 1-Sep 25: 09:00-19:00; Sep 26-Oct 24: 09:00-17:00",
-        "cuisine": null
-      }
-    }
-  },
-  {
-    "id": "ogrod-jozefa-mehoffera",
-    "name": "Ogród Józefa Mehoffera",
-    "lat": 50.0630429,
-    "lng": 19.9287542,
-    "categoryId": "garden",
-    "area": "",
-    "description": "",
-    "minutes": 45,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "none",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "nature"
-    ],
-    "ratings": [],
-    "website": null,
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "way",
-        "id": 1434097913,
-        "url": "https://www.openstreetmap.org/way/1434097913"
-      },
-      "osmTags": {
-        "wikidata": "Q11796754",
-        "wikipedia": null,
-        "opening_hours": null,
-        "cuisine": null
-      }
+      "curated": true
     }
   },
   {
@@ -2654,7 +2592,7 @@
     "lat": 50.0684378,
     "lng": 19.9373858,
     "categoryId": "guesthouse",
-    "area": "Kraków",
+    "area": "Kleparz",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -2683,46 +2621,12 @@
     }
   },
   {
-    "id": "old-town-aparthotel",
-    "name": "Old Town Aparthotel",
-    "lat": 50.0572594,
-    "lng": 19.9407991,
-    "categoryId": "guesthouse",
-    "area": "",
-    "description": "",
-    "minutes": 0,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "none",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "stay"
-    ],
-    "ratings": [],
-    "website": "https://www.aparthoteloldtown.pl/",
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "node",
-        "id": 10129123053,
-        "url": "https://www.openstreetmap.org/node/10129123053"
-      },
-      "osmTags": {
-        "wikidata": "Q112001014",
-        "wikipedia": null,
-        "opening_hours": null,
-        "cuisine": null
-      }
-    }
-  },
-  {
     "id": "pokoje-goscinne-cybulskiego",
     "name": "Pokoje Gościnne Cybulskiego",
     "lat": 50.0618934,
     "lng": 19.9268763,
     "categoryId": "guesthouse",
-    "area": "",
+    "area": "Piasek",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -2756,7 +2660,7 @@
     "lat": 50.0506828,
     "lng": 19.9266326,
     "categoryId": "guesthouse",
-    "area": "",
+    "area": "Dębniki",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -2790,7 +2694,7 @@
     "lat": 50.0541233,
     "lng": 19.942999,
     "categoryId": "hostel",
-    "area": "",
+    "area": "Stradom",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -2824,7 +2728,7 @@
     "lat": 50.0663545,
     "lng": 19.9403474,
     "categoryId": "hostel",
-    "area": "Kraków",
+    "area": "Kleparz",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -2858,7 +2762,7 @@
     "lat": 50.0394999,
     "lng": 19.9409354,
     "categoryId": "hostel",
-    "area": "",
+    "area": "Podgórze",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -2892,8 +2796,8 @@
     "lat": 50.0657498,
     "lng": 19.9447995,
     "categoryId": "hostel",
-    "area": "Kleparz",
-    "description": "Popularny hostel blisko dworca i Starego Miasta.",
+    "area": "Wesoła",
+    "description": "Hostel kilka minut od Dworca Głównego i Rynku, wygodny przy budżetowym pobycie.",
     "minutes": 0,
     "cost": 0,
     "tourist": "balanced",
@@ -2903,7 +2807,7 @@
     "tags": [
       "stay",
       "budget",
-      "social"
+      "student"
     ],
     "ratings": [],
     "metadata": {
@@ -2922,7 +2826,7 @@
     "lat": 50.0729115,
     "lng": 19.931105,
     "categoryId": "hostel",
-    "area": "Kraków",
+    "area": "Krowodrza",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -2956,7 +2860,7 @@
     "lat": 50.0521133,
     "lng": 19.9506722,
     "categoryId": "hostel",
-    "area": "",
+    "area": "Kazimierz",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -2990,7 +2894,7 @@
     "lat": 50.0708191,
     "lng": 19.9249525,
     "categoryId": "hostel",
-    "area": "Kraków",
+    "area": "Krowodrza",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -3024,7 +2928,7 @@
     "lat": 50.0508081,
     "lng": 19.9422055,
     "categoryId": "hostel",
-    "area": "Kraków",
+    "area": "Kazimierz",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -3058,7 +2962,7 @@
     "lat": 50.0497364,
     "lng": 19.943605,
     "categoryId": "hotel",
-    "area": "Kraków",
+    "area": "Kazimierz",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -3092,7 +2996,7 @@
     "lat": 50.0440621,
     "lng": 19.9340716,
     "categoryId": "hotel",
-    "area": "Kraków",
+    "area": "Dębniki",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -3123,11 +3027,11 @@
   {
     "id": "hotel-amber",
     "name": "Hotel Amber",
-    "lat": 50.0866401,
-    "lng": 19.8932969,
+    "lat": 50.0654776,
+    "lng": 19.9338989,
     "categoryId": "hotel",
-    "area": "Stare Miasto",
-    "description": "Kameralny hotel blisko Rynku Głównego.",
+    "area": "Piasek",
+    "description": "Kameralny hotel przy Garbarskiej, kilka minut spacerem od Rynku.",
     "minutes": 0,
     "cost": 0,
     "tourist": "balanced",
@@ -3135,16 +3039,12 @@
     "partner": false,
     "top": false,
     "tags": [
-      "stay",
-      "central"
+      "stay"
     ],
     "ratings": [],
     "metadata": {
       "source": {
-        "provider": "openstreetmap",
-        "type": "way",
-        "id": 308463670,
-        "url": "https://www.openstreetmap.org/way/308463670"
+        "provider": "curated-coordinates"
       },
       "curated": true
     }
@@ -3155,7 +3055,7 @@
     "lat": 50.0562705,
     "lng": 19.9375835,
     "categoryId": "hotel",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -3189,7 +3089,7 @@
     "lat": 50.0644771,
     "lng": 19.9461619,
     "categoryId": "hotel",
-    "area": "",
+    "area": "Wesoła",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -3223,7 +3123,7 @@
     "lat": 50.0644376,
     "lng": 19.940776,
     "categoryId": "hotel",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -3257,7 +3157,7 @@
     "lat": 50.064886,
     "lng": 19.9447502,
     "categoryId": "hotel",
-    "area": "Kraków",
+    "area": "Kleparz",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -3291,7 +3191,7 @@
     "lat": 50.0629404,
     "lng": 19.9097372,
     "categoryId": "hotel",
-    "area": "Kraków",
+    "area": "Błonia",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -3325,7 +3225,7 @@
     "lat": 50.0553681,
     "lng": 19.9256751,
     "categoryId": "hotel",
-    "area": "Kraków",
+    "area": "Zwierzyniec",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -3359,7 +3259,7 @@
     "lat": 50.0635367,
     "lng": 19.9415045,
     "categoryId": "hotel",
-    "area": "",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -3393,7 +3293,7 @@
     "lat": 50.0478857,
     "lng": 19.9529689,
     "categoryId": "hotel",
-    "area": "Kraków",
+    "area": "Podgórze",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -3427,7 +3327,7 @@
     "lat": 50.0582578,
     "lng": 19.9330149,
     "categoryId": "hotel",
-    "area": "Kraków",
+    "area": "Nowy Świat",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -3461,7 +3361,7 @@
     "lat": 50.0625095,
     "lng": 19.9353005,
     "categoryId": "hotel",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -3495,7 +3395,7 @@
     "lat": 50.0545092,
     "lng": 19.9393285,
     "categoryId": "hotel",
-    "area": "",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -3529,7 +3429,7 @@
     "lat": 50.056027,
     "lng": 19.9308936,
     "categoryId": "hotel",
-    "area": "Kraków",
+    "area": "Nowy Świat",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -3563,7 +3463,7 @@
     "lat": 50.0527837,
     "lng": 19.940874,
     "categoryId": "hotel",
-    "area": "Kraków",
+    "area": "Stradom",
     "description": "",
     "minutes": 0,
     "cost": 0,
@@ -3597,7 +3497,7 @@
     "lat": 50.0750194,
     "lng": 19.9378041,
     "categoryId": "landmark",
-    "area": "",
+    "area": "Krowodrza",
     "description": "",
     "minutes": 25,
     "cost": 0,
@@ -3631,8 +3531,8 @@
     "lat": 50.0647421,
     "lng": 19.9422443,
     "categoryId": "landmark",
-    "area": "",
-    "description": "",
+    "area": "Stare Miasto",
+    "description": "Jedna z baszt zachowanego odcinka murów obronnych przy Bramie Floriańskiej.",
     "minutes": 25,
     "cost": 0,
     "tourist": "balanced",
@@ -3640,7 +3540,9 @@
     "partner": false,
     "top": false,
     "tags": [
-      "sightseeing"
+      "sightseeing",
+      "history",
+      "free"
     ],
     "ratings": [],
     "website": null,
@@ -3665,8 +3567,8 @@
     "lat": 50.0650161,
     "lng": 19.9406375,
     "categoryId": "landmark",
-    "area": "",
-    "description": "",
+    "area": "Stare Miasto",
+    "description": "Jedna z baszt zachowanego odcinka murów obronnych przy Bramie Floriańskiej.",
     "minutes": 25,
     "cost": 0,
     "tourist": "balanced",
@@ -3674,7 +3576,9 @@
     "partner": false,
     "top": false,
     "tags": [
-      "sightseeing"
+      "sightseeing",
+      "history",
+      "free"
     ],
     "ratings": [],
     "website": null,
@@ -3694,46 +3598,12 @@
     }
   },
   {
-    "id": "collegium-sniadeckiego",
-    "name": "Collegium Śniadeckiego",
-    "lat": 50.0636743,
-    "lng": 19.9559412,
-    "categoryId": "landmark",
-    "area": "Kraków",
-    "description": "",
-    "minutes": 25,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "none",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "sightseeing"
-    ],
-    "ratings": [],
-    "website": null,
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "way",
-        "id": 348252385,
-        "url": "https://www.openstreetmap.org/way/348252385"
-      },
-      "osmTags": {
-        "wikidata": "Q11691335",
-        "wikipedia": "pl:Collegium Śniadeckiego Uniwersytetu Jagiellońskiego",
-        "opening_hours": null,
-        "cuisine": null
-      }
-    }
-  },
-  {
     "id": "czerwony-dom",
     "name": "Czerwony Dom",
     "lat": 50.0317785,
     "lng": 19.9680039,
     "categoryId": "landmark",
-    "area": "Kraków",
+    "area": "Podgórze",
     "description": "",
     "minutes": 25,
     "cost": 0,
@@ -3742,7 +3612,9 @@
     "partner": false,
     "top": false,
     "tags": [
-      "sightseeing"
+      "sightseeing",
+      "history",
+      "ww2"
     ],
     "ratings": [],
     "website": null,
@@ -3762,47 +3634,13 @@
     }
   },
   {
-    "id": "dworek-bialopradnicki",
-    "name": "Dworek Białoprądnicki",
-    "lat": 50.0928279,
-    "lng": 19.9409203,
-    "categoryId": "landmark",
-    "area": "Kraków",
-    "description": "",
-    "minutes": 25,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "none",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "sightseeing"
-    ],
-    "ratings": [],
-    "website": "https://dworek.eu/",
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "way",
-        "id": 30825094,
-        "url": "https://www.openstreetmap.org/way/30825094"
-      },
-      "osmTags": {
-        "wikidata": "Q9186321",
-        "wikipedia": "pl:Centrum Kultury „Dworek Białoprądnicki”",
-        "opening_hours": "Mo-Fr 08:00-16:00",
-        "cuisine": null
-      }
-    }
-  },
-  {
     "id": "fort-31-benedykt",
     "name": "Fort 31 „Benedykt”",
     "lat": 50.0427466,
     "lng": 19.9580588,
     "categoryId": "landmark",
-    "area": "Kraków",
-    "description": "",
+    "area": "Podgórze",
+    "description": "Nietypowy XIX-wieczny fort-wieża na wzgórzu Lasoty, kilka minut od Kopca Krakusa.",
     "minutes": 25,
     "cost": 0,
     "tourist": "balanced",
@@ -3810,7 +3648,9 @@
     "partner": false,
     "top": false,
     "tags": [
-      "sightseeing"
+      "sightseeing",
+      "history",
+      "hidden"
     ],
     "ratings": [],
     "website": null,
@@ -3835,7 +3675,7 @@
     "lat": 50.0983552,
     "lng": 20.0411241,
     "categoryId": "landmark",
-    "area": "",
+    "area": "Wzgórza Krzesławickie",
     "description": "",
     "minutes": 25,
     "cost": 0,
@@ -3869,7 +3709,7 @@
     "lat": 49.9947784,
     "lng": 19.9920668,
     "categoryId": "landmark",
-    "area": "",
+    "area": "Swoszowice",
     "description": "",
     "minutes": 25,
     "cost": 0,
@@ -3898,217 +3738,13 @@
     }
   },
   {
-    "id": "palac-czarkowskich",
-    "name": "Pałac Czarkowskich",
-    "lat": 50.0595856,
-    "lng": 19.9324834,
-    "categoryId": "landmark",
-    "area": "Kraków",
-    "description": "",
-    "minutes": 25,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "none",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "sightseeing"
-    ],
-    "ratings": [],
-    "website": null,
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "way",
-        "id": 143916299,
-        "url": "https://www.openstreetmap.org/way/143916299"
-      },
-      "osmTags": {
-        "wikidata": "Q11814745",
-        "wikipedia": "pl:Pałac Czarkowskich w Krakowie",
-        "opening_hours": null,
-        "cuisine": null
-      }
-    }
-  },
-  {
-    "id": "palac-kirchmayerow",
-    "name": "Pałac Kirchmayerów",
-    "lat": 50.0677305,
-    "lng": 20.107984,
-    "categoryId": "landmark",
-    "area": "Kraków",
-    "description": "",
-    "minutes": 25,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "none",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "sightseeing"
-    ],
-    "ratings": [],
-    "website": "http://dommonarukrakow.pl/",
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "way",
-        "id": 133328445,
-        "url": "https://www.openstreetmap.org/way/133328445"
-      },
-      "osmTags": {
-        "wikidata": "Q11814783",
-        "wikipedia": "pl:Pałac Kirchmayerów w Pleszowie",
-        "opening_hours": null,
-        "cuisine": null
-      }
-    }
-  },
-  {
-    "id": "palac-tarnowskich",
-    "name": "Pałac Tarnowskich",
-    "lat": 50.0704226,
-    "lng": 19.9423036,
-    "categoryId": "landmark",
-    "area": "Kraków",
-    "description": "",
-    "minutes": 25,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "none",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "sightseeing"
-    ],
-    "ratings": [],
-    "website": null,
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "way",
-        "id": 152654173,
-        "url": "https://www.openstreetmap.org/way/152654173"
-      },
-      "osmTags": {
-        "wikidata": "Q11814905",
-        "wikipedia": "pl:Pałac na Szlaku w Krakowie",
-        "opening_hours": null,
-        "cuisine": null
-      }
-    }
-  },
-  {
-    "id": "palac-wolodkowiczow",
-    "name": "Pałac Wołodkowiczów",
-    "lat": 50.0651603,
-    "lng": 19.9459815,
-    "categoryId": "landmark",
-    "area": "Kraków",
-    "description": "",
-    "minutes": 25,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "none",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "sightseeing"
-    ],
-    "ratings": [],
-    "website": null,
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "way",
-        "id": 39394967,
-        "url": "https://www.openstreetmap.org/way/39394967"
-      },
-      "osmTags": {
-        "wikidata": "Q11814887",
-        "wikipedia": "pl:Pałac Wołodkowiczów w Krakowie",
-        "opening_hours": null,
-        "cuisine": null
-      }
-    }
-  },
-  {
-    "id": "ruiny-fortu-47-sudol",
-    "name": "Ruiny fortu 47½ \"Sudół\"",
-    "lat": 50.1032128,
-    "lng": 19.9853879,
-    "categoryId": "landmark",
-    "area": "Kraków",
-    "description": "",
-    "minutes": 25,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "none",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "sightseeing"
-    ],
-    "ratings": [],
-    "website": null,
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "way",
-        "id": 353656737,
-        "url": "https://www.openstreetmap.org/way/353656737"
-      },
-      "osmTags": {
-        "wikidata": "Q11698491",
-        "wikipedia": "pl:Fort pancerny pomocniczy 47 ½ „Sudół”",
-        "opening_hours": null,
-        "cuisine": null
-      }
-    }
-  },
-  {
-    "id": "schron-amunicyjny-swoszowice",
-    "name": "Schron amunicyjny Swoszowice",
-    "lat": 49.9940113,
-    "lng": 19.9472388,
-    "categoryId": "landmark",
-    "area": "",
-    "description": "",
-    "minutes": 25,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "none",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "sightseeing"
-    ],
-    "ratings": [],
-    "website": null,
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "way",
-        "id": 337263775,
-        "url": "https://www.openstreetmap.org/way/337263775"
-      },
-      "osmTags": {
-        "wikidata": "Q30161694",
-        "wikipedia": "pl:Schron amunicyjny „Swoszowice”",
-        "opening_hours": null,
-        "cuisine": null
-      }
-    }
-  },
-  {
     "id": "szary-dom",
     "name": "Szary Dom",
     "lat": 50.0331326,
     "lng": 19.9663561,
     "categoryId": "landmark",
-    "area": "Kraków",
-    "description": "",
+    "area": "Podgórze",
+    "description": "Dawna siedziba komendantury niemieckiego obozu Płaszów, dziś miejsce pamięci.",
     "minutes": 25,
     "cost": 0,
     "tourist": "balanced",
@@ -4116,7 +3752,9 @@
     "partner": false,
     "top": false,
     "tags": [
-      "sightseeing"
+      "sightseeing",
+      "history",
+      "ww2"
     ],
     "ratings": [],
     "website": null,
@@ -4136,13 +3774,13 @@
     }
   },
   {
-    "id": "teatr-im-juliusza-slowackiego",
-    "name": "Teatr im. Juliusza Słowackiego",
-    "lat": 50.0639462,
-    "lng": 19.9430484,
+    "id": "wieza-ratuszowa",
+    "name": "Wieża Ratuszowa",
+    "lat": 50.0614744,
+    "lng": 19.9364146,
     "categoryId": "landmark",
-    "area": "Kraków",
-    "description": "",
+    "area": "Stare Miasto",
+    "description": "Jedyna pozostałość dawnego ratusza na Rynku. Z góry widać Sukiennice i Mariacki, w środku mała ekspozycja Muzeum Krakowa.",
     "minutes": 25,
     "cost": 0,
     "tourist": "balanced",
@@ -4150,56 +3788,120 @@
     "partner": false,
     "top": false,
     "tags": [
-      "sightseeing"
+      "sightseeing",
+      "classic",
+      "views",
+      "history"
     ],
     "ratings": [],
-    "website": "https://teatrwkrakowie.pl/",
+    "website": "https://muzeumkrakowa.pl/oddzialy/wieza-ratuszowa",
     "metadata": {
       "source": {
         "provider": "openstreetmap",
         "type": "way",
-        "id": 153942974,
-        "url": "https://www.openstreetmap.org/way/153942974"
+        "id": 25122842,
+        "url": "https://www.openstreetmap.org/way/25122842"
       },
       "osmTags": {
-        "wikidata": "Q3527492",
-        "wikipedia": "pl:Teatr im. Juliusza Słowackiego w Krakowie",
+        "wikidata": "Q1786361",
+        "wikipedia": "pl:Wieża ratuszowa w Krakowie",
+        "opening_hours": "Mo 11:00-15:00; Tu-Su 11:00-18:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "harris-piano-jazz-bar",
+    "name": "Harris Piano Jazz Bar",
+    "lat": 50.0617412,
+    "lng": 19.9355409,
+    "categoryId": "live_music",
+    "area": "Stare Miasto",
+    "description": "Klub jazzowy w piwnicy przy Rynku z koncertami na żywo przez większość wieczorów.",
+    "minutes": 90,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife",
+      "date",
+      "culture"
+    ],
+    "ratings": [],
+    "metadata": {
+      "curated": true,
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 475387322,
+        "url": "https://www.openstreetmap.org/node/475387322"
+      }
+    }
+  },
+  {
+    "id": "klub-studio",
+    "name": "Klub Studio",
+    "lat": 50.068076,
+    "lng": 19.9082429,
+    "categoryId": "live_music",
+    "area": "Czarna Wieś",
+    "description": "Klub studencki AGH, jedna z ważniejszych krakowskich sal koncertowych.",
+    "minutes": 120,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife",
+      "student"
+    ],
+    "ratings": [],
+    "website": "https://www.klubstudio.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 231815725,
+        "url": "https://www.openstreetmap.org/way/231815725"
+      },
+      "osmTags": {
+        "wikidata": "Q9137055",
+        "wikipedia": "pl:Akademickie Centrum Kultury Klub Studio",
         "opening_hours": null,
         "cuisine": null
       }
     }
   },
   {
-    "id": "wyzsze-seminarium-duchowne-archidiecezji-krakowskiej",
-    "name": "Wyższe Seminarium Duchowne Archidiecezji Krakowskiej",
-    "lat": 50.0601912,
-    "lng": 19.9315219,
-    "categoryId": "landmark",
-    "area": "Kraków",
-    "description": "",
-    "minutes": 25,
+    "id": "piwnica-pod-baranami",
+    "name": "Piwnica pod Baranami",
+    "lat": 50.0616022,
+    "lng": 19.9353977,
+    "categoryId": "live_music",
+    "area": "Stare Miasto",
+    "description": "Legendarna piwnica kabaretowa przy Rynku, działająca od 1956 roku. Program koncertów i występów warto sprawdzić przed wizytą.",
+    "minutes": 90,
     "cost": 0,
     "tourist": "balanced",
     "foodStyle": "none",
     "partner": false,
     "top": false,
     "tags": [
-      "sightseeing"
+      "nightlife",
+      "culture",
+      "classic"
     ],
     "ratings": [],
-    "website": "https://seminarium-krakow.pl/o-seminarium/historia-2/dzieje-domu-przy-ul-pilsudskiego-4/",
     "metadata": {
+      "curated": true,
       "source": {
         "provider": "openstreetmap",
-        "type": "way",
-        "id": 143916294,
-        "url": "https://www.openstreetmap.org/way/143916294"
-      },
-      "osmTags": {
-        "wikidata": "Q11814824",
-        "wikipedia": "pl:Pałac Ogińskich i Potulickich w Krakowie",
-        "opening_hours": null,
-        "cuisine": null
+        "type": "node",
+        "id": 475387327,
+        "url": "https://www.openstreetmap.org/node/475387327"
       }
     }
   },
@@ -4210,17 +3912,18 @@
     "lng": 19.9541481,
     "categoryId": "museum",
     "area": "Podgórze",
-    "description": "Oddział Muzeum Krakowa poświęcony historii getta i jego mieszkańców.",
-    "minutes": 75,
+    "description": "Apteka Tadeusza Pankiewicza, jedynego Polaka mieszkającego w getcie. Dziś oddział Muzeum Krakowa.",
+    "minutes": 45,
     "cost": 0,
     "tourist": "balanced",
     "foodStyle": "none",
     "partner": false,
     "top": false,
     "tags": [
-      "museum",
+      "culture",
       "history",
-      "ww2"
+      "ww2",
+      "jewish-heritage"
     ],
     "ratings": [],
     "metadata": {
@@ -4234,13 +3937,13 @@
     }
   },
   {
-    "id": "barbakan",
-    "name": "Barbakan",
-    "lat": 50.0654585,
-    "lng": 19.9416339,
+    "id": "cricoteka",
+    "name": "Cricoteka",
+    "lat": 50.0473243,
+    "lng": 19.9512768,
     "categoryId": "museum",
-    "area": "",
-    "description": "",
+    "area": "Podgórze",
+    "description": "Ośrodek dokumentacji sztuki Tadeusza Kantora w nowoczesnym budynku nad Wisłą w Podgórzu.",
     "minutes": 75,
     "cost": 0,
     "tourist": "balanced",
@@ -4248,21 +3951,23 @@
     "partner": false,
     "top": false,
     "tags": [
-      "culture"
+      "culture",
+      "rainy-day",
+      "art"
     ],
     "ratings": [],
-    "website": "https://muzeumkrakowa.pl/oddzialy/barbakan",
+    "website": "www.cricoteka.pl",
     "metadata": {
       "source": {
         "provider": "openstreetmap",
-        "type": "relation",
-        "id": 13562708,
-        "url": "https://www.openstreetmap.org/relation/13562708"
+        "type": "way",
+        "id": 294258929,
+        "url": "https://www.openstreetmap.org/way/294258929"
       },
       "osmTags": {
-        "wikidata": "Q807309",
-        "wikipedia": "pl:Barbakan w Krakowie",
-        "opening_hours": "Mo-Su 10:30-18:00; Nov-Mar off",
+        "wikidata": "Q11691646",
+        "wikipedia": "pl:Ośrodek Dokumentacji Sztuki Tadeusza Kantora Cricoteka",
+        "opening_hours": null,
         "cuisine": null
       }
     }
@@ -4273,8 +3978,8 @@
     "lat": 50.063264,
     "lng": 19.928418,
     "categoryId": "museum",
-    "area": "Kraków",
-    "description": "",
+    "area": "Piasek",
+    "description": "Dom-muzeum malarza Józefa Mehoffera z zachowanymi wnętrzami i ogrodem z kawiarnią.",
     "minutes": 75,
     "cost": 0,
     "tourist": "balanced",
@@ -4282,7 +3987,10 @@
     "partner": false,
     "top": false,
     "tags": [
-      "culture"
+      "culture",
+      "rainy-day",
+      "art",
+      "hidden"
     ],
     "ratings": [],
     "website": "https://mnk.pl/oddzialy/mehoffer/",
@@ -4307,8 +4015,8 @@
     "lat": 50.061742,
     "lng": 19.9375879,
     "categoryId": "museum",
-    "area": "Kraków",
-    "description": "",
+    "area": "Stare Miasto",
+    "description": "Galeria Muzeum Narodowego na piętrze Sukiennic z malarstwem Matejki, Chełmońskiego i Siemiradzkiego. Z tarasu widok na Rynek.",
     "minutes": 75,
     "cost": 0,
     "tourist": "balanced",
@@ -4316,7 +4024,10 @@
     "partner": false,
     "top": false,
     "tags": [
-      "culture"
+      "culture",
+      "rainy-day",
+      "art",
+      "classic"
     ],
     "ratings": [],
     "website": "https://mnk.pl/oddzial/galeria-sztuki-polskiej/o-oddziale",
@@ -4341,8 +4052,8 @@
     "lat": 50.0704026,
     "lng": 19.9535324,
     "categoryId": "museum",
-    "area": "Stare Miasto",
-    "description": "",
+    "area": "Grzegórzki",
+    "description": "Nowa siedziba Muzeum Fotografii z wystawami fotografii dawnej i współczesnej.",
     "minutes": 75,
     "cost": 0,
     "tourist": "balanced",
@@ -4350,7 +4061,9 @@
     "partner": false,
     "top": false,
     "tags": [
-      "culture"
+      "culture",
+      "rainy-day",
+      "art"
     ],
     "ratings": [],
     "website": "https://www.mufo.krakow.pl/",
@@ -4375,8 +4088,8 @@
     "lat": 50.0575557,
     "lng": 19.9362547,
     "categoryId": "museum",
-    "area": "",
-    "description": "",
+    "area": "Stare Miasto",
+    "description": "Muzeum w dawnym klasztorze przy Poselskiej, z wystawami o pradziejach Małopolski i ogrodem.",
     "minutes": 75,
     "cost": 0,
     "tourist": "balanced",
@@ -4384,7 +4097,10 @@
     "partner": false,
     "top": false,
     "tags": [
-      "culture"
+      "culture",
+      "rainy-day",
+      "history",
+      "hidden"
     ],
     "ratings": [],
     "website": "https://ma.krakow.pl/",
@@ -4409,8 +4125,8 @@
     "lat": 50.0723886,
     "lng": 19.9487071,
     "categoryId": "museum",
-    "area": "Stare Miasto",
-    "description": "",
+    "area": "Przedmieście Warszawskie",
+    "description": "Muzeum Armii Krajowej i polskiego podziemia w czasie II wojny światowej, kilka minut od Dworca Głównego.",
     "minutes": 75,
     "cost": 0,
     "tourist": "balanced",
@@ -4418,7 +4134,10 @@
     "partner": false,
     "top": false,
     "tags": [
-      "culture"
+      "culture",
+      "rainy-day",
+      "history",
+      "ww2"
     ],
     "ratings": [],
     "website": "https://www.muzeum-ak.pl/",
@@ -4443,8 +4162,8 @@
     "lat": 50.0632264,
     "lng": 19.9403302,
     "categoryId": "museum",
-    "area": "Kraków",
-    "description": "",
+    "area": "Stare Miasto",
+    "description": "Muzeum aptekarstwa w kamienicy przy Floriańskiej, od piwnic po strych pełne dawnych aptecznych wnętrz.",
     "minutes": 75,
     "cost": 0,
     "tourist": "balanced",
@@ -4452,7 +4171,10 @@
     "partner": false,
     "top": false,
     "tags": [
-      "culture"
+      "culture",
+      "rainy-day",
+      "history",
+      "hidden"
     ],
     "ratings": [],
     "website": "http://muzeum.farmacja.uj.edu.pl",
@@ -4477,7 +4199,7 @@
     "lat": 50.0613744,
     "lng": 19.9417126,
     "categoryId": "museum",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -4486,7 +4208,8 @@
     "partner": false,
     "top": false,
     "tags": [
-      "culture"
+      "culture",
+      "rainy-day"
     ],
     "ratings": [],
     "website": "http://www.muzeum-mat.cssf.opoka.org.pl/",
@@ -4511,8 +4234,8 @@
     "lat": 50.0599089,
     "lng": 19.930167,
     "categoryId": "museum",
-    "area": "Kraków",
-    "description": "",
+    "area": "Nowy Świat",
+    "description": "Oddział Muzeum Narodowego z jedną z największych kolekcji monet i medali w Polsce.",
     "minutes": 75,
     "cost": 0,
     "tourist": "balanced",
@@ -4520,7 +4243,10 @@
     "partner": false,
     "top": false,
     "tags": [
-      "culture"
+      "culture",
+      "rainy-day",
+      "history",
+      "hidden"
     ],
     "ratings": [],
     "website": "https://mnk.pl/oddzial/muzeum-im-emeryka-hutten-czapskiego",
@@ -4540,31 +4266,93 @@
     }
   },
   {
-    "id": "nowa-huta-museum",
-    "name": "Muzeum Nowej Huty",
-    "lat": 50.0617966,
-    "lng": 19.9459505,
+    "id": "aviation-museum",
+    "name": "Muzeum Lotnictwa Polskiego",
+    "lat": 50.0788479,
+    "lng": 19.9905573,
     "categoryId": "museum",
-    "area": "Nowa Huta",
-    "description": "Muzeum poświęcone historii i dziedzictwu Nowej Huty.",
-    "minutes": 75,
+    "area": "Czyżyny",
+    "description": "Jedno z największych muzeów lotnictwa w Europie, na terenie dawnego lotniska Rakowice-Czyżyny. Część kolekcji stoi pod dachem.",
+    "minutes": 120,
     "cost": 0,
     "tourist": "balanced",
     "foodStyle": "none",
     "partner": false,
     "top": false,
     "tags": [
-      "museum",
+      "culture",
       "history",
-      "nowa-huta"
+      "rainy-day"
     ],
     "ratings": [],
     "metadata": {
       "source": {
         "provider": "openstreetmap",
-        "type": "node",
-        "id": 5751039807,
-        "url": "https://www.openstreetmap.org/node/5751039807"
+        "type": "way",
+        "id": 307773166,
+        "url": "https://www.openstreetmap.org/way/307773166"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "manggha",
+    "name": "Muzeum Manggha",
+    "lat": 50.0508748,
+    "lng": 19.931658,
+    "categoryId": "museum",
+    "area": "Dębniki",
+    "description": "Muzeum sztuki i techniki japońskiej w budynku Araty Isozakiego, z widokiem na Wawel zza Wisły.",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "art",
+      "views",
+      "rainy-day"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 233371578,
+        "url": "https://www.openstreetmap.org/way/233371578"
+      },
+      "curated": true
+    }
+  },
+  {
+    "id": "nowa-huta-museum",
+    "name": "Muzeum Nowej Huty",
+    "lat": 50.0699606,
+    "lng": 20.0412156,
+    "categoryId": "museum",
+    "area": "Nowa Huta",
+    "description": "Oddział Muzeum Krakowa o historii socjalistycznego miasta budowanego od 1949 roku i jego mieszkańców.",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "local",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "history",
+      "nowa-huta",
+      "rainy-day"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 54534222,
+        "url": "https://www.openstreetmap.org/way/54534222"
       },
       "curated": true
     }
@@ -4575,18 +4363,19 @@
     "lat": 50.0590085,
     "lng": 19.9257049,
     "categoryId": "museum",
-    "area": "Piasek",
-    "description": "Muzeum połączone z działającą pracownią witraży.",
-    "minutes": 75,
+    "area": "Zwierzyniec",
+    "description": "Działająca od ponad stu lat pracownia witraży z małym muzeum. Zwiedzanie z przewodnikiem pokazuje cały proces powstawania witrażu.",
+    "minutes": 60,
     "cost": 0,
     "tourist": "balanced",
     "foodStyle": "none",
     "partner": false,
     "top": false,
     "tags": [
-      "museum",
+      "culture",
       "art",
-      "hidden"
+      "hidden",
+      "rainy-day"
     ],
     "ratings": [],
     "metadata": {
@@ -4600,36 +4389,33 @@
     }
   },
   {
-    "id": "wieza-ratuszowa",
-    "name": "Wieża Ratuszowa",
-    "lat": 50.0614744,
-    "lng": 19.9364146,
+    "id": "galicia-jewish-museum",
+    "name": "Żydowskie Muzeum Galicja",
+    "lat": 50.0508571,
+    "lng": 19.9496775,
     "categoryId": "museum",
-    "area": "Kraków",
-    "description": "",
-    "minutes": 75,
+    "area": "Kazimierz",
+    "description": "Muzeum o życiu i Zagładzie Żydów z dawnej Galicji, z wystawą fotografii zachowanych śladów żydowskiej kultury.",
+    "minutes": 60,
     "cost": 0,
     "tourist": "balanced",
     "foodStyle": "none",
     "partner": false,
     "top": false,
     "tags": [
-      "culture"
+      "culture",
+      "history",
+      "jewish-heritage",
+      "rainy-day"
     ],
     "ratings": [],
-    "website": "https://muzeumkrakowa.pl/oddzialy/wieza-ratuszowa",
     "metadata": {
+      "curated": true,
       "source": {
         "provider": "openstreetmap",
-        "type": "way",
-        "id": 25122842,
-        "url": "https://www.openstreetmap.org/way/25122842"
-      },
-      "osmTags": {
-        "wikidata": "Q1786361",
-        "wikipedia": "pl:Wieża ratuszowa w Krakowie",
-        "opening_hours": "Mo 11:00-15:00; Tu-Su 11:00-18:00",
-        "cuisine": null
+        "type": "node",
+        "id": 472147189,
+        "url": "https://www.openstreetmap.org/node/472147189"
       }
     }
   },
@@ -4640,16 +4426,17 @@
     "lng": 19.9491193,
     "categoryId": "neighborhood",
     "area": "Podgórze",
-    "description": "Historyczny rynek dawnego miasta Podgórze.",
-    "minutes": 30,
+    "description": "Rynek dawnego miasta Podgórze z neogotyckim kościołem św. Józefa. Spokojniejszy i bardziej lokalny niż Rynek Główny.",
+    "minutes": 20,
     "cost": 0,
-    "tourist": "balanced",
+    "tourist": "local",
     "foodStyle": "none",
     "partner": false,
     "top": false,
     "tags": [
-      "local",
+      "sightseeing",
       "architecture",
+      "local",
       "free"
     ],
     "ratings": [],
@@ -4664,13 +4451,44 @@
     }
   },
   {
+    "id": "blonia",
+    "name": "Błonia Krakowskie",
+    "lat": 50.0597168,
+    "lng": 19.9120842,
+    "categoryId": "park",
+    "area": "Błonia",
+    "description": "Rozległa łąka kilka minut od centrum, na spacer, bieganie i piknik, z widokiem na Kopiec Kościuszki.",
+    "minutes": 40,
+    "cost": 0,
+    "tourist": "local",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature",
+      "walk",
+      "free",
+      "local"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 25113592,
+        "url": "https://www.openstreetmap.org/way/25113592"
+      },
+      "curated": true
+    }
+  },
+  {
     "id": "ogrod-doswiadczen-im-stanislawa-lema",
     "name": "Ogród Doświadczeń im. Stanisława Lema",
     "lat": 50.0681673,
     "lng": 19.9965944,
     "categoryId": "park",
-    "area": "",
-    "description": "",
+    "area": "Czyżyny",
+    "description": "Park naukowy z interaktywnymi instalacjami fizycznymi, dobry na wyjście z dziećmi. Otwarty sezonowo.",
     "minutes": 40,
     "cost": 0,
     "tourist": "balanced",
@@ -4678,7 +4496,8 @@
     "partner": false,
     "top": false,
     "tags": [
-      "nature"
+      "nature",
+      "hidden"
     ],
     "ratings": [],
     "website": "https://www.ogroddoswiadczen.pl/",
@@ -4704,17 +4523,17 @@
     "lng": 19.9492439,
     "categoryId": "park",
     "area": "Podgórze",
-    "description": "Zielony park położony w dawnym kamieniołomie w Podgórzu.",
+    "description": "Park w dawnym kamieniołomie wapienia, z wąwozami i skałkami. Spokojna przerwa po drodze na Kopiec Krakusa.",
     "minutes": 40,
     "cost": 0,
-    "tourist": "balanced",
+    "tourist": "local",
     "foodStyle": "none",
     "partner": false,
     "top": false,
     "tags": [
       "nature",
-      "local",
       "walk",
+      "hidden",
       "free"
     ],
     "ratings": [],
@@ -4734,7 +4553,7 @@
     "lat": 50.0697906,
     "lng": 19.9419666,
     "categoryId": "park",
-    "area": "",
+    "area": "Kleparz",
     "description": "",
     "minutes": 40,
     "cost": 0,
@@ -4769,17 +4588,18 @@
     "lng": 19.9159858,
     "categoryId": "park",
     "area": "Błonia",
-    "description": "Duży park rekreacyjny obok Błoń.",
+    "description": "Duży park rekreacyjny przy Błoniach, z aleją popiersi sławnych Polaków i placami zabaw.",
     "minutes": 40,
     "cost": 0,
-    "tourist": "balanced",
+    "tourist": "local",
     "foodStyle": "none",
     "partner": false,
     "top": false,
     "tags": [
       "nature",
-      "sport",
-      "free"
+      "walk",
+      "free",
+      "local"
     ],
     "ratings": [],
     "metadata": {
@@ -4798,8 +4618,8 @@
     "lat": 50.0680746,
     "lng": 19.9244493,
     "categoryId": "park",
-    "area": "",
-    "description": "",
+    "area": "Krowodrza",
+    "description": "Kameralny XIX-wieczny park między Krowodrzą a centrum, z oczkiem wodnym.",
     "minutes": 40,
     "cost": 0,
     "tourist": "balanced",
@@ -4807,7 +4627,9 @@
     "partner": false,
     "top": false,
     "tags": [
-      "nature"
+      "nature",
+      "walk",
+      "local"
     ],
     "ratings": [],
     "website": null,
@@ -4827,46 +4649,12 @@
     }
   },
   {
-    "id": "park-planty-krakowskie",
-    "name": "Park Planty Krakowskie",
-    "lat": 50.0602487,
-    "lng": 19.9384248,
-    "categoryId": "park",
-    "area": "",
-    "description": "",
-    "minutes": 40,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "none",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "nature"
-    ],
-    "ratings": [],
-    "website": null,
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "way",
-        "id": 1221128266,
-        "url": "https://www.openstreetmap.org/way/1221128266"
-      },
-      "osmTags": {
-        "wikidata": "Q1945780",
-        "wikipedia": "pl:Planty Krakowskie",
-        "opening_hours": null,
-        "cuisine": null
-      }
-    }
-  },
-  {
     "id": "park-reduta",
     "name": "Park Reduta",
     "lat": 50.096562,
     "lng": 19.9851995,
     "categoryId": "park",
-    "area": "",
+    "area": "Prądnik Czerwony",
     "description": "",
     "minutes": 40,
     "cost": 0,
@@ -4900,7 +4688,7 @@
     "lat": 50.066531,
     "lng": 20.0510686,
     "categoryId": "park",
-    "area": "",
+    "area": "Nowa Huta",
     "description": "",
     "minutes": 40,
     "cost": 0,
@@ -4934,8 +4722,8 @@
     "lat": 50.0661408,
     "lng": 19.9500345,
     "categoryId": "park",
-    "area": "",
-    "description": "",
+    "area": "Wesoła",
+    "description": "Mały park przy Lubiczu z placem zabaw i budynkiem Celestatu, siedziby Bractwa Kurkowego.",
     "minutes": 40,
     "cost": 0,
     "tourist": "balanced",
@@ -4943,7 +4731,8 @@
     "partner": false,
     "top": false,
     "tags": [
-      "nature"
+      "nature",
+      "local"
     ],
     "ratings": [],
     "website": null,
@@ -4969,18 +4758,18 @@
     "lng": 20.052952,
     "categoryId": "park",
     "area": "Nowa Huta",
-    "description": "Popularna przestrzeń spacerowa i rekreacyjna w Nowej Hucie.",
+    "description": "Sztuczny zbiornik otoczony parkiem. Dobre miejsce na spacer i odpoczynek po zwiedzaniu Nowej Huty.",
     "minutes": 40,
     "cost": 0,
-    "tourist": "balanced",
+    "tourist": "local",
     "foodStyle": "none",
     "partner": false,
     "top": false,
     "tags": [
       "nature",
-      "local",
-      "nowa-huta",
-      "free"
+      "walk",
+      "free",
+      "nowa-huta"
     ],
     "ratings": [],
     "metadata": {
@@ -4999,7 +4788,7 @@
     "lat": 50.0621056,
     "lng": 19.9425357,
     "categoryId": "pub",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 60,
     "cost": 0,
@@ -5033,7 +4822,7 @@
     "lat": 50.0532009,
     "lng": 19.9393017,
     "categoryId": "pub",
-    "area": "Kraków",
+    "area": "Stradom",
     "description": "",
     "minutes": 60,
     "cost": 0,
@@ -5043,9 +4832,7 @@
     "top": false,
     "tags": [
       "nightlife",
-      "burger",
-      "pizza",
-      "mexican"
+      "burger"
     ],
     "ratings": [],
     "website": "https://bropub.pl",
@@ -5070,8 +4857,8 @@
     "lat": 50.062998,
     "lng": 19.9383621,
     "categoryId": "pub",
-    "area": "",
-    "description": "",
+    "area": "Stare Miasto",
+    "description": "Pub z czeskim piwem przy Świętego Jana.",
     "minutes": 60,
     "cost": 0,
     "tourist": "balanced",
@@ -5079,8 +4866,7 @@
     "partner": false,
     "top": false,
     "tags": [
-      "nightlife",
-      "regional"
+      "nightlife"
     ],
     "ratings": [],
     "website": "https://drevnykocur.pl/krakowjana/",
@@ -5105,8 +4891,8 @@
     "lat": 50.0608516,
     "lng": 19.9381929,
     "categoryId": "pub",
-    "area": "Kraków",
-    "description": "",
+    "area": "Stare Miasto",
+    "description": "Klub studencki przy Rynku z piwnicą koncertową i barem, od lat część studenckiego Krakowa.",
     "minutes": 60,
     "cost": 0,
     "tourist": "balanced",
@@ -5114,7 +4900,9 @@
     "partner": false,
     "top": false,
     "tags": [
-      "nightlife"
+      "nightlife",
+      "student",
+      "classic"
     ],
     "ratings": [],
     "website": "https://podjaszczurami.pl/",
@@ -5139,8 +4927,8 @@
     "lat": 50.0606523,
     "lng": 19.9396118,
     "categoryId": "pub",
-    "area": "Kraków",
-    "description": "",
+    "area": "Stare Miasto",
+    "description": "Pub w piwnicy przy Stolarskiej, znany głównie z nazwy, która jest jednocześnie instrukcją dojścia.",
     "minutes": 60,
     "cost": 0,
     "tourist": "balanced",
@@ -5148,7 +4936,8 @@
     "partner": false,
     "top": false,
     "tags": [
-      "nightlife"
+      "nightlife",
+      "local"
     ],
     "ratings": [],
     "website": "https://www.facebook.com/PierwszyLokal/",
@@ -5173,7 +4962,7 @@
     "lat": 50.055844,
     "lng": 19.9411302,
     "categoryId": "pub",
-    "area": "Kraków",
+    "area": "Stradom",
     "description": "",
     "minutes": 60,
     "cost": 0,
@@ -5207,7 +4996,7 @@
     "lat": 50.0665053,
     "lng": 19.9556711,
     "categoryId": "pub",
-    "area": "Kraków",
+    "area": "Wesoła",
     "description": "",
     "minutes": 60,
     "cost": 0,
@@ -5241,8 +5030,8 @@
     "lat": 50.0612594,
     "lng": 19.9318205,
     "categoryId": "pub",
-    "area": "Kraków",
-    "description": "",
+    "area": "Piasek",
+    "description": "Pub z żeglarskim klimatem przy Straszewskiego.",
     "minutes": 60,
     "cost": 0,
     "tourist": "balanced",
@@ -5250,7 +5039,8 @@
     "partner": false,
     "top": false,
     "tags": [
-      "nightlife"
+      "nightlife",
+      "local"
     ],
     "ratings": [],
     "website": "https://www.staryport.com.pl",
@@ -5270,36 +5060,33 @@
     }
   },
   {
-    "id": "bazylika-archikatedralna-swietych-stanislawa-i-waclawa",
-    "name": "Bazylika archikatedralna Świętych Stanisława i Wacława",
-    "lat": 50.0546439,
-    "lng": 19.9354796,
+    "id": "arka-pana",
+    "name": "Arka Pana",
+    "lat": 50.0849906,
+    "lng": 20.0293211,
     "categoryId": "religious_site",
-    "area": "Kraków",
-    "description": "",
+    "area": "Bieńczyce",
+    "description": "Kościół w kształcie arki, zbudowany przez mieszkańców Nowej Huty w latach 1967–1977, gdy władze nie chciały świątyni w nowym mieście.",
     "minutes": 30,
     "cost": 0,
-    "tourist": "balanced",
+    "tourist": "local",
     "foodStyle": "none",
     "partner": false,
     "top": false,
     "tags": [
-      "sightseeing"
+      "sightseeing",
+      "architecture",
+      "history",
+      "nowa-huta"
     ],
     "ratings": [],
-    "website": "https://katedra-wawelska.pl/",
     "metadata": {
+      "curated": true,
       "source": {
         "provider": "openstreetmap",
         "type": "way",
-        "id": 85151350,
-        "url": "https://www.openstreetmap.org/way/85151350"
-      },
-      "osmTags": {
-        "wikidata": "Q638519",
-        "wikipedia": "pl:Bazylika archikatedralna św. Stanisława i św. Wacława w Krakowie",
-        "opening_hours": "Mo-Sa 06:30-17:00; Su 07:00-17:30; Apr-Oct Mo-Sa 06:30-18:00; Apr-Oct Su 07:00-18:30",
-        "cuisine": null
+        "id": 39449011,
+        "url": "https://www.openstreetmap.org/way/39449011"
       }
     }
   },
@@ -5310,17 +5097,17 @@
     "lng": 19.9449767,
     "categoryId": "religious_site",
     "area": "Kazimierz",
-    "description": "Monumentalna bazylika i jeden z najważniejszych zabytków Kazimierza.",
-    "minutes": 30,
+    "description": "Gotycka bazylika z bogatym barokowym wnętrzem, jedna z najważniejszych świątyń Kazimierza.",
+    "minutes": 25,
     "cost": 0,
     "tourist": "balanced",
     "foodStyle": "none",
     "partner": false,
     "top": false,
     "tags": [
-      "history",
+      "sightseeing",
       "architecture",
-      "culture"
+      "history"
     ],
     "ratings": [],
     "metadata": {
@@ -5334,80 +5121,12 @@
     }
   },
   {
-    "id": "bazylika-nawiedzenia-najswietszej-maryi-panny",
-    "name": "Bazylika Nawiedzenia Najświętszej Maryi Panny",
-    "lat": 50.0651407,
-    "lng": 19.931944,
-    "categoryId": "religious_site",
-    "area": "Kraków",
-    "description": "",
-    "minutes": 30,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "none",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "sightseeing"
-    ],
-    "ratings": [],
-    "website": "https://krakow.karmelici.pl",
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "way",
-        "id": 203495624,
-        "url": "https://www.openstreetmap.org/way/203495624"
-      },
-      "osmTags": {
-        "wikidata": "Q5118073",
-        "wikipedia": "pl:Bazylika Nawiedzenia Najświętszej Maryi Panny w Krakowie (Na Piasku)",
-        "opening_hours": null,
-        "cuisine": null
-      }
-    }
-  },
-  {
-    "id": "bazylika-wniebowziecia-najswietszej-maryi-panny",
-    "name": "Bazylika Wniebowzięcia Najświętszej Maryi Panny",
-    "lat": 50.0616572,
-    "lng": 19.93945,
-    "categoryId": "religious_site",
-    "area": "Kraków",
-    "description": "",
-    "minutes": 30,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "none",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "sightseeing"
-    ],
-    "ratings": [],
-    "website": "https://mariacki.com",
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "way",
-        "id": 26195267,
-        "url": "https://www.openstreetmap.org/way/26195267"
-      },
-      "osmTags": {
-        "wikidata": "Q1143171",
-        "wikipedia": "pl:Kościół archiprezbiterialny Wniebowzięcia Najświętszej Marii Panny w Krakowie",
-        "opening_hours": "Mo-Sa 11:30-18:00; Su 14:00-18:00",
-        "cuisine": null
-      }
-    }
-  },
-  {
     "id": "kaplica-pw-swietych-jana-chrzciciela-i-jana-ewangelisty",
-    "name": "Kaplica pw. Świętych Jana Chrzciciela i Jana Ewangelisty",
+    "name": "Kaplica św. Jana Chrzciciela i Jana Ewangelisty",
     "lat": 50.0888377,
     "lng": 19.9697134,
     "categoryId": "religious_site",
-    "area": "Kraków",
+    "area": "Prądnik Czerwony",
     "description": "",
     "minutes": 30,
     "cost": 0,
@@ -5436,12 +5155,47 @@
     }
   },
   {
+    "id": "bazylika-nawiedzenia-najswietszej-maryi-panny",
+    "name": "Kościół Karmelitów na Piasku",
+    "lat": 50.0651407,
+    "lng": 19.931944,
+    "categoryId": "religious_site",
+    "area": "Piasek",
+    "description": "Barokowy kościół karmelitów przy Karmelickiej, znany z obrazu Matki Bożej Piaskowej.",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing",
+      "history"
+    ],
+    "ratings": [],
+    "website": "https://krakow.karmelici.pl",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 203495624,
+        "url": "https://www.openstreetmap.org/way/203495624"
+      },
+      "osmTags": {
+        "wikidata": "Q5118073",
+        "wikipedia": "pl:Bazylika Nawiedzenia Najświętszej Maryi Panny w Krakowie (Na Piasku)",
+        "opening_hours": null,
+        "cuisine": null
+      }
+    }
+  },
+  {
     "id": "kosciol-pw-matki-bozej-czestochowskiej",
-    "name": "Kościół pw. Matki Bożej Częstochowskiej",
+    "name": "Kościół Matki Bożej Częstochowskiej",
     "lat": 50.0032955,
     "lng": 19.8805029,
     "categoryId": "religious_site",
-    "area": "Kraków",
+    "area": "Dębniki",
     "description": "",
     "minutes": 30,
     "cost": 0,
@@ -5471,12 +5225,12 @@
   },
   {
     "id": "kosciol-pw-swietego-krzyza",
-    "name": "Kościół pw. Świętego Krzyża",
+    "name": "Kościół Świętego Krzyża",
     "lat": 50.0633711,
     "lng": 19.9433343,
     "categoryId": "religious_site",
-    "area": "Kraków",
-    "description": "",
+    "area": "Stare Miasto",
+    "description": "Gotycki kościół z niezwykłym palmowym sklepieniem wspartym na jednym filarze.",
     "minutes": 30,
     "cost": 0,
     "tourist": "balanced",
@@ -5484,7 +5238,9 @@
     "partner": false,
     "top": false,
     "tags": [
-      "sightseeing"
+      "sightseeing",
+      "architecture",
+      "hidden"
     ],
     "ratings": [],
     "website": "https://www.krzyzkrakow.pl/",
@@ -5505,12 +5261,12 @@
   },
   {
     "id": "kosciol-pw-swietego-wojciecha-biskupa-i-meczennika",
-    "name": "Kościół pw. Świętego Wojciecha Biskupa i Męczennika",
+    "name": "Kościół Świętego Wojciecha",
     "lat": 50.060888,
     "lng": 19.9377429,
     "categoryId": "religious_site",
-    "area": "",
-    "description": "",
+    "area": "Stare Miasto",
+    "description": "Mały romański kościół na Rynku, starszy od samego układu Rynku. W podziemiach ekspozycja archeologiczna.",
     "minutes": 30,
     "cost": 0,
     "tourist": "balanced",
@@ -5518,7 +5274,8 @@
     "partner": false,
     "top": false,
     "tags": [
-      "sightseeing"
+      "sightseeing",
+      "history"
     ],
     "ratings": [],
     "website": "http://www.kosciolwojciecha.pl/",
@@ -5539,12 +5296,12 @@
   },
   {
     "id": "kosciol-pw-swietej-barbary",
-    "name": "Kościół pw. Świętej Barbary",
+    "name": "Kościół Świętej Barbary",
     "lat": 50.0613121,
     "lng": 19.9398407,
     "categoryId": "religious_site",
-    "area": "Kraków",
-    "description": "",
+    "area": "Stare Miasto",
+    "description": "Gotycki kościół przy Małym Rynku, tuż za Bazyliką Mariacką.",
     "minutes": 30,
     "cost": 0,
     "tourist": "balanced",
@@ -5552,7 +5309,8 @@
     "partner": false,
     "top": false,
     "tags": [
-      "sightseeing"
+      "sightseeing",
+      "history"
     ],
     "ratings": [],
     "website": "http://www.swbarbara.jezuici.pl/",
@@ -5572,12 +5330,43 @@
     }
   },
   {
+    "id": "tempel-synagogue",
+    "name": "Synagoga Tempel",
+    "lat": 50.052938,
+    "lng": 19.9444445,
+    "categoryId": "religious_site",
+    "area": "Kazimierz",
+    "description": "XIX-wieczna synagoga postępowa z bogato zdobionym wnętrzem i witrażami, otwarta dla zwiedzających.",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sightseeing",
+      "history",
+      "jewish-heritage",
+      "art"
+    ],
+    "ratings": [],
+    "metadata": {
+      "curated": true,
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 39405479,
+        "url": "https://www.openstreetmap.org/way/39405479"
+      }
+    }
+  },
+  {
     "id": "baqaro",
     "name": "Baqaro",
     "lat": 50.0663493,
     "lng": 19.9527922,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Wesoła",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -5611,7 +5400,7 @@
     "lat": 50.0579547,
     "lng": 19.9334184,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Nowy Świat",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -5646,7 +5435,7 @@
     "lat": 50.0608345,
     "lng": 19.9403936,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -5680,8 +5469,8 @@
     "lat": 50.06468,
     "lng": 19.9498566,
     "categoryId": "restaurant",
-    "area": "Kraków",
-    "description": "",
+    "area": "Wesoła",
+    "description": "Restauracja z browarem w odnowionych halach dawnego browaru przy Lubiczu.",
     "minutes": 75,
     "cost": 0,
     "tourist": "balanced",
@@ -5715,7 +5504,7 @@
     "lat": 50.0619534,
     "lng": 19.9343435,
     "categoryId": "restaurant",
-    "area": "",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -5724,8 +5513,7 @@
     "partner": false,
     "top": false,
     "tags": [
-      "food",
-      "local"
+      "food"
     ],
     "ratings": [],
     "website": "https://www.restauracjacechowa.pl/",
@@ -5750,8 +5538,8 @@
     "lat": 50.0634152,
     "lng": 19.9325288,
     "categoryId": "restaurant",
-    "area": "Kraków",
-    "description": "",
+    "area": "Piasek",
+    "description": "Browar restauracyjny w piwnicach przy Podwalu, z piwem warzonym na miejscu.",
     "minutes": 75,
     "cost": 0,
     "tourist": "balanced",
@@ -5760,8 +5548,8 @@
     "top": false,
     "tags": [
       "food",
-      "austrian",
-      "polish"
+      "polish",
+      "nightlife"
     ],
     "ratings": [],
     "website": "https://ckbrowar.pl/",
@@ -5786,7 +5574,7 @@
     "lat": 50.0581068,
     "lng": 19.9391766,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -5821,7 +5609,7 @@
     "lat": 50.0649662,
     "lng": 19.9383416,
     "categoryId": "restaurant",
-    "area": "",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -5831,7 +5619,6 @@
     "top": false,
     "tags": [
       "food",
-      "regional",
       "french"
     ],
     "ratings": [],
@@ -5853,11 +5640,11 @@
   },
   {
     "id": "czarna-kaczka",
-    "name": "Czarna kaczka",
+    "name": "Czarna Kaczka",
     "lat": 50.05827,
     "lng": 19.9391354,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -5887,83 +5674,13 @@
     }
   },
   {
-    "id": "falafel-shelanu",
-    "name": "Falafel Shelanu",
-    "lat": 50.0544884,
-    "lng": 19.9466556,
-    "categoryId": "restaurant",
-    "area": "Kraków",
-    "description": "",
-    "minutes": 75,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "sit",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "food",
-      "asian"
-    ],
-    "ratings": [],
-    "website": "https://kosherkrakow.com/",
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "node",
-        "id": 10226684188,
-        "url": "https://www.openstreetmap.org/node/10226684188"
-      },
-      "osmTags": {
-        "wikidata": null,
-        "wikipedia": null,
-        "opening_hours": "Mo-Fr 10:00-21:00; Sa 10:00-14:00",
-        "cuisine": "asian"
-      }
-    }
-  },
-  {
-    "id": "hard-rock-cafe",
-    "name": "Hard Rock Cafe",
-    "lat": 50.0614058,
-    "lng": 19.938773,
-    "categoryId": "restaurant",
-    "area": "Kraków",
-    "description": "",
-    "minutes": 75,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "sit",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "food",
-      "american"
-    ],
-    "ratings": [],
-    "website": "https://www.hardrockcafe.com/location/krakow/",
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "node",
-        "id": 475613690,
-        "url": "https://www.openstreetmap.org/node/475613690"
-      },
-      "osmTags": {
-        "wikidata": null,
-        "wikipedia": null,
-        "opening_hours": "Mo-Fr 10:00-00:00; Sa-Su 10:00-01:00",
-        "cuisine": "american"
-      }
-    }
-  },
-  {
     "id": "hawelka",
     "name": "Hawełka",
     "lat": 50.0626523,
     "lng": 19.936419,
     "categoryId": "restaurant",
-    "area": "Kraków",
-    "description": "",
+    "area": "Stare Miasto",
+    "description": "Tradycyjna restauracja przy Rynku z kuchnią polską, działająca od XIX wieku.",
     "minutes": 75,
     "cost": 0,
     "tourist": "balanced",
@@ -5971,7 +5688,9 @@
     "partner": false,
     "top": false,
     "tags": [
-      "food"
+      "food",
+      "polish",
+      "classic"
     ],
     "ratings": [],
     "website": "https://www.hawelka.pl/",
@@ -5996,7 +5715,7 @@
     "lat": 50.0664997,
     "lng": 19.9426269,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Kleparz",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6006,7 +5725,7 @@
     "top": false,
     "tags": [
       "food",
-      "regional"
+      "polish"
     ],
     "ratings": [],
     "website": "http://www.jarema.pl",
@@ -6031,7 +5750,7 @@
     "lat": 50.0676013,
     "lng": 19.9519997,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Wesoła",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6041,9 +5760,9 @@
     "top": false,
     "tags": [
       "food",
-      "korean",
-      "ramen",
-      "sushi"
+      "japanese",
+      "sushi",
+      "vegan"
     ],
     "ratings": [],
     "website": "https://www.kavegan.pl/",
@@ -6068,7 +5787,7 @@
     "lat": 50.0665538,
     "lng": 19.9296753,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Piasek",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6103,7 +5822,7 @@
     "lat": 50.058086,
     "lng": 19.9382121,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6113,7 +5832,8 @@
     "top": false,
     "tags": [
       "food",
-      "polish-italian"
+      "polish",
+      "italian"
     ],
     "ratings": [],
     "website": "https://miodmalina.pl/",
@@ -6138,7 +5858,7 @@
     "lat": 50.0637452,
     "lng": 19.9362107,
     "categoryId": "restaurant",
-    "area": "",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6148,7 +5868,7 @@
     "top": false,
     "tags": [
       "food",
-      "regional"
+      "polish"
     ],
     "ratings": [],
     "website": "https://www.morskieoko.krakow.pl/",
@@ -6173,7 +5893,7 @@
     "lat": 50.0655782,
     "lng": 19.9540376,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Wesoła",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6207,7 +5927,7 @@
     "lat": 50.058889,
     "lng": 19.9526805,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Wesoła",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6242,7 +5962,7 @@
     "lat": 50.0601914,
     "lng": 19.9341714,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6276,7 +5996,7 @@
     "lat": 50.0640371,
     "lng": 19.9379623,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6306,11 +6026,11 @@
   },
   {
     "id": "paul-s-place-restauant-bar",
-    "name": "Paul's Place Restauant & Bar",
+    "name": "Paul's Place Restaurant & Bar",
     "lat": 50.0603927,
     "lng": 19.9355275,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6320,7 +6040,6 @@
     "top": false,
     "tags": [
       "food",
-      "european",
       "polish"
     ],
     "ratings": [],
@@ -6346,7 +6065,7 @@
     "lat": 50.0631354,
     "lng": 19.9357477,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6355,8 +6074,7 @@
     "partner": false,
     "top": false,
     "tags": [
-      "food",
-      "international"
+      "food"
     ],
     "ratings": [],
     "website": "https://www.restauracjapino.pl/",
@@ -6381,7 +6099,7 @@
     "lat": 50.0581068,
     "lng": 19.9387609,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6416,7 +6134,7 @@
     "lat": 50.0641562,
     "lng": 19.9380376,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6450,8 +6168,8 @@
     "lat": 50.0557539,
     "lng": 19.9372166,
     "categoryId": "restaurant",
-    "area": "Kraków",
-    "description": "",
+    "area": "Stare Miasto",
+    "description": "Elegancka restauracja z kuchnią polską przy Kanoniczej, blisko Wawelu.",
     "minutes": 75,
     "cost": 0,
     "tourist": "balanced",
@@ -6459,7 +6177,9 @@
     "partner": false,
     "top": false,
     "tags": [
-      "food"
+      "food",
+      "polish",
+      "date"
     ],
     "ratings": [],
     "website": "http://kanonicza22.pl",
@@ -6479,46 +6199,12 @@
     }
   },
   {
-    "id": "polonia",
-    "name": "Polonia",
-    "lat": 50.0650053,
-    "lng": 19.944798,
-    "categoryId": "restaurant",
-    "area": "Kraków",
-    "description": "",
-    "minutes": 75,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "sit",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "food"
-    ],
-    "ratings": [],
-    "website": "https://hotel-polonia.com.pl/hotel-polonia/restauracja",
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "node",
-        "id": 9692024828,
-        "url": "https://www.openstreetmap.org/node/9692024828"
-      },
-      "osmTags": {
-        "wikidata": null,
-        "wikipedia": null,
-        "opening_hours": "Mo-Sa 12:00-22:00",
-        "cuisine": null
-      }
-    }
-  },
-  {
     "id": "regale-bar-restaurant",
     "name": "Regale Bar & Restaurant",
     "lat": 50.063366,
     "lng": 19.9378106,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6528,8 +6214,7 @@
     "top": false,
     "tags": [
       "food",
-      "polish",
-      "international"
+      "polish"
     ],
     "ratings": [],
     "website": "https://regale.restaurant/",
@@ -6551,11 +6236,11 @@
   {
     "id": "restauracja-po-krakosku",
     "name": "Restauracja Po Krakosku",
-    "lat": 50.0608273,
-    "lng": 19.9385367,
+    "lat": 50.0483933,
+    "lng": 19.9446093,
     "categoryId": "restaurant",
     "area": "Kazimierz",
-    "description": "Kuchnia inspirowana Krakowem i Galicją przy placu Wolnica.",
+    "description": "Restauracja przy placu Wolnica z kuchnią krakowską i galicyjską. Wygodny przystanek na obiad przed przejściem na Podgórze.",
     "minutes": 75,
     "cost": 0,
     "tourist": "balanced",
@@ -6564,16 +6249,15 @@
     "top": false,
     "tags": [
       "food",
-      "polish",
-      "kazimierz"
+      "polish"
     ],
     "ratings": [],
     "metadata": {
       "source": {
         "provider": "openstreetmap",
         "type": "node",
-        "id": 9870673217,
-        "url": "https://www.openstreetmap.org/node/9870673217"
+        "id": 6967360985,
+        "url": "https://www.openstreetmap.org/node/6967360985"
       },
       "curated": true
     }
@@ -6581,11 +6265,11 @@
   {
     "id": "restauracja-sasiedzi",
     "name": "Restauracja Sąsiedzi",
-    "lat": 50.0608273,
-    "lng": 19.9385367,
+    "lat": 50.0528132,
+    "lng": 19.9453007,
     "categoryId": "restaurant",
     "area": "Kazimierz",
-    "description": "Restauracja na Kazimierzu z polską kuchnią i spokojniejszą atmosferą.",
+    "description": "Restauracja z kuchnią polską przy Miodowej, spokojniejsza niż lokale wokół Placu Nowego.",
     "minutes": 75,
     "cost": 0,
     "tourist": "balanced",
@@ -6595,15 +6279,15 @@
     "tags": [
       "food",
       "polish",
-      "kazimierz"
+      "date"
     ],
     "ratings": [],
     "metadata": {
       "source": {
         "provider": "openstreetmap",
         "type": "node",
-        "id": 9870673217,
-        "url": "https://www.openstreetmap.org/node/9870673217"
+        "id": 4052066489,
+        "url": "https://www.openstreetmap.org/node/4052066489"
       },
       "curated": true
     }
@@ -6614,7 +6298,7 @@
     "lat": 50.0578287,
     "lng": 19.9409446,
     "categoryId": "restaurant",
-    "area": "",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6650,7 +6334,7 @@
     "lat": 50.0663405,
     "lng": 19.9424849,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Kleparz",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6684,7 +6368,7 @@
     "lat": 50.0587819,
     "lng": 19.9378026,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6718,8 +6402,8 @@
     "lat": 50.0746969,
     "lng": 20.0378777,
     "categoryId": "restaurant",
-    "area": "Kraków",
-    "description": "",
+    "area": "Nowa Huta",
+    "description": "Restauracja w Nowej Hucie działająca od lat 50., z wnętrzem i menu w duchu PRL.",
     "minutes": 75,
     "cost": 0,
     "tourist": "balanced",
@@ -6728,7 +6412,9 @@
     "top": false,
     "tags": [
       "food",
-      "polish"
+      "polish",
+      "nowa-huta",
+      "history"
     ],
     "ratings": [],
     "website": "https://stylowa-krakow.pl/",
@@ -6753,7 +6439,7 @@
     "lat": 50.0643871,
     "lng": 19.9422728,
     "categoryId": "restaurant",
-    "area": "",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6763,7 +6449,6 @@
     "top": false,
     "tags": [
       "food",
-      "regional",
       "polish"
     ],
     "ratings": [],
@@ -6789,7 +6474,7 @@
     "lat": 50.0582294,
     "lng": 19.9389483,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6824,7 +6509,7 @@
     "lat": 50.0623697,
     "lng": 19.9411192,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6859,7 +6544,7 @@
     "lat": 50.0618232,
     "lng": 19.9344567,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6894,7 +6579,7 @@
     "lat": 50.0606534,
     "lng": 19.9444714,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6904,8 +6589,7 @@
     "top": false,
     "tags": [
       "food",
-      "polish",
-      "european"
+      "polish"
     ],
     "ratings": [],
     "website": "https://tuzurek.pl/",
@@ -6930,7 +6614,7 @@
     "lat": 50.0645013,
     "lng": 19.9384744,
     "categoryId": "restaurant",
-    "area": "",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6940,7 +6624,7 @@
     "top": false,
     "tags": [
       "food",
-      "regional"
+      "polish"
     ],
     "ratings": [],
     "website": "http://kuchniaubabcimaliny.pl/restauracja/krakow-slawkowska-17/",
@@ -6965,7 +6649,7 @@
     "lat": 50.0606312,
     "lng": 19.9380044,
     "categoryId": "restaurant",
-    "area": "Kraków",
+    "area": "Stare Miasto",
     "description": "",
     "minutes": 75,
     "cost": 0,
@@ -6974,8 +6658,7 @@
     "partner": false,
     "top": false,
     "tags": [
-      "food",
-      "local"
+      "food"
     ],
     "ratings": [],
     "website": "https://weselerestauracja.pl",
@@ -7000,8 +6683,8 @@
     "lat": 50.0603841,
     "lng": 19.9374073,
     "categoryId": "restaurant",
-    "area": "Kraków",
-    "description": "",
+    "area": "Stare Miasto",
+    "description": "Jedna z najstarszych restauracji w Krakowie, z kuchnią polską i widokiem na Rynek.",
     "minutes": 75,
     "cost": 0,
     "tourist": "balanced",
@@ -7010,7 +6693,8 @@
     "top": false,
     "tags": [
       "food",
-      "polish"
+      "polish",
+      "classic"
     ],
     "ratings": [],
     "website": "https://wierzynek.pl/",
@@ -7030,13 +6714,13 @@
     }
   },
   {
-    "id": "domino-s",
-    "name": "Domino's",
-    "lat": 50.0923994,
-    "lng": 19.9558249,
+    "id": "falafel-shelanu",
+    "name": "Falafel Shelanu",
+    "lat": 50.0544884,
+    "lng": 19.9466556,
     "categoryId": "street_food",
-    "area": "Kraków",
-    "description": "",
+    "area": "Kazimierz",
+    "description": "Falafel i hummus na Kazimierzu, szybki i niedrogi posiłek.",
     "minutes": 25,
     "cost": 0,
     "tourist": "balanced",
@@ -7045,22 +6729,22 @@
     "top": false,
     "tags": [
       "food",
-      "pizza"
+      "budget"
     ],
     "ratings": [],
-    "website": "https://www.dominospizza.pl/",
+    "website": "https://kosherkrakow.com/",
     "metadata": {
       "source": {
         "provider": "openstreetmap",
         "type": "node",
-        "id": 12587358951,
-        "url": "https://www.openstreetmap.org/node/12587358951"
+        "id": 10226684188,
+        "url": "https://www.openstreetmap.org/node/10226684188"
       },
       "osmTags": {
         "wikidata": null,
         "wikipedia": null,
-        "opening_hours": "Mo-Fr 11:00-23:00; Sa-Su 10:00-23:00",
-        "cuisine": "pizza"
+        "opening_hours": "Mo-Fr 10:00-21:00; Sa 10:00-14:00",
+        "cuisine": "asian"
       }
     }
   },
@@ -7070,7 +6754,7 @@
     "lat": 50.0669474,
     "lng": 19.951847,
     "categoryId": "street_food",
-    "area": "Kraków",
+    "area": "Wesoła",
     "description": "",
     "minutes": 25,
     "cost": 0,
@@ -7080,7 +6764,8 @@
     "top": false,
     "tags": [
       "food",
-      "regional"
+      "polish",
+      "budget"
     ],
     "ratings": [],
     "website": "https://www.facebook.com/pg/lunchbartu/",
@@ -7100,47 +6785,12 @@
     }
   },
   {
-    "id": "max",
-    "name": "Max",
-    "lat": 50.0573682,
-    "lng": 20.0005762,
-    "categoryId": "street_food",
-    "area": "Kraków",
-    "description": "",
-    "minutes": 25,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "quick",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "food",
-      "burger"
-    ],
-    "ratings": [],
-    "website": "http://www.maxpremiumburgers.pl/",
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "way",
-        "id": 1095281455,
-        "url": "https://www.openstreetmap.org/way/1095281455"
-      },
-      "osmTags": {
-        "wikidata": null,
-        "wikipedia": null,
-        "opening_hours": "Mo-Su 08:00-24:00",
-        "cuisine": "burger"
-      }
-    }
-  },
-  {
     "id": "mazaya",
     "name": "Mazaya",
     "lat": 50.0633953,
     "lng": 19.9289802,
     "categoryId": "street_food",
-    "area": "Kraków",
+    "area": "Piasek",
     "description": "",
     "minutes": 25,
     "cost": 0,
@@ -7150,7 +6800,8 @@
     "top": false,
     "tags": [
       "food",
-      "arab"
+      "middle-eastern",
+      "budget"
     ],
     "ratings": [],
     "website": "https://mazaya-falafel.com",
@@ -7170,47 +6821,12 @@
     }
   },
   {
-    "id": "mcdonald-s",
-    "name": "McDonald's",
-    "lat": 50.0646564,
-    "lng": 19.9413549,
-    "categoryId": "street_food",
-    "area": "",
-    "description": "",
-    "minutes": 25,
-    "cost": 0,
-    "tourist": "balanced",
-    "foodStyle": "quick",
-    "partner": false,
-    "top": false,
-    "tags": [
-      "food",
-      "burger"
-    ],
-    "ratings": [],
-    "website": "https://mcdonalds.pl/restauracje/malopolskie/krakow/krakow-ul-florianska-55",
-    "metadata": {
-      "source": {
-        "provider": "openstreetmap",
-        "type": "node",
-        "id": 490986259,
-        "url": "https://www.openstreetmap.org/node/490986259"
-      },
-      "osmTags": {
-        "wikidata": null,
-        "wikipedia": null,
-        "opening_hours": "Su-We 08:00-02:00, Th 08:00-03:00, Fr,Sa 08:00-05:00",
-        "cuisine": "burger"
-      }
-    }
-  },
-  {
     "id": "stolowka-jablonka",
     "name": "Stołówka Jabłonka",
     "lat": 50.0609559,
     "lng": 19.9302582,
     "categoryId": "street_food",
-    "area": "Kraków",
+    "area": "Piasek",
     "description": "",
     "minutes": 25,
     "cost": 0,
@@ -7220,7 +6836,8 @@
     "top": false,
     "tags": [
       "food",
-      "polish"
+      "polish",
+      "budget"
     ],
     "ratings": [],
     "website": "https://www.facebook.com/stolowkanajablonowskich",
@@ -7245,8 +6862,8 @@
     "lat": 50.0582803,
     "lng": 19.9436624,
     "categoryId": "street_food",
-    "area": "",
-    "description": "",
+    "area": "Stradom",
+    "description": "Wegańskie kebaby przy Starowiślnej.",
     "minutes": 25,
     "cost": 0,
     "tourist": "balanced",
@@ -7255,8 +6872,8 @@
     "top": false,
     "tags": [
       "food",
-      "local",
-      "regional"
+      "budget",
+      "vegan"
     ],
     "ratings": [],
     "website": "https://www.vegab.pl/",
@@ -7281,7 +6898,7 @@
     "lat": 50.0671927,
     "lng": 19.9514978,
     "categoryId": "street_food",
-    "area": "",
+    "area": "Wesoła",
     "description": "",
     "minutes": 25,
     "cost": 0,
@@ -7291,7 +6908,8 @@
     "top": false,
     "tags": [
       "food",
-      "italian"
+      "italian",
+      "budget"
     ],
     "ratings": [],
     "website": "https://www.instagram.com/zwlochdopolski.official/?next=/",
@@ -7316,8 +6934,8 @@
     "lat": 50.06005,
     "lng": 19.8471666,
     "categoryId": "viewpoint",
-    "area": "",
-    "description": "",
+    "area": "Las Wolski",
+    "description": "Najwyższy z krakowskich kopców, w Lesie Wolskim. Szeroka panorama i spacer przez las.",
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
@@ -7325,7 +6943,10 @@
     "partner": false,
     "top": false,
     "tags": [
-      "sightseeing"
+      "sightseeing",
+      "views",
+      "nature",
+      "free"
     ],
     "ratings": [],
     "website": null,
@@ -7350,7 +6971,7 @@
     "lat": 50.0541117,
     "lng": 19.9365676,
     "categoryId": "viewpoint",
-    "area": "",
+    "area": "Wawel",
     "description": "",
     "minutes": 35,
     "cost": 0,
@@ -7359,7 +6980,8 @@
     "partner": false,
     "top": false,
     "tags": [
-      "sightseeing"
+      "sightseeing",
+      "views"
     ],
     "ratings": [],
     "website": "https://wawel.krakow.pl/wystawa-stala/taras-widokowy",
@@ -7374,6 +6996,41 @@
         "wikidata": null,
         "wikipedia": null,
         "opening_hours": "Jul 01-Oct 13 Mo 10:00-18:00; Jul 01-Oct 13 Tu-Su 09:00-18:00",
+        "cuisine": null
+      }
+    }
+  },
+  {
+    "id": "winne-grono",
+    "name": "Winne Grono",
+    "lat": 50.0658166,
+    "lng": 19.9254805,
+    "categoryId": "wine_bar",
+    "area": "Piasek",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife",
+      "date"
+    ],
+    "ratings": [],
+    "website": "https://www.winnegrono.krakow.pl/",
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3145305435,
+        "url": "https://www.openstreetmap.org/node/3145305435"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 12:00-24:00",
         "cuisine": null
       }
     }

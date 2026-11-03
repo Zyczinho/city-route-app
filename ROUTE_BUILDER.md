@@ -40,7 +40,7 @@ Draft = {
 
 - `basketsByCity[cityId]` stays the canonical stop list, so old clients and the live-route flow keep working. The model reads it with `hydrateDraft` and writes it back with `serializeDraft(draft).stops`.
 - The optional metadata (`name`, `transport`, `revision`, `updatedAt`) lives in a new sibling object `state.builderMetaByCity[cityId]`. It is ignored by code that doesn't know it.
-- Hydration never throws on bad input. It returns a valid draft plus a report `{dropped:[ids], deduped:[ids]}` so the UI can say "2 miejsca nie są już dostępne".
+- Hydration never throws on bad input. It returns a valid draft plus a report `{dropped:[ids], deduped:[ids], crossCity:boolean}` so the UI can say "2 miejsca nie są już dostępne".
 - `version` allows a later move to a single `drafts` store; unknown versions are hydrated as v1 where possible, or to an empty draft.
 
 ## Operations (pure, in `route-builder-model.js`)

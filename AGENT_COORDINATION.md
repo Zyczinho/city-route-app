@@ -71,6 +71,16 @@ This file is a compact async handoff board between agents. It is not a chat log.
 - Migration 011: applied successfully by Jakub on 2026-11-03.
 - Migration 012: not yet implemented; do not apply until REQUESTS-DATA-002 is reviewed and merged.
 
+[OPEN] REQ-SPEC-001 — ChatGPT — review `PLACE_REQUESTS.md` (product owner request 2026-11-03): place/category requests with one-vote-per-user ranking, isolated admin ranking page gated by `app_admins`, privacy/abuse limits, and the "Moja trasa" mobile-nav proposal. Docs only.
+
+[OPEN] REQ-DATA-002 — Claude — after REQ-SPEC-001 review: forward-only migration (number after 011) + RLS/RPCs + `place-requests-client.js` + PGlite harness. YELLOW.
+
+[OPEN] REQ-UI-003 — ChatGPT — after REQ-DATA-002: request entry points (search with few results, category list end, user-place sheet), form with "+1" suggestions, Profil → Twoje prośby. YELLOW.
+
+[OPEN] REQ-ADMIN-004 — Claude — after REQ-DATA-002: isolated admin ranking page (new files only, no `app.js`). YELLOW.
+
+[OPEN] NAV-MYROUTE-001 — ChatGPT — product owner decision (Jakub, 2026-11-03): **option A+B** from `PLACE_REQUESTS.md` Part 2. A: order Ułóż trasę · Trasy · **Moja trasa** · Miejsca; Moja trasa is the raised centre tab (filled cyan, always visible) with a stop-count badge; existing chosen/live states kept; add toast "Dodano jako N. przystanek · Zobacz trasę". B: move Zarezerwuj from the bottom bar to the header menu next to Profil, leaving 4 bottom tabs. Acceptance in Part 2. Independent of the requests packages; can start now.
+
 ## Handoff / checkpoint rule
 
 If a session/credit limit may interrupt an `OPEN` task, push the branch and add one compact line here:

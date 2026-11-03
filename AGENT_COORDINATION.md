@@ -97,6 +97,7 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 
 | Priority | ID | Status | Owner | Reviewer | Depends on | Branch / PR | Next action | Last update |
 |---|---|---|---|---|---|---|---|---|
+| P1 | UX-CLEANUP-007 | REVIEW | ChatGPT | Jakub (visual) | PLAN-UI-MOBILE-006 DONE; SOCIAL-RUNTIME-004 DONE | `chatgpt/ux-cleanup-007` / PR #50 | Founder visual acceptance of the five-tab nav, slimmer My Route tab and brutally simple planner. GitHub CI #147 is green; merge only after visual acceptance or an explicit production-check decision. | 2026-11-03 |
 | P1 | REQ-ADMIN-004 | DONE | Claude | ChatGPT | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE | PR #44 + fix PR #48, merged to `main` at `d9eb8e8` | No code action. Hosted migration is tracked separately below. | 2026-11-03 |
 | P1 | REQ-UI-003 | DONE | ChatGPT | Claude | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE; SOCIAL-RUNTIME-004 DONE | PR #47 merged to `main` at `58694df` | Claude targeted re-review was CLEAN; no further code action. | 2026-11-03 |
 | P1 | PLAN-UI-MOBILE-006 | DONE | ChatGPT | Claude | REQ-UI-003 DONE | PR #49 merged to `main` at `c9d2681` | No code action. Claude review CLEAN; post-sync cache hardening and GitHub CI #143 were green before merge. | 2026-11-03 |
@@ -105,6 +106,16 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 | P3 | INFRA-CF-PREVIEW-001 | BACKLOG | Jakub | — | Cloudflare dashboard access | — | Workers preview builds fail on PR branches while `main` builds succeed. Treat GitHub `test` as required CI until preview configuration is fixed. | 2026-11-03 |
 
 ## Current package facts
+
+### UX-CLEANUP-007 — PR #50 — REVIEW
+
+- Founder feedback from production screenshots: add a dedicated **Społeczność** tab, reduce the oversized/raised `Moja trasa` treatment and make the planner substantially calmer than PR #49 achieved visually.
+- Bottom navigation now has five entries: Ułóż trasę, Trasy, Moja trasa, Społeczność, Miejsca. Społeczność reuses the existing Social Routes feed instead of duplicating backend/data logic.
+- `Moja trasa` remains visually central but uses a smaller negative margin, thinner border and smaller shadow so it stays inside the navigation composition.
+- Planner first view is intentionally minimal: time, collapsed `Klimat trasy`, collapsed `Więcej ustawień`, one `Ułóż trasę` CTA, then two small alternative links. Existing form names/defaults and generator semantics are preserved.
+- Visible cleanup copy avoids the founder-disliked long AI-style dash punctuation.
+- Delivery is explicit through `ux-cleanup.js?v=1`, `ux-cleanup.css?v=1`, `nav-enhancements.js?v=2` and service-worker cache v32.
+- GitHub CI #147 passed `npm test` and `npm run build` on head `20fcf42` before this board-only commit. Next gate is founder visual acceptance, not another Claude review.
 
 ### REQ-ADMIN-004 — PR #44 + fix PR #48 — DONE
 

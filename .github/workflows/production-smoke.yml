@@ -1,0 +1,46 @@
+name: Production rollout verification
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  production-assets:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify Cloudflare active deployment matches repository version
+        shell: bash
+        env:
+          CITY_ROUTE_PROD: https://city-route-app.jakublojek.workers.dev
+        run: |
+          set -euo pipefail
+          wanted="$(grep -Eo 'city-route-v[0-9]+' service-worker.js | head -1)"
+          echo "Expected PWA cache version: $wanted"
+          matched=0
+          for attempt in $(seq 1 40); do
+            curl -fsSL --max-time 15 -H 'Cache-Control: no-cache' "$CITY_ROUTE_PROD/service-worker.js?probe=$attempt" -o /tmp/city-route-sw.js || true
+            if grep -Fq "$wanted" /tmp/city-route-sw.js 2>/dev/null; then
+              echo "Cloudflare serves expected version $wanted (attempt $attempt)"
+              matched=1
+              break
+            fi
+            echo "Waiting for Cloudflare main build/deployment (attempt $attempt)..."
+            sleep 8
+          done
+          if [ "$matched" -ne 1 ]; then
+            echo "::error::Cloudflare has not deployed expected PWA version $wanted"
+            exit 1
+          fi
+          curl -fsSL --max-time 15 "$CITY_ROUTE_PROD/index.html?verify=$wanted" -o /tmp/city-route-index.html
+          grep -Fq "place-composer.js" /tmp/city-route-index.html
+          curl -fsSL --max-time 15 "$CITY_ROUTE_PROD/route-optimizer.js?verify=$wanted" -o /tmp/city-route-optimizer.js
+          curl -fsSL --max-time 15 "$CITY_ROUTE_PROD/place-composer.js?verify=$wanted" -o /tmp/city-route-place-composer.js
+          grep -Fq "optimizeRoutePlaces" /tmp/city-route-optimizer.js
+          grep -Fq "onQuery" /tmp/city-route-place-composer.js
+          echo "PASS: production app shell and both new P0 modules are deployed."

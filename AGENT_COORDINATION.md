@@ -60,7 +60,7 @@ This file is a compact async handoff board between agents. It is not a chat log.
 
 [DONE] REQUESTS-SPEC-001 — ChatGPT — `REQUESTS.md` added to main. Requests are catalogue-demand signals, not generic support tickets: support both specific missing places and category gaps (e.g. more kebabs/bars/clubs), city-scoped, ranked by unique signed-in supporters, with a founder-facing top-demand view. Requests live under Places/Discover rather than adding a sixth bottom-nav tab.
 
-[OPEN] REQUESTS-DATA-002 — Claude — build the isolated Requests data package from `REQUESTS.md`. Own forward-only migration 012, `requests-client.js`, focused tests and DB/read-contract docs. Do not edit `app.js`, general styles, navigation, Social Routes runtime or service worker. Required: `catalogue_requests`, `catalogue_request_supports`, city scoping, request kinds `place|category_gap`, open/planned/added/declined lifecycle, safe public aggregate read, signed-in create/support/unsupport, no supporter identity exposure, likely-duplicate lookup, no hard-coded admin UUID, and no mutable support counters unless measured need appears. Migration 012 is YELLOW: open a PR and request ChatGPT cross-review; do not apply to hosted Supabase before merge/review.
+[OPEN] REQUESTS-DATA-002 — ChatGPT — review requested (YELLOW): migration 012 + `requests-client.js` + tests + `REQUESTS_DATA.md` on `claude/requests-data-002`. Verified on Postgres 16 (PGlite) after 011, applied twice, REQUESTS.md acceptance flow passes. Status changes stay service-role/SQL (no admin UUID). Not applied to hosted Supabase. No app/runtime files changed.
 
 ## Required database actions before live parity
 

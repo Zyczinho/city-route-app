@@ -97,25 +97,13 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 
 | Priority | ID | Status | Owner | Reviewer | Depends on | Branch / PR | Next action | Last update |
 |---|---|---|---|---|---|---|---|---|
-| P0 | SOCIAL-RUNTIME-004 + NAV-MYROUTE-001 | MERGE_READY | ChatGPT | Claude | SOCIAL-DATA-003 DONE | `work/social-runtime-004` / PR #42, head `0d34d71` | Merge #42 (Jakub). Review cycle 2/2 done; targeted retest clear twice (on `0d34d71`, and again on `main`+#42 at the reset). GitHub `test` green; trial merge with current `main` is clean, 128/128, build OK. | 2026-11-03 |
-| P1 | REQ-ADMIN-004 | REVIEW | Claude | ChatGPT | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE | `claude/req-admin-004` / PR #44, head `9814661` (no board edits) | ChatGPT cross-review, cycle 1/2 (YELLOW, migration 013). If #42 merges first, Claude syncs #44 with `main` and resolves the one-line `scripts/build.mjs` conflict before merge. | 2026-11-03 |
-| P1 | REQ-UI-003 | BLOCKED | ChatGPT | Claude | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE; **SOCIAL-RUNTIME-004 merged** | no branch | Data dependencies are met. Blocked only on #42: both edit the runtime UI (`app.js`, nav, `scripts/build.mjs`, `service-worker.js`). After #42 merges, promote to `READY`. Scope: request entry points, duplicate/+1 flow, ranked active requests, support/unsupport, `Profil -> Twoje prośby`; no new permanent bottom-nav tab. | 2026-11-03 |
-| P1 | SOCIAL-PROD-SMOKE-005 | BLOCKED | ChatGPT + Jakub | Claude | SOCIAL-RUNTIME-004 merged and deployed | no branch | After the production deploy of #42: with two test accounts, publish a route, open it from the Społeczność feed, open the author's profile, save it and check the signed-in `#social-saved` list, and check the mobile nav. These flows could not be tested before (no published routes, no production accounts for agents). | 2026-11-03 |
+| P1 | REQ-ADMIN-004 | REVIEW | Claude | ChatGPT | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE | `claude/req-admin-004` / PR #44, head `fc7d230` | ChatGPT cross-review, cycle 1/2 (YELLOW, migration 013). Synced with `main` after #42: the `scripts/build.mjs` conflict is resolved (social files + `'admin'`), 134/134, build OK. | 2026-11-03 |
+| P1 | REQ-UI-003 | READY | ChatGPT | Claude | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE; SOCIAL-RUNTIME-004 DONE | no branch | All dependencies are met (#42 merged at `09dad87`). Claim it here (`IN_PROGRESS`, branch) before coding. Scope: request entry points, duplicate/+1 flow, ranked active requests, support/unsupport, `Profil -> Twoje prośby`; no new permanent bottom-nav tab. Shares only `scripts/build.mjs` with #44. | 2026-11-03 |
+| P1 | SOCIAL-PROD-SMOKE-005 | READY | ChatGPT + Jakub | Claude | SOCIAL-RUNTIME-004 DONE; production deploy of `09dad87` confirmed | no branch | First confirm that Cloudflare deployed `09dad87`. Then, with two test accounts: publish a route, open it from the Społeczność feed, open the author's profile, save the route and check the signed-in `#social-saved` list, and check the mobile nav. | 2026-11-03 |
 | P2 | MIGRATION-013-HOSTED | BLOCKED | Jakub | — | REQ-ADMIN-004 merged | PR #44 | After merge, apply `013_app_admins.sql` from merged `main`, then add the admin row with the SQL in `REQUESTS_ADMIN.md`. Not applied: at the reset, `is_app_admin` doesn't exist on hosted (PGRST202). | 2026-11-03 |
 | P3 | INFRA-CF-PREVIEW-001 | BACKLOG | Jakub | — | Cloudflare dashboard access | — | The "Workers Builds: city-route-app" check fails on every PR branch, while builds of `main` succeed (e.g. `0d23fb9`). Classified as a deployment-configuration problem (non-production branch builds), not an app regression: GitHub `test` passes and the local build is OK. The build log is behind the Cloudflare login and hasn't been read. Until fixed, treat GitHub `test` as the required CI. | 2026-11-03 |
 
 ## Current package facts
-
-### SOCIAL-RUNTIME-004 + NAV-MYROUTE-001 — PR #42
-
-- Head `0d34d71`, mergeable, GitHub `test` green. The Workers Builds failure is INFRA-CF-PREVIEW-001.
-- The router blocker is fixed (`TAB_OF` maps `community-route`, `social-profile` and `social-saved`), with a regression test.
-- Reset retest on a local build of `main`+#42 at 375 px against hosted Supabase:
-  - `#community-route/<unknown uuid>` stays on its hash, Trasy is active, and it shows "Nie znaleziono tej trasy". It made 1 call on entry and 3 in about 20 s with no loop.
-  - `#social-profile/<id>` stays on its hash with 1 `public_profile` call.
-  - `#social-saved` while signed out goes to `#profile` (the intended auth gate).
-  - The 4-tab nav (Ułóż trasę · Trasy · Moja trasa · Miejsca) has no horizontal overflow.
-- Not verifiable before production: opening a route from the feed (no community route is published on hosted) and the signed-in saved list. Both are in SOCIAL-PROD-SMOKE-005.
 
 ### REQ-ADMIN-004 — PR #44
 
@@ -125,9 +113,8 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 
 ## Dependency rules for the current request track
 
-1. REQ-UI-003 waits for #42, because both packages edit the core runtime files. REQ-ADMIN-004 does not: it only overlaps on one line of `scripts/build.mjs`, which is a trivial merge.
+1. #42 is merged, so REQ-UI-003 is unblocked. REQ-UI-003 and REQ-ADMIN-004 can run in parallel: they share only `scripts/build.mjs`, and whichever PR merges second resolves that line.
 2. Live admin use needs MIGRATION-013-HOSTED. Live request UI needs only 012, which is DONE.
-3. The second PR to merge out of #42 and #44 syncs with `main` and resolves `scripts/build.mjs`, keeping both the social files and `'admin'`.
 
 ## Database / hosted state
 
@@ -140,6 +127,8 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 
 ## Recently completed
 
+- `SOCIAL-RUNTIME-004 + NAV-MYROUTE-001` — DONE — PR #42 merged 2026-11-03 (`09dad87`). The production smoke is SOCIAL-PROD-SMOKE-005.
+- `COORDINATION-RESET` — DONE — PR #45 (baseline at `0d23fb9`).
 - `REQ-DATA-002` — DONE — PR #43 merged 2026-11-03; MIGRATION-012-HOSTED DONE.
 - `REQ-SPEC-001` — DONE — PR #41.
 - `SOCIAL-DATA-003` — DONE — PR #40; migration 011 applied.

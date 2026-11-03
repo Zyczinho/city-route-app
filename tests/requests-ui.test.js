@@ -35,6 +35,21 @@ test('anonymous writes gate on auth and public cards never render private reques
 test('added own request exposes the resolved-place action and analytics contain no identity',async()=>{
  const ui=await read('requests-enhancements.js');
  assert.match(ui,/r\.status==='added'&&r\.resolvedPlaceId/);
+ assert.match(ui,/data-request-open-city/,'resolved-place action must carry its request city');
  assert.match(ui,/place_request_create/);assert.match(ui,/place_request_vote/);assert.match(ui,/place_request_unvote/);
  assert.doesNotMatch(ui,/log\([^\n]*(email|user_id|created_by)/i);
+});
+
+test('resolved-place handoff is one-shot, city-scoped and never keeps resetting Places filters',async()=>{
+ const ui=await read('requests-enhancements.js');
+ const fn=ui.match(/function maybeOpenResolvedPlace\(\)\{[\s\S]*?\n\}/)?.[0]||'';
+ assert.ok(fn.length>0,'maybeOpenResolvedPlace must exist');
+ assert.match(fn,/sessionStorage\.removeItem\(OPEN_PLACE_KEY\)/,'handoff key must be consumed on the first attempt');
+ assert.match(fn,/targetCity&&targetCity!==cityId\(\)/,'handoff must not open a place from another city');
+ assert.doesNotMatch(fn,/clear-search/,'a missing place must not keep clearing search');
+ assert.doesNotMatch(fn,/data-action="cat"/,'a missing place must not keep changing category');
+ const removeAt=fn.indexOf('sessionStorage.removeItem(OPEN_PLACE_KEY)');
+ const lookupAt=fn.indexOf('querySelectorAll');
+ assert.ok(removeAt>=0&&lookupAt>removeAt,'the key must be removed before the catalogue lookup');
+ assert.match(ui,/JSON\.stringify\(\{placeId:open\.dataset\.requestOpenPlace,cityId:open\.dataset\.requestOpenCity\|\|''\}\)/,'stored handoff must include place and city');
 });

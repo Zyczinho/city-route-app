@@ -3,6 +3,7 @@ import {DEFAULT_CITY_ID,cityById,cityPoint,forCity,isInsideCity,routeTitle,searc
 import {createRestRpcClient,loadCatalogueWithFallback} from './catalogue-client.js';
 import {loadNearbyPlaces} from './nearby-client.js';
 import {createMapView} from './map-view.js';
+import {assignRouteCovers} from './route-covers.js';
 import {SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY} from './supabase-config.js';
 const $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const key='city-route-v1';let storageOK=true,state;
@@ -77,22 +78,25 @@ function chips(list,current,action,icons=false){list=list.filter(([id])=>!(actio
 const cost=n=>n?`~${n} zł`:'Bezpłatnie';
 function meta(ps,transport){const s=summary(ps,transport);return `<div class="meta"><span>${ic('clock')}${minutes(s.minutes)}</span><span>${ic('route')}~${dec(s.km)} km</span><span>${stopsLabel(ps.length)}</span><span>${cost(s.cost)}</span></div>`;}
 const findRoute=id=>routes.find(r=>r.id===id)||state.myRoutes.find(r=>r.id===id)||(generated?.id===id?generated:null);
+const coverRoutes=()=>[...routes,...forCity(state.myRoutes,city().id),...(generated?[generated]:[])];
+const routeCoverAssignments=()=>assignRouteCovers(coverRoutes(),id=>all[id]);
 const wholeRoute=(ps,t)=>ps.length>1?`<a class="button wide" href="${routeMapsUrl(ps,t)}" target="_blank" rel="noopener noreferrer" data-action="whole-route">${ic('map')}Cała trasa w Google Maps${ps.length>10?' (pierwsze 10 przystanków)':''}</a>`:'';
 const liveBanner=()=>isLive()?`<a class="live-banner" href="#my-route"><span class="pulse" aria-hidden="true"></span><span><strong>Trasa w toku</strong>${esc(state.session.name)} · przystanek ${state.session.index+1} z ${state.session.stops.length}</span>${ic('chevron-right')}</a>`:'';
 
 // Routes tab
-function routeCard(r,big=false){const ps=items(r.stops),s=summary(ps,r.transport),cover=ps.find(p=>p.image);
+function routeCard(r,big=false,covers=routeCoverAssignments()){const ps=items(r.stops),s=summary(ps,r.transport),cover=covers.get(r.id)||null;
  return `<a class="route-card ${big?'big':''}" href="#route/${r.id}" data-action="route-view" data-id="${r.id}"><div class="media">${photo(cover,'',big)}<span class="pill">${ic('clock')}${minutes(s.minutes)}</span></div><div class="body">${(r.cats||[]).length?`<p class="kicker">${r.cats.map(c=>catName(c,ROUTE_CATS)).join(' · ')}</p>`:''}<h3>${esc(r.name)}</h3><p class="desc">${esc(r.description)}</p><p class="path">${ps.map(p=>esc(p.name)).join('<span aria-hidden="true"> → </span>')}</p><div class="meta"><span>${stopsLabel(ps.length)}</span><span>~${dec(s.km)} km</span><span>${cost(s.cost)}</span></div></div></a>`;}
 function routesView(){
  const hay=r=>`${r.name} ${r.description} ${items(r.stops).map(p=>p.name+' '+p.area).join(' ')} ${(r.cats||[]).map(c=>catName(c,ROUTE_CATS)).join(' ')}`;
  const list=routes.filter(r=>(rcat==='all'||r.cats.includes(rcat))&&matches(hay(r),query)),mine=forCity(state.myRoutes,city().id).filter(r=>matches(hay(r),query));
+ const covers=routeCoverAssignments();
  const placeHits=query?catalog().filter(p=>matches(placeHay(p),query)).length:0;
  return `<section class="page-head"><p class="kicker">Odkrywaj trasy</p><h1>Dokąd dziś idziesz?</h1><p class="lead">${resident()?'Znasz miasto? Wybierz trasę przez miejsca, które zwykle mijasz.':`Gotowe spacery po ${esc(city().name)}. Wybierz, ruszaj, a aplikacja poprowadzi Cię przystanek po przystanku.`} <a class="inline" href="#about">Jak to działa?</a></p></section>${liveBanner()}${searchBox('Szukaj trasy, miejsca albo klimatu')}${chips(ROUTE_CATS,rcat,'rcat')}
  ${placeHits?`<button class="hint" data-action="search-places">${ic('map-pin')}<span>${placeHits} ${plural(placeHits,'miejsce pasuje','miejsca pasują','miejsc pasuje')} do „${esc(query)}” — pokaż w Miejscach</span>${ic('chevron-right')}</button>`:''}
  <div class="section-head"><h2>Polecane trasy</h2><span>${list.length} · redakcja City Route</span></div>
- ${list.length?`<div class="route-grid">${list.map((r,i)=>routeCard(r,i===0&&!query&&rcat==='all')).join('')}</div>`:`<div class="empty"><p>Nie mamy trasy pasującej do „${esc(query)}”.</p><a class="button primary" href="#plan">${ic('wand-sparkles')}Ułóż własną trasę</a></div>`}
+ ${list.length?`<div class="route-grid">${list.map((r,i)=>routeCard(r,i===0&&!query&&rcat==='all',covers)).join('')}</div>`:`<div class="empty"><p>Nie mamy trasy pasującej do „${esc(query)}”.</p><a class="button primary" href="#plan">${ic('wand-sparkles')}Ułóż własną trasę</a></div>`}
  <div class="section-head"><h2>Trasy społeczności</h2><span>${mine.length?'Twoje: '+mine.length:'wkrótce'}</span></div>
- ${mine.length?`<div class="route-grid">${mine.map(r=>routeCard(r)).join('')}</div>`:''}
+ ${mine.length?`<div class="route-grid">${mine.map(r=>routeCard(r,false,covers)).join('')}</div>`:''}
  <div class="community-note">${ic('users')}<div><strong>Społeczność dopiero startuje.</strong><p>Tu pojawią się trasy innych osób, gdy dołączą pierwsi użytkownicy. Nie pokazujemy wymyślonych tras ani ocen. Zapisz własną trasę w zakładce Moja trasa, a trafi tutaj.</p></div></div>`;}
 
 // Places tab
@@ -204,8 +208,8 @@ function planView(){return `<section class="page-head"><p class="kicker">TWÓJ C
 // Route detail
 function stopList(ps,editable=false){return `<ol class="stops">${ps.map((p,i)=>`<li ${editable?`data-stop="${p.id}"`:""}><span class="n">${i+1}</span>${editable?`<button class="drag-handle" aria-label="Przeciągnij: ${esc(p.name)}" title="Przeciągnij, aby zmienić kolejność">⠿</button>`:""}<button class="stop-main" data-action="place" data-id="${p.id}"><span class="thumb">${photo(p)}</span><span class="txt"><strong>${esc(p.name)}</strong><small>${esc(p.area)} · ${p.minutes} min${p.cost?' · ~'+p.cost+' zł':''}</small></span></button>${editable?`<span class="tools"><button class="icon-btn" data-action="up" data-id="${p.id}" aria-label="Wyżej: ${esc(p.name)}" ${i===0?'disabled':''}>${ic('arrow-up')}</button><button class="icon-btn" data-action="down" data-id="${p.id}" aria-label="Niżej: ${esc(p.name)}" ${i===ps.length-1?'disabled':''}>${ic('arrow-down')}</button><button class="icon-btn" data-action="remove" data-id="${p.id}" aria-label="Usuń: ${esc(p.name)}">${ic('x')}</button></span>`:''}</li>`).join('')}</ol>`;}
 const estimation='<p class="fine">Czas i dystans to szacunek (odległość w linii prostej × 1,3). Godziny otwarcia i dokładną drogę sprawdzisz w Google Maps. Bilety wstępu nie są wliczone.</p>';
-function detailView(r){const ps=items(r.stops),own=state.myRoutes.some(x=>x.id===r.id);
- return `<section class="detail"><a class="back" href="#routes">${ic('arrow-left')}Trasy</a><div class="cover">${photo(ps.find(p=>p.image),'',true)}</div><p class="kicker">${r.id==='generated'?'Ułożona dla Ciebie':own?'Twoja trasa':'Redakcja City Route'}${(r.cats||[]).map(c=>' · '+catName(c,ROUTE_CATS)).join('')}</p><h1>${esc(r.name)}</h1><p class="lead">${esc(r.description)}</p>${meta(ps,r.transport)}
+function detailView(r){const ps=items(r.stops),own=state.myRoutes.some(x=>x.id===r.id),cover=routeCoverAssignments().get(r.id)||null;
+ return `<section class="detail"><a class="back" href="#routes">${ic('arrow-left')}Trasy</a><div class="cover">${photo(cover,'',true)}</div>${credit(cover)}<p class="kicker">${r.id==='generated'?'Ułożona dla Ciebie':own?'Twoja trasa':'Redakcja City Route'}${(r.cats||[]).map(c=>' · '+catName(c,ROUTE_CATS)).join('')}</p><h1>${esc(r.name)}</h1><p class="lead">${esc(r.description)}</p>${meta(ps,r.transport)}
  <div class="detail-actions"><button class="primary big" data-action="start" data-id="${r.id}">${ic('play')}Rozpocznij trasę</button>${r.id==='generated'?`<button data-action="save-generated">${ic('bookmark')}Zapisz trasę</button>`:''}<button data-action="save-route" data-id="${r.id}">${ic('pencil')}Edytuj jako Moją trasę</button>${wholeRoute(ps,r.transport)}${own?`<button class="danger" data-action="delete-route" data-id="${r.id}">${ic('trash-2')}Usuń tę trasę</button>`:''}</div><h2>Przystanki</h2>${stopList(ps)}${estimation}</section>`;}
 
 // My route tab

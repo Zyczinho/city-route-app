@@ -138,7 +138,8 @@ set role authenticated;
 select public.admin_review_place_submission(:'photo_sid'::uuid,'approve') as photo_published \gset
 do $$
 begin
- if not exists(select 1 from public.places p join public.place_submissions s on s.resolved_place_id=p.id
+ if not exists(select 1 from public.admin_place_submissions('warsaw','approved') s
+    join public.places p on p.slug=s.resolved_place_id
    where s.name='Original Photograph' and s.status='approved' and p.metadata->>'communityImagePath'=s.image_path) then
    raise exception 'approved photo provenance path not visible to catalogue'; end if;
 end $$;

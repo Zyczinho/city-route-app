@@ -22,22 +22,27 @@ This file is a compact async handoff board between agents. It is not a chat log.
 
 [DONE] KRK-REVIEW-003 — Claude — PR #24 reviewed clean with no blocker; one non-blocking generator-generalisation note recorded.
 
-[DONE] MAP-DATA-001 — ChatGPT + Claude review — stable Nearby RPC contract + `nearby-client.js` + tests merged in PR #25 after clean Claude cross-review. Migration 008 is on main and still requires manual application to hosted Supabase.
+[DONE] MAP-DATA-001 — ChatGPT + Claude review — stable Nearby RPC contract + `nearby-client.js` + tests merged in PR #25 after clean Claude cross-review. Migration 008 applied successfully to hosted Supabase by Jakub on 2026-11-03.
 
 [DONE] MAP-DATA-REVIEW-002 — Claude — PR #25 reviewed clean, no BLOCKER. Integration note: normalize `distanceMeters` to map-view `distanceM` and merge nearby rows by public `id` with full catalogue objects before planner/basket use.
 
 [DONE] MAP-UI-001 — Claude + ChatGPT review — isolated map module merged in PR #26 after ChatGPT cross-review; `map-view.js`, `map.css`, tests and integration notes are on main. Public OSM tiles are MVP-only and require provider hardening before heavy traffic.
 
-[ACK] MAP-INTEGRATE-002 — ChatGPT — integration implemented on `work/map-integrate-002`, PR #28 open; tests + build green. Map is mounted in Places, Nearby RPC rows merge by public ID with full catalogue objects, `distanceMeters` is normalized to `distanceM`, RPC failure falls back client-side, SW bumped to v25. Waiting for Claude cross-review before merge.
+[ACK] MAP-INTEGRATE-002 — ChatGPT — integration implemented on `work/map-integrate-002`, PR #28 open; latest CI green. Map is mounted in Places, Nearby RPC rows merge by public ID with full catalogue objects, `distanceMeters` is normalized to `distanceM`, RPC failure falls back client-side, SW bumped to v25. Live 008 validation found a harmless 0.40 m KNN/exact-distance ordering inversion in Kraków; PR #28 now defensively sorts Nearby rows by exact client distance. Waiting for Claude cross-review before merge.
 
-[OPEN] MAP-INTEGRATE-REVIEW-003 — Claude — perform one consolidated cross-review of PR #28. Check render/map lifecycle, per-city basket preservation, Nearby async/race behavior, public-ID merge, `distanceMeters`→`distanceM`, fallback when RPC is unavailable, city/filter isolation, build/service-worker assets, and full-list-below-map MVP behavior. If no BLOCKER, leave one concise PR comment saying review clean. Do not edit ChatGPT's branch.
+[OPEN] MAP-INTEGRATE-REVIEW-003 — Claude — perform one consolidated cross-review of PR #28 when your current image package reaches a safe checkpoint. Check render/map lifecycle, per-city basket preservation, Nearby async/race behavior, public-ID merge, `distanceMeters`→`distanceM`, defensive distance sorting, fallback when RPC is unavailable, city/filter isolation, build/service-worker assets, and full-list-below-map MVP behavior. If no BLOCKER, leave one concise PR comment saying review clean. Do not edit ChatGPT's branch.
 
-[OPEN] ROUTE-HERO-001 — Claude — after MAP-INTEGRATE-REVIEW-003, continue the route/image quality work with ADR-010 as a hard requirement. Every editorial route must receive a first-class hero image that is unique across routes; no hero asset/URL may repeat even when routes share stops. Prefer visually strong, high-resolution, legally usable sources and preserve credit/licence/source metadata. Add automated validation that fails on duplicate route hero images and stop deriving route covers from the first POI image. Keep this package isolated from ChatGPT's active map-integration branch; if runtime rendering changes are needed, make them in a separate Claude branch/PR and call out any schema/migration requirement explicitly.
+[OPEN] ROUTE-HERO-001 — Claude — route/image quality work with ADR-010 as a hard requirement. Every editorial route must receive a first-class hero image that is unique across routes; no hero asset/URL may repeat even when routes share stops. Prefer visually strong, high-resolution, legally usable sources and preserve credit/licence/source metadata. Add automated validation that fails on duplicate route hero images and stop deriving route covers from the first POI image. Keep this package isolated from ChatGPT's active map-integration branch; if runtime rendering changes are needed, make them in a separate Claude branch/PR and call out any schema/migration requirement explicitly.
+
+[ACK] NEARBY-LIVE-004 — ChatGPT — hosted migration 008 smoke-tested against Warsaw centre and Kraków Rynek. Both cities return valid public IDs within 500 m; Warsaw returned 3 results and Kraków 50. One sub-metre ordering inversion (314.67 m then 314.27 m) confirmed the KNN-vs-spheroid nuance; temporary validation PR #29 closed without merge.
+
+[OPEN] NEARBY-ORDER-005 — ChatGPT + Claude review — forward-only migration 009 prepared in PR #30 to order `catalogue_nearby_places` by the exact `ST_Distance` returned as `dist_meters`. Severity low because PR #28 already sorts client-side. Claude cross-review required before merge; do not interrupt an active route-image package solely for this review.
 
 ## Required database actions before live parity
 
 - Migration 007: applied successfully to hosted Supabase.
-- Migration 008: merged to `main`; Jakub should apply `008_nearby_read_api.sql` before expecting server-backed Nearby in production.
+- Migration 008: applied successfully to hosted Supabase; live RPC validated for Warsaw and Kraków.
+- Migration 009: PR #30 open; apply only after merge. This is a precision/contract cleanup, not a blocker for client-side Nearby correctness.
 
 ## Handoff / checkpoint rule
 

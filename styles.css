@@ -191,3 +191,16 @@ img.avatar{object-fit:cover;display:block}.avatar.sm{width:36px;height:36px;font
  .stops li[data-stop] .stop-main{flex:1 1 170px;min-width:0}
  .stops li[data-stop] .tools{flex:1 0 100%;justify-content:flex-end;margin-left:auto;min-width:0}
 }
+
+
+/* ONBOARDING-021 — optional, compact start guide (no extra primary nav item). */
+.start-here{display:flex;align-items:center;gap:11px;max-width:620px;padding:11px 13px;margin:0 0 12px;background:var(--blue-soft);border:1px solid #cfe2f6;border-radius:14px;color:var(--ink);text-decoration:none}
+.start-here:hover{border-color:var(--blue);background:#dfedfb}
+.start-here-icon{display:grid;place-items:center;flex:none;width:38px;height:38px;background:#fff;border-radius:11px;color:var(--blue)}
+.start-here-copy{display:grid;flex:1;min-width:0;gap:1px}.start-here-copy strong{font-size:14px;line-height:1.3}.start-here-copy small{font-size:12px;color:var(--muted);line-height:1.35}
+.start-here>.i:last-child{width:18px;height:18px;color:var(--blue)}
+.start-guide-menu{margin:10px 0 0;max-width:680px}.start-guide-menu .help-row{min-height:70px}
+.start-guide-menu .help-row:hover{background:var(--line-2)}
+.start-guide-menu .help-row>span:not(.i){min-width:0;gap:2px}
+.start-guide-menu .help-row>span>small{line-height:1.4}
+.start-guide-menu .help-row>.i:last-child{width:17px;height:17px;margin-left:auto;color:var(--muted)}

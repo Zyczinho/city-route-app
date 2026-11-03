@@ -72,6 +72,19 @@ try{
   await page.locator('#main').waitFor({state:'visible'});
   assert.equal(await page.locator('#main .loading').count(),0,'tab must not show perpetual loading');
  }
+
+ // ONBOARDING-021: optional start guide must be discoverable, usable and fit a narrow phone.
+ await page.locator('#navigation a[href="#plan"]').click();
+ await page.locator('#main a.start-here[href="#about"]').waitFor({timeout:10000});
+ await page.locator('#main a.start-here[href="#about"]').click();
+ await page.locator('#main .start-guide-menu').waitFor({timeout:10000});
+ assert.equal(new URL(page.url()).hash,'#about');
+ const guideTargets=await page.locator('#main .start-guide-menu a').evaluateAll(nodes=>nodes.map(a=>a.getAttribute('href')));
+ assert.deepEqual(guideTargets,['#plan','#routes','#places','#my-route','#routes/community','#book']);
+ const guideWidth=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,inner:innerWidth}));
+ assert.ok(guideWidth.scroll<=guideWidth.inner+1,'start guide has no mobile horizontal overflow: '+JSON.stringify(guideWidth));
+ await page.locator('#main .start-guide-menu a[href="#my-route"]').click();
+ assert.equal(new URL(page.url()).hash,'#my-route','guide links directly to existing functionality');
  assert.deepEqual(errors,[],'unexpected page exception in mobile route test');
  await ctx.close();
  
@@ -130,8 +143,8 @@ try{
  // Simulate an old-installed PWA (v33) upgrading to the new release (v35) on the same origin.
  // No production server mutation: only the temporary dist/ built by this GitHub job is changed.
  const swPath='dist/service-worker.js',latestSW=await readFile(swPath,'utf8');
- assert.match(latestSW,/city-route-v35/);
- await writeFile(swPath,latestSW.replace("city-route-v35","city-route-v33"));
+ assert.match(latestSW,/city-route-v36/);
+ await writeFile(swPath,latestSW.replace("city-route-v36","city-route-v33"));
  try{
   const upgradeCtx=await browser.newContext({viewport:{width:375,height:812},isMobile:true,hasTouch:true});
   await upgradeCtx.route(/supabase\.co/,route=>route.abort());
@@ -142,7 +155,7 @@ try{
   await upgradePage.waitForFunction(()=>!!navigator.serviceWorker?.controller,undefined,{timeout:15000});
   await writeFile(swPath,latestSW);
   await upgradePage.evaluate(()=>navigator.serviceWorker.getRegistration().then(reg=>reg.update())).catch(()=>{});
-  await upgradePage.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('city-route-v35')&&!keys.includes('city-route-v33');},undefined,{timeout:30000});
+  await upgradePage.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('city-route-v36')&&!keys.includes('city-route-v33');},undefined,{timeout:30000});
   await upgradePage.goto(BASE+'/#add-place',{waitUntil:'domcontentloaded'});
   await upgradePage.locator('#pc-q').waitFor({timeout:15000});
   await upgradePage.screenshot({path:'p0-smoke-artifacts/pwa-upgraded-v33-to-v35.png',fullPage:true});

@@ -45,5 +45,5 @@ export async function loadNearbyPlaces(client,{city,lat,lng,radiusM=DEFAULT_RADI
  };
  const {data,error}=await client.rpc('catalogue_nearby_places',args);
  if(error)throw error;
- return (data||[]).map(row=>nearbyPlaceFromRow(row,cityId));
+ return (data||[]).map(row=>nearbyPlaceFromRow(row,cityId)).sort((a,b)=>a.distanceMeters-b.distanceMeters);
 }

@@ -89,7 +89,7 @@ export function loadLeaflet({win=globalThis.window,doc=globalThis.document,timeo
  * Returns a controller; `ready` resolves to 'map' or 'list' (fallback).
  */
 export function createMapView(opts){
-  const {container,onSelect,onAddToRoute,onDetails,onViewportChange,isInRoute=()=>false}=opts;
+  const {container,onSelect,onAddToRoute,onDetails,onViewportChange,onNearbyChange,isInRoute=()=>false}=opts;
   const doc=opts.doc||globalThis.document;
   let places=opts.places||[],city=opts.city,filter=opts.filter||{},selectedId=null,nearbyOn=false,nearbyCenter=null;
   let L=null,map=null,layer=null,circle=null,resizer=null,markers=new Map(),mode='loading',tileErrors=0,destroyed=false;
@@ -169,7 +169,7 @@ export function createMapView(opts){
       if(map&&city?.center)map.setView([city.center.lat,city.center.lng],city.defaultZoom||13);render();},
     setFilter(next){filter=next||{};render();},
     setNearby(c){nearbyOn=!!c;nearbyCenter=c||null;nearbyBtn.setAttribute('aria-pressed',String(nearbyOn));render();
-      if(nearbyOn&&map)map.setView([c.lat,c.lng],16);},
+      if(nearbyOn&&map)map.setView([c.lat,c.lng],16);onNearbyChange?.(c||null);},
     select:id=>select(id,{silent:true}),
     destroy(){destroyed=true;resizer?.disconnect();container.removeEventListener('click',onClick);container.removeEventListener('keydown',onKey);map?.remove();container.replaceChildren?.();}
   };

@@ -33,3 +33,5 @@
 @keyframes cr-map-up{from{transform:translateY(16px);opacity:.6}}
 @media(min-width:760px){.cr-map-card{left:auto;right:12px;bottom:var(--cr-attribution,34px);width:360px;border-radius:18px}}
 @media(prefers-reduced-motion:reduce){.cr-map-card{animation:none}.cr-pin.is-selected{transform:none}}
+
+.places-map-shell{margin:12px 0 18px}

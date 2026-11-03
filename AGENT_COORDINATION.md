@@ -32,20 +32,22 @@ This file is a compact async handoff board between agents. It is not a chat log.
 
 [OPEN] MAP-INTEGRATE-REVIEW-003 — Claude — perform one consolidated cross-review of PR #28 when your current image package reaches a safe checkpoint. Check render/map lifecycle, per-city basket preservation, Nearby async/race behavior, public-ID merge, `distanceMeters`→`distanceM`, defensive distance sorting, fallback when RPC is unavailable, city/filter isolation, build/service-worker assets, and full-list-below-map MVP behavior. If no BLOCKER, leave one concise PR comment saying review clean. Do not edit ChatGPT's branch.
 
-[OPEN] ROUTE-HERO-001 — Claude — route/image quality work with ADR-010 as a hard requirement. Every editorial route must receive a first-class hero image that is unique across routes; no hero asset/URL may repeat even when routes share stops. Prefer visually strong, high-resolution, legally usable sources and preserve credit/licence/source metadata. Add automated validation that fails on duplicate route hero images and stop deriving route covers from the first POI image. Keep this package isolated from ChatGPT's active map-integration branch; if runtime rendering changes are needed, make them in a separate Claude branch/PR and call out any schema/migration requirement explicitly.
+[DONE] ROUTE-HERO-001 — Claude + ChatGPT review — 27 unique editorial route hero images, provenance, `route-covers.js` and duplicate-prevention tests merged in PR #31. ChatGPT cross-review found no data/runtime blocker; one coordination-heading typo is normalized in the follow-up package.
 
 [ACK] NEARBY-LIVE-004 — ChatGPT — hosted migration 008 smoke-tested against Warsaw centre and Kraków Rynek. Both cities return valid public IDs within 500 m; Warsaw returned 3 results and Kraków 50. One sub-metre ordering inversion (314.67 m then 314.27 m) confirmed the KNN-vs-spheroid nuance; temporary validation PR #29 closed without merge.
 
-[OPEN] NEARBY-ORDER-005 — ChatGPT + Claude review — forward-only migration 009 prepared in PR #30 to order `catalogue_nearby_places` by the exact `ST_Distance` returned as `dist_meters`. Severity low because PR #28 already sorts client-side. Claude cross-review required before merge; do not interrupt an active route-image package solely for this review.
+[OPEN] NEARBY-ORDER-005 — ChatGPT + Claude review — forward-only migration 009 prepared in PR #30 to order `catalogue_nearby_places` by the exact `ST_Distance` returned as `dist_meters`. Severity low because PR #28 already sorts client-side. Claude cross-review required before merge.
 
 [OPEN] MAP-PROD-SMOKE-006 — ChatGPT — run immediately after PR #28 is reviewed, merged and production deploy is confirmed. Verify Warsaw and Kraków separately: Places opens map, tiles/attribution render, filters/search update markers, place card opens details, Add to route updates the correct city basket, Nearby 500 m returns locally sorted results, Nearby off restores the filtered catalogue, city switch resets map state without mixing baskets, denied/unavailable location or RPC failure leaves the list usable, and mobile layout does not cover OSM attribution. Do not claim production success until the deployed app is checked.
 
-[OPEN] COVER-WIRE-001 — ChatGPT — wire `route-covers.js` into `app.js` (routeCard + route detail: use `assignRouteCovers` over the routes shown, instead of `ps.find(p=>p.image)`), and include route `image`/`imageCaption`/`imageCredit` in the next forward Supabase sync for Warsaw and Kraków routes. Product-owner rule: route main photos must never repeat. Data + module + tests from Claude on `claude/route-covers-v1`.
- before live parity
+[ACK] COVER-WIRE-001 — ChatGPT — PR #31 data/module package is merged. Forward-only migration 010 is being prepared on `work/route-cover-sync-010` to copy `image`/`imageCaption`/`imageCredit` into `metadata.legacy` for all 27 Warsaw/Kraków editorial routes. Runtime wiring in `app.js` will be done after PR #28 clears review so the map and cover integrations do not race on shared runtime/build/service-worker files. Route cover assignment must be computed over the full active route set, not independently per card; detail view must expose credit/licence.
+
+## Required database actions before live parity
 
 - Migration 007: applied successfully to hosted Supabase.
 - Migration 008: applied successfully to hosted Supabase; live RPC validated for Warsaw and Kraków.
-- Migration 009: PR #30 open; apply only after merge. This is a precision/contract cleanup, not a blocker for client-side Nearby correctness.
+- Migration 009: PR #30 open; apply only after merge. Precision/contract cleanup, not a blocker for client-side Nearby correctness.
+- Migration 010: route-cover metadata sync package in progress; apply only after its PR is reviewed and merged.
 
 ## Handoff / checkpoint rule
 

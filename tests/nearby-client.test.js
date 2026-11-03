@@ -17,11 +17,14 @@ test('nearby adapter keeps runtime place IDs and rounds distance',()=>{
  assert.deepEqual(place.tags,['classic','history']);
 });
 
-test('nearby loader sends one city-scoped RPC with bounded arguments',async()=>{
+test('nearby loader sends one city-scoped RPC with bounded arguments and sorts exact distance client-side',async()=>{
  const calls=[];
- const client={rpc:async(name,args)=>{calls.push([name,args]);return {data:[{id:'x',name:'X',lat:50,lng:20,category_id:'museum',dist_meters:120,tags:[]}],error:null};}};
+ const client={rpc:async(name,args)=>{calls.push([name,args]);return {data:[
+  {id:'far',name:'Far',lat:50,lng:20,category_id:'museum',dist_meters:220,tags:[]},
+  {id:'near',name:'Near',lat:50,lng:20,category_id:'museum',dist_meters:120,tags:[]}
+ ],error:null};}};
  const rows=await loadNearbyPlaces(client,{city,lat:'50.0647',lng:'19.9450',radiusM:5,maxResults:999,categoryIds:['museum','museum','cafe']});
- assert.equal(rows[0].id,'x');
+ assert.deepEqual(rows.map(r=>r.id),['near','far']);
  assert.deepEqual(calls,[['catalogue_nearby_places',{
   p_city_slug:'krakow',p_lat:50.0647,p_long:19.945,p_radius_m:50,p_max_results:200,p_category_ids:['museum','cafe']
  }]]);

@@ -55,3 +55,9 @@ Jakub owns product direction, priorities and material UX/business trade-offs. Ag
 Status: accepted.
 
 When multiple agents work concurrently, each feature/file area has one active owner. Another agent reviews rather than independently rewriting the same area. Ownership transfer must be explicit in `AGENT_COORDINATION.md`.
+
+## ADR-010 — Editorial routes own unique hero images
+
+Status: accepted.
+
+Every editorial route must have its own first-class hero image rather than deriving the route cover from the first stop with an image. Hero images must be unique across routes within the catalogue: two routes may share stops, but they must never render the same hero asset/URL. Route-image validation must fail on duplicate hero images. Image selection should prefer high-quality, attractive, legally usable sources and preserve source/credit/licence metadata where applicable. POI images may still be reused inside place detail views; the uniqueness rule applies to route hero images.

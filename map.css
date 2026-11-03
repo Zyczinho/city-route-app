@@ -24,6 +24,18 @@
 .cr-pin:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
 .cr-map-radius{fill:var(--cyan);fill-opacity:.12;stroke:var(--cyan);stroke-width:2}
 
+/* Route Builder draft: numbered stops and the straight line between them */
+.cr-stop,.leaflet-marker-icon.cr-stop{display:grid;place-items:center;border-radius:50%;background:var(--blue);color:#fff;border:3px solid #fff;box-shadow:0 2px 8px #0e1a2680;font-weight:800;font-size:15px;line-height:1}
+.cr-stop.is-selected{background:var(--ink);transform:scale(1.2)}
+.cr-stop:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.cr-route-line{stroke:var(--blue);stroke-width:5;stroke-opacity:.85;stroke-linecap:round;stroke-linejoin:round;fill:none}
+.cr-map.has-route .cr-pin{opacity:.5}
+.cr-map-route-list{padding:10px 6px 4px;border-bottom:1px solid var(--line)}
+.cr-map-route-list .kicker{padding:0 10px 4px}
+.cr-map-route-list ol{list-style:none;margin:0;padding:0}
+.cr-stop-num{display:inline-grid;place-items:center;width:24px;height:24px;flex:none;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;font-weight:700}
+@media(prefers-reduced-motion:reduce){.cr-stop.is-selected{transform:none}}
+
 /* Place card: bottom sheet on phones, floating card on wider screens; both keep the OSM attribution visible */
 .cr-map-card{position:absolute;left:8px;right:8px;bottom:var(--cr-attribution,34px);z-index:1001;display:grid;gap:8px;padding:16px;background:var(--surface);border-radius:20px;box-shadow:0 -6px 24px #0e1a261f;max-height:60%;overflow:auto;animation:cr-map-up .2s ease-out}
 .cr-map-card-text{font-size:14px;color:var(--ink-2)}

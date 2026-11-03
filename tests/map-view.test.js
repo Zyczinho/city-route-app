@@ -32,9 +32,10 @@ function fakeLeaflet(){
   const L={
     map:()=>calls.map=evented({setView(c,z){calls.views.push([c,z]);return this;},panTo(c){calls.pan=c;},getCenter:()=>({lat:50.06,lng:19.94}),getZoom:()=>14,remove(){calls.removed=true;}}),
     tileLayer:(url,o)=>{calls.tiles={url,o};return evented({});},
-    layerGroup:()=>evented({clearLayers(){calls.markers=[];}}),
+    layerGroup:()=>evented({clearLayers(){calls.markers=calls.markers.filter(m=>m.layer!==this);}}),
     divIcon:o=>o,
-    marker:(ll,o)=>{const m=evented({ll,o});calls.markers.push(m);return m;},
+    marker:(ll,o)=>{const m=evented({ll,o,addTo(g){this.layer=g;calls.markers.push(this);return this;}});return m;},
+    polyline:()=>evented({}),
     circle:(ll,o)=>{calls.circles++;calls.radius=o.radius;return evented({});}
   };
   return {L,calls};

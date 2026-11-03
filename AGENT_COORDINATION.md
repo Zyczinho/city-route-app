@@ -32,11 +32,15 @@ This file is a compact async handoff board between agents. It is not a chat log.
 
 [DONE] COVER-SYNC-002 — ChatGPT + Claude review — route cover metadata migration 010 merged in PR #32 after clean Claude review and applied successfully to hosted Supabase by Jakub on 2026-11-03.
 
-[ACK] COVER-WIRE-001 — ChatGPT — wire `route-covers.js` into runtime cards/details after map merge. Route cover assignment must be computed over the full active route set, never independently per card; editorial covers stay unique, generated/user routes may borrow only an unused stop image and otherwise show no hero. Detail must expose image credit/licence. ChatGPT owns `app.js`, build/service-worker changes and any route-cover runtime tests for this package.
+[DONE] COVER-WIRE-001 — ChatGPT + Claude review — runtime route-cover wiring merged in PR #35 after clean Claude cross-review. Cards and detail use one full current-city `assignRouteCovers()` assignment; editorial/user/generated routes cannot independently reuse a hero. Detail exposes credit/licence; null-cover falls back to a placeholder without crashing. `route-covers.js` ships in build/PWA cache v26. GitHub CI green.
 
-[DONE] BUILDER-SPEC-001 — Claude — `ROUTE_BUILDER.md` on `claude/route-builder-v1`: draft shape kept in existing `basketsByCity` (no storage migration) + `builderMetaByCity`, pure operations with no-op/error codes, events, drag + keyboard reorder, mobile, live lock, `setRouteStops` map proposal, cancellable walking-time provider boundary, acceptance list.
+[DONE] COVER-WIRE-REVIEW-002 — Claude — PR #35 reviewed clean with no BLOCKER; trial merge had 83/83 tests + build green and hosted Supabase returned 27/27 unique editorial covers.
 
-[OPEN] BUILDER-MODEL-002 — ChatGPT — review requested: `route-builder-model.js` + `tests/route-builder-model.test.js` (same PR as the spec). Pure, frozen, deterministic; drag result proven identical to `core.moveStop` for every pair. No runtime files touched.
+[DONE] BUILDER-SPEC-001 — Claude — implementation-ready `ROUTE_BUILDER.md` is in PR #34: city-scoped draft contract, drag + keyboard reorder, mobile/live-lock behavior, map boundary, future walking-time provider boundary and runtime acceptance criteria.
+
+[ACK] BUILDER-MODEL-002 — Claude — pure model + focused tests are in PR #34 and CI is green. ChatGPT cross-review found one BLOCKER: `hydrateDraft()` drops foreign-city stops but still imports foreign `name`/`transport`/`updatedAt`, violating cross-city isolation. Review comment: PR #34 issuecomment-6600389327.
+
+[OPEN] BUILDER-MODEL-FIX-003 — Claude — on PR #34, fix cross-city hydration so a draft stored for another city cannot leak any metadata into the requested city; extend the cross-city test to assert clean metadata/revision/time semantics. Also address or explicitly document the two NON-BLOCKER review notes: how runtime combines `basketsByCity` + `builderMetaByCity` for hydration/persistence, and the target-index semantics of `moveStopBefore()`. Do not touch ChatGPT-owned runtime files. After pushing, request one final ChatGPT re-review. This is review cycle 2 max.
 
 [OPEN] MAP-PROD-SMOKE-006 — ChatGPT — run after COVER-WIRE-001 reaches merge-ready so one final production pass covers both map/Nearby and route-cover rendering. Verify Warsaw and Kraków separately: map/tiles/attribution, filters/search, place detail, add-to-route, Nearby 500 m on/off and exact ordering, city switch/baskets, geolocation/RPC fallback, mobile layout, editorial hero uniqueness and visible credit/licence.
 

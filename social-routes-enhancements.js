@@ -76,12 +76,13 @@ function currentDraft(){
  const s=readState(),city=cityId(),meta=s.builderMetaByCity?.[city]||{};
  const name=document.querySelector('#builder-name')?.value??meta.name??'';
  const transport=document.querySelector('#builder-transport')?.value??meta.transport??'walking';
- const stops=[...(s.basketsByCity?.[city]||s.basket||[])];
- return {cityId:city,name:String(name).trim(),transport,stops};
+ const localIds=new Map((s.userPlaces||[]).filter(p=>p.cityId===city).map(p=>[p.id,p]));
+ const stops=[...(s.basketsByCity?.[city]||s.basket||[])].map(id=>{const p=localIds.get(id);return p&&['approved','merged'].includes(p.submissionStatus)&&p.resolvedPlaceId?p.resolvedPlaceId:id;});
+ return {cityId:city,name:String(name).trim(),transport,stops,hasUnapprovedStops:stops.some(id=>localIds.has(id))};
 }
 function publishDialog(){
  if(authRequired())return;
- const draft=currentDraft();if(draft.stops.length<2)return alert('Dodaj co najmniej 2 przystanki.');
+ const draft=currentDraft();if(draft.hasUnapprovedStops)return alert('Ta trasa zawiera prywatne lub niezatwierdzone miejsca. Zaczekaj na moderację albo zamień je na miejsca z katalogu.');if(draft.stops.length<2)return alert('Dodaj co najmniej 2 przystanki.');
  if(!draft.name)return alert('Najpierw nazwij trasę.');
  let stored=null;try{stored=JSON.parse(sessionStorage.getItem(EDIT_KEY)||'null');}catch{sessionStorage.removeItem(EDIT_KEY);}
  const dialog=document.createElement('dialog');dialog.className='social-dialog';

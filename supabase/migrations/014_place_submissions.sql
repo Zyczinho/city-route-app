@@ -101,7 +101,7 @@ drop policy if exists city_route_place_photo_insert_own on storage.objects;
 create policy city_route_place_photo_insert_own on storage.objects for insert to authenticated with check (
  bucket_id='city-route-place-photos'
  and (storage.foldername(name))[1]=(select auth.uid())::text
- and name ~ '^[0-9a-f-]{36}/[0-9a-f-]{36}[.]jpg
+ and name ~ '^[0-9a-f-]{36}/[0-9a-f-]{36}[.]jpg$'
  and exists(
    select 1 from public.place_submissions s
     where s.submitted_by=(select auth.uid()) and s.status='pending'

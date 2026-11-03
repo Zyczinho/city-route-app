@@ -83,6 +83,21 @@ export function loadLeaflet({win=globalThis.window,doc=globalThis.document,timeo
   return win.__crLeaflet;
 }
 
+// Route Builder draft stops in route order. Copies only what the map needs; the input is never touched.
+// `number` always follows route order, so a stop without coordinates keeps its number and is just not drawn.
+export function routeStopsModel(stops){
+  return (Array.isArray(stops)?stops:[]).filter(p=>p&&p.id!=null).map((p,i)=>Object.freeze({
+    id:String(p.id),name:String(p.name??p.id),area:p.area||'',number:i+1,
+    lat:valid(p)?+p.lat:null,lng:valid(p)?+p.lng:null,placed:valid(p)
+  }));
+}
+
+export function routeListHtml(stops,selectedId=null){
+  if(!stops.length)return '';
+  return `<div class="cr-map-route-list"><p class="kicker">Twoja trasa · ${stops.length}</p><ol>${stops.map(s=>`<li><button type="button" class="cr-map-list-item${s.id===String(selectedId)?' is-selected':''}" data-map-action="select" data-id="${esc(s.id)}" aria-pressed="${s.id===String(selectedId)}">`+
+    `<span class="cr-stop-num" aria-hidden="true">${s.number}</span><span>${esc(s.name)}${s.placed?'':' · bez lokalizacji'}</span></button></li>`).join('')}</ol></div>`;
+}
+
 /**
  * createMapView({container, places, city, onSelect, onAddToRoute, onDetails, onViewportChange, isInRoute, filter, leaflet, doc})
  * city: {name, center:{lat,lng}, defaultZoom}. leaflet: () => Promise<L> (defaults to loadLeaflet).
@@ -93,6 +108,7 @@ export function createMapView(opts){
   const doc=opts.doc||globalThis.document;
   let places=opts.places||[],city=opts.city,filter=opts.filter||{},selectedId=null,nearbyOn=false,nearbyCenter=null;
   let L=null,map=null,layer=null,circle=null,resizer=null,markers=new Map(),mode='loading',tileErrors=0,destroyed=false;
+  let routeStops=[],routeSource=new Map(),routeLayer=null,stopMarkers=new Map();
 
   const el=(tag,cls,attrs={})=>{const n=doc.createElement(tag);if(cls)n.className=cls;for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v);return n;};
   container.classList.add('cr-map');
@@ -108,13 +124,28 @@ export function createMapView(opts){
 
   const visible=()=>filterPlaces(places,nearbyOn&&nearbyCenter?{...filter,nearby:{...nearbyCenter,radiusM:NEARBY_RADIUS_M}}:filter);
   const announce=t=>{status.textContent=t;};
-  const byId=id=>visible().find(p=>String(p.id)===String(id))||places.find(p=>String(p.id)===String(id));
+  const byId=id=>visible().find(p=>String(p.id)===String(id))||places.find(p=>String(p.id)===String(id))||routeSource.get(String(id));
+  const isStop=id=>routeStops.some(s=>s.id===String(id));
 
-  function renderList(){list.innerHTML=listHtml(visible(),selectedId);}
+  function renderList(){list.innerHTML=routeListHtml(routeStops,selectedId)+listHtml(visible(),selectedId);}
+  // Draft stops: numbered markers above place pins and a straight line between consecutive located stops.
+  function renderRoute(){
+    if(!map)return;
+    routeLayer.clearLayers();stopMarkers=new Map();
+    const placed=routeStops.filter(s=>s.placed);
+    if(placed.length>1)L.polyline(placed.map(s=>[s.lat,s.lng]),{className:'cr-route-line',interactive:false}).addTo(routeLayer);
+    for(const s of placed){
+      const label=`${s.number}. ${s.name}`;
+      const icon=L.divIcon({className:`cr-stop${s.id===String(selectedId)?' is-selected':''}`,html:`<span>${s.number}</span>`,iconSize:[34,34],iconAnchor:[17,17]});
+      const m=L.marker([s.lat,s.lng],{icon,keyboard:true,title:label,alt:label,zIndexOffset:1000}).on('click',()=>select(s.id));
+      m.addTo(routeLayer);stopMarkers.set(s.id,m);
+    }
+  }
   function renderMarkers(){
     if(!map)return;
     layer.clearLayers();markers=new Map();
     for(const p of visible()){
+      if(isStop(p.id))continue;// the numbered stop marker stands in for this place
       const label=placeLabel(p);
       const icon=L.divIcon({className:`cr-pin cr-pin--${categoryGroup(p.categoryId)}${p.id===selectedId?' is-selected':''}`,html:'',iconSize:[26,26],iconAnchor:[13,13]});
       const m=L.marker([+p.lat,+p.lng],{icon,keyboard:true,title:label,alt:label,riseOnHover:true}).on('click',()=>select(p.id));
@@ -123,7 +154,7 @@ export function createMapView(opts){
     if(circle){circle.remove();circle=null;}
     if(nearbyOn&&nearbyCenter)circle=L.circle([nearbyCenter.lat,nearbyCenter.lng],{radius:NEARBY_RADIUS_M,className:'cr-map-radius',interactive:false}).addTo(map);
   }
-  function render(){renderList();renderMarkers();announce(`${visible().length} miejsc na mapie`);}
+  function render(){container.classList.toggle('has-route',routeStops.length>0);renderList();renderMarkers();renderRoute();announce(`${visible().length} miejsc na mapie`);}
 
   function showCard(p){
     if(!p){card.hidden=true;return;}
@@ -133,7 +164,7 @@ export function createMapView(opts){
   function select(id,{silent=false}={}){
     const p=id==null?null:byId(id);
     selectedId=p?p.id:null;
-    for(const [mid,m] of markers)m.getElement?.()?.classList.toggle('is-selected',mid===String(selectedId));
+    for(const [mid,m] of [...markers,...stopMarkers])m.getElement?.()?.classList.toggle('is-selected',mid===String(selectedId));
     if(p&&map)map.panTo([+p.lat,+p.lng]);
     renderList();showCard(p);
     if(!silent)onSelect?.(p||null);
@@ -165,12 +196,22 @@ export function createMapView(opts){
     get selectedId(){return selectedId;},
     visiblePlaces:visible,
     setPlaces(next){places=next||[];if(selectedId&&!byId(selectedId))select(null,{silent:true});render();},
-    setCity(next){city=next;nearbyOn=false;nearbyCenter=null;nearbyBtn.setAttribute('aria-pressed','false');select(null,{silent:true});
+    // Drafts, Nearby and selection all belong to the previous city.
+    setCity(next){city=next;nearbyOn=false;nearbyCenter=null;routeStops=[];routeSource=new Map();nearbyBtn.setAttribute('aria-pressed','false');select(null,{silent:true});
       if(map&&city?.center)map.setView([city.center.lat,city.center.lng],city.defaultZoom||13);render();},
     setFilter(next){filter=next||{};render();},
     setNearby(c){nearbyOn=!!c;nearbyCenter=c||null;nearbyBtn.setAttribute('aria-pressed',String(nearbyOn));render();
       if(nearbyOn&&map)map.setView([c.lat,c.lng],16);onNearbyChange?.(c||null);},
     select:id=>select(id,{silent:true}),
+    // Draft stops in route order; [] clears. {fit:true} zooms to show them (never automatic, so it can't fight the user).
+    setRouteStops(stops,{fit=false}={}){
+      routeStops=routeStopsModel(stops);
+      routeSource=new Map((Array.isArray(stops)?stops:[]).filter(p=>p&&p.id!=null).map(p=>[String(p.id),p]));
+      render();
+      if(fit&&map){const b=boundsOf(routeStops.filter(s=>s.placed));if(b)map.fitBounds(b,{padding:[40,40],maxZoom:16});}
+      announce(routeStops.length?`Trasa: ${routeStops.length} ${routeStops.length===1?'przystanek':routeStops.length<5?'przystanki':'przystanków'}`:'Trasa wyczyszczona');
+    },
+    get routeStops(){return routeStops;},
     destroy(){destroyed=true;resizer?.disconnect();container.removeEventListener('click',onClick);container.removeEventListener('keydown',onKey);map?.remove();container.replaceChildren?.();}
   };
 
@@ -180,7 +221,7 @@ export function createMapView(opts){
     L=lib;const c=city?.center||{lat:52.2297,lng:21.0122};
     map=L.map(canvas,{zoomControl:true,keyboard:true}).setView([c.lat,c.lng],city?.defaultZoom||13);
     L.tileLayer(TILES,{maxZoom:19,attribution:ATTRIBUTION}).on('tileerror',()=>{if(++tileErrors===TILE_ERRORS_BEFORE_FALLBACK){setMode('list');announce('Mapa jest niedostępna, pokazujemy listę miejsc.');}}).addTo(map);
-    layer=L.layerGroup().addTo(map);
+    layer=L.layerGroup().addTo(map);routeLayer=L.layerGroup().addTo(map);
     map.on('moveend',()=>onViewportChange?.({center:center(),zoom:map.getZoom(),bounds:map.getBounds?.()}));
     if(typeof ResizeObserver==='function'){resizer=new ResizeObserver(()=>map.invalidateSize());resizer.observe(canvas);}
     setMode('map');render();

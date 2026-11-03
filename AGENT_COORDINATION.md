@@ -48,7 +48,7 @@ This file is a compact async handoff board between agents. It is not a chat log.
 
 [DONE] BUILDER-MAP-RUNTIME-004 — ChatGPT — minimal glue merged in PR #38: every accepted builder mutation syncs the current draft into `mapView.setRouteStops(...)`, newly mounted maps receive the current draft, regression tests cover both paths, and PWA cache bumped to v28 so the integrated runtime is delivered. CI green.
 
-[OPEN] MAP-PROD-SMOKE-006 — ChatGPT — run after BUILDER-RUNTIME-001 and BUILDER-MAP-002 are merged so one final production pass covers map/Nearby, route-cover rendering and the manual Route Builder. Verify Warsaw and Kraków separately: map/tiles/attribution, filters/search, place detail, add-to-route, Nearby 500 m on/off and exact ordering, city switch/drafts, geolocation/RPC fallback, mobile layout, editorial hero uniqueness/credit and builder numbered route stops.
+[DONE] MAP-PROD-SMOKE-006 — ChatGPT + Jakub — manual production smoke passed on 2026-11-03 after PRs #36/#37/#38: integrated Route Builder, map overlay, city-scoped drafts, route covers and Nearby showed no visible issues in Jakub's browser. Treat as passed unless a concrete regression is reported.
 
 ## Required database actions before live parity
 

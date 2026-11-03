@@ -98,7 +98,7 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 | Priority | ID | Status | Owner | Reviewer | Depends on | Branch / PR | Next action | Last update |
 |---|---|---|---|---|---|---|---|---|
 | P1 | REQ-ADMIN-004 | CHANGES_REQUESTED | Claude | ChatGPT | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE | `claude/req-admin-004` / PR #44, head `fc7d230` | Fix cycle 1 blocker: `added` must reject blank/unlinked place server-side; mirror it in client/UI and add unit + PGlite regression. Then targeted final re-review by ChatGPT (cycle 2/2). | 2026-11-03 |
-| P1 | REQ-UI-003 | IN_PROGRESS | ChatGPT | Claude | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE; SOCIAL-RUNTIME-004 DONE | `chatgpt/req-ui-003` | Implement request entry points, duplicate/+1 flow, ranked active requests, support/unsupport and `Profil -> Twoje prośby`; add build/PWA delivery and focused tests, then open PR for Claude review. No new permanent bottom-nav tab. | 2026-11-03 |
+| P1 | REQ-UI-003 | REVIEW | ChatGPT | Claude | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE; SOCIAL-RUNTIME-004 DONE | `chatgpt/req-ui-003` / PR #47, head `6ea472f` | Claude cross-review. CI run #126 is green: `npm test` and `npm run build` both pass. Review focus: auth gating, duplicate/+1 flow, observer idempotence, custom Places/Profile subroutes and build/PWA delivery. | 2026-11-03 |
 | P1 | SOCIAL-PROD-SMOKE-005 | READY | ChatGPT + Jakub | Claude | SOCIAL-RUNTIME-004 DONE; production deploy of `09dad87` confirmed | no branch | First confirm that Cloudflare deployed `09dad87`. Then, with two test accounts: publish a route, open it from the Społeczność feed, open the author's profile, save the route and check the signed-in `#social-saved` list, and check the mobile nav. | 2026-11-03 |
 | P2 | MIGRATION-013-HOSTED | BLOCKED | Jakub | — | REQ-ADMIN-004 merged | PR #44 | After merge, apply `013_app_admins.sql` from merged `main`, then add the admin row with the SQL in `REQUESTS_ADMIN.md`. Not applied: at the reset, `is_app_admin` doesn't exist on hosted (PGRST202). | 2026-11-03 |
 | P3 | INFRA-CF-PREVIEW-001 | BACKLOG | Jakub | — | Cloudflare dashboard access | — | The "Workers Builds: city-route-app" check fails on every PR branch, while builds of `main` succeed (e.g. `0d23fb9`). Classified as a deployment-configuration problem (non-production branch builds), not an app regression: GitHub `test` passes and the local build is OK. The build log is behind the Cloudflare login and hasn't been read. Until fixed, treat GitHub `test` as the required CI. | 2026-11-03 |
@@ -110,6 +110,12 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 - Scope: `supabase/migrations/013_app_admins.sql`, `admin/` (unlinked, noindex, no `app.js`), `scripts/build.mjs` (+`'admin'`), `REQUESTS_ADMIN.md`, tests and the PGlite harness. It doesn't touch the main runtime.
 - Synced head `fc7d230`: CI green, 134/134 and build OK. Cross-review cycle 1 found one lifecycle blocker: `added` currently accepts a blank place and can persist `resolved_place_id = NULL`.
 - No hosted change was made; migration 013 remains blocked until this PR is fixed, re-reviewed and merged.
+
+### REQ-UI-003 — PR #47
+
+- Scope: isolated `requests-enhancements.js` + `requests.css`, app-shell wiring, build/PWA delivery and focused UI wiring tests. Core `app.js` and Social Routes runtime are untouched.
+- Entry points cover low-result search, category gaps, user-added places and a generic Places CTA. `#places/request` checks similar active requests before creation; `#places/requests` provides ranked +1/withdraw; `#profile/requests` exposes the user's full lifecycle and resolved-place action.
+- Head `6ea472f`: CI run #126 green; both `npm test` and `npm run build` pass. Cache bumped to `city-route-v30`, with older cache-version assertions updated mechanically.
 
 ## Dependency rules for the current request track
 

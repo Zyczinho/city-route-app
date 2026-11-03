@@ -1,0 +1,49 @@
+name: Temporary PR42 router patch
+
+on:
+  push:
+    branches: [work/social-runtime-004]
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: work/social-runtime-004
+          fetch-depth: 0
+      - name: Patch core router and add regression test
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          app = Path('app.js')
+          text = app.read_text(encoding='utf-8')
+          old = "const TAB_OF={routes:'routes',route:'routes',places:'places',events:'places','add-place':'places',plan:'plan','my-route':'my-route',book:'book',profile:'profile',sources:'profile',about:'profile'};"
+          new = "const TAB_OF={routes:'routes',route:'routes',places:'places',events:'places','add-place':'places',plan:'plan','my-route':'my-route',book:'book',profile:'profile',sources:'profile',about:'profile','community-route':'routes','social-profile':'routes','social-saved':'routes'};"
+          if old not in text:
+              raise SystemExit('TAB_OF anchor not found or already changed')
+          app.write_text(text.replace(old, new, 1), encoding='utf-8')
+
+          test_file = Path('tests/social-runtime.test.js')
+          tests = test_file.read_text(encoding='utf-8')
+          marker = "core router recognizes Social Routes custom hashes"
+          if marker not in tests:
+              tests += """\n\ntest('core router recognizes Social Routes custom hashes',async()=>{\n const app=await read('app.js');\n for(const token of [\"'community-route':'routes'\",\"'social-profile':'routes'\",\"'social-saved':'routes'\"])assert.match(app,new RegExp(token));\n});\n"""
+              test_file.write_text(tests, encoding='utf-8')
+          PY
+      - run: npm test
+      - run: npm run build
+      - name: Commit patch
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app.js tests/social-runtime.test.js
+          git commit -m "fix(router): recognize social route screens"
+          git push origin HEAD:work/social-runtime-004

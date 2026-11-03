@@ -1,6 +1,8 @@
 # Agent handoff and collaboration protocol
 
-GitHub `Zyczinho/city-route-app` is the sole source of truth. Start every task by fetching the latest `origin/main`, reading `PRODUCT.md`, `STATUS.md`, `CHANGELOG.md`, `AGENT_COORDINATION.md`, `DECISIONS.md`, and the relevant current code. Never recreate the application from memory.
+GitHub `Zyczinho/city-route-app` is the sole source of truth. Start every task by fetching the latest `origin/main`, reading `AGENT_COORDINATION.md`, `DECISIONS.md`, and the relevant current code. Read `PRODUCT.md`, `STATUS.md`, `CHANGELOG.md`, or broader repository context only when the assigned task requires them. Never recreate the application from memory.
+
+For normal parallel work use `ECONOMY_MODE.md`: keep context narrow, avoid duplicate research/status ping-pong, run targeted tests while developing and full test/build before PR, checkpoint only at logical boundaries or before a likely session/credit interruption, and automatically continue only through bounded READY work.
 
 ## Roles
 
@@ -19,7 +21,7 @@ The split is not permanent. Every sprint/PR must declare its owner and file/work
 - Use short-lived `work/*`, `claude/*`, `fix/*`, or `chore/*` branches.
 - One feature/workstream has exactly one owner at a time.
 - One writer per file area whenever parallel work is active. Do not edit another agent's protected files unless the coordination log explicitly transfers ownership.
-- Never commit directly to `main` for feature/runtime/schema work.
+- Never commit directly to `main` for feature/runtime/schema work. Documentation-only coordination/protocol updates may be committed directly when they do not change application behaviour.
 - Never force-push.
 - Before opening/finalizing a PR, update from latest `main` and confirm no parallel work was overwritten.
 - GitHub is authoritative. Do not rely on another agent's chat transcript as source of truth.

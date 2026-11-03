@@ -97,26 +97,33 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 
 | Priority | ID | Status | Owner | Reviewer | Depends on | Branch / PR | Next action | Last update |
 |---|---|---|---|---|---|---|---|---|
-| P1 | REQ-ADMIN-004 | REVIEW | Claude | ChatGPT | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE | `claude/req-admin-004-fix` / PR #48 (the #44 code is on `main` since `47d48a5`, merged before the blocker was fixed) | ChatGPT final re-review of the `place-required` fix only (cycle 1 blocker). No new full round. | 2026-11-03 |
-| P1 | REQ-UI-003 | CHANGES_REQUESTED | ChatGPT | Claude | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE; SOCIAL-RUNTIME-004 DONE | `chatgpt/req-ui-003` / PR #47, head `0eecefd` | Claude cycle 1/2 found 1 blocker: `maybeOpenResolvedPlace()` never clears its key when the place isn't found, which wipes search and category on every Places render (reproduced). Make it one-shot and city-matched, add a regression test, and sync with `main` (the `scripts/build.mjs` conflict after #44: keep the request entries and `'admin'`). Then a targeted re-review only. | 2026-11-03 |
+| P1 | REQ-ADMIN-004 | DONE | Claude | ChatGPT | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE | PR #44 + fix PR #48, merged to `main` at `d9eb8e8` | No code action. The `place-required` blocker is fixed and merged. Hosted migration is tracked separately below. | 2026-11-03 |
+| P1 | REQ-UI-003 | REVIEW | ChatGPT | Claude | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE; SOCIAL-RUNTIME-004 DONE | `chatgpt/req-ui-003` / PR #47, synced with `main` through `d9eb8e8` | Targeted Claude re-review of the resolved-place fix and post-#48 sync only. The handoff is now one-shot, city-scoped, and no longer resets Places filters when a place is missing. | 2026-11-03 |
 | P1 | SOCIAL-PROD-SMOKE-005 | READY | ChatGPT + Jakub | Claude | SOCIAL-RUNTIME-004 DONE; production deploy of `09dad87` confirmed | no branch | First confirm that Cloudflare deployed `09dad87`. Then, with two test accounts: publish a route, open it from the Społeczność feed, open the author's profile, save the route and check the signed-in `#social-saved` list, and check the mobile nav. | 2026-11-03 |
-| P2 | MIGRATION-013-HOSTED | BLOCKED | Jakub | — | REQ-ADMIN-004 fix (PR #48) merged | PR #48 | **Do not apply 013 from the current `main`**: that version still lets `added` through without a place. After #48 merges, apply `013_app_admins.sql` from `main`, then add the admin row with the SQL in `REQUESTS_ADMIN.md`. | 2026-11-03 |
+| P2 | MIGRATION-013-HOSTED | READY | Jakub | — | REQ-ADMIN-004 DONE | merged PR #48 | Apply `013_app_admins.sql` from current `main`, then add the founder admin row with the SQL in `REQUESTS_ADMIN.md`. Code is fixed and merged; hosted 013 is still not applied. | 2026-11-03 |
 | P3 | INFRA-CF-PREVIEW-001 | BACKLOG | Jakub | — | Cloudflare dashboard access | — | The "Workers Builds: city-route-app" check fails on every PR branch, while builds of `main` succeed (e.g. `0d23fb9`). Classified as a deployment-configuration problem (non-production branch builds), not an app regression: GitHub `test` passes and the local build is OK. The build log is behind the Cloudflare login and hasn't been read. Until fixed, treat GitHub `test` as the required CI. | 2026-11-03 |
 
 ## Current package facts
 
-### REQ-ADMIN-004 — PR #44 (merged) + fix PR #48
+### REQ-ADMIN-004 — PR #44 + fix PR #48 — DONE
 
 - #44 merged to `main` at `47d48a5` while ChatGPT's cycle 1 blocker was still open: `admin_set_catalogue_request_status(..., 'added', NULL/'')` was accepted.
-- PR #48 fixes it in place in 013. Editing 013 is safe because it has never been applied anywhere, and the functions are `create or replace`.
+- PR #48 fixed that blocker and merged at `d9eb8e8`.
   - Server: `added` without a place raises `place-required`; `unknown-place` checks are unchanged.
   - Client and form: the same check runs before the RPC call, with a Polish message.
-  - Tests: unit regression, and PGlite regression for missing/null/blank places (rejected, request unchanged) and a valid place (accepted).
-  - The new PGlite regression fails against the old 013 on `main` and passes with the fix.
+  - Tests: unit regression and PGlite regression cover missing/null/blank places (rejected, request unchanged) and a valid place (accepted).
+- Migration 013 is now safe in code but remains a separate hosted action.
+
+### REQ-UI-003 — PR #47
+
+- Claude cycle 1 found one blocker in `maybeOpenResolvedPlace()`: a missing resolved place could keep clearing search/category on every Places render.
+- The fix consumes the handoff exactly once, stores both place id and request city, refuses cross-city opening, and shows a toast when the place is unavailable instead of repeatedly mutating filters.
+- The branch is synchronized with current `main`; `scripts/build.mjs` preserves both request runtime files and `admin/`.
+- Next step is only a targeted Claude re-review plus green CI; no new full review round is needed.
 
 ## Dependency rules for the current request track
 
-1. #42 is merged, so REQ-UI-003 is unblocked. REQ-UI-003 and REQ-ADMIN-004 can run in parallel: they share only `scripts/build.mjs`, and whichever PR merges second resolves that line.
+1. REQ-ADMIN-004 is DONE. REQ-UI-003 is the only remaining request-code package in review.
 2. Live admin use needs MIGRATION-013-HOSTED. Live request UI needs only 012, which is DONE.
 
 ## Database / hosted state
@@ -126,10 +133,11 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 | 007–010 | yes | yes | earlier board records |
 | 011 | yes | yes, 2026-11-03 | earlier board record; social RPCs answer on hosted |
 | 012 | yes (PR #43) | **yes, 2026-11-03** | Jakub confirmed in chat. At the reset, a read-only anon call to `catalogue_requests_ranked('warsaw')` returned 0 rows without error, while a control call to a missing function returned PGRST202. |
-| 013 | yes since #44, but fix pending in PR #48 | **no** (blocked until #48 merges) | at the reset, `is_app_admin` returns PGRST202 on hosted |
+| 013 | **yes, fixed on `main` via PR #48** | **no** | PR #48 merged at `d9eb8e8`; hosted migration remains a separate READY task. |
 
 ## Recently completed
 
+- `REQ-ADMIN-004` — DONE — PR #44 + fix PR #48; final blocker fixed and merged at `d9eb8e8`.
 - `SOCIAL-RUNTIME-004 + NAV-MYROUTE-001` — DONE — PR #42 merged 2026-11-03 (`09dad87`). The production smoke is SOCIAL-PROD-SMOKE-005.
 - `COORDINATION-RESET` — DONE — PR #45 (baseline at `0d23fb9`).
 - `REQ-DATA-002` — DONE — PR #43 merged 2026-11-03; MIGRATION-012-HOSTED DONE.

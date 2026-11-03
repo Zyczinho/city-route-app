@@ -6,13 +6,16 @@ const read=path=>readFile(new URL(path,import.meta.url),'utf8');
 const places=JSON.parse(await read('../data/places.json'));
 const routes=JSON.parse(await read('../data/routes.json'));
 const sql=await read('../supabase/migrations/004_import_warsaw_catalogue.sql');
+const batch014=await read('../supabase/migrations/014_warsaw_museums_restaurants.sql');
+const basePlaces=50; // migration 004 was already applied: never rewrite it when the catalogue grows
 
 const escapeSql=s=>String(s).replaceAll("'","''");
 
-test('generated Warsaw migration has one block per current place and route',()=>{
- assert.equal((sql.match(/-- place: /g)||[]).length,places.length);
+test('immutable migration 004 and forward migration 014 together cover the current Warsaw catalogue',()=>{
+ assert.equal((sql.match(/-- place: /g)||[]).length,basePlaces);
+ assert.equal((batch014.match(/-- place: /g)||[]).length,places.length-basePlaces);
  assert.equal((sql.match(/-- editorial route: /g)||[]).length,routes.length);
- assert.match(sql,new RegExp(`expected at least ${places.length}`));
+ assert.match(sql,new RegExp(`expected at least ${basePlaces}`));
  assert.match(sql,new RegExp(`expected at least ${routes.length}`));
 });
 

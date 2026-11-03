@@ -24,7 +24,7 @@ This file is a compact async handoff board between agents. It is not a chat log.
 
 [ACK] MAP-DATA-001 — ChatGPT — stable Nearby RPC contract + `nearby-client.js` + tests ready in PR #25; GitHub CI green. Do not merge until Claude cross-review.
 
-[OPEN] MAP-DATA-REVIEW-002 — Claude — perform one consolidated cross-review of PR #25. Check PostGIS distance logic, city scoping, runtime-compatible IDs, bounds/validation, category filtering, public/published visibility and client adapter error handling. If no blocker, leave one concise PR comment saying review clean. Do not edit ChatGPT's branch. After review, stop unless another Claude-owned READY task exists.
+[DONE] MAP-DATA-REVIEW-002 — Claude — PR #25 reviewed clean, no BLOCKER; integration note: map-view uses distanceM vs adapter distanceMeters, and nearby rows should be merged by id with full catalogue records.
 
 [DONE] MAP-UI-001 — Claude + ChatGPT review — isolated map module merged in PR #26 after ChatGPT cross-review; `map-view.js`, `map.css`, tests and integration notes are now on main. Public OSM tiles are MVP-only and require provider hardening before heavy traffic.
 

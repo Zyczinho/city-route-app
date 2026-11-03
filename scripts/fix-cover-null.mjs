@@ -10,3 +10,4 @@ const marker=" assert.match(app,/\\$\\{credit\\(cover\\)\\}/);\n";
 if(!test.includes(marker))throw new Error('test marker missing');
 test=test.replace(marker,marker+" assert.match(app,/function credit\\(p\\)\\{const c=p\\?\\.imageCredit/,'missing cover must not crash attribution');\n");
 await writeFile('tests/cover-wiring.test.js',test);
+// One-shot branch helper; removed before PR.

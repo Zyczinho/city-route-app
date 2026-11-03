@@ -26,7 +26,7 @@ jobs:
         run: node scripts/generate-route-cover-sync.mjs
       - name: Commit generated migration
         run: |
-          if git diff --quiet -- supabase/migrations/010_sync_route_covers.sql; then
+          if [ -z "$(git status --porcelain -- supabase/migrations/010_sync_route_covers.sql)" ]; then
             echo "Migration already current"
             exit 0
           fi

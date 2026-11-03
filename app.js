@@ -6,14 +6,14 @@ const $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>"']/g,c=
 const key='city-route-v1';let storageOK=true,state;
 try{state=JSON.parse(localStorage.getItem(key)||'null');}catch{storageOK=false;}
 const uuid=()=>crypto.randomUUID?.()||Array.from(crypto.getRandomValues(new Uint8Array(16)),x=>x.toString(16).padStart(2,'0')).join('');
-const fresh=()=>({version:1,tester:{id:uuid(),nickname:'Explorer'},basket:[],events:[],session:null});
+const fresh=()=>({version:1,tester:{id:uuid(),nickname:'Explorer'},basket:[],basketsByCity:{},events:[],session:null});
 if(!state||state.version!==1||!Array.isArray(state.basket)||!Array.isArray(state.events))state=fresh();
 state.connections=state.connections||{};state.stay=state.stay||'';state.joined=state.joined||[];state.messages=state.messages||{};state.placeReviews=state.placeReviews||{};
 state.friends=Array.isArray(state.friends)?state.friends:[];state.myRoutes=Array.isArray(state.myRoutes)?state.myRoutes:[];state.userPlaces=Array.isArray(state.userPlaces)?state.userPlaces:[];
 state.profile={bio:'',...state.profile,socials:{instagram:'',tiktok:'',web:'',...state.profile?.socials}};
-state.cityId=state.cityId||DEFAULT_CITY_ID;
+state.cityId=state.cityId||DEFAULT_CITY_ID;state.basketsByCity=state.basketsByCity&&typeof state.basketsByCity==='object'?state.basketsByCity:{};if(!state.basketsByCity[DEFAULT_CITY_ID]&&state.basket.length)state.basketsByCity[DEFAULT_CITY_ID]=[...state.basket];state.basket=[...(state.basketsByCity[state.cityId]||[])];
 let cities=[],taxonomy=null,activeCity=null,places=[],quests=[],routes=[],all={},cat='all',rcat='all',query='',cuisine='all',sort='default',pending=null,generated=null,editing=false,keepQuery=false,here=null,draft=null,bookTab=null,speaking=false,evScope='global',evWhen='week',evKind='all';const evCache={};
-const persist=()=>{try{localStorage.setItem(key,JSON.stringify(state));}catch{storageOK=false;$('#connection').textContent='Zapis lokalny niedostępny. Wyeksportuj dane przed zamknięciem karty.';}};
+const persist=()=>{try{if(state?.cityId){state.basketsByCity=state.basketsByCity||{};state.basketsByCity[state.cityId]=[...(state.basket||[])];}localStorage.setItem(key,JSON.stringify(state));}catch{storageOK=false;$('#connection').textContent='Zapis lokalny niedostępny. Wyeksportuj dane przed zamknięciem karty.';}};
 const log=(type,data={})=>{state.events.push({type,...data,tester_id:state.tester.id,at:new Date().toISOString()});state.events=state.events.slice(-5000);persist();};
 let toastTimer;function toast(s){$('#toast').textContent=s;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),2600);}
 
@@ -31,19 +31,21 @@ const city=()=>activeCity||{id:DEFAULT_CITY_ID,slug:'warsaw',name:'Warszawa',cen
 
 // Navigation and categories
 const TABS=[['plan','wand-sparkles','Ułóż trasę'],['routes','route','Trasy'],['places','compass','Miejsca'],['my-route','navigation','Moja trasa'],['book','ticket-percent','Zarezerwuj']];
-const PLACE_CATS=[['all','Wszystkie','layers'],['zabytki','Zabytki','landmark'],['muzea','Muzea','library'],['zielen','Zieleń','trees'],['widoki','Wisła i widoki','waves'],['okolice','Ulice i okolice','signpost'],['jedzenie','Jedzenie','utensils']];
+const PLACE_CATS=[['all','Wszystkie','layers'],['zabytki','Zabytki','landmark'],['muzea','Muzea','library'],['zielen','Zieleń','trees'],['widoki','Widoki i woda','waves'],['okolice','Ulice i okolice','signpost'],['jedzenie','Jedzenie','utensils']];
 const USER_TAGS={zabytki:['sightseeing','culture'],muzea:['culture'],zielen:['nature'],widoki:['views'],okolice:['hidden'],jedzenie:['food']};
 const resident=()=>state.stay==='resident';
 const isPublic=p=>p.visibility==='public';
 // Until accounts and a shared database exist, "public" is a stated intent: nothing leaves the device yet.
 const VIS_NOTE={private:'Prywatne widzisz tylko Ty.',public:'Publiczne pokażemy innym, gdy uruchomimy konta i wspólną bazę (po sprawdzeniu przez moderację). Do tego czasu widzisz je tylko Ty.'};
 const catalog=()=>[...places,...forCity(state.userPlaces,city().id)].filter(p=>p.kind!=='hotel');
-const ROUTE_CATS=[['all','Wszystkie'],['klasyka','Na pierwszy raz'],['zielen','Zieleń'],['wisla','Nad Wisłą'],['jedzenie','Z jedzeniem'],['lokalnie','Lokalnie']];
+const ROUTE_CATS=[['all','Wszystkie'],['klasyka','Na pierwszy raz'],['zielen','Zieleń'],['wisla','Nad wodą'],['jedzenie','Z jedzeniem'],['lokalnie','Lokalnie']];
 const catName=(id,list=PLACE_CATS)=>list.find(c=>c[0]===id)?.[1]||'';
 const TAB_OF={routes:'routes',route:'routes',places:'places',events:'places','add-place':'places',plan:'plan','my-route':'my-route',book:'book',profile:'profile',sources:'profile',about:'profile'};
 const LEGACY={home:['plan'],explore:['routes'],best:['places'],food:['places','jedzenie'],hotels:['book'],sidequests:['places','sidequests'],build:['plan'],active:['my-route'],discounts:['profile'],friends:['profile'],community:['profile'],chat:['profile']};
 const route=()=>{const [t,id]=(location.hash.slice(1)||'').split('/');return [t,id];};
 const avatar=(cls='')=>state.profile.photo?`<img class="avatar ${cls}" src="${esc(state.profile.photo)}" alt="">`:`<span class="avatar ${cls}" aria-hidden="true">${esc((state.tester.nickname==='Explorer'?'O':state.tester.nickname[0]).toUpperCase())}</span>`;
+function cityPicker(){const available=cities.filter(c=>['launch','next'].includes(c.status));return `<label class="city-select"><span class="sr-only">Wybierz miasto</span><span class="i" style="--i:url(./assets/icons/ui/map-pin.svg)" aria-hidden="true"></span><select id="city-select" aria-label="Wybierz miasto" ${isLive()?'disabled':''}>${available.map(c=>`<option value="${esc(c.id)}" ${c.id===city().id?'selected':''}>${esc(c.name)}</option>`).join('')}</select></label>`;}
+async function switchCity(nextId){if(nextId===city().id)return;if(isLive())return toast('Najpierw zakończ aktywną trasę.');const next=cities.map(cityById.bind(null,cities)).find(c=>c?.id===nextId)||cities.find(c=>c.id===nextId);if(!next||!['launch','next'].includes(next.status))return toast('To miasto nie jest jeszcze dostępne.');state.basketsByCity[city().id]=[...state.basket];const previous=city();state.cityId=next.id;activeCity=next;state.basket=[...(state.basketsByCity[next.id]||[])];generated=null;query='';cat='all';rcat='all';cuisine='all';try{const client=createRestRpcClient({url:SUPABASE_URL,key:SUPABASE_PUBLISHABLE_KEY});const fallback=await loadCityFallback(next);const data=await loadCatalogueWithFallback({client,city:next,fallback});places=data.places;routes=data.routes;quests=next.id===DEFAULT_CITY_ID?forCity(withCityId(await fetchJson('./data/sidequests.json'),DEFAULT_CITY_ID),next.id):[];all=Object.fromEntries([...places,...quests,...forCity(state.userPlaces,next.id)].map(p=>[p.id,p]));state.basket=state.basket.filter(id=>all[id]);state.basketsByCity[next.id]=[...state.basket];document.documentElement.dataset.catalogueSource=data.source;document.title=`City Route · ${next.name}`;updateCityMeta(next);persist();location.hash='#plan';render();toast(`Przełączono na ${next.name}.`);}catch(error){state.cityId=previous.id;activeCity=previous;state.basket=[...(state.basketsByCity[previous.id]||[])];throw error;}}
 function nav(){$('#me').innerHTML=avatar('sm');$('#me').classList.toggle('active',['profile','sources','about'].includes(route()[0]));const [h,hid]=route(),t=h==='route'&&hid==='generated'?'plan':TAB_OF[h]||'plan',live=isLive(),chosen=live||state.basket.length>0;
  $('#navigation').innerHTML=TABS.map(([id,icon,label])=>{const mine=id==='my-route',cls=[t===id?'active':'',mine&&chosen?'chosen':'',mine&&live?'live':''].join(' ').trim();
   return `<a href="#${id}" class="${cls}" ${id==='plan'?'aria-label="Zaplanuj moją trasę"':''} ${t===id?'aria-current="page"':''}>${mine&&live?'<span class="pulse" aria-hidden="true"></span>':ic(icon)}<span>${label}</span>${mine&&chosen?`<small class="nav-status">${live?'W toku':'Gotowa'}</small>`:''}${mine&&!live&&state.basket.length?`<b class="badge" aria-label="${state.basket.length} w trasie">${state.basket.length}</b>`:''}</a>`;}).join('');}
@@ -223,7 +225,7 @@ function sourcesView(){const ps=places,has=s=>ps.filter(p=>Number.isFinite(ratin
  <div class="prose"><h2>Oceny</h2><p>Oceny i liczby opinii przepisaliśmy ręcznie 2 listopada 2026: z panelu miejsca w Google Maps oraz z wyników wyszukiwania stron obiektów na Tripadvisor. To migawka, nie dane na żywo. Jeśli platforma nie ma oceny (np. ulica albo plac w Google), piszemy „brak” i nie wliczamy jej do wyniku.</p><p>Wynik łączny to średnia ważona liczbą opinii. Google ma zwykle więcej opinii, więc waży więcej. Miejsce słabo opisane w jednym serwisie wciąż dostaje wynik z drugiego.</p><h2>Zdjęcia</h2><p>${commons} zdjęć pochodzi z Wikimedia Commons, ${pexels} z Pexels (wolne licencje, autor podany przy zdjęciu). ${venue} lokali ma zdjęcie z własnej strony internetowej, a kilka lokali w Koneserze i na Saskiej Kępie pokazuje budynek lub ulicę, przy której są. Zdjęć z Google i Tripadvisor nie kopiujemy, bo ich licencja na to nie pozwala.</p><h2>Czego jeszcze nie ma</h2><p>GetYourGuide i Atlas Obscura nie są jeszcze podłączone. Oceny społeczności City Route pojawią się, gdy będzie wystarczająco dużo prawdziwych użytkowników.</p></div>`;}
 
 // Render
-function render(){let [tab,id]=route();
+function render(){const cityHost=document.querySelector('.city-host');if(cityHost)cityHost.innerHTML=cityPicker();let [tab,id]=route();
  if(LEGACY[tab]){const [t,c]=LEGACY[tab];if(c){cat=c;cuisine='all';}location.replace('#'+t);return;}
  if(!TAB_OF[tab]){location.replace('#'+(isLive()?'my-route':'plan'));return;}
  nav();let html='';
@@ -303,22 +305,26 @@ document.addEventListener('submit',async e=>{const f=e.target,data=new FormData(
 });
 function plan(prefs,start){if(!prefs.interests.length)prefs.interests=['mix'];if(prefs.interests.length>1)prefs.interests=prefs.interests.filter(x=>x!=='mix');if(start&&distance(start,cityPoint(city()))>Math.min(25,city().radiusKm)){toast(`Jesteś daleko od ${city().name} — układam trasę bez punktu startu.`);start=null;}prefs.start=start||undefined;const result=generate([...places,...forCity(state.userPlaces,city().id)],prefs);log('build_generate',{preferences:prefs,stops:result.length});if(!result.length)return toast('Nic nie pasuje. Daj więcej czasu albo zmień budżet.');generated={id:'generated',cityId:city().id,name:routeTitle(city()),description:`Plan na ${minutes(Number(prefs.time))}, ułożony według Twoich wyborów. Możesz go zapisać albo od razu ruszyć.`,stops:result.map(x=>x.id),transport:prefs.transport,cats:[]};location.hash='route/generated';}
 document.addEventListener('error',e=>{const t=e.target;if(t.tagName==='IMG'&&!t.dataset.failed){t.dataset.failed='1';t.outerHTML=`<div class="ph ${t.className}">${ic('camera')}</div>`;}},true);
+document.addEventListener('change',e=>{if(e.target?.id==='city-select'){switchCity(e.target.value).catch(error=>{console.error(error);toast('Nie udało się przełączyć miasta.');render();});}});
 window.addEventListener('hashchange',()=>{const t=route()[0];if(speaking){speechSynthesis.cancel();speaking=false;}if(t!=='add-place')draft=null;if(t!=='places')cuisine='all';if(!keepQuery)query='';keepQuery=false;editing=false;if($('#place-dialog').open)$('#place-dialog').close();render();window.scrollTo(0,0);$('#main').focus({preventScroll:true});});
+async function fetchJson(path){const r=await fetch(path);if(!r.ok)throw Error(path);return r.json();}
+async function loadCityFallback(targetCity){if(targetCity.id===DEFAULT_CITY_ID){const [p,r]=await Promise.all([fetchJson('./data/places.json'),fetchJson('./data/routes.json')]);return {places:forCity(withCityId(p,DEFAULT_CITY_ID),targetCity.id),routes:forCity(withCityId(r,DEFAULT_CITY_ID),targetCity.id)};}try{const [p,r]=await Promise.all([fetchJson(`./data/cities/${targetCity.id}/places.json`),fetchJson(`./data/cities/${targetCity.id}/routes.json`)]);return {places:withCityId(p,targetCity.id),routes:withCityId(r,targetCity.id)};}catch{return {places:[],routes:[]};}}
+function updateCityMeta(targetCity){const meta=document.querySelector('meta[name=description]');if(meta)meta.content=`Gotowe i własne trasy po ${targetCity.name}. Odkrywaj miejsca i układaj plan miasta w City Route.`;}
 function connection(){$('#connection').textContent=!storageOK?'Zapis lokalny niedostępny. Wyeksportuj dane przed zamknięciem.':navigator.onLine?'':'Offline · zapisane trasy działają. Mapy i strony źródeł wymagają internetu.';}
 window.addEventListener('online',connection);window.addEventListener('offline',connection);
 try{
  let staticPlaces,staticRoutes;
- [cities,taxonomy,staticPlaces,quests,staticRoutes]=await Promise.all(['cities','taxonomy','places','sidequests','routes'].map(async n=>{const r=await fetch(`./data/${n}.json`);if(!r.ok)throw Error(n);return r.json();}));
+ [cities,taxonomy,staticPlaces,quests,staticRoutes]=await Promise.all(['cities','taxonomy','places','sidequests','routes'].map(n=>fetchJson(`./data/${n}.json`)));
  activeCity=cityById(cities,state.cityId);if(!activeCity)throw Error('city');state.cityId=activeCity.id;
- const jsonCatalogue={places:forCity(withCityId(staticPlaces,DEFAULT_CITY_ID),activeCity.id),routes:forCity(withCityId(staticRoutes,DEFAULT_CITY_ID),activeCity.id)};
+ const jsonCatalogue=activeCity.id===DEFAULT_CITY_ID?{places:forCity(withCityId(staticPlaces,DEFAULT_CITY_ID),activeCity.id),routes:forCity(withCityId(staticRoutes,DEFAULT_CITY_ID),activeCity.id)}:await loadCityFallback(activeCity);
  const catalogueClient=createRestRpcClient({url:SUPABASE_URL,key:SUPABASE_PUBLISHABLE_KEY});
  const catalogueData=await loadCatalogueWithFallback({client:catalogueClient,city:activeCity,fallback:jsonCatalogue});
  places=catalogueData.places;routes=catalogueData.routes;quests=forCity(withCityId(quests,DEFAULT_CITY_ID),activeCity.id);
  document.documentElement.dataset.catalogueSource=catalogueData.source;
  state.userPlaces=withCityId(state.userPlaces,DEFAULT_CITY_ID);state.myRoutes=withCityId(state.myRoutes,DEFAULT_CITY_ID);
- all=Object.fromEntries([...places,...quests,...forCity(state.userPlaces,activeCity.id)].map(p=>[p.id,p]));state.basket=state.basket.filter(id=>all[id]);state.myRoutes=state.myRoutes.filter(r=>r.stops.every(id=>all[id]));
+ all=Object.fromEntries([...places,...quests,...forCity(state.userPlaces,activeCity.id)].map(p=>[p.id,p]));state.basket=[...(state.basketsByCity[activeCity.id]||state.basket||[])].filter(id=>all[id]);state.basketsByCity[activeCity.id]=[...state.basket];state.myRoutes=state.myRoutes.filter(r=>r.cityId!==activeCity.id||r.stops.every(id=>all[id]));
  if(state.session&&(!Array.isArray(state.session.stops)||state.session.stops.some(id=>!all[id])||!Array.isArray(state.session.results)||state.session.index<0||state.session.index>state.session.stops.length))state.session=null;
- persist();render();connection();if('serviceWorker'in navigator){const had=!!navigator.serviceWorker.controller;let reloaded=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(had&&!reloaded){reloaded=true;location.reload();}});navigator.serviceWorker.register('./service-worker.js',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});}
+ document.title=`City Route · ${activeCity.name}`;updateCityMeta(activeCity);persist();render();connection();if('serviceWorker'in navigator){const had=!!navigator.serviceWorker.controller;let reloaded=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(had&&!reloaded){reloaded=true;location.reload();}});navigator.serviceWorker.register('./service-worker.js',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});}
 }catch(error){$('#main').innerHTML='<div class="empty"><h1>Nie udało się wczytać miasta.</h1><p>Przy pierwszej wizycie połącz się z internetem i odśwież stronę.</p><button onclick="location.reload()">Spróbuj ponownie</button></div>';console.error(error);}
 
 

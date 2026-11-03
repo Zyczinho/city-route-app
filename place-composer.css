@@ -1,0 +1,39 @@
+/* CLAUDE-PLACE-017 quick place composer. Reuses the City Route tokens from styles.css. */
+.pc{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:var(--shadow)}
+.pc>*{min-width:0}
+.pc-label{font-weight:700!important;font-size:15px!important}
+.pc-field input{width:100%;min-height:50px;border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--bg);font-size:16px}
+.pc-field input:focus{outline:3px solid var(--blue);outline-offset:1px;background:var(--surface)}
+.pc-list{list-style:none;margin:0;padding:4px;border:1px solid var(--line);border-radius:14px;background:var(--surface);max-height:min(50vh,340px);overflow:auto;overscroll-behavior:contain}
+.pc-opt{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:52px;padding:8px 10px;border-radius:10px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.pc-opt+.pc-opt{border-top:1px solid var(--line-2)}
+.pc-opt:hover,.pc-opt[aria-selected="true"]{background:var(--blue-soft)}
+.pc-opt-main{display:grid;gap:1px;min-width:0}
+.pc-opt-main strong{font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pc-opt-main small{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pc-src{flex:none;font-size:11px;font-weight:600;color:var(--muted)}
+.pc-known .pc-src{color:var(--ta)}
+.pc-custom strong{color:var(--blue)}
+.pc-custom small{white-space:normal}
+.pc-status{min-height:0;margin:0;font-size:13px;color:var(--muted)}
+.pc-status:empty{display:none}
+.pc-status[data-kind="ok"]{color:var(--ta)}
+.pc-status[data-kind="error"]{color:var(--live)}
+.pc-preview{display:grid;gap:10px}
+.pc-card{display:grid;gap:2px;padding:10px 12px;border-radius:12px;background:var(--bg)}
+.pc-name{font-weight:700}
+.pc-addr,.pc-meta{font-size:13px;color:var(--muted)}
+.pc-link{justify-self:start;min-height:36px;padding:4px 0;border:0;background:none;color:var(--blue);font-size:14px}
+.pc-photo{margin:0;display:grid;gap:4px}
+.pc-photo img{width:100%;max-height:200px;object-fit:cover;border-radius:12px;background:var(--line-2)}
+.pc-photo figcaption{font-size:11px;color:var(--muted)}
+.pc-dup{display:grid;gap:8px;padding:10px 12px;border-radius:12px;background:var(--cyan-soft)}
+.pc-actions{display:flex;flex-wrap:wrap;gap:8px}
+.pc-actions button{flex:1 1 140px}
+.pc-map-wrap{display:grid;gap:4px}
+.pc-map{height:220px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--line-2)}
+.pc-map-wrap .fine{margin:0}
+@media(max-width:520px){
+ .pc{padding:12px;border-radius:16px}
+ .pc-map{height:200px}
+}

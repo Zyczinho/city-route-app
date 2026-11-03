@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-03 — quick place composer (CLAUDE-PLACE-017)
+One search box on "Dodaj miejsce" takes a name, address, Google Maps link or coordinates. City Route catalogue and own places are searched first (duplicate warning within ~120 m), then OSM suggestions scoped to the active city, so Kraków no longer resolves to Warsaw. Unknown places get a prefilled name and a draggable pin; saving needs no photo, account or API key and stays on the device. Google photos are display-only with attribution and are no longer copied into the user's photo. Fixed Photon fallback that never worked (`lang=pl` returns HTTP 400). 164 tests pass; verified in the browser at 375 px for Warsaw and Kraków. Google Autocomplete is wired but off until approved.
+
 ## 2026-11-02 — foundation
 Read full brief, inspected live GitHub architecture of Vowl/Studio, created independent repository, preserved product and continuity contract. Static Cloudflare packaging selected.
 

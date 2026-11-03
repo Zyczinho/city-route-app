@@ -16,6 +16,7 @@ const view = createMapView({
   onAddToRoute: place => {}, // "Dodaj do trasy" on the place card
   onDetails: place => {},    // "Szczegóły": open the app's own place sheet
   onViewportChange: ({center, zoom, bounds}) => {},
+  onNearbyChange: centerOrNull => {}, // optional hook for server-backed Nearby
   isInRoute: place => false  // shows "W trasie" instead of the add button
 });
 await view.ready;            // 'map', or 'list' when the map could not load

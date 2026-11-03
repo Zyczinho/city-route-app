@@ -1,0 +1,94 @@
+// P0 mobile browser release gate. Runs only in the dedicated GitHub Action.
+// Browser dependencies are installed in CI, not bundled with the City Route PWA.
+import assert from 'node:assert/strict';
+import {readFile,mkdir} from 'node:fs/promises';
+import {spawn} from 'node:child_process';
+import {chromium} from 'playwright';
+
+const PORT=4179,BASE='http://127.0.0.1:'+PORT;
+const pause=ms=>new Promise(r=>setTimeout(r,ms));
+const haversine=(a,b)=>{
+ const rad=n=>n*Math.PI/180,R=6371000,dlat=rad(b.lat-a.lat),dlng=rad(b.lng-a.lng);
+ const f=Math.sin(dlat/2)**2+Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(dlng/2)**2;
+ return 2*R*Math.atan2(Math.sqrt(f),Math.sqrt(1-f));
+};
+let browser,server;
+try{
+ server=spawn('python3',['-m','http.server',String(PORT),'--bind','127.0.0.1','--directory','dist'],{stdio:'ignore'});
+ let up=false;
+ for(let i=0;i<80;i++){try{const r=await fetch(BASE+'/index.html');if(r.ok){up=true;break;}}catch{}await pause(150);}
+ assert.ok(up,'local static server must become ready');
+ await mkdir('p0-smoke-artifacts',{recursive:true});
+ browser=await chromium.launch({headless:true,args:['--no-sandbox']});
+ const data=JSON.parse(await readFile('data/places.json','utf8'));
+ const valid=data.filter(p=>p.id&&Number.isFinite(p.lat)&&Number.isFinite(p.lng)&&p.kind!=='hotel');
+ const pair=valid.flatMap(a=>valid.filter(b=>b.id!==a.id&&haversine(a,b)<950).map(b=>({a,b,m:haversine(a,b)})))
+   .sort((a,b)=>a.m-b.m)[0];
+ assert.ok(pair,'catalogue needs at least one pair within 950m');
+ const seed=[pair.a,...valid.filter(p=>p.id!==pair.a.id&&p.id!==pair.b.id)].slice(0,10).reverse().map(p=>p.id);
+ assert.equal(seed.length,10,'smoke needs 10 distinct Warsaw places');
+ const ctx=await browser.newContext({viewport:{width:375,height:812},deviceScaleFactor:1,isMobile:true,hasTouch:true});
+ await ctx.route(/supabase\.co/,route=>route.abort());
+ await ctx.addInitScript(({seed})=>{
+  localStorage.setItem('city-route-v1',JSON.stringify({
+   version:1,tester:{id:'p0-browser-check',nickname:'Test'},basket:seed,basketsByCity:{warsaw:seed},events:[],
+   session:null,cityId:'warsaw',userPlaces:[],placeReviews:{}
+  }));
+ },{seed});
+ const page=await ctx.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto(BASE+'/#my-route',{waitUntil:'domcontentloaded'});
+ await page.locator('.stops li[data-stop]').first().waitFor({timeout:30000});
+ assert.equal(await page.locator('.stops li[data-stop]').count(),10);
+ // Four accessible controls per stop; especially the 4th 'remove' after nearby was added.
+ const layout=await page.evaluate(()=>{
+  const row=document.querySelector('.stops li[data-stop]'),tools=Array.from(row.querySelectorAll('.tools button'));
+  return {scrollWidth:document.documentElement.scrollWidth,innerWidth:innerWidth,
+   buttons:tools.map(b=>({action:b.dataset.action,right:b.getBoundingClientRect().right,left:b.getBoundingClientRect().left,width:b.getBoundingClientRect().width}))};
+ });
+ assert.ok(layout.scrollWidth<=layout.innerWidth+1,'No horizontal page scroll at 375px: '+JSON.stringify(layout));
+ assert.deepEqual(layout.buttons.map(b=>b.action),['up','down','nearby-stop','remove']);
+ assert.ok(layout.buttons.every(b=>b.left>=0&&b.right<=layout.innerWidth+1&&b.width>=32),'All four stop buttons remain within 375px viewport');
+ await page.screenshot({path:'p0-smoke-artifacts/my-route-before.png',fullPage:true});
+ await page.locator('button[data-action="optimize"]').click();
+ const optimizedIds=await page.locator('.stops li[data-stop]').evaluateAll(ls=>ls.map(l=>l.dataset.stop));
+ assert.deepEqual(new Set(optimizedIds),new Set(seed));
+ assert.equal(optimizedIds.length,10);
+ const anchor=pair.a.id,target=pair.b.id;
+ await page.locator('button[data-action="nearby-stop"][data-id="'+anchor+'"]').click();
+ await page.locator('button[data-action="nearby-radius"][data-value="1000"]').click();
+ await page.locator('button[data-action="add-nearby"][data-id="'+target+'"]').first().click();
+ const order=await page.locator('.stops li[data-stop]').evaluateAll(ls=>ls.map(l=>l.dataset.stop));
+ assert.equal(order.length,11);
+ assert.equal(order.indexOf(target),order.indexOf(anchor)+1,'nearby place must insert directly after selected stop');
+ await page.screenshot({path:'p0-smoke-artifacts/my-route-after.png',fullPage:true});
+ assert.deepEqual(errors,[],'unexpected page exception in mobile route test');
+ await ctx.close();
+ 
+ // Fresh visitor adds a totally new coordinate-only point and optional 5/5 rating.
+ const ctx2=await browser.newContext({viewport:{width:375,height:812},deviceScaleFactor:1,isMobile:true,hasTouch:true});
+ await ctx2.route(/supabase\.co/,route=>route.abort());
+ const p2=await ctx2.newPage();const pageErrors=[];p2.on('pageerror',e=>pageErrors.push(e.message));
+ await p2.goto(BASE+'/#add-place',{waitUntil:'domcontentloaded'});
+ await p2.locator('#pc-q').waitFor({timeout:30000});
+ await p2.locator('#pc-q').fill('52.230123, 21.012345');
+ await p2.locator('#place-form input[name="name"]').fill('P0 test punkt widokowy');
+ await p2.locator('#place-form input[name="rating"][value="5"]').check({force:true});
+ await p2.locator('#place-form button.primary.big').click();
+ await p2.locator('#place-dialog[open] button[data-action="add-another-place"]').waitFor({timeout:15000});
+ const state=await p2.evaluate(()=>JSON.parse(localStorage.getItem('city-route-v1')));
+ const added=state.userPlaces.find(p=>p.name==='P0 test punkt widokowy');
+ assert.ok(added,'custom coordinates must be saved locally');
+ assert.equal(state.placeReviews[added.id],5,'optional add-time rating should be stored');
+ assert.ok(Math.abs(added.lat-52.230123)<0.000001);
+ assert.ok(Math.abs(added.lng-21.012345)<0.000001);
+ await p2.screenshot({path:'p0-smoke-artifacts/added-place.png',fullPage:true});
+ await p2.locator('#place-dialog button[data-action="add-another-place"]').click();
+ await p2.locator('#pc-q').waitFor({timeout:10000});
+ assert.equal(new URL(p2.url()).hash,'#add-place');
+ assert.deepEqual(pageErrors,[],'unexpected page exception in mobile composer');
+ await ctx2.close();
+ console.log('PASS: mobile 375px, 10-stop optimization, B→B1 insertion, local custom place, optional rating, repeat add.');
+}finally{
+ if(browser)await browser.close();
+ if(server){server.kill('SIGTERM');}
+}

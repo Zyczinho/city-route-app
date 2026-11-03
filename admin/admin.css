@@ -1,0 +1,21 @@
+/* Founder panel (admin/index.html). Uses the tokens from styles.css. */
+.admin-tag{font-size:13px;font-weight:700;color:var(--muted)}
+#admin{max-width:1080px;margin:0 auto;padding:22px 16px 60px}
+.admin-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;align-items:end;margin:6px 0 12px}
+.admin-filters label,.admin-actions label{display:grid;gap:4px;font-size:12px;font-weight:600;color:var(--muted)}
+.admin-filters select,.admin-actions select,.admin-actions input{width:100%;min-height:42px;border:1px solid var(--line);border-radius:12px;padding:8px 10px;background:var(--surface);color:var(--ink);font-size:14px}
+.admin-meta{margin:0 0 10px}
+.admin-list{display:grid;gap:10px}
+.admin-row{display:grid;grid-template-columns:36px 1fr;gap:10px 14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px}
+.admin-rank{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:#fff;font-weight:800;font-size:13px}
+.admin-main{display:grid;gap:4px;min-width:0}.admin-main h3{font-size:17px}
+.admin-note{font-size:14px;color:var(--ink-2);background:var(--blue-soft);border-radius:10px;padding:8px 10px;white-space:pre-wrap;overflow-wrap:anywhere}
+.admin-link{font-size:13px;overflow-wrap:anywhere}.admin-link a{color:var(--blue)}
+.admin-count{grid-column:2;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px}.admin-count strong{font-size:24px}.admin-count small{width:100%;color:var(--muted);font-size:12px}
+.admin-actions{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end;border-top:1px solid var(--line-2);padding-top:10px}
+@media(min-width:760px){
+  .admin-row{grid-template-columns:36px 1fr 150px 360px;align-items:start}
+  .admin-count{grid-column:auto;flex-direction:column;align-items:flex-start}
+  .admin-actions{grid-column:auto;border-top:0;padding-top:0}
+}
+@media(max-width:420px){.admin-actions{grid-template-columns:1fr}}

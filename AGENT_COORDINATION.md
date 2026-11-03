@@ -91,12 +91,16 @@ Template:
 
 `[ESCALATE] <ID> — decision needed — Option A / Option B — recommendation — why Jakub must decide`
 
+P0 contribution product priority (2026-11-03): Jakub prioritizes fastest addition of existing/unindexed places and simplest route creation, over persona onboarding, events and paid plans. This does not override operational P0 production smoke gates. See `P0_PLACE_ROUTE_FLOW.md` on draft PR #55; no implementation claim yet.
+
 ## Active board
 
 Code status and hosted-database status are tracked as **separate rows**: "migration merged" never means "migration applied".
 
 | Priority | ID | Status | Owner | Reviewer | Depends on | Branch / PR | Next action | Last update |
 |---|---|---|---|---|---|---|---|---|
+| P0 | PLACE-CREATE-014 | REVIEW | ChatGPT (spec) | Jakub (product); Claude (architecture) | PWA-RECOVERY-009 production smoke, NAV-HOTFIX-008, UX-CLEANUP-007 acceptance; PR #52 catalogue coordination | `product/intent-led-experience-010` / draft PR #55 | Review `P0_PLACE_ROUTE_FLOW.md`; implementation must be separately claimed and scoped. Core: name or link or coordinates, autocomplete, photo licensing, private instant add, shared moderated place contributions. NO runtime code in PR #55. | 2026-11-03 |
+| P0 | ROUTE-EASE-015 | BLOCKED | — | Claude (review) | PLACE-CREATE-014 spec approved; live startup smoke | no branch | Focused 3-stop creation and add-place-to-route flow; reuse existing `route-builder-model.js`; no full builder rewrite. | 2026-11-03 |
 | P1 | INTENT-SPEC-010 | REVIEW | ChatGPT | Jakub (product) | Current UX and persona discussion | `product/intent-led-experience-010` / draft PR #55 | Review `INTENT_DISCOVERY.md` to confirm four intent paths, local creator trust, event distinction, and pricing as hypotheses only; no runtime writes. | 2026-11-03 |
 | P2 | INTENT-UX-011 | BLOCKED | — | Claude | INTENT-SPEC-010 DONE; PWA-RECOVERY-009 and NAV-HOTFIX-008 production smoke; UX-CLEANUP-007 acceptance; #52 scope reconciliation | no runtime branch yet | Claim a clean dedicated UI package only after dependencies, then build nonblocking onboarding and reusable result shell; preserve five-tab nav. | 2026-11-03 |
 | P0 | PWA-RECOVERY-009 | MERGE_READY | ChatGPT | Jakub (production smoke) | NAV-HOTFIX-008 PR #53 merged | `chatgpt/pwa-recovery-009` / PR #54 | Bump SW cache to v33 and nav URL to v3; independent SW bootstrap and network-first HTML; GitHub CI #160 test/build green. Founder merge, Cloudflare Ready and fresh/InPrivate production smoke still needed. | 2026-11-03 |

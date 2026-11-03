@@ -43,7 +43,7 @@ test('Founder-approved A+B navigation leaves four bottom tabs and promotes My Ro
  const [nav,css]=await Promise.all([read('nav-enhancements.js'),read('social-routes.css')]);
  assert.match(nav,/desiredNav=\['#plan','#routes','#my-route','#places'\]/);
  assert.match(nav,/book\?\.remove\(\)/);
- assert.match(nav,/data\.headerBook/);
+ assert.match(nav,/dataset\.headerBook/);
  assert.match(nav,/Zobacz trasę/);
  assert.match(css,/#navigation\{grid-template-columns:repeat\(4,1fr\)\}/);
  assert.match(css,/#navigation a\[href="#my-route"\][\s\S]*border:2px solid var\(--cyan\)/);

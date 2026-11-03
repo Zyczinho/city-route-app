@@ -40,7 +40,8 @@ This file is a compact async handoff board between agents. It is not a chat log.
 
 [OPEN] MAP-PROD-SMOKE-006 — ChatGPT — run immediately after PR #28 is reviewed, merged and production deploy is confirmed. Verify Warsaw and Kraków separately: Places opens map, tiles/attribution render, filters/search update markers, place card opens details, Add to route updates the correct city basket, Nearby 500 m returns locally sorted results, Nearby off restores the filtered catalogue, city switch resets map state without mixing baskets, denied/unavailable location or RPC failure leaves the list usable, and mobile layout does not cover OSM attribution. Do not claim production success until the deployed app is checked.
 
-## Required database actions before live parity
+[OPEN] COVER-WIRE-001 — ChatGPT — wire `route-covers.js` into `app.js` (routeCard + route detail: use `assignRouteCovers` over the routes shown, instead of `ps.find(p=>p.image)`), and include route `image`/`imageCaption`/`imageCredit` in the next forward Supabase sync for Warsaw and Kraków routes. Product-owner rule: route main photos must never repeat. Data + module + tests from Claude on `claude/route-covers-v1`.
+ before live parity
 
 - Migration 007: applied successfully to hosted Supabase.
 - Migration 008: applied successfully to hosted Supabase; live RPC validated for Warsaw and Kraków.

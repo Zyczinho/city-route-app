@@ -11,7 +11,17 @@
   ],
   "cats": [
    "klasyka"
-  ]
+  ],
+  "image": "route-old-warsaw.jpg",
+  "imageCaption": "Plac Zamkowy i Stare Miasto z góry",
+  "imageCredit": {
+   "author": "Rhododendrites",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Castle_Square_(22346p).jpg",
+   "via": "Wikimedia Commons",
+   "quality": "Featured picture"
+  }
  },
  {
   "id": "river-time",
@@ -25,7 +35,17 @@
   ],
   "cats": [
    "wisla"
-  ]
+  ],
+  "image": "route-river-time.jpg",
+  "imageCaption": "Bulwary Wiślane i Stadion Narodowy",
+  "imageCredit": {
+   "author": "Igor123121",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:General_George_S._Patton_Vistula_Boulevards,_2026,_Warsaw,_Poland.jpg",
+   "via": "Wikimedia Commons",
+   "quality": "Quality image"
+  }
  },
  {
   "id": "royal-green",
@@ -40,7 +60,17 @@
   "cats": [
    "zielen",
    "klasyka"
-  ]
+  ],
+  "image": "route-royal-green.jpg",
+  "imageCaption": "Pałac na Wyspie w Łazienkach Królewskich",
+  "imageCredit": {
+   "author": "Adrian Grycuk",
+   "license": "CC BY 3.0 pl",
+   "licenseUrl": "https://creativecommons.org/licenses/by/3.0/pl/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Pałac_Na_Wyspie_w_Warszawie_2023.jpg",
+   "via": "Wikimedia Commons",
+   "quality": "Quality image"
+  }
  },
  {
   "id": "praga",
@@ -53,7 +83,17 @@
   ],
   "cats": [
    "lokalnie"
-  ]
+  ],
+  "image": "route-praga.jpg",
+  "imageCaption": "Centrum Praskie Koneser nocą",
+  "imageCredit": {
+   "author": "Stanisław Skowron",
+   "license": "Public domain",
+   "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:PL_Warsaw_Koneser_night.jpg",
+   "via": "Wikimedia Commons",
+   "quality": "Commons"
+  }
  },
  {
   "id": "city-icons",
@@ -66,7 +106,17 @@
   ],
   "cats": [
    "klasyka"
-  ]
+  ],
+  "image": "route-city-icons.jpg",
+  "imageCaption": "Pałac Kultury i Nauki",
+  "imageCredit": {
+   "author": "Igor123121",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Palace_of_Culture_and_Science,_2026,_Warsaw,_Poland.jpg",
+   "via": "Wikimedia Commons",
+   "quality": "Quality image"
+  }
  },
  {
   "id": "quiet-centre",
@@ -80,7 +130,17 @@
   "cats": [
    "lokalnie",
    "zielen"
-  ]
+  ],
+  "image": "route-quiet-centre.jpg",
+  "imageCaption": "Fontanna w Ogrodzie Saskim",
+  "imageCredit": {
+   "author": "Scotch Mist",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Warsaw_2023_244_Saxon_Garden_Fountain.jpg",
+   "via": "Wikimedia Commons",
+   "quality": "Quality image"
+  }
  },
  {
   "id": "food-design",
@@ -93,7 +153,17 @@
   "cats": [
    "jedzenie",
    "wisla"
-  ]
+  ],
+  "image": "route-food-design.jpg",
+  "imageCaption": "Ogród na dachu Biblioteki Uniwersyteckiej",
+  "imageCredit": {
+   "author": "Rhododendrites",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Warsaw_University_rooftop_garden_(22537p).jpg",
+   "via": "Wikimedia Commons",
+   "quality": "Quality image"
+  }
  },
  {
   "id": "saska-afternoon",
@@ -106,7 +176,17 @@
   "cats": [
    "lokalnie",
    "zielen"
-  ]
+  ],
+  "image": "route-saska-afternoon.jpg",
+  "imageCaption": "Jeziorko Kamionkowskie w Parku Skaryszewskim",
+  "imageCredit": {
+   "author": "Adrian Grycuk",
+   "license": "CC BY-SA 3.0 pl",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Jeziorko_Kamionkowskie_2014_05.JPG",
+   "via": "Wikimedia Commons",
+   "quality": "Commons"
+  }
  },
  {
   "id": "old-river",
@@ -121,7 +201,17 @@
   "cats": [
    "klasyka",
    "wisla"
-  ]
+  ],
+  "image": "route-old-river.jpg",
+  "imageCaption": "Rynek Starego Miasta wieczorem",
+  "imageCredit": {
+   "author": "Rhododendrites",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Market_Square_Warsaw_(22594p).jpg",
+   "via": "Wikimedia Commons",
+   "quality": "Quality image"
+  }
  },
  {
   "id": "chopin-walk",
@@ -134,7 +224,17 @@
   ],
   "cats": [
    "klasyka"
-  ]
+  ],
+  "image": "route-chopin-walk.jpg",
+  "imageCaption": "Muzeum Fryderyka Chopina w Pałacu Ostrogskich",
+  "imageCredit": {
+   "author": "Scotch Mist",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Warsaw_2023_306_Chopin_Museum_Façade.jpg",
+   "via": "Wikimedia Commons",
+   "quality": "Quality image"
+  }
  },
  {
   "id": "park-pocket",
@@ -148,7 +248,17 @@
   "cats": [
    "zielen",
    "lokalnie"
-  ]
+  ],
+  "image": "route-park-pocket.jpg",
+  "imageCaption": "Zamek Ujazdowski",
+  "imageCredit": {
+   "author": "Chris Olszewski",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Front_facade_of_the_Ujazdów_Castle,_Warsaw,_2019.jpg",
+   "via": "Wikimedia Commons",
+   "quality": "Commons"
+  }
  },
  {
   "id": "sunset",
@@ -161,6 +271,16 @@
   ],
   "cats": [
    "wisla"
-  ]
+  ],
+  "image": "route-sunset.jpg",
+  "imageCaption": "Zachód słońca nad Wisłą",
+  "imageCredit": {
+   "author": "Oleslawlama",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Sunset_over_Warsaw_from_Śląsko-Dąbrowski_Bridge,_May_26,_2025.jpg",
+   "via": "Wikimedia Commons",
+   "quality": "Commons"
+  }
  }
 ]

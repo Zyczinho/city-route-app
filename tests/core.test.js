@@ -1,9 +1,37 @@
 import test from 'node:test';import assert from 'node:assert/strict';import{readFileSync,existsSync}from'node:fs';
-import{distance,optimize,summary,generate,advance,mapsUrl,blendedRating,combinedRating,matches,routeMapsUrl,parseLocation,smoothedRating}from'../core.js';
+import{distance,optimize,summary,generate,generateAlternatives,advance,mapsUrl,blendedRating,combinedRating,matches,routeMapsUrl,parseLocation,smoothedRating}from'../core.js';
 const read=n=>JSON.parse(readFileSync(new URL('../data/'+n+'.json',import.meta.url)));
 const places=read('places'),routes=read('routes'),quests=read('sidequests');
 test('seed references, identifiers and coordinates are valid',()=>{const ids=new Set([...places,...quests].map(p=>p.id));assert.equal(ids.size,80);assert.equal(routes.length,12);for(const r of routes){assert.ok(r.stops.length>1);r.stops.forEach(id=>assert.ok(ids.has(id)));}for(const p of [...places,...quests]){assert.ok(p.lat>52&&p.lat<53&&p.lng>20&&p.lng<22);assert.ok(p.minutes>0);}});
 test('generator respects time and budget across every transport and duration',()=>{for(const time of [60,120,240,360,480])for(const transport of ['walking','bike','transit','mix']){const ps=generate(places,{time,transport,budget:'low',food:'none',tourist:'local',offers:'no',interests:['nature']});assert.ok(ps.length);assert.ok(summary(ps,transport).minutes<=time);assert.ok(summary(ps).cost<=25);assert.ok(ps.every(p=>p.foodStyle==='none'));assert.equal(new Set(ps.map(p=>p.id)).size,ps.length);}});
+test('three generated route choices are genuinely different and respect existing constraints',()=>{
+ const start={lat:52.2297,lng:21.0122};
+ const prefs={time:240,transport:'walking',budget:'premium',food:'sit',tourist:'balanced',offers:'no',interests:['mix'],start};
+ const baseline=generate(places,prefs);
+ const initial=generateAlternatives(places,prefs);
+ assert.equal(initial.length,3,'full Warsaw catalogue should yield three distinct choices');
+ assert.deepEqual(initial[0].map(p=>p.id),baseline.map(p=>p.id),'default result is unchanged');
+ const signatures=ps=>ps.map(p=>p.id).sort().join('|');
+ assert.equal(new Set(initial.map(signatures)).size,initial.length);
+ for(const ps of initial){
+  assert.ok(ps.length>0);
+  assert.equal(new Set(ps.map(p=>p.id)).size,ps.length);
+  assert.ok(ps.every(p=>p.kind!=='hotel'&&!p.partner));
+  assert.ok(summary([{...start,minutes:0,cost:0},...ps],'walking').minutes<=240);
+  assert.ok(summary(ps).cost<=100||prefs.budget==='premium');
+  assert.equal(ps.filter(p=>p.foodStyle!=='none').length,1);
+ }
+ const next=generateAlternatives(places,prefs,{count:3,history:initial});
+ assert.ok(next.length,'regenerate should find unseen choices with the full catalogue');
+ assert.ok(next.every(ps=>!initial.some(old=>signatures(ps)===signatures(old))));
+ assert.deepEqual(generateAlternatives(places,prefs),initial,'same choices remain deterministic without new history');
+});
+test('very small catalogues offer only distinct valid alternatives rather than clones',()=>{
+ const prefs={time:240,transport:'walking',budget:'premium',food:'none',tourist:'balanced',offers:'no',interests:['mix']};
+ const single=generateAlternatives([places[0]],prefs);
+ assert.equal(single.length,1);
+ assert.equal(generateAlternatives([places[0]],prefs,{history:single}).length,0);
+});
 test('optimizing preserves first stop and exact membership without mutating input',()=>{const original=[places[0],places[15],places[2],places[1]],copy=original.slice(),out=optimize(original);assert.equal(out[0],original[0]);assert.deepEqual(original,copy);assert.deepEqual(out.map(x=>x.id).sort(),copy.map(x=>x.id).sort());assert.deepEqual(optimize([]),[]);});
 test('completion records done and skipped once and stops at finish',()=>{let s={stops:['a','b'],index:0,results:[],finished:false};s=advance(s,'done');assert.equal(s.index,1);assert.equal(s.finished,false);s=advance(s,'skip');assert.equal(s.finished,true);assert.equal(s.results.length,2);assert.equal(advance(s,'done'),s);});
 test('maps hands off exact destination with supported mode',()=>{assert.ok(mapsUrl(places[0],'bike').includes('travelmode=bicycling'));assert.ok(mapsUrl(places[0]).includes(`destination=${places[0].lat},${places[0].lng}`));assert.equal(distance(places[0],places[0]),0);});

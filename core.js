@@ -22,7 +22,8 @@ export function generate(places,prefs){
  const limit=Number(prefs.time), interests=prefs.interests||['mix'], origin=prefs.start?{lat:prefs.start.lat,lng:prefs.start.lng,minutes:0,cost:0}:null;
  const isFood=p=>p.foodStyle!=='none';
  const candidates=places.filter(p=>p.kind!=='hotel'&&(prefs.food!=='none'||!isFood(p))&&(prefs.food!=='quick'||p.foodStyle!=='sit')&&(prefs.food!=='sit'||p.foodStyle!=='quick')&&(prefs.offers==='yes'||!p.partner)&&(prefs.budget!=='low'||p.cost<=25));
- const score=p=>(interests.includes('mix')?1:p.tags.filter(t=>interests.includes(t)).length*4)+(prefs.tourist==='balanced'?0:prefs.tourist==='must'?(p.tourist==='must'?3:0):(p.tourist==='local'?3:0))+(smoothedRating(p.ratings)-4.3)*4+(p.top&&prefs.tourist!=='local'?1:0);
+ const variantBias=p=>{if(!Number.isInteger(prefs.variantIndex)||prefs.variantIndex<1)return 0;let hash=2166136261;for(const ch of String(p.id))hash=Math.imul(hash^ch.charCodeAt(0),16777619);hash=Math.imul(hash^(prefs.variantIndex*2654435761),2246822519)>>>0;return (hash%1000/1000-.5)*3;};
+ const score=p=>(interests.includes('mix')?1:p.tags.filter(t=>interests.includes(t)).length*4)+(prefs.tourist==='balanced'?0:prefs.tourist==='must'?(p.tourist==='must'?3:0):(p.tourist==='local'?3:0))+(smoothedRating(p.ratings)-4.3)*4+(p.top&&prefs.tourist!=='local'?1:0)-Math.max(0,Number(prefs.diversityCounts?.[p.id])||0)*(Number(prefs.diversityWeight)||0)+variantBias(p);
  const legs=ps=>summary(origin?[origin,...ps]:ps,prefs.transport).minutes;
  const pool=candidates.filter(p=>!isFood(p)),food=candidates.filter(isFood);
  const result=[];let cost=0;const cap=prefs.budget==='low'?25:prefs.budget==='medium'?100:Infinity;
@@ -40,6 +41,31 @@ export function generate(places,prefs){
   for(const f of food.slice(0,5)){const base=[...result];while(true){let best=null;const lo=Math.floor(base.length/3),hi=Math.ceil(base.length*2/3);
    for(let k=lo;k<=hi;k++){const t=[...base];t.splice(k,0,f);if(fits(t)&&(!best||legs(t)<legs(best)))best=t;}
    if(best)return best;if(!base.length)break;base.pop();}}
+ }
+ return result;
+}
+// Try several distinct, constraint-respecting plans without paid AI. Defaults reproduce
+// the original generator on the first option; subsequent runs penalize already suggested places.
+// An exhausted/very small catalogue may legitimately return fewer than requested options.
+export function generateAlternatives(places,prefs,{count=3,history=[]}={}){
+ const result=[],used=new Map(),signatures=new Set();
+ const signature=ps=>ps.map(p=>typeof p==='string'?p:p.id).slice().sort().join('|');
+ for(const prior of history){
+  if(!Array.isArray(prior)||!prior.length)continue;
+  signatures.add(signature(prior));
+  for(const item of prior){const id=typeof item==='string'?item:item?.id;if(id)used.set(id,(used.get(id)||0)+1);}
+ }
+ const limit=Math.max(1,Math.min(5,Math.trunc(Number(count)||3)));
+ for(let attempt=0;attempt<48&&result.length<limit;attempt++){
+  const freshFirst=!history.length&&!result.length&&attempt===0;
+  const variantPrefs=freshFirst?prefs:{...prefs,variantIndex:attempt+1,diversityCounts:Object.fromEntries(used),diversityWeight:3.5+(attempt%5)*.8};
+  const candidate=generate(places,variantPrefs);
+  if(!candidate.length)continue;
+  const key=signature(candidate);
+  if(signatures.has(key))continue;
+  // The same points in a slightly different order are not a new suggestion.
+  signatures.add(key);result.push(candidate);
+  for(const p of candidate)used.set(p.id,(used.get(p.id)||0)+1);
  }
  return result;
 }

@@ -85,6 +85,29 @@ try{
  assert.ok(guideWidth.scroll<=guideWidth.inner+1,'start guide has no mobile horizontal overflow: '+JSON.stringify(guideWidth));
  await page.locator('#main .start-guide-menu a[href="#my-route"]').click();
  assert.equal(new URL(page.url()).hash,'#my-route','guide links directly to existing functionality');
+ // ROUTE-CHOICES-022: 3 selectable, genuinely different options and a new batch.
+ await page.locator('#navigation a[href="#plan"]').click();
+ await page.locator('#build-form input[name="start"][value="any"]').evaluate(input=>{input.checked=true;input.dispatchEvent(new Event('change',{bubbles:true}));});
+ await page.locator('#build-form button.primary.big').click();
+ await page.locator('.generated-options').waitFor({timeout:15000});
+ assert.equal(new URL(page.url()).hash,'#route/generated');
+ assert.equal(await page.locator('.generated-option').count(),3,'generator presents three alternatives');
+ const original=await page.locator('.stops .stop-main').evaluateAll(nodes=>nodes.map(n=>n.dataset.id).sort().join('|'));
+ await page.locator('.generated-option[data-value="1"]').click();
+ assert.equal(await page.locator('.generated-option[data-value="1"]').getAttribute('aria-pressed'),'true');
+ const selected=await page.locator('.stops .stop-main').evaluateAll(nodes=>nodes.map(n=>n.dataset.id).sort().join('|'));
+ assert.notEqual(selected,original,'selecting an option changes the route');
+ await page.locator('[data-action="refresh-generated"]').click();
+ await page.locator('.generated-option.selected').waitFor({timeout:10000});
+ const refreshed=await page.locator('.stops .stop-main').evaluateAll(nodes=>nodes.map(n=>n.dataset.id).sort().join('|'));
+ assert.notEqual(refreshed,original,'refresh does not silently return the original set of stops');
+ assert.notEqual(refreshed,selected,'refresh does not silently return the previously selected set of stops');
+ const routeLayout=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,inner:innerWidth}));
+ assert.ok(routeLayout.scroll<=routeLayout.inner+1,'variants fit a 375px viewport: '+JSON.stringify(routeLayout));
+ await page.screenshot({path:'p0-smoke-artifacts/generated-route-options.png',fullPage:true});
+ await page.locator('#navigation a[href="#my-route"]').click();
+ await page.locator('.stops li[data-stop]').first().waitFor({timeout:10000});
+ assert.equal(await page.locator('.stops li[data-stop]').count(),11,'generating options never overwrites the manual route basket');
  assert.deepEqual(errors,[],'unexpected page exception in mobile route test');
  await ctx.close();
  
@@ -143,8 +166,8 @@ try{
  // Simulate an old-installed PWA (v33) upgrading to the new release (v35) on the same origin.
  // No production server mutation: only the temporary dist/ built by this GitHub job is changed.
  const swPath='dist/service-worker.js',latestSW=await readFile(swPath,'utf8');
- assert.match(latestSW,/city-route-v36/);
- await writeFile(swPath,latestSW.replace("city-route-v36","city-route-v33"));
+ assert.match(latestSW,/city-route-v37/);
+ await writeFile(swPath,latestSW.replace("city-route-v37","city-route-v33"));
  try{
   const upgradeCtx=await browser.newContext({viewport:{width:375,height:812},isMobile:true,hasTouch:true});
   await upgradeCtx.route(/supabase\.co/,route=>route.abort());
@@ -155,7 +178,7 @@ try{
   await upgradePage.waitForFunction(()=>!!navigator.serviceWorker?.controller,undefined,{timeout:15000});
   await writeFile(swPath,latestSW);
   await upgradePage.evaluate(()=>navigator.serviceWorker.getRegistration().then(reg=>reg.update())).catch(()=>{});
-  await upgradePage.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('city-route-v36')&&!keys.includes('city-route-v33');},undefined,{timeout:30000});
+  await upgradePage.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('city-route-v37')&&!keys.includes('city-route-v33');},undefined,{timeout:30000});
   await upgradePage.goto(BASE+'/#add-place',{waitUntil:'domcontentloaded'});
   await upgradePage.locator('#pc-q').waitFor({timeout:15000});
   await upgradePage.screenshot({path:'p0-smoke-artifacts/pwa-upgraded-v33-to-v35.png',fullPage:true});

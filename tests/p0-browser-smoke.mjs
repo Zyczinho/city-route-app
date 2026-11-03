@@ -1,7 +1,7 @@
 // P0 mobile browser release gate. Runs only in the dedicated GitHub Action.
 // Browser dependencies are installed in CI, not bundled with the City Route PWA.
 import assert from 'node:assert/strict';
-import {readFile,mkdir} from 'node:fs/promises';
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {spawn} from 'node:child_process';
 import {chromium} from 'playwright';
 
@@ -127,6 +127,28 @@ try{
   await live.screenshot({path:'p0-smoke-artifacts/current-production-diagnostic.png',fullPage:true}).catch(()=>{});
  }finally{await prod.close();}
  console.log('PRODUCTION_FRESH_SMOKE='+liveStatus);
+ // Simulate an old-installed PWA (v33) upgrading to the new release (v35) on the same origin.
+ // No production server mutation: only the temporary dist/ built by this GitHub job is changed.
+ const swPath='dist/service-worker.js',latestSW=await readFile(swPath,'utf8');
+ assert.match(latestSW,/city-route-v35/);
+ await writeFile(swPath,latestSW.replace("city-route-v35","city-route-v33"));
+ try{
+  const upgradeCtx=await browser.newContext({viewport:{width:375,height:812},isMobile:true,hasTouch:true});
+  await upgradeCtx.route(/supabase\\.co/,route=>route.abort());
+  const upgradePage=await upgradeCtx.newPage();
+  await upgradePage.goto(BASE+'/#plan',{waitUntil:'domcontentloaded'});
+  await upgradePage.waitForFunction(async()=>{const names=await caches.keys();return names.includes('city-route-v33');},undefined,{timeout:25000});
+  await upgradePage.reload({waitUntil:'domcontentloaded'});
+  await upgradePage.waitForFunction(()=>!!navigator.serviceWorker?.controller,undefined,{timeout:15000});
+  await writeFile(swPath,latestSW);
+  await upgradePage.evaluate(()=>navigator.serviceWorker.getRegistration().then(reg=>reg.update())).catch(()=>{});
+  await upgradePage.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('city-route-v35')&&!keys.includes('city-route-v33');},undefined,{timeout:30000});
+  await upgradePage.goto(BASE+'/#add-place',{waitUntil:'domcontentloaded'});
+  await upgradePage.locator('#pc-q').waitFor({timeout:15000});
+  await upgradePage.screenshot({path:'p0-smoke-artifacts/pwa-upgraded-v33-to-v35.png',fullPage:true});
+  console.log('PASS: installed PWA cache upgrade v33 → v35, app and composer boot after upgrade.');
+  await upgradeCtx.close();
+ }finally{await writeFile(swPath,latestSW);}
  console.log('PASS: mobile 375px, 5 tabs, 10-stop optimization, B→B1 insertion, local custom place, optional rating, repeat add, PWA offline reload.');
 }finally{
  if(browser)await browser.close();

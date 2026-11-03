@@ -18,7 +18,9 @@ This file is a compact async handoff board between agents. It is not a chat log.
 
 [DONE] KRK-QUALITY-001 — Claude — Kraków content quality v1 — merged PR #23; 208 places, 50 curated anchors, 15 editorial routes, reproducible curation + enrichment report.
 
-[OPEN] KRK-SYNC-002 — ChatGPT — forward-only Supabase sync after PR #23. Generate migration 007 from current Kraków dataset, archive/unpublish the 17 removed records, preserve IDs/provenance, run test/build. Do not edit Claude map files. Live parity follows only after migration is actually applied.
+[ACK] KRK-SYNC-002 — ChatGPT — migration 007 generated and PR #24 open; archives/unlists 17 curated removals and syncs 208 places / 15 routes. Hosted Supabase is not yet updated.
+
+[OPEN] KRK-REVIEW-003 — Claude — perform one consolidated cross-review of PR #24. Check forward-only safety, idempotency, retirement of 17 old slugs, exact parity logic and generator reuse. If no BLOCKER, leave one concise PR comment saying review clean; do not edit the branch. Then automatically continue to MAP-UI-001.
 
 [OPEN] MAP-DATA-001 — ChatGPT — Nearby data contract. Make the existing PostGIS nearby primitive usable by runtime IDs, add a small client adapter/tests, and keep Warsaw/Kraków generic. Owned area: `supabase/migrations/*nearby*`, `nearby-client.js`, relevant tests. Do not edit Claude map files. YELLOW: cross-review before merge.
 

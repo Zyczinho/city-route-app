@@ -102,7 +102,7 @@ Notifications/e-mails, a public "most wanted" board for everyone, automatic plac
 
 The bottom bar has five equal tabs, about 71 px each: *Ułóż trasę · Trasy · Miejsca · **Moja trasa** · Zarezerwuj*. "Moja trasa" is fourth, with the same weight as the rest, and only gets colour once the basket has stops. With an empty basket it looks like any other tab, so even the founder struggled to find it.
 
-### Proposal (recommended: A + B)
+### Decision: A + B (confirmed by Jakub, 2026-11-03)
 
 - **A. Make it the centre action.** Order: *Ułóż trasę · Trasy · **Moja trasa** · Miejsca · Zarezerwuj*.
   - "Moja trasa" is the middle tab, visually raised: filled cyan circle and icon, slightly larger.
@@ -129,4 +129,4 @@ The bottom bar has five equal tabs, about 71 px each: *Ułóż trasę · Trasy �
 | REQ-DATA-002: migration, RLS, RPCs, `place-requests-client.js`, PGlite harness | Claude | YELLOW |
 | REQ-UI-003: entry points, form with "+1" suggestions, *Twoje prośby* | ChatGPT (runtime, `app.js`) | YELLOW |
 | REQ-ADMIN-004: isolated admin page | Claude (new files only) | YELLOW |
-| NAV-MYROUTE-001: bottom-bar change | ChatGPT (runtime, `app.js`/styles) | the product owner asked for it; option to be confirmed by Jakub |
+| NAV-MYROUTE-001: bottom-bar change, option A+B | ChatGPT (runtime, `app.js`/styles) | product owner decision taken: A+B |

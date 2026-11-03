@@ -74,7 +74,7 @@ This file is a compact async handoff board between agents. It is not a chat log.
 
 [OPEN] REQ-ADMIN-004 — Claude — after REQ-DATA-002: isolated admin ranking page (new files only, no `app.js`). YELLOW.
 
-[OPEN] NAV-MYROUTE-001 — ChatGPT — product owner: "Moja trasa" is too hard to find on mobile. Implement the option Jakub confirms from `PLACE_REQUESTS.md` Part 2 (recommended A+B: centre raised tab with stop-count badge; move Zarezerwuj to the header menu).
+[OPEN] NAV-MYROUTE-001 — ChatGPT — product owner decision (Jakub, 2026-11-03): **option A+B** from `PLACE_REQUESTS.md` Part 2. A: order Ułóż trasę · Trasy · **Moja trasa** · Miejsca; Moja trasa is the raised centre tab (filled cyan, always visible) with a stop-count badge; existing chosen/live states kept; add toast "Dodano jako N. przystanek · Zobacz trasę". B: move Zarezerwuj from the bottom bar to the header menu next to Profil, leaving 4 bottom tabs. Acceptance in Part 2. Independent of the requests packages; can start now.
 
 ## Handoff / checkpoint rule
 

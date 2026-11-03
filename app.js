@@ -50,7 +50,7 @@ const isPublic=p=>p.visibility==='public';
 // Until accounts and a shared database exist, "public" is a stated intent: nothing leaves the device yet.
 const VIS_NOTE={private:'Miejsce widzisz tylko Ty.',public:'Propozycja trafia do wspólnego katalogu dopiero po zalogowaniu, wysłaniu i zatwierdzeniu przez moderatora.'};
 const SUBMISSION_NOTE={needs_login:'Zapisano lokalnie. Zaloguj się w Profilu, a potem wyślij propozycję.',submitting:'Wysyłam zgłoszenie…',pending:'Czeka na zatwierdzenie. Inni nie widzą jeszcze tego miejsca.',approved:'Zatwierdzone. Miejsce jest dostępne w katalogu.',merged:'Połączone z istniejącym miejscem w katalogu.',rejected:'Moderator nie zatwierdził tej propozycji.',error:'Nie udało się wysłać. Miejsce nadal jest zapisane na urządzeniu.'};
-const catalog=()=>[...places,...forCity(state.userPlaces,city().id)].filter(p=>p.kind!=='hotel');
+const catalog=()=>[...places,...forCity(state.userPlaces,city().id).filter(p=>!p.resolvedPlaceId||!places.some(x=>x.id===p.resolvedPlaceId))].filter(p=>p.kind!=='hotel');
 const ROUTE_CATS=[['all','Wszystkie'],['klasyka','Na pierwszy raz'],['zielen','Zieleń'],['wisla','Nad wodą'],['jedzenie','Z jedzeniem'],['lokalnie','Lokalnie']];
 const catName=(id,list=PLACE_CATS)=>list.find(c=>c[0]===id)?.[1]||'';
 const TAB_OF={routes:'routes',route:'routes',places:'places',events:'places','add-place':'places',plan:'plan','my-route':'my-route',book:'book',profile:'profile',sources:'profile',about:'profile','community-route':'routes','social-profile':'routes','social-saved':'routes'};
@@ -69,7 +69,7 @@ function credit(p){const c=p?.imageCredit;if(!c)return '';const lic=c.licenseUrl
 const rating=(p,s)=>p.ratings?.find(r=>r.source===s);
 function scoreLine(p,compact=false){
  if(p.kind==='sidequest')return `<p class="idea">${ic('sparkles')}Pomysł City Route · przy: ${esc(all[p.placeId]?.name)}</p>`;
- if(p.kind==='user')return `<p class="idea">${ic('user-round')}Dodane przez Ciebie · ${isPublic(p)?'publiczne':'prywatne'}</p>`;
+ if(p.kind==='user')return `<p class="idea">${ic('user-round')}Dodane przez Ciebie · ${isPublic(p)?'propozycja społeczności':'prywatne'}</p>`;
  const c=combinedRating(p.ratings),chip=s=>{const r=rating(p,s),ok=Number.isFinite(r?.value);return `<span class="src src-${s}${ok?'':' none'}" title="${esc(SOURCES[s])}">${brand(s)}${ok?`${dec(r.value)} · ${fmt(r.reviewCount)}`:'brak'}</span>`;};
  return `<div class="score">${c.value===null?'<span class="muted">Brak ocen</span>':`<strong><span class="star" aria-hidden="true">★</span> ${dec(c.value,2)}</strong><span>${opinii(c.total)}</span>`}</div>${compact?'':`<div class="srcs" aria-label="Oceny według platform">${chip('google')}${chip('tripadvisor')}</div>`}`;}
 function breakdown(p){const c=combinedRating(p.ratings);
@@ -324,7 +324,7 @@ document.addEventListener('click',e=>{
  if(action==='delete-route'&&confirm('Usunąć tę trasę?')){state.myRoutes=state.myRoutes.filter(r=>r.id!==id);persist();location.hash='routes';toast('Trasa usunięta.');}
  if(action==='delete-place'&&confirm('Usunąć to miejsce?')){applyBuilder(removeStop(builderDraft,id,{now:now()}),{eventType:'builder_remove',eventData:{place_id:id,reason:'place_deleted'}});state.userPlaces=state.userPlaces.filter(p=>p.id!==id);delete all[id];state.myRoutes=state.myRoutes.filter(r=>!r.stops.includes(id));persist();d.close();render();toast('Miejsce usunięte.');}
  if(action==='locate'){keepDraft();if(!navigator.geolocation)return toast('Ta przeglądarka nie udostępnia lokalizacji.');navigator.geolocation.getCurrentPosition(pos=>{draft={...draft,lat:pos.coords.latitude,lng:pos.coords.longitude};render();},()=>toast('Nie udało się pobrać lokalizacji. Wklej link z Google Maps.'),{enableHighAccuracy:true,timeout:10000});}
- if(action==='toggle-visibility'){const p=all[id];if(p?.kind==='user'){p.visibility=isPublic(p)?'private':'public';persist();log('place_visibility',{place_id:id,visibility:p.visibility});openPlace(id);render();toast(isPublic(p)?'Oznaczone jako publiczne.':'Teraz prywatne.');}}
+ if(action==='toggle-visibility'){const p=all[id];if(p?.kind==='user'){if(['pending','submitting','approved','merged'].includes(p.submissionStatus))return toast('Zgłoszenie zostało wysłane. Zmianę publikacji musi obsłużyć moderacja.');p.visibility=isPublic(p)?'private':'public';p.submissionStatus=isPublic(p)?'not_submitted':null;persist();log('place_visibility',{place_id:id,visibility:p.visibility});openPlace(id);render();toast(isPublic(p)?'Zaznaczono propozycję. Kliknij „Wyślij do społeczności”.':'To miejsce pozostało prywatne.');}}
  if(action==='ticket')log('buy_ticket_click',{place_id:id,source:b.dataset.source||'getyourguide'});
  if(action==='table')log('table_click',{place_id:id,source:b.dataset.source});
  if(action==='book-tab'){bookTab=value;render();}

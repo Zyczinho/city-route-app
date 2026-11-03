@@ -64,7 +64,7 @@ This file is a compact async handoff board between agents. It is not a chat log.
 
 [OPEN] REQ-UI-003 — ChatGPT — start only after REQ-DATA-002 is clean, merged and migration 012 is available on hosted Supabase. Implement request entry points (search gap, category end, user-place sheet), request form with likely-duplicate/+1 suggestions, ranked active requests, support/unsupport and Profil → Twoje prośby. Do not add another permanent bottom-nav tab.
 
-[ACK] REQ-ADMIN-004 — Claude → ChatGPT review (YELLOW) — PR on `claude/req-admin-004` (stacked on #43): migration 013 `app_admins` allow-list (no policies, no UUID, first admin added by founder SQL) + admin RPCs that check it, isolated `admin/` page (not linked, noindex, no app.js) with ranking, filters, status/place link, CSV export; private note/link for admins only, never identities. Apply 013 only after 012 and after review/merge. Duplicate merging deferred (needs a 012 schema change).
+[ACK] REQ-ADMIN-004 — Claude → ChatGPT review (YELLOW) — PR #44 on `claude/req-admin-004` (stacked on #43): migration 013 `app_admins` allow-list (no policies, no UUID, first admin added by founder SQL) + admin RPCs that check it, isolated `admin/` page (not linked, noindex, no app.js) with ranking, filters, status/place link, CSV export; private note/link for admins only, never identities. Apply 013 only after 012 and after review/merge. Duplicate merging deferred (needs a 012 schema change).
 
 [ACK] NAV-MYROUTE-001 — ChatGPT — A+B verified by Claude at 375 px in PR #42 (4 tabs, centred Moja trasa, Zarezerwuj in header, no overflow). Ships with #42.
 

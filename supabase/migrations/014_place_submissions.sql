@@ -105,7 +105,7 @@ create policy city_route_place_photo_insert_own on storage.objects for insert to
  and exists(
    select 1 from public.place_submissions s
     where s.submitted_by=(select auth.uid()) and s.status='pending'
-      and name=(s.submitted_by::text||'/'||s.id::text||'.jpg')
+      and storage.objects.name=(s.submitted_by::text||'/'||s.id::text||'.jpg')
  )
 );
 

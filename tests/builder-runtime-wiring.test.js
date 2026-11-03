@@ -17,9 +17,9 @@ test('Route Builder model is wired into runtime persistence and mutations',async
  assert.match(app,/builderDraft=createDraft\(city\(\)\.id/);
 });
 
-test('Route Builder model ships in build and PWA cache v30',async()=>{
+test('Route Builder model ships in build and PWA cache v31',async()=>{
  const build=await readFile('scripts/build.mjs','utf8'),sw=await readFile('service-worker.js','utf8');
  assert.match(build,/route-builder-model\.js/);
- assert.match(sw,/city-route-v30/);
+ assert.match(sw,/city-route-v31/);
  assert.match(sw,/route-builder-model\.js/);
 });

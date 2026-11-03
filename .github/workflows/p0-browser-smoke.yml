@@ -16,7 +16,6 @@ permissions:
 
 jobs:
   mobile-smoke:
-    if: github.head_ref == 'integration/p0-place-route-018'
     runs-on: ubuntu-24.04
     timeout-minutes: 12
     steps:

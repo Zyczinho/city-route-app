@@ -1,0 +1,35 @@
+/* Map view (map-view.js). Uses tokens from styles.css. */
+.cr-map{position:relative;display:grid;grid-template-rows:auto 1fr;min-height:420px;height:min(70vh,640px);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--line-2)}
+.cr-map-toolbar{display:flex;gap:8px;padding:8px;background:var(--surface);border-bottom:1px solid var(--line);z-index:2}
+.cr-map-toolbar button{min-height:40px;padding:8px 14px;font-size:14px}
+.cr-map-nearby[aria-pressed="true"]{background:var(--cyan-soft);border-color:var(--cyan)}
+.cr-map-toggle{margin-left:auto}
+.cr-map-canvas{width:100%;height:100%;min-height:0}
+.cr-map-canvas:focus-visible{outline-offset:-3px}
+.cr-map-fallback{overflow:auto;background:var(--surface)}
+.cr-map-list{list-style:none;margin:0;padding:6px}
+.cr-map-list-item{width:100%;justify-content:flex-start;gap:10px;border:0;border-radius:12px;text-align:left;font-weight:500}
+.cr-map-list-item.is-selected{background:var(--blue-soft)}
+.cr-map-empty{padding:24px 16px}
+
+/* Markers and list dots share one colour per category group */
+.cr-pin,.cr-dot{--pin:var(--ink-2);border-radius:50%;background:var(--pin);border:3px solid #fff;box-shadow:0 1px 4px #0e1a2659}
+.cr-dot{display:inline-block;width:14px;height:14px;flex:none;border-width:2px}
+.cr-pin--sightseeing,.cr-dot--sightseeing{--pin:var(--blue)}
+.cr-pin--food,.cr-dot--food{--pin:var(--star)}
+.cr-pin--nightlife,.cr-dot--nightlife{--pin:#7a3fd1}
+.cr-pin--nature,.cr-dot--nature{--pin:var(--ta)}
+.cr-pin--stay,.cr-dot--stay{--pin:var(--muted)}
+.cr-pin.is-selected{transform:scale(1.3);border-color:var(--ink);z-index:1000!important}
+.cr-pin:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.cr-map-radius{fill:var(--cyan);fill-opacity:.12;stroke:var(--cyan);stroke-width:2}
+
+/* Place card: bottom sheet on phones, floating card on wider screens; both keep the OSM attribution visible */
+.cr-map-card{position:absolute;left:8px;right:8px;bottom:var(--cr-attribution,34px);z-index:1001;display:grid;gap:8px;padding:16px;background:var(--surface);border-radius:20px;box-shadow:0 -6px 24px #0e1a261f;max-height:60%;overflow:auto;animation:cr-map-up .2s ease-out}
+.cr-map-card-text{font-size:14px;color:var(--ink-2)}
+.cr-map-card-actions{display:flex;flex-wrap:wrap;gap:8px}
+.cr-map-card-actions .primary{flex:1}
+.cr-map-card-close{width:44px;padding:0;font-size:22px}
+@keyframes cr-map-up{from{transform:translateY(16px);opacity:.6}}
+@media(min-width:760px){.cr-map-card{left:auto;right:12px;bottom:var(--cr-attribution,34px);width:360px;border-radius:18px}}
+@media(prefers-reduced-motion:reduce){.cr-map-card{animation:none}.cr-pin.is-selected{transform:none}}

@@ -30,7 +30,8 @@ This file is a compact async handoff board between agents. It is not a chat log.
 
 [OPEN] MAP-INTEGRATE-002 — ChatGPT — integrate reviewed map UI + Nearby client into Places/runtime, build pipeline and service-worker cache. Preserve list fallback, city switching and route state. Normalize Nearby distance naming and merge partial nearby rows by public ID with full catalogue records. Runtime must degrade gracefully if RPC is unavailable until migration 008 is applied. YELLOW: Claude cross-review before merge.
 
-## Required database actions before live parity
+[OPEN] COVER-WIRE-001 — ChatGPT — wire `route-covers.js` into `app.js` (routeCard + route detail: use `assignRouteCovers` over the routes shown, instead of `ps.find(p=>p.image)`), and include route `image`/`imageCaption`/`imageCredit` in the next forward Supabase sync for Warsaw and Kraków routes. Product-owner rule: route main photos must never repeat. Data + module + tests from Claude on `claude/route-covers-v1`.
+ before live parity
 
 - Migration 007: applied successfully to hosted Supabase.
 - Migration 008: merged to `main`; Jakub should apply `008_nearby_read_api.sql` before expecting server-backed Nearby in production.

@@ -2,15 +2,19 @@
 
 This file is the **single source of truth for agent coordination** in City Route App.
 
-Chat messages, old prompts and session memory are advisory only. Before implementation or review work, ChatGPT and Claude must reconcile them with current `main`, this board, open PRs, reviews and CI. Mechanical GitHub state wins over stale chat/board facts; current product/spec decisions still govern scope.
+Chat messages, old prompts and session memory are advisory only. Before doing implementation or review work, ChatGPT and Claude must reconcile them with the current `main`, this board, open PRs, reviews and CI. If an old instruction conflicts with the current board or a merged dependency, the current repository state wins.
 
 The purpose of this file is to let agents coordinate directly through GitHub so Jakub does not have to act as a message router between them.
 
 ## COORDINATION BASELINE — 2026-11-03, `main` @ `0d23fb9`
 
-A full synchronization audit established the baseline at `0d23fb9`: `npm test` 122/122, `npm run build` OK, and PGlite harnesses for 011/012 passed.
+A full synchronization audit (Claude, 2026-11-03) reconciled this board with GitHub. At `0d23fb9`:
 
-**No earlier chat message, prompt or agent memory can reactivate a task by itself.**
+- `npm test` passed 122/122.
+- `npm run build` was OK.
+- The PGlite harnesses for 011 and 012 passed.
+
+**From this baseline on, no earlier chat message, prompt or agent memory can reactivate a task by itself.** Before any work, every agent reconciles with this board, current `main`, and the open PRs, reviews and CI on GitHub. Older instructions are historical context only.
 
 ## Mandatory sync before any work
 
@@ -18,62 +22,70 @@ Before starting, resuming or reviewing a task, every agent must:
 
 1. Sync/read current `main`.
 2. Read this file from `main`.
-3. Check open PRs, current heads, latest reviews and CI.
-4. Check dependencies and owned files/scope.
-5. Reconcile stale board facts with GitHub.
-6. Only then continue, review, start, block, supersede or close work.
+3. Check open PRs, their current heads, latest review comments and CI state.
+4. Check the task's dependencies and owned files/scope.
+5. Reconcile stale board facts with GitHub. Mechanical GitHub facts (merged/open/head/CI) override stale text here; product decisions/spec requirements in the current board/specs override old chat prompts.
+6. Only then decide whether to continue, review, start, block, supersede or close work.
+
+**No agent may start coding solely because an earlier chat message said to do so.** The task must still be actionable according to this board.
 
 ## Status vocabulary
 
-Use only: `BACKLOG`, `READY`, `IN_PROGRESS`, `BLOCKED`, `REVIEW`, `CHANGES_REQUESTED`, `MERGE_READY`, `DONE`, `SUPERSEDED`, `ESCALATE`.
+Use only these task statuses:
 
-- `READY` means dependencies are satisfied and the task may be claimed.
-- `IN_PROGRESS` has one implementation owner.
-- `REVIEW` waits for the named reviewer.
-- `CHANGES_REQUESTED` returns ownership to the implementation owner.
-- `MERGE_READY` means required review is clean and required CI is green.
-- Code/migration merge state and hosted deployment/migration state are always separate.
+- `BACKLOG` — known work, not yet actionable or prioritized.
+- `READY` — dependencies satisfied; may be claimed.
+- `IN_PROGRESS` — one agent owns active implementation.
+- `BLOCKED` — cannot proceed until the listed dependency/decision is resolved.
+- `REVIEW` — implementation complete; waiting for the named reviewer.
+- `CHANGES_REQUESTED` — review found blockers; ownership returns to the implementation owner.
+- `MERGE_READY` — required review is clean and CI is green; waiting only for merge/approved release action.
+- `DONE` — merged/completed and no further action remains.
+- `SUPERSEDED` — no longer needed because another change/decision replaced it.
+- `ESCALATE` — genuine product/architecture decision required from Jakub.
 
 ## Task selection order
 
-1. `CHANGES_REQUESTED` owned by the agent.
-2. `REVIEW` where the agent is reviewer.
-3. Existing `IN_PROGRESS` owned by the agent.
-4. Highest-priority `READY` assigned/unowned.
-5. Then `BACKLOG`.
+When an agent is asked to continue or take the next task, use this priority order:
 
-Never start `BLOCKED`, `DONE` or `SUPERSEDED` work.
+1. `CHANGES_REQUESTED` tasks owned by that agent.
+2. `REVIEW` tasks where that agent is the reviewer.
+3. Existing `IN_PROGRESS` tasks owned by that agent.
+4. Highest-priority `READY` task assigned to that agent or currently unowned.
+5. Only then consider `BACKLOG`.
+
+Never start a `BLOCKED`, `DONE` or `SUPERSEDED` task.
 
 ## Claiming and ownership
 
 - One implementation task has one implementation owner at a time.
 - A separate reviewer may be named.
-- Before writing code for a `READY` task, move it to `IN_PROGRESS`, name owner/branch and update `last_update`.
-- Do not edit files owned by another active package unless explicitly coordinated.
-- Parallel work is allowed only when dependencies and scopes are genuinely non-conflicting.
-- If scopes begin overlapping, block/supersede the later package before more code is written.
+- Before writing code for a `READY` task, update this board to `IN_PROGRESS` with owner, branch and `last_update`.
+- Do not edit files owned by another active package unless the board explicitly allows shared ownership.
+- Two tasks may run in parallel only when dependencies allow it **and** their implementation scopes do not conflict.
+- If two tasks become overlapping after new information, the later/lower-priority task becomes `BLOCKED` or `SUPERSEDED` before more code is written.
 
 ## Handoff and stale-work rule
 
 An `IN_PROGRESS` task must leave a recoverable GitHub checkpoint: branch, commit or PR plus a clear `next_action`.
 
-A second agent may take over only after checking branch/PR activity and updating the board with the takeover reason. An ended chat session alone is not abandonment.
+A second agent may take over only after checking the branch/PR activity and updating the board with the takeover reason. Do not infer abandonment from an ended chat session alone.
 
-Checkpoint format:
+Checkpoint format when a session/credit limit may interrupt work:
 
 `CHECKPOINT — <ID> — owner — branch/PR — completed: ... — next: ... — blocker: ... — last_update: YYYY-MM-DD HH:MM UTC`
 
 ## Review protocol
 
-- Maximum two full cross-review cycles per package unless materially new code changes the scope.
-- Targeted retests after narrow fixes do not require a new full review round.
-- Reviewer blockers move the package to `CHANGES_REQUESTED` with exact owner/next action.
-- Clean required review + green required CI => `MERGE_READY`.
-- After another PR lands on `main`, open PRs re-check mergeability/CI and sync when required.
+- Maximum two full cross-review cycles per package unless new code materially changes the reviewed scope.
+- A targeted retest after a mechanical fix does not require a new full review cycle unless it exposes a new material issue.
+- Reviewer findings move the task to `CHANGES_REQUESTED` and name the exact owner/next action.
+- A clean required review plus green CI moves the task to `MERGE_READY`.
+- After another PR merges into `main`, any still-open PR must re-check mergeability/CI and sync if necessary before merge.
 
 ## User decision boundary
 
-Agents make ordinary implementation decisions autonomously. Use `ESCALATE` only for a real product choice, materially different architecture, destructive/irreversible action, credentials/secrets, production DNS, or hosted database migration/deployment requiring explicit approval.
+Agents should make ordinary implementation decisions autonomously. Use `ESCALATE` only for a real product choice, materially different architecture, destructive/irreversible action, credentials/secrets, production DNS, or hosted database migration/deployment that requires explicit approval.
 
 Template:
 
@@ -81,64 +93,77 @@ Template:
 
 ## Active board
 
+Code status and hosted-database status are tracked as **separate rows**: "migration merged" never means "migration applied".
+
 | Priority | ID | Status | Owner | Reviewer | Depends on | Branch / PR | Next action | Last update |
 |---|---|---|---|---|---|---|---|---|
-| P1 | REQ-ADMIN-004 | DONE | Claude | ChatGPT | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE | PR #44 + fix PR #48, merged at `d9eb8e8` | No code action. Hosted migration tracked separately. | 2026-11-03 |
-| P1 | REQ-UI-003 | REVIEW | ChatGPT | Claude | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE; SOCIAL-RUNTIME-004 DONE | `chatgpt/req-ui-003` / PR #47, head `e5a7bf9` | Targeted Claude re-review of resolved-place one-shot/city-scoped fix and post-#48 sync. CI #132 green. | 2026-11-03 |
-| P1 | PLAN-UI-MOBILE-006 | REVIEW | ChatGPT | Claude | current planner runtime on `main`; scope separate from REQ-UI-003 request files | `chatgpt/plan-ui-mobile-006` / PR #49, head `36beeec` | Claude UX/code review focused on 375 px hierarchy, value preservation, idempotence and Add Place regression. CI #134 green. Before merge, re-sync if #47 lands and ensure the PWA cache/version delivers the updated `enhancements.js` to existing clients. | 2026-11-03 |
-| P1 | SOCIAL-PROD-SMOKE-005 | READY | ChatGPT + Jakub | Claude | SOCIAL-RUNTIME-004 DONE; production deploy of `09dad87` confirmed | no branch | Two-account production smoke: publish → feed → author → save → saved list → mobile nav. | 2026-11-03 |
-| P2 | MIGRATION-013-HOSTED | READY | Jakub | — | REQ-ADMIN-004 DONE | merged PR #48 | Apply current `main` `013_app_admins.sql`, then add founder admin row from `REQUESTS_ADMIN.md`. Hosted 013 is not applied yet. | 2026-11-03 |
-| P3 | INFRA-CF-PREVIEW-001 | BACKLOG | Jakub | — | Cloudflare dashboard access | — | PR preview builds fail while `main` builds succeed. Treat GitHub test CI as required until preview configuration is fixed. | 2026-11-03 |
+| P1 | REQ-ADMIN-004 | DONE | Claude | ChatGPT | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE | PR #44 + fix PR #48, merged to `main` at `d9eb8e8` | No code action. The `place-required` blocker is fixed and merged. Hosted migration is tracked separately below. | 2026-11-03 |
+| P1 | REQ-UI-003 | REVIEW | ChatGPT | Claude | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE; SOCIAL-RUNTIME-004 DONE | `chatgpt/req-ui-003` / PR #47, synced with `main` through `d9eb8e8` | Targeted Claude re-review of the resolved-place fix and post-#48 sync only. The handoff is now one-shot, city-scoped, and no longer resets Places filters when a place is missing. | 2026-11-03 |
+| P1 | SOCIAL-PROD-SMOKE-005 | READY | ChatGPT + Jakub | Claude | SOCIAL-RUNTIME-004 DONE; production deploy of `09dad87` confirmed | no branch | First confirm that Cloudflare deployed `09dad87`. Then, with two test accounts: publish a route, open it from the Społeczność feed, open the author's profile, save the route and check the signed-in `#social-saved` list, and check the mobile nav. | 2026-11-03 |
+| P2 | MIGRATION-013-HOSTED | READY | Jakub | — | REQ-ADMIN-004 DONE | merged PR #48 | Apply `013_app_admins.sql` from current `main`, then add the founder admin row with the SQL in `REQUESTS_ADMIN.md`. Code is fixed and merged; hosted 013 is still not applied. | 2026-11-03 |
+| P3 | INFRA-CF-PREVIEW-001 | BACKLOG | Jakub | — | Cloudflare dashboard access | — | The "Workers Builds: city-route-app" check fails on every PR branch, while builds of `main` succeed (e.g. `0d23fb9`). Classified as a deployment-configuration problem (non-production branch builds), not an app regression: GitHub `test` passes and the local build is OK. The build log is behind the Cloudflare login and hasn't been read. Until fixed, treat GitHub `test` as the required CI. | 2026-11-03 |
 
 ## Current package facts
 
-### REQ-ADMIN-004 — DONE
+### REQ-ADMIN-004 — PR #44 + fix PR #48 — DONE
 
-- #44 entered `main` at `47d48a5` before the cycle-1 blocker was fixed.
-- Follow-up PR #48 fixed `added` without a linked catalogue place and merged at `d9eb8e8`.
-- Server, admin client/form, unit tests and PGlite regression now enforce `place-required` for missing/blank place IDs.
-- Migration 013 code is safe on `main`; hosted application is a separate `MIGRATION-013-HOSTED` action.
+- #44 merged to `main` at `47d48a5` while ChatGPT's cycle 1 blocker was still open: `admin_set_catalogue_request_status(..., 'added', NULL/'')` was accepted.
+- PR #48 fixed that blocker and merged at `d9eb8e8`.
+  - Server: `added` without a place raises `place-required`; `unknown-place` checks are unchanged.
+  - Client and form: the same check runs before the RPC call, with a Polish message.
+  - Tests: unit regression and PGlite regression cover missing/null/blank places (rejected, request unchanged) and a valid place (accepted).
+- Migration 013 is now safe in code but remains a separate hosted action.
 
 ### REQ-UI-003 — PR #47
 
-- Claude cycle 1 found one blocker in `maybeOpenResolvedPlace()`: a missing resolved place could repeatedly clear Places search/category.
-- ChatGPT fixed it so the handoff is one-shot and city-scoped, with a user-facing unavailable toast; branch synced after #48 and preserves both request runtime files and `admin/` build entry.
-- Current head `e5a7bf9`; CI #132 green; targeted Claude re-review pending.
+- Claude cycle 1 found one blocker in `maybeOpenResolvedPlace()`: a missing resolved place could keep clearing search/category on every Places render.
+- The fix consumes the handoff exactly once, stores both place id and request city, refuses cross-city opening, and shows a toast when the place is unavailable instead of repeatedly mutating filters.
+- The branch is synchronized with current `main`; `scripts/build.mjs` preserves both request runtime files and `admin/`.
+- Next step is only a targeted Claude re-review plus green CI; no new full review round is needed.
 
-### PLAN-UI-MOBILE-006 — PR #49
+## Dependency rules for the current request track
 
-- User problem: the planner feels more complicated than its actual feature count on a phone because too many equal-weight fieldsets/text blocks are visible at once.
-- Product direction: **simple by default, powerful when expanded**.
-- Primary decisions are now time + interests; mobile choices stay compact in one horizontal row.
-- Transport, food, start, budget, sightseeing style and partner offers are preserved inside a native `details` disclosure with a live compact summary of selected advanced values.
-- Manual route building remains available but is visually secondary and moved below the generated-route flow.
-- Core planner field names/defaults and `generate()` semantics remain unchanged; implementation is an idempotent enhancement in `enhancements.js` and adds focused regression coverage.
-- Current head `36beeec`; CI #134 green; PR #49 mergeable. Claude review pending.
-- Merge sequencing note: because `enhancements.js` is PWA-cached, after #47 lands the final #49 sync should preserve/inherit the newer cache version or explicitly cache-bust the enhancement before merge so existing installations receive the UI change immediately.
+1. REQ-ADMIN-004 is DONE. REQ-UI-003 is the only remaining request-code package in review.
+2. Live admin use needs MIGRATION-013-HOSTED. Live request UI needs only 012, which is DONE.
 
 ## Database / hosted state
 
 | Migration | Code on `main` | Applied to hosted Supabase | Evidence |
 |---|---|---|---|
 | 007–010 | yes | yes | earlier board records |
-| 011 | yes | yes, 2026-11-03 | social RPCs answered on hosted |
-| 012 | yes (PR #43) | yes, 2026-11-03 | hosted read-only request RPC check succeeded |
-| 013 | **yes, fixed via PR #48** | **no** | hosted action is READY and separate from code merge |
+| 011 | yes | yes, 2026-11-03 | earlier board record; social RPCs answer on hosted |
+| 012 | yes (PR #43) | **yes, 2026-11-03** | Jakub confirmed in chat. At the reset, a read-only anon call to `catalogue_requests_ranked('warsaw')` returned 0 rows without error, while a control call to a missing function returned PGRST202. |
+| 013 | **yes, fixed on `main` via PR #48** | **no** | PR #48 merged at `d9eb8e8`; hosted migration remains a separate READY task. |
 
 ## Recently completed
 
 - `REQ-ADMIN-004` — DONE — PR #44 + fix PR #48; final blocker fixed and merged at `d9eb8e8`.
-- `SOCIAL-RUNTIME-004 + NAV-MYROUTE-001` — DONE — PR #42 merged at `09dad87`; production smoke remains separate.
-- `COORDINATION-RESET` — DONE — PR #45 baseline `0d23fb9`.
-- `REQ-DATA-002` — DONE — PR #43; migration 012 hosted DONE.
+- `SOCIAL-RUNTIME-004 + NAV-MYROUTE-001` — DONE — PR #42 merged 2026-11-03 (`09dad87`). The production smoke is SOCIAL-PROD-SMOKE-005.
+- `COORDINATION-RESET` — DONE — PR #45 (baseline at `0d23fb9`).
+- `REQ-DATA-002` — DONE — PR #43 merged 2026-11-03; MIGRATION-012-HOSTED DONE.
 - `REQ-SPEC-001` — DONE — PR #41.
 - `SOCIAL-DATA-003` — DONE — PR #40; migration 011 applied.
 - `SOCIAL-SPEC-001` — DONE — PR #39.
-- `MAP-PROD-SMOKE-006` — DONE.
+- `MAP-PROD-SMOKE-006` — DONE — manual production smoke after #36/#37/#38. Any later mention of "MAP-PROD-SMOKE after #42" is stale: that check is now SOCIAL-PROD-SMOKE-005.
 - Route Builder / map / covers packages through PR #38 — DONE.
 
-Historical closed/superseded branches and PRs stay as history unless a current task explicitly needs cleanup.
+Historical, no action:
+
+- Closed PRs #29 (temporary hosted Nearby smoke, never meant to merge) and #33 (superseded coordination notes).
+- About 45 remote branches belong to merged or closed PRs. None has commits after its PR's head, and none lacks a PR. Leave them as history; deleting them is not part of any task.
 
 ## End-of-task update requirement
 
-Before reporting completion to Jakub, update this board if task state changed. At minimum update status, owner, reviewer when applicable, branch/PR, next action, last update and dependency changes. If work is no longer needed, mark `SUPERSEDED` with the reason.
+Before an agent reports completion to Jakub, it must update this board if the task state changed. The final message should be a human summary of the GitHub state, not the only place where state exists.
+
+At minimum update:
+
+- `status`
+- `owner`
+- `reviewer` when applicable
+- `branch / PR`
+- `next_action`
+- `last_update`
+- dependency changes
+
+If a task became unnecessary, mark `SUPERSEDED` with the reason instead of silently abandoning it.

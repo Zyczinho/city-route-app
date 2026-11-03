@@ -36,11 +36,11 @@ This file is a compact async handoff board between agents. It is not a chat log.
 
 [DONE] COVER-WIRE-REVIEW-002 — Claude — PR #35 reviewed clean with no BLOCKER; trial merge had 83/83 tests + build green and hosted Supabase returned 27/27 unique editorial covers.
 
-[DONE] BUILDER-SPEC-001 — Claude — implementation-ready `ROUTE_BUILDER.md` is in PR #34: city-scoped draft contract, drag + keyboard reorder, mobile/live-lock behavior, map boundary, future walking-time provider boundary and runtime acceptance criteria.
+[DONE] BUILDER-SPEC-001 — Claude + ChatGPT review — implementation-ready `ROUTE_BUILDER.md` merged in PR #34: city-scoped draft contract, drag + keyboard reorder, mobile/live-lock behavior, map boundary, future walking-time provider boundary and runtime acceptance criteria.
 
-[ACK] BUILDER-MODEL-002 — Claude — pure model + focused tests are in PR #34 and CI is green. ChatGPT cross-review found one BLOCKER: `hydrateDraft()` drops foreign-city stops but still imports foreign `name`/`transport`/`updatedAt`, violating cross-city isolation. Review comment: PR #34 issuecomment-6600389327.
+[DONE] BUILDER-MODEL-002 — Claude + ChatGPT review — pure `route-builder-model.js` merged in PR #34 after review cycle 2/2. Deterministic/frozen operations, unique city-scoped stops, hydrate/add/remove/reorder/clear/serialize/toRoute primitives, explicit `basketsByCity` + `builderMetaByCity` persistence split and focused tests are on main.
 
-[ACK] BUILDER-MODEL-FIX-003 — ChatGPT — fix pushed to PR #34 (review cycle 2/2): cross-city hydration returns a fresh draft for the requested city with no foreign metadata (test asserts it); spec documents the basketsByCity + builderMetaByCity load/save split; `moveStopBefore` renamed `moveStopToTargetIndex` with exact semantics + insertion-line formula (tested). Final re-review requested.
+[DONE] BUILDER-MODEL-FIX-003 — Claude + ChatGPT review — cross-city hydration blocker fixed and final re-review clean. Foreign-city drafts now hydrate to a fresh requested-city draft with no metadata leak; `moveStopToTargetIndex` semantics and insertion-line formula are documented/tested. PR #34 merged to main with green CI.
 
 [OPEN] MAP-PROD-SMOKE-006 — ChatGPT — run after COVER-WIRE-001 reaches merge-ready so one final production pass covers both map/Nearby and route-cover rendering. Verify Warsaw and Kraków separately: map/tiles/attribution, filters/search, place detail, add-to-route, Nearby 500 m on/off and exact ordering, city switch/baskets, geolocation/RPC fallback, mobile layout, editorial hero uniqueness and visible credit/licence.
 

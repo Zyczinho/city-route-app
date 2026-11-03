@@ -61,6 +61,17 @@ try{
  assert.equal(order.length,11);
  assert.equal(order.indexOf(target),order.indexOf(anchor)+1,'nearby place must insert directly after selected stop');
  await page.screenshot({path:'p0-smoke-artifacts/my-route-after.png',fullPage:true});
+ // Check all five real bottom-nav destinations in a running browser.
+ await page.waitForFunction(()=>document.querySelectorAll('#navigation a').length===5,{timeout:10000}).catch(()=>{});
+ const tabs=await page.locator('#navigation a').evaluateAll(nodes=>nodes.map(a=>a.getAttribute('href')));
+ assert.equal(tabs.length,5,'bottom navigation must have five tabs');
+ for(const tab of ['#plan','#routes','#my-route','#routes/community','#places']){
+  assert.ok(tabs.includes(tab),'missing navigation tab '+tab);
+  await page.locator('#navigation a[href="'+tab+'"]').click();
+  assert.equal(new URL(page.url()).hash,tab,'tab click changes hash');
+  await page.locator('#main').waitFor({state:'visible'});
+  assert.equal(await page.locator('#main .loading').count(),0,'tab must not show perpetual loading');
+ }
  assert.deepEqual(errors,[],'unexpected page exception in mobile route test');
  await ctx.close();
  
@@ -85,9 +96,16 @@ try{
  await p2.locator('#place-dialog button[data-action="add-another-place"]').click();
  await p2.locator('#pc-q').waitFor({timeout:10000});
  assert.equal(new URL(p2.url()).hash,'#add-place');
+ // Verify a freshly installed PWA actually serves the new composer offline.
+ await p2.waitForFunction(()=>navigator.serviceWorker?.controller!==null,undefined,{timeout:25000});
+ await ctx2.setOffline(true);
+ await p2.reload({waitUntil:'domcontentloaded',timeout:20000});
+ await p2.locator('#pc-q').waitFor({timeout:20000});
+ assert.equal(await p2.locator('#place-form').count(),1,'offline installed PWA composer remains usable');
+ await ctx2.setOffline(false);
  assert.deepEqual(pageErrors,[],'unexpected page exception in mobile composer');
  await ctx2.close();
- console.log('PASS: mobile 375px, 10-stop optimization, B→B1 insertion, local custom place, optional rating, repeat add.');
+ console.log('PASS: mobile 375px, 5 tabs, 10-stop optimization, B→B1 insertion, local custom place, optional rating, repeat add, PWA offline reload.');
 }finally{
  if(browser)await browser.close();
  if(server){server.kill('SIGTERM');}

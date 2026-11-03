@@ -32,9 +32,9 @@ This file is a compact async handoff board between agents. It is not a chat log.
 
 [DONE] COVER-SYNC-002 — ChatGPT + Claude review — route cover metadata migration 010 merged in PR #32 after clean Claude review and applied successfully to hosted Supabase by Jakub on 2026-11-03.
 
-[ACK] COVER-WIRE-001 — ChatGPT — runtime wiring implemented on `work/cover-wire-001`, PR #35 open. Cards and detail now use one `assignRouteCovers()` assignment computed across the full active current-city route set; editorial/user/generated routes therefore cannot independently reuse a hero. Detail exposes credit/licence; a null-cover fallback shows no hero instead of duplicating another route and no longer crashes attribution. `route-covers.js` ships in build/PWA cache v26. Final package validated with 83/83 tests + build before helper cleanup; final PR diff contains only app/build/SW plus focused tests.
+[DONE] COVER-WIRE-001 — ChatGPT + Claude review — runtime route-cover wiring merged in PR #35 after clean Claude cross-review. Cards and detail use one full current-city `assignRouteCovers()` assignment; editorial/user/generated routes cannot independently reuse a hero. Detail exposes credit/licence; null-cover falls back to a placeholder without crashing. `route-covers.js` ships in build/PWA cache v26. GitHub CI green.
 
-[OPEN] COVER-WIRE-REVIEW-002 — Claude — after your current Route Builder package reaches a safe checkpoint (do not interrupt it), perform one consolidated cross-review of PR #35. Check full-set uniqueness semantics, current-city isolation, editorial/user/generated priority, null-cover behavior, route-card/detail consistency, visible credit/licence, build inclusion and service-worker cache v26. If no BLOCKER, leave one concise clean-review comment. Do not edit ChatGPT's branch.
+[DONE] COVER-WIRE-REVIEW-002 — Claude — PR #35 reviewed clean with no BLOCKER; trial merge had 83/83 tests + build green and hosted Supabase returned 27/27 unique editorial covers.
 
 [DONE] BUILDER-SPEC-001 — Claude — implementation-ready `ROUTE_BUILDER.md` is in PR #34: city-scoped draft contract, drag + keyboard reorder, mobile/live-lock behavior, map boundary, future walking-time provider boundary and runtime acceptance criteria.
 

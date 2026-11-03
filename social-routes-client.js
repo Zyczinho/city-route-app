@@ -52,14 +52,24 @@ export function publicProfileFromRow(row){
     socials:{instagram:row.instagram||'',tiktok:row.tiktok||'',website:row.website||''},routeCount:int(row.route_count)};
 }
 
+// Fork provenance reference for a public source: editorial routes by slug, community routes by UUID.
+// Unlisted/archived community routes give none, so a public fork never reveals them (migration 011 resolves the same way).
+export function forkSource(route){
+  if(!route)return null;
+  const community=route.kind==='community'||route.type==='community';
+  if(community&&(route.visibility!=='public'||(route.status&&route.status!=='published')))return null;
+  const ref=community?String(route.uuid||route.id):String(route.id||'');
+  return ref&&route.cityId?{cityId:route.cityId,ref}:null;
+}
+
 // Pure: turn any visible route into a Route Builder draft for the active city. Cross-city forks are refused.
 export function forkRoute(route,{cityId,isKnown=()=>true,now=null}={}){
   if(!route||!Array.isArray(route.stops))throw new SocialRoutesError('invalid-route');
   if(!cityId||(route.cityId&&route.cityId!==cityId))throw new SocialRoutesError('cross-city');
   const name=`Kopia: ${route.name||'trasa'}`.slice(0,MAX_NAME);
   const {draft,report}=hydrateDraft({cityId,stops:route.stops,name,transport:route.transport},{cityId,isKnown,now});
-  const communityId=route.kind==='community'||route.type==='community'?String(route.uuid||route.id):null;
-  return {draft,report,forkedFromRouteId:communityId};
+  const forkedFrom=forkSource(route);
+  return {draft,report,forkedFrom,forkedFromRef:forkedFrom?.ref??null};
 }
 
 // Same limits as migration 011, checked before a network round-trip.
@@ -121,12 +131,14 @@ export function createSocialRoutesClient({client}={}){
       return String(scalar(await call('rate_route',{...cityOf(ref,citySlug),p_rating:value})));
     },
     async removeRating(ref,citySlug){return String(scalar(await call('remove_rating',cityOf(ref,citySlug))));},
-    async publishRoute({draft,description='',tags=[],visibility='public',editingRouteId=null,forkedFromRouteId=null}={}){
+    // forkedFrom: forkRoute()'s {cityId, ref} or a bare ref (editorial slug / community UUID); forkedFromRouteId kept as an alias.
+    async publishRoute({draft,description='',tags=[],visibility='public',editingRouteId=null,forkedFrom=null,forkedFromRouteId=null}={}){
+      const source=typeof forkedFrom==='string'?forkedFrom:forkedFrom?.ref??forkedFromRouteId??null;
       const invalid=validatePublish({draft,description,tags,visibility});if(invalid)throw new SocialRoutesError(invalid);
       return String(scalar(await call('publish_community_route',{
         p_city_slug:draft.cityId,p_name:String(draft.name).replace(/\s+/g,' ').trim(),p_stops:[...draft.stops],p_transport:draft.transport||'walking',
         p_description:String(description||''),p_tags:[...new Set(tags||[])],p_visibility:visibility,
-        p_route_id:editingRouteId||null,p_forked_from:forkedFromRouteId||null
+        p_route_id:editingRouteId||null,p_forked_from:source?String(source):null
       })));
     },
     async archiveRoute(routeId){return String(scalar(await call('archive_community_route',{p_route_id:routeId})));},

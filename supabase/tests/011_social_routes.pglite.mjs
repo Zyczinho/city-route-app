@@ -57,6 +57,7 @@ insert into public.places(city_id,slug,status) select id,'wx','draft' from publi
 insert into public.places(city_id,slug) select id,s from public.cities,unnest(array['k1','k2']) s where slug='krakow';
 insert into public.routes(city_id,slug,legacy_id,name,route_type,status,visibility) select id,'old-warsaw','old-warsaw','Pierwsze spotkanie','editorial','published','public' from public.cities where slug='warsaw';
 insert into public.routes(city_id,slug,legacy_id,name,route_type,status,visibility) select id,'krakow-2h','krakow-2h','Kraków w 2h','editorial','published','public' from public.cities where slug='krakow';
+insert into public.routes(city_id,slug,legacy_id,name,route_type,status,visibility) select id,'hidden-draft','hidden-draft','Szkic redakcji','editorial','draft','public' from public.cities where slug='warsaw';
 `;
 
 const as=async(role,uid,fn)=>{
@@ -154,19 +155,51 @@ await as('anon',null,async()=>{
 });
 ok('feed aggregates (saves/ratings/forks), fork provenance, sorts and paging');
 
+// Review cycle 2: provenance never reveals non-public sources; editorial forks keep provenance; route_ref is public-only
+let re,rx;
+await as('authenticated',B,async()=>{
+  re=(await q(`select public.publish_community_route('warsaw','Kopia redakcyjnej',array['w1','w4'],'walking','','{}','public',null,'old-warsaw') as id`))[0].id;
+  await fails(q(`select public.publish_community_route('warsaw','x',array['w1','w4'],'walking','','{}','public',null,$1)`,[ru]),/invalid-fork-source/,'unlisted source refused by the RPC');
+  await fails(q(`select public.publish_community_route('warsaw','x',array['w1','w4'],'walking','','{}','public',null,'hidden-draft')`),/invalid-fork-source/,'draft editorial source refused');
+  await fails(q(`select public.publish_community_route('warsaw','x',array['w1','w4'],'walking','','{}','public',null,'krakow-2h')`),/invalid-fork-source/,'editorial source from another city refused');
+  // bypass the RPC: 003 routes_insert_own still allows a direct insert pointing at the unlisted route
+  rx=(await q(`insert into public.routes(city_id,name,route_type,owner_user_id,visibility,status,published_at,forked_from_route_id) select id,'Przeciek?','community',$1,'public','published',now(),$2 from public.cities where slug='warsaw' returning id`,[B,ru]))[0].id;
+});
+const [stored]=await q(`select forked_from_route_id f from public.routes where id=$1`,[re]);
+assert.equal(stored.f,(await q(`select id from public.routes where slug='old-warsaw'`))[0].id,'editorial fork stores the editorial route uuid');
+await as('anon',null,async()=>{
+  const feed=await q(`select * from public.community_routes('warsaw','newest',50)`);
+  const e=feed.find(r=>r.id===re),x=feed.find(r=>r.id===rx);
+  assert.equal(e.forked_from_name,'Pierwsze spotkanie');assert.ok(e.forked_from_id,'editorial provenance shown');
+  assert.equal(x.forked_from_id,null);assert.equal(x.forked_from_name,null);
+  assert.ok(!JSON.stringify(feed).includes(ru)&&!JSON.stringify(feed).includes('Ukryta'),'unlisted source id/name never in public discovery');
+  assert.ok(!JSON.stringify(await q(`select * from public.author_routes($1)`,[B])).includes(ru),'nor in author routes');
+  assert.equal((await q(`select * from public.community_route($1)`,[ru])).length,1,'unlisted source still opens by direct link');
+  assert.equal((await q(`select public.route_ref('warsaw',$1) r`,[ru]))[0].r,null,'route_ref ignores unlisted');
+  assert.equal((await q(`select public.route_ref('warsaw','hidden-draft') r`))[0].r,null,'route_ref ignores non-published editorial');
+  assert.ok((await q(`select public.route_ref('warsaw','old-warsaw') r`))[0].r);
+});
+ok('editorial forks keep provenance; unlisted/draft sources never surface; route_ref resolves public routes only');
+
 await as('authenticated',A,async()=>{
   await q(`select public.archive_community_route($1)`,[ra]);
   assert.equal((await q(`select * from public.community_route($1)`,[ra])).length,1,'owner still sees archived');
 });
 await as('anon',null,async()=>{
-  assert.deepEqual((await q(`select id from public.community_routes('warsaw')`)).map(r=>r.id),[rb],'archived leaves the feed');
+  const feed=await q(`select * from public.community_routes('warsaw','newest',50)`);
+  assert.ok(!feed.some(r=>r.id===ra)&&feed.some(r=>r.id===rb),'archived leaves the feed');
+  assert.equal(feed.find(r=>r.id===rb).forked_from_id,null,'archived source no longer revealed by its forks');
   assert.equal((await q(`select * from public.community_route($1)`,[ra])).length,0);
+});
+await as('authenticated',B,async()=>{
+  await q(`select public.unsave_route('warsaw',$1)`,[ra]);await q(`select public.remove_rating('warsaw',$1)`,[ra]);
+  assert.deepEqual((await q(`select (select count(*)::int from public.route_saves where route_id=$1) s,(select count(*)::int from public.route_ratings where route_id=$1) r`,[ra]))[0],{s:0,r:0},'own save/rating removable after archive');
 });
 await as('authenticated',A,async()=>{await q(`select public.delete_community_route($1)`,[ra]);});
 const left=await q(`select (select forked_from_route_id from public.routes where id=$1) f,(select count(*)::int from public.route_saves where route_id=$2) s`,[rb,ra]);
 assert.equal(left[0].f,null);assert.equal(left[0].s,0);
 await as('anon',null,async()=>{
-  assert.equal((await q(`select forked_from_name from public.community_routes('warsaw')`))[0].forked_from_name,null);
+  assert.equal((await q(`select * from public.community_routes('warsaw','newest',50)`)).find(r=>r.id===rb).forked_from_name,null);
   assert.deepEqual((await q(`select id from public.catalogue_routes('warsaw')`)).map(r=>r.id),['old-warsaw'],'catalogue still editorial-only');
 });
 ok('archive hides, delete cascades saves and clears fork provenance, catalogue unaffected');

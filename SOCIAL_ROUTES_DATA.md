@@ -30,7 +30,9 @@ No denormalized counters and no triggers except `updated_at` on ratings.
 
 ## Route references
 
-Editorial routes reach clients as public slugs (`coalesce(legacy_id, slug)`, e.g. `old-warsaw`); community routes as UUIDs. Save and rate RPCs take `(p_city_slug, p_ref)`, and `route_ref()` resolves both forms server-side in one call. A UUID matches any visible route; a slug matches only an editorial route in that city. The client never needs a separate lookup.
+Editorial routes reach clients as public slugs (`coalesce(legacy_id, slug)`, e.g. `old-warsaw`); community routes as UUIDs. Save, rate and fork-source arguments take `(p_city_slug, p_ref)`, and `route_ref()` resolves both forms server-side in one call. It returns only **published public** routes: a UUID matches a community or editorial route, and a slug matches only an editorial route in that city. Guessed slugs or UUIDs of draft, archived or unlisted routes resolve to `null`, so no internal ID leaks. The client never needs a separate lookup.
+
+Unsave and remove-rating fall back to the UUID you passed, so you can still remove your own row after a route was archived or unlisted. That returns only the UUID you supplied.
 
 ## Feed card (`community_routes`, `community_route`, `author_routes`)
 
@@ -41,7 +43,7 @@ stops jsonb (public place ids in route order), stop_count, tags jsonb,
 save_count, saves_30d, rating_count, rating_avg, ratings_30d, fork_count, forks_30d, popular_score
 ```
 
-- `forked_from_name` is `null` when the source is no longer published (public or unlisted).
+- `forked_from_id` and `forked_from_name` are both `null` unless the source is currently published **public**. A public fork of an unlisted source (possible through a direct table insert) never reveals the source's ID or name, and an archived or unlisted source disappears from its forks' cards. The internal `routes.forked_from_route_id` FK is kept.
 - Fork counts include only published forks.
 - The client maps every row to `{id, uuid, kind:'community', cityId, name, …, author:{id,nickname}, forkedFrom, stops, cats, stats:{…}}`.
 
@@ -62,7 +64,7 @@ popular_score = saves_30d*3 + forks_30d*2 + ratings_30d*2
 
 ## Publish contract (`publish_community_route`)
 
-- **Inputs:** `p_city_slug`, `p_name`, `p_stops`, `p_transport`, `p_description`, `p_tags`, `p_visibility`, `p_route_id` (edit) and `p_forked_from`. It runs as one transaction.
+- **Inputs:** `p_city_slug`, `p_name`, `p_stops`, `p_transport`, `p_description`, `p_tags`, `p_visibility`, `p_route_id` (edit) and `p_forked_from`, a **reference** (editorial slug or community UUID) resolved through `route_ref()`. Editorial forks keep provenance too. It runs as one transaction.
 - **Validation:**
   - name 1–80 characters, after collapsing whitespace
   - description ≤ 500 characters
@@ -70,7 +72,7 @@ popular_score = saves_30d*3 + forks_30d*2 + ratings_30d*2
   - visibility is `public` or `unlisted`
   - 2–20 distinct stops, each a **published public catalogue place of that city**; local or private user places are rejected with `unknown-stop:<id>`
   - tags ≤ 8, matching `^[a-z0-9_-]+$`, de-duplicated
-  - the fork source must be a published public or unlisted route in the same city
+  - the fork source must resolve through `route_ref()` (published public, editorial or community) and be in the same city; otherwise `invalid-fork-source`
 - **Result:** a new route gets `route_type='community'`, `owner_user_id=auth.uid()`, `status='published'` and `published_at=now()`. An edit (`p_route_id`) must be yours and in the same city; it replaces stops and tags in place and keeps `id` and `published_at`. Any failure rolls the whole call back.
 - **Errors**, mapped by the client to `SocialRoutesError.code`: `auth-required`, `city-not-found`, `invalid-name`, `invalid-description`, `invalid-transport`, `invalid-visibility`, `invalid-stop-count`, `duplicate-stop`, `unknown-stop` (with `detail`), `invalid-tags`, `invalid-fork-source`, `not-owner`, `route-not-found`, `invalid-rating`. An RLS refusal becomes `forbidden`; a failed transport becomes `network`.
 
@@ -90,14 +92,14 @@ popular_score = saves_30d*3 + forks_30d*2 + ratings_30d*2
 | `loadRouteMarks(uuids)` → `Map(uuid → {saved, rating})` | `my_route_marks` |
 | `saveRoute(ref, citySlug)` / `unsaveRoute` | `save_route` / `unsave_route` |
 | `rateRoute(ref, rating, citySlug)` / `removeRating` | `rate_route` / `remove_rating` |
-| `publishRoute({draft, description, tags, visibility, editingRouteId, forkedFromRouteId})` | `publish_community_route` (validated locally first with the same limits) |
+| `publishRoute({draft, description, tags, visibility, editingRouteId, forkedFrom})` | `publish_community_route` (validated locally first with the same limits); `forkedFrom` is `forkRoute()`'s `{cityId, ref}` or a bare ref, and `forkedFromRouteId` stays as an alias |
 | `archiveRoute(id)` / `deleteOwnedRoute(id)` | `archive_community_route` / `delete_community_route` |
-| `forkRoute(route, {cityId, isKnown})` | none: a pure `route-builder-model` draft named `Kopia: …`; cross-city is refused; returns `forkedFromRouteId` for community sources only |
+| `forkRoute(route, {cityId, isKnown})` | none: a pure `route-builder-model` draft named `Kopia: …`; cross-city is refused; returns `forkedFrom: {cityId, ref}` for a public source (editorial slug or community UUID), or `null` for unlisted or archived sources |
 
 ## Verification
 
 - `tests/social-routes.test.js` (in `npm test`): client normalization, single-call feed and marks, references, local validation, error codes, fork, and static checks of every contract point in 011.
-- `supabase/tests/011_social_routes.pglite.mjs` (optional, needs PGlite in a temp folder) runs 011 **twice** on a real Postgres 16. The stub uses the 003 RLS policies verbatim and Supabase roles, `auth.uid()` and default privileges. It replays the SOCIAL_ROUTES.md acceptance flow with two accounts and an anonymous visitor: publish validation, feed and city isolation, unlisted links, nickname without opening `profiles`, saves, ratings (no self-rating, upsert), fork provenance, ownership errors, atomic failed edit, archive, delete cascade, and the editorial-only catalogue.
+- `supabase/tests/011_social_routes.pglite.mjs` (optional, needs PGlite in a temp folder) runs 011 **twice** on a real Postgres 16. The stub uses the 003 RLS policies verbatim and Supabase roles, `auth.uid()` and default privileges. It replays the SOCIAL_ROUTES.md acceptance flow with two accounts and an anonymous visitor: publish validation, feed and city isolation, unlisted links, editorial-fork provenance, an unlisted fork source never surfacing in public cards or author routes, `route_ref` ignoring draft/unlisted routes, unsave/remove-rating after archive, nickname without opening `profiles`, saves, ratings (no self-rating, upsert), fork provenance, ownership errors, atomic failed edit, archive, delete cascade, and the editorial-only catalogue.
 
 ## Applying
 

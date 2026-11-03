@@ -58,7 +58,7 @@ test('save/rate address editorial routes by slug+city and community routes by uu
 test('publish validates locally with the same limits as migration 011, then sends one atomic RPC',async()=>{
   const {client,calls}=fake({publish_community_route:{data:R,error:null}});
   const api=createSocialRoutesClient({client});
-  assert.equal(await api.publishRoute({draft:draft('castle','old-town'),description:'Opis',tags:['local','local'],forkedFromRouteId:A}),R);
+  assert.equal(await api.publishRoute({draft:draft('castle','old-town'),description:'Opis',tags:['local','local'],forkedFrom:{cityId:'warsaw',ref:A}}),R);
   assert.deepEqual(calls[0],['publish_community_route',{p_city_slug:'warsaw',p_name:'Mój spacer',p_stops:['castle','old-town'],p_transport:'walking',
     p_description:'Opis',p_tags:['local'],p_visibility:'public',p_route_id:null,p_forked_from:A}]);
   assert.equal(validatePublish({draft:draft('castle')}),'invalid-stop-count');
@@ -82,14 +82,26 @@ test('server errors map to stable codes',async()=>{
   assert.throws(()=>createSocialRoutesClient({}),/client-missing/);
 });
 
-test('fork is local: a draft for the same city, provenance only for community routes',()=>{
+test('fork is local and keeps provenance for public community and editorial sources',async()=>{
   const community=communityRouteFromRow(row);
   const f=forkRoute(community,{cityId:'warsaw',isKnown:id=>id!=='old-town'});
   assert.equal(f.draft.name,'Kopia: Mój spacer');assert.deepEqual(f.draft.stops,['castle']);assert.deepEqual(f.report.dropped,['old-town']);
-  assert.equal(f.forkedFromRouteId,R);
-  assert.equal(forkRoute({id:'old-warsaw',cityId:'warsaw',name:'Pierwsze',stops:['castle'],transport:'walking'},{cityId:'warsaw'}).forkedFromRouteId,null,'editorial sources have no community provenance');
+  assert.deepEqual(f.forkedFrom,{cityId:'warsaw',ref:R},'community source by UUID');
+  const editorial=forkRoute({id:'old-warsaw',cityId:'warsaw',name:'Pierwsze',stops:['castle'],transport:'walking'},{cityId:'warsaw'});
+  assert.deepEqual(editorial.forkedFrom,{cityId:'warsaw',ref:'old-warsaw'},'editorial source by slug');
+  assert.equal(forkRoute({...community,visibility:'unlisted'},{cityId:'warsaw'}).forkedFrom,null,'unlisted source is never recorded');
+  assert.equal(forkRoute({...community,status:'archived'},{cityId:'warsaw'}).forkedFrom,null,'archived source is never recorded');
   assert.throws(()=>forkRoute(community,{cityId:'krakow'}),{code:'cross-city'});
   assert.deepEqual([...community.stops],['castle','old-town'],'source untouched');
+  // publishing the fork sends the reference; the server resolves and validates it
+  const {client,calls}=fake({publish_community_route:{data:R,error:null}});
+  const api=createSocialRoutesClient({client});
+  const fork=setName(addStop(addStop(createDraft('warsaw'),'castle').draft,'old-town').draft,'Kopia').draft;
+  await api.publishRoute({draft:fork,forkedFrom:editorial.forkedFrom});
+  await api.publishRoute({draft:fork,forkedFrom:f.forkedFrom});
+  await api.publishRoute({draft:fork,forkedFromRouteId:R});
+  await api.publishRoute({draft:fork});
+  assert.deepEqual(calls.map(c=>c[1].p_forked_from),['old-warsaw',R,R,null]);
 });
 
 test('migration 011 implements the reviewed contract',async()=>{
@@ -103,8 +115,12 @@ test('migration 011 implements the reviewed contract',async()=>{
   assert.match(sql,/revoke all on public\.community_route_cards from public,anon,authenticated/);
   for(const fn of ['community_routes','community_route','author_routes','public_profile','saved_routes'])
     assert.match(sql,new RegExp(`function public\\.${fn}\\([\\s\\S]*?set search_path=''[\\s\\S]*?security definer`),`${fn} must be a definer with empty search_path`);
-  // 3 unlisted by direct link only
+  // 3 unlisted by direct link only; cards never reveal an unlisted fork source; route_ref resolves public routes only
   assert.match(sql,/c\.visibility in \('public','unlisted'\)/);
+  assert.match(view,/src\.id as forked_from_id/);
+  assert.match(view,/left join public\.routes src on src\.id=r\.forked_from_route_id and src\.status='published' and src\.visibility='public'/);
+  assert.match(sql,/function public\.route_ref[\s\S]*?and r\.status='published' and r\.visibility='public'/);
+  assert.match(sql,/p_forked_from text default null/,'fork source is a reference: editorial slug or community uuid');
   // 4 atomic publish, invoker
   assert.match(sql,/function public\.publish_community_route[\s\S]*?language plpgsql volatile as/);
   assert.doesNotMatch(sql.match(/function public\.publish_community_route[\s\S]*?end \$\$;/)[0],/security definer/);

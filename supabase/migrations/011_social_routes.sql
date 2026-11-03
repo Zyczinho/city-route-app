@@ -116,7 +116,7 @@ select
   coalesce(pr.nickname,'Odkrywca') as author_nickname,
   r.published_at,
   r.created_at,
-  r.forked_from_route_id as forked_from_id,
+  src.id as forked_from_id,                    -- null unless the source is published public (never reveal unlisted)
   src.name as forked_from_name,
   st.stops,
   st.stop_count,
@@ -136,7 +136,7 @@ select
 from public.routes r
 join public.cities c on c.id=r.city_id
 left join public.profiles pr on pr.id=r.owner_user_id
-left join public.routes src on src.id=r.forked_from_route_id and src.status='published' and src.visibility in ('public','unlisted')
+left join public.routes src on src.id=r.forked_from_route_id and src.status='published' and src.visibility='public'
 cross join lateral (
   select coalesce(jsonb_agg(coalesce(p.legacy_id,p.slug) order by rs.position),'[]'::jsonb) as stops,count(*)::int as stop_count
   from public.route_stops rs join public.places p on p.id=rs.place_id where rs.route_id=r.id
@@ -239,6 +239,7 @@ as $$
 $$;
 
 -- 6. Route references: editorial routes are known to clients by slug, community routes by uuid --------------
+-- Resolves only published public routes, so it can't turn a guessed slug or UUID into a draft/archived/unlisted id.
 create or replace function public.route_ref(p_city_slug text,p_ref text)
 returns uuid
 set search_path=''
@@ -249,6 +250,7 @@ as $$
   where case when p_ref ~* '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
              then r.id=p_ref::uuid
              else c.slug=p_city_slug and r.route_type='editorial' and coalesce(r.legacy_id,r.slug)=p_ref end
+    and r.status='published' and r.visibility='public'
   limit 1;
 $$;
 
@@ -278,7 +280,8 @@ end $$;
 
 create or replace function public.unsave_route(p_city_slug text,p_ref text)
 returns uuid set search_path='' language plpgsql volatile as $$
-declare v_route uuid:=public.route_ref(p_city_slug,p_ref);
+-- Your own row can be removed even after the route was archived or unlisted: fall back to the UUID you passed.
+declare v_route uuid:=coalesce(public.route_ref(p_city_slug,p_ref),case when p_ref ~* '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$' then p_ref::uuid end);
 begin
   if (select auth.uid()) is null then raise exception 'auth-required' using errcode='28000'; end if;
   delete from public.route_saves where route_id=v_route and user_id=(select auth.uid());
@@ -299,7 +302,8 @@ end $$;
 
 create or replace function public.remove_rating(p_city_slug text,p_ref text)
 returns uuid set search_path='' language plpgsql volatile as $$
-declare v_route uuid:=public.route_ref(p_city_slug,p_ref);
+-- Your own row can be removed even after the route was archived or unlisted: fall back to the UUID you passed.
+declare v_route uuid:=coalesce(public.route_ref(p_city_slug,p_ref),case when p_ref ~* '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$' then p_ref::uuid end);
 begin
   if (select auth.uid()) is null then raise exception 'auth-required' using errcode='28000'; end if;
   delete from public.route_ratings where route_id=v_route and user_id=(select auth.uid());
@@ -309,7 +313,7 @@ end $$;
 -- Atomic publish or edit: route, ordered stops and tags in one transaction, validated server-side.
 create or replace function public.publish_community_route(
   p_city_slug text,p_name text,p_stops text[],p_transport text default 'walking',p_description text default '',
-  p_tags text[] default '{}',p_visibility text default 'public',p_route_id uuid default null,p_forked_from uuid default null
+  p_tags text[] default '{}',p_visibility text default 'public',p_route_id uuid default null,p_forked_from text default null
 )
 returns uuid set search_path='' language plpgsql volatile as $$
 declare
@@ -321,6 +325,7 @@ declare
   v_stop text;
   v_place uuid;
   v_pos integer:=0;
+  v_source uuid;
 begin
   if v_uid is null then raise exception 'auth-required' using errcode='28000'; end if;
   select id into v_city from public.cities where slug=p_city_slug;
@@ -332,18 +337,21 @@ begin
   if coalesce(array_length(p_stops,1),0) not between 2 and 20 then raise exception 'invalid-stop-count' using errcode='22023'; end if;
   if (select count(distinct s) from unnest(p_stops) s)<>array_length(p_stops,1) then raise exception 'duplicate-stop' using errcode='22023'; end if;
   if array_length(v_tags,1)>8 or exists(select 1 from unnest(v_tags) t where t !~ '^[a-z0-9_-]+$') then raise exception 'invalid-tags' using errcode='22023'; end if;
-  if p_forked_from is not null and not exists(
-    select 1 from public.routes f where f.id=p_forked_from and f.city_id=v_city and f.status='published' and f.visibility in ('public','unlisted')
-  ) then raise exception 'invalid-fork-source' using errcode='22023'; end if;
+  -- Fork source: an editorial slug or a community UUID, published public, in the same city (provenance for both kinds).
+  if p_forked_from is not null then
+    v_source:=public.route_ref(p_city_slug,p_forked_from);
+    if v_source is null or not exists(select 1 from public.routes f where f.id=v_source and f.city_id=v_city)
+    then raise exception 'invalid-fork-source' using errcode='22023'; end if;
+  end if;
 
   if p_route_id is null then
     insert into public.routes(city_id,slug,legacy_id,name,description,route_type,owner_user_id,visibility,status,transport,metadata,published_at,forked_from_route_id)
-    values(v_city,null,null,v_name,coalesce(p_description,''),'community',v_uid,p_visibility,'published',p_transport,'{}'::jsonb,now(),p_forked_from)
+    values(v_city,null,null,v_name,coalesce(p_description,''),'community',v_uid,p_visibility,'published',p_transport,'{}'::jsonb,now(),v_source)
     returning id into v_route;
   else
     update public.routes
     set name=v_name,description=coalesce(p_description,''),visibility=p_visibility,status='published',transport=p_transport,
-        published_at=coalesce(published_at,now()),forked_from_route_id=coalesce(p_forked_from,forked_from_route_id)
+        published_at=coalesce(published_at,now()),forked_from_route_id=coalesce(v_source,forked_from_route_id)
     where id=p_route_id and owner_user_id=v_uid and route_type='community' and city_id=v_city
     returning id into v_route;
     if v_route is null then raise exception 'not-owner' using errcode='42501'; end if;
@@ -391,7 +399,7 @@ revoke execute on function
   public.community_routes(text,text,integer,integer),public.community_route(uuid),public.author_routes(uuid,text),
   public.public_profile(uuid),public.saved_routes(),public.route_ref(text,text),public.my_route_marks(uuid[]),
   public.save_route(text,text),public.unsave_route(text,text),public.rate_route(text,text,integer),public.remove_rating(text,text),
-  public.publish_community_route(text,text,text[],text,text,text[],text,uuid,uuid),public.archive_community_route(uuid),public.delete_community_route(uuid)
+  public.publish_community_route(text,text,text[],text,text,text[],text,uuid,text),public.archive_community_route(uuid),public.delete_community_route(uuid)
 from public,anon,authenticated;
 grant execute on function
   public.community_routes(text,text,integer,integer),public.community_route(uuid),public.author_routes(uuid,text),
@@ -400,5 +408,5 @@ to anon,authenticated;
 grant execute on function
   public.saved_routes(),public.my_route_marks(uuid[]),
   public.save_route(text,text),public.unsave_route(text,text),public.rate_route(text,text,integer),public.remove_rating(text,text),
-  public.publish_community_route(text,text,text[],text,text,text[],text,uuid,uuid),public.archive_community_route(uuid),public.delete_community_route(uuid)
+  public.publish_community_route(text,text,text[],text,text,text[],text,uuid,text),public.archive_community_route(uuid),public.delete_community_route(uuid)
 to authenticated;

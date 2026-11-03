@@ -10,6 +10,7 @@ test('route cover module is wired into route cards, detail, build and PWA cache'
  assert.match(app,/cover=covers\.get\(r\.id\)\|\|null/);
  assert.match(app,/cover=routeCoverAssignments\(\)\.get\(r\.id\)\|\|null/);
  assert.match(app,/\$\{credit\(cover\)\}/);
+ assert.match(app,/function credit\(p\)\{const c=p\?\.imageCredit/,'missing cover must not crash attribution');
  assert.doesNotMatch(app,/detailView\(r\)[\s\S]{0,500}photo\(ps\.find\(p=>p\.image\)/);
  assert.match(build,/route-covers\.js/);
  assert.match(sw,/city-route-v26/);

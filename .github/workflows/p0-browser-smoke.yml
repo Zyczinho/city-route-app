@@ -1,0 +1,36 @@
+name: P0 browser smoke
+
+on:
+  pull_request:
+    paths:
+      - 'app.js'
+      - 'styles.css'
+      - 'place-composer.js'
+      - 'place-composer-model.js'
+      - 'route-optimizer.js'
+      - 'tests/p0-browser-smoke.mjs'
+      - '.github/workflows/p0-browser-smoke.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  mobile-smoke:
+    if: github.head_ref == 'integration/p0-place-route-018'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm run build
+      - run: npm install --no-save playwright@1.58.2
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/p0-browser-smoke.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p0-mobile-smoke-screenshots
+          path: p0-smoke-artifacts/
+          if-no-files-found: ignore

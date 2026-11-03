@@ -196,7 +196,8 @@ export function createMapView(opts){
     get selectedId(){return selectedId;},
     visiblePlaces:visible,
     setPlaces(next){places=next||[];if(selectedId&&!byId(selectedId))select(null,{silent:true});render();},
-    setCity(next){city=next;nearbyOn=false;nearbyCenter=null;routeStops=[];routeSource=new Map();// drafts are per citynearbyBtn.setAttribute('aria-pressed','false');select(null,{silent:true});
+    // Drafts, Nearby and selection all belong to the previous city.
+    setCity(next){city=next;nearbyOn=false;nearbyCenter=null;routeStops=[];routeSource=new Map();nearbyBtn.setAttribute('aria-pressed','false');select(null,{silent:true});
       if(map&&city?.center)map.setView([city.center.lat,city.center.lng],city.defaultZoom||13);render();},
     setFilter(next){filter=next||{};render();},
     setNearby(c){nearbyOn=!!c;nearbyCenter=c||null;nearbyBtn.setAttribute('aria-pressed',String(nearbyOn));render();

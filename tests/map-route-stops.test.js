@@ -108,6 +108,37 @@ test('list fallback shows the ordered draft above the places; city switch clears
   assert.doesNotMatch(container.children[2].innerHTML,/Twoja trasa/);
 });
 
+test('setCity clears route stops, selection, card and Nearby (map mode)',async()=>{
+  const {view,container,route,seen}=await mount();
+  view.setRouteStops([places[0],places[3]]);
+  view.setNearby({lat:50.0615,lng:19.9373});
+  route().find(m=>m.o?.title==='1. Rynek Główny').handlers.click();
+  const [toolbar,,,card]=container.children,nearbyBtn=toolbar.children[0];
+  assert.equal(view.selectedId,'rynek');assert.equal(card.hidden,false);assert.equal(nearbyBtn.getAttribute('aria-pressed'),'true');
+  assert.equal(view.visiblePlaces().length,3,'Nearby filters before the switch');
+  view.setCity({name:'Warszawa',center:{lat:52.23,lng:21.01},defaultZoom:12});
+  assert.deepEqual(view.routeStops,[],'route stops cleared');
+  assert.equal(route().length,0,'no stop markers or line left');
+  assert.equal(view.selectedId,null,'selection cleared');
+  assert.equal(card.hidden,true,'card closed');
+  assert.equal(nearbyBtn.getAttribute('aria-pressed'),'false','Nearby button off');
+  assert.equal(view.visiblePlaces().length,places.length,'Nearby filter off');
+  assert.equal(container.classList.set.has('has-route'),false);
+  assert.deepEqual(seen,['rynek'],'the switch clears silently, without an onSelect(null)');
+});
+
+test('setCity clears selection and Nearby in the list fallback too',async()=>{
+  const doc=fakeDoc(),container=doc.createElement('div');
+  const view=createMapView({container,doc,places,city,leaflet:()=>Promise.reject(new Error('offline'))});
+  await view.ready;
+  view.setNearby({lat:50.0615,lng:19.9373});view.select('jama');
+  view.setCity({name:'Warszawa',center:{lat:52.23,lng:21.01}});
+  assert.equal(view.selectedId,null);
+  assert.equal(container.children[3].hidden,true);
+  assert.equal(container.children[0].children[0].getAttribute('aria-pressed'),'false');
+  assert.doesNotMatch(container.children[2].innerHTML,/aria-pressed="true"/);
+});
+
 test('fit is opt-in and zooms to located stops only',async()=>{
   const {view,calls}=await mount();
   view.setRouteStops([places[0],places[3]]);

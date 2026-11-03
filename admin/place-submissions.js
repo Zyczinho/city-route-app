@@ -2,7 +2,7 @@
 import {supabase,SUPABASE_URL} from '../supabase-client.js';
 import {createPlaceContributionsClient,BUCKET,contributionError} from '../place-contributions-client.js';
 const api=createPlaceContributionsClient({client:supabase});
-const $=s=>document.querySelector(s),safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;':'&quot;',"'":'&#39;'}[c]));
+const $=s=>document.querySelector(s),safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const names={pending:'Czekają',approved:'Zatwierdzone',rejected:'Odrzucone',merged:'Połączone'};
 let city='warsaw',filter='pending',rows=[];
 const status=s=>{$('#admin-status').textContent=s;};

@@ -5,7 +5,9 @@ create role authenticated nologin;
 create schema auth;
 create schema storage;
 create schema extensions;
-create extension if not exists postgis with schema extensions;
+-- The PostGIS container preinstalls the extension in public; mirror City Route's extensions schema.
+drop extension if exists postgis cascade;
+create extension postgis with schema extensions;
 create table auth.users(id uuid primary key);
 create or replace function auth.uid() returns uuid language sql stable as $$
  select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid $$;

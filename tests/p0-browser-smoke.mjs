@@ -106,6 +106,7 @@ try{
  assert.ok(routeLayout.scroll<=routeLayout.inner+1,'variants fit a 375px viewport: '+JSON.stringify(routeLayout));
  await page.screenshot({path:'p0-smoke-artifacts/generated-route-options.png',fullPage:true});
  await page.locator('#navigation a[href="#my-route"]').click();
+ await page.locator('.stops li[data-stop]').first().waitFor({timeout:10000});
  assert.equal(await page.locator('.stops li[data-stop]').count(),11,'generating options never overwrites the manual route basket');
  assert.deepEqual(errors,[],'unexpected page exception in mobile route test');
  await ctx.close();

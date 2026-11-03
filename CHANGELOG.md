@@ -36,3 +36,6 @@ Default first tab Ułóż trasę; full planner title Zaplanuj moją trasę. Expl
 
 ## 2026-11-02 — manual route and Maps repairs
 Manual route entry, pointer drag ordering and sequential stop addition; broader coordinate parsing and safe Cloudflare short-link resolver; official ticket links first and secondary offers separated. Verification stays unclaimed. See STATUS for accounts/photo/catalogue work still outstanding.
+
+## 2026-11-03 — Kraków content quality
+Kraków catalogue cleaned from 220 to 208 places: duplicates and chains removed, 5 important places added, wrong coordinates of seven curated places fixed, real neighbourhoods instead of "Kraków", better categories and tags, short descriptions for every curated place. All 15 Kraków routes checked and re-ordered, with the Nowa Huta walk going from 14.5 km to 3.3 km. Editorial decisions live in curation.json and survive regeneration; an enrichment report lists missing photos, ratings, websites and hours. 59 tests pass.

@@ -5,13 +5,15 @@
     "name": "Rynek Główny",
     "categoryId": "landmark",
     "area": "Stare Miasto",
-    "description": "Serce Krakowa i naturalny punkt startu dla pierwszej wizyty.",
+    "description": "Jeden z największych średniowiecznych rynków Europy, z Sukiennicami, Wieżą Ratuszową i Mariackim. Dobry punkt startu każdej trasy.",
     "tags": [
       "classic",
       "sightseeing",
+      "architecture",
       "free"
     ],
-    "top": true
+    "top": true,
+    "minutes": 20
   },
   {
     "id": "wawel-castle",
@@ -19,13 +21,15 @@
     "name": "Zamek Królewski na Wawelu",
     "categoryId": "landmark",
     "area": "Wawel",
-    "description": "Królewski kompleks nad Wisłą i jeden z najważniejszych symboli miasta.",
+    "description": "Wzgórze z zamkiem królewskim nad Wisłą. Dziedzińce są dostępne bez biletu, komnaty i skarbiec wymagają wejściówek.",
     "tags": [
       "classic",
+      "sightseeing",
       "history",
-      "sightseeing"
+      "views"
     ],
-    "top": true
+    "top": true,
+    "minutes": 45
   },
   {
     "id": "wawel-cathedral",
@@ -33,13 +37,14 @@
     "name": "Katedra Wawelska",
     "categoryId": "religious_site",
     "area": "Wawel",
-    "description": "Katedra koronacyjna i miejsce związane z historią polskich monarchów.",
+    "description": "Miejsce koronacji i pochówku polskich królów. Warto wejść na wieżę z dzwonem Zygmunta.",
     "tags": [
       "classic",
-      "history",
-      "culture"
+      "sightseeing",
+      "history"
     ],
-    "top": true
+    "top": true,
+    "minutes": 45
   },
   {
     "id": "st-marys-basilica",
@@ -47,13 +52,18 @@
     "name": "Bazylika Mariacka",
     "categoryId": "religious_site",
     "area": "Stare Miasto",
-    "description": "Gotycka bazylika przy Rynku Głównym, słynąca z hejnału i ołtarza Wita Stwosza.",
+    "description": "Gotycka bazylika z ołtarzem Wita Stwosza. Co godzinę z wyższej wieży grany jest hejnał mariacki.",
     "tags": [
       "classic",
-      "culture",
-      "sightseeing"
+      "sightseeing",
+      "art",
+      "history"
     ],
-    "top": true
+    "top": true,
+    "minutes": 30,
+    "lat": 50.0616547,
+    "lng": 19.9394485,
+    "osm": "way/26195267"
   },
   {
     "id": "cloth-hall",
@@ -61,13 +71,15 @@
     "name": "Sukiennice",
     "categoryId": "landmark",
     "area": "Stare Miasto",
-    "description": "Historyczne hale handlowe w samym środku Rynku Głównego.",
+    "description": "Renesansowe hale targowe na środku Rynku: stragany z rękodziełem na parterze, galeria malarstwa XIX wieku na piętrze.",
     "tags": [
       "classic",
       "sightseeing",
-      "shopping"
+      "architecture",
+      "free"
     ],
-    "top": true
+    "top": true,
+    "minutes": 20
   },
   {
     "id": "barbican",
@@ -75,13 +87,14 @@
     "name": "Barbakan Krakowski",
     "categoryId": "landmark",
     "area": "Stare Miasto",
-    "description": "Zachowany element średniowiecznych fortyfikacji Krakowa.",
+    "description": "Ceglany barbakan z końca XV wieku, który bronił wejścia do miasta przez Bramę Floriańską.",
     "tags": [
       "classic",
-      "history",
-      "free"
+      "sightseeing",
+      "history"
     ],
-    "top": true
+    "top": true,
+    "minutes": 15
   },
   {
     "id": "florian-gate",
@@ -89,13 +102,15 @@
     "name": "Brama Floriańska",
     "categoryId": "landmark",
     "area": "Stare Miasto",
-    "description": "Jedna z najbardziej rozpoznawalnych bram dawnego Krakowa.",
+    "description": "Gotycka brama w dawnych murach miejskich. Stąd Droga Królewska prowadzi Floriańską przez Rynek aż na Wawel.",
     "tags": [
       "classic",
+      "sightseeing",
       "history",
       "free"
     ],
-    "top": true
+    "top": true,
+    "minutes": 10
   },
   {
     "id": "planty",
@@ -103,13 +118,18 @@
     "name": "Planty",
     "categoryId": "park",
     "area": "Stare Miasto",
-    "description": "Zielony pierścień wokół historycznego centrum, idealny na spacer między atrakcjami.",
+    "description": "Park w miejscu dawnych murów miejskich, okalający całe Stare Miasto. Najprzyjemniejsze przejście między atrakcjami centrum.",
     "tags": [
       "nature",
       "walk",
-      "free"
+      "free",
+      "classic"
     ],
-    "top": true
+    "top": true,
+    "minutes": 20,
+    "lat": 50.0612,
+    "lng": 19.9322,
+    "osm": "way/1221128266"
   },
   {
     "id": "collegium-maius",
@@ -117,13 +137,15 @@
     "name": "Collegium Maius",
     "categoryId": "museum",
     "area": "Stare Miasto",
-    "description": "Najstarszy budynek Uniwersytetu Jagiellońskiego i muzeum uniwersyteckie.",
+    "description": "Najstarszy budynek Uniwersytetu Jagiellońskiego z gotyckim dziedzińcem i muzeum uniwersyteckim. Dziedziniec można zobaczyć bez biletu.",
     "tags": [
       "culture",
       "history",
-      "museum"
+      "sightseeing",
+      "student"
     ],
-    "top": true
+    "top": true,
+    "minutes": 45
   },
   {
     "id": "rynek-underground",
@@ -131,13 +153,14 @@
     "name": "Rynek Podziemny",
     "categoryId": "museum",
     "area": "Stare Miasto",
-    "description": "Multimedialna trasa archeologiczna pod płytą Rynku Głównego.",
+    "description": "Trasa pod płytą Rynku z odkopanymi fragmentami średniowiecznego miasta i ekspozycją multimedialną. Dobra opcja na deszcz.",
     "tags": [
-      "museum",
+      "culture",
       "history",
       "rainy-day"
     ],
-    "top": true
+    "top": true,
+    "minutes": 75
   },
   {
     "id": "czartoryski-museum",
@@ -145,14 +168,15 @@
     "name": "Muzeum Książąt Czartoryskich",
     "categoryId": "museum",
     "area": "Stare Miasto",
-    "description": "Jedna z najważniejszych kolekcji sztuki w Polsce.",
+    "description": "Kolekcja sztuki i pamiątek historycznych, w której można zobaczyć „Damę z gronostajem” Leonarda da Vinci.",
     "tags": [
-      "museum",
-      "art",
       "culture",
+      "art",
+      "history",
       "rainy-day"
     ],
-    "top": true
+    "top": true,
+    "minutes": 75
   },
   {
     "id": "national-museum",
@@ -160,28 +184,30 @@
     "name": "Muzeum Narodowe w Krakowie",
     "categoryId": "museum",
     "area": "Błonia",
-    "description": "Główna siedziba Muzeum Narodowego z rozbudowanymi kolekcjami sztuki.",
+    "description": "Gmach Główny Muzeum Narodowego z galeriami sztuki polskiej, rzemiosła i militariów. Dobry wybór na dłuższą wizytę lub deszczowy dzień.",
     "tags": [
-      "museum",
-      "art",
       "culture",
+      "art",
       "rainy-day"
     ],
-    "top": true
+    "top": true,
+    "minutes": 90
   },
   {
     "id": "stained-glass-museum",
     "query": "Muzeum Witrażu, Kraków",
     "name": "Muzeum Witrażu",
     "categoryId": "museum",
-    "area": "Piasek",
-    "description": "Muzeum połączone z działającą pracownią witraży.",
+    "area": "Zwierzyniec",
+    "description": "Działająca od ponad stu lat pracownia witraży z małym muzeum. Zwiedzanie z przewodnikiem pokazuje cały proces powstawania witrażu.",
     "tags": [
-      "museum",
+      "culture",
       "art",
-      "hidden"
+      "hidden",
+      "rainy-day"
     ],
-    "top": false
+    "top": false,
+    "minutes": 60
   },
   {
     "id": "manggha",
@@ -189,13 +215,15 @@
     "name": "Muzeum Manggha",
     "categoryId": "museum",
     "area": "Dębniki",
-    "description": "Muzeum sztuki i kultury japońskiej nad Wisłą.",
+    "description": "Muzeum sztuki i techniki japońskiej w budynku Araty Isozakiego, z widokiem na Wawel zza Wisły.",
     "tags": [
-      "museum",
+      "culture",
       "art",
-      "culture"
+      "views",
+      "rainy-day"
     ],
-    "top": true
+    "top": false,
+    "minutes": 60
   },
   {
     "id": "old-synagogue",
@@ -203,13 +231,15 @@
     "name": "Stara Synagoga",
     "categoryId": "museum",
     "area": "Kazimierz",
-    "description": "Najstarsza zachowana synagoga w Polsce i ważny punkt historii Kazimierza.",
+    "description": "Najstarsza zachowana synagoga w Polsce, dziś oddział Muzeum Krakowa o historii i kulturze krakowskich Żydów.",
     "tags": [
+      "culture",
       "history",
       "jewish-heritage",
-      "museum"
+      "rainy-day"
     ],
-    "top": true
+    "top": true,
+    "minutes": 45
   },
   {
     "id": "remuh-synagogue",
@@ -217,13 +247,14 @@
     "name": "Synagoga Remuh",
     "categoryId": "religious_site",
     "area": "Kazimierz",
-    "description": "Historyczna synagoga i cmentarz przy ulicy Szerokiej.",
+    "description": "Mała, wciąż czynna synagoga z XVI wieku i przylegający do niej stary cmentarz żydowski.",
     "tags": [
+      "sightseeing",
       "history",
-      "jewish-heritage",
-      "culture"
+      "jewish-heritage"
     ],
-    "top": true
+    "top": true,
+    "minutes": 30
   },
   {
     "id": "plac-nowy",
@@ -231,13 +262,15 @@
     "name": "Plac Nowy",
     "categoryId": "neighborhood",
     "area": "Kazimierz",
-    "description": "Jeden z najbardziej charakterystycznych punktów Kazimierza, szczególnie wieczorem.",
+    "description": "Plac z okrąglakiem, w którym sprzedaje się zapiekanki, otoczony barami i kawiarniami. Rano targ, wieczorem centrum życia Kazimierza.",
     "tags": [
       "local",
       "food",
-      "nightlife"
+      "nightlife",
+      "budget"
     ],
-    "top": true
+    "top": true,
+    "minutes": 30
   },
   {
     "id": "corpus-christi",
@@ -245,13 +278,52 @@
     "name": "Bazylika Bożego Ciała",
     "categoryId": "religious_site",
     "area": "Kazimierz",
-    "description": "Monumentalna bazylika i jeden z najważniejszych zabytków Kazimierza.",
+    "description": "Gotycka bazylika z bogatym barokowym wnętrzem, jedna z najważniejszych świątyń Kazimierza.",
     "tags": [
-      "history",
+      "sightseeing",
       "architecture",
-      "culture"
+      "history"
     ],
-    "top": false
+    "top": false,
+    "minutes": 25
+  },
+  {
+    "id": "tempel-synagogue",
+    "query": "Synagoga Tempel, Miodowa 24, Kraków",
+    "name": "Synagoga Tempel",
+    "categoryId": "religious_site",
+    "area": "Kazimierz",
+    "description": "XIX-wieczna synagoga postępowa z bogato zdobionym wnętrzem i witrażami, otwarta dla zwiedzających.",
+    "tags": [
+      "sightseeing",
+      "history",
+      "jewish-heritage",
+      "art"
+    ],
+    "top": false,
+    "minutes": 30,
+    "lat": 50.052938,
+    "lng": 19.9444445,
+    "osm": "way/39405479"
+  },
+  {
+    "id": "galicia-jewish-museum",
+    "query": "Żydowskie Muzeum Galicja, Dajwór 18, Kraków",
+    "name": "Żydowskie Muzeum Galicja",
+    "categoryId": "museum",
+    "area": "Kazimierz",
+    "description": "Muzeum o życiu i Zagładzie Żydów z dawnej Galicji, z wystawą fotografii zachowanych śladów żydowskiej kultury.",
+    "tags": [
+      "culture",
+      "history",
+      "jewish-heritage",
+      "rainy-day"
+    ],
+    "top": false,
+    "minutes": 60,
+    "lat": 50.0508571,
+    "lng": 19.9496775,
+    "osm": "node/472147189"
   },
   {
     "id": "schindler-factory",
@@ -259,14 +331,15 @@
     "name": "Fabryka Schindlera",
     "categoryId": "museum",
     "area": "Zabłocie",
-    "description": "Muzeum opowiadające o Krakowie podczas niemieckiej okupacji.",
+    "description": "Muzeum w dawnej fabryce Oskara Schindlera z wystawą o Krakowie pod okupacją niemiecką 1939–1945. Bilety warto zarezerwować wcześniej.",
     "tags": [
-      "museum",
+      "culture",
       "history",
       "ww2",
       "rainy-day"
     ],
-    "top": true
+    "top": true,
+    "minutes": 90
   },
   {
     "id": "mocak",
@@ -274,14 +347,14 @@
     "name": "MOCAK",
     "categoryId": "museum",
     "area": "Zabłocie",
-    "description": "Najważniejsze krakowskie muzeum sztuki współczesnej.",
+    "description": "Muzeum Sztuki Współczesnej na terenie dawnej fabryki Schindlera, ze zmieniającymi się wystawami polskiej i zagranicznej sztuki.",
     "tags": [
-      "museum",
+      "culture",
       "art",
-      "zablocie",
       "rainy-day"
     ],
-    "top": true
+    "top": true,
+    "minutes": 75
   },
   {
     "id": "ghetto-heroes-square",
@@ -289,14 +362,16 @@
     "name": "Plac Bohaterów Getta",
     "categoryId": "landmark",
     "area": "Podgórze",
-    "description": "Miejsce pamięci związane z historią krakowskiego getta.",
+    "description": "Plac z instalacją pustych krzeseł upamiętniającą Żydów z krakowskiego getta. To stąd wywożono ich do obozów.",
     "tags": [
+      "sightseeing",
       "history",
       "jewish-heritage",
       "ww2",
       "free"
     ],
-    "top": true
+    "top": true,
+    "minutes": 15
   },
   {
     "id": "eagle-pharmacy",
@@ -304,28 +379,31 @@
     "name": "Apteka pod Orłem",
     "categoryId": "museum",
     "area": "Podgórze",
-    "description": "Oddział Muzeum Krakowa poświęcony historii getta i jego mieszkańców.",
+    "description": "Apteka Tadeusza Pankiewicza, jedynego Polaka mieszkającego w getcie. Dziś oddział Muzeum Krakowa.",
     "tags": [
-      "museum",
+      "culture",
       "history",
-      "ww2"
+      "ww2",
+      "jewish-heritage"
     ],
-    "top": false
+    "top": false,
+    "minutes": 45
   },
   {
     "id": "bernatek-footbridge",
     "query": "Kładka Ojca Bernatka, Kraków",
     "name": "Kładka Ojca Bernatka",
     "categoryId": "architecture",
-    "area": "Podgórze / Kazimierz",
-    "description": "Kładka łącząca Kazimierz z Podgórzem, popularna szczególnie po zmroku.",
+    "area": "Kazimierz",
+    "description": "Kładka pieszo-rowerowa nad Wisłą z akrobatycznymi rzeźbami, łącząca Kazimierz z Podgórzem. Dobry widok na rzekę.",
     "tags": [
-      "walk",
       "views",
+      "walk",
       "free",
       "romantic"
     ],
-    "top": true
+    "top": true,
+    "minutes": 15
   },
   {
     "id": "podgorze-market-square",
@@ -333,13 +411,16 @@
     "name": "Rynek Podgórski",
     "categoryId": "neighborhood",
     "area": "Podgórze",
-    "description": "Historyczny rynek dawnego miasta Podgórze.",
+    "description": "Rynek dawnego miasta Podgórze z neogotyckim kościołem św. Józefa. Spokojniejszy i bardziej lokalny niż Rynek Główny.",
     "tags": [
-      "local",
+      "sightseeing",
       "architecture",
+      "local",
       "free"
     ],
-    "top": false
+    "top": false,
+    "tourist": "local",
+    "minutes": 20
   },
   {
     "id": "bednarski-park",
@@ -347,14 +428,16 @@
     "name": "Park Bednarskiego",
     "categoryId": "park",
     "area": "Podgórze",
-    "description": "Zielony park położony w dawnym kamieniołomie w Podgórzu.",
+    "description": "Park w dawnym kamieniołomie wapienia, z wąwozami i skałkami. Spokojna przerwa po drodze na Kopiec Krakusa.",
     "tags": [
       "nature",
-      "local",
       "walk",
+      "hidden",
       "free"
     ],
-    "top": false
+    "top": false,
+    "tourist": "local",
+    "minutes": 40
   },
   {
     "id": "krakus-mound",
@@ -362,14 +445,15 @@
     "name": "Kopiec Krakusa",
     "categoryId": "viewpoint",
     "area": "Podgórze",
-    "description": "Bezpłatny punkt widokowy z szeroką panoramą Krakowa.",
+    "description": "Najstarszy z krakowskich kopców, z bezpłatną panoramą na Stare Miasto i Wawel. Szczególnie dobry o zachodzie słońca.",
     "tags": [
       "views",
-      "nature",
+      "history",
       "free",
-      "sunset"
+      "romantic"
     ],
-    "top": true
+    "top": true,
+    "minutes": 40
   },
   {
     "id": "kosciuszko-mound",
@@ -377,13 +461,14 @@
     "name": "Kopiec Kościuszki",
     "categoryId": "viewpoint",
     "area": "Zwierzyniec",
-    "description": "Jeden z najlepszych punktów widokowych na Kraków i okolice.",
+    "description": "Kopiec z XIX wieku z panoramą Krakowa, a przy dobrej pogodzie także Tatr. Wstęp jest płatny i obejmuje wystawy w forcie.",
     "tags": [
       "views",
       "history",
-      "sunset"
+      "nature"
     ],
-    "top": true
+    "top": true,
+    "minutes": 60
   },
   {
     "id": "blonia",
@@ -391,14 +476,16 @@
     "name": "Błonia Krakowskie",
     "categoryId": "park",
     "area": "Błonia",
-    "description": "Ogromna zielona łąka pomiędzy centrum a Zwierzyńcem.",
+    "description": "Rozległa łąka kilka minut od centrum, na spacer, bieganie i piknik, z widokiem na Kopiec Kościuszki.",
     "tags": [
       "nature",
-      "sport",
+      "walk",
       "free",
       "local"
     ],
-    "top": true
+    "top": false,
+    "tourist": "local",
+    "minutes": 40
   },
   {
     "id": "jordan-park",
@@ -406,13 +493,16 @@
     "name": "Park Jordana",
     "categoryId": "park",
     "area": "Błonia",
-    "description": "Duży park rekreacyjny obok Błoń.",
+    "description": "Duży park rekreacyjny przy Błoniach, z aleją popiersi sławnych Polaków i placami zabaw.",
     "tags": [
       "nature",
-      "sport",
-      "free"
+      "walk",
+      "free",
+      "local"
     ],
-    "top": false
+    "top": false,
+    "tourist": "local",
+    "minutes": 40
   },
   {
     "id": "botanical-garden",
@@ -420,13 +510,14 @@
     "name": "Ogród Botaniczny UJ",
     "categoryId": "garden",
     "area": "Wesoła",
-    "description": "Historyczny ogród botaniczny z kolekcjami roślin i szklarniami.",
+    "description": "Najstarszy ogród botaniczny w Polsce, prowadzony przez UJ, ze szklarniami i dawnym obserwatorium. Wstęp płatny.",
     "tags": [
       "nature",
-      "garden",
-      "calm"
+      "history",
+      "walk"
     ],
-    "top": true
+    "top": false,
+    "minutes": 60
   },
   {
     "id": "stary-kleparz",
@@ -434,14 +525,15 @@
     "name": "Stary Kleparz",
     "categoryId": "food_hall",
     "area": "Kleparz",
-    "description": "Historyczny targ spożywczy blisko Starego Miasta.",
+    "description": "Jeden z najstarszych targów w mieście: warzywa, sery, wędliny i kwiaty kilka minut od Barbakanu.",
     "tags": [
       "food",
-      "market",
       "local",
       "budget"
     ],
-    "top": true
+    "top": false,
+    "tourist": "local",
+    "minutes": 30
   },
   {
     "id": "hala-targowa",
@@ -449,14 +541,19 @@
     "name": "Hala Targowa",
     "categoryId": "food_hall",
     "area": "Grzegórzki",
-    "description": "Targ i popularny punkt lokalnego jedzenia poza głównym turystycznym traktem.",
+    "description": "Targ przy Grzegórzeckiej z warzywami i niedzielnym pchlim targiem. Wieczorami obok działa znana budka z kiełbaskami z nyski.",
     "tags": [
       "food",
-      "market",
       "local",
-      "budget"
+      "budget",
+      "hidden"
     ],
-    "top": false
+    "top": false,
+    "tourist": "local",
+    "minutes": 30,
+    "lat": 50.0581001,
+    "lng": 19.9492878,
+    "osm": "way/175160079"
   },
   {
     "id": "emigrant-coffee-karmelicka",
@@ -464,12 +561,16 @@
     "name": "Emigrant Coffee Karmelicka",
     "categoryId": "cafe",
     "area": "Piasek",
-    "description": "Specialty coffee niedaleko Starego Miasta.",
+    "description": "Kawiarnia specialty przy Karmelickiej, dobra na kawę między Starym Miastem a Krowodrzą.",
     "tags": [
+      "food",
       "coffee",
       "local"
     ],
-    "top": false
+    "top": false,
+    "minutes": 30,
+    "lat": 50.0647097,
+    "lng": 19.9314842
   },
   {
     "id": "restauracja-sasiedzi",
@@ -477,13 +578,17 @@
     "name": "Restauracja Sąsiedzi",
     "categoryId": "restaurant",
     "area": "Kazimierz",
-    "description": "Restauracja na Kazimierzu z polską kuchnią i spokojniejszą atmosferą.",
+    "description": "Restauracja z kuchnią polską przy Miodowej, spokojniejsza niż lokale wokół Placu Nowego.",
     "tags": [
       "food",
       "polish",
-      "kazimierz"
+      "date"
     ],
-    "top": false
+    "top": false,
+    "minutes": 75,
+    "lat": 50.0528132,
+    "lng": 19.9453007,
+    "osm": "node/4052066489"
   },
   {
     "id": "restauracja-po-krakosku",
@@ -491,25 +596,28 @@
     "name": "Restauracja Po Krakosku",
     "categoryId": "restaurant",
     "area": "Kazimierz",
-    "description": "Kuchnia inspirowana Krakowem i Galicją przy placu Wolnica.",
+    "description": "Restauracja przy placu Wolnica z kuchnią krakowską i galicyjską. Wygodny przystanek na obiad przed przejściem na Podgórze.",
     "tags": [
       "food",
-      "polish",
-      "kazimierz"
+      "polish"
     ],
-    "top": false
+    "top": false,
+    "minutes": 75,
+    "lat": 50.0483933,
+    "lng": 19.9446093,
+    "osm": "node/6967360985"
   },
   {
     "id": "la-habana",
     "query": "La Habana Miodowa 22 Kraków",
     "name": "La Habana",
-    "categoryId": "bar",
+    "categoryId": "cocktail_bar",
     "area": "Kazimierz",
-    "description": "Kubański bar na Kazimierzu z rumem, koktajlami i muzyką latynoską.",
+    "description": "Kubański bar przy Miodowej z rumem, mojito i latynoską muzyką.",
     "tags": [
       "nightlife",
       "cocktails",
-      "kazimierz"
+      "date"
     ],
     "top": false
   },
@@ -518,14 +626,14 @@
     "query": "Mercy Brown Straszewskiego 28 Kraków",
     "name": "Mercy Brown",
     "categoryId": "cocktail_bar",
-    "area": "Stare Miasto",
-    "description": "Ukryty cocktail bar w stylu speakeasy z jazzowym klimatem.",
+    "area": "Piasek",
+    "description": "Ukryty cocktail bar w stylu speakeasy z jazzowym klimatem, dobry na randkę.",
     "tags": [
       "nightlife",
       "cocktails",
       "date"
     ],
-    "top": true,
+    "top": false,
     "lat": 50.061512,
     "lng": 19.931628
   },
@@ -534,11 +642,11 @@
     "query": "Shine Club Starowiślna 16 Kraków",
     "name": "Shine Club Kraków",
     "categoryId": "club",
-    "area": "Stare Miasto",
-    "description": "Duży klub nocny przy Starowiślnej.",
+    "area": "Stradom",
+    "description": "Duży klub taneczny przy Starowiślnej, na późny wieczór.",
     "tags": [
       "nightlife",
-      "club"
+      "dance"
     ],
     "top": false
   },
@@ -548,13 +656,49 @@
     "name": "NOVA KLUBOVA",
     "categoryId": "club",
     "area": "Kazimierz",
-    "description": "Klub na Kazimierzu przy ulicy Estery.",
+    "description": "Klub przy Estery, kilka kroków od Placu Nowego.",
     "tags": [
       "nightlife",
-      "club",
-      "kazimierz"
+      "dance",
+      "local"
     ],
     "top": false
+  },
+  {
+    "id": "piwnica-pod-baranami",
+    "query": "Piwnica pod Baranami, Rynek Główny 27, Kraków",
+    "name": "Piwnica pod Baranami",
+    "categoryId": "live_music",
+    "area": "Stare Miasto",
+    "description": "Legendarna piwnica kabaretowa przy Rynku, działająca od 1956 roku. Program koncertów i występów warto sprawdzić przed wizytą.",
+    "tags": [
+      "nightlife",
+      "culture",
+      "classic"
+    ],
+    "top": false,
+    "minutes": 90,
+    "lat": 50.0616022,
+    "lng": 19.9353977,
+    "osm": "node/475387327"
+  },
+  {
+    "id": "harris-piano-jazz-bar",
+    "query": "Harris Piano Jazz Bar, Rynek Główny 28, Kraków",
+    "name": "Harris Piano Jazz Bar",
+    "categoryId": "live_music",
+    "area": "Stare Miasto",
+    "description": "Klub jazzowy w piwnicy przy Rynku z koncertami na żywo przez większość wieczorów.",
+    "tags": [
+      "nightlife",
+      "date",
+      "culture"
+    ],
+    "top": false,
+    "minutes": 90,
+    "lat": 50.0617412,
+    "lng": 19.9355409,
+    "osm": "node/475387322"
   },
   {
     "id": "central-square-nowa-huta",
@@ -562,14 +706,16 @@
     "name": "Plac Centralny w Nowej Hucie",
     "categoryId": "architecture",
     "area": "Nowa Huta",
-    "description": "Monumentalny plac i dobry punkt startu do odkrywania socrealistycznej Nowej Huty.",
+    "description": "Monumentalny plac w socrealistycznym centrum Nowej Huty, od którego rozchodzą się główne aleje dzielnicy. Dobry punkt startu.",
     "tags": [
-      "architecture",
-      "local",
+      "sightseeing",
+      "history",
       "nowa-huta",
       "free"
     ],
-    "top": true,
+    "top": false,
+    "tourist": "local",
+    "minutes": 20,
     "lat": 50.0719,
     "lng": 20.0378
   },
@@ -579,13 +725,19 @@
     "name": "Muzeum Nowej Huty",
     "categoryId": "museum",
     "area": "Nowa Huta",
-    "description": "Muzeum poświęcone historii i dziedzictwu Nowej Huty.",
+    "description": "Oddział Muzeum Krakowa o historii socjalistycznego miasta budowanego od 1949 roku i jego mieszkańców.",
     "tags": [
-      "museum",
+      "culture",
       "history",
-      "nowa-huta"
+      "nowa-huta",
+      "rainy-day"
     ],
-    "top": false
+    "top": false,
+    "tourist": "local",
+    "minutes": 60,
+    "lat": 50.0699606,
+    "lng": 20.0412156,
+    "osm": "way/54534222"
   },
   {
     "id": "zalew-nowohucki",
@@ -593,14 +745,36 @@
     "name": "Zalew Nowohucki",
     "categoryId": "park",
     "area": "Nowa Huta",
-    "description": "Popularna przestrzeń spacerowa i rekreacyjna w Nowej Hucie.",
+    "description": "Sztuczny zbiornik otoczony parkiem. Dobre miejsce na spacer i odpoczynek po zwiedzaniu Nowej Huty.",
     "tags": [
       "nature",
-      "local",
-      "nowa-huta",
-      "free"
+      "walk",
+      "free",
+      "nowa-huta"
     ],
-    "top": false
+    "top": false,
+    "tourist": "local",
+    "minutes": 40
+  },
+  {
+    "id": "arka-pana",
+    "query": "Kościół Arka Pana, Obrońców Krzyża 1, Kraków",
+    "name": "Arka Pana",
+    "categoryId": "religious_site",
+    "area": "Bieńczyce",
+    "description": "Kościół w kształcie arki, zbudowany przez mieszkańców Nowej Huty w latach 1967–1977, gdy władze nie chciały świątyni w nowym mieście.",
+    "tags": [
+      "sightseeing",
+      "architecture",
+      "history",
+      "nowa-huta"
+    ],
+    "top": false,
+    "tourist": "local",
+    "minutes": 30,
+    "lat": 50.0849906,
+    "lng": 20.0293211,
+    "osm": "way/39449011"
   },
   {
     "id": "aviation-museum",
@@ -608,25 +782,26 @@
     "name": "Muzeum Lotnictwa Polskiego",
     "categoryId": "museum",
     "area": "Czyżyny",
-    "description": "Rozbudowana kolekcja samolotów i historii lotnictwa.",
+    "description": "Jedno z największych muzeów lotnictwa w Europie, na terenie dawnego lotniska Rakowice-Czyżyny. Część kolekcji stoi pod dachem.",
     "tags": [
-      "museum",
-      "aviation",
+      "culture",
+      "history",
       "rainy-day"
     ],
-    "top": true
+    "top": false,
+    "minutes": 120
   },
   {
     "id": "greg-tom-home-hostel",
     "query": "Greg & Tom Home Hostel Pawia 12 Kraków",
     "name": "Greg & Tom Home Hostel",
     "categoryId": "hostel",
-    "area": "Kleparz",
-    "description": "Popularny hostel blisko dworca i Starego Miasta.",
+    "area": "Wesoła",
+    "description": "Hostel kilka minut od Dworca Głównego i Rynku, wygodny przy budżetowym pobycie.",
     "tags": [
       "stay",
       "budget",
-      "social"
+      "student"
     ],
     "top": false
   },
@@ -635,12 +810,13 @@
     "query": "Hotel Amber Garbarska 8 Kraków",
     "name": "Hotel Amber",
     "categoryId": "hotel",
-    "area": "Stare Miasto",
-    "description": "Kameralny hotel blisko Rynku Głównego.",
+    "area": "Piasek",
+    "description": "Kameralny hotel przy Garbarskiej, kilka minut spacerem od Rynku.",
     "tags": [
-      "stay",
-      "central"
+      "stay"
     ],
-    "top": false
+    "top": false,
+    "lat": 50.0654776,
+    "lng": 19.9338989
   }
 ]

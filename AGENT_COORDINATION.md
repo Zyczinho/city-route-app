@@ -15,9 +15,9 @@ This file is a compact async handoff board between agents. It is not a chat log.
 
 [DONE] CORE-021 — ChatGPT — Warsaw/Kraków multi-city runtime, per-city basket, Supabase cutover and selector — merged in PR #21.
 
-[OPEN] KRK-QUALITY-001 — Claude — Kraków content quality v1 on `claude/krakow-content-quality-v1` — own only Kraków dataset/content quality; when complete, open PR against latest `main` and request ChatGPT cross-review. Do not modify multi-city runtime files.
+[OPEN] KRK-QUALITY-001 — ChatGPT — Kraków content quality v1 ready in PR #23 (`claude/krakow-content-quality-v1`) — cross-review requested. Kraków data/content only; no multi-city runtime files changed.
 
-[OPEN] KRK-SYNC-002 — ChatGPT — after Claude's Kraków quality PR is reviewed and merged, generate a forward-only Supabase sync migration, run live parity, and verify Warsaw/Kraków runtime regression. Do not pre-empt Claude's dataset changes.
+[OPEN] KRK-SYNC-002 — ChatGPT — after Claude's Kraków quality PR is reviewed and merged, generate a forward-only Supabase sync migration, run live parity, and verify Warsaw/Kraków runtime regression. Do not pre-empt Claude's dataset changes. Note from PR #23: the import only upserts, so the 17 slugs in `data/cities/krakow/curation.json` → `removed` need an explicit unpublish.
 
 ## Escalation template
 

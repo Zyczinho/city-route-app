@@ -1,12 +1,13 @@
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {setTimeout as sleep} from 'node:timers/promises';
+import {applyCuration,categoryCounts,minutesFor,foodFor} from './city-curation.mjs';
 
 const cityId=process.argv[2];
 if(!cityId)throw new Error('Usage: node scripts/generate-osm-city-dataset.mjs <city-id>');
 const base=`data/cities/${cityId}`;
 const read=async p=>JSON.parse(await readFile(p,'utf8'));
-const [config,anchors,taxonomy,cities]=await Promise.all([
-  read(`${base}/source-config.json`),read(`${base}/anchors.json`),read('data/taxonomy.json'),read('data/cities.json')
+const [config,anchors,taxonomy,cities,curation]=await Promise.all([
+  read(`${base}/source-config.json`),read(`${base}/anchors.json`),read('data/taxonomy.json'),read('data/cities.json'),read(`${base}/curation.json`).catch(()=>({}))
 ]);
 const city=cities.find(c=>c.id===cityId);
 if(!city)throw new Error(`Unknown city: ${cityId}`);
@@ -81,8 +82,6 @@ function categoryFor(t={}){
   if(t.tourism==='attraction')return 'landmark';
   return null;
 }
-const minutesFor=c=>({museum:75,gallery:60,viewpoint:35,landmark:25,religious_site:30,park:40,garden:45,restaurant:75,cafe:35,street_food:25,food_hall:45,bakery:20,bar:60,pub:60,cocktail_bar:75,club:120,live_music:120,hotel:0,hostel:0,guesthouse:0,apartment:0}[c]??30);
-const foodFor=c=>['restaurant'].includes(c)?'sit':['cafe','street_food','food_hall','bakery'].includes(c)?'quick':'none';
 const tagsFor=(t,c)=>{
   const out=[];
   if(['restaurant','cafe','street_food','food_hall','bakery'].includes(c))out.push('food');
@@ -176,11 +175,11 @@ for(const p of chosen){
   if(used.has(p.id))throw new Error(`Duplicate generated id: ${p.id}`);used.add(p.id);
   delete p._score;
 }
-chosen.sort((a,b)=>(b.top-a.top)||a.categoryId.localeCompare(b.categoryId)||a.name.localeCompare(b.name,'pl'));
-if(chosen.length<Math.min(150,config.targetCount))throw new Error(`Dataset too small: ${chosen.length}`);
+const curated=applyCuration(chosen,anchors,curation,{validCategories});
+if(curated.length<Math.min(150,config.targetCount))throw new Error(`Dataset too small: ${curated.length}`);
 
 await mkdir(base,{recursive:true});
-await writeFile(`${base}/places.json`,JSON.stringify(chosen,null,2)+'\n');
-await writeFile(`${base}/dataset-report.json`,JSON.stringify({cityId,count:chosen.length,generatedAt:new Date().toISOString(),counts,source:'OpenStreetMap/Overpass + curated anchors'},null,2)+'\n');
-console.log(`Generated ${chosen.length} places for ${city.name}.`);
-console.log(counts);
+await writeFile(`${base}/places.json`,JSON.stringify(curated,null,2)+'\n');
+await writeFile(`${base}/dataset-report.json`,JSON.stringify({cityId,count:curated.length,generatedAt:new Date().toISOString(),counts:categoryCounts(curated),source:'OpenStreetMap/Overpass + curated anchors'},null,2)+'\n');
+console.log(`Generated ${curated.length} places for ${city.name}.`);
+console.log(categoryCounts(curated));

@@ -6,6 +6,16 @@ Chat messages, old prompts and session memory are advisory only. Before doing im
 
 The purpose of this file is to let agents coordinate directly through GitHub so Jakub does not have to act as a message router between them.
 
+## COORDINATION BASELINE — 2026-11-03, `main` @ `0d23fb9`
+
+A full synchronization audit (Claude, 2026-11-03) reconciled this board with GitHub. At `0d23fb9`:
+
+- `npm test` passed 122/122.
+- `npm run build` was OK.
+- The PGlite harnesses for 011 and 012 passed.
+
+**From this baseline on, no earlier chat message, prompt or agent memory can reactivate a task by itself.** Before any work, every agent reconciles with this board, current `main`, and the open PRs, reviews and CI on GitHub. Older instructions are historical context only.
+
 ## Mandatory sync before any work
 
 Before starting, resuming or reviewing a task, every agent must:
@@ -83,59 +93,64 @@ Template:
 
 ## Active board
 
+Code status and hosted-database status are tracked as **separate rows**: "migration merged" never means "migration applied".
+
 | Priority | ID | Status | Owner | Reviewer | Depends on | Branch / PR | Next action | Last update |
 |---|---|---|---|---|---|---|---|---|
-| P0 | SOCIAL-RUNTIME-004 + NAV-MYROUTE-001 | REVIEW | ChatGPT | Claude | SOCIAL-DATA-003 DONE | `work/social-runtime-004` / PR #42 | Claude performs only the targeted browser retest of direct/internal `community-route`, `social-profile` and `social-saved` links on head `0d34d71`; if clear -> `MERGE_READY`. Do not start another full review cycle unless a new material regression appears. | 2026-11-03 |
-| P0 | REQ-DATA-002 | MERGE_READY | Claude | ChatGPT | REQ-SPEC-001 DONE | `claude/requests-data-002` / PR #43 | Final cross-review cycle 2/2 is CLEAR TO MERGE on head `0db5ed2`; merge #43. After merge, hosted migration 012 remains a separate explicit release action. | 2026-11-03 |
-| P1 | REQ-UI-003 | BLOCKED | ChatGPT | Claude | REQ-DATA-002 DONE **and** migration 012 applied to hosted Supabase | no branch | When both dependencies are true, promote to `READY` before coding. Implement request entry points, duplicate/+1 flow, ranked active requests, support/unsupport and `Profil -> Twoje prosby`; no new permanent bottom-nav tab. | 2026-11-03 |
-| P1 | REQ-ADMIN-004 | BLOCKED | Claude | ChatGPT | REQ-DATA-002 DONE; migration 012 applied; privacy/admin boundary respected | no branch | After dependencies clear, promote to `READY`. Build isolated founder/admin ranking surface without editing `app.js`; aggregate ranking is allowed, private notes/links need an explicitly authorized admin path. | 2026-11-03 |
+| P0 | SOCIAL-RUNTIME-004 + NAV-MYROUTE-001 | MERGE_READY | ChatGPT | Claude | SOCIAL-DATA-003 DONE | `work/social-runtime-004` / PR #42, head `0d34d71` | Merge #42 (Jakub). Review cycle 2/2 done; targeted retest clear twice (on `0d34d71`, and again on `main`+#42 at the reset). GitHub `test` green; trial merge with current `main` is clean, 128/128, build OK. | 2026-11-03 |
+| P1 | REQ-ADMIN-004 | REVIEW | Claude | ChatGPT | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE | `claude/req-admin-004` / PR #44, head `b8b5b3b` (board edits are being removed from it) | ChatGPT cross-review, cycle 1/2 (YELLOW, migration 013). If #42 merges first, Claude syncs #44 with `main` and resolves the one-line `scripts/build.mjs` conflict before merge. | 2026-11-03 |
+| P1 | REQ-UI-003 | BLOCKED | ChatGPT | Claude | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE; **SOCIAL-RUNTIME-004 merged** | no branch | Data dependencies are met. Blocked only on #42: both edit the runtime UI (`app.js`, nav, `scripts/build.mjs`, `service-worker.js`). After #42 merges, promote to `READY`. Scope: request entry points, duplicate/+1 flow, ranked active requests, support/unsupport, `Profil -> Twoje prośby`; no new permanent bottom-nav tab. | 2026-11-03 |
+| P1 | SOCIAL-PROD-SMOKE-005 | BLOCKED | ChatGPT + Jakub | Claude | SOCIAL-RUNTIME-004 merged and deployed | no branch | After the production deploy of #42: with two test accounts, publish a route, open it from the Społeczność feed, open the author's profile, save it and check the signed-in `#social-saved` list, and check the mobile nav. These flows could not be tested before (no published routes, no production accounts for agents). | 2026-11-03 |
+| P2 | MIGRATION-013-HOSTED | BLOCKED | Jakub | — | REQ-ADMIN-004 merged | PR #44 | After merge, apply `013_app_admins.sql` from merged `main`, then add the admin row with the SQL in `REQUESTS_ADMIN.md`. Not applied: at the reset, `is_app_admin` doesn't exist on hosted (PGRST202). | 2026-11-03 |
+| P3 | INFRA-CF-PREVIEW-001 | BACKLOG | Jakub | — | Cloudflare dashboard access | — | The "Workers Builds: city-route-app" check fails on every PR branch, while builds of `main` succeed (e.g. `0d23fb9`). Classified as a deployment-configuration problem (non-production branch builds), not an app regression: GitHub `test` passes and the local build is OK. The build log is behind the Cloudflare login and hasn't been read. Until fixed, treat GitHub `test` as the required CI. | 2026-11-03 |
 
 ## Current package facts
 
 ### SOCIAL-RUNTIME-004 + NAV-MYROUTE-001 — PR #42
 
-- PR is open and mergeable.
-- Current head: `0d34d71`.
-- Current CI on that head is green.
-- Social Routes runtime and founder-approved A+B navigation are implemented.
-- Final browser review found one blocker: core routing redirected custom social hashes to `#plan`.
-- ChatGPT patched `TAB_OF` so `community-route`, `social-profile` and `social-saved` are recognized, added regression coverage and removed the temporary patch workflow from the final diff.
-- Remaining action is **Claude targeted browser retest only**. Until that happens, this package stays `REVIEW`.
+- Head `0d34d71`, mergeable, GitHub `test` green. The Workers Builds failure is INFRA-CF-PREVIEW-001.
+- The router blocker is fixed (`TAB_OF` maps `community-route`, `social-profile` and `social-saved`), with a regression test.
+- Reset retest on a local build of `main`+#42 at 375 px against hosted Supabase:
+  - `#community-route/<unknown uuid>` stays on its hash, Trasy is active, and it shows "Nie znaleziono tej trasy". It made 1 call on entry and 3 in about 20 s with no loop.
+  - `#social-profile/<id>` stays on its hash with 1 `public_profile` call.
+  - `#social-saved` while signed out goes to `#profile` (the intended auth gate).
+  - The 4-tab nav (Ułóż trasę · Trasy · Moja trasa · Miejsca) has no horizontal overflow.
+- Not verifiable before production: opening a route from the feed (no community route is published on hosted) and the signed-in saved list. Both are in SOCIAL-PROD-SMOKE-005.
 
-### REQ-DATA-002 — PR #43
+### REQ-ADMIN-004 — PR #44
 
-- PR is open and mergeable.
-- Current head: `0db5ed2`.
-- ChatGPT final cross-review cycle 2/2 is **CLEAR TO MERGE**.
-- Previous blockers are closed: no direct write bypass, public reads expose only active demand, own lifecycle has a private authenticated path, and creator auto-support cannot be withdrawn.
-- Scope is migration/client/docs/harness/tests plus the CRLF test fix.
-- Migration 012 has **not** been applied to hosted Supabase.
-- Remaining action is merge #43; hosted migration is a separate approved release step from merged `main`.
+- Scope: `supabase/migrations/013_app_admins.sql`, `admin/` (unlinked, noindex, no `app.js`), `scripts/build.mjs` (+`'admin'`), `REQUESTS_ADMIN.md`, tests and the PGlite harness. It doesn't touch the main runtime.
+- Tests 128/128 and build OK. Trial merge with current `main` is clean. PGlite 011 -> 012 -> 013 (applied twice) passes.
+- Process note: this was implemented before the canonical board existed. Under the new board, its dependencies (012 merged and applied) are now met, so `REVIEW` is the correct state. No hosted change was made.
 
 ## Dependency rules for the current request track
 
-1. `REQ-DATA-002` must be merged before any runtime package treats its RPC contract as stable.
-2. Migration 012 must be applied from merged `main` before `REQ-UI-003` or live admin functionality is treated as runtime-ready.
-3. `REQ-UI-003` and `REQ-ADMIN-004` may run in parallel **after** those shared dependencies clear because their implementation scopes are separate; if either needs the same runtime files, update ownership here before editing.
-4. A pre-existing prompt saying "start UI/admin after #43" is not sufficient by itself; the board must first move the task from `BLOCKED` to `READY`/`IN_PROGRESS`.
+1. REQ-UI-003 waits for #42, because both packages edit the core runtime files. REQ-ADMIN-004 does not: it only overlaps on one line of `scripts/build.mjs`, which is a trivial merge.
+2. Live admin use needs MIGRATION-013-HOSTED. Live request UI needs only 012, which is DONE.
+3. The second PR to merge out of #42 and #44 syncs with `main` and resolves `scripts/build.mjs`, keeping both the social files and `'admin'`.
 
 ## Database / hosted state
 
-- Migration 007: applied.
-- Migration 008: applied.
-- Migration 009: applied.
-- Migration 010: applied.
-- Migration 011: applied successfully on 2026-11-03.
-- Migration 012: implemented in PR #43, final review clean, **not merged and not applied** at the time of this board update.
+| Migration | Code on `main` | Applied to hosted Supabase | Evidence |
+|---|---|---|---|
+| 007–010 | yes | yes | earlier board records |
+| 011 | yes | yes, 2026-11-03 | earlier board record; social RPCs answer on hosted |
+| 012 | yes (PR #43) | **yes, 2026-11-03** | Jakub confirmed in chat. At the reset, a read-only anon call to `catalogue_requests_ranked('warsaw')` returned 0 rows without error, while a control call to a missing function returned PGRST202. |
+| 013 | no (PR #44, in review) | **no** | at the reset, `is_app_admin` returns PGRST202 on hosted |
 
-## Recently completed dependencies
+## Recently completed
 
-- `SOCIAL-SPEC-001` — DONE — PR #39.
+- `REQ-DATA-002` — DONE — PR #43 merged 2026-11-03; MIGRATION-012-HOSTED DONE.
+- `REQ-SPEC-001` — DONE — PR #41.
 - `SOCIAL-DATA-003` — DONE — PR #40; migration 011 applied.
-- `REQ-SPEC-001` — DONE — PR #41; canonical request product contract established.
-- Route Builder / map / covers packages through PR #38 are DONE and on `main`.
+- `SOCIAL-SPEC-001` — DONE — PR #39.
+- `MAP-PROD-SMOKE-006` — DONE — manual production smoke after #36/#37/#38. Any later mention of "MAP-PROD-SMOKE after #42" is stale: that check is now SOCIAL-PROD-SMOKE-005.
+- Route Builder / map / covers packages through PR #38 — DONE.
 
-Older completed package history remains available in Git and merged PRs; do not keep the active control plane bloated with a full chat-style archive.
+Historical, no action:
+
+- Closed PRs #29 (temporary hosted Nearby smoke, never meant to merge) and #33 (superseded coordination notes).
+- About 45 remote branches belong to merged or closed PRs. None has commits after its PR's head, and none lacks a PR. Leave them as history; deleting them is not part of any task.
 
 ## End-of-task update requirement
 

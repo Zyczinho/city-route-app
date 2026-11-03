@@ -85,7 +85,7 @@ Template:
 |---|---|---|---|---|---|---|---|---|
 | P1 | REQ-ADMIN-004 | DONE | Claude | ChatGPT | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE | PR #44 + fix PR #48, merged at `d9eb8e8` | No code action. Hosted migration tracked separately. | 2026-11-03 |
 | P1 | REQ-UI-003 | REVIEW | ChatGPT | Claude | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE; SOCIAL-RUNTIME-004 DONE | `chatgpt/req-ui-003` / PR #47, head `e5a7bf9` | Targeted Claude re-review of resolved-place one-shot/city-scoped fix and post-#48 sync. CI #132 green. | 2026-11-03 |
-| P1 | PLAN-UI-MOBILE-006 | IN_PROGRESS | ChatGPT | Claude | current planner runtime on `main`; scope separate from REQ-UI-003 request files | `chatgpt/plan-ui-mobile-006` | Simplify mobile planner with progressive disclosure: keep time + interests primary; collapse transport/food/start/budget/style/offers with compact summary; preserve generator semantics and accessibility. | 2026-11-03 |
+| P1 | PLAN-UI-MOBILE-006 | REVIEW | ChatGPT | Claude | current planner runtime on `main`; scope separate from REQ-UI-003 request files | `chatgpt/plan-ui-mobile-006` / PR #49, head `36beeec` | Claude UX/code review focused on 375 px hierarchy, value preservation, idempotence and Add Place regression. CI #134 green. Before merge, re-sync if #47 lands and ensure the PWA cache/version delivers the updated `enhancements.js` to existing clients. | 2026-11-03 |
 | P1 | SOCIAL-PROD-SMOKE-005 | READY | ChatGPT + Jakub | Claude | SOCIAL-RUNTIME-004 DONE; production deploy of `09dad87` confirmed | no branch | Two-account production smoke: publish → feed → author → save → saved list → mobile nav. | 2026-11-03 |
 | P2 | MIGRATION-013-HOSTED | READY | Jakub | — | REQ-ADMIN-004 DONE | merged PR #48 | Apply current `main` `013_app_admins.sql`, then add founder admin row from `REQUESTS_ADMIN.md`. Hosted 013 is not applied yet. | 2026-11-03 |
 | P3 | INFRA-CF-PREVIEW-001 | BACKLOG | Jakub | — | Cloudflare dashboard access | — | PR preview builds fail while `main` builds succeed. Treat GitHub test CI as required until preview configuration is fixed. | 2026-11-03 |
@@ -105,14 +105,16 @@ Template:
 - ChatGPT fixed it so the handoff is one-shot and city-scoped, with a user-facing unavailable toast; branch synced after #48 and preserves both request runtime files and `admin/` build entry.
 - Current head `e5a7bf9`; CI #132 green; targeted Claude re-review pending.
 
-### PLAN-UI-MOBILE-006
+### PLAN-UI-MOBILE-006 — PR #49
 
 - User problem: the planner feels more complicated than its actual feature count on a phone because too many equal-weight fieldsets/text blocks are visible at once.
 - Product direction: **simple by default, powerful when expanded**.
-- Primary decisions: time + interests.
-- Advanced disclosure: transport, food, start, budget, sightseeing style and partner offers; selected values remain visible via compact summary.
-- No backend, Supabase, generator, Social Routes, request UI, bottom-nav or data-contract changes.
-- Implementation must remain recoverable and avoid request-owned files while PR #47 is open.
+- Primary decisions are now time + interests; mobile choices stay compact in one horizontal row.
+- Transport, food, start, budget, sightseeing style and partner offers are preserved inside a native `details` disclosure with a live compact summary of selected advanced values.
+- Manual route building remains available but is visually secondary and moved below the generated-route flow.
+- Core planner field names/defaults and `generate()` semantics remain unchanged; implementation is an idempotent enhancement in `enhancements.js` and adds focused regression coverage.
+- Current head `36beeec`; CI #134 green; PR #49 mergeable. Claude review pending.
+- Merge sequencing note: because `enhancements.js` is PWA-cached, after #47 lands the final #49 sync should preserve/inherit the newer cache version or explicitly cache-bust the enhancement before merge so existing installations receive the UI change immediately.
 
 ## Database / hosted state
 

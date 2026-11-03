@@ -27,7 +27,7 @@ test('Social custom views are idempotent and city-scoped',async()=>{
  assert.doesNotMatch(runtime,/root\.dataset\.socialRoute=id/,'a persistent dataset marker would survive core innerHTML replacement');
 });
 
-test('Social Routes UI and navigation modules ship in index, build and PWA cache v30',async()=>{
+test('Social Routes UI and navigation modules ship in index, build and PWA cache v31',async()=>{
  const [index,build,sw]=await Promise.all([read('index.html'),read('scripts/build.mjs'),read('service-worker.js')]);
  for(const file of ['social-routes-client.js','social-routes-enhancements.js','social-routes.css','nav-enhancements.js']){
   const re=new RegExp(file.replaceAll('.','\\.'));
@@ -36,7 +36,7 @@ test('Social Routes UI and navigation modules ship in index, build and PWA cache
  assert.match(index,/social-routes\.css/);
  assert.match(index,/social-routes-enhancements\.js/);
  assert.match(index,/nav-enhancements\.js/);
- assert.match(sw,/city-route-v30/);
+ assert.match(sw,/city-route-v31/);
 });
 
 test('Founder-approved A+B navigation leaves four bottom tabs and promotes My Route',async()=>{

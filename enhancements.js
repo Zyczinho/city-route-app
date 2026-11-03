@@ -172,6 +172,66 @@ document.addEventListener('submit',async e=>{
  enriching=false;const current=placeForm();if(current){current.dataset.mapsEnriched='1';current.requestSubmit();}
 },true);
 
-const observer=new MutationObserver(()=>decorateWhereInput());
+// PLAN-UI-MOBILE-006: progressive disclosure for the mobile route planner.
+const PLANNER_UI_STYLE_ID='planner-mobile-ui-006';
+const plannerChoice=(form,name)=>form.querySelector(`input[name="${name}"]:checked`)?.nextElementSibling?.textContent?.trim()||'';
+
+function plannerAdvancedSummary(form){
+ const transport=plannerChoice(form,'transport');
+ const start=plannerChoice(form,'start');
+ const budget=plannerChoice(form,'budget');
+ const food=plannerChoice(form,'food');
+ const tourist=plannerChoice(form,'tourist');
+ const offers=plannerChoice(form,'offers');
+ const parts=[transport,start==='Stąd, gdzie jestem'?'Start tutaj':start==='Obojętnie'?'Start dowolny':start,budget];
+ if(food&&food!=='Nie')parts.push(food);
+ if(tourist&&tourist!=='Pół na pół')parts.push(tourist);
+ if(offers==='Mogą być')parts.push('Oferty partnerów');
+ return parts.filter(Boolean).join(' · ');
+}
+
+function ensurePlannerStyles(){
+ if(document.getElementById(PLANNER_UI_STYLE_ID))return;
+ const style=document.createElement('style');style.id=PLANNER_UI_STYLE_ID;style.textContent=`
+ .planner-head-compact{margin-bottom:12px}.planner-head-compact h1{margin-bottom:5px}.planner-head-compact .lead{max-width:430px}.planner-head-compact .inline{display:inline-flex;margin-top:7px;font-size:13px}
+ #build-form.planner-simple{gap:12px;max-width:640px}.planner-primary{display:grid;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow)}
+ #build-form.planner-simple .planner-primary legend{font-size:15px;margin-bottom:8px}.planner-advanced{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+ .planner-advanced>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:58px;padding:9px 14px;cursor:pointer;list-style:none}.planner-advanced>summary::-webkit-details-marker{display:none}
+ .planner-advanced>summary>span:first-child{display:grid;gap:1px;min-width:0}.planner-advanced>summary strong{font-size:14px}.planner-advanced>summary small{color:var(--muted);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}.planner-chevron{font-size:18px;color:var(--muted);transition:transform .15s}.planner-advanced[open] .planner-chevron{transform:rotate(180deg)}
+ .planner-advanced-body{display:grid;gap:14px;padding:2px 14px 14px;border-top:1px solid var(--line-2)}.planner-advanced-body fieldset{margin-top:12px!important}.planner-advanced-body .fine{margin:0}
+ .planner-manual{margin-top:4px;background:transparent;border-style:dashed;color:var(--ink-2);justify-content:space-between;text-align:left}.planner-manual-copy{display:grid;gap:1px;flex:1}.planner-manual-copy strong{font-size:14px}.planner-manual-copy small{font-size:11px;color:var(--muted);font-weight:500}
+ @media(max-width:520px){
+  .planner-head-compact .kicker{font-size:11px}.planner-head-compact h1{font-size:27px}.planner-head-compact .lead{font-size:14px;line-height:1.4}
+  #build-form.planner-simple{gap:10px}.planner-primary{padding:13px 13px 12px;gap:12px;border-radius:16px}
+  .planner-primary .choice{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;margin-right:-13px;padding:1px 13px 4px 0;scrollbar-width:none}.planner-primary .choice::-webkit-scrollbar{display:none}.planner-primary .choice label{flex:none;scroll-snap-align:start}.planner-primary .choice span{min-height:40px;padding:7px 12px;font-size:13px}
+  .planner-advanced>summary{min-height:55px;padding:8px 13px}.planner-advanced-body{padding:0 13px 13px;gap:12px}.planner-advanced-body .choice{gap:6px}.planner-advanced-body .choice span{min-height:40px;padding:7px 11px;font-size:13px}
+  .planner-manual{min-height:50px;padding:8px 12px}.planner-manual-copy strong{font-size:13px}
+ }
+ `;document.head.append(style);
+}
+
+function updatePlannerSummary(form){
+ const target=form?.querySelector('[data-planner-summary]');if(target)target.textContent=plannerAdvancedSummary(form);
+}
+
+function simplifyPlanner(){
+ const form=document.querySelector('#build-form.planner');if(!form||form.dataset.mobileSimple==='1')return;
+ const field=name=>form.querySelector(`input[name="${name}"]`)?.closest('fieldset');
+ const time=field('time'),interests=field('interests');if(!time||!interests)return;
+ ensurePlannerStyles();form.dataset.mobileSimple='1';form.classList.add('planner-simple');
+ const head=document.querySelector('#main .page-head');if(head){head.classList.add('planner-head-compact');const h=head.querySelector('h1'),lead=head.querySelector('.lead'),ready=head.querySelector('a.inline');if(h)h.textContent='Ułóż trasę po swojemu.';if(lead)lead.textContent='Wybierz czas i klimat. Resztę możesz dopasować, jeśli chcesz.';if(ready)ready.textContent='Gotowe trasy →';}
+ const manual=form.previousElementSibling?.matches?.('a[href="#my-route"]')?form.previousElementSibling:null;
+ if(manual){manual.classList.add('planner-manual');manual.replaceChildren();const copy=document.createElement('span');copy.className='planner-manual-copy';const strong=document.createElement('strong');strong.textContent='Wolę ułożyć trasę ręcznie';const small=document.createElement('small');small.textContent='Dodawaj i przesuwaj miejsca';copy.append(strong,small);const arrow=document.createElement('span');arrow.setAttribute('aria-hidden','true');arrow.textContent='→';manual.append(copy,arrow);form.insertAdjacentElement('afterend',manual);}
+ const primary=document.createElement('section');primary.className='planner-primary';primary.setAttribute('aria-label','Najważniejsze ustawienia trasy');form.insertBefore(primary,form.firstChild);primary.append(time,interests);
+ const details=document.createElement('details');details.className='planner-advanced';const summary=document.createElement('summary');summary.innerHTML='<span><strong>Dopasuj szczegóły</strong><small data-planner-summary></small></span><span class="planner-chevron" aria-hidden="true">⌄</span>';const body=document.createElement('div');body.className='planner-advanced-body';details.append(summary,body);
+ for(const name of ['transport','food','start']){const fs=field(name);if(fs)body.append(fs);}
+ const oldMore=form.querySelector('details.more');if(oldMore){for(const child of [...oldMore.children])if(child.tagName!=='SUMMARY')body.append(child);oldMore.remove();}
+ const submit=form.querySelector('button.primary.big');form.insertBefore(details,submit||null);updatePlannerSummary(form);
+}
+
+document.addEventListener('change',e=>{const form=e.target.closest?.('#build-form.planner-simple');if(form)updatePlannerSummary(form);});
+
+const observer=new MutationObserver(()=>{decorateWhereInput();simplifyPlanner();});
 observer.observe(document.querySelector('#main')||document.documentElement,{subtree:true,childList:true});
 decorateWhereInput();
+simplifyPlanner();

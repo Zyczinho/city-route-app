@@ -37,7 +37,7 @@ Use only these task statuses:
 - `READY` — dependencies satisfied; may be claimed.
 - `IN_PROGRESS` — one agent owns active implementation.
 - `BLOCKED` — cannot proceed until the listed dependency/decision is resolved.
-- `REVIEW` — implementation complete; waiting for the named reviewer.
+- `REVIEW` — implementation complete; waiting for the named reviewer or required verification gate.
 - `CHANGES_REQUESTED` — review found blockers; ownership returns to the implementation owner.
 - `MERGE_READY` — required review is clean and CI is green; waiting only for merge/approved release action.
 - `DONE` — merged/completed and no further action remains.
@@ -97,73 +97,62 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 
 | Priority | ID | Status | Owner | Reviewer | Depends on | Branch / PR | Next action | Last update |
 |---|---|---|---|---|---|---|---|---|
-| P1 | REQ-ADMIN-004 | DONE | Claude | ChatGPT | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE | PR #44 + fix PR #48, merged to `main` at `d9eb8e8` | No code action. The `place-required` blocker is fixed and merged. Hosted migration is tracked separately below. | 2026-11-03 |
-| P1 | REQ-UI-003 | REVIEW | ChatGPT | Claude | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE; SOCIAL-RUNTIME-004 DONE | `chatgpt/req-ui-003` / PR #47, synced with `main` through `d9eb8e8` | Targeted Claude re-review of the resolved-place fix and post-#48 sync only. The handoff is now one-shot, city-scoped, and no longer resets Places filters when a place is missing. | 2026-11-03 |
-| P1 | SOCIAL-PROD-SMOKE-005 | READY | ChatGPT + Jakub | Claude | SOCIAL-RUNTIME-004 DONE; production deploy of `09dad87` confirmed | no branch | First confirm that Cloudflare deployed `09dad87`. Then, with two test accounts: publish a route, open it from the Społeczność feed, open the author's profile, save the route and check the signed-in `#social-saved` list, and check the mobile nav. | 2026-11-03 |
+| P1 | REQ-ADMIN-004 | DONE | Claude | ChatGPT | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE | PR #44 + fix PR #48, merged to `main` at `d9eb8e8` | No code action. Hosted migration is tracked separately below. | 2026-11-03 |
+| P1 | REQ-UI-003 | DONE | ChatGPT | Claude | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE; SOCIAL-RUNTIME-004 DONE | PR #47 merged to `main` at `58694df` | Claude targeted re-review was CLEAN; no further code action. | 2026-11-03 |
+| P1 | PLAN-UI-MOBILE-006 | MERGE_READY | ChatGPT | Claude | REQ-UI-003 DONE | `chatgpt/plan-ui-mobile-006` / PR #49 | Claude review CLEAN. Post-#47 sync and explicit delivery hardening complete (`enhancements.js?v=22`, SW cache v31). GitHub CI #142 green. Merge PR #49; no further Claude round required. | 2026-11-03 |
+| P1 | SOCIAL-PROD-SMOKE-005 | READY | ChatGPT + Jakub | Claude | SOCIAL-RUNTIME-004 DONE; production deploy of `09dad87` confirmed | no branch | Two-account production smoke: publish → feed → author → save → saved list → mobile nav. | 2026-11-03 |
 | P2 | MIGRATION-013-HOSTED | READY | Jakub | — | REQ-ADMIN-004 DONE | merged PR #48 | Apply `013_app_admins.sql` from current `main`, then add the founder admin row with the SQL in `REQUESTS_ADMIN.md`. Code is fixed and merged; hosted 013 is still not applied. | 2026-11-03 |
-| P3 | INFRA-CF-PREVIEW-001 | BACKLOG | Jakub | — | Cloudflare dashboard access | — | The "Workers Builds: city-route-app" check fails on every PR branch, while builds of `main` succeed (e.g. `0d23fb9`). Classified as a deployment-configuration problem (non-production branch builds), not an app regression: GitHub `test` passes and the local build is OK. The build log is behind the Cloudflare login and hasn't been read. Until fixed, treat GitHub `test` as the required CI. | 2026-11-03 |
+| P3 | INFRA-CF-PREVIEW-001 | BACKLOG | Jakub | — | Cloudflare dashboard access | — | Workers preview builds fail on PR branches while `main` builds succeed. Treat GitHub `test` as required CI until preview configuration is fixed. | 2026-11-03 |
 
 ## Current package facts
 
 ### REQ-ADMIN-004 — PR #44 + fix PR #48 — DONE
 
-- #44 merged to `main` at `47d48a5` while ChatGPT's cycle 1 blocker was still open: `admin_set_catalogue_request_status(..., 'added', NULL/'')` was accepted.
-- PR #48 fixed that blocker and merged at `d9eb8e8`.
-  - Server: `added` without a place raises `place-required`; `unknown-place` checks are unchanged.
-  - Client and form: the same check runs before the RPC call, with a Polish message.
-  - Tests: unit regression and PGlite regression cover missing/null/blank places (rejected, request unchanged) and a valid place (accepted).
-- Migration 013 is now safe in code but remains a separate hosted action.
+- #44 merged to `main` at `47d48a5` before its cycle-1 blocker was fixed.
+- PR #48 fixed `added` without a linked place and merged at `d9eb8e8`.
+- Migration 013 is safe in code but remains a separate hosted action.
 
-### REQ-UI-003 — PR #47
+### REQ-UI-003 — PR #47 — DONE
 
-- Claude cycle 1 found one blocker in `maybeOpenResolvedPlace()`: a missing resolved place could keep clearing search/category on every Places render.
-- The fix consumes the handoff exactly once, stores both place id and request city, refuses cross-city opening, and shows a toast when the place is unavailable instead of repeatedly mutating filters.
-- The branch is synchronized with current `main`; `scripts/build.mjs` preserves both request runtime files and `admin/`.
-- Next step is only a targeted Claude re-review plus green CI; no new full review round is needed.
+- Claude cycle 1 found one blocker in `maybeOpenResolvedPlace()`.
+- ChatGPT fixed it as one-shot and city-scoped, with no repeated Places filter reset when the place is missing.
+- Claude's targeted low-credit re-review was CLEAN.
+- PR #47 merged to `main` at `58694df`.
 
-## Dependency rules for the current request track
+### PLAN-UI-MOBILE-006 — PR #49
 
-1. REQ-ADMIN-004 is DONE. REQ-UI-003 is the only remaining request-code package in review.
-2. Live admin use needs MIGRATION-013-HOSTED. Live request UI needs only 012, which is DONE.
+- Product direction: **simple by default, powerful when expanded**.
+- Time + interests stay primary; transport, food, start, budget, sightseeing style and partner offers move behind `Dopasuj szczegóły` with a compact selected-values summary.
+- No generator/backend/Supabase/request/social contract changes.
+- Claude review was CLEAN for semantics, idempotence, value preservation and progressive disclosure.
+- After #47 merged, #49 was synchronized with current `main`. Delivery hardening is explicit: `enhancements.js?v=22` and service-worker cache v31 so installed clients refresh the shell instead of depending on Cloudflare/browser revalidation behavior.
+- Five legacy tests hardcoded to v30 were mechanically updated to v31; GitHub CI #142 passed on head `31b8ebc` before this board-only commit.
+- No additional Claude review is required unless a material regression appears.
 
 ## Database / hosted state
 
 | Migration | Code on `main` | Applied to hosted Supabase | Evidence |
 |---|---|---|---|
 | 007–010 | yes | yes | earlier board records |
-| 011 | yes | yes, 2026-11-03 | earlier board record; social RPCs answer on hosted |
-| 012 | yes (PR #43) | **yes, 2026-11-03** | Jakub confirmed in chat. At the reset, a read-only anon call to `catalogue_requests_ranked('warsaw')` returned 0 rows without error, while a control call to a missing function returned PGRST202. |
-| 013 | **yes, fixed on `main` via PR #48** | **no** | PR #48 merged at `d9eb8e8`; hosted migration remains a separate READY task. |
+| 011 | yes | yes, 2026-11-03 | social RPCs answer on hosted |
+| 012 | yes (PR #43) | yes, 2026-11-03 | hosted read-only request RPC check succeeded |
+| 013 | **yes, fixed on `main` via PR #48** | **no** | hosted migration remains a separate READY task |
 
 ## Recently completed
 
+- `REQ-UI-003` — DONE — PR #47 merged at `58694df`; Claude targeted re-review CLEAN.
 - `REQ-ADMIN-004` — DONE — PR #44 + fix PR #48; final blocker fixed and merged at `d9eb8e8`.
-- `SOCIAL-RUNTIME-004 + NAV-MYROUTE-001` — DONE — PR #42 merged 2026-11-03 (`09dad87`). The production smoke is SOCIAL-PROD-SMOKE-005.
-- `COORDINATION-RESET` — DONE — PR #45 (baseline at `0d23fb9`).
-- `REQ-DATA-002` — DONE — PR #43 merged 2026-11-03; MIGRATION-012-HOSTED DONE.
+- `SOCIAL-RUNTIME-004 + NAV-MYROUTE-001` — DONE — PR #42 merged at `09dad87`; production smoke remains separate.
+- `COORDINATION-RESET` — DONE — PR #45 baseline `0d23fb9`.
+- `REQ-DATA-002` — DONE — PR #43; migration 012 hosted DONE.
 - `REQ-SPEC-001` — DONE — PR #41.
 - `SOCIAL-DATA-003` — DONE — PR #40; migration 011 applied.
 - `SOCIAL-SPEC-001` — DONE — PR #39.
-- `MAP-PROD-SMOKE-006` — DONE — manual production smoke after #36/#37/#38. Any later mention of "MAP-PROD-SMOKE after #42" is stale: that check is now SOCIAL-PROD-SMOKE-005.
+- `MAP-PROD-SMOKE-006` — DONE.
 - Route Builder / map / covers packages through PR #38 — DONE.
 
-Historical, no action:
-
-- Closed PRs #29 (temporary hosted Nearby smoke, never meant to merge) and #33 (superseded coordination notes).
-- About 45 remote branches belong to merged or closed PRs. None has commits after its PR's head, and none lacks a PR. Leave them as history; deleting them is not part of any task.
+Historical closed/superseded branches and PRs stay as history unless a current task explicitly needs cleanup.
 
 ## End-of-task update requirement
 
-Before an agent reports completion to Jakub, it must update this board if the task state changed. The final message should be a human summary of the GitHub state, not the only place where state exists.
-
-At minimum update:
-
-- `status`
-- `owner`
-- `reviewer` when applicable
-- `branch / PR`
-- `next_action`
-- `last_update`
-- dependency changes
-
-If a task became unnecessary, mark `SUPERSEDED` with the reason instead of silently abandoning it.
+Before an agent reports completion to Jakub, it must update this board if the task state changed. At minimum update status, owner, reviewer when applicable, branch/PR, next action, last update and dependency changes. If work is no longer needed, mark `SUPERSEDED` with the reason instead of silently abandoning it.

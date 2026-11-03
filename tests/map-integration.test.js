@@ -18,7 +18,7 @@ test('map integration ships in build and service worker cache',async()=>{
  const [index,build,sw]=await Promise.all([read('index.html'),read('scripts/build.mjs'),read('service-worker.js')]);
  assert.match(index,/map\.css/);
  for(const file of ['nearby-client.js','map-view.js','map.css']){assert.match(build,new RegExp(file.replace('.', '\\.')));assert.match(sw,new RegExp(file.replace('.', '\\.')));}
- assert.match(sw,/city-route-v26/);
+ assert.match(sw,/city-route-v27/);
 });
 
 test('map view exposes nearby hook for PostGIS integration',async()=>{

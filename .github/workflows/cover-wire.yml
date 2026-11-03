@@ -1,0 +1,31 @@
+name: Cover wire helper
+
+on:
+  push:
+    branches: [work/cover-wire-001]
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: work/cover-wire-001
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/apply-cover-wire.mjs
+      - run: npm test
+      - run: npm run build
+      - name: Commit generated wiring
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app.js scripts/build.mjs service-worker.js tests/cover-wiring.test.js
+          git diff --cached --quiet && exit 0
+          git commit -m "Wire unique route covers into runtime"
+          git push origin HEAD:work/cover-wire-001

@@ -114,14 +114,17 @@ try{
   const response=await live.goto('https://city-route-app.jakublojek.workers.dev/#plan',{waitUntil:'domcontentloaded',timeout:25000});
   assert.equal(response?.status(),200,'production must return HTTP 200');
   await live.locator('#navigation a').first().waitFor({timeout:18000});
+  await live.waitForFunction(()=>{const tabs=Array.from(document.querySelectorAll('#navigation a'),a=>a.getAttribute('href'));return ['#plan','#routes','#my-route','#routes/community','#places'].every(t=>tabs.includes(t));},undefined,{timeout:14000});
   const tabs=await live.locator('#navigation a').evaluateAll(nodes=>nodes.map(a=>a.getAttribute('href')));
-  assert.ok(['#plan','#routes','#my-route','#routes/community','#places'].every(t=>tabs.includes(t)),'production bottom tabs are incomplete');
+  assert.ok(['#plan','#routes','#my-route','#routes/community','#places'].every(t=>tabs.includes(t)),'production bottom tabs are incomplete: '+JSON.stringify(tabs));
   assert.equal(await live.locator('#main .loading').count(),0,'production stuck on loading');
   liveStatus='pass';
   await live.screenshot({path:'p0-smoke-artifacts/current-production-375.png',fullPage:true});
  }catch(error){
   liveStatus='unverified';
   console.warn('WARN: production fresh smoke could not be verified from CI runner: '+error.message);
+  console.warn('PRODUCTION_NAV='+JSON.stringify(await live.locator('#navigation a').evaluateAll(nodes=>nodes.map(a=>a.getAttribute('href'))).catch(()=>[])));
+  await live.screenshot({path:'p0-smoke-artifacts/current-production-diagnostic.png',fullPage:true}).catch(()=>{});
  }finally{await prod.close();}
  console.log('PRODUCTION_FRESH_SMOKE='+liveStatus);
  console.log('PASS: mobile 375px, 5 tabs, 10-stop optimization, B→B1 insertion, local custom place, optional rating, repeat add, PWA offline reload.');

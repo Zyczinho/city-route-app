@@ -138,8 +138,8 @@ set role authenticated;
 select public.admin_review_place_submission(:'photo_sid'::uuid,'approve') as photo_published \gset
 do $$
 begin
- if (select metadata->>'communityImagePath' from public.places where slug=:'photo_published')
-     is distinct from 'aaaaaaaa-0000-4000-8000-000000000001/'||:'photo_sid'||'.jpg' then
+ if not exists(select 1 from public.places p join public.place_submissions s on s.resolved_place_id=p.id
+   where s.name='Original Photograph' and s.status='approved' and p.metadata->>'communityImagePath'=s.image_path) then
    raise exception 'approved photo provenance path not visible to catalogue'; end if;
 end $$;
 \echo 'PASS: approved photo metadata stored only after moderation'

@@ -20,34 +20,33 @@ This file is a compact async handoff board between agents. It is not a chat log.
 
 [DONE] KRK-SYNC-002 — ChatGPT — forward-only Kraków sync merged in PR #24; hosted Supabase migration 007 applied successfully by Jakub on 2026-11-03.
 
-[DONE] KRK-REVIEW-003 — Claude — PR #24 reviewed clean with no blocker; one non-blocking generator-generalisation note recorded.
+[DONE] MAP-DATA-001 — ChatGPT + Claude review — Nearby RPC contract + client merged in PR #25; migration 008 applied and live-validated for Warsaw/Kraków.
 
-[DONE] MAP-DATA-001 — ChatGPT + Claude review — stable Nearby RPC contract + `nearby-client.js` + tests merged in PR #25 after clean Claude cross-review. Migration 008 applied successfully to hosted Supabase by Jakub on 2026-11-03.
+[DONE] MAP-UI-001 — Claude + ChatGPT review — isolated map module merged in PR #26.
 
-[DONE] MAP-DATA-REVIEW-002 — Claude — PR #25 reviewed clean, no BLOCKER. Integration note: normalize `distanceMeters` to map-view `distanceM` and merge nearby rows by public `id` with full catalogue objects before planner/basket use.
+[DONE] MAP-INTEGRATE-002 — ChatGPT + Claude review — map runtime integration merged in PR #28 after clean Claude cross-review. Places map, Nearby RPC/fallback, per-city basket integration and SW v25 are on main.
 
-[DONE] MAP-UI-001 — Claude + ChatGPT review — isolated map module merged in PR #26 after ChatGPT cross-review; `map-view.js`, `map.css`, tests and integration notes are on main. Public OSM tiles are MVP-only and require provider hardening before heavy traffic.
+[DONE] NEARBY-ORDER-005 — ChatGPT + Claude review — exact-distance ordering migration 009 merged in PR #30 after clean Claude review and applied successfully to hosted Supabase by Jakub on 2026-11-03.
 
-[ACK] MAP-INTEGRATE-002 — ChatGPT — integration implemented on `work/map-integrate-002`, PR #28 open; latest CI green. Map is mounted in Places, Nearby RPC rows merge by public ID with full catalogue objects, `distanceMeters` is normalized to `distanceM`, RPC failure falls back client-side, SW bumped to v25. Live 008 validation found a harmless 0.40 m KNN/exact-distance ordering inversion in Kraków; PR #28 now defensively sorts Nearby rows by exact client distance. Waiting for Claude cross-review before merge.
+[DONE] ROUTE-HERO-001 — Claude + ChatGPT review — 27 unique editorial route hero images, provenance, `route-covers.js` and duplicate-prevention tests merged in PR #31.
 
-[OPEN] MAP-INTEGRATE-REVIEW-003 — Claude — perform one consolidated cross-review of PR #28 when your current image package reaches a safe checkpoint. Check render/map lifecycle, per-city basket preservation, Nearby async/race behavior, public-ID merge, `distanceMeters`→`distanceM`, defensive distance sorting, fallback when RPC is unavailable, city/filter isolation, build/service-worker assets, and full-list-below-map MVP behavior. If no BLOCKER, leave one concise PR comment saying review clean. Do not edit ChatGPT's branch.
+[DONE] COVER-SYNC-002 — ChatGPT + Claude review — route cover metadata migration 010 merged in PR #32 after clean Claude review and applied successfully to hosted Supabase by Jakub on 2026-11-03.
 
-[DONE] ROUTE-HERO-001 — Claude + ChatGPT review — 27 unique editorial route hero images, provenance, `route-covers.js` and duplicate-prevention tests merged in PR #31. ChatGPT cross-review found no data/runtime blocker; one coordination-heading typo is normalized in the follow-up package.
+[ACK] COVER-WIRE-001 — ChatGPT — wire `route-covers.js` into runtime cards/details after map merge. Route cover assignment must be computed over the full active route set, never independently per card; editorial covers stay unique, generated/user routes may borrow only an unused stop image and otherwise show no hero. Detail must expose image credit/licence. ChatGPT owns `app.js`, build/service-worker changes and any route-cover runtime tests for this package.
 
-[ACK] NEARBY-LIVE-004 — ChatGPT — hosted migration 008 smoke-tested against Warsaw centre and Kraków Rynek. Both cities return valid public IDs within 500 m; Warsaw returned 3 results and Kraków 50. One sub-metre ordering inversion (314.67 m then 314.27 m) confirmed the KNN-vs-spheroid nuance; temporary validation PR #29 closed without merge.
+[OPEN] BUILDER-SPEC-001 — Claude — prepare the implementation-ready manual Route Builder v1 specification while ChatGPT owns COVER-WIRE-001. Product intent: routes-first workflow where a user can add places sequentially, remove them, reorder via drag-and-drop, see the ordered stops on the map, retain a city-scoped draft, and later publish/save. Define state shape, actions/events, persistence contract, edge cases, accessibility/keyboard drag-and-drop behavior, mobile behavior, and integration boundaries with existing `basketsByCity`, `map-view.js` and future routing/walking-time provider. Deliver `ROUTE_BUILDER.md` only. Do not edit `app.js`, `index.html`, CSS, map files, Supabase, service worker or route-cover files. GREEN/docs-only; commit directly to a Claude branch or PR.
 
-[OPEN] NEARBY-ORDER-005 — ChatGPT + Claude review — forward-only migration 009 prepared in PR #30 to order `catalogue_nearby_places` by the exact `ST_Distance` returned as `dist_meters`. Severity low because PR #28 already sorts client-side. Claude cross-review required before merge.
+[OPEN] BUILDER-MODEL-002 — Claude — after BUILDER-SPEC-001 is complete, implement the isolated pure state/model layer for Route Builder v1 on the same or follow-up Claude branch: new `route-builder-model.js` + focused Node tests only. Required primitives: create/hydrate city draft, add unique place, remove place, reorder/move place, clear draft, serialize, preserve stable stop order, reject cross-city contamination, and keep operations deterministic/idempotent where applicable. No DOM, drag library, map rendering, persistence side effects, network calls or runtime wiring. Do not edit ChatGPT-owned files. Open PR and request ChatGPT cross-review; do not merge. GREEN.
 
-[OPEN] MAP-PROD-SMOKE-006 — ChatGPT — run immediately after PR #28 is reviewed, merged and production deploy is confirmed. Verify Warsaw and Kraków separately: Places opens map, tiles/attribution render, filters/search update markers, place card opens details, Add to route updates the correct city basket, Nearby 500 m returns locally sorted results, Nearby off restores the filtered catalogue, city switch resets map state without mixing baskets, denied/unavailable location or RPC failure leaves the list usable, and mobile layout does not cover OSM attribution. Do not claim production success until the deployed app is checked.
-
-[ACK] COVER-WIRE-001 — ChatGPT — PR #31 data/module package is merged. Forward-only migration 010 is being prepared on `work/route-cover-sync-010` to copy `image`/`imageCaption`/`imageCredit` into `metadata.legacy` for all 27 Warsaw/Kraków editorial routes. Runtime wiring in `app.js` will be done after PR #28 clears review so the map and cover integrations do not race on shared runtime/build/service-worker files. Route cover assignment must be computed over the full active route set, not independently per card; detail view must expose credit/licence.
+[OPEN] MAP-PROD-SMOKE-006 — ChatGPT — run after COVER-WIRE-001 reaches merge-ready so one final production pass covers both map/Nearby and route-cover rendering. Verify Warsaw and Kraków separately: map/tiles/attribution, filters/search, place detail, add-to-route, Nearby 500 m on/off and exact ordering, city switch/baskets, geolocation/RPC fallback, mobile layout, editorial hero uniqueness and visible credit/licence.
 
 ## Required database actions before live parity
 
-- Migration 007: applied successfully to hosted Supabase.
-- Migration 008: applied successfully to hosted Supabase; live RPC validated for Warsaw and Kraków.
-- Migration 009: PR #30 open; apply only after merge. Precision/contract cleanup, not a blocker for client-side Nearby correctness.
-- Migration 010: route-cover metadata sync package in progress; apply only after its PR is reviewed and merged.
+- Migration 007: applied successfully.
+- Migration 008: applied successfully.
+- Migration 009: applied successfully.
+- Migration 010: applied successfully.
+- No currently pending manual database migration.
 
 ## Handoff / checkpoint rule
 

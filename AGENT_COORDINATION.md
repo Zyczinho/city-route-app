@@ -99,7 +99,7 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 |---|---|---|---|---|---|---|---|---|
 | P1 | REQ-ADMIN-004 | DONE | Claude | ChatGPT | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE | PR #44 + fix PR #48, merged to `main` at `d9eb8e8` | No code action. Hosted migration is tracked separately below. | 2026-11-03 |
 | P1 | REQ-UI-003 | DONE | ChatGPT | Claude | REQ-DATA-002 DONE; MIGRATION-012-HOSTED DONE; SOCIAL-RUNTIME-004 DONE | PR #47 merged to `main` at `58694df` | Claude targeted re-review was CLEAN; no further code action. | 2026-11-03 |
-| P1 | PLAN-UI-MOBILE-006 | MERGE_READY | ChatGPT | Claude | REQ-UI-003 DONE | `chatgpt/plan-ui-mobile-006` / PR #49 | Claude review CLEAN. Post-#47 sync and explicit delivery hardening complete (`enhancements.js?v=22`, SW cache v31). GitHub CI #142 green. Merge PR #49; no further Claude round required. | 2026-11-03 |
+| P1 | PLAN-UI-MOBILE-006 | DONE | ChatGPT | Claude | REQ-UI-003 DONE | PR #49 merged to `main` at `c9d2681` | No code action. Claude review CLEAN; post-sync cache hardening and GitHub CI #143 were green before merge. | 2026-11-03 |
 | P1 | SOCIAL-PROD-SMOKE-005 | READY | ChatGPT + Jakub | Claude | SOCIAL-RUNTIME-004 DONE; production deploy of `09dad87` confirmed | no branch | Two-account production smoke: publish → feed → author → save → saved list → mobile nav. | 2026-11-03 |
 | P2 | MIGRATION-013-HOSTED | READY | Jakub | — | REQ-ADMIN-004 DONE | merged PR #48 | Apply `013_app_admins.sql` from current `main`, then add the founder admin row with the SQL in `REQUESTS_ADMIN.md`. Code is fixed and merged; hosted 013 is still not applied. | 2026-11-03 |
 | P3 | INFRA-CF-PREVIEW-001 | BACKLOG | Jakub | — | Cloudflare dashboard access | — | Workers preview builds fail on PR branches while `main` builds succeed. Treat GitHub `test` as required CI until preview configuration is fixed. | 2026-11-03 |
@@ -119,15 +119,16 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 - Claude's targeted low-credit re-review was CLEAN.
 - PR #47 merged to `main` at `58694df`.
 
-### PLAN-UI-MOBILE-006 — PR #49
+### PLAN-UI-MOBILE-006 — PR #49 — DONE
 
 - Product direction: **simple by default, powerful when expanded**.
 - Time + interests stay primary; transport, food, start, budget, sightseeing style and partner offers move behind `Dopasuj szczegóły` with a compact selected-values summary.
 - No generator/backend/Supabase/request/social contract changes.
 - Claude review was CLEAN for semantics, idempotence, value preservation and progressive disclosure.
-- After #47 merged, #49 was synchronized with current `main`. Delivery hardening is explicit: `enhancements.js?v=22` and service-worker cache v31 so installed clients refresh the shell instead of depending on Cloudflare/browser revalidation behavior.
-- Five legacy tests hardcoded to v30 were mechanically updated to v31; GitHub CI #142 passed on head `31b8ebc` before this board-only commit.
-- No additional Claude review is required unless a material regression appears.
+- After #47 merged, #49 was synchronized with current `main`.
+- Delivery hardening is explicit: `enhancements.js?v=22` and service-worker cache v31, so installed clients refresh the shell rather than depending on Cloudflare/browser revalidation behavior.
+- Five legacy cache-version assertions were mechanically updated from v30 to v31. GitHub CI #142 and final board-only CI #143 were green.
+- PR #49 merged at `c9d2681`.
 
 ## Database / hosted state
 
@@ -140,6 +141,7 @@ Code status and hosted-database status are tracked as **separate rows**: "migrat
 
 ## Recently completed
 
+- `PLAN-UI-MOBILE-006` — DONE — PR #49 merged at `c9d2681`; Claude review CLEAN; cache delivery hardened to v22/v31.
 - `REQ-UI-003` — DONE — PR #47 merged at `58694df`; Claude targeted re-review CLEAN.
 - `REQ-ADMIN-004` — DONE — PR #44 + fix PR #48; final blocker fixed and merged at `d9eb8e8`.
 - `SOCIAL-RUNTIME-004 + NAV-MYROUTE-001` — DONE — PR #42 merged at `09dad87`; production smoke remains separate.

@@ -18,7 +18,7 @@ test('release 029 includes all three feature modules in HTML, build and offline 
  assert.match(html,/auth-enhancements\.js\?v=21/);
  assert.match(html,/community-hub\.js\?v=2/);
  assert.match(html,/social-routes-enhancements\.js\?v=4/);
- assert.match(sw,/city-route-v52/);
+ assert.match(sw,/city-route-v53/);
  assert.ok(!html.includes('city-route-v33'));
 });
 

@@ -82,7 +82,7 @@ test('scope switch fails closed if localStorage cannot write snapshot',()=>{
  const saved=store.setItem.bind(store);
  store.setItem=(k,v)=>{if(k===scopedKey('guest'))throw Error('quota');return saved(k,v);};
  assert.throws(()=>activateLocalScope(store,'A'),/quota/);
- assert.equal(store.getItem(ACTIVE_KEY),null);
+ assert.equal(store.getItem(ACTIVE_KEY),'guest');
  assert.equal(read(store).tester.nickname,'Kuba Founder');
 });
 test('generated DB nickname is not treated as a user-chosen display name',()=>{

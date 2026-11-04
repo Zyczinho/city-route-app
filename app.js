@@ -20,7 +20,7 @@ state.profile={bio:'',...state.profile,socials:{instagram:'',tiktok:'',web:'',..
 state.cityId=state.cityId||DEFAULT_CITY_ID;state.basketsByCity=state.basketsByCity&&typeof state.basketsByCity==='object'?state.basketsByCity:{};state.builderMetaByCity=state.builderMetaByCity&&typeof state.builderMetaByCity==='object'?state.builderMetaByCity:{};if(!state.basketsByCity[DEFAULT_CITY_ID]&&state.basket.length)state.basketsByCity[DEFAULT_CITY_ID]=[...state.basket];state.basket=[...(state.basketsByCity[state.cityId]||[])];
 let cities=[],taxonomy=null,activeCity=null,places=[],quests=[],routes=[],all={},cat='all',rcat='all',query='',cuisine='all',sort='default',pending=null,generated=null,generatedOptions=[],generatedIndex=0,generationPrefs=null,generationHistory=[],editing=false,keepQuery=false,here=null,draft=null,bookTab=null,speaking=false,evScope='global',evWhen='week',evKind='all';const evCache={};
 let mapView=null,renderedPlaceList=[],builderDraft=null,nearbyAfterId=null,nearbyRadiusM=500,addNewPlaceAfterId=null,justSavedPlaceId=null;
-const providerOverlay=new Map(),providerLoading=new Set();
+const providerOverlay=new Map(),providerLoading=new Set();let providerObserver=null;
 const persist=()=>{try{if(state?.cityId){state.basketsByCity=state.basketsByCity||{};state.basketsByCity[state.cityId]=[...(state.basket||[])];if(builderDraft?.cityId===state.cityId){const {name,transport,revision,updatedAt}=serializeDraft(builderDraft);state.builderMetaByCity=state.builderMetaByCity||{};state.builderMetaByCity[state.cityId]={cityId:state.cityId,name,transport,revision,updatedAt};}}localStorage.setItem(key,JSON.stringify(state));}catch{storageOK=false;$('#connection').textContent='Zapis lokalny niedostępny. Wyeksportuj dane przed zamknięciem karty.';}};
 const log=(type,data={})=>{state.events.push({type,...data,tester_id:state.tester.id,at:new Date().toISOString()});state.events=state.events.slice(-5000);persist();};
 let toastTimer;function toast(s){$('#toast').textContent=s;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),2600);}
@@ -139,7 +139,7 @@ function routesView(){
 const exploreSwitch=on=>`<div class="segmented two" role="group" aria-label="Odkrywaj"><a href="#places" class="${on==='places'?'selected':''}" ${on==='places'?'aria-current="page"':''}>${ic('map-pin')}Miejsca</a><a href="#events" class="${on==='events'?'selected':''}" ${on==='events'?'aria-current="page"':''}>${ic('ticket-percent')}Wydarzenia</a></div>`;
 const placeHay=p=>`${p.name} ${p.area} ${p.description||''} ${(p.cuisine||[]).join(' ')} ${(p.cats||[]).map(c=>catName(c)).join(' ')} ${(p.ratings||[]).map(r=>r.listing).join(' ')} ${p.address||''}`;
 const away=p=>here?` · ${dec(distance(here,p))} km`:'';
-function placeRow(p){return `<article class="place"><button class="hit" data-action="place" data-id="${p.id}" aria-label="Szczegóły: ${esc(p.name)}"></button><div class="thumb">${photo(p)}${p.top?'<span class="must">Must-see</span>':''}</div><div class="info"><h3>${esc(p.name)}</h3><p class="sub">${esc(p.area)}${p.cuisine?' · '+esc(p.cuisine.join(', ')):p.kind==='sidequest'?'':' · '+esc(catName(p.cats?.[0]))}${p.outside?' · z zewnątrz':''}${away(p)}</p>${scoreLine(p)}</div><div class="side"><button class="icon-btn save-place ${savedPlace(p)?'on':''}" data-action="bookmark" data-id="${esc(p.id)}" aria-pressed="${savedPlace(p)}" aria-label="${savedPlace(p)?'Usuń z Zapisanych':'Zapisz miejsce'}: ${esc(p.name)}">${ic('bookmark')}</button>${addButton(p)}</div></article>`;}
+function placeRow(p){return `<article class="place" data-place-id="${esc(p.id)}"><button class="hit" data-action="place" data-id="${p.id}" aria-label="Szczegóły: ${esc(p.name)}"></button><div class="thumb">${photo(p)}${p.top?'<span class="must">Must-see</span>':''}</div><div class="info"><h3>${esc(p.name)}</h3><p class="sub">${esc(p.area)}${p.cuisine?' · '+esc(p.cuisine.join(', ')):p.kind==='sidequest'?'':' · '+esc(catName(p.cats?.[0]))}${p.outside?' · z zewnątrz':''}${away(p)}</p>${scoreLine(p)}</div><div class="side"><button class="icon-btn save-place ${savedPlace(p)?'on':''}" data-action="bookmark" data-id="${esc(p.id)}" aria-pressed="${savedPlace(p)}" aria-label="${savedPlace(p)?'Usuń z Zapisanych':'Zapisz miejsce'}: ${esc(p.name)}">${ic('bookmark')}</button>${addButton(p)}</div></article>`;}
 function placesView(){
  if(cat!=='sidequests'&&!PLACE_CATS.some(c=>c[0]===cat))cat='all';
  let list=cat==='sidequests'?[...quests]:catalog().filter(p=>cat==='all'||(cat==='saved'?savedPlace(p):p.cats[0]===cat));
@@ -181,6 +181,27 @@ async function mountPlacesMap(){
  view.setRouteStops(items(builderDraft?.stops||[]));
 }
 
+// Only newly approved community catalogue places are enriched while visible;
+// never auto-query all 275+ existing catalogue entries or spend provider quota on page load.
+function observeApprovedPlaceEnrichment(){
+ providerObserver?.disconnect();providerObserver=null;
+ if(typeof IntersectionObserver==='undefined')return;
+ const rows=[...document.querySelectorAll('.place-list article.place[data-place-id]')];
+ if(!rows.length)return;
+ const io=new IntersectionObserver(entries=>{
+  for(const entry of entries){
+   if(!entry.isIntersecting)continue;
+   io.unobserve(entry.target);
+   const p=all[entry.target.dataset.placeId];
+   if(p?.origin==='community'&&!providerOverlay.has(p.id)&&(!p.image||!providerRatings(p).length))void enrichPlaceOnDemand(p);
+  }
+ },{rootMargin:'180px 0px'});
+ for(const row of rows){
+  const p=all[row.dataset.placeId];
+  if(p?.origin==='community'&&!providerOverlay.has(p.id)&&(!p.image||!providerRatings(p).length))io.observe(row);
+ }
+ providerObserver=io;
+}
 function openPlace(id){const p=all[id];if(!p)return;if(!providerOverlay.has(p.id)&&(p.kind==='user'||(!p.image&&!providerRatings(p).length)))void enrichPlaceOnDemand(p);const freshlySaved=id===justSavedPlaceId;if(freshlySaved)justSavedPlaceId=null;const d=$('#place-dialog'),anchor=p.kind==='sidequest'?all[p.placeId]:null;d.dataset.placeId=id;
  d.innerHTML=`<div class="sheet-media">${photo(p,'sheet-photo',true)}<form method="dialog"><button class="close" aria-label="Zamknij">${ic('x')}</button></form></div><div class="sheet-body"><p class="kicker">${esc(p.area)}${p.kind==='sidequest'?' · Side quest':(p.cats||[]).map(c=>' · '+esc(catName(c))).join('')}</p><h2 id="sheet-title">${esc(p.name)}</h2><p>${esc(p.description)}</p>${p.address?`<p class="muted">${ic('map-pin')}${esc(p.address)}</p>`:''}
  ${p.kind==='user'?'<p class="fine">Weryfikacja redakcji: oczekuje · Weryfikacja społeczności: oczekuje</p>':''}${p.outside?`<p class="note">Na trasie to krótki postój przy budynku (ok. ${p.minutes} min). Zwiedzanie wnętrz jest osobne, zwykle płatne i trwa dłużej.</p>`:''}
@@ -327,7 +348,7 @@ function render(){const cityHost=document.querySelector('.city-host');if(cityHos
  if(tab==='routes')html=routesView();else if(tab==='places')html=placesView();else if(tab==='plan')html=planView();else if(tab==='my-route')html=myRouteView();else if(tab==='profile')html=profileView();else if(tab==='book')html=bookView();else if(tab==='events')html=eventsView();
  else if(tab==='route'){const r=findRoute(id);html=r?detailView(r):`<div class="empty"><p>Ta trasa nie jest już dostępna.</p><a class="button" href="#routes">Wszystkie trasy</a></div>`;}
  else if(tab==='sources')html=sourcesView();else if(tab==='about')html=aboutView();else if(tab==='add-place')html=addPlaceView();
- mapView?.destroy();mapView=null;$('#main').innerHTML=html;document.body.classList.toggle('is-live',isLive());if(tab==='places')mountPlacesMap();}
+ mapView?.destroy();mapView=null;$('#main').innerHTML=html;document.body.classList.toggle('is-live',isLive());if(tab==='places'){mountPlacesMap();observeApprovedPlaceEnrichment();}}
 function start(r){const stops=r.stops.filter(id=>all[id]);if(!stops.length)return toast('Najpierw dodaj co najmniej jedno miejsce.');state.session={id:uuid(),name:r.name,routeId:r.id,stops,index:0,results:[],finished:false,transport:r.transport||'walking',startedAt:new Date().toISOString()};log('route_start',{route_id:r.id,session_id:state.session.id,stops:stops.length});location.hash='my-route';render();}
 function saveRoute(r){const saved={id:'mine-'+uuid().slice(0,8),cityId:city().id,name:r.name,description:r.description,stops:r.stops.slice(),cats:[],transport:r.transport||'walking',createdAt:new Date().toISOString()};state.myRoutes.unshift(saved);log('route_save',{route_id:saved.id,stops:saved.stops.length});return saved;}
 

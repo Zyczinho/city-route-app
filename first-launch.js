@@ -1,7 +1,12 @@
 // BETA-HOURS-AUTH-046 — one-time guest-first onboarding.
 // Never requests account, payment or geolocation. No DOM rewrite/observer loop.
 const SEEN_KEY='city-route-first-launch-v1';
-const done=()=>{try{return localStorage.getItem(SEEN_KEY)==='1';}catch{return false;}};
+const priorUse=()=>{try{
+ const state=JSON.parse(localStorage.getItem('city-route-v1')||'null');
+ return !!(state&&(state.tester?.nickname&&state.tester.nickname!=='Explorer'
+  ||state.basket?.length||state.events?.length||state.userPlaces?.length||state.session));
+ }catch{return false;}};
+const done=()=>{try{return localStorage.getItem(SEEN_KEY)==='1'||priorUse();}catch{return false;}};
 function finishIntro(next){
  try{localStorage.setItem(SEEN_KEY,'1');}catch{/* Private mode can still dismiss until reload. */}
  document.getElementById('first-launch-overlay')?.remove();

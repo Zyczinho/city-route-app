@@ -197,14 +197,16 @@ try{
  assert.equal(compactNav.links.length,5,'Community top navigation has exactly five links at 320px');
  const bottom=await page.locator('#navigation').evaluate(nav=>{
   const rect=nav.getBoundingClientRect();
-  return {screenWidth:window.screen.width,innerWidth:window.innerWidth,clientWidth:document.documentElement.clientWidth,
+  const me=document.querySelector('.top #me')?.getBoundingClientRect();
+  const top=document.querySelector('.top')?.getBoundingClientRect();
+  return {avatarRight:me?.right,topRight:top?.right,screenWidth:window.screen.width,innerWidth:window.innerWidth,clientWidth:document.documentElement.clientWidth,
    scrollWidth:document.documentElement.scrollWidth,left:rect.left,right:rect.right,tabCount:nav.querySelectorAll('a').length,
    overflowCandidates:[...document.querySelectorAll('body *')].filter(e=>{
      const r=e.getBoundingClientRect(),cs=getComputedStyle(e);
      return r.width>0&&r.height>0&&cs.display!=='none'&&cs.position!=='fixed'&&r.right>window.screen.width+1;
    }).slice(0,18).map(e=>{const r=e.getBoundingClientRect();return {tag:e.tagName,cls:String(e.className||'').slice(0,65),id:e.id,left:Math.round(r.left),right:Math.round(r.right),scrollWidth:e.scrollWidth,clientWidth:e.clientWidth};})};
  });
- assert.ok(bottom.tabCount===5&&bottom.scrollWidth<=bottom.screenWidth+1&&bottom.innerWidth<=bottom.screenWidth+1&&bottom.right<=bottom.screenWidth+1,
+ assert.ok(bottom.tabCount===5&&bottom.scrollWidth<=bottom.screenWidth+1&&bottom.innerWidth<=bottom.screenWidth+1&&bottom.right<=bottom.screenWidth+1&&bottom.avatarRight<=bottom.screenWidth+1,
   '320px bottom navigation must never widen screen to 324px: '+JSON.stringify(bottom));
  assert.ok(compactNav.navScrollWidth<=compactNav.navClientWidth+1&&compactNav.scrollWidth<=compactNav.viewport+1&&compactNav.links.every(link=>link.left>=compactNav.left-1&&link.right<=compactNav.right+1),
   'Community 320px grid must not overflow: '+JSON.stringify(compactNav));

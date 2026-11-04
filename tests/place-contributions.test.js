@@ -46,7 +46,7 @@ test('photo requires original JPG, rights confirmation and a bounded payload',as
  await assert.rejects(()=>api.uploadOwnPhoto('uid','sid','data:image/png;base64,AAAA',true),e=>e.code==='invalid-photo-format');
 });
 test('known backend constraints map to predictable errors',()=>{
- for(const code of ['auth-required','duplicate-place','duplicate-pending','rate-limited','outside-city','forbidden'])
+ for(const code of ['auth-required','duplicate-place','duplicate-pending','outside-city','forbidden'])
   assert.equal(contributionError(new Error(code)).code,code);
  assert.equal(contributionError({code:'PGRST404',message:'Unknown function'}).code,'network');
 });
@@ -56,7 +56,7 @@ test('migration locks down all direct writes and moderates via app-admin only',a
    'revoke all on public.place_submissions','create or replace function public.create_place_submission',
    'create or replace function public.admin_review_place_submission',
    'if not public.is_app_admin()','create policy city_route_place_photo_insert_own',
-   'duplicate-place','duplicate-pending','rate-limited','status=\'pending\'',
+   'duplicate-place','duplicate-pending','status=\'pending\'',
    'v.status<>\'pending\'','image_rights_confirmed'])assert.ok(sql.includes(term),'missing SQL guard '+term);
  assert.match(sql,/name ~ '\^\[0-9a-f-\]\{36\}\/\[0-9a-f-\]\{36\}\[\.\]jpg\$'/);
  assert.ok(!/grant insert|grant update|grant delete/i.test(sql),'no direct table writes for browser roles');

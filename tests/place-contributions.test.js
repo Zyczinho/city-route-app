@@ -59,6 +59,10 @@ test('migration locks down all direct writes and moderates via app-admin only',a
    'duplicate-place','duplicate-pending','status=\'pending\'',
    'v.status<>\'pending\'','image_rights_confirmed'])assert.ok(sql.includes(term),'missing SQL guard '+term);
  assert.match(sql,/name ~ '\^\[0-9a-f-\]\{36\}\/\[0-9a-f-\]\{36\}\[\.\]jpg\$'/);
+ assert.doesNotMatch(sql,/rate-limited|interval '24 hours'|count\(\*\).*submitted_by=v_user/i,'public community submissions must have no per-user quota');
+ assert.match(sql,/pg_advisory_xact_lock\(pg_catalog.hashtextextended\(v\.city_id::text\|\|':'\|\|v\.normalized_key,0\)\)/,'approval must take same per-city and name lock as a new submission');
+ assert.match(sql,/s\.status='pending'[\s\S]*s\.normalized_key=v_key/,'pending submissions must also count as duplicates');
+ assert.match(sql,/p\.status='published'[\s\S]*p\.visibility='public'[\s\S]*catalogue_request_key\(p\.name\)=v_key/,'already published places must be rejected as duplicates');
  assert.ok(!/grant insert|grant update|grant delete/i.test(sql),'no direct table writes for browser roles');
 });
 test('UI and PWA bundle shared-place modules without exposing private proposals',async()=>{

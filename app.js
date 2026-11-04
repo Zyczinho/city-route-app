@@ -15,10 +15,12 @@ const fresh=()=>({version:1,tester:{id:uuid(),nickname:'Explorer'},basket:[],bas
 if(!state||state.version!==1||!Array.isArray(state.basket)||!Array.isArray(state.events))state=fresh();
 state.connections=state.connections||{};state.stay=state.stay||'';state.joined=state.joined||[];state.messages=state.messages||{};state.placeReviews=state.placeReviews||{};
 state.friends=Array.isArray(state.friends)?state.friends:[];state.myRoutes=Array.isArray(state.myRoutes)?state.myRoutes:[];state.userPlaces=Array.isArray(state.userPlaces)?state.userPlaces:[];
+state.savedPlacesByCity=state.savedPlacesByCity&&typeof state.savedPlacesByCity==='object'?state.savedPlacesByCity:{};
 state.profile={bio:'',...state.profile,socials:{instagram:'',tiktok:'',web:'',...state.profile?.socials}};
 state.cityId=state.cityId||DEFAULT_CITY_ID;state.basketsByCity=state.basketsByCity&&typeof state.basketsByCity==='object'?state.basketsByCity:{};state.builderMetaByCity=state.builderMetaByCity&&typeof state.builderMetaByCity==='object'?state.builderMetaByCity:{};if(!state.basketsByCity[DEFAULT_CITY_ID]&&state.basket.length)state.basketsByCity[DEFAULT_CITY_ID]=[...state.basket];state.basket=[...(state.basketsByCity[state.cityId]||[])];
 let cities=[],taxonomy=null,activeCity=null,places=[],quests=[],routes=[],all={},cat='all',rcat='all',query='',cuisine='all',sort='default',pending=null,generated=null,generatedOptions=[],generatedIndex=0,generationPrefs=null,generationHistory=[],editing=false,keepQuery=false,here=null,draft=null,bookTab=null,speaking=false,evScope='global',evWhen='week',evKind='all';const evCache={};
 let mapView=null,renderedPlaceList=[],builderDraft=null,nearbyAfterId=null,nearbyRadiusM=500,addNewPlaceAfterId=null,justSavedPlaceId=null;
+const providerOverlay=new Map(),providerLoading=new Set();
 const persist=()=>{try{if(state?.cityId){state.basketsByCity=state.basketsByCity||{};state.basketsByCity[state.cityId]=[...(state.basket||[])];if(builderDraft?.cityId===state.cityId){const {name,transport,revision,updatedAt}=serializeDraft(builderDraft);state.builderMetaByCity=state.builderMetaByCity||{};state.builderMetaByCity[state.cityId]={cityId:state.cityId,name,transport,revision,updatedAt};}}localStorage.setItem(key,JSON.stringify(state));}catch{storageOK=false;$('#connection').textContent='Zapis lokalny niedostępny. Wyeksportuj dane przed zamknięciem karty.';}};
 const log=(type,data={})=>{state.events.push({type,...data,tester_id:state.tester.id,at:new Date().toISOString()});state.events=state.events.slice(-5000);persist();};
 let toastTimer;function toast(s){$('#toast').textContent=s;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),2600);}
@@ -43,7 +45,7 @@ function loadRouteIntoBuilder(r){const result=hydrateDraft({cityId:city().id,sto
 
 // Navigation and categories
 const TABS=[['plan','wand-sparkles','Ułóż trasę'],['routes','route','Trasy'],['places','compass','Miejsca'],['my-route','navigation','Moja trasa'],['book','ticket-percent','Zarezerwuj']];
-const PLACE_CATS=[['all','Wszystkie','layers'],['zabytki','Zabytki','landmark'],['muzea','Muzea','library'],['zielen','Zieleń','trees'],['widoki','Widoki i woda','waves'],['okolice','Ulice i okolice','signpost'],['jedzenie','Jedzenie','utensils']];
+const PLACE_CATS=[['all','Wszystkie','layers'],['saved','Zapisane','bookmark'],['zabytki','Zabytki','landmark'],['muzea','Muzea','library'],['zielen','Zieleń','trees'],['widoki','Widoki i woda','waves'],['okolice','Ulice i okolice','signpost'],['jedzenie','Jedzenie','utensils']];
 const USER_TAGS={zabytki:['sightseeing','culture'],muzea:['culture'],zielen:['nature'],widoki:['views'],okolice:['hidden'],jedzenie:['food']};
 const resident=()=>state.stay==='resident';
 const isPublic=p=>p.visibility==='public';
@@ -51,6 +53,30 @@ const isPublic=p=>p.visibility==='public';
 const VIS_NOTE={private:'Miejsce widzisz tylko Ty.',public:'Propozycja trafia do wspólnego katalogu dopiero po zalogowaniu, wysłaniu i zatwierdzeniu przez moderatora.'};
 const SUBMISSION_NOTE={needs_login:'Zapisano lokalnie. Zaloguj się w Profilu, a potem wyślij propozycję.',submitting:'Wysyłam zgłoszenie…',pending:'Czeka na zatwierdzenie. Inni nie widzą jeszcze tego miejsca.',approved:'Zatwierdzone. Miejsce jest dostępne w katalogu.',merged:'Połączone z istniejącym miejscem w katalogu.',rejected:'Moderator nie zatwierdził tej propozycji.',error:'Nie udało się wysłać. Miejsce nadal jest zapisane na urządzeniu.'};
 const catalog=()=>[...places,...forCity(state.userPlaces,city().id).filter(p=>!p.resolvedPlaceId||!places.some(x=>x.id===p.resolvedPlaceId))].filter(p=>p.kind!=='hotel');
+
+const savedIds=()=>state.savedPlacesByCity[city().id]||[];
+const savedPlace=p=>savedIds().includes(String(p.id));
+const providerRatings=p=>{const original=Array.isArray(p?.ratings)?p.ratings:[],live=providerOverlay.get(p?.id)?.ratings||[];return [...live,...original.filter(x=>!live.some(r=>r.source===x.source))];};
+// Provider responses are deliberately transient; only exempt Google place identifiers are stored locally.
+async function enrichPlaceOnDemand(p){
+ if(!p||!Number.isFinite(Number(p.lat))||!Number.isFinite(Number(p.lng))||providerOverlay.has(p.id)||providerLoading.has(p.id))return;
+ providerLoading.add(p.id);
+ const c=cities.find(x=>x.id===p.cityId)||city(),qs=new URLSearchParams({
+  name:String(p.name),lat:String(p.lat),lng:String(p.lng),city:c.id,cityName:c.name||'Warszawa',
+  centerLat:String(c.center?.lat||52.2297),centerLng:String(c.center?.lng||21.0122),
+  r:String(c.radiusKm||40),googleId:p.googlePlaceId||''
+ });
+ try{
+  const r=await fetch('/api/place-enrichment?'+qs.toString(),{cache:'no-store'}),data=await r.json();
+  if(!r.ok||!['ok','no-match','no-key'].includes(data.status))return;
+  if(!all[p.id]||p.cityId!==city().id)return;
+  providerOverlay.set(p.id,{ratings:Array.isArray(data.ratings)?data.ratings:[],image:data.image||null});
+  render();
+  if($('#place-dialog')?.open&&$('#place-dialog').dataset.placeId===p.id)openPlace(p.id);
+ }catch{/* Offline/provider unavailable; place itself remains saved. */}
+ finally{providerLoading.delete(p.id);}
+}
+
 const ROUTE_CATS=[['all','Wszystkie'],['klasyka','Na pierwszy raz'],['zielen','Zieleń'],['wisla','Nad wodą'],['jedzenie','Z jedzeniem'],['lokalnie','Lokalnie']];
 const catName=(id,list=PLACE_CATS)=>list.find(c=>c[0]===id)?.[1]||'';
 const TAB_OF={routes:'routes',route:'routes',places:'places',events:'places','add-place':'places',plan:'plan','my-route':'my-route',book:'book',profile:'profile',sources:'profile',about:'profile','community-route':'routes','social-profile':'routes','social-saved':'routes'};
@@ -64,19 +90,20 @@ function nav(){$('#me').innerHTML=avatar('sm');$('#me').classList.toggle('active
   return `<a href="#${id}" class="${cls}" ${id==='plan'?'aria-label="Zaplanuj moją trasę"':''} ${t===id?'aria-current="page"':''}>${mine&&live?'<span class="pulse" aria-hidden="true"></span>':ic(icon)}<span>${label}</span>${mine&&chosen?`<small class="nav-status">${live?'W toku':'Gotowa'}</small>`:''}${mine&&!live&&state.basket.length?`<b class="badge" aria-label="${state.basket.length} w trasie">${state.basket.length}</b>`:''}</a>`;}).join('');}
 
 // Shared pieces
-function photo(p,cls='',eager=false){if(!p?.image)return `<div class="ph ${cls}">${ic(p?.kind==='user'?'map-pin':'camera')}</div>`;const src=/^(https?:|data:image\/)/.test(p.image)?p.image:`./assets/images/${p.image}`;return `<img class="${cls}" src="${esc(src)}" alt="${esc(p.imageCaption||p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer">`;}
-function credit(p){const c=p?.imageCredit;if(!c)return '';const lic=c.licenseUrl?`<a href="${esc(c.licenseUrl)}" target="_blank" rel="noopener noreferrer">${esc(c.license)}</a>`:esc(c.license);return `<p class="credit">${ic('camera')}<span>${p.imageCaption?esc(p.imageCaption)+'. ':''}Zdjęcie: ${esc(c.author)} · ${lic} · <a href="${esc(c.source)}" target="_blank" rel="noopener noreferrer">${esc(c.via)}</a></span></p>`;}
-const rating=(p,s)=>p.ratings?.find(r=>r.source===s);
+function photo(p,cls='',eager=false){const image=p?.image||providerOverlay.get(p?.id)?.image?.src;if(!image)return `<div class="ph ${cls}">${ic(p?.kind==='user'?'map-pin':'camera')}</div>`;const src=/^(https?:|data:image\/)/.test(image)?image:`./assets/images/${image}`;return `<img class="${cls}" src="${esc(src)}" alt="${esc(p.imageCaption||p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer">`;}
+function credit(p){const c=p?.imageCredit||(!p?.image?providerOverlay.get(p?.id)?.image?.credit:null);if(!c)return '';const lic=c.licenseUrl?`<a href="${esc(c.licenseUrl)}" target="_blank" rel="noopener noreferrer">${esc(c.license)}</a>`:esc(c.license);return `<p class="credit">${ic('camera')}<span>${p.imageCaption?esc(p.imageCaption)+'. ':''}Zdjęcie: ${esc(c.author)} · ${lic} · <a href="${esc(c.source)}" target="_blank" rel="noopener noreferrer">${esc(c.via)}</a></span></p>`;}
+const rating=(p,s)=>providerRatings(p).find(r=>r.source===s);
+const cityRouteBadge=p=>`<span class="cr-score" data-cityroute-ref="${esc(p.id)}" title="Średnia społeczności City Route — niezależna od ocen Google i Tripadvisor">★ City Route · Brak ocen</span>`;
 function scoreLine(p,compact=false){
  if(p.kind==='sidequest')return `<p class="idea">${ic('sparkles')}Pomysł City Route · przy: ${esc(all[p.placeId]?.name)}</p>`;
- if(p.kind==='user')return `<p class="idea">${ic('user-round')}Dodane przez Ciebie · ${isPublic(p)?'propozycja społeczności':'prywatne'}</p>`;
- const c=combinedRating(p.ratings),chip=s=>{const r=rating(p,s),ok=Number.isFinite(r?.value);return `<span class="src src-${s}${ok?'':' none'}" title="${esc(SOURCES[s])}">${brand(s)}${ok?`${dec(r.value)} · ${fmt(r.reviewCount)}`:'brak'}</span>`;};
- return `<div class="score">${c.value===null?'<span class="muted">Brak ocen</span>':`<strong><span class="star" aria-hidden="true">★</span> ${dec(c.value,2)}</strong><span>${opinii(c.total)}</span>`}</div>${compact?'':`<div class="srcs" aria-label="Oceny według platform">${chip('google')}${chip('tripadvisor')}</div>`}`;}
-function breakdown(p){const c=combinedRating(p.ratings);
+ if(p.kind==='user'&&!providerRatings(p).length)return `<p class="idea">${ic('user-round')}Dodane przez Ciebie · ${isPublic(p)?'propozycja społeczności':'prywatne'}</p>${cityRouteBadge(p)}`;
+ const c=combinedRating(providerRatings(p)),chip=s=>{const r=rating(p,s),ok=Number.isFinite(r?.value);return `<span class="src src-${s}${ok?'':' none'}" title="${esc(SOURCES[s])}">${brand(s)}${ok?`${dec(r.value)} · ${fmt(r.reviewCount)}`:'brak'}</span>`;};
+ return `<div class="score">${c.value===null?'<span class="muted">Brak ocen</span>':`<strong><span class="star" aria-hidden="true">★</span> ${dec(c.value,2)}</strong><span>${opinii(c.total)}</span>`}</div>${compact?'':`<div class="srcs" aria-label="Oceny według platform">${chip('google')}${chip('tripadvisor')}</div>`}${cityRouteBadge(p)}`;}
+function breakdown(p){const c=combinedRating(providerRatings(p));
  const rows=['google','tripadvisor'].map(s=>{const r=rating(p,s);if(!r||!Number.isFinite(r.value))return `<div class="row none">${brand(s)}<span class="name">${SOURCES[s]}</span><span class="why">${esc(r?.reason||'Brak oceny')}</span></div>`;
   return `<a class="row" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" data-action="source" data-id="${p.id}" data-source="${s}">${brand(s)}<span class="name">${SOURCES[s]}<small>${esc(r.listing)}</small></span><span class="val">★ ${dec(r.value)}</span><span class="cnt">${opinii(r.reviewCount)}</span>${ic('arrow-up-right','go')}</a>`;}).join('');
  const share=c.parts.map(r=>`<span class="sh-${r.source}" style="width:${(r.reviewCount/c.total*100).toFixed(1)}%"></span>`).join('');
- return `<section class="breakdown" aria-label="Oceny z platform"><div class="total">${c.value===null?'<strong>—</strong><span>Brak ocen na obu platformach</span>':`<strong>${dec(c.value,2)}</strong><span>na 5 · ${opinii(c.total)} łącznie</span>`}</div>${c.total?`<div class="share" aria-hidden="true">${share}</div>`:''}${rows}<div class="city-route-own-rating"><strong>City Route</strong><span>${state.placeReviews[p.id]?`★ ${state.placeReviews[p.id]}/5 · Twoja ocena`:'Jeszcze nie oceniłeś tego miejsca'}</span><small>Osobno od średniej Google i Tripadvisor · na razie zapis tylko na Twoim urządzeniu</small></div><p class="fine">Wynik łączny to średnia ważona liczbą opinii: każda opinia z Google i Tripadvisor waży tyle samo. Dane sprawdzone 2 listopada 2026 — na platformach mogą być już nowsze. <a href="#sources">Skąd są dane?</a></p></section>`;}
+ return `<section class="breakdown" aria-label="Oceny z platform"><div class="total">${c.value===null?'<strong>—</strong><span>Brak ocen na obu platformach</span>':`<strong>${dec(c.value,2)}</strong><span>na 5 · ${opinii(c.total)} łącznie</span>`}</div>${c.total?`<div class="share" aria-hidden="true">${share}</div>`:''}${rows}<div class="city-route-own-rating"><strong>City Route · oceny społeczności</strong><span>${state.placeReviews[p.id]?`★ ${state.placeReviews[p.id]}/5 · Twoja ocena`:'Jeszcze nie oceniłeś tego miejsca'}</span><small>Fioletowe oceny City Route nie wpływają na średnią Google i Tripadvisor. Po zalogowaniu ocena zatwierdzonego miejsca trafia również do społeczności.</small></div><p class="fine">Wynik łączny to średnia ważona liczbą opinii: każda opinia z Google i Tripadvisor waży tyle samo. Oceny katalogowe sprawdzono 2 listopada 2026; dane nowo dodanych miejsc są pobierane z oficjalnych API, jeśli są dostępne. <a href="#sources">Skąd są dane?</a></p></section>`;}
 const q=p=>encodeURIComponent(searchQuery(p,city()));
 function hotelLinks(p){const l=(href,label,src,primary)=>`<a class="button wide ${primary?'primary':''}" href="${esc(href)}" target="_blank" rel="noopener noreferrer" data-action="compare" data-id="${p.id}" data-source="${src}">${ic('arrow-up-right')}${label}</a>`;
  return `<p class="fine">Ceny na Twoje daty porównasz w Google Hotels, które zbiera oferty wielu serwisów rezerwacyjnych. City Route nie pokazuje jeszcze cen.</p>${l('https://www.google.com/travel/search?q='+q(p),'Porównaj ceny (Google Hotels)','google-hotels',true)}${l(p.bookingSearch||'https://www.booking.com/searchresults.pl.html?ss='+q(p),'Szukaj na Booking','booking')}${p.website?l(p.website,'Strona hotelu','official'):''}`;}

@@ -1,8 +1,8 @@
-// NAV-MYROUTE-001 + UX-CLEANUP-007 — compact five-tab navigation.
+// NAV-MYROUTE-001 + ONBOARDING-MENU-050 — six compact destinations; guide is permanent.
 const nav=document.querySelector('#navigation');
 const headerRight=document.querySelector('.top .right');
 const toast=document.querySelector('#toast');
-const desiredNav=['#plan','#routes','#my-route','#routes/community','#places'];
+const desiredNav=['#plan','#routes','#my-route','#routes/community','#places','#about'];
 let navSyncing=false;
 
 function ensureHeaderBooking(){

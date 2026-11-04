@@ -96,6 +96,54 @@ try{
  assert.ok(mapLayout.overflow<=mapLayout.viewport+1,'map toolbar does not create horizontal overflow');
  await page.screenshot({path:'p0-smoke-artifacts/places-mobile-scroll.png',fullPage:true});
 
+ // PLACES-UX-038: own creations remain discoverable after unbookmarking.
+ // Use a separate mobile session so the existing route-smoke fixture stays unchanged.
+ const placesCtx=await browser.newContext({viewport:{width:375,height:812},deviceScaleFactor:1,isMobile:true,hasTouch:true});
+ await placesCtx.route(/supabase\\.co/,route=>route.abort());
+ await placesCtx.addInitScript(()=>{
+  const own={id:'u-spoco-smoke',cityId:'warsaw',name:"S'poco Loco",kind:'user',categoryId:'restaurant',
+   cats:['jedzenie'],area:'Twoje miejsce',description:'Dodane przez testera',
+   lat:52.2301,lng:21.0131,minutes:45,cost:0,ratings:[],createdAt:'2026-11-04T12:00:00.000Z',
+   visibility:'private'};
+  localStorage.setItem('city-route-v1',JSON.stringify({version:1,tester:{id:'places-ux-smoke',nickname:'Test'},
+   basket:[],basketsByCity:{warsaw:[]},events:[],session:null,cityId:'warsaw',
+   userPlaces:[own],savedPlacesByCity:{warsaw:['u-spoco-smoke']},placeReviews:{},myRoutes:[]}));
+ });
+ const placesPage=await placesCtx.newPage();
+ await placesPage.goto(BASE+'/#places',{waitUntil:'domcontentloaded'});
+ await placesPage.locator('article.place[data-place-id="u-spoco-smoke"]').waitFor({timeout:15000});
+ const createdFirst=await placesPage.locator('.place-list article.place').first().getAttribute('data-place-id');
+ assert.equal(createdFirst,'u-spoco-smoke','new place is near the top, not buried at the end');
+ assert.equal(await placesPage.locator('[data-request-generic], [data-request-search], [data-request-category]').count(),0,
+  'Places should not duplicate the primary add CTA with requests everywhere');
+ await placesPage.locator('article.place[data-place-id="u-spoco-smoke"] [data-action="bookmark"]').click();
+ const removed=await placesPage.evaluate(()=>JSON.parse(localStorage.getItem('city-route-v1')).savedPlacesByCity.warsaw);
+ assert.ok(!removed.includes('u-spoco-smoke'),'unbookmark removes only the bookmark, never the created place');
+ await placesPage.locator('#me').click();
+ await placesPage.locator('[data-action="show-my-places"]').waitFor();
+ await placesPage.locator('[data-action="show-my-places"]').click();
+ assert.equal(await placesPage.locator('[data-action="cat"][data-value="mine"]').getAttribute('aria-pressed'),'true');
+ await placesPage.locator('article.place[data-place-id="u-spoco-smoke"]').waitFor();
+ await placesPage.locator('article.place[data-place-id="u-spoco-smoke"] [data-action="bookmark"]').click();
+ await placesPage.locator('#navigation a[href="#routes/community"]').click();
+ await placesPage.locator('[data-community-tabs] a[href="#social-saved-places"]').click();
+ await placesPage.locator('h1').getByText('Zapisane miejsca').waitFor();
+ await placesPage.locator('article.place[data-place-id="u-spoco-smoke"]').waitFor();
+ await placesPage.locator('#navigation a[href="#places"]').click();
+ await placesPage.locator('#search').fill('poco');
+ await placesPage.locator('.place-suggest button[data-id="u-spoco-smoke"]').waitFor();
+ await placesPage.locator('.place-suggest button[data-id="u-spoco-smoke"]').click();
+ assert.equal(await placesPage.locator('#place-dialog').getAttribute('open'),'');
+ await placesPage.locator('#place-dialog .close').click();
+ await placesPage.locator('.add-place').click();
+ await placesPage.locator('#place-form select[name="cat"]').waitFor();
+ assert.equal(await placesPage.locator('#place-form select[name="cat"] option[value="club"]').count(),1,
+  'nightclub must be a selectable real category');
+ assert.ok(await placesPage.locator('a[data-request-entry][href="#places/request"]').count()>=1,
+  'editorial request is reachable as an alternative in the add-place flow');
+ await placesPage.screenshot({path:'p0-smoke-artifacts/add-place-mobile-clean.png',fullPage:true});
+ await placesCtx.close();
+
  // COMMUNITY-HUB-023: four accessible community subviews are reachable without altering bottom tabs.
  await page.locator('#navigation a[href="#routes/community"]').click();
  await page.locator('[data-community-tabs] .community-hub-links').waitFor({timeout:12000});

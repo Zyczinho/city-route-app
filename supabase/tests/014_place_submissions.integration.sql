@@ -58,6 +58,8 @@ begin
  end loop;
  if (select count(*) from public.catalogue_requests where created_by=auth.uid())<>21 then
    raise exception 'public request proposals were incorrectly capped at 20/day'; end if;
+ if exists(select 1 from public.places where name like 'Missing item %') then
+   raise exception 'requests must never publish places without admin approval'; end if;
 end $;
 \echo 'PASS: legacy catalogue requests also have no daily quota'
 

@@ -75,7 +75,12 @@ try{
 
 
  // MAP-SCROLL-037: protect mobile vertical scrolling with a short inset map and an explicit gesture toggle.
- await page.locator('#places-map .cr-map').waitFor({timeout:12000});
+ try{
+  await page.locator('#places-map .cr-map').waitFor({state:'attached',timeout:12000});
+ }catch(error){
+  const debug=await page.evaluate(()=>({hash:location.hash,mapHost:!!document.querySelector('#places-map'),map:!!document.querySelector('#places-map .cr-map'),mainText:document.querySelector('#main')?.textContent?.slice(0,250)}));
+  throw new Error('Map mount missing in mobile browser: '+JSON.stringify(debug),{cause:error});
+ }
  const mapLayout=await page.locator('#places-map .cr-map').evaluate(el=>{
   const rect=el.getBoundingClientRect(),canvas=el.querySelector('.cr-map-canvas'),button=el.querySelector('.cr-map-interaction');
   return {left:rect.left,right:rect.right,height:rect.height,viewport:innerWidth,

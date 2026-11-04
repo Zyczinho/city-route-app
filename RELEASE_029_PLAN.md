@@ -1,6 +1,14 @@
 # City Route — release 029, integracja PR #60 + #66 + #67 + #68
 
-**Status:** Candidate / NOT LIVE. DRAFT PR #69. Branch `release/integrate-shared-community-20261104`.
+**Status: LIVE — PR #69 merged as `f3970ea` (2026-11-04). GitHub CI, Workers Builds and Production rollout verification: SUCCESS. Real hosted two-account acceptance PENDING.**
+
+**Production DB:** SQL Editor migrated 014→015→016 (confirmed tables/RLS; 275 places/27 routes/1 user/1 profile/1 admin intact). No off-device backup by founder choice; user-local backup tested. Supabase CLI migration ledger still empty — reconcile before future CLI pushes. The remaining sections are the historical staged-release plan, so their old `BLOCKED`/`DRAFT` wording is not current status.
+
+**Unfinished requested features:** Google/Tripadvisor automatic rating sync [#70](https://github.com/Zyczinho/city-route-app/issues/70); automatic compliant place photo [#71](https://github.com/Zyczinho/city-route-app/issues/71); Miejsca → Zapisane beside Wszystkie [#72](https://github.com/Zyczinho/city-route-app/issues/72). These are **not** shipped with #69.
+
+---
+
+**Status below (historical):** Candidate / NOT LIVE. DRAFT PR #69. Branch `release/integrate-shared-community-20261104`.
 **Production release gate:** Explicit product-owner approval after CI, production DB preflight and authenticated acceptance tests. **Do not merge this draft to main or run migrations against hosted Supabase merely because they passed isolated CI.**
 
 ## Cloudflare Preview — FIXED (2026-11-04)

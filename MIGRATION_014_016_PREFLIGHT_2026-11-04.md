@@ -1,8 +1,14 @@
 # Preflight — Supabase 014 → 015 → 016 — 2026-11-04
 
-**Result:** BLOCKED for hosted DDL. **Read-only inspection only. No backup export was performed and no production database object/data was modified.**  
+**Result (historical pre-release):** BLOCKED for hosted DDL. **Read-only inspection only. No backup export was performed and no production database object/data was modified.**  
 **Environment:** Supabase `City Route App` project `ycfhpvtsnsmzdmpvliif` (PostgreSQL 17, region eu-west-3, organisation `City Route` Free).  
 **Source:** integrated draft [PR #69](https://github.com/Zyczinho/city-route-app/pull/69); migration files `014_place_submissions.sql`, `015_friends_unique_nicknames.sql`, `016_cityroute_ratings_and_route_feedback.sql`.
+
+## RELEASE 029 — actual production outcome (2026-11-04)
+
+PR #69 **merged into `main`** as `f3970ea6861c1ac5c53b6e93cf2293f387367188`; Cloudflare Workers Builds, Production rollout verification and GitHub CI **all SUCCESS** for this commit. Supabase production SQL Editor migrations **014 → 015 → 016** user reported successful; connector independently observed all three tables and RLS policies, existing 275 places/27 routes/1 user/1 profile/1 admin preserved. **Two-account real user acceptance not yet run**; immediate beta testing is the next priority. Founder explicitly declined an off-device copy for now; local restorable SQL export exists (as reported by founder). Supabase CLI migration ledger remains empty, since SQL Editor does not populate it. Do not replay these migrations blindly.
+
+The earlier `BLOCKED` preflight sections below are retained as a **historical pre-release snapshot** and must not override this newer outcome. Outstanding backlog: Google/Tripadvisor auto ratings issue #70; automatic licensed place photo issue #71; Miejsca → Zapisane beside Wszystkie issue #72.
 
 ## Local backup + migration rehearsal completed — user-confirmed 2026-11-04
 
@@ -18,7 +24,7 @@ The founder completed the following workflow on **their Windows PC** and supplie
 
 **Production release gate remains BLOCKED** until independently stored backup is confirmed and there is explicit authorization to modify hosted Supabase. Local rehearsal passing does not mean hosted release already occurred.
 
-## 1. Backup / restore gate — NOT SATISFIED
+## 1. Backup / restore gate — historical pre-release status
 
 - Connected Supabase organization is **Free**. Current Supabase documentation says managed daily backups are provided to **Pro, Team and Enterprise**, not Free: https://supabase.com/docs/guides/platform/backups . Free projects should export an off-site logical dump.
 - This connector provides no backup-list or backup-download action. **No managed backup or prior manual dump could be verified**. A user-owned manual dump may exist separately, but that was not visible or verified.
@@ -78,7 +84,7 @@ The founder completed the following workflow on **their Windows PC** and supplie
 
 **Note on existing security warnings:** Supabase Security Advisor currently reports `set_updated_at()` without fixed `search_path` and existing exposed SECURITY DEFINER functions. These are pre-existing issues and must be reviewed separately; do not change them blindly inside the migration preflight. A fresh advisor run after migrations is required: https://supabase.com/docs/guides/database/database-linter .
 
-## 4. Release blockers / action list
+## 4. Historical pre-release blockers / action list
 
 1. **BLOCKER:** No verified restorable pre-migration backup. Obtain/validate external dump and record backup evidence.
 2. **BLOCKER:** No realistic production-schema clone dry-run yet. Isolated fixture CI for 014, 015 and 016 has passed, but it cannot prove compatibility with every live trigger, extension, storage policy and role.
@@ -89,4 +95,4 @@ The founder completed the following workflow on **their Windows PC** and supplie
 
 ## Decision
 
-**NOT READY to execute production migrations.** Schema/dependency read-only inspection is substantially complete and found no obvious missing base relation/function, but backup/restore assurance and full-schema dry-run are mandatory before approval. Existing production app and database remain unchanged.
+**HISTORICAL ASSESSMENT, SUPERSEDED BY THE RELEASE OUTCOME ABOVE:** Not ready to execute production migrations. Schema/dependency read-only inspection is substantially complete and found no obvious missing base relation/function, but backup/restore assurance and full-schema dry-run are mandatory before approval. Existing production app and database remain unchanged.

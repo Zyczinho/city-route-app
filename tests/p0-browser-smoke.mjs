@@ -317,6 +317,29 @@ try{
  assert.ok(iphoneDateLayout.firstRight<=iphoneDateLayout.containerRight+1&&iphoneDateLayout.scrollWidth<=iphoneDateLayout.width+1,'iPhone date input must fit card: '+JSON.stringify(iphoneDateLayout));
  await page.screenshot({path:'p0-smoke-artifacts/iphone13-first-30s-plan.png',fullPage:true});
  await page.setViewportSize({width:375,height:812});
+
+ // Actual 320/375/390px iPhone-like constraints, without guessing native picker internals.
+ for(const width of [320,375,390]){
+  await page.setViewportSize({width,height:844});
+  await page.locator('#navigation a[href="#plan"]').click();
+  const timeChips=await page.locator('#build-form .ux-time .choice span').evaluateAll(nodes=>nodes.map(n=>({text:n.textContent.trim(),width:n.getBoundingClientRect().width,right:n.getBoundingClientRect().right})));
+  assert.ok(timeChips[0].width<85,'1 h choice should be compact at '+width+': '+JSON.stringify(timeChips));
+  assert.ok(timeChips.every(n=>n.right<=width+1),'time chips exceed viewport '+width);
+  const header=await page.locator('#city-select').evaluate(el=>({width:el.getBoundingClientRect().width,right:el.getBoundingClientRect().right,label:el.options[el.selectedIndex].textContent,headRight:document.querySelector('.top').getBoundingClientRect().right,scrollWidth:document.documentElement.scrollWidth}));
+  assert.equal(header.label,'Warszawa');
+  assert.ok(header.width>=104&&header.right<=header.headRight+1&&header.scrollWidth<=width+1,'city picker overflow at '+width+': '+JSON.stringify(header));
+  await page.locator('#navigation a[href="#places"]').click();
+  await page.locator('.place-list .place').first().waitFor();
+  const cards=await page.locator('.place-list .place').evaluateAll(nodes=>nodes.slice(0,8).map(card=>{
+   const info=card.querySelector('.info').getBoundingClientRect(),actions=card.querySelector('.side').getBoundingClientRect(),save=card.querySelector('.save-place').getBoundingClientRect();
+   const rating=card.querySelector('.srcs')?.getBoundingClientRect(),main=card.getBoundingClientRect();
+   return {infoBottom:info.bottom,actionsTop:actions.top,actionsRight:actions.right,saveWidth:save.width,ratingsBottom:rating?.bottom,mainRight:main.right};
+  }));
+  assert.ok(cards.every(c=>c.actionsTop>=c.infoBottom-1&&(c.ratingsBottom==null||c.actionsTop>=c.ratingsBottom-1)&&c.actionsRight<=width+1&&c.mainRight<=width+1&&c.saveWidth>=84),'ratings overlap save controls at '+width+': '+JSON.stringify(cards));
+  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'horizontal overflow '+width);
+ }
+ await page.setViewportSize({width:390,height:844});
+ await page.locator('#navigation a[href="#plan"]').click();
  // ROUTE-CHOICES-022: 3 selectable, genuinely different options and a new batch.
  await page.locator('#navigation a[href="#plan"]').click();
  await page.locator('#build-form input[name="start"][value="any"]').evaluate(input=>{input.checked=true;input.dispatchEvent(new Event('change',{bubbles:true}));});
@@ -490,8 +513,8 @@ try{
  // Simulate an old-installed PWA (v33) upgrading to the new release (v35) on the same origin.
  // No production server mutation: only the temporary dist/ built by this GitHub job is changed.
  const swPath='dist/service-worker.js',latestSW=await readFile(swPath,'utf8');
- assert.match(latestSW,/city-route-v52/);
- await writeFile(swPath,latestSW.replace("city-route-v52","city-route-v33"));
+ assert.match(latestSW,/city-route-v53/);
+ await writeFile(swPath,latestSW.replace("city-route-v53","city-route-v33"));
  try{
   const upgradeCtx=await browser.newContext({viewport:{width:375,height:812},isMobile:true,hasTouch:true});
   await upgradeCtx.route(/supabase\.co/,route=>route.abort());
@@ -502,7 +525,7 @@ try{
   await upgradePage.waitForFunction(()=>!!navigator.serviceWorker?.controller,undefined,{timeout:15000});
   await writeFile(swPath,latestSW);
   await upgradePage.evaluate(()=>navigator.serviceWorker.getRegistration().then(reg=>reg.update())).catch(()=>{});
-  await upgradePage.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('city-route-v52')&&!keys.includes('city-route-v33');},undefined,{timeout:30000});
+  await upgradePage.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('city-route-v53')&&!keys.includes('city-route-v33');},undefined,{timeout:30000});
   await upgradePage.goto(BASE+'/#add-place',{waitUntil:'domcontentloaded'});
   await upgradePage.locator('#pc-q').waitFor({timeout:15000});
   await upgradePage.screenshot({path:'p0-smoke-artifacts/pwa-upgraded-v33-to-v41.png',fullPage:true});

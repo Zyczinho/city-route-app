@@ -201,7 +201,19 @@ try{
  await p2.locator('#place-form input[name="name"]').fill('P0 test punkt widokowy');
  await p2.locator('#place-form input[name="rating"][value="5"]').check({force:true});
  await p2.locator('#place-form button.primary.big').click();
- await p2.locator('#place-dialog[open] button[data-action="add-another-place"]').waitFor({timeout:15000});
+ try{await p2.locator('#place-dialog[open] button[data-action="add-another-place"]').waitFor({timeout:12000});}
+ catch(error){
+  console.warn('ADD_DEBUG='+JSON.stringify(await p2.evaluate(()=>({
+   hash:location.hash,main:document.querySelector('#main')?.textContent?.slice(0,1200),
+   toast:document.querySelector('#toast')?.textContent,
+   dialogOpen:document.querySelector('#place-dialog')?.open,dialog:document.querySelector('#place-dialog')?.textContent?.slice(0,1200),
+   saved:JSON.parse(localStorage.getItem('city-route-v1')||'{}').userPlaces?.map(p=>p.name),
+   errors:window.__debugErr||[]
+  }))));
+  console.warn('ADD_PAGE_ERRORS='+JSON.stringify(pageErrors));console.warn('ENRICH_CALLS='+betaEnrichmentCalls);
+  await p2.screenshot({path:'p0-smoke-artifacts/add-place-failure.png',fullPage:true});
+  throw error;
+ }
  await p2.locator('#place-dialog[open] .src-google').waitFor({timeout:12000});
  await p2.locator('#place-dialog[open] .src-tripadvisor').waitFor({timeout:12000});
  assert.match(await p2.locator('#place-dialog[open] .src-google').innerText(),/4,5/,'Google rating is visible after add');

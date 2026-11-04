@@ -191,7 +191,8 @@ session=initialSession;
 if(new URLSearchParams(location.search).get('cityroute_auth')==='google'){
   if(session?.user){
     // OAuth code has already been exchanged automatically by supabase-js (PKCE).
-    history.replaceState(null,'',location.pathname+'#profile');
+    history.replaceState(null,'',location.pathname+'#plan');
+    location.hash='#profile'; // triggers the existing router; no shell rewrite
   }else{
     const params=new URLSearchParams(location.search);
     if(params.has('error')||params.has('error_description')){

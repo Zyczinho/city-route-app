@@ -15,7 +15,7 @@ test('community hub ships through HTML, build and offline cache',async()=>{
  assert.match(build,/'community-hub\.js'/);
  assert.match(sw,/community-hub\.js\?v=2/);
  assert.match(sw,/community-enhancements\.js\?v=20/);
- assert.match(sw,/city-route-v43/);
+ assert.match(sw,/city-route-v44/);
  assert.match(css,/:not\(\[data-community-tabs\]\)/,'Community focus must keep the inner tabs visible');
  assert.match(hub,/\['#routes\/community','Trasy'\]/);
  assert.match(hub,/\['#routes\/community\/groups','Grupy'\]/);
@@ -24,7 +24,8 @@ test('community hub ships through HTML, build and offline cache',async()=>{
  assert.match(html,/friends\.js\?v=1/);
  assert.match(sw,/friends\.js\?v=1/);
  assert.match(build,/'friends-client\.js'/);
- assert.match(hub,/\['#social-saved','Zapisane'\]/);
+ assert.match(hub,/\['#social-saved','Zapisane trasy'\]/);
+ assert.match(hub,/\['#social-saved-places','Zapisane miejsca'\]/);
 });
 
 test('groups and chat share the existing member-authorized Supabase flow',async()=>{

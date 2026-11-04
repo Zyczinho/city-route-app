@@ -1,4 +1,4 @@
-import { supabase } from './supabase-client.js';
+import { supabase,SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY } from './supabase-client.js';
 
 const STORAGE_KEY='city-route-v1';
 let session=null;
@@ -158,6 +158,17 @@ document.addEventListener('click',async e=>{
     button.disabled=true;
     setNotice('Przechodzę do logowania Google…');
     try{
+      // Public GoTrue settings expose enabled providers without paid APIs or secrets.
+      // Never redirect testers into a broken OAuth flow before Google is configured.
+      const settingsResponse=await fetch(SUPABASE_URL+'/auth/v1/settings',{
+        headers:{apikey:SUPABASE_PUBLISHABLE_KEY},cache:'no-store'
+      });
+      if(!settingsResponse.ok)throw Error('google-settings-unavailable');
+      const settings=await settingsResponse.json();
+      if(settings?.external?.google!==true){
+        setNotice('Logowanie Google czeka na aktywację w ustawieniach City Route. Możesz użyć e-maila i hasła.');
+        return;
+      }
       const {error}=await supabase.auth.signInWithOAuth({
         provider:'google',
         options:{redirectTo:location.origin+location.pathname+'?cityroute_auth=google'}

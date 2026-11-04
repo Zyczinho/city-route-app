@@ -21,6 +21,16 @@
 | #68 | four auditor persona Markdown files, versioned learning log, draft ranking model | none | **Documentation only**, no change to current recommendation engine |
 | Existing main | onboarding, three proposed routes, saved routes, manual builder, live stop rating, finished-route sharing | existing API | Must not regress |
 
+## Backup and schema preflight status — BLOCKED (2026-11-04)
+
+Detailed read-only report: [MIGRATION_014_016_PREFLIGHT_2026-11-04.md](MIGRATION_014_016_PREFLIGHT_2026-11-04.md).
+
+- Organization is **Free**; a managed scheduled backup cannot be presumed. No existing manual/exported backup was accessible to this tool and no dump was created.
+- Current database approx. 21 MB, 275 places, 27 routes, 1 profile and 1 app administrator. All required 001–013-era baseline tables/functions and PostGIS exist, while 014–016 objects are absent.
+- No duplicate normalized nicknames. Storage has 0 buckets; migration 014 explicitly creates a **public** photo bucket and consent requirements must be reviewed.
+- Supabase migration ledger is absent despite installed baseline schema. Record 014–016 as new migrations only after provenance review.
+- **Release halted until verified off-site backup and restoration test, production-schema clone dry-run, then explicit permission to run hosted DDL.** No production mutation has occurred.
+
 ## Production preflight — read-only observations (2026-11-04)
 
 - Connected Supabase project: `ycfhpvtsnsmzdmpvliif` (City Route), verified from current `supabase-config.js` previously.

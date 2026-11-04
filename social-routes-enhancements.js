@@ -163,10 +163,29 @@ function injectProfileEntry(){
  const menu=root.querySelector('.menu');if(menu){const a=document.createElement('a');a.href='#social-saved';a.dataset.socialSavedEntry='1';a.innerHTML='<span>🔖</span><span>Zapisane trasy<small>Trasy City Route i społeczności</small></span><span>›</span>';menu.prepend(a);}
 }
 
-async function toggleSave(routeId){
- if(authRequired())return;const current=marks.get(routeId);
- try{if(current?.saved){await api.unsaveRoute(routeId);marks.set(routeId,{...current,saved:false});log('community_route_unsave',{route_id:routeId});}else{await api.saveRoute(routeId);marks.set(routeId,{...(current||{}),saved:true});log('community_route_save',{route_id:routeId});}queueRender();}catch(error){alert(`Nie udało się zapisać trasy (${error.code||'błąd'}).`);}
+function syncSaveButtons(routeId){
+ const isSaved=!!marks.get(routeId)?.saved;
+ document.querySelectorAll('[data-social-action="save"]').forEach(button=>{
+  if(button.dataset.route!==routeId)return;
+  button.setAttribute('aria-pressed',String(isSaved));
+  button.textContent=isSaved?(button.closest('.social-detail')?'✓ Zapisano trasę':'✓ Zapisano'):(button.closest('.social-detail')?'Zapisz trasę':'Zapisz');
+  button.setAttribute('aria-label',isSaved?'Usuń trasę z zapisanych':'Zapisz trasę');
+ });
 }
+async function toggleSave(routeId){
+ if(authRequired())return;
+ const current=marks.get(routeId);
+ const buttons=[...document.querySelectorAll('[data-social-action="save"]')].filter(b=>b.dataset.route===routeId);
+ if(buttons.some(b=>b.disabled))return;
+ buttons.forEach(b=>b.disabled=true);
+ try{
+  if(current?.saved){await api.unsaveRoute(routeId);marks.set(routeId,{...current,saved:false});log('community_route_unsave',{route_id:routeId});}
+  else{await api.saveRoute(routeId);marks.set(routeId,{...(current||{}),saved:true});log('community_route_save',{route_id:routeId});}
+  syncSaveButtons(routeId);queueRender();
+ }catch(error){alert(`Nie udało się zapisać trasy (${error.code||'błąd'}).`);}
+ finally{buttons.forEach(b=>b.disabled=false);}
+}
+
 async function rate(routeId,rating){if(authRequired())return;try{await api.rateRoute(routeId,rating);marks.set(routeId,{...(marks.get(routeId)||{}),rating:Number(rating)});log('community_route_rate',{route_id:routeId,rating:Number(rating)});document.querySelectorAll(`[data-social-action="rate"][data-route="${routeId}"]`).forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.rating)===Number(rating))));document.querySelector('[data-social-feedback] button[type="submit"]')?.removeAttribute('disabled');queueRender();}catch(error){alert(error.code==='forbidden'?'Nie możesz ocenić własnej trasy.':'Nie udało się zapisać oceny.');}}
 
 async function handleAction(el){

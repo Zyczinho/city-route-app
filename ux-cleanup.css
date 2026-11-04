@@ -30,7 +30,7 @@
 .ux-text-link{font-size:13px;color:var(--blue);font-weight:650;text-decoration:none}
 .ux-text-link:hover{text-decoration:underline}
 #main[data-community-focus="1"]>[data-social-feed]{margin-top:0}
-#main[data-community-focus="1"]>:not([data-social-feed]){display:none!important}
+#main[data-community-focus="1"]>:not([data-social-feed]):not([data-community-tabs]){display:none!important}
 
 @media(max-width:520px){
  #navigation a>span:not(.i):not(.pulse){font-size:10px;letter-spacing:-.01em}

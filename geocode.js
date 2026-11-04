@@ -1,3 +1,4 @@
+import {bestGooglePhoto} from './photo-quality.js';
 // Place lookup for the Worker. Everything is scoped to the active city (centre + radius) that the client sends,
 // so Kraków searches stay in Kraków. Google Places is used only when a key is configured; autocomplete per keystroke
 // additionally needs GOOGLE_PLACES_AUTOCOMPLETE=on, so no new paid usage starts without an explicit switch.
@@ -140,17 +141,18 @@ export async function placeDetails(placeId,{googleKey='',fetcher=fetch,sessionTo
  const place=await r.json().catch(()=>null),loc=place?.location;
  if(!loc||!Number.isFinite(loc.latitude)||!Number.isFinite(loc.longitude))return {status:'no-coordinates'};
  if(!inCity(loc.latitude,loc.longitude,city))return {status:'outside-city',location:{lat:loc.latitude,lng:loc.longitude}};
- const photo=place.photos?.[0],attr=photo?.authorAttributions?.[0];
+ const photo=bestGooglePhoto(place.photos)?.photo,attr=photo?.authorAttributions?.[0];
  return {status:'ok',provider:'google',placeId:place.id||id,name:place.displayName?.text||'',address:place.formattedAddress||'',location:{lat:loc.latitude,lng:loc.longitude},types:place.types||[],
   photo:photo?{available:true,authorName:attr?.displayName||'Google Maps',authorUri:attr?.uri||''}:{available:false}};
 }
 
-// Streams the first Google photo for display only. Never stored by City Route; the client shows author attribution.
+// Streams the best-sized Google photo for display only. Never cached by City Route;
+// the media request uses a fresh photo name, as required by Google Places terms.
 export async function placePhotoById(placeId,{googleKey='',fetcher=fetch}={}){
  const id=String(placeId||'');if(!googleKey||!/^[A-Za-z0-9_-]{10,300}$/.test(id))return null;
  let r;try{r=await fetcher('https://places.googleapis.com/v1/places/'+id,{headers:{'x-goog-api-key':googleKey,'x-goog-fieldmask':'photos'},signal:AbortSignal.timeout(6500)});}catch{return null;}
  if(!r.ok)return null;
- const photo=(await r.json().catch(()=>null))?.photos?.[0];if(!photo?.name)return null;
+ const photo=bestGooglePhoto((await r.json().catch(()=>null))?.photos)?.photo;if(!photo?.name)return null;
  let media;try{media=await fetcher(`https://places.googleapis.com/v1/${photo.name}/media?key=${encodeURIComponent(googleKey)}&maxWidthPx=800`,{redirect:'follow',signal:AbortSignal.timeout(8000)});}catch{return null;}
  if(!media.ok)return null;
  const headers=new Headers();headers.set('content-type',media.headers.get('content-type')||'image/jpeg');headers.set('cache-control','private, no-store');

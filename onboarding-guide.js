@@ -75,7 +75,7 @@ export function filterGuide(root,query){
  }
  return shown;
 }
-document.addEventListener('input',e=>{
+if(typeof document!=='undefined')document.addEventListener('input',e=>{
  if(e.target?.id!=='guide-search')return;
  filterGuide(document.getElementById('main'),e.target.value);
 });

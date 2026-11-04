@@ -6,7 +6,8 @@ const read=p=>readFile(p,'utf8');
 
 test('single-day date/time and museum entrance mode survive compact planner cleanup',async()=>{
  const [app,ux,core]=await Promise.all([read('app.js'),read('ux-cleanup.js'),read('core.js')]);
- for(const field of ['visitDate','startTime','visitMode'])assert.match(app,new RegExp('name="'+field+'"'));
+ for(const field of ['visitDate','startTime'])assert.match(app,new RegExp('name="'+field+'"'));
+ assert.match(app,/radio\('visitMode'/);
  assert.match(ux,/when=field\('visitDate'\)/);
  assert.match(ux,/primary\.append\(when\)/);
  assert.match(ux,/visitMode,transport/);

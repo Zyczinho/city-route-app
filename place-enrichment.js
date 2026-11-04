@@ -70,7 +70,8 @@ export async function enrichPlace({name,lat,lng,googlePlaceId='',city=null,googl
  if(google){
   const found=rating('google',google.rating,google.userRatingCount,google.googleMapsUri,google.displayName?.text,checked);if(found)ratings.push(found);
  }
- const ta=providers.tripadvisor&&allowTerra()?await terraLookup({name,lat,lng,key:terraKey,fetcher,city}):null;
+ const terraQuota=providers.tripadvisor&&allowTerra();
+ const ta=terraQuota?await terraLookup({name,lat,lng,key:terraKey,fetcher,city}):null;
  if(ta){
   const overall=ta.traveler_ratings?.overall||{},link=typeof ta.urls?.tripadvisor==='string'?ta.urls.tripadvisor:ta.urls?.tripadvisor?.url;
   const found=rating('tripadvisor',overall.rating,overall.count,link,terraName(ta),checked);if(found)ratings.push(found);
@@ -82,7 +83,7 @@ export async function enrichPlace({name,lat,lng,googlePlaceId='',city=null,googl
    author:String(author?.displayName||'Google Maps'),license:'Zdjęcie Google Maps',via:'Google Maps',
    source:safeUrl(author?.uri)||safeUrl(google.googleMapsUri)||'https://maps.google.com'
   }};
- }else if(ta?.id&&providers.tripadvisor&&allowTerra()){
+ }else if(ta?.id&&terraQuota){
   image=await terraPhoto(ta.id,terraKey,fetcher);
   if(image){
    const url=typeof ta.urls?.tripadvisor==='string'?ta.urls.tripadvisor:ta.urls?.tripadvisor?.url;

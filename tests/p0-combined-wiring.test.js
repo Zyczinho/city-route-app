@@ -13,7 +13,7 @@ test('integrated P0 route optimizer and composer modules ship together',async()=
  assert.match(app,/name="rating"/);
  assert.match(app,/state\.placeReviews\[p\.id\]=Number\(draft\.rating\)/);
  assert.match(app,/data-action="add-another-place"/);
- assert.match(html,/place-composer\.js\?v=1/);
+ assert.match(html,/place-composer\.js\?v=2/);
  assert.match(composer,/resetSelection\(form\)/);
  assert.match(css,/\.stops li\[data-stop\]\{flex-wrap:wrap/);
  assert.match(css,/\.stops li\[data-stop\] \.tools\{flex:1 0 100%/);

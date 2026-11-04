@@ -24,7 +24,7 @@ export function bestGooglePhoto(photos=[]){
   .map((photo,index)=>({photo,index,score:photoQuality(photo)}))
   .filter(x=>x.photo?.name&&Number.isFinite(x.score))
   .sort((a,b)=>b.score-a.score||a.index-b.index);
- return ranked[0]||null;
+ return ranked[0]||(Array.isArray(photos)?photos:[]).map((photo,index)=>({photo,index,score:0})).find(x=>x.photo?.name)||null;
 }
 export function parsePhotoSourceUrl(value){
  try{

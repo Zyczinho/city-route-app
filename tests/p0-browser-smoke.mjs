@@ -322,6 +322,7 @@ try{
  for(const width of [320,375,390]){
   await page.setViewportSize({width,height:844});
   await page.locator('#navigation a[href="#plan"]').click();
+  await page.locator('#build-form .ux-time .choice span').first().waitFor({timeout:12000});
   const timeChips=await page.locator('#build-form .ux-time .choice span').evaluateAll(nodes=>nodes.map(n=>({text:n.textContent.trim(),width:n.getBoundingClientRect().width,right:n.getBoundingClientRect().right})));
   assert.ok(timeChips[0].width<85,'1 h choice should be compact at '+width+': '+JSON.stringify(timeChips));
   assert.ok(timeChips.every(n=>n.right<=width+1),'time chips exceed viewport '+width);

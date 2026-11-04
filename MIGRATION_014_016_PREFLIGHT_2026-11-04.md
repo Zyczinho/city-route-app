@@ -4,6 +4,20 @@
 **Environment:** Supabase `City Route App` project `ycfhpvtsnsmzdmpvliif` (PostgreSQL 17, region eu-west-3, organisation `City Route` Free).  
 **Source:** integrated draft [PR #69](https://github.com/Zyczinho/city-route-app/pull/69); migration files `014_place_submissions.sql`, `015_friends_unique_nicknames.sql`, `016_cityroute_ratings_and_route_feedback.sql`.
 
+## Local backup + migration rehearsal completed — user-confirmed 2026-11-04
+
+The founder completed the following workflow on **their Windows PC** and supplied PowerShell screenshots/terminal output. These are **user-provided results**, not connector-verified local files:
+- Docker + Supabase CLI 3.0.0 active; `roles.sql` (297 bytes), `schema.sql` (97,970 bytes), `data.sql` (292,007 bytes) exported into `Documents/CityRoute-Backup-20261104-1127`; SHA-256 hashes recorded.
+- SQL `COPY` counts matched 275 `public.places`, 27 `public.routes`, 1 `public.profiles`, 1 `auth.users`.
+- Local `supabase start` in `Documents/CityRoute-Restore-Test`, imported original backup; initial attempt rolled back on `storage.buckets_vectors` permission issue. Re-exported `data-restore.sql` (291,525 bytes) excluding `storage.buckets_vectors` and `storage.vector_indexes`, preserving original export unchanged. Founder confirmed successful recovery of baseline data.
+- Executed **all three original staged migration SQL files** in one local transaction with `psql --single-transaction -v ON_ERROR_STOP=1`; output completed with no error. User confirmed 275/27/1/1 remained, and all three new tables appeared.
+- Verified RLS enabled on `friend_connections` (1 policy), `place_reviews` (4), `place_submissions` (1). Founder also confirmed locally run owner-versus-stranger read check.
+- Existing independent GitHub CI exercises more comprehensive SQL RLS and browser cases, but **real hosted two-account authenticated acceptance** remains outstanding.
+- **Off-device / independent encrypted backup copy has not been confirmed**. The founder's local Windows folder is the only known stored backup; do not imply a restorable second copy exists.
+- Production project queried read-only on 2026-11-04: 275 places, 27 routes, 1 account, 1 profile, 0 nickname collisions, no new 014–016 tables, no managed migration history.
+
+**Production release gate remains BLOCKED** until independently stored backup is confirmed and there is explicit authorization to modify hosted Supabase. Local rehearsal passing does not mean hosted release already occurred.
+
 ## 1. Backup / restore gate — NOT SATISFIED
 
 - Connected Supabase organization is **Free**. Current Supabase documentation says managed daily backups are provided to **Pro, Team and Enterprise**, not Free: https://supabase.com/docs/guides/platform/backups . Free projects should export an off-site logical dump.

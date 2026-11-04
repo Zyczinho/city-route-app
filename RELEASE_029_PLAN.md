@@ -21,6 +21,8 @@
 | #68 | four auditor persona Markdown files, versioned learning log, draft ranking model | none | **Documentation only**, no change to current recommendation engine |
 | Existing main | onboarding, three proposed routes, saved routes, manual builder, live stop rating, finished-route sharing | existing API | Must not regress |
 
+**UPDATE 2026-11-04:** Founder completed and confirmed on Windows local Supabase CLI backup (3 SQL files), restored 275/27/1/1 records, successfully tested 014–016 migration on restored copy, and RLS enabled/owner-versus-stranger checks. Off-device independently secured backup is **not yet confirmed**, so release remains blocked. See `MIGRATION_014_016_PREFLIGHT_2026-11-04.md`.
+
 ## Backup and schema preflight status — BLOCKED (2026-11-04)
 
 Detailed read-only report: [MIGRATION_014_016_PREFLIGHT_2026-11-04.md](MIGRATION_014_016_PREFLIGHT_2026-11-04.md).

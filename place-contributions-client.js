@@ -6,7 +6,7 @@ export const resolveCategory=place=>ALIASES[place?.cats?.[0]]||place?.categoryId
 export class PlaceContributionError extends Error{
  constructor(code,cause){super(code);this.name='PlaceContributionError';this.code=code;this.cause=cause;}
 }
-const KNOWN=/\b(auth-required|city-not-found|invalid-name|invalid-description|invalid-url|invalid-coordinates|invalid-category|outside-city|rate-limited|duplicate-place|duplicate-pending|photo-rights-required|invalid-photo-path|image-not-uploaded|not-editable|already-reviewed|forbidden|submission-not-found|unknown-place|place-required|duplicate-place-use-merge)\b/;
+const KNOWN=/\b(auth-required|city-not-found|invalid-name|invalid-description|invalid-url|invalid-coordinates|invalid-category|outside-city|duplicate-place|duplicate-pending|photo-rights-required|invalid-photo-path|image-not-uploaded|not-editable|already-reviewed|forbidden|submission-not-found|unknown-place|place-required|duplicate-place-use-merge)\b/;
 export function contributionError(error){
  if(error instanceof PlaceContributionError)return error;
  const m=String(error?.message||error).match(KNOWN);

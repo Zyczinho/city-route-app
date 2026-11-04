@@ -6,8 +6,7 @@ const links=[
  ['#routes/community/groups','Grupy'],
  ['#routes/community/chats','Czaty'],
  ['#routes/community/friends','Znajomi'],
- ['#social-saved','Zapisane trasy'],
- ['#social-saved-places','Zapisane miejsca']
+ ['#social-saved','Zapisane']
 ];
 const communityView=()=>{
  const hash=location.hash;
@@ -23,7 +22,7 @@ const communityView=()=>{
  if(hash.startsWith('#community-route/')||hash.startsWith('#social-profile/'))return 'routes';
  return null;
 };
-const hrefForView={routes:'#routes/community',groups:'#routes/community/groups',chats:'#routes/community/chats',friends:'#routes/community/friends',saved:'#social-saved','saved-places':'#social-saved-places'};
+const hrefForView={routes:'#routes/community',groups:'#routes/community/groups',chats:'#routes/community/chats',friends:'#routes/community/friends',saved:'#social-saved','saved-places':'#social-saved'};
 let queued=false;
 
 function updateNav(){
@@ -34,13 +33,23 @@ function updateNav(){
   header=document.createElement('header');
   header.className='community-hub-header';
   header.dataset.communityTabs='1';
-  header.innerHTML='<div class="community-hub-title"><h1>Społeczność</h1><p>Trasy, ludzie i wspólne odkrywanie miasta.</p></div><nav class="community-hub-links" aria-label="Sekcje społeczności">'+links.map(([href,label])=>'<a href="'+href+'">'+label+'</a>').join('')+'</nav>';
+  header.innerHTML='<div class="community-hub-title"><h1>Społeczność</h1><p>Trasy, ludzie i wspólne odkrywanie miasta.</p></div><nav class="community-hub-links" aria-label="Sekcje społeczności">'+links.map(([href,label])=>'<a href="'+href+'">'+label+'</a>').join('')+'</nav><nav class="community-saved-switch" data-saved-switch aria-label="Zapisane: wybierz rodzaj" hidden><a href="#social-saved">Trasy</a><a href="#social-saved-places">Miejsca</a></nav>';
   main.prepend(header);
  }
  for(const a of header.querySelectorAll('nav a')){
   const active=a.getAttribute('href')===hrefForView[view];
   a.classList.toggle('active',active);
   if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');
+ }
+ const saved=view==='saved'||view==='saved-places';
+ const switcher=header.querySelector('[data-saved-switch]');
+ if(switcher){
+  switcher.hidden=!saved;
+  for(const a of switcher.querySelectorAll('a')){
+   const active=a.getAttribute('href')===(view==='saved-places'?'#social-saved-places':'#social-saved');
+   a.classList.toggle('active',active);
+   if(active&&saved)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');
+  }
  }
  const feedTitle=main.querySelector('[data-social-feed] .section-head h2');
  if(view==='routes'&&feedTitle?.textContent==='Społeczność')feedTitle.textContent='Trasy odkrywców';

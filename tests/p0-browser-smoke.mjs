@@ -135,16 +135,15 @@ try{
  await placesPage.locator('article.place[data-place-id="u-spoco-smoke"]').waitFor();
  await placesPage.locator('article.place[data-place-id="u-spoco-smoke"] [data-action="bookmark"]').click();
  await placesPage.locator('#navigation a[href="#routes/community"]').click();
- await placesPage.locator('[data-community-tabs] .community-hub-links a[href="#social-saved"]').click();
+ await placesPage.locator('[data-community-tabs] .community-hub-links a[href="#social-saved-places"]').click();
  await placesPage.locator('[data-community-tabs] [data-saved-switch] a[href="#social-saved-places"]').waitFor();
  await placesPage.locator('[data-community-tabs] [data-saved-switch] a[href="#social-saved-places"]').click();
  await placesPage.locator('h1').getByText('Zapisane miejsca').waitFor();
- assert.equal(await placesPage.locator('[data-community-tabs] .community-hub-links a[href="#social-saved"]').getAttribute('aria-current'),'page');
+ assert.equal(await placesPage.locator('[data-community-tabs] .community-hub-links a[href="#social-saved-places"]').getAttribute('aria-current'),'page');
  assert.equal(await placesPage.locator('[data-community-tabs] [data-saved-switch] a[href="#social-saved-places"]').getAttribute('aria-current'),'page');
- await placesPage.locator('[data-community-tabs] [data-saved-switch] a[href="#social-saved"]').click();
- await placesPage.locator('h1').getByText('Zapisane trasy').waitFor();
- await placesPage.locator('[data-community-tabs] [data-saved-switch] a[href="#social-saved-places"]').click();
- await placesPage.locator('h1').getByText('Zapisane miejsca').waitFor();
+ // Unauthenticated users can browse locally saved places; routes require account sign-in.
+ assert.equal(await placesPage.locator('[data-community-tabs] [data-saved-switch] a[href="#social-saved"]').count(),1,
+  'Routes remains a visible second-level choice');
  await placesPage.locator('article.place[data-place-id="u-spoco-smoke"]').waitFor();
  await placesPage.locator('#navigation a[href="#places"]').click();
  await placesPage.locator('#search').fill('poco');
@@ -170,7 +169,7 @@ try{
   {label:'Grupy',href:'#routes/community/groups'},
   {label:'Czaty',href:'#routes/community/chats'},
   {label:'Znajomi',href:'#routes/community/friends'},
-  {label:'Zapisane',href:'#social-saved'}
+  {label:'Zapisane',href:'#social-saved-places'}
  ]);
  assert.ok(await page.locator('[data-community-tabs]').isVisible(),'inner community tabs must not be hidden by feed focus');
  await page.locator('[data-community-tabs] a[href="#routes/community/groups"]').click();

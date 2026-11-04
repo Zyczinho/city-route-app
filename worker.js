@@ -2,7 +2,8 @@
 // Secrets live in Cloudflare (Workers → city-route-app → Settings → Variables and Secrets), never in the repo:
 //   TICKETMASTER_API_KEY   Discovery API key from developer.ticketmaster.com
 //   TICKETMASTER_AFFILIATE optional Impact deep-link template containing {url}
-//   GOOGLE_PLACES_API_KEY  optional Google Places API (New) key; enables automatic place photo preview and preferred address lookup
+//   GOOGLE_PLACES_API_KEY  optional Places API (New) key; enables photo and rating enrichment (paid)
+//   TRIPADVISOR_TERRA_API_KEY optional Tripadvisor Terra partner key, only official licensed metadata/photos
 //   PLACE_GEOCODER_URL     optional Photon-compatible geocoder base URL; defaults to https://photon.komoot.io for MVP fallback
 //   GOOGLE_PLACES_AUTOCOMPLETE  set to "on" to use Google Autocomplete for type-ahead (paid per session; off = OSM Photon only)
 //   GOOGLE_PLACES_DAILY_CAP     optional soft cap of Google calls per Worker instance per day (default 300); the hard cap belongs in Google Cloud quotas
@@ -10,6 +11,8 @@ import {resolveMaps} from './location.js';
 import {placePreview,placePhoto} from './maps-preview.js';
 import {searchPlaceAddress,suggestPlaces,placeDetails,placePhotoById,cityFromParams} from './geocode.js';
 import {ticketmasterQuery,normalizeTicketmaster,dedupe} from './events.js';
+import {enrichPlace} from './place-enrichment.js';
+import {kmBetween} from './geocode.js';
 
 const json=(body,status=200,maxAge=0)=>new Response(JSON.stringify(body),{status,headers:{'content-type':'application/json; charset=utf-8','cache-control':maxAge?`public, max-age=${maxAge}`:'no-store'}});
 
@@ -51,6 +54,32 @@ function googleAllowed(env){
 }
 const sessionOf=url=>String(url.searchParams.get('session')||'').replace(/[^A-Za-z0-9_-]/g,'').slice(0,64);
 
+let taDay='',taCalls=0;
+function terraAllowed(env){
+ if(!env.TRIPADVISOR_TERRA_API_KEY)return false;
+ const day=new Date().toISOString().slice(0,10);if(day!==taDay){taDay=day;taCalls=0;}
+ const cap=Number(env.TRIPADVISOR_TERRA_DAILY_CAP)||80;
+ if(taCalls>=cap)return false;
+ taCalls++;return true;
+}
+async function placeEnrichment(url,env){
+ const name=String(url.searchParams.get('name')||'').replace(/\s+/g,' ').trim().slice(0,120);
+ const lat=Number(url.searchParams.get('lat')),lng=Number(url.searchParams.get('lng'));
+ const params=new URLSearchParams(url.searchParams);
+ params.set('lat',url.searchParams.get('centerLat')||'');params.set('lng',url.searchParams.get('centerLng')||'');
+ params.set('name',url.searchParams.get('cityName')||'Warszawa');
+ const city=cityFromParams(params);
+ if(name.length<3||!url.searchParams.has('lat')||!url.searchParams.has('lng')||![lat,lng].every(Number.isFinite)||Math.abs(lat)>90||Math.abs(lng)>180||kmBetween({lat,lng},city.center)>city.radiusKm)return json({status:'invalid',ratings:[]},422);
+ const googlePlaceId=String(url.searchParams.get('googleId')||'').slice(0,300);
+ try{
+  const result=await enrichPlace({name,lat,lng,googlePlaceId,city,googleKey:env.GOOGLE_PLACES_API_KEY||'',terraKey:env.TRIPADVISOR_TERRA_API_KEY||'',allowGoogle:()=>googleAllowed(env),allowTerra:()=>terraAllowed(env),
+   includeGoogleReviews:env.GOOGLE_PLACES_INCLUDE_REVIEWS==='on',
+   includeTerraReviews:env.TRIPADVISOR_TERRA_INCLUDE_REVIEWS==='on'});
+  return json(result,200);
+ }catch{return json({status:'unavailable',ratings:[]},502);}
+}
+
+
 async function placeSuggest(url,env,ctx){
  const q=String(url.searchParams.get('q')||'').replace(/\s+/g,' ').trim();
  if(q.length<3||q.length>120)return json({status:'invalid-query',suggestions:[]},422);
@@ -90,6 +119,10 @@ export default {
   if(pathname==='/api/place-suggest'){
    if(request.method!=='GET')return json({status:'method-not-allowed'},405);
    return placeSuggest(url,env,ctx);
+  }
+  if(pathname==='/api/place-enrichment'){
+   if(request.method!=='GET')return json({status:'method-not-allowed'},405);
+   return placeEnrichment(url,env);
   }
   if(pathname==='/api/place-details'){
    if(request.method!=='GET')return json({status:'method-not-allowed'},405);

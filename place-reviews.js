@@ -38,6 +38,13 @@ function update(){
   if(sortCityRoute)select.value='cityroute';
   sortPlaces();
  }
+ for(const badge of document.querySelectorAll('[data-cityroute-ref]')){
+  const metric=scores.get(badge.dataset.cityrouteRef);
+  const txt=metric&&metric.reviewCount>0&&Number.isFinite(metric.average)
+   ?'★ City Route '+fmt(metric.average)+'/5 · '+fmt(metric.reviewCount)+' ocen'
+   :'★ City Route · Brak ocen';
+  if(badge.textContent!==txt)badge.textContent=txt;
+ }
  const dialog=document.querySelector('#place-dialog[open]'),ratingHost=dialog?.querySelector('.city-route-own-rating'),p=dialog?.querySelector('#place-review-form')?.dataset.id;
  if(ratingHost&&p){
   let global=ratingHost.querySelector('[data-cityroute-global]');
@@ -46,7 +53,7 @@ function update(){
   if(!global){global=document.createElement('span');global.dataset.cityrouteGlobal='1';ratingHost.append(global);}
   if(global.textContent!==text)global.textContent=text;
  }
- if(onPlaces&&loadedCity!==city())loadScores();
+ if(loadedCity!==city()&&!loading)loadScores();
 }
 function schedule(){if(scheduled)return;scheduled=true;queueMicrotask(()=>{scheduled=false;update();});}
 document.addEventListener('change',event=>{

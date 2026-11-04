@@ -94,7 +94,7 @@ function writeLocation(form,location){
 // Forget the previous pick: its coordinates (only if the composer wrote them), preview, map and auto-filled name.
 // Bumping `generation` also discards picks that are still resolving.
 function resetSelection(form){
- selection=null;generation++;
+ selection=null;generation++;delete form.dataset.pcGooglePlaceId;
  const where=$('input[name="where"]',form),name=$('input[name="name"]',form);
  if(where&&(where.value===form.dataset.pcWhere||!where.value)){if(where.value)staleWhere=where.value;where.value='';delete form.dataset.placeResolved;delete form.dataset.pcWhere;}
  if(name?.dataset.pcAuto==='1'){name.value='';delete name.dataset.pcAuto;}
@@ -116,6 +116,7 @@ async function choose(form,picked){
  const dup=picked.source==='catalogue'||picked.source==='mine'?null:findDuplicate(picked,await knownPlaces(city));
  if(gen!==generation)return;
  selection={...picked,query:normalizeQuery(lastQuery),category:picked.category||categoryFromTypes(picked.types||[],picked.name||''),dup};
+ form.dataset.pcGooglePlaceId=/^[A-Za-z0-9_-]{10,300}$/.test(String(picked.placeId||''))?picked.placeId:'';
  if(picked.name)fillName(form,picked.name);
  setCategory(form,selection.category);
  writeLocation(form,picked.location||null);
@@ -250,6 +251,7 @@ function decorate(){
  const {q}=ui(form);
  if(lastQuery)q.value=lastQuery;
  if(selection){
+  form.dataset.pcGooglePlaceId=/^[A-Za-z0-9_-]{10,300}$/.test(String(selection.placeId||''))?selection.placeId:'';
   renderPreview(form,selection);
   if(selection.location){writeLocation(form,selection.location);if(selection.source!=='google')showMap(form,selection.location);}
  }else{
@@ -265,6 +267,7 @@ window.addEventListener('hashchange',()=>{if(location.hash.slice(1).split('/')[0
 // from the list goes to `where`, so the existing save-time address lookup still finds it.
 window.addEventListener('submit',e=>{
  const form=e.target;if(form?.id!=='place-form')return;
+ form.dataset.pcGooglePlaceId=/^[A-Za-z0-9_-]{10,300}$/.test(String(selection?.placeId||''))?selection.placeId:'';
  const where=$('input[name="where"]',form),q=$('#pc-q',form),input=classifyInput(q?.value);
  if(where&&!where.value.trim()&&selection?.source==='pin'&&!selection.location){
   e.preventDefault();e.stopImmediatePropagation();status(form,'Najpierw dotknij mapy albo przeciągnij pinezkę na to miejsce.','error');return;

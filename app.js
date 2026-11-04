@@ -15,10 +15,12 @@ const fresh=()=>({version:1,tester:{id:uuid(),nickname:'Explorer'},basket:[],bas
 if(!state||state.version!==1||!Array.isArray(state.basket)||!Array.isArray(state.events))state=fresh();
 state.connections=state.connections||{};state.stay=state.stay||'';state.joined=state.joined||[];state.messages=state.messages||{};state.placeReviews=state.placeReviews||{};
 state.friends=Array.isArray(state.friends)?state.friends:[];state.myRoutes=Array.isArray(state.myRoutes)?state.myRoutes:[];state.userPlaces=Array.isArray(state.userPlaces)?state.userPlaces:[];
+state.savedPlacesByCity=state.savedPlacesByCity&&typeof state.savedPlacesByCity==='object'?state.savedPlacesByCity:{};
 state.profile={bio:'',...state.profile,socials:{instagram:'',tiktok:'',web:'',...state.profile?.socials}};
 state.cityId=state.cityId||DEFAULT_CITY_ID;state.basketsByCity=state.basketsByCity&&typeof state.basketsByCity==='object'?state.basketsByCity:{};state.builderMetaByCity=state.builderMetaByCity&&typeof state.builderMetaByCity==='object'?state.builderMetaByCity:{};if(!state.basketsByCity[DEFAULT_CITY_ID]&&state.basket.length)state.basketsByCity[DEFAULT_CITY_ID]=[...state.basket];state.basket=[...(state.basketsByCity[state.cityId]||[])];
 let cities=[],taxonomy=null,activeCity=null,places=[],quests=[],routes=[],all={},cat='all',rcat='all',query='',cuisine='all',sort='default',pending=null,generated=null,generatedOptions=[],generatedIndex=0,generationPrefs=null,generationHistory=[],editing=false,keepQuery=false,here=null,draft=null,bookTab=null,speaking=false,evScope='global',evWhen='week',evKind='all';const evCache={};
 let mapView=null,renderedPlaceList=[],builderDraft=null,nearbyAfterId=null,nearbyRadiusM=500,addNewPlaceAfterId=null,justSavedPlaceId=null;
+const providerOverlay=new Map(),providerLoading=new Set();let providerObserver=null;
 const persist=()=>{try{if(state?.cityId){state.basketsByCity=state.basketsByCity||{};state.basketsByCity[state.cityId]=[...(state.basket||[])];if(builderDraft?.cityId===state.cityId){const {name,transport,revision,updatedAt}=serializeDraft(builderDraft);state.builderMetaByCity=state.builderMetaByCity||{};state.builderMetaByCity[state.cityId]={cityId:state.cityId,name,transport,revision,updatedAt};}}localStorage.setItem(key,JSON.stringify(state));}catch{storageOK=false;$('#connection').textContent='Zapis lokalny niedostępny. Wyeksportuj dane przed zamknięciem karty.';}};
 const log=(type,data={})=>{state.events.push({type,...data,tester_id:state.tester.id,at:new Date().toISOString()});state.events=state.events.slice(-5000);persist();};
 let toastTimer;function toast(s){$('#toast').textContent=s;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),2600);}
@@ -43,7 +45,7 @@ function loadRouteIntoBuilder(r){const result=hydrateDraft({cityId:city().id,sto
 
 // Navigation and categories
 const TABS=[['plan','wand-sparkles','Ułóż trasę'],['routes','route','Trasy'],['places','compass','Miejsca'],['my-route','navigation','Moja trasa'],['book','ticket-percent','Zarezerwuj']];
-const PLACE_CATS=[['all','Wszystkie','layers'],['zabytki','Zabytki','landmark'],['muzea','Muzea','library'],['zielen','Zieleń','trees'],['widoki','Widoki i woda','waves'],['okolice','Ulice i okolice','signpost'],['jedzenie','Jedzenie','utensils']];
+const PLACE_CATS=[['all','Wszystkie','layers'],['saved','Zapisane','bookmark'],['zabytki','Zabytki','landmark'],['muzea','Muzea','library'],['zielen','Zieleń','trees'],['widoki','Widoki i woda','waves'],['okolice','Ulice i okolice','signpost'],['jedzenie','Jedzenie','utensils']];
 const USER_TAGS={zabytki:['sightseeing','culture'],muzea:['culture'],zielen:['nature'],widoki:['views'],okolice:['hidden'],jedzenie:['food']};
 const resident=()=>state.stay==='resident';
 const isPublic=p=>p.visibility==='public';
@@ -51,6 +53,30 @@ const isPublic=p=>p.visibility==='public';
 const VIS_NOTE={private:'Miejsce widzisz tylko Ty.',public:'Propozycja trafia do wspólnego katalogu dopiero po zalogowaniu, wysłaniu i zatwierdzeniu przez moderatora.'};
 const SUBMISSION_NOTE={needs_login:'Zapisano lokalnie. Zaloguj się w Profilu, a potem wyślij propozycję.',submitting:'Wysyłam zgłoszenie…',pending:'Czeka na zatwierdzenie. Inni nie widzą jeszcze tego miejsca.',approved:'Zatwierdzone. Miejsce jest dostępne w katalogu.',merged:'Połączone z istniejącym miejscem w katalogu.',rejected:'Moderator nie zatwierdził tej propozycji.',error:'Nie udało się wysłać. Miejsce nadal jest zapisane na urządzeniu.'};
 const catalog=()=>[...places,...forCity(state.userPlaces,city().id).filter(p=>!p.resolvedPlaceId||!places.some(x=>x.id===p.resolvedPlaceId))].filter(p=>p.kind!=='hotel');
+
+const savedIds=()=>state.savedPlacesByCity[city().id]||[];
+const savedPlace=p=>savedIds().includes(String(p.id));
+const providerRatings=p=>{const original=Array.isArray(p?.ratings)?p.ratings:[],live=providerOverlay.get(p?.id)?.ratings||[];return [...live,...original.filter(x=>!live.some(r=>r.source===x.source))];};
+// Provider responses are deliberately transient; only exempt Google place identifiers are stored locally.
+async function enrichPlaceOnDemand(p){
+ if(!p||!Number.isFinite(Number(p.lat))||!Number.isFinite(Number(p.lng))||providerOverlay.has(p.id)||providerLoading.has(p.id))return;
+ providerLoading.add(p.id);
+ const c=cities.find(x=>x.id===p.cityId)||city(),qs=new URLSearchParams({
+  name:String(p.name),lat:String(p.lat),lng:String(p.lng),city:c.id,cityName:c.name||'Warszawa',
+  centerLat:String(c.center?.lat||52.2297),centerLng:String(c.center?.lng||21.0122),
+  r:String(c.radiusKm||40),googleId:p.googlePlaceId||''
+ });
+ try{
+  const r=await fetch('/api/place-enrichment?'+qs.toString(),{cache:'no-store'}),data=await r.json();
+  if(!r.ok||!['ok','no-match','no-key'].includes(data.status))return;
+  if(!all[p.id]||p.cityId!==city().id)return;
+  providerOverlay.set(p.id,{ratings:Array.isArray(data.ratings)?data.ratings:[],reviews:Array.isArray(data.reviews)?data.reviews:[],image:data.image||null});
+  render();
+  if($('#place-dialog')?.open&&$('#place-dialog').dataset.placeId===p.id)openPlace(p.id);
+ }catch{/* Offline/provider unavailable; place itself remains saved. */}
+ finally{providerLoading.delete(p.id);}
+}
+
 const ROUTE_CATS=[['all','Wszystkie'],['klasyka','Na pierwszy raz'],['zielen','Zieleń'],['wisla','Nad wodą'],['jedzenie','Z jedzeniem'],['lokalnie','Lokalnie']];
 const catName=(id,list=PLACE_CATS)=>list.find(c=>c[0]===id)?.[1]||'';
 const TAB_OF={routes:'routes',route:'routes',places:'places',events:'places','add-place':'places',plan:'plan','my-route':'my-route',book:'book',profile:'profile',sources:'profile',about:'profile','community-route':'routes','social-profile':'routes','social-saved':'routes'};
@@ -64,19 +90,39 @@ function nav(){$('#me').innerHTML=avatar('sm');$('#me').classList.toggle('active
   return `<a href="#${id}" class="${cls}" ${id==='plan'?'aria-label="Zaplanuj moją trasę"':''} ${t===id?'aria-current="page"':''}>${mine&&live?'<span class="pulse" aria-hidden="true"></span>':ic(icon)}<span>${label}</span>${mine&&chosen?`<small class="nav-status">${live?'W toku':'Gotowa'}</small>`:''}${mine&&!live&&state.basket.length?`<b class="badge" aria-label="${state.basket.length} w trasie">${state.basket.length}</b>`:''}</a>`;}).join('');}
 
 // Shared pieces
-function photo(p,cls='',eager=false){if(!p?.image)return `<div class="ph ${cls}">${ic(p?.kind==='user'?'map-pin':'camera')}</div>`;const src=/^(https?:|data:image\/)/.test(p.image)?p.image:`./assets/images/${p.image}`;return `<img class="${cls}" src="${esc(src)}" alt="${esc(p.imageCaption||p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer">`;}
-function credit(p){const c=p?.imageCredit;if(!c)return '';const lic=c.licenseUrl?`<a href="${esc(c.licenseUrl)}" target="_blank" rel="noopener noreferrer">${esc(c.license)}</a>`:esc(c.license);return `<p class="credit">${ic('camera')}<span>${p.imageCaption?esc(p.imageCaption)+'. ':''}Zdjęcie: ${esc(c.author)} · ${lic} · <a href="${esc(c.source)}" target="_blank" rel="noopener noreferrer">${esc(c.via)}</a></span></p>`;}
-const rating=(p,s)=>p.ratings?.find(r=>r.source===s);
+function photo(p,cls='',eager=false){const image=p?.image||providerOverlay.get(p?.id)?.image?.src;if(!image)return `<div class="ph ${cls}">${ic(p?.kind==='user'?'map-pin':'camera')}</div>`;const src=/^(https?:|data:image\/|\/api\/place-photo\?)/.test(image)?image:`./assets/images/${image}`;return `<img class="${cls}" src="${esc(src)}" alt="${esc(p.imageCaption||p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer">`;}
+function credit(p){const c=p?.imageCredit||(!p?.image?providerOverlay.get(p?.id)?.image?.credit:null);if(!c)return '';const lic=c.licenseUrl?`<a href="${esc(c.licenseUrl)}" target="_blank" rel="noopener noreferrer">${esc(c.license)}</a>`:esc(c.license);return `<p class="credit">${ic('camera')}<span>${p.imageCaption?esc(p.imageCaption)+'. ':''}Zdjęcie: ${esc(c.author)} · ${lic} · <a href="${esc(c.source)}" target="_blank" rel="noopener noreferrer">${esc(c.via)}</a></span></p>`;}
+const rating=(p,s)=>providerRatings(p).find(r=>r.source===s);
+const cityRouteBadge=p=>`<span class="cr-score" data-cityroute-ref="${esc(p.id)}" title="Średnia społeczności City Route — niezależna od ocen Google i Tripadvisor">★ City Route · Brak ocen</span>`;
 function scoreLine(p,compact=false){
  if(p.kind==='sidequest')return `<p class="idea">${ic('sparkles')}Pomysł City Route · przy: ${esc(all[p.placeId]?.name)}</p>`;
- if(p.kind==='user')return `<p class="idea">${ic('user-round')}Dodane przez Ciebie · ${isPublic(p)?'propozycja społeczności':'prywatne'}</p>`;
- const c=combinedRating(p.ratings),chip=s=>{const r=rating(p,s),ok=Number.isFinite(r?.value);return `<span class="src src-${s}${ok?'':' none'}" title="${esc(SOURCES[s])}">${brand(s)}${ok?`${dec(r.value)} · ${fmt(r.reviewCount)}`:'brak'}</span>`;};
- return `<div class="score">${c.value===null?'<span class="muted">Brak ocen</span>':`<strong><span class="star" aria-hidden="true">★</span> ${dec(c.value,2)}</strong><span>${opinii(c.total)}</span>`}</div>${compact?'':`<div class="srcs" aria-label="Oceny według platform">${chip('google')}${chip('tripadvisor')}</div>`}`;}
-function breakdown(p){const c=combinedRating(p.ratings);
+ if(p.kind==='user'&&!providerRatings(p).length)return `<p class="idea">${ic('user-round')}Dodane przez Ciebie · ${isPublic(p)?'propozycja społeczności':'prywatne'}</p>${cityRouteBadge(p)}`;
+ const c=combinedRating(providerRatings(p)),chip=s=>{const r=rating(p,s),ok=Number.isFinite(r?.value);return `<span class="src src-${s}${ok?'':' none'}" title="${esc(SOURCES[s])}">${brand(s)}${ok?`${dec(r.value)} · ${fmt(r.reviewCount)}`:'brak'}</span>`;};
+ return `<div class="score">${c.value===null?'<span class="muted">Brak ocen</span>':`<strong><span class="star" aria-hidden="true">★</span> ${dec(c.value,2)}</strong><span>${opinii(c.total)}</span>`}</div>${compact?'':`<div class="srcs" aria-label="Oceny według platform">${chip('google')}${chip('tripadvisor')}</div>`}${cityRouteBadge(p)}`;}
+
+function providerReviewSnippets(p){
+ const rows=(providerOverlay.get(p.id)?.reviews||[]).filter(r=>['google','tripadvisor'].includes(r.source)&&r.text&&/^https:\/\//.test(r.url||'')).slice(0,6);
+ if(!rows.length)return '';
+ let html='<section class="provider-reviews" aria-label="Opinie z Google Maps i Tripadvisor"><h3>Wybrane opinie z platform</h3><p class="fine">Google: według trafności; Tripadvisor: najnowsze dostępne opinie. Tekst tylko z uprawnionych API, bez wpływu na oceny City Route.</p>';
+ for(const r of rows){
+  html+='<article class="provider-review"><header>'+brand(r.source);
+  if(r.avatar)html+='<img class="review-avatar" src="'+esc(r.avatar)+'" alt="" loading="lazy" referrerpolicy="no-referrer">';
+  if(r.authorUrl)html+='<a href="'+esc(r.authorUrl)+'" rel="noopener noreferrer" target="_blank"><strong>'+esc(r.author)+'</strong></a>';
+  else html+='<strong>'+esc(r.author)+'</strong>';
+  html+='<span>★ '+(Number.isFinite(Number(r.rating))?dec(Number(r.rating)):'—')+'/5</span></header>';
+  if(r.title)html+='<b>'+esc(r.title)+'</b>';
+  html+='<p>'+esc(r.text)+'</p><div class="provider-review-meta">';
+  if(r.when)html+='<small>'+esc(r.when)+'</small>';
+  if(r.translated)html+='<small>Tłumaczenie udostępnione przez platformę</small>';
+  html+='<a href="'+esc(r.url)+'" rel="noopener noreferrer" target="_blank">Zobacz w '+(r.source==='google'?'Google Maps':'Tripadvisor')+'</a></div></article>';
+ }
+ return html+'</section>';
+}
+function breakdown(p){const c=combinedRating(providerRatings(p));
  const rows=['google','tripadvisor'].map(s=>{const r=rating(p,s);if(!r||!Number.isFinite(r.value))return `<div class="row none">${brand(s)}<span class="name">${SOURCES[s]}</span><span class="why">${esc(r?.reason||'Brak oceny')}</span></div>`;
   return `<a class="row" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" data-action="source" data-id="${p.id}" data-source="${s}">${brand(s)}<span class="name">${SOURCES[s]}<small>${esc(r.listing)}</small></span><span class="val">★ ${dec(r.value)}</span><span class="cnt">${opinii(r.reviewCount)}</span>${ic('arrow-up-right','go')}</a>`;}).join('');
  const share=c.parts.map(r=>`<span class="sh-${r.source}" style="width:${(r.reviewCount/c.total*100).toFixed(1)}%"></span>`).join('');
- return `<section class="breakdown" aria-label="Oceny z platform"><div class="total">${c.value===null?'<strong>—</strong><span>Brak ocen na obu platformach</span>':`<strong>${dec(c.value,2)}</strong><span>na 5 · ${opinii(c.total)} łącznie</span>`}</div>${c.total?`<div class="share" aria-hidden="true">${share}</div>`:''}${rows}<div class="city-route-own-rating"><strong>City Route</strong><span>${state.placeReviews[p.id]?`★ ${state.placeReviews[p.id]}/5 · Twoja ocena`:'Jeszcze nie oceniłeś tego miejsca'}</span><small>Osobno od średniej Google i Tripadvisor · na razie zapis tylko na Twoim urządzeniu</small></div><p class="fine">Wynik łączny to średnia ważona liczbą opinii: każda opinia z Google i Tripadvisor waży tyle samo. Dane sprawdzone 2 listopada 2026 — na platformach mogą być już nowsze. <a href="#sources">Skąd są dane?</a></p></section>`;}
+ return `<section class="breakdown" aria-label="Oceny z platform"><div class="total">${c.value===null?'<strong>—</strong><span>Brak ocen na obu platformach</span>':`<strong>${dec(c.value,2)}</strong><span>na 5 · ${opinii(c.total)} łącznie</span>`}</div>${c.total?`<div class="share" aria-hidden="true">${share}</div>`:''}${rows}${providerReviewSnippets(p)}<div class="city-route-own-rating"><strong>City Route · oceny społeczności</strong><span>${state.placeReviews[p.id]?`★ ${state.placeReviews[p.id]}/5 · Twoja ocena`:'Jeszcze nie oceniłeś tego miejsca'}</span><small>Fioletowe oceny City Route nie wpływają na średnią Google i Tripadvisor. Po zalogowaniu ocena zatwierdzonego miejsca trafia również do społeczności.</small></div><p class="fine">Wynik łączny to średnia ważona liczbą opinii: każda opinia z Google i Tripadvisor waży tyle samo. Oceny katalogowe sprawdzono 2 listopada 2026; dane nowo dodanych miejsc są pobierane z oficjalnych API, jeśli są dostępne. <a href="#sources">Skąd są dane?</a></p></section>`;}
 const q=p=>encodeURIComponent(searchQuery(p,city()));
 function hotelLinks(p){const l=(href,label,src,primary)=>`<a class="button wide ${primary?'primary':''}" href="${esc(href)}" target="_blank" rel="noopener noreferrer" data-action="compare" data-id="${p.id}" data-source="${src}">${ic('arrow-up-right')}${label}</a>`;
  return `<p class="fine">Ceny na Twoje daty porównasz w Google Hotels, które zbiera oferty wielu serwisów rezerwacyjnych. City Route nie pokazuje jeszcze cen.</p>${l('https://www.google.com/travel/search?q='+q(p),'Porównaj ceny (Google Hotels)','google-hotels',true)}${l(p.bookingSearch||'https://www.booking.com/searchresults.pl.html?ss='+q(p),'Szukaj na Booking','booking')}${p.website?l(p.website,'Strona hotelu','official'):''}`;}
@@ -112,10 +158,10 @@ function routesView(){
 const exploreSwitch=on=>`<div class="segmented two" role="group" aria-label="Odkrywaj"><a href="#places" class="${on==='places'?'selected':''}" ${on==='places'?'aria-current="page"':''}>${ic('map-pin')}Miejsca</a><a href="#events" class="${on==='events'?'selected':''}" ${on==='events'?'aria-current="page"':''}>${ic('ticket-percent')}Wydarzenia</a></div>`;
 const placeHay=p=>`${p.name} ${p.area} ${p.description||''} ${(p.cuisine||[]).join(' ')} ${(p.cats||[]).map(c=>catName(c)).join(' ')} ${(p.ratings||[]).map(r=>r.listing).join(' ')} ${p.address||''}`;
 const away=p=>here?` · ${dec(distance(here,p))} km`:'';
-function placeRow(p){return `<article class="place"><button class="hit" data-action="place" data-id="${p.id}" aria-label="Szczegóły: ${esc(p.name)}"></button><div class="thumb">${photo(p)}${p.top?'<span class="must">Must-see</span>':''}</div><div class="info"><h3>${esc(p.name)}</h3><p class="sub">${esc(p.area)}${p.cuisine?' · '+esc(p.cuisine.join(', ')):p.kind==='sidequest'?'':' · '+esc(catName(p.cats?.[0]))}${p.outside?' · z zewnątrz':''}${away(p)}</p>${scoreLine(p)}</div><div class="side">${addButton(p)}</div></article>`;}
+function placeRow(p){return `<article class="place" data-place-id="${esc(p.id)}"><button class="hit" data-action="place" data-id="${p.id}" aria-label="Szczegóły: ${esc(p.name)}"></button><div class="thumb">${photo(p)}${p.top?'<span class="must">Must-see</span>':''}</div><div class="info"><h3>${esc(p.name)}</h3><p class="sub">${esc(p.area)}${p.cuisine?' · '+esc(p.cuisine.join(', ')):p.kind==='sidequest'?'':' · '+esc(catName(p.cats?.[0]))}${p.outside?' · z zewnątrz':''}${away(p)}</p>${scoreLine(p)}</div><div class="side"><button class="icon-btn save-place ${savedPlace(p)?'on':''}" data-action="bookmark" data-id="${esc(p.id)}" aria-pressed="${savedPlace(p)}" aria-label="${savedPlace(p)?'Usuń z Zapisanych':'Zapisz miejsce'}: ${esc(p.name)}">${ic('bookmark')}</button>${addButton(p)}</div></article>`;}
 function placesView(){
  if(cat!=='sidequests'&&!PLACE_CATS.some(c=>c[0]===cat))cat='all';
- let list=cat==='sidequests'?[...quests]:catalog().filter(p=>cat==='all'||p.cats[0]===cat);
+ let list=cat==='sidequests'?[...quests]:catalog().filter(p=>cat==='all'||(cat==='saved'?savedPlace(p):p.cats[0]===cat));
  list=list.filter(p=>matches(placeHay(p),query)&&(cat!=='jedzenie'||cuisine==='all'||(p.cuisine||[]).includes(cuisine)));
  const c=p=>combinedRating(p.ratings);
  if(sort==='default')list.sort((a,b)=>(b.top?1:0)-(a.top?1:0));if(sort==='near'&&here)list.sort((a,b)=>distance(here,a)-distance(here,b));
@@ -126,7 +172,7 @@ function placesView(){
  ${cat==='jedzenie'?chips([['all','Każda kuchnia'],...cuisines.map(k=>[k,k[0].toUpperCase()+k.slice(1)])],cuisine,'cuisine'):''}
  
  <div class="list-head"><span>${list.length} ${plural(list.length,'wynik','wyniki','wyników')}</span><label class="sort">Sortuj<select id="sort"><option value="default" ${sort==='default'?'selected':''}>Polecane</option><option value="rating" ${sort==='rating'?'selected':''}>Najlepiej oceniane</option><option value="count" ${sort==='count'?'selected':''}>Najwięcej opinii</option><option value="near" ${sort==='near'?'selected':''}>Najbliżej mnie</option></select></label></div>
- <div class="place-list">${list.map(placeRow).join('')||`<div class="empty"><p>Nic nie pasuje do „${esc(query)}”. Spróbuj innego słowa albo kategorii.</p></div>`}</div><p class="foot"><a href="#sources">${ic('info')}Skąd są oceny i zdjęcia?</a></p>`;}
+ <div class="place-list">${list.map(placeRow).join('')||`<div class="empty"><p>${cat==='saved'?'Nie masz jeszcze zapisanych miejsc. Otwórz dowolne miejsce i dodaj je do Zapisanych.':`Nic nie pasuje do „${esc(query)}”. Spróbuj innego słowa albo kategorii.`}</p></div>`}</div><p class="foot"><a href="#sources">${ic('info')}Skąd są oceny i zdjęcia?</a></p>`;}
 async function mountPlacesMap(){
  const host=$('#places-map');if(!host)return;
  const base=[...renderedPlaceList],baseById=new Map(base.map(p=>[String(p.id),p]));
@@ -154,11 +200,32 @@ async function mountPlacesMap(){
  view.setRouteStops(items(builderDraft?.stops||[]));
 }
 
-function openPlace(id){const p=all[id];if(!p)return;const freshlySaved=id===justSavedPlaceId;if(freshlySaved)justSavedPlaceId=null;const d=$('#place-dialog'),anchor=p.kind==='sidequest'?all[p.placeId]:null;
+// Newly added private/approved community places are enriched when visible, including after reload.
+// Never auto-query all 275+ existing catalogue entries or spend provider quota on page load.
+function observeApprovedPlaceEnrichment(){
+ providerObserver?.disconnect();providerObserver=null;
+ if(typeof IntersectionObserver==='undefined')return;
+ const rows=[...document.querySelectorAll('.place-list article.place[data-place-id]')];
+ if(!rows.length)return;
+ const io=new IntersectionObserver(entries=>{
+  for(const entry of entries){
+   if(!entry.isIntersecting)continue;
+   io.unobserve(entry.target);
+   const p=all[entry.target.dataset.placeId];
+   if((p?.origin==='community'||p?.kind==='user')&&!providerOverlay.has(p.id)&&(!p.image||!providerRatings(p).length))void enrichPlaceOnDemand(p);
+  }
+ },{rootMargin:'180px 0px'});
+ for(const row of rows){
+  const p=all[row.dataset.placeId];
+  if((p?.origin==='community'||p?.kind==='user')&&!providerOverlay.has(p.id)&&(!p.image||!providerRatings(p).length))io.observe(row);
+ }
+ providerObserver=io;
+}
+function openPlace(id){const p=all[id];if(!p)return;if(!providerOverlay.has(p.id)&&(p.kind==='user'||(!p.image&&!providerRatings(p).length)))void enrichPlaceOnDemand(p);const freshlySaved=id===justSavedPlaceId;if(freshlySaved)justSavedPlaceId=null;const d=$('#place-dialog'),anchor=p.kind==='sidequest'?all[p.placeId]:null;d.dataset.placeId=id;
  d.innerHTML=`<div class="sheet-media">${photo(p,'sheet-photo',true)}<form method="dialog"><button class="close" aria-label="Zamknij">${ic('x')}</button></form></div><div class="sheet-body"><p class="kicker">${esc(p.area)}${p.kind==='sidequest'?' · Side quest':(p.cats||[]).map(c=>' · '+esc(catName(c))).join('')}</p><h2 id="sheet-title">${esc(p.name)}</h2><p>${esc(p.description)}</p>${p.address?`<p class="muted">${ic('map-pin')}${esc(p.address)}</p>`:''}
  ${p.kind==='user'?'<p class="fine">Weryfikacja redakcji: oczekuje · Weryfikacja społeczności: oczekuje</p>':''}${p.outside?`<p class="note">Na trasie to krótki postój przy budynku (ok. ${p.minutes} min). Zwiedzanie wnętrz jest osobne, zwykle płatne i trwa dłużej.</p>`:''}
- ${anchor?`<button class="row-link" data-action="place" data-id="${anchor.id}">${ic('map-pin')}<span>Zadanie przy: <strong>${esc(anchor.name)}</strong></span>${ic('chevron-right')}</button>`:p.kind==='user'?`<div class="note vis"><strong>${isPublic(p)?'Zaproponowane społeczności':'Prywatne'}</strong><p>${isPublic(p)?(SUBMISSION_NOTE[p.submissionStatus]||'Miejsce zapisane lokalnie. Możesz wysłać propozycję do moderacji.'):VIS_NOTE.private}</p>${isPublic(p)&&!['pending','submitting','approved','merged','rejected'].includes(p.submissionStatus)?`<button class="sm" data-community-submit="${esc(p.id)}">Wyślij do społeczności</button>`:''}<button class="sm" data-action="toggle-visibility" data-id="${p.id}" ${['pending','submitting','approved','merged'].includes(p.submissionStatus)?'disabled title="Zgłoszone miejsca można wycofać tylko przez moderację"':''}>${isPublic(p)?'Zmień tylko lokalny widok':'Zaproponuj społeczności'}</button></div>`:breakdown(p)}
- <div class="sheet-actions">${addButton(p,true)}${freshlySaved?`<button type="button" class="wide" data-action="add-another-place">${ic('plus')}Dodaj kolejne miejsce</button>`:''}${p.kind!=='hotel'?`<a class="button wide" href="${mapsUrl(p)}" target="_blank" rel="noopener noreferrer">${ic('navigation')}Prowadź w Google Maps</a>`:''}${p.outside||p.cats?.[0]==='muzea'?ticketLinks(p):''}${p.website&&p.kind!=='hotel'?`<a class="button wide" href="${esc(p.website)}" target="_blank" rel="noopener noreferrer">${ic('arrow-up-right')}Strona i menu</a>`:''}${p.kind==='user'?`<button class="wide danger" data-action="delete-place" data-id="${p.id}">${ic('trash-2')}Usuń moje miejsce</button>`:''}</div>
+ ${anchor?`<button class="row-link" data-action="place" data-id="${anchor.id}">${ic('map-pin')}<span>Zadanie przy: <strong>${esc(anchor.name)}</strong></span>${ic('chevron-right')}</button>`:p.kind==='user'?`<div class="note vis"><strong>${isPublic(p)?'Zaproponowane społeczności':'Prywatne'}</strong><p>${isPublic(p)?(SUBMISSION_NOTE[p.submissionStatus]||'Miejsce zapisane lokalnie. Możesz wysłać propozycję do moderacji.'):VIS_NOTE.private}</p>${isPublic(p)&&!['pending','submitting','approved','merged','rejected'].includes(p.submissionStatus)?`<button class="sm" data-community-submit="${esc(p.id)}">Wyślij do społeczności</button>`:''}<button class="sm" data-action="toggle-visibility" data-id="${p.id}" ${['pending','submitting','approved','merged'].includes(p.submissionStatus)?'disabled title="Zgłoszone miejsca można wycofać tylko przez moderację"':''}>${isPublic(p)?'Zmień tylko lokalny widok':'Zaproponuj społeczności'}</button></div>`:breakdown(p)}${p.kind==='user'?breakdown(p):''}
+ <div class="sheet-actions"><button class="wide save-place ${savedPlace(p)?'on':''}" data-action="bookmark" data-id="${esc(p.id)}" aria-pressed="${savedPlace(p)}">${ic('bookmark')}${savedPlace(p)?'Usuń z Zapisanych':'Zapisz miejsce'}</button>${addButton(p,true)}${freshlySaved?`<button type="button" class="wide" data-action="add-another-place">${ic('plus')}Dodaj kolejne miejsce</button>`:''}${p.kind!=='hotel'?`<a class="button wide" href="${mapsUrl(p)}" target="_blank" rel="noopener noreferrer">${ic('navigation')}Prowadź w Google Maps</a>`:''}${p.outside||p.cats?.[0]==='muzea'?ticketLinks(p):''}${p.website&&p.kind!=='hotel'?`<a class="button wide" href="${esc(p.website)}" target="_blank" rel="noopener noreferrer">${ic('arrow-up-right')}Strona i menu</a>`:''}${p.kind==='user'?`<button class="wide danger" data-action="delete-place" data-id="${p.id}">${ic('trash-2')}Usuń moje miejsce</button>`:''}</div>
  <form id="place-review-form" class="my-review" data-id="${p.id}"><label>Twoja ocena<select name="rating">${[5,4,3,2,1].map(n=>`<option value="${n}" ${state.placeReviews[p.id]===n?'selected':''}>${'★'.repeat(n)} ${n}/5</option>`).join('')}</select></label><button>${state.placeReviews[p.id]?'Zmień':'Zapisz'}</button><p class="fine">Twoja ocena zostaje na tym urządzeniu i nie zmienia wyniku z platform. Oceny społeczności włączymy, gdy będzie ich dość.</p></form>${credit(p)}</div>`;
  if(!d.open)d.showModal();d.scrollTop=0;}
 
@@ -300,7 +367,7 @@ function render(){const cityHost=document.querySelector('.city-host');if(cityHos
  if(tab==='routes')html=routesView();else if(tab==='places')html=placesView();else if(tab==='plan')html=planView();else if(tab==='my-route')html=myRouteView();else if(tab==='profile')html=profileView();else if(tab==='book')html=bookView();else if(tab==='events')html=eventsView();
  else if(tab==='route'){const r=findRoute(id);html=r?detailView(r):`<div class="empty"><p>Ta trasa nie jest już dostępna.</p><a class="button" href="#routes">Wszystkie trasy</a></div>`;}
  else if(tab==='sources')html=sourcesView();else if(tab==='about')html=aboutView();else if(tab==='add-place')html=addPlaceView();
- mapView?.destroy();mapView=null;$('#main').innerHTML=html;document.body.classList.toggle('is-live',isLive());if(tab==='places')mountPlacesMap();}
+ mapView?.destroy();mapView=null;$('#main').innerHTML=html;document.body.classList.toggle('is-live',isLive());if(tab==='places'){mountPlacesMap();observeApprovedPlaceEnrichment();}}
 function start(r){const stops=r.stops.filter(id=>all[id]);if(!stops.length)return toast('Najpierw dodaj co najmniej jedno miejsce.');state.session={id:uuid(),name:r.name,routeId:r.id,stops,index:0,results:[],finished:false,transport:r.transport||'walking',startedAt:new Date().toISOString()};log('route_start',{route_id:r.id,session_id:state.session.id,stops:stops.length});location.hash='my-route';render();}
 function saveRoute(r){const saved={id:'mine-'+uuid().slice(0,8),cityId:city().id,name:r.name,description:r.description,stops:r.stops.slice(),cats:[],transport:r.transport||'walking',createdAt:new Date().toISOString()};state.myRoutes.unshift(saved);log('route_save',{route_id:saved.id,stops:saved.stops.length});return saved;}
 
@@ -312,6 +379,7 @@ document.addEventListener('click',e=>{
  if(action==='add-another-place'){d?.close();draft=null;location.hash='add-place';return;}
  if(action==='route-view')log('route_view',{route_id:id});
  if(action==='cat'){cat=value;cuisine='all';render();}
+ if(action==='bookmark'){const p=all[id];if(!p)return;const ids=savedIds(),was=ids.includes(id);state.savedPlacesByCity[city().id]=was?ids.filter(x=>x!==id):[...ids,id];persist();render();if(d?.open&&d.dataset.placeId===id)openPlace(id);toast(was?'Usunięto z Zapisanych.':'Zapisano miejsce.');return;}
  if(action==='rcat'){rcat=value;render();}
  if(action==='cuisine'){cuisine=value;render();}
  if(action==='clear-search'){query='';render();$('#search')?.focus();}
@@ -337,7 +405,7 @@ document.addEventListener('click',e=>{
  if(action==='nearby-custom'){addNewPlaceAfterId=b.dataset.after||null;nearbyAfterId=null;}
  if(action==='save-route'){const r=findRoute(id);loadRouteIntoBuilder(r);location.hash='my-route';toast('Trasa jest w Mojej trasie. Zmieniaj ją dowolnie.');}
  if(action==='delete-route'&&confirm('Usunąć tę trasę?')){state.myRoutes=state.myRoutes.filter(r=>r.id!==id);persist();location.hash='routes';toast('Trasa usunięta.');}
- if(action==='delete-place'&&confirm('Usunąć to miejsce?')){applyBuilder(removeStop(builderDraft,id,{now:now()}),{eventType:'builder_remove',eventData:{place_id:id,reason:'place_deleted'}});state.userPlaces=state.userPlaces.filter(p=>p.id!==id);delete all[id];state.myRoutes=state.myRoutes.filter(r=>!r.stops.includes(id));persist();d.close();render();toast('Miejsce usunięte.');}
+ if(action==='delete-place'&&confirm('Usunąć to miejsce?')){applyBuilder(removeStop(builderDraft,id,{now:now()}),{eventType:'builder_remove',eventData:{place_id:id,reason:'place_deleted'}});state.userPlaces=state.userPlaces.filter(p=>p.id!==id);state.savedPlacesByCity[city().id]=savedIds().filter(x=>x!==id);providerOverlay.delete(id);delete all[id];state.myRoutes=state.myRoutes.filter(r=>!r.stops.includes(id));persist();d.close();render();toast('Miejsce usunięte.');}
  if(action==='locate'){keepDraft();if(!navigator.geolocation)return toast('Ta przeglądarka nie udostępnia lokalizacji.');navigator.geolocation.getCurrentPosition(pos=>{draft={...draft,lat:pos.coords.latitude,lng:pos.coords.longitude};render();},()=>toast('Nie udało się pobrać lokalizacji. Wklej link z Google Maps.'),{enableHighAccuracy:true,timeout:10000});}
  if(action==='toggle-visibility'){const p=all[id];if(p?.kind==='user'){if(['pending','submitting','approved','merged'].includes(p.submissionStatus))return toast('Zgłoszenie zostało wysłane. Zmianę publikacji musi obsłużyć moderacja.');p.visibility=isPublic(p)?'private':'public';p.submissionStatus=isPublic(p)?'not_submitted':null;persist();log('place_visibility',{place_id:id,visibility:p.visibility});openPlace(id);render();toast(isPublic(p)?'Zaznaczono propozycję. Kliknij „Wyślij do społeczności”.':'To miejsce pozostało prywatne.');}}
  if(action==='ticket')log('buy_ticket_click',{place_id:id,source:b.dataset.source||'getyourguide'});
@@ -396,7 +464,7 @@ document.addEventListener('click',e=>{
  if(action==='edit-profile'){editing=true;render();$('#profile-form input')?.focus();}
  if(action==='cancel-edit'){editing=false;render();}
  if(action==='export'){const url=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='city-route-'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
- if(action==='reset'&&confirm('Usunąć profil, trasy i aktywność z tej przeglądarki?')){state=fresh();state.cityId=city().id;state.basketsByCity={[city().id]:[]};state.builderMetaByCity={};builderDraft=createDraft(city().id,{now:now()});state.friends=[];state.myRoutes=[];state.userPlaces=[];state.connections={};state.joined=[];state.messages={};state.placeReviews={};state.stay='';state.profile={bio:'',socials:{instagram:'',tiktok:'',web:''}};persist();location.hash='routes';render();toast('Dane z tego urządzenia zostały usunięte.');}
+ if(action==='reset'&&confirm('Usunąć profil, trasy i aktywność z tej przeglądarki?')){state=fresh();state.cityId=city().id;state.basketsByCity={[city().id]:[]};state.builderMetaByCity={};builderDraft=createDraft(city().id,{now:now()});state.friends=[];state.myRoutes=[];state.userPlaces=[];state.savedPlacesByCity={};providerOverlay.clear();state.connections={};state.joined=[];state.messages={};state.placeReviews={};state.stay='';state.profile={bio:'',socials:{instagram:'',tiktok:'',web:''}};persist();location.hash='routes';render();toast('Dane z tego urządzenia zostały usunięte.');}
 });
 document.addEventListener('input',e=>{if(e.target.id==='search'){const pos=e.target.selectionStart;query=e.target.value;render();const s=$('#search');s.focus();s.setSelectionRange(pos,pos);}if(e.target.id==='builder-name'&&builderDraft){applyBuilder(setName(builderDraft,e.target.value,{now:now()}));}});
 document.addEventListener('change',async e=>{
@@ -412,9 +480,10 @@ document.addEventListener('submit',async e=>{const f=e.target,data=new FormData(
   if(!loc&&/^https:\/\//i.test(draft.where||'')){f.dataset.saving='1';f.querySelector('button.primary').disabled=true;toast('Odczytuję link Google Maps…');try{const r=await fetch('/api/location?url='+encodeURIComponent(draft.where));const v=await r.json();if(r.ok&&v.location)loc=v.location;}catch{}finally{delete f.dataset.saving;f.querySelector('button.primary').disabled=false;}if(draft!==submitted||route()[0]!=='add-place')return;}
   if(!loc)return toast(draft.where?'Nie udało się odczytać miejsca. Wklej współrzędne, np. 52.2395, 21.0458, albo użyj przycisku lokalizacji. Twój formularz został zachowany.':'Ustaw lokalizację albo wklej link z Google Maps.');
   if(!isInsideCity(loc,city()))return toast(`To miejsce jest dalej niż ${city().radiusKm} km od ${city().name}.`);
-  const c=draft.cat||'okolice',p={id:'u-'+uuid().slice(0,8),cityId:city().id,categoryId:taxonomy?.legacyAliases?.[c]||c,kind:'user',visibility:draft.vis==='public'?'public':'private',name:String(draft.name).trim(),cats:[c],area:'Twoje miejsce',description:String(draft.note||'').trim()||'Twoje miejsce.',lat:+loc.lat.toFixed(6),lng:+loc.lng.toFixed(6),minutes:c==='jedzenie'?45:20,cost:0,tags:USER_TAGS[c]||['hidden'],tourist:'local',foodStyle:c==='jedzenie'?'quick':'none',partner:false,ratings:[],image:draft.image||null,imageRightsConfirmed:!!draft.imageRights,sourceUrl:/^https?:\/\//i.test(draft.where||'')?String(draft.where).slice(0,500):null,submissionStatus:draft.vis==='public'?'not_submitted':null,verification:{editorial:false,community:false},createdAt:new Date().toISOString()};
-  state.userPlaces.unshift(p);all[p.id]=p;if(/^[1-5]$/.test(String(draft.rating||'')))state.placeReviews[p.id]=Number(draft.rating);try{localStorage.setItem(key,JSON.stringify(state));}catch{state.userPlaces.shift();delete all[p.id];delete state.placeReviews[p.id];return toast('Za mało miejsca na urządzeniu. Spróbuj bez zdjęcia.');}
+  const c=draft.cat||'okolice',p={id:'u-'+uuid().slice(0,8),cityId:city().id,categoryId:taxonomy?.legacyAliases?.[c]||c,kind:'user',visibility:draft.vis==='public'?'public':'private',name:String(draft.name).trim(),cats:[c],area:'Twoje miejsce',description:String(draft.note||'').trim()||'Twoje miejsce.',lat:+loc.lat.toFixed(6),lng:+loc.lng.toFixed(6),minutes:c==='jedzenie'?45:20,cost:0,tags:USER_TAGS[c]||['hidden'],tourist:'local',foodStyle:c==='jedzenie'?'quick':'none',partner:false,ratings:[],googlePlaceId:f.dataset.pcGooglePlaceId||null,image:draft.image||null,imageRightsConfirmed:!!draft.imageRights,sourceUrl:/^https?:\/\//i.test(draft.where||'')?String(draft.where).slice(0,500):null,submissionStatus:draft.vis==='public'?'not_submitted':null,verification:{editorial:false,community:false},createdAt:new Date().toISOString()};
+  state.userPlaces.unshift(p);all[p.id]=p;state.savedPlacesByCity[city().id]=[...new Set([...savedIds(),p.id])];if(/^[1-5]$/.test(String(draft.rating||'')))state.placeReviews[p.id]=Number(draft.rating);try{localStorage.setItem(key,JSON.stringify(state));}catch{state.userPlaces.shift();state.savedPlacesByCity[city().id]=savedIds().filter(x=>x!==p.id);delete all[p.id];delete state.placeReviews[p.id];return toast('Za mało miejsca na urządzeniu. Spróbuj bez zdjęcia.');}
   log('place_add',{place_id:p.id,cat:c,photo:!!p.image,visibility:p.visibility});
+  void enrichPlaceOnDemand(p);
   if(p.visibility==='public')window.dispatchEvent(new CustomEvent('cityroute:place-created',{detail:{placeId:p.id}}));
   const anchorPos=addNewPlaceAfterId?builderDraft?.stops.indexOf(addNewPlaceAfterId):-1;
   const added=anchorPos>=0?applyBuilder(addStop(builderDraft,p,{at:anchorPos+1,now:now()}),{eventType:'builder_add',eventData:{place_id:p.id,source:'nearby-custom',after_id:addNewPlaceAfterId}}):null;

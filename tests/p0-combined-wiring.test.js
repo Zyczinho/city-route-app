@@ -5,15 +5,15 @@ const read=f=>readFile(new URL('../'+f,import.meta.url),'utf8');
 test('integrated P0 route optimizer and composer modules ship together',async()=>{
  const [app,html,sw,build,composer,css]=await Promise.all(['app.js','index.html','service-worker.js','scripts/build.mjs','place-composer.js','styles.css'].map(read));
  for(const name of ['route-optimizer.js','place-composer.js','place-composer-model.js','place-composer.css'])assert.ok(build.includes(name),'missing from build: '+name);
- for(const name of ['route-optimizer.js','place-composer.js?v=1','place-composer-model.js','place-composer.css?v=1','enhancements.js?v=23'])assert.ok(sw.includes(name),'missing from PWA precache: '+name);
- assert.match(sw,/city-route-v41/);
+ for(const name of ['route-optimizer.js','place-composer.js?v=2','place-composer-model.js','place-composer.css?v=1','enhancements.js?v=23'])assert.ok(sw.includes(name),'missing from PWA precache: '+name);
+ assert.match(sw,/city-route-v42/);
  assert.match(app,/import \{optimizeRoutePlaces\}/);
  assert.match(app,/data-action="nearby-stop"/);
  assert.match(app,/data-action="add-nearby"/);
  assert.match(app,/name="rating"/);
  assert.match(app,/state\.placeReviews\[p\.id\]=Number\(draft\.rating\)/);
  assert.match(app,/data-action="add-another-place"/);
- assert.match(html,/place-composer\.js\?v=1/);
+ assert.match(html,/place-composer\.js\?v=2/);
  assert.match(composer,/resetSelection\(form\)/);
  assert.match(css,/\.stops li\[data-stop\]\{flex-wrap:wrap/);
  assert.match(css,/\.stops li\[data-stop\] \.tools\{flex:1 0 100%/);

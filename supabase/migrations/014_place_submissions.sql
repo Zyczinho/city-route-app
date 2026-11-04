@@ -219,3 +219,28 @@ grant execute on function
  public.admin_place_submissions(text,text),
  public.admin_review_place_submission(uuid,text,text)
 to authenticated;
+
+-- Forward-only update of 012's already-deployed request RPC. Never edit 012 in-place.
+-- A request for a missing place (or category) now has no per-user daily quota either.
+create or replace function public.create_catalogue_request(
+  p_city_slug text,p_kind text,p_title text,p_category text default null,p_note text default '',p_source_url text default null
+)
+returns uuid set search_path='' language plpgsql volatile security definer as $$
+declare
+  v_uid uuid:=(select auth.uid());
+  v_city uuid;
+  v_title text:=btrim(regexp_replace(coalesce(p_title,''),'\s+',' ','g'));
+  v_url text:=nullif(btrim(coalesce(p_source_url,'')),'');
+  v_id uuid;
+begin
+  if v_uid is null then raise exception 'auth-required' using errcode='28000'; end if;
+  select id into v_city from public.cities where slug=p_city_slug and status<>'hidden';
+  if v_city is null then raise exception 'city-not-found' using errcode='P0002'; end if;
+  perform public.catalogue_request_validate(p_kind,v_title,p_category,p_note,v_url);
+  -- Unlimited requests: quality and duplicate suggestions are handled separately in the UI.
+  insert into public.catalogue_requests(city_id,request_kind,title,normalized_key,category_id,note,source_url,created_by)
+  values(v_city,p_kind,v_title,'',p_category,coalesce(p_note,''),v_url,v_uid)
+  returning id into v_id;
+  insert into public.catalogue_request_supports(request_id,user_id) values(v_id,v_uid);-- creator counts as a supporter
+  return v_id;
+end $$;

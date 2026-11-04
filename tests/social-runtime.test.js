@@ -36,8 +36,8 @@ test('Social Routes UI and navigation modules ship in index, build and PWA cache
  assert.match(index,/social-routes\.css/);
  assert.match(index,/social-routes-enhancements\.js/);
  assert.match(index,/nav-enhancements\.js\?v=3/);
- assert.match(index,/ux-cleanup\.js\?v=1/);
- assert.match(index,/ux-cleanup\.css\?v=1/);
+ assert.match(index,/ux-cleanup\.js\?v=2/);
+ assert.match(index,/ux-cleanup\.css\?v=2/);
  assert.match(sw,/city-route-v38/);
 });
 

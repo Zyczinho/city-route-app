@@ -2,17 +2,17 @@
 Date: 2026-11-03. **Draft PR #60. Not yet applied to the hosted database.**
 
 ## User journey
-1. Anyone may add a **private, offline/local-first** place without an account. No automatic upload.
+1. Anyone may add **unlimited private, offline/local-first** places without an account, including two copies of the same place. No duplicate check and no automatic upload for private places.
 2. Selecting **Zaproponuj społeczności** opts in to a submission. If signed in, a validated RPC submits a **pending** place; if signed out, it is kept locally and the user can sign in, open its detail and tap **Wyślij do społeczności**. The form needs no mandatory photo or rating.
 3. The contributor sees moderation statuses from **Moje zgłoszenia miejsc** on Profile.
-4. Authorized admin opens `/admin/place-submissions.html` and approves, rejects, or merges a duplicate by canonical catalogue ID. Private notes/URLs do not appear in public lists. An admin decision is checked again on the server on every action.
+4. Authorized admin opens `/admin/place-submissions.html` and approves, rejects, or merges a duplicate by canonical catalogue ID. An administrator rechecks duplicate matches at approval. Public catalogue has one canonical place, even if many private copies exist. Private notes/URLs do not appear in public lists. An admin decision is checked again on the server on every action.
 5. Approved places become ordinary published `public.places` rows, exposed by the **existing** `catalogue_places()` RPC, so any other visitor can search, see on the map, and add them to a route. Existing public-route code accepts their canonical IDs. A local route containing such a place maps its local ID to the canonical ID when sharing after approval; nonapproved local points cannot be published.
 
 ## Database design
 Migration `supabase/migrations/014_place_submissions.sql` after `013_app_admins.sql`:
 - `place_submissions`: author UUID, city, name and folded duplicate key, category, PostGIS location, source URL and short note, optional creator-photo object path, pending/approved/rejected/merged status, resolved canonical place UUID. Owner-only RLS SELECT. **No browser direct write grants**.
 - Explicit security-definer RPCs: `create_place_submission`, `my_place_submissions`, `attach_place_submission_photo`, `admin_place_submissions`, `admin_review_place_submission`.
-- Creator must be authenticated; city must be launched/next; coordinates must be valid and within city radius; name/category/source validated; max **10 proposals/24 hours/user**; same normalized name within **150 m** of a pending/published place is rejected. A per-city/name advisory lock reduces simultaneous duplicate submissions.
+- Creator must be authenticated; city must be launched/next; coordinates must be valid and within city radius; name/category/source validated. **No daily submission limits or quotas.** The same normalized name within **150 m** of a pending/published place is rejected for community submissions only; distinct private local entries are never blocked. The per-city/name advisory lock is used by both submission and admin approval to prevent concurrent publication of duplicates.
 - Approval creates the canonical `public.places` record only after authorized review; reject/merge does not create a duplicate. Server-side admin allow-list `app_admins` reused from 013. No automatic external photo scraping.
 
 ### Images

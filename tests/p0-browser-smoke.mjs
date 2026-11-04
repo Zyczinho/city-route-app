@@ -73,6 +73,29 @@ try{
   assert.equal(await page.locator('#main .loading').count(),0,'tab must not show perpetual loading');
  }
 
+ // COMMUNITY-HUB-023: four accessible community subviews are reachable without altering bottom tabs.
+ await page.locator('#navigation a[href="#routes/community"]').click();
+ await page.locator('[data-community-tabs] .community-hub-links').waitFor({timeout:12000});
+ const subTabs=await page.locator('[data-community-tabs] .community-hub-links a').evaluateAll(nodes=>nodes.map(a=>({label:a.textContent.trim(),href:a.getAttribute('href')})));
+ assert.deepEqual(subTabs,[
+  {label:'Trasy',href:'#routes/community'},
+  {label:'Grupy',href:'#routes/community/groups'},
+  {label:'Czaty',href:'#routes/community/chats'},
+  {label:'Zapisane',href:'#social-saved'}
+ ]);
+ assert.ok(await page.locator('[data-community-tabs]').isVisible(),'inner community tabs must not be hidden by feed focus');
+ await page.locator('[data-community-tabs] a[href="#routes/community/groups"]').click();
+ await page.locator('.community-page h1').getByText('Grupy odkrywców').waitFor({timeout:10000});
+ assert.equal(await page.locator('[data-community-tabs] a[href="#routes/community/groups"]').getAttribute('aria-current'),'page');
+ await page.locator('[data-community-tabs] a[href="#routes/community/chats"]').click();
+ await page.locator('.community-page h1').getByText('Czaty').waitFor({timeout:10000});
+ assert.ok(await page.locator('.community-page').getByText('Zaloguj się, aby zobaczyć czaty').isVisible(),'guest chat view has a real authentication gate');
+ assert.equal(await page.locator('[data-community-tabs] a[href="#routes/community/chats"]').getAttribute('aria-current'),'page');
+ const communityWidth=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,inner:innerWidth}));
+ assert.ok(communityWidth.scroll<=communityWidth.inner+1,'community tabs have no 375px horizontal overflow: '+JSON.stringify(communityWidth));
+ await page.screenshot({path:'p0-smoke-artifacts/community-hub-chats-guest.png',fullPage:true});
+ await page.locator('[data-community-tabs] a[href="#routes/community"]').click();
+ await page.locator('[data-community-tabs] a[href="#routes/community"]').waitFor({state:'visible'});
  // ONBOARDING-021: optional start guide must be discoverable, usable and fit a narrow phone.
  await page.locator('#navigation a[href="#plan"]').click();
  await page.locator('#main a.start-here[href="#about"]').waitFor({timeout:10000});

@@ -13,7 +13,7 @@ export function photoQuality(candidate,{targetRatio=1.55}={}){
 // attribution-bearing provider display grant. Public social posts alone are not grants.
 export function choosePlacePhoto(candidates=[],{placeId=null}={}){
  return candidates
-  .filter(c=>c&&c.displayPermitted===true&&c.src&&c.credit?.source
+  .filter(c=>c&&c.displayPermitted===true&&c.rightsVerified===true&&typeof c.src==='string'&&/^https:\/\//i.test(c.src)&&c.credit?.source&&c.credit?.author&&c.credit?.license
    &&(!placeId||!c.placeId||String(c.placeId)===String(placeId)))
   .map(c=>({...c,quality:photoQuality(c)}))
   .filter(c=>Number.isFinite(c.quality))

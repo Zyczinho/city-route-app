@@ -200,8 +200,8 @@ async function mountPlacesMap(){
  view.setRouteStops(items(builderDraft?.stops||[]));
 }
 
-// Only newly approved community catalogue places are enriched while visible;
-// never auto-query all 275+ existing catalogue entries or spend provider quota on page load.
+// Newly added private/approved community places are enriched when visible, including after reload.
+// Never auto-query all 275+ existing catalogue entries or spend provider quota on page load.
 function observeApprovedPlaceEnrichment(){
  providerObserver?.disconnect();providerObserver=null;
  if(typeof IntersectionObserver==='undefined')return;
@@ -212,12 +212,12 @@ function observeApprovedPlaceEnrichment(){
    if(!entry.isIntersecting)continue;
    io.unobserve(entry.target);
    const p=all[entry.target.dataset.placeId];
-   if(p?.origin==='community'&&!providerOverlay.has(p.id)&&(!p.image||!providerRatings(p).length))void enrichPlaceOnDemand(p);
+   if((p?.origin==='community'||p?.kind==='user')&&!providerOverlay.has(p.id)&&(!p.image||!providerRatings(p).length))void enrichPlaceOnDemand(p);
   }
  },{rootMargin:'180px 0px'});
  for(const row of rows){
   const p=all[row.dataset.placeId];
-  if(p?.origin==='community'&&!providerOverlay.has(p.id)&&(!p.image||!providerRatings(p).length))io.observe(row);
+  if((p?.origin==='community'||p?.kind==='user')&&!providerOverlay.has(p.id)&&(!p.image||!providerRatings(p).length))io.observe(row);
  }
  providerObserver=io;
 }

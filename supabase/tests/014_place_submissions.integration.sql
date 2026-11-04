@@ -34,6 +34,22 @@ begin
   exception when invalid_parameter_value then null;
   end;
 end $$;
+-- Unlimited submissions: 12 more distinct public candidates from the same user must be allowed,
+-- while the author's first pending place remains hidden from everyone else.
+do $
+declare i integer;
+begin
+ for i in 1..12 loop
+   perform public.create_place_submission(
+     'warsaw',format('Independent discovery %s',i),'viewpoint',
+     52.242 + i * 0.0001,21.031 + i * 0.0001,'Distinct community candidate',null
+   );
+ end loop;
+ if (select count(*) from public.place_submissions where submitted_by=auth.uid() and status='pending')<>13 then
+   raise exception 'public proposals were incorrectly limited'; end if;
+end $;
+\echo 'PASS: contributor may submit more than ten different places without quotas'
+
 \echo 'PASS: owner proposal pending, duplicate and coordinate validation'
 
 reset role;
@@ -43,6 +59,11 @@ do $$
 begin
   if exists(select 1 from public.place_submissions) then
     raise exception 'non-author can read pending submissions'; end if;
+  begin
+    perform public.create_place_submission('warsaw','Hidden View','viewpoint',52.235,21.02);
+    raise exception 'another author was allowed to duplicate a pending community place';
+  exception when unique_violation then null;
+  end;
   begin
     perform public.admin_review_place_submission((select id from public.place_submissions),'approve');
     raise exception 'non-admin allowed moderation';

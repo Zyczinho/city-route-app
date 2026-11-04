@@ -12,7 +12,7 @@ export class RequestsError extends Error{
   constructor(code,detail=null,cause=null){super(detail?`${code}:${detail}`:code);this.name='RequestsError';this.code=code;this.detail=detail;this.cause=cause;}
 }
 
-const KNOWN=/\b(auth-required|city-not-found|invalid-kind|invalid-title|invalid-category|category-required|invalid-note|invalid-url|rate-limited|request-not-supportable|not-deletable|not-editable|creator-support-required)\b/;
+const KNOWN=/\b(auth-required|city-not-found|invalid-kind|invalid-title|invalid-category|category-required|invalid-note|invalid-url|request-not-supportable|not-deletable|not-editable|creator-support-required)\b/;
 export function toRequestsError(error){
   if(error instanceof RequestsError)return error;
   const message=String(error?.message||error||'');
@@ -39,7 +39,7 @@ export function requestFromRow(row){
   };
 }
 
-// Same limits as migration 012, checked before a network round-trip.
+// Structural field validation matches migration 012; there are no per-user submission quotas.
 export function validateRequest({citySlug,kind,title,categoryId=null,note='',sourceUrl=null}={}){
   if(!citySlug)return 'city-not-found';
   if(!KINDS.includes(kind))return 'invalid-kind';

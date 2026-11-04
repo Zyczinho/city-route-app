@@ -131,6 +131,15 @@ export function createSocialRoutesClient({client}={}){
       return String(scalar(await call('rate_route',{...cityOf(ref,citySlug),p_rating:value})));
     },
     async removeRating(ref,citySlug){return String(scalar(await call('remove_rating',cityOf(ref,citySlug))));},
+    async saveFeedback(ref,feedback,citySlug){
+      const note=String(feedback||'').trim();if(note.length>500)throw new SocialRoutesError('invalid-feedback');
+      return String(scalar(await call('set_route_feedback',{...cityOf(ref,citySlug),p_feedback:note})));
+    },
+    async loadAuthorFeedback(routeId){
+      return rows(await call('my_route_feedback',{p_route_id:String(routeId)})).map(r=>({
+        rating:int(r.rating),feedback:String(r.feedback||''),createdAt:r.created_at
+      }));
+    },
     // forkedFrom: forkRoute()'s {cityId, ref} or a bare ref (editorial slug / community UUID); forkedFromRouteId kept as an alias.
     async publishRoute({draft,description='',tags=[],visibility='public',editingRouteId=null,forkedFrom=null,forkedFromRouteId=null}={}){
       const source=typeof forkedFrom==='string'?forkedFrom:forkedFrom?.ref??forkedFromRouteId??null;

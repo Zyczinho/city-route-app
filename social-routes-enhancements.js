@@ -72,17 +72,23 @@ async function injectFeed(){
  }catch(error){host.innerHTML='<div class="section-head"><h2>Społeczność</h2></div><div class="empty"><p>Nie udało się wczytać tras społeczności.</p></div>';console.warn('Social feed',error);}
 }
 
+function normalizedPublicDraft(draft){
+ const s=readState(),city=draft.cityId||cityId();
+ const locals=new Map((s.userPlaces||[]).filter(p=>p.cityId===city).map(p=>[p.id,p]));
+ const stops=(draft.stops||[]).map(id=>{const p=locals.get(id);return p&&['approved','merged'].includes(p.submissionStatus)&&p.resolvedPlaceId?p.resolvedPlaceId:id;});
+ return {...draft,cityId:city,stops,hasUnapprovedStops:stops.some(id=>locals.has(id))};
+}
 function currentDraft(){
  const s=readState(),city=cityId(),meta=s.builderMetaByCity?.[city]||{};
  const name=document.querySelector('#builder-name')?.value??meta.name??'';
  const transport=document.querySelector('#builder-transport')?.value??meta.transport??'walking';
  const stops=[...(s.basketsByCity?.[city]||s.basket||[])];
- return {cityId:city,name:String(name).trim(),transport,stops};
+ return normalizedPublicDraft({cityId:city,name:String(name).trim(),transport,stops});
 }
 function publishDialog(override=null){
  if(authRequired())return;
  completedDraft=override?{...override,stops:[...override.stops]}:null;
- const draft=completedDraft||currentDraft();if(draft.stops.length<2)return alert('Dodaj co najmniej 2 przystanki.');
+ const draft=normalizedPublicDraft(completedDraft||currentDraft());if(draft.hasUnapprovedStops)return alert('Ta trasa zawiera prywatne lub niezatwierdzone miejsca. Poczekaj na moderację albo zamień je na miejsca z katalogu.');if(draft.stops.length<2)return alert('Dodaj co najmniej 2 przystanki.');
  if(!draft.name)return alert('Najpierw nazwij trasę.');
  let stored=null;if(!completedDraft){try{stored=JSON.parse(sessionStorage.getItem(EDIT_KEY)||'null');}catch{sessionStorage.removeItem(EDIT_KEY);}}
  const dialog=document.createElement('dialog');dialog.className='social-dialog';
@@ -91,7 +97,7 @@ function publishDialog(override=null){
 }
 async function submitPublish(form){
  const button=form.querySelector('button[type=submit]'),status=form.querySelector('.social-form-status');button.disabled=true;status.textContent='Publikuję…';
- const fd=new FormData(form),draft=completedDraft||currentDraft();let stored=null;if(!completedDraft){try{stored=JSON.parse(sessionStorage.getItem(EDIT_KEY)||'null');}catch{sessionStorage.removeItem(EDIT_KEY);}}
+ const fd=new FormData(form),draft=normalizedPublicDraft(completedDraft||currentDraft());if(draft.hasUnapprovedStops){const status=form.querySelector('.social-form-status');if(status)status.textContent='Trasa zawiera niezatwierdzone miejsce — opublikuj je osobno i zaczekaj na moderację.';button.disabled=false;return;}let stored=null;if(!completedDraft){try{stored=JSON.parse(sessionStorage.getItem(EDIT_KEY)||'null');}catch{sessionStorage.removeItem(EDIT_KEY);}}
  const tags=String(fd.get('tags')||'').split(',').map(x=>x.trim().toLowerCase().replace(/\s+/g,'-')).filter(Boolean);
  try{
   const id=await api.publishRoute({draft,description:String(fd.get('description')||'').trim(),tags,visibility:String(fd.get('visibility')||'public'),editingRouteId:stored?.editingRouteId||null,forkedFrom:stored?.forkedFrom||null});
@@ -116,8 +122,8 @@ async function renderCommunityRoute(id){
  root.innerHTML=`<p class="loading" data-social-route-loading="${esc(id)}">Wczytuję trasę społeczności…</p>`;
  try{
   const route=await api.loadCommunityRoute(id);if(!route){root.innerHTML=`<div class="empty" data-social-route-root="${esc(id)}"><p>Nie znaleziono tej trasy.</p><a class="button" href="#routes">Wróć do tras</a></div>`;return;}
-  await loadPlaces(route.cityId);const cover=routeCover(route,reserved);const mark=session?(await api.loadRouteMarks([route.uuid])).get(route.uuid):null;const own=session?.user?.id===route.author.id;
-  root.innerHTML=`<section class="social-detail" data-social-route-root="${esc(id)}"><a class="back" href="#routes">← Trasy</a><div class="social-detail-cover">${photo(cover,route.name)}</div><p class="kicker">Trasa społeczności</p><h1>${esc(route.name)}</h1><p class="lead">${esc(route.description||'Trasa użytkownika City Route.')}</p><a class="social-author-link" href="#social-profile/${esc(route.author.id)}">Autor: ${esc(route.author.nickname)}</a><div class="social-stats large"><span>${route.stopCount} przystanków</span><span>${esc(route.transport)}</span><span>${stars(route.stats.ratingAvg)} · ${route.stats.ratings} ocen</span><span>♡ ${route.stats.saves}</span><span>⑂ ${route.stats.forks}</span></div>${route.forkedFrom?`<p class="fine">Na bazie: ${esc(route.forkedFrom.name||'innej trasy')}</p>`:''}<div class="detail-actions social-detail-actions"><button class="primary big" data-social-action="fork" data-route="${esc(route.uuid)}">Użyj jako bazę</button><button data-social-action="save" data-route="${esc(route.uuid)}" aria-pressed="${!!mark?.saved}">${mark?.saved?'Zapisano':'Zapisz trasę'}</button>${own?`<button data-social-action="edit" data-route="${esc(route.uuid)}">Edytuj</button><button data-social-action="archive" data-route="${esc(route.uuid)}">Archiwizuj</button><button class="danger" data-social-action="delete" data-route="${esc(route.uuid)}">Usuń</button>`:''}</div>${!own?`<section class="social-rating"><h2>Oceń trasę</h2><div role="group" aria-label="Ocena 1 do 5">${[1,2,3,4,5].map(n=>`<button data-social-action="rate" data-route="${esc(route.uuid)}" data-rating="${n}" aria-pressed="${mark?.rating===n}">${n}★</button>`).join('')}</div></section>`:''}<h2>Przystanki</h2><ol class="social-stops">${route.stops.map((sid,i)=>{const p=placeIndex.get(String(sid));return `<li><span>${i+1}</span><div>${photo(imageSrc(p),p?.name||sid)}</div><strong>${esc(p?.name||sid)}</strong></li>`;}).join('')}</ol></section>`;
+  await loadPlaces(route.cityId);const cover=routeCover(route,reserved);const mark=session?(await api.loadRouteMarks([route.uuid])).get(route.uuid):null;const own=session?.user?.id===route.author.id;const authorFeedback=own?await api.loadAuthorFeedback(route.uuid).catch(()=>[]):[];
+  root.innerHTML=`<section class="social-detail" data-social-route-root="${esc(id)}"><a class="back" href="#routes">← Trasy</a><div class="social-detail-cover">${photo(cover,route.name)}</div><p class="kicker">Trasa społeczności</p><h1>${esc(route.name)}</h1><p class="lead">${esc(route.description||'Trasa użytkownika City Route.')}</p><a class="social-author-link" href="#social-profile/${esc(route.author.id)}">Autor: ${esc(route.author.nickname)}</a><div class="social-stats large"><span>${route.stopCount} przystanków</span><span>${esc(route.transport)}</span><span>${stars(route.stats.ratingAvg)} · ${route.stats.ratings} ocen</span><span>♡ ${route.stats.saves}</span><span>⑂ ${route.stats.forks}</span></div>${route.forkedFrom?`<p class="fine">Na bazie: ${esc(route.forkedFrom.name||'innej trasy')}</p>`:''}<div class="detail-actions social-detail-actions"><button class="primary big" data-social-action="fork" data-route="${esc(route.uuid)}">Użyj jako bazę</button><button data-social-action="save" data-route="${esc(route.uuid)}" aria-pressed="${!!mark?.saved}">${mark?.saved?'Zapisano':'Zapisz trasę'}</button>${own?`<button data-social-action="edit" data-route="${esc(route.uuid)}">Edytuj</button><button data-social-action="archive" data-route="${esc(route.uuid)}">Archiwizuj</button><button class="danger" data-social-action="delete" data-route="${esc(route.uuid)}">Usuń</button>`:''}</div>${!own?`<section class="social-rating"><h2>Oceń trasę</h2><div role="group" aria-label="Ocena 1 do 5">${[1,2,3,4,5].map(n=>`<button data-social-action="rate" data-route="${esc(route.uuid)}" data-rating="${n}" aria-pressed="${mark?.rating===n}">${n}★</button>`).join('')}</div><p class="fine">Ocena jest dobrowolna. Jeśli chcesz zostawić wskazówkę autorowi, najpierw wybierz gwiazdki.</p></section><form class="social-feedback-form" data-social-feedback data-route="${esc(route.uuid)}"><label>Feedback dla autora <span>(opcjonalnie, niepubliczny)</span><textarea name="feedback" rows="3" maxlength="500" placeholder="Co Ci się podobało, co poprawić?"></textarea></label><button type="submit" class="primary" ${mark?.rating?'':'disabled'}>Wyślij wskazówkę</button><p class="social-feedback-status" role="status"></p></form>`:`<section class="social-author-feedback"><h2>Feedback do Twojej trasy</h2>${authorFeedback.length?authorFeedback.map(f=>`<blockquote><span>★ ${f.rating}/5</span><p>${esc(f.feedback)}</p></blockquote>`).join(''):'<p class="fine">Nie ma jeszcze tekstowych opinii.</p>'}</section>`}<h2>Przystanki</h2><ol class="social-stops">${route.stops.map((sid,i)=>{const p=placeIndex.get(String(sid));return `<li><span>${i+1}</span><div>${photo(imageSrc(p),p?.name||sid)}</div><strong>${esc(p?.name||sid)}</strong></li>`;}).join('')}</ol></section>`;
   log('community_route_view',{route_id:id});
  }catch(error){root.innerHTML=`<div class="empty" data-social-route-root="${esc(id)}"><p>Nie udało się wczytać trasy.</p><a class="button" href="#routes">Wróć</a></div>`;console.warn(error);}
 }
@@ -161,7 +167,7 @@ async function toggleSave(routeId){
  if(authRequired())return;const current=marks.get(routeId);
  try{if(current?.saved){await api.unsaveRoute(routeId);marks.set(routeId,{...current,saved:false});log('community_route_unsave',{route_id:routeId});}else{await api.saveRoute(routeId);marks.set(routeId,{...(current||{}),saved:true});log('community_route_save',{route_id:routeId});}queueRender();}catch(error){alert(`Nie udało się zapisać trasy (${error.code||'błąd'}).`);}
 }
-async function rate(routeId,rating){if(authRequired())return;try{await api.rateRoute(routeId,rating);marks.set(routeId,{...(marks.get(routeId)||{}),rating:Number(rating)});log('community_route_rate',{route_id:routeId,rating:Number(rating)});queueRender();}catch(error){alert(error.code==='forbidden'?'Nie możesz ocenić własnej trasy.':'Nie udało się zapisać oceny.');}}
+async function rate(routeId,rating){if(authRequired())return;try{await api.rateRoute(routeId,rating);marks.set(routeId,{...(marks.get(routeId)||{}),rating:Number(rating)});log('community_route_rate',{route_id:routeId,rating:Number(rating)});document.querySelectorAll(`[data-social-action="rate"][data-route="${routeId}"]`).forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.rating)===Number(rating))));document.querySelector('[data-social-feedback] button[type="submit"]')?.removeAttribute('disabled');queueRender();}catch(error){alert(error.code==='forbidden'?'Nie możesz ocenić własnej trasy.':'Nie udało się zapisać oceny.');}}
 
 async function handleAction(el){
  const action=el.dataset.socialAction,id=el.dataset.route;
@@ -197,6 +203,19 @@ document.addEventListener('cityroute:publish-completed',event=>{
 });
 document.addEventListener('click',e=>{const el=e.target.closest?.('[data-social-action]');if(el){e.preventDefault();handleAction(el).catch(console.error);}},true);
 document.addEventListener('change',e=>{if(e.target.matches?.('[data-social-sort]')){sort=e.target.value;const host=document.querySelector('[data-social-feed]');if(host)host.remove();const note=document.querySelector('.community-note');if(note)note.hidden=false;queueRender();}});
+document.addEventListener('submit',async e=>{
+ const form=e.target.closest?.('[data-social-feedback]');if(!form)return;
+ e.preventDefault();e.stopImmediatePropagation();
+ if(authRequired())return;
+ const status=form.querySelector('.social-feedback-status'),button=form.querySelector('button[type="submit"]');
+ button.disabled=true;status.textContent='Zapisuję…';
+ try{
+  await api.saveFeedback(form.dataset.route,String(new FormData(form).get('feedback')||'').trim());
+  status.textContent='Feedback wysłany autorowi. Nie jest publiczny.';
+  log('community_route_feedback',{route_id:form.dataset.route});
+ }catch(error){status.textContent=error.code==='rate-first'?'Najpierw oceń trasę od 1 do 5.':'Nie udało się zapisać feedbacku ('+(error.code||'błąd')+').';}
+ finally{button.disabled=false;}
+},true);
 document.addEventListener('submit',e=>{const form=e.target.closest?.('[data-social-publish]');if(form){e.preventDefault();e.stopImmediatePropagation();submitPublish(form);}},true);
 window.addEventListener('hashchange',queueRender);
 const observer=new MutationObserver(queueRender);observer.observe(document.querySelector('#main')||document.documentElement,{subtree:true,childList:true});

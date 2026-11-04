@@ -6,7 +6,7 @@ test('integrated P0 route optimizer and composer modules ship together',async()=
  const [app,html,sw,build,composer,css]=await Promise.all(['app.js','index.html','service-worker.js','scripts/build.mjs','place-composer.js','styles.css'].map(read));
  for(const name of ['route-optimizer.js','place-composer.js','place-composer-model.js','place-composer.css'])assert.ok(build.includes(name),'missing from build: '+name);
  for(const name of ['route-optimizer.js','place-composer.js?v=1','place-composer-model.js','place-composer.css?v=1','enhancements.js?v=23'])assert.ok(sw.includes(name),'missing from PWA precache: '+name);
- assert.match(sw,/city-route-v39/);
+ assert.match(sw,/city-route-v41/);
  assert.match(app,/import \{optimizeRoutePlaces\}/);
  assert.match(app,/data-action="nearby-stop"/);
  assert.match(app,/data-action="add-nearby"/);

@@ -1,0 +1,46 @@
+name: Friends and nickname database contract
+on:
+  pull_request:
+    paths:
+      - 'supabase/migrations/015_friends_unique_nicknames.sql'
+      - 'supabase/tests/015_fixture.sql'
+      - 'supabase/tests/015_friends.integration.sql'
+      - '.github/workflows/friends-db.yml'
+permissions:
+  contents: read
+jobs:
+  postgres-rls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: local-test-only
+          POSTGRES_DB: city_route_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d city_route_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 15
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: local-test-only
+      PGDATABASE: city_route_test
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install psql
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq postgresql-client
+      - name: Seed isolated auth schema and duplicate nickname
+        run: psql -X -v ON_ERROR_STOP=1 -f supabase/tests/015_fixture.sql
+      - name: Apply migration 015
+        run: psql -X -v ON_ERROR_STOP=1 -f supabase/migrations/015_friends_unique_nicknames.sql
+      - name: Verify uniqueness, RLS, friends and auth trigger
+        run: psql -X -v ON_ERROR_STOP=1 -f supabase/tests/015_friends.integration.sql
+      - name: Verify safe rerun
+        run: psql -X -v ON_ERROR_STOP=1 -f supabase/migrations/015_friends_unique_nicknames.sql

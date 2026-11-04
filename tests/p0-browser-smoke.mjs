@@ -81,12 +81,17 @@ try{
   {label:'Trasy',href:'#routes/community'},
   {label:'Grupy',href:'#routes/community/groups'},
   {label:'Czaty',href:'#routes/community/chats'},
+  {label:'Znajomi',href:'#routes/community/friends'},
   {label:'Zapisane',href:'#social-saved'}
  ]);
  assert.ok(await page.locator('[data-community-tabs]').isVisible(),'inner community tabs must not be hidden by feed focus');
  await page.locator('[data-community-tabs] a[href="#routes/community/groups"]').click();
  await page.locator('.community-page h1').getByText('Grupy odkrywców').waitFor({timeout:10000});
  assert.equal(await page.locator('[data-community-tabs] a[href="#routes/community/groups"]').getAttribute('aria-current'),'page');
+ await page.locator('[data-community-tabs] a[href="#routes/community/friends"]').click();
+ await page.locator('[data-friends-page]').waitFor({timeout:10000});
+ assert.ok(await page.getByText('Znajomi po zalogowaniu').isVisible(),'guest friends gate must not expose private contacts');
+ assert.equal(await page.locator('[data-community-tabs] a[href="#routes/community/friends"]').getAttribute('aria-current'),'page');
  await page.locator('[data-community-tabs] a[href="#routes/community/chats"]').click();
  await page.locator('.community-page h1').getByText('Czaty').waitFor({timeout:10000});
  assert.ok(await page.locator('.community-page').getByText('Zaloguj się, aby zobaczyć czaty').isVisible(),'guest chat view has a real authentication gate');
@@ -225,8 +230,8 @@ try{
  // Simulate an old-installed PWA (v33) upgrading to the new release (v35) on the same origin.
  // No production server mutation: only the temporary dist/ built by this GitHub job is changed.
  const swPath='dist/service-worker.js',latestSW=await readFile(swPath,'utf8');
- assert.match(latestSW,/city-route-v39/);
- await writeFile(swPath,latestSW.replace("city-route-v39","city-route-v33"));
+ assert.match(latestSW,/city-route-v41/);
+ await writeFile(swPath,latestSW.replace("city-route-v41","city-route-v33"));
  try{
   const upgradeCtx=await browser.newContext({viewport:{width:375,height:812},isMobile:true,hasTouch:true});
   await upgradeCtx.route(/supabase\.co/,route=>route.abort());
@@ -237,11 +242,11 @@ try{
   await upgradePage.waitForFunction(()=>!!navigator.serviceWorker?.controller,undefined,{timeout:15000});
   await writeFile(swPath,latestSW);
   await upgradePage.evaluate(()=>navigator.serviceWorker.getRegistration().then(reg=>reg.update())).catch(()=>{});
-  await upgradePage.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('city-route-v39')&&!keys.includes('city-route-v33');},undefined,{timeout:30000});
+  await upgradePage.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('city-route-v41')&&!keys.includes('city-route-v33');},undefined,{timeout:30000});
   await upgradePage.goto(BASE+'/#add-place',{waitUntil:'domcontentloaded'});
   await upgradePage.locator('#pc-q').waitFor({timeout:15000});
-  await upgradePage.screenshot({path:'p0-smoke-artifacts/pwa-upgraded-v33-to-v35.png',fullPage:true});
-  console.log('PASS: installed PWA cache upgrade v33 → v35, app and composer boot after upgrade.');
+  await upgradePage.screenshot({path:'p0-smoke-artifacts/pwa-upgraded-v33-to-v41.png',fullPage:true});
+  console.log('PASS: installed PWA cache upgrade v33 → v41, app and composer boot after upgrade.');
   await upgradeCtx.close();
  }finally{await writeFile(swPath,latestSW);}
  console.log('PASS: mobile 375px, 5 tabs, 10-stop optimization, B→B1 insertion, local custom place, optional rating, repeat add, PWA offline reload.');

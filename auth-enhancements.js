@@ -28,7 +28,13 @@ function profilePayload(user){
 async function pushProfile(){
   if(!session?.user||hydrating)return;
   const {error}=await supabase.from('profiles').upsert(profilePayload(session.user),{onConflict:'id'});
-  if(error)console.warn('City Route profile sync:',error.message);
+  if(error?.code==='23505'||/profiles_nickname_ci_unique|nickname-taken/i.test(error?.message||'')){
+    const {data}=await supabase.from('profiles').select('nickname').eq('id',session.user.id).maybeSingle();
+    const local=readLocal();
+    if(local?.tester&&data?.nickname){local.tester.nickname=data.nickname;localStorage.setItem(STORAGE_KEY,JSON.stringify(local));}
+    setNotice('Ten nick jest zajęty. Wybierz inną nazwę.');
+    if(location.hash==='#profile')window.dispatchEvent(new Event('hashchange'));
+  }else if(error)console.warn('City Route profile sync:',error.message);
 }
 
 function scheduleProfileSync(delay=120){
@@ -93,7 +99,7 @@ function signedOutMarkup(){
   return `<section class="auth-card" data-city-auth data-auth-state="out" data-auth-user="" data-auth-notice="${esc(notice)}"><div><p class="kicker">Konto City Route</p><h2>Zapisz swój profil i korzystaj na różnych urządzeniach</h2><p class="fine">Trasy pozostają dostępne lokalnie. Konto synchronizuje na razie profil; grupy i chat dołączą na tej samej bazie.</p></div>
   ${notice?`<p class="auth-notice" role="status">${esc(notice)}</p>`:''}
   <form data-auth-form="login" class="auth-form"><h3>Zaloguj się</h3><label>E-mail<input name="email" type="email" autocomplete="email" required></label><label>Hasło<input name="password" type="password" autocomplete="current-password" minlength="6" required></label><button class="primary">Zaloguj</button></form>
-  <details class="auth-signup"><summary>Nie masz konta? Utwórz je</summary><form data-auth-form="signup" class="auth-form"><label>Nazwa<input name="nickname" maxlength="40" autocomplete="nickname" placeholder="Odkrywca"></label><label>E-mail<input name="email" type="email" autocomplete="email" required></label><label>Hasło<input name="password" type="password" autocomplete="new-password" minlength="6" required></label><button class="primary">Utwórz konto</button></form></details></section>`;
+  <details class="auth-signup"><summary>Nie masz konta? Utwórz je</summary><form data-auth-form="signup" class="auth-form"><label>Nazwa<input name="nickname" minlength="2" maxlength="40" autocomplete="nickname" placeholder="Wybierz unikalny nick" required></label><label>E-mail<input name="email" type="email" autocomplete="email" required></label><label>Hasło<input name="password" type="password" autocomplete="new-password" minlength="6" required></label><button class="primary">Utwórz konto</button></form></details></section>`;
 }
 
 function signedInMarkup(){
@@ -122,9 +128,12 @@ async function handleSubmit(form){
     const {error}=await supabase.auth.signInWithPassword({email,password});
     if(error)setNotice(error.message);else setNotice('Zalogowano. Synchronizuję profil…');
   }else{
-    const nickname=String(fd.get('nickname')||'').trim()||'Odkrywca';
+    const nickname=String(fd.get('nickname')||'').trim();
+    if(nickname.length<2||nickname.length>40){setNotice('Nick musi mieć 2–40 znaków.');form.querySelector('button')?.removeAttribute('disabled');return;}
+    const {data:available,error:checkError}=await supabase.rpc('nickname_available',{p_nickname:nickname});
+    if(!checkError&&!available){setNotice('Ten nick jest zajęty. Wpisz inny.');form.querySelector('button')?.removeAttribute('disabled');return;}
     const {data,error}=await supabase.auth.signUp({email,password,options:{data:{nickname},emailRedirectTo:`${location.origin}${location.pathname}`}});
-    if(error)setNotice(error.message);
+    if(error)setNotice(error.code==='23505'||/nickname|duplicate/i.test(error.message)?'Nick zajęty. Wpisz inny.':error.message);
     else if(!data.session)setNotice('Konto utworzone. Sprawdź e-mail i potwierdź adres.');
     else setNotice('Konto utworzone. Synchronizuję profil…');
   }

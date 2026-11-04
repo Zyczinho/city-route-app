@@ -29,7 +29,7 @@ set role authenticated;
 select public.rate_visited_place('warsaw','example',5,'Też polecam');
 do $outsider$
 declare
- v public.city_route_place_scores%rowtype;
+ v record;
 begin
  if exists(select 1 from public.route_ratings) then
   raise exception 'outsider could read other user private route rating';

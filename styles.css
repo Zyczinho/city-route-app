@@ -238,3 +238,16 @@ img.avatar{object-fit:cover;display:block}.avatar.sm{width:36px;height:36px;font
 .city-route-own-rating{display:grid;gap:4px;margin-top:10px;padding:12px 13px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
 .city-route-own-rating strong{font-size:14px}.city-route-own-rating span{font-size:13px;color:var(--ink)}
 .city-route-own-rating small{font-size:12px;color:var(--muted);line-height:1.4}
+
+/* Place favorites and independently reported City Route community ratings */
+.place .side{display:flex;align-items:center;gap:5px}
+.place .side .save-place{width:36px;height:38px;min-height:38px;border-radius:12px;background:#faf5ff;color:#7e22ce;border-color:#e9d5ff}
+.place .side .save-place.on,.save-place.on{background:#f3e8ff;color:#6b21a8;border-color:#c084fc}
+.place .side .save-place .i{width:17px;height:17px}
+.place .info h3{padding-right:82px}
+.cr-score{display:inline-flex;align-items:center;width:max-content;max-width:100%;gap:4px;margin-top:2px;padding:5px 9px;border:1px solid #e9d5ff;border-radius:9px;background:#faf5ff;color:#7e22ce;font-size:12px;line-height:1.2;font-weight:700;font-variant-numeric:tabular-nums}
+.city-route-own-rating{background:#faf5ff;border-color:#e9d5ff;color:#6b21a8}
+.city-route-own-rating strong{color:#6b21a8}
+.city-route-own-rating span{color:#6b21a8}
+.sheet-actions>.save-place{color:#7e22ce;border:1px solid #e9d5ff;background:#faf5ff}
+@media(max-width:390px){.place .info h3{padding-right:74px}.place .side{gap:3px}.place .side .save-place{width:32px}}

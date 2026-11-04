@@ -64,7 +64,11 @@ function terraAllowed(env){
 }
 async function placeEnrichment(url,env){
  const name=String(url.searchParams.get('name')||'').replace(/\s+/g,' ').trim().slice(0,120);
- const lat=Number(url.searchParams.get('lat')),lng=Number(url.searchParams.get('lng')),city=cityFromParams(url.searchParams);
+ const lat=Number(url.searchParams.get('lat')),lng=Number(url.searchParams.get('lng'));
+ const params=new URLSearchParams(url.searchParams);
+ params.set('lat',url.searchParams.get('centerLat')||'');params.set('lng',url.searchParams.get('centerLng')||'');
+ params.set('name',url.searchParams.get('cityName')||'Warszawa');
+ const city=cityFromParams(params);
  if(name.length<3||!url.searchParams.has('lat')||!url.searchParams.has('lng')||![lat,lng].every(Number.isFinite)||Math.abs(lat)>90||Math.abs(lng)>180||kmBetween({lat,lng},city.center)>city.radiusKm)return json({status:'invalid',ratings:[]},422);
  const googlePlaceId=String(url.searchParams.get('googleId')||'').slice(0,300);
  try{

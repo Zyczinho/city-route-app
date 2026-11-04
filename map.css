@@ -1,5 +1,5 @@
 /* Map view (map-view.js). Uses tokens from styles.css. */
-.cr-map{position:relative;display:grid;grid-template-rows:auto 1fr;min-height:420px;height:min(70vh,640px);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--line-2)}
+.cr-map{position:relative;isolation:isolate;display:grid;grid-template-rows:auto 1fr;min-height:420px;height:min(70vh,640px);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--line-2)}
 .cr-map-toolbar{display:flex;gap:8px;padding:8px;background:var(--surface);border-bottom:1px solid var(--line);z-index:2}
 .cr-map-toolbar button{min-height:40px;padding:8px 14px;font-size:14px}
 .cr-map-nearby[aria-pressed="true"]{background:var(--cyan-soft);border-color:var(--cyan)}

@@ -375,7 +375,7 @@ document.addEventListener('click',e=>{
  if((action==='arrival-rating'||action==='arrival-skip-rating')&&state.session&&!state.session.finished){
    const session=state.session,stop=session.stops[session.index];
    if(session.awaitingRating!==stop)return;
-   if(action==='arrival-rating'){const rating=Number(value);if(!Number.isInteger(rating)||rating<1||rating>5)return;state.placeReviews[stop]=rating;log('place_review_local',{place_id:stop,rating,session_id:session.id,verified:false});}
+   if(action==='arrival-rating'){const rating=Number(value);if(!Number.isInteger(rating)||rating<1||rating>5)return;state.placeReviews[stop]=rating;window.dispatchEvent(new CustomEvent('cityroute:place-reviewed',{detail:{placeId:stop,cityId:city().id,rating}}));log('place_review_local',{place_id:stop,rating,session_id:session.id,verified:false});}
    session.awaitingRating=null;state.session=advance(session,'done');
    log('stop_complete',{place_id:stop,session_id:session.id});
    if(state.session.finished)log('route_complete',{session_id:session.id,route_id:session.routeId,done:state.session.results.filter(r=>r.status==='done').length,skipped:state.session.results.filter(r=>r.status==='skip').length});
@@ -406,7 +406,7 @@ document.addEventListener('change',async e=>{
 });
 document.addEventListener('submit',async e=>{const f=e.target,data=new FormData(f);
  if(f.id==='profile-form'){e.preventDefault();state.tester.nickname=String(data.get('nickname')).trim()||'Explorer';state.profile.bio=String(data.get('bio')).trim().slice(0,160);const bad=[];for(const k of ['instagram','tiktok','web']){const v=String(data.get(k)).trim();state.profile.socials[k]=v&&socialUrl(k,v)?v:'';if(v&&!socialUrl(k,v))bad.push(k);}persist();editing=false;render();toast(bad.length?'Zapisano. Pominięto niepoprawny link.':'Profil zapisany.');}
- if(f.id==='place-review-form'){e.preventDefault();state.placeReviews[f.dataset.id]=Number(data.get('rating'));persist();toast('Twoja ocena jest zapisana.');openPlace(f.dataset.id);}
+ if(f.id==='place-review-form'){e.preventDefault();const score=Number(data.get('rating'));state.placeReviews[f.dataset.id]=score;persist();window.dispatchEvent(new CustomEvent('cityroute:place-reviewed',{detail:{placeId:f.dataset.id,cityId:city().id,rating:score}}));toast('Twoja ocena jest zapisana.');openPlace(f.dataset.id);}
  if(f.id==='place-form'){e.preventDefault();if(f.dataset.saving)return;keepDraft();const submitted=draft;let loc=parseLocation(draft.where)||(Number.isFinite(draft.lat)?{lat:draft.lat,lng:draft.lng}:null);
   if(!loc&&/^https:\/\//i.test(draft.where||'')){f.dataset.saving='1';f.querySelector('button.primary').disabled=true;toast('Odczytuję link Google Maps…');try{const r=await fetch('/api/location?url='+encodeURIComponent(draft.where));const v=await r.json();if(r.ok&&v.location)loc=v.location;}catch{}finally{delete f.dataset.saving;f.querySelector('button.primary').disabled=false;}if(draft!==submitted||route()[0]!=='add-place')return;}
   if(!loc)return toast(draft.where?'Nie udało się odczytać miejsca. Wklej współrzędne, np. 52.2395, 21.0458, albo użyj przycisku lokalizacji. Twój formularz został zachowany.':'Ustaw lokalizację albo wklej link z Google Maps.');

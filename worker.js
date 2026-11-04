@@ -4,6 +4,9 @@
 //   TICKETMASTER_AFFILIATE optional Impact deep-link template containing {url}
 //   GOOGLE_PLACES_API_KEY  optional Places API (New) key; enables photo and rating enrichment (paid)
 //   TRIPADVISOR_TERRA_API_KEY optional Tripadvisor Terra partner key, only official licensed metadata/photos
+//   TRIPADVISOR_CONTENT_API_KEY self-serve Content API key; prioritized over Terra
+//   GOOGLE_PLACES_BETA_ENABLED / TRIPADVISOR_CONTENT_BETA_ENABLED set "on" explicitly to allow paid API calls
+//   TRIPADVISOR_CONTENT_DAILY_CAP best-effort per-instance 50 calls; configure hard provider budgets independently
 //   PLACE_GEOCODER_URL     optional Photon-compatible geocoder base URL; defaults to https://photon.komoot.io for MVP fallback
 //   GOOGLE_PLACES_AUTOCOMPLETE  set to "on" to use Google Autocomplete for type-ahead (paid per session; off = OSM Photon only)
 //   GOOGLE_PLACES_DAILY_CAP     optional soft cap of Google calls per Worker instance per day (default 300); the hard cap belongs in Google Cloud quotas
@@ -47,9 +50,9 @@ async function placeSearch(url,env,ctx){
 // Soft, per-instance guard so a runaway client cannot burn the Google budget. Real limits live in Google Cloud quotas.
 let googleDay='',googleCalls=0;
 function googleAllowed(env){
- if(!env.GOOGLE_PLACES_API_KEY)return false;
+ if(!env.GOOGLE_PLACES_API_KEY||env.GOOGLE_PLACES_BETA_ENABLED!=='on')return false;
  const day=new Date().toISOString().slice(0,10);if(day!==googleDay){googleDay=day;googleCalls=0;}
- const cap=Number(env.GOOGLE_PLACES_DAILY_CAP)||300;if(googleCalls>=cap)return false;
+ const cap=Math.max(1,Math.min(25,Number(env.GOOGLE_PLACES_DAILY_CAP)||25));if(googleCalls>=cap)return false;
  googleCalls++;return true;
 }
 const sessionOf=url=>String(url.searchParams.get('session')||'').replace(/[^A-Za-z0-9_-]/g,'').slice(0,64);
@@ -62,6 +65,15 @@ function terraAllowed(env){
  if(taCalls>=cap)return false;
  taCalls++;return true;
 }
+
+let contentDay='',contentCalls=0;
+function contentAllowed(env){
+ if(!env.TRIPADVISOR_CONTENT_API_KEY||env.TRIPADVISOR_CONTENT_BETA_ENABLED!=='on')return false;
+ const day=new Date().toISOString().slice(0,10);if(day!==contentDay){contentDay=day;contentCalls=0;}
+ const cap=Math.max(1,Math.min(50,Number(env.TRIPADVISOR_CONTENT_DAILY_CAP)||50));
+ if(contentCalls>=cap)return false;
+ contentCalls++;return true;
+}
 async function placeEnrichment(url,env){
  const name=String(url.searchParams.get('name')||'').replace(/\s+/g,' ').trim().slice(0,120);
  const lat=Number(url.searchParams.get('lat')),lng=Number(url.searchParams.get('lng'));
@@ -72,7 +84,9 @@ async function placeEnrichment(url,env){
  if(name.length<3||!url.searchParams.has('lat')||!url.searchParams.has('lng')||![lat,lng].every(Number.isFinite)||Math.abs(lat)>90||Math.abs(lng)>180||kmBetween({lat,lng},city.center)>city.radiusKm)return json({status:'invalid',ratings:[]},422);
  const googlePlaceId=String(url.searchParams.get('googleId')||'').slice(0,300);
  try{
-  const result=await enrichPlace({name,lat,lng,googlePlaceId,city,googleKey:env.GOOGLE_PLACES_API_KEY||'',terraKey:env.TRIPADVISOR_TERRA_API_KEY||'',allowGoogle:()=>googleAllowed(env),allowTerra:()=>terraAllowed(env),
+  const result=await enrichPlace({name,lat,lng,googlePlaceId,city,googleKey:env.GOOGLE_PLACES_BETA_ENABLED==='on'?(env.GOOGLE_PLACES_API_KEY||''):'',terraKey:env.TRIPADVISOR_TERRA_API_KEY||'',
+   contentKey:env.TRIPADVISOR_CONTENT_BETA_ENABLED==='on'?(env.TRIPADVISOR_CONTENT_API_KEY||''):'',
+   allowContent:()=>contentAllowed(env),includeContentReviews:env.TRIPADVISOR_CONTENT_INCLUDE_REVIEWS==='on',allowGoogle:()=>googleAllowed(env),allowTerra:()=>terraAllowed(env),
    includeGoogleReviews:env.GOOGLE_PLACES_INCLUDE_REVIEWS==='on',
    includeTerraReviews:env.TRIPADVISOR_TERRA_INCLUDE_REVIEWS==='on'});
   return json(result,200);

@@ -38,6 +38,7 @@
 
 /* Place card: bottom sheet on phones, floating card on wider screens; both keep the OSM attribution visible */
 .cr-map-card{position:absolute;left:8px;right:8px;bottom:var(--cr-attribution,34px);z-index:1001;display:grid;gap:6px;padding:12px;background:var(--surface);border-radius:16px;box-shadow:0 -4px 18px #0e1a261c;max-height:44%;overflow:auto;animation:cr-map-up .2s ease-out}
+.cr-map-card[hidden]{display:none}
 .cr-map-card-text{font-size:14px;color:var(--ink-2)}
 .cr-map-card-actions{display:flex;flex-wrap:wrap;gap:8px}
 .cr-map-card-actions .primary{flex:1}

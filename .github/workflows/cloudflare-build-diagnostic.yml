@@ -1,0 +1,36 @@
+name: Cloudflare Worker build diagnostic
+
+on:
+  pull_request:
+    paths:
+      - 'wrangler.jsonc'
+      - 'worker.js'
+      - 'location.js'
+      - 'maps-preview.js'
+      - 'geocode.js'
+      - 'events.js'
+      - 'scripts/build.mjs'
+      - 'index.html'
+      - '.github/workflows/cloudflare-build-diagnostic.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  worker-compile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout exact PR commit
+        uses: actions/checkout@v4
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build public assets
+        run: npm run build
+      - name: Compile Cloudflare Worker without deploying or using credentials
+        run: npx --yes wrangler@4 deploy --dry-run --outdir /tmp/city-route-worker-build
+      - name: Verify generated Worker
+        run: test -d /tmp/city-route-worker-build

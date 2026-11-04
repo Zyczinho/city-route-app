@@ -1,7 +1,9 @@
 import {supabase} from './supabase-client.js';
 import {createSocialRoutesClient} from './social-routes-client.js';
+import {createFriendsClient,normalizeFriendsError} from './friends-client.js';
 
 const api=createSocialRoutesClient({client:supabase});
+const friendApi=createFriendsClient(supabase);
 const STORAGE_KEY='city-route-v1';
 const EDIT_KEY='city-route-social-editing';
 let session=null,feed=[],marks=new Map(),sort='popular',rendering=false,queued=false,placeIndex=new Map(),completedDraft=null;
@@ -123,10 +125,49 @@ async function renderCommunityRoute(id){
  try{
   const route=await api.loadCommunityRoute(id);if(!route){root.innerHTML=`<div class="empty" data-social-route-root="${esc(id)}"><p>Nie znaleziono tej trasy.</p><a class="button" href="#routes">Wróć do tras</a></div>`;return;}
   await loadPlaces(route.cityId);const cover=routeCover(route,reserved);const mark=session?(await api.loadRouteMarks([route.uuid])).get(route.uuid):null;const own=session?.user?.id===route.author.id;const authorFeedback=own?await api.loadAuthorFeedback(route.uuid).catch(()=>[]):[];
-  root.innerHTML=`<section class="social-detail" data-social-route-root="${esc(id)}"><a class="back" href="#routes">← Trasy</a><div class="social-detail-cover">${photo(cover,route.name)}</div><p class="kicker">Trasa społeczności</p><h1>${esc(route.name)}</h1><p class="lead">${esc(route.description||'Trasa użytkownika City Route.')}</p><a class="social-author-link" href="#social-profile/${esc(route.author.id)}">Autor: ${esc(route.author.nickname)}</a><div class="social-stats large"><span>${route.stopCount} przystanków</span><span>${esc(route.transport)}</span><span>${stars(route.stats.ratingAvg)} · ${route.stats.ratings} ocen</span><span>♡ ${route.stats.saves}</span><span>⑂ ${route.stats.forks}</span></div>${route.forkedFrom?`<p class="fine">Na bazie: ${esc(route.forkedFrom.name||'innej trasy')}</p>`:''}<div class="detail-actions social-detail-actions"><button class="primary big" data-social-action="fork" data-route="${esc(route.uuid)}">Użyj jako bazę</button><button data-social-action="save" data-route="${esc(route.uuid)}" aria-pressed="${!!mark?.saved}">${mark?.saved?'Zapisano':'Zapisz trasę'}</button>${own?`<button data-social-action="edit" data-route="${esc(route.uuid)}">Edytuj</button><button data-social-action="archive" data-route="${esc(route.uuid)}">Archiwizuj</button><button class="danger" data-social-action="delete" data-route="${esc(route.uuid)}">Usuń</button>`:''}</div>${!own?`<section class="social-rating"><h2>Oceń trasę</h2><div role="group" aria-label="Ocena 1 do 5">${[1,2,3,4,5].map(n=>`<button data-social-action="rate" data-route="${esc(route.uuid)}" data-rating="${n}" aria-pressed="${mark?.rating===n}">${n}★</button>`).join('')}</div><p class="fine">Ocena jest dobrowolna. Jeśli chcesz zostawić wskazówkę autorowi, najpierw wybierz gwiazdki.</p></section><form class="social-feedback-form" data-social-feedback data-route="${esc(route.uuid)}"><label>Feedback dla autora <span>(opcjonalnie, niepubliczny)</span><textarea name="feedback" rows="3" maxlength="500" placeholder="Co Ci się podobało, co poprawić?"></textarea></label><button type="submit" class="primary" ${mark?.rating?'':'disabled'}>Wyślij wskazówkę</button><p class="social-feedback-status" role="status"></p></form>`:`<section class="social-author-feedback"><h2>Feedback do Twojej trasy</h2>${authorFeedback.length?authorFeedback.map(f=>`<blockquote><span>★ ${f.rating}/5</span><p>${esc(f.feedback)}</p></blockquote>`).join(''):'<p class="fine">Nie ma jeszcze tekstowych opinii.</p>'}</section>`}<h2>Przystanki</h2><ol class="social-stops">${route.stops.map((sid,i)=>{const p=placeIndex.get(String(sid));return `<li><span>${i+1}</span><div>${photo(imageSrc(p),p?.name||sid)}</div><strong>${esc(p?.name||sid)}</strong></li>`;}).join('')}</ol></section>`;
-  log('community_route_view',{route_id:id});
+  root.innerHTML=`<section class="social-detail" data-social-route-root="${esc(id)}"><a class="back" href="#routes">← Trasy</a><div class="social-detail-cover">${photo(cover,route.name)}</div><p class="kicker">Trasa społeczności</p><h1>${esc(route.name)}</h1><p class="lead">${esc(route.description||'Trasa użytkownika City Route.')}</p><a class="social-author-link" href="#social-profile/${esc(route.author.id)}">Autor: ${esc(route.author.nickname)}</a>${own?'':authorRelationship(route.author.id)}<div class="social-stats large"><span>${route.stopCount} przystanków</span><span>${esc(route.transport)}</span><span>${stars(route.stats.ratingAvg)} · ${route.stats.ratings} ocen</span><span>♡ ${route.stats.saves}</span><span>⑂ ${route.stats.forks}</span></div>${route.forkedFrom?`<p class="fine">Na bazie: ${esc(route.forkedFrom.name||'innej trasy')}</p>`:''}<div class="detail-actions social-detail-actions"><button class="primary big" data-social-action="fork" data-route="${esc(route.uuid)}">Użyj jako bazę</button><button data-social-action="save" data-route="${esc(route.uuid)}" aria-pressed="${!!mark?.saved}">${mark?.saved?'Zapisano':'Zapisz trasę'}</button>${own?`<button data-social-action="edit" data-route="${esc(route.uuid)}">Edytuj</button><button data-social-action="archive" data-route="${esc(route.uuid)}">Archiwizuj</button><button class="danger" data-social-action="delete" data-route="${esc(route.uuid)}">Usuń</button>`:''}</div>${!own?`<section class="social-rating"><h2>Oceń trasę</h2><div role="group" aria-label="Ocena 1 do 5">${[1,2,3,4,5].map(n=>`<button data-social-action="rate" data-route="${esc(route.uuid)}" data-rating="${n}" aria-pressed="${mark?.rating===n}">${n}★</button>`).join('')}</div><p class="fine">Ocena jest dobrowolna. Jeśli chcesz zostawić wskazówkę autorowi, najpierw wybierz gwiazdki.</p></section><form class="social-feedback-form" data-social-feedback data-route="${esc(route.uuid)}"><label>Feedback dla autora <span>(opcjonalnie, niepubliczny)</span><textarea name="feedback" rows="3" maxlength="500" placeholder="Co Ci się podobało, co poprawić?"></textarea></label><button type="submit" class="primary" ${mark?.rating?'':'disabled'}>Wyślij wskazówkę</button><p class="social-feedback-status" role="status"></p></form>`:`<section class="social-author-feedback"><h2>Feedback do Twojej trasy</h2>${authorFeedback.length?authorFeedback.map(f=>`<blockquote><span>★ ${f.rating}/5</span><p>${esc(f.feedback)}</p></blockquote>`).join(''):'<p class="fine">Nie ma jeszcze tekstowych opinii.</p>'}</section>`}<h2>Przystanki</h2><ol class="social-stops">${route.stops.map((sid,i)=>{const p=placeIndex.get(String(sid));return `<li><span>${i+1}</span><div>${photo(imageSrc(p),p?.name||sid)}</div><strong>${esc(p?.name||sid)}</strong></li>`;}).join('')}</ol></section>`;
+  void syncAuthorRelationship(route.author.id);
+   log('community_route_view',{route_id:id});
  }catch(error){root.innerHTML=`<div class="empty" data-social-route-root="${esc(id)}"><p>Nie udało się wczytać trasy.</p><a class="button" href="#routes">Wróć</a></div>`;console.warn(error);}
 }
+
+// One-way following remains distinct; a friend request needs mutual acceptance.
+function authorRelationship(userId){
+ if(!session||session.user.id===userId)return session?'':'<a class="button" href="#profile">Zaloguj się, aby dodać do znajomych</a>';
+ return '<div class="social-author-relationship" data-author-relationship="'+esc(userId)+'"><button type="button" data-author-friend="'+esc(userId)+'" data-mode="request">Dodaj do znajomych</button><span class="fine" role="status" data-author-friend-status></span></div>';
+}
+async function syncAuthorRelationship(userId){
+ if(!session||session.user.id===userId)return;
+ const areas=[...document.querySelectorAll('[data-author-relationship]')].filter(x=>x.dataset.authorRelationship===userId);
+ if(!areas.length)return;
+ try{
+  const mine=await friendApi.mine(),friend=mine.find(x=>x.user_id===userId);
+  for(const area of areas){
+   if(!area.isConnected)continue;
+   const button=area.querySelector('[data-author-friend]'),status=area.querySelector('[data-author-friend-status]');
+   if(!button)continue;button.disabled=false;
+   if(friend?.friend_status==='accepted'){button.textContent='Znajomi';button.disabled=true;button.dataset.mode='accepted';}
+   else if(friend?.friend_status==='pending'&&friend.requested_by_me){button.textContent='Zaproszenie wysłane';button.disabled=true;button.dataset.mode='pending';}
+   else if(friend?.friend_status==='pending'){button.textContent='Akceptuj zaproszenie';button.dataset.mode='accept';}
+   else{button.textContent='Dodaj do znajomych';button.dataset.mode='request';}
+   if(status)status.textContent='';
+  }
+ }catch(error){for(const area of areas){const note=area.querySelector('[data-author-friend-status]');if(note)note.textContent='Nie można sprawdzić zaproszeń ('+normalizeFriendsError(error).code+').';}}
+}
+document.addEventListener('click',async e=>{
+ const button=e.target.closest?.('[data-author-friend]');if(!button)return;
+ e.preventDefault();e.stopPropagation();if(button.disabled)return;
+ const userId=button.dataset.authorFriend,mode=button.dataset.mode;
+ if(!session){location.hash='#profile';return;}
+ if(userId===session.user.id)return;
+ button.disabled=true;const note=button.closest('[data-author-relationship]')?.querySelector('[data-author-friend-status]');
+ try{
+  if(mode==='accept')await friendApi.respond(userId,true);
+  else if(mode==='request')await friendApi.request(userId);
+  else return;
+  await syncAuthorRelationship(userId);
+ }catch(error){button.disabled=false;if(note)note.textContent='Nie udało się wysłać zaproszenia ('+normalizeFriendsError(error).code+').';}
+},true);
 
 async function renderProfile(id){
  const root=main();if(!root)return;
@@ -137,7 +178,8 @@ async function renderProfile(id){
   const [profile,routes]=await Promise.all([api.loadPublicProfile(id),api.loadAuthorRoutes({userId:id,citySlug:activeCity})]);
   if(!profile){root.innerHTML=`<div class="empty" data-social-profile-root="${esc(id)}"><p>Profil nie jest publiczny.</p><a class="button" href="#routes">Wróć</a></div>`;return;}
   await loadPlaces(activeCity);const used=new Set();
-  root.innerHTML=`<section class="social-profile" data-social-profile-root="${esc(id)}"><a class="back" href="#routes">← Trasy</a><p class="kicker">Odkrywca</p><h1>${esc(profile.nickname)}</h1><p class="lead">${esc(profile.bio||'Autor tras społeczności City Route.')}</p><div class="social-links">${Object.entries(profile.socials).filter(([,v])=>v).map(([k,v])=>`<a href="${esc(/^https?:/.test(v)?v:'https://'+v)}" target="_blank" rel="noopener noreferrer">${esc(k)}</a>`).join('')}</div><div class="section-head"><h2>Publiczne trasy w tym mieście</h2><span>${routes.length} / ${profile.routeCount}</span></div><div class="social-grid">${routes.map(r=>card(r,routeCover(r,used))).join('')||'<div class="empty"><p>Brak publicznych tras w tym mieście.</p></div>'}</div></section>`;
+  root.innerHTML=`<section class="social-profile" data-social-profile-root="${esc(id)}"><a class="back" href="#routes">← Trasy</a><p class="kicker">Odkrywca</p><h1>${esc(profile.nickname)}</h1><p class="lead">${esc(profile.bio||'Autor tras społeczności City Route.')}</p>${authorRelationship(id)}<div class="social-links">${Object.entries(profile.socials).filter(([,v])=>v).map(([k,v])=>`<a href="${esc(/^https?:/.test(v)?v:'https://'+v)}" target="_blank" rel="noopener noreferrer">${esc(k)}</a>`).join('')}</div><div class="section-head"><h2>Publiczne trasy w tym mieście</h2><span>${routes.length} / ${profile.routeCount}</span></div><div class="social-grid">${routes.map(r=>card(r,routeCover(r,used))).join('')||'<div class="empty"><p>Brak publicznych tras w tym mieście.</p></div>'}</div></section>`;
+  void syncAuthorRelationship(id);
  }catch(error){root.innerHTML=`<div class="empty" data-social-profile-root="${esc(id)}"><p>Nie udało się wczytać profilu.</p></div>`;console.warn(error);}
 }
 

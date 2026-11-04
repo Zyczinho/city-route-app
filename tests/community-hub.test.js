@@ -25,6 +25,13 @@ test('community hub ships through HTML, build and offline cache',async()=>{
  assert.match(sw,/friends\.js\?v=1/);
  assert.match(build,/'friends-client\.js'/);
  assert.match(hub,/\['#social-saved-places','Zapisane'\]/);
+ assert.match(hub,/class="community-events-entry" href="#events"/,'Events must be reachable from Community without a sixth nav tab');
+ assert.doesNotMatch(hub,/\['#events','Wydarzenia'\]/,'Events shortcut should stay outside compact five-tab nav');
+ const app=await read('app.js');
+ assert.match(app,/Spacery grupowe, spotkania i wydarzenia od społeczności/);
+ assert.match(app,/Obecnie nie można jeszcze utworzyć publicznego wydarzenia/,'unimplemented event creation must never appear live');
+ const spec=await read('COMMUNITY_EVENTS_MVP.md');
+ for(const required of ['community_event_rsvps','community_event_reactions','interested','going','recommend','live'])assert.ok(spec.includes(required),'missing planned event requirement: '+required);
  assert.doesNotMatch(hub,/\['#social-saved-places','Zapisane miejsca'\]/,'saved places must be inside one top-level Saved tab');
  assert.match(hub,/href="#social-saved-places">Miejsca/,'nested Places link remains accessible');
  assert.match(hub,/saved:'#social-saved-places','saved-places':'#social-saved-places'/,'both saved views activate the same top-level tab');

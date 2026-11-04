@@ -8,12 +8,12 @@ test('community hub ships through HTML, build and offline cache',async()=>{
  const [html,build,sw,hub,css]=await Promise.all([
   read('index.html'),read('scripts/build.mjs'),read('service-worker.js'),read('community-hub.js'),read('ux-cleanup.css')
  ]);
- assert.match(html,/community-hub\.js\?v=2/);
+ assert.match(html,/community-hub\.js\?v=3/);
  assert.match(html,/community-enhancements\.js\?v=20/);
  assert.match(html,/ux-cleanup\.js\?v=4/);
  assert.match(html,/ux-cleanup\.css\?v=2/);
  assert.match(build,/'community-hub\.js'/);
- assert.match(sw,/community-hub\.js\?v=2/);
+ assert.match(sw,/community-hub\.js\?v=3/);
  assert.match(sw,/community-enhancements\.js\?v=20/);
  assert.match(sw,/city-route-v53/);
  assert.match(css,/:not\(\[data-community-tabs\]\)/,'Community focus must keep the inner tabs visible');

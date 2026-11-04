@@ -317,6 +317,14 @@ img.avatar{object-fit:cover;display:block}.avatar.sm{width:36px;height:36px;font
 
 /* AUDIT-041: the bottom navigation may not stretch the visual viewport at 320px. */
 @media(max-width:359px){
+ /* Reduce header content intrinsically instead of clipping the overflowing avatar. */
+ .top{padding-inline:10px;gap:4px}
+ .top .brand{min-width:0;flex:0 1 auto}
+ .top .logo{width:116px;max-width:100%}
+ .top .right{flex:0 0 auto;gap:6px;min-width:0}
+ .top .city{font-size:11px;gap:3px}
+ .top .city .i{width:12px;height:12px}
+ .top .avatar.sm{width:32px;height:32px;font-size:13px}
  #navigation{grid-template-columns:repeat(5,minmax(0,1fr));box-sizing:border-box;max-width:100vw;overflow:hidden}
  #navigation a{min-width:0;font-size:10px;letter-spacing:-.015em;overflow:hidden;text-overflow:ellipsis}
  #navigation a .i{width:21px;height:21px}

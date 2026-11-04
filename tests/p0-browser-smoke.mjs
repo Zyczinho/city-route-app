@@ -61,11 +61,11 @@ try{
  assert.equal(order.length,11);
  assert.equal(order.indexOf(target),order.indexOf(anchor)+1,'nearby place must insert directly after selected stop');
  await page.screenshot({path:'p0-smoke-artifacts/my-route-after.png',fullPage:true});
- // Check all five real bottom-nav destinations in a running browser.
+ // Check all six real bottom-nav destinations; leave Places last for the following map check.
  await page.waitForFunction(()=>document.querySelectorAll('#navigation a').length===6,{timeout:10000}).catch(()=>{});
  const tabs=await page.locator('#navigation a').evaluateAll(nodes=>nodes.map(a=>a.getAttribute('href')));
  assert.equal(tabs.length,6,'bottom navigation must have six tabs including Poradnik');
- for(const tab of ['#plan','#routes','#my-route','#routes/community','#places','#about']){
+ for(const tab of ['#plan','#routes','#my-route','#routes/community','#about','#places']){
   assert.ok(tabs.includes(tab),'missing navigation tab '+tab);
   await page.locator('#navigation a[href="'+tab+'"]').click();
   assert.equal(new URL(page.url()).hash,tab,'tab click changes hash');

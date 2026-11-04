@@ -131,6 +131,42 @@ try{
  await page.locator('#navigation a[href="#my-route"]').click();
  await page.locator('.stops li[data-stop]').first().waitFor({timeout:10000});
  assert.equal(await page.locator('.stops li[data-stop]').count(),11,'generating options never overwrites the manual route basket');
+ // LIVE-ROUTE-025: rating is asked only after arrival and may be skipped, then the
+ // completed route is publishable verbatim without changing the manual builder.
+ await page.locator('#navigation a[href="#my-route"]').click();
+ await page.locator('button[data-action="start"][data-id="basket"]').click();
+ await page.locator('button[data-action="done"]').click();
+ await page.locator('.stop-rating').waitFor({timeout:10000});
+ let staged=await page.evaluate(()=>JSON.parse(localStorage.getItem('city-route-v1')).session);
+ assert.equal(staged.index,0,'arrival prompt must not silently advance the route');
+ assert.equal(staged.results.length,0,'arrival prompt must not record completion before user decides about rating');
+ const arrivedPlace=staged.stops[0];
+ await page.locator('.stop-rating button[data-action="arrival-rating"][data-value="5"]').click();
+ let rated=await page.evaluate(()=>JSON.parse(localStorage.getItem('city-route-v1')));
+ assert.equal(rated.placeReviews[arrivedPlace],5);
+ assert.equal(rated.session.index,1);
+ assert.equal(rated.session.results[0].status,'done');
+ await page.locator('button[data-action="done"]').click();
+ await page.locator('.stop-rating').waitFor({timeout:10000});
+ await page.locator('.stop-rating button[data-action="arrival-skip-rating"]').click();
+ assert.equal(await page.locator('button[data-action="done"]').count(),1,'skipping rating still completes the stop');
+ rated=await page.evaluate(()=>JSON.parse(localStorage.getItem('city-route-v1')));
+ assert.equal(rated.session.index,2);
+ assert.equal(rated.placeReviews[rated.session.stops[1]],undefined,'skipping rating does not invent a score');
+ for(let stop=2;stop<rated.session.stops.length;stop++){
+  await page.locator('button[data-action="skip"]').click();
+ }
+ await page.locator('.finished-share button[data-action="publish-finished"]').waitFor({timeout:12000});
+ const completed=await page.evaluate(()=>JSON.parse(localStorage.getItem('city-route-v1')).session);
+ assert.equal(completed.finished,true);
+ const basketBefore=await page.evaluate(()=>JSON.parse(localStorage.getItem('city-route-v1')).basket.slice());
+ await page.evaluate(()=>document.addEventListener('cityroute:publish-completed',e=>{window.__completedDraft=e.detail;},{once:true}));
+ await page.locator('.finished-share button[data-action="publish-finished"]').click();
+ const shared=await page.evaluate(()=>window.__completedDraft||null);
+ assert.deepEqual(shared.stops,completed.stops,'publish CTA passes exact finished stop order');
+ assert.deepEqual(await page.evaluate(()=>JSON.parse(localStorage.getItem('city-route-v1')).basket),basketBefore,'completed publish leaves manually edited basket intact');
+ assert.equal(new URL(page.url()).hash,'#profile','guest publish leads to login instead of bypassing auth');
+ await page.screenshot({path:'p0-smoke-artifacts/live-stop-rating-completed.png',fullPage:true});
  assert.deepEqual(errors,[],'unexpected page exception in mobile route test');
  await ctx.close();
  
@@ -189,8 +225,8 @@ try{
  // Simulate an old-installed PWA (v33) upgrading to the new release (v35) on the same origin.
  // No production server mutation: only the temporary dist/ built by this GitHub job is changed.
  const swPath='dist/service-worker.js',latestSW=await readFile(swPath,'utf8');
- assert.match(latestSW,/city-route-v38/);
- await writeFile(swPath,latestSW.replace("city-route-v38","city-route-v33"));
+ assert.match(latestSW,/city-route-v39/);
+ await writeFile(swPath,latestSW.replace("city-route-v39","city-route-v33"));
  try{
   const upgradeCtx=await browser.newContext({viewport:{width:375,height:812},isMobile:true,hasTouch:true});
   await upgradeCtx.route(/supabase\.co/,route=>route.abort());
@@ -201,7 +237,7 @@ try{
   await upgradePage.waitForFunction(()=>!!navigator.serviceWorker?.controller,undefined,{timeout:15000});
   await writeFile(swPath,latestSW);
   await upgradePage.evaluate(()=>navigator.serviceWorker.getRegistration().then(reg=>reg.update())).catch(()=>{});
-  await upgradePage.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('city-route-v38')&&!keys.includes('city-route-v33');},undefined,{timeout:30000});
+  await upgradePage.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('city-route-v39')&&!keys.includes('city-route-v33');},undefined,{timeout:30000});
   await upgradePage.goto(BASE+'/#add-place',{waitUntil:'domcontentloaded'});
   await upgradePage.locator('#pc-q').waitFor({timeout:15000});
   await upgradePage.screenshot({path:'p0-smoke-artifacts/pwa-upgraded-v33-to-v35.png',fullPage:true});

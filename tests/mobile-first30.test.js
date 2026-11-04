@@ -38,11 +38,22 @@ test('mobile CSS guards iPhone native date/time width and route nav active statu
  assert.match(css,/#navigation a\[href="#my-route"\]\.active/);
  assert.match(css,/\.ux-submit\{width:100%/);
  const sw=read('service-worker.js'),index=read('index.html'),build=read('scripts/build.mjs');
- assert.match(sw,/city-route-v52/);
+ assert.match(sw,/city-route-v53/);
  assert.match(sw,/mobile-first30\.css\?v=1/);
  assert.match(index,/mobile-first30\.css\?v=1/);
  assert.match(index,/ux-cleanup\.js\?v=4/);
  assert.match(sw,/ux-cleanup\.js\?v=4/);
  assert.ok(build.includes("'mobile-first30.css'"));
  for(const file of ['app.js','ux-cleanup.js'])execFileSync(process.execPath,['--check',file],{stdio:'pipe'});
+});
+
+test('real device fixes keep proportional time chips, city name and separate rating/actions rows',()=>{
+ const css=readFileSync(new URL('../mobile-device-polish.css',import.meta.url),'utf8');
+ const guide=readFileSync(new URL('../onboarding-guide.js',import.meta.url),'utf8');
+ assert.match(css,/\.ux-time \.choice\{display:flex!important;flex-wrap:wrap/);
+ assert.match(css,/\.ux-time \.choice label span\{width:auto;min-width:48px/);
+ assert.match(css,/\.top \.city-select select\{box-sizing:border-box;width:118px/);
+ assert.match(css,/grid-template-areas:"photo info" "actions actions"/);
+ assert.match(guide,/GROUP_ICONS/);
+ assert.doesNotMatch(guide,/[🧭🗺📍🚶👥🎟]/u);
 });

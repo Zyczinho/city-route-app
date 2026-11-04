@@ -75,7 +75,7 @@ test('UI and PWA bundle shared-place modules without exposing private proposals'
  for(const path of ['place-contributions.js','place-contributions-client.js'])assert.ok(build.includes(path));
  for(const path of ['./place-contributions.js?v=1','./place-contributions-client.js'])assert.ok(sw.includes(path));
  assert.match(index,/place-contributions\.js\?v=1/);
- assert.match(sw,/city-route-v52/);
+ assert.match(sw,/city-route-v53/);
  assert.match(app,/cityroute:place-created/);
  assert.match(app,/cityroute:submission-updated/);
  assert.match(app,/data-community-submit/);

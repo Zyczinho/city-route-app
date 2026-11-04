@@ -62,3 +62,6 @@
 .community-events-text small{color:var(--muted);font-size:11px;line-height:1.3;overflow-wrap:anywhere}
 .community-events-arrow{font-size:22px;color:var(--muted)}
 @media(max-width:359px){.community-events-entry{padding:8px;gap:8px}.community-events-text strong{font-size:13px}.community-events-text small{font-size:10px}}
+
+/* Match Community events shortcut to the shared SVG navigation icon language. */
+.community-events-icon .i{width:20px;height:20px}

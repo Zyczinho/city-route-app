@@ -45,35 +45,14 @@ function requestEntry({label,small='',kind='place',title='',categoryId='',source
 }
 
 async function injectPlacesEntryPoints(){
- const {kind,id}=route();if(kind!=='places'||id)return;
- await ensureTaxonomy();const root=main();if(!root)return;
- const add=root.querySelector('.add-place');
- if(add&&!root.querySelector('[data-request-generic]'))add.insertAdjacentHTML('afterend',`<div data-request-generic>${requestEntry({label:'Poproś o miejsce dla wszystkich',small:'Nie zapis lokalny — prośba trafia do rankingu City Route'})}<a class="request-rank-link" href="#places/requests">Zobacz, czego brakuje innym →</a></div>`);
-
- const search=root.querySelector('#search'),count=root.querySelectorAll('.place-list .place').length,q=search?.value?.trim()||'';
- if(q.length>=2&&count<=2&&!root.querySelector('[data-request-search]')){
-  const listHead=root.querySelector('.list-head');
-  listHead?.insertAdjacentHTML('beforebegin',`<div data-request-search>${requestEntry({label:`Nie ma „${q}”? Poproś o dodanie`,small:`${count} ${plural(count,'wynik','wyniki','wyników')} — sprawdzimy też podobne prośby`,title:q,className:'compact'})}</div>`);
- }
-
- const selected=root.querySelector('.chips [data-action="cat"][aria-pressed="true"]');
- const legacy=selected?.dataset.value||'all';
- if(!['all','sidequests'].includes(legacy)&&!root.querySelector('[data-request-category]')){
-  const categoryId=globalCategory(legacy),label=selected.textContent.trim();
-  const list=root.querySelector('.place-list');
-  list?.insertAdjacentHTML('afterend',`<div data-request-category>${requestEntry({label:`Za mało: ${label}? Daj znać`,small:'Dodaj głos do brakującej kategorii',kind:'category_gap',title:`Więcej: ${label}`,categoryId:categoryId||'',className:'compact'})}</div>`);
- }
+ // One clear add action in Places. Requests remain available as a secondary path
+ // inside the add-place flow, not as duplicate blocks around every listing.
  maybeOpenResolvedPlace();
 }
 
 async function injectUserPlaceRequest(){
- const dialog=document.querySelector('#place-dialog');if(!dialog?.open||dialog.querySelector('[data-request-user-place]'))return;
- const marker=dialog.querySelector('[data-action="toggle-visibility"][data-id]');if(!marker)return;
- await ensureTaxonomy();const p=readState().userPlaces?.find(x=>String(x.id)===String(marker.dataset.id));if(!p)return;
- const categoryId=globalCategory(p.cats?.[0])||p.categoryId||'';
- const sourceUrl=Number.isFinite(Number(p.lat))&&Number.isFinite(Number(p.lng))?`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${p.lat},${p.lng}`)}`:'';
- const actions=dialog.querySelector('.sheet-actions');if(!actions)return;
- actions.insertAdjacentHTML('afterbegin',`<div data-request-user-place class="request-user-place">${requestEntry({label:'Poproś o dodanie dla wszystkich',small:'Wyślij to miejsce do wspólnego katalogu',title:p.name||'',categoryId,sourceUrl,className:'wide'})}</div>`);
+ // User places have a distinct, moderated community-submission action.
+ // Do not inject a competing request-to-editor CTA into the same sheet.
 }
 
 function injectProfileEntry(){

@@ -72,5 +72,5 @@ test('compact place cards keep explicit Google/Tripadvisor source values on phon
  const css=await readFile(new URL('../styles.css',import.meta.url),'utf8');
  assert.match(css,/\.place \.srcs\{display:flex;flex-wrap:nowrap/);
  assert.match(css,/\.place \.cr-score\.has-score\{display:inline-flex/);
- assert.match(css,/#navigation\{grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);
+ const guide=await load('onboarding-guide.css');assert.match(guide,/#navigation\{grid-template-columns:repeat\(6,minmax\(0,1fr\)\)/);
 });

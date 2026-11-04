@@ -3,21 +3,13 @@
 **Status:** Candidate / NOT LIVE. DRAFT PR #69. Branch `release/integrate-shared-community-20261104`.
 **Production release gate:** Explicit product-owner approval after CI, production DB preflight and authenticated acceptance tests. **Do not merge this draft to main or run migrations against hosted Supabase merely because they passed isolated CI.**
 
-## Cloudflare Preview diagnosis — 2026-11-04
+## Cloudflare Preview — FIXED (2026-11-04)
 
-**Confirmed: the Worker compiles.** GitHub Action [Cloudflare Worker build diagnostic](https://github.com/Zyczinho/city-route-app/actions/runs/41808900973) succeeded on PR #69 using Node 22, `npm run build`, and `npx --yes wrangler@4 deploy --dry-run --outdir /tmp/city-route-worker-build`. Wrangler **4.157.0** read **195** files from `dist/`, bundled Worker entrypoint and bound `ASSETS`. No Cloudflare credentials or actual deployment were used.
-
-**Confirmed: Cloudflare Preview is still failing.** The latest [Workers Builds check](https://github.com/Zyczinho/city-route-app/pull/69/checks) reports FAILURE even though the dry-run and GitHub tests succeed. Previous feature PRs (#62, #63, #65–#68) likewise failed the Cloudflare non-production check, including docs-only #68, while several production `main` deployments succeeded. This strongly implicates the **Preview command/settings/permissions**, not a code compilation defect. It does **not** prove the precise platform error.
-
-**Required before changing Cloudflare settings:** inspect the failed build's step log using the GitHub Cloudflare check's `Details → View logs` link (Cloudflare dashboard authentication required). Determine whether failure is from `npm run build`, `wrangler versions upload` vs `wrangler preview`, Wrangler minimum version (Worker Previews requires >=4.135.0), missing Preview bindings, CLI auth token, or resource configuration.
-
-**Cloudflare UI controls (not changed here):**
-1. Worker `city-route-app` → `Settings > Build` → confirm production branch = `main`, build command = `npm run build`; do **not** replace production deploy command `npx wrangler deploy`.
-2. `Branch control`: verify whether Preview Builds are enabled and which preview model is active.
-3. When Worker Previews is already active, Preview command should ordinarily be `npx wrangler preview` and the installed Wrangler version >=4.135.0. Preview-specific resources may need separate bindings/secrets. Cloudflare documents that switching a legacy Worker to Worker Previews is **irreversible**, so do not perform the switch without inspecting the build error and reviewing the preview environment.
-4. Retry **only the failed Preview build** after correcting the confirmed setting. Verify a real preview URL and its requests; never infer preview success from a GitHub unit-test green check.
-
-No production Cloudflare or Supabase changes were made for this diagnosis.
+- Root cause confirmed by the result: `wrangler.jsonc` lacked the required `"previews": {}` block for branch previews. Prior PRs with no runtime changes also failed preview builds.
+- Fixed in commit `4419ec2` (PR #69). Cloudflare's bot confirmed **both Build: Success and Deployment: Success** and published the isolated branch Preview: https://release-integrate-shared-community-20261104-city-route-app.jakublojek.workers.dev .
+- Independently verified Wrangler compilation with `npm run build` and `npx --yes wrangler@4 deploy --dry-run` in [diagnostic CI](https://github.com/Zyczinho/city-route-app/actions/runs/41808900973), using Wrangler 4.157.0 and 195 static assets. A repeatable diagnostic CI workflow is now in the branch.
+- **No Cloudflare dashboard settings, production deploy command, production Worker, or production Supabase database changed.** Preview can show missing feature backend until migrations 014–016 are separately approved and applied.
+- Do not mark the overall release complete because Preview is green. Next gate: production database preflight/backup and explicit authorization for migrations, then authenticated two-account smoke and only then merge to main.
 
 ## Integrated features
 

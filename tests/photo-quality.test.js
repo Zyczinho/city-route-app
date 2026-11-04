@@ -1,3 +1,4 @@
+import {readFile} from 'node:fs/promises';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {photoQuality,choosePlacePhoto,bestGooglePhoto,parsePhotoSourceUrl,photoSourceKind} from '../photo-quality.js';
@@ -22,4 +23,11 @@ test('source URLs exclude embedded credentials, private hosts and non HTTPS sche
  assert.equal(photoSourceKind('https://www.instagram.com/p/abc'),'instagram');
  assert.equal(photoSourceKind('https://facebook.com/some-page'),'facebook');
  assert.equal(photoSourceKind('https://example.org'),'website');
+});
+
+test('new browser module is bundled and precached in the production PWA',async()=>{
+ const build=await readFile(new URL('../scripts/build.mjs',import.meta.url),'utf8');
+ const sw=await readFile(new URL('../service-worker.js',import.meta.url),'utf8');
+ assert.match(build,/'photo-quality\.js'/);
+ assert.match(sw,/'\.\/photo-quality\.js'/);
 });

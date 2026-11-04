@@ -45,11 +45,22 @@ function closeList(form){
  const {list,q}=ui(form);if(!list)return;list.hidden=true;list.replaceChildren();q?.setAttribute('aria-expanded','false');q?.removeAttribute('aria-activedescendant');activeIndex=-1;options=[];
 }
 
+// Show only real, attributed images already held by City Route or returned from an
+// authorized provider. Never guess a photo from a place name.
+function optionPhoto(o){
+ const photo=o.kind==='known'?o.place?.image:null;
+ let src='';
+ if(typeof photo==='string'&&/^(https:\/\/|data:image\/(?:jpeg|png|webp);base64,)/i.test(photo))src=photo;
+ else if(typeof photo==='string'&&/^[a-z0-9_./-]+\.(?:jpg|jpeg|png|webp)$/i.test(photo))src='./assets/images/'+photo.replace(/^assets\/images\//,'');
+ else if(o.kind==='provider'&&o.suggestion?.provider==='google'&&o.suggestion?.photo?.available&&/^[A-Za-z0-9_-]{10,300}$/.test(o.suggestion.placeId||''))src='/api/place-photo?id='+encodeURIComponent(o.suggestion.placeId);
+ return src?`<img src="${esc(src)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">`:'<span class="pc-opt-no-photo" aria-hidden="true">◫</span>';
+}
+
 function renderList(form,items){
  const {list,q}=ui(form);if(!list)return;
  options=items;activeIndex=-1;
  list.innerHTML=items.map((o,i)=>`<li id="pc-opt-${i}" role="option" aria-selected="false" data-pc-index="${i}" class="pc-opt pc-${o.kind}">
-  <span class="pc-opt-main"><strong>${esc(o.title)}</strong>${o.sub?`<small>${esc(o.sub)}</small>`:''}</span><span class="pc-src">${esc(o.badge||'')}</span></li>`).join('');
+  <span class="pc-opt-thumb">${optionPhoto(o)}</span><span class="pc-opt-main"><strong>${esc(o.title)}</strong>${o.sub?`<small>${esc(o.sub)}</small>`:''}</span><span class="pc-src">${esc(o.badge||'')}</span></li>`).join('');
  list.hidden=!items.length;q.setAttribute('aria-expanded',String(!!items.length));
 }
 
@@ -81,6 +92,8 @@ async function suggest(form,query){
 }
 
 function setCategory(form,cat){
+ const select=$('select[name="cat"]',form);
+ if(select&&[...select.options].some(option=>option.value===cat)){select.value=cat;select.dispatchEvent(new Event('change',{bubbles:true}));return;}
  const radio=$(`input[name="cat"][value="${cat}"]`,form);if(radio&&!radio.checked){radio.checked=true;radio.dispatchEvent(new Event('change',{bubbles:true}));}
 }
 
@@ -141,7 +154,7 @@ function renderPreview(form,sel){
 
 function knownCard(form,place){
  const {preview}=ui(form);writeLocation(form,null);selection=null;
- preview.innerHTML=`<div class="pc-dup"><p><strong>Już mamy to miejsce: ${esc(place.name)}</strong>${place.area?` · ${esc(place.area)}`:''}</p><div class="pc-actions"><button type="button" data-action="place" data-id="${esc(place.id)}">Zobacz</button><button type="button" class="primary" data-action="add" data-id="${esc(place.id)}">Dodaj do Mojej trasy</button></div></div>`;
+ preview.innerHTML=`<div class="pc-dup"><div class="pc-known-preview">${optionPhoto({kind:'known',place})}<p><strong>Już mamy to miejsce: ${esc(place.name)}</strong>${place.area?` · ${esc(place.area)}`:''}</p><div class="pc-actions"><button type="button" data-action="place" data-id="${esc(place.id)}">Zobacz</button><button type="button" class="primary" data-action="add" data-id="${esc(place.id)}">Dodaj do Mojej trasy</button></div></div>`;
  preview.hidden=false;hideMap(form);status(form,'Nie trzeba dodawać go drugi raz.','ok');
 }
 
@@ -240,7 +253,7 @@ function decorate(){
  form.dataset.composer='1';form.classList.add('pc-form');
  form.insertAdjacentHTML('afterbegin',MARKUP);
  // Order for one-handed use: search, name, where, category, note, photo, visibility.
- const nameLabel=$('input[name="name"]',form)?.closest('label'),whereSet=$('input[name="where"]',form)?.closest('fieldset'),cat=$('input[name="cat"]',form)?.closest('fieldset');
+ const nameLabel=$('input[name="name"]',form)?.closest('label'),whereSet=$('input[name="where"]',form)?.closest('fieldset'),cat=$('select[name="cat"]',form)?.closest('label')||$('input[name="cat"]',form)?.closest('fieldset');
  const note=$('textarea[name="note"]',form)?.closest('label'),photo=$('input[name="photo"]',form)?.closest('label'),vis=$('input[name="vis"]',form)?.closest('fieldset');
  const root=$('.pc',form);let after=root;
  for(const el of [nameLabel,whereSet,cat,note,photo,vis])if(el){after.after(el);after=el;}

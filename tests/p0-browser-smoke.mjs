@@ -94,7 +94,64 @@ try{
  assert.equal(mapLayout.touchAction,'pan-y','map canvas must allow vertical page touch scrolling');
  assert.equal(mapLayout.panToggle,'false','user must explicitly enable map panning');
  assert.ok(mapLayout.overflow<=mapLayout.viewport+1,'map toolbar does not create horizontal overflow');
+ const popup=await page.locator('#places-map .cr-map-card').evaluate(card=>{
+  card.hidden=false;
+  card.innerHTML='<div class="cr-map-card-head"><h3>Przykładowe miejsce</h3></div><div class="cr-map-card-actions"><button>Do trasy</button><button>Szczegóły</button></div>';
+  const box=card.getBoundingClientRect(),map=card.closest('.cr-map').getBoundingClientRect();
+  const result={popupHeight:box.height,mapHeight:map.height,top:box.top-map.top,bottom:box.bottom-map.top};
+  card.hidden=true;return result;
+ });
+ assert.ok(popup.popupHeight<=130&&popup.bottom<popup.mapHeight-25,
+  'map place popup should remain a short card, preserving visible map and attribution: '+JSON.stringify(popup));
  await page.screenshot({path:'p0-smoke-artifacts/places-mobile-scroll.png',fullPage:true});
+
+ // PLACES-UX-038: own creations remain discoverable after unbookmarking.
+ // Use a separate mobile session so the existing route-smoke fixture stays unchanged.
+ const placesCtx=await browser.newContext({viewport:{width:375,height:812},deviceScaleFactor:1,isMobile:true,hasTouch:true});
+ await placesCtx.route(/supabase\\.co/,route=>route.abort());
+ await placesCtx.addInitScript(()=>{
+  const own={id:'u-spoco-smoke',cityId:'warsaw',name:"S'poco Loco",kind:'user',categoryId:'restaurant',
+   cats:['jedzenie'],area:'Twoje miejsce',description:'Dodane przez testera',
+   lat:52.2301,lng:21.0131,minutes:45,cost:0,ratings:[],createdAt:'2026-11-04T12:00:00.000Z',
+   visibility:'private'};
+  localStorage.setItem('city-route-v1',JSON.stringify({version:1,tester:{id:'places-ux-smoke',nickname:'Test'},
+   basket:[],basketsByCity:{warsaw:[]},events:[],session:null,cityId:'warsaw',
+   userPlaces:[own],savedPlacesByCity:{warsaw:['u-spoco-smoke']},placeReviews:{},myRoutes:[]}));
+ });
+ const placesPage=await placesCtx.newPage();
+ await placesPage.goto(BASE+'/#places',{waitUntil:'domcontentloaded'});
+ await placesPage.locator('article.place[data-place-id="u-spoco-smoke"]').waitFor({timeout:15000});
+ const createdFirst=await placesPage.locator('.place-list article.place').first().getAttribute('data-place-id');
+ assert.equal(createdFirst,'u-spoco-smoke','new place is near the top, not buried at the end');
+ assert.equal(await placesPage.locator('[data-request-generic], [data-request-search], [data-request-category]').count(),0,
+  'Places should not duplicate the primary add CTA with requests everywhere');
+ await placesPage.locator('article.place[data-place-id="u-spoco-smoke"] [data-action="bookmark"]').click();
+ const removed=await placesPage.evaluate(()=>JSON.parse(localStorage.getItem('city-route-v1')).savedPlacesByCity.warsaw);
+ assert.ok(!removed.includes('u-spoco-smoke'),'unbookmark removes only the bookmark, never the created place');
+ await placesPage.locator('#me').click();
+ await placesPage.locator('[data-action="show-my-places"]').waitFor();
+ await placesPage.locator('[data-action="show-my-places"]').click();
+ assert.equal(await placesPage.locator('[data-action="cat"][data-value="mine"]').getAttribute('aria-pressed'),'true');
+ await placesPage.locator('article.place[data-place-id="u-spoco-smoke"]').waitFor();
+ await placesPage.locator('article.place[data-place-id="u-spoco-smoke"] [data-action="bookmark"]').click();
+ await placesPage.locator('#navigation a[href="#routes/community"]').click();
+ await placesPage.locator('[data-community-tabs] a[href="#social-saved-places"]').click();
+ await placesPage.locator('h1').getByText('Zapisane miejsca').waitFor();
+ await placesPage.locator('article.place[data-place-id="u-spoco-smoke"]').waitFor();
+ await placesPage.locator('#navigation a[href="#places"]').click();
+ await placesPage.locator('#search').fill('poco');
+ await placesPage.locator('.place-suggest button[data-id="u-spoco-smoke"]').waitFor();
+ await placesPage.locator('.place-suggest button[data-id="u-spoco-smoke"]').click();
+ assert.equal(await placesPage.locator('#place-dialog').getAttribute('open'),'');
+ await placesPage.locator('#place-dialog .close').click();
+ await placesPage.locator('.add-place').click();
+ await placesPage.locator('#place-form select[name="cat"]').waitFor();
+ assert.equal(await placesPage.locator('#place-form select[name="cat"] option[value="club"]').count(),1,
+  'nightclub must be a selectable real category');
+ assert.ok(await placesPage.locator('a[data-request-entry][href="#places/request"]').count()>=1,
+  'editorial request is reachable as an alternative in the add-place flow');
+ await placesPage.screenshot({path:'p0-smoke-artifacts/add-place-mobile-clean.png',fullPage:true});
+ await placesCtx.close();
 
  // COMMUNITY-HUB-023: four accessible community subviews are reachable without altering bottom tabs.
  await page.locator('#navigation a[href="#routes/community"]').click();
@@ -105,7 +162,8 @@ try{
   {label:'Grupy',href:'#routes/community/groups'},
   {label:'Czaty',href:'#routes/community/chats'},
   {label:'Znajomi',href:'#routes/community/friends'},
-  {label:'Zapisane',href:'#social-saved'}
+  {label:'Zapisane trasy',href:'#social-saved'},
+    {label:'Zapisane miejsca',href:'#social-saved-places'}
  ]);
  assert.ok(await page.locator('[data-community-tabs]').isVisible(),'inner community tabs must not be hidden by feed focus');
  await page.locator('[data-community-tabs] a[href="#routes/community/groups"]').click();
@@ -309,8 +367,8 @@ try{
  // Simulate an old-installed PWA (v33) upgrading to the new release (v35) on the same origin.
  // No production server mutation: only the temporary dist/ built by this GitHub job is changed.
  const swPath='dist/service-worker.js',latestSW=await readFile(swPath,'utf8');
- assert.match(latestSW,/city-route-v43/);
- await writeFile(swPath,latestSW.replace("city-route-v43","city-route-v33"));
+ assert.match(latestSW,/city-route-v44/);
+ await writeFile(swPath,latestSW.replace("city-route-v44","city-route-v33"));
  try{
   const upgradeCtx=await browser.newContext({viewport:{width:375,height:812},isMobile:true,hasTouch:true});
   await upgradeCtx.route(/supabase\.co/,route=>route.abort());
@@ -321,7 +379,7 @@ try{
   await upgradePage.waitForFunction(()=>!!navigator.serviceWorker?.controller,undefined,{timeout:15000});
   await writeFile(swPath,latestSW);
   await upgradePage.evaluate(()=>navigator.serviceWorker.getRegistration().then(reg=>reg.update())).catch(()=>{});
-  await upgradePage.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('city-route-v43')&&!keys.includes('city-route-v33');},undefined,{timeout:30000});
+  await upgradePage.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('city-route-v44')&&!keys.includes('city-route-v33');},undefined,{timeout:30000});
   await upgradePage.goto(BASE+'/#add-place',{waitUntil:'domcontentloaded'});
   await upgradePage.locator('#pc-q').waitFor({timeout:15000});
   await upgradePage.screenshot({path:'p0-smoke-artifacts/pwa-upgraded-v33-to-v41.png',fullPage:true});

@@ -265,3 +265,46 @@ img.avatar{object-fit:cover;display:block}.avatar.sm{width:36px;height:36px;font
 .provider-review-meta a{margin-left:auto;color:var(--blue);font-weight:700}
 
 .provider-review .review-avatar{width:26px;height:26px;object-fit:cover;border-radius:50%}.provider-review header a{flex:1;min-width:0;color:var(--ink);text-decoration:none}.provider-review header a:hover{text-decoration:underline}
+
+
+/* PLACES-UX-038: compact, predictable discovery on narrow phones. */
+.places-search{position:relative;z-index:4}
+.place-suggest{display:grid;gap:3px;margin:-3px 0 12px;padding:5px;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:var(--shadow)}
+.place-suggest button{display:flex;align-items:center;gap:10px;text-align:left;padding:5px 8px;min-height:48px;background:none;border:0;border-radius:10px}
+.place-suggest button:hover,.place-suggest button:focus-visible{background:var(--blue-soft)}
+.place-suggest button>span:nth-child(2){flex:1;min-width:0;display:grid}
+.place-suggest strong{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.place-suggest small{font-size:12px;color:var(--muted)}
+.place-suggest .suggest-thumb{display:block;flex:none;width:40px;height:40px;border-radius:9px;overflow:hidden;background:var(--line-2)}
+.place-suggest .suggest-thumb img,.place-suggest .suggest-thumb .ph{display:block;width:100%;height:100%;object-fit:cover}
+.add-category select{display:block;width:100%;font-size:16px;min-height:48px;padding:10px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink)}
+.add-request-alt{margin:12px 0 24px}
+.stats .stat-link{display:grid;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;color:var(--ink)}
+.stats .stat-link span{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.stats .stat-link:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.place .side{display:flex;align-items:center;gap:6px}
+.place .side .icon-btn{border-color:var(--line);border-radius:12px;background:var(--line-2)}
+.place .side .icon-btn.on{background:var(--cyan-soft);border-color:var(--cyan)}
+.place .side .icon-btn:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+@media(max-width:759px){
+ .places-intro{margin-bottom:8px}
+ .places-intro h1{font-size:25px}
+ .places-intro .lead{font-size:13px;line-height:1.4;margin-top:3px}
+ .place-list{gap:8px}
+ .place{grid-template-columns:76px minmax(0,1fr);grid-template-areas:"photo info" "photo actions";column-gap:10px;row-gap:3px;min-height:96px;padding:8px;border-radius:14px;box-shadow:none}
+ .place>.thumb{grid-area:photo;width:76px;height:76px;border-radius:10px;align-self:center}
+ .place>.info{grid-area:info;min-width:0;gap:2px}
+ .place>.info h3{font-size:14px;padding-right:0;line-height:1.24}
+ .place .sub{font-size:11px}
+ .place .score{font-size:11px}
+ .place .score strong{font-size:13px}
+ .place .srcs,.place .cr-score{display:none}
+ .place .side{position:relative;grid-area:actions;justify-self:end;align-self:end;top:auto;right:auto;z-index:2}
+ .place .side .icon-btn{width:42px;height:42px;min-height:42px;border-radius:10px}
+ .place .hit{border-radius:14px}
+ .place .must{font-size:9px}
+ .chips{margin-bottom:4px;gap:5px;padding-bottom:6px}
+ .chips .chip{font-size:12px;min-height:34px;padding:6px 10px}
+ .place-list .place .info .idea{font-size:11px}
+ .place-list .place .info .idea+.cr-score{display:none}
+}

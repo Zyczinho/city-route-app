@@ -6,11 +6,13 @@ const links=[
  ['#routes/community/groups','Grupy'],
  ['#routes/community/chats','Czaty'],
  ['#routes/community/friends','Znajomi'],
- ['#social-saved','Zapisane']
+ ['#social-saved','Zapisane trasy'],
+ ['#social-saved-places','Zapisane miejsca']
 ];
 const communityView=()=>{
  const hash=location.hash;
  if(hash==='#social-saved')return 'saved';
+ if(hash==='#social-saved-places')return 'saved-places';
  if(hash.startsWith('#profile/community'))return 'groups';
  if(hash.startsWith('#routes/community')){
   if(hash.startsWith('#routes/community/chats')||hash.startsWith('#routes/community/chat/'))return 'chats';
@@ -21,7 +23,7 @@ const communityView=()=>{
  if(hash.startsWith('#community-route/')||hash.startsWith('#social-profile/'))return 'routes';
  return null;
 };
-const hrefForView={routes:'#routes/community',groups:'#routes/community/groups',chats:'#routes/community/chats',friends:'#routes/community/friends',saved:'#social-saved'};
+const hrefForView={routes:'#routes/community',groups:'#routes/community/groups',chats:'#routes/community/chats',friends:'#routes/community/friends',saved:'#social-saved','saved-places':'#social-saved-places'};
 let queued=false;
 
 function updateNav(){
@@ -44,7 +46,7 @@ function updateNav(){
  if(view==='routes'&&feedTitle?.textContent==='Społeczność')feedTitle.textContent='Trasy odkrywców';
  // The older Saved routes screen marks the Routes tab active directly; correct it
  // after its asynchronous render so all four subviews share one main-nav parent.
- if(view==='saved'){
+ if(view==='saved'||view==='saved-places'){
   const community=document.querySelector('#navigation a[href="#routes/community"]');
   const routes=document.querySelector('#navigation a[href="#routes"]');
   routes?.classList.remove('active');routes?.removeAttribute('aria-current');

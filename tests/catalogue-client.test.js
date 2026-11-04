@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createRestRpcClient,loadCatalogueWithFallback,loadSupabaseCatalogue,placeFromCatalogue,routeFromCatalogue} from '../catalogue-client.js';
+import {createRestRpcClient,loadCatalogueWithFallback,loadSupabaseCatalogue,placeFromCatalogue,routeFromCatalogue,mergeCuratedPhotos} from '../catalogue-client.js';
 
 const city={id:'warsaw',slug:'warsaw',name:'Warszawa'};
 
@@ -51,4 +51,24 @@ test('fallback keeps production usable before migrations/cutover',async()=>{
  const data=await loadCatalogueWithFallback({client,city,fallback:{places:[{id:'json'}],routes:[{id:'json-route'}]}});
  assert.equal(data.source,'json');
  assert.equal(data.places[0].id,'json');
+});
+
+test('licensed curated images are reused only for exact place and nearby matching coordinates',()=>{
+ const source={name:'Zamek Królewski',lat:52.247,lng:21.014,image:'castle.jpg',
+  imageCredit:{via:'Wikimedia Commons',author:'Editor',license:'CC BY 4.0',source:'https://commons.wikimedia.org/wiki/File:Castle'}};
+ const venue={...source,name:'Restauracja X',image:'venue.jpg',imageCredit:{via:'oficjalna strona',author:'Venue'}};
+ const live=[
+  {id:'same',name:'Zamek Królewski',lat:52.2472,lng:21.014,image:null},
+  {id:'distant',name:'Zamek Królewski',lat:52.255,lng:21.020,image:null},
+  {id:'similar',name:'Zamek Królewski II',lat:52.247,lng:21.014,image:null},
+  {id:'venue',name:'Restauracja X',lat:52.247,lng:21.014,image:null},
+  {id:'already',name:'Zamek Królewski',lat:52.247,lng:21.014,image:'owned.jpg'}
+ ];
+ const result=mergeCuratedPhotos(live,[source,venue]);
+ assert.equal(result[0].image,'castle.jpg');
+ assert.equal(result[0].imageCredit.author,'Editor');
+ assert.equal(result[1].image,null);
+ assert.equal(result[2].image,null);
+ assert.equal(result[3].image,null,'venue-hosted image without permission is not borrowed');
+ assert.equal(result[4].image,'owned.jpg');
 });

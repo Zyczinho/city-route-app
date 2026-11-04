@@ -11,6 +11,11 @@ on:
       - 'place-composer.js'
       - 'place-composer-model.js'
       - 'route-optimizer.js'
+      - 'ux-cleanup.js'
+      - 'social-routes-enhancements.js'
+      - 'community-hub.js'
+      - 'index.html'
+      - 'service-worker.js'
       - 'tests/p0-browser-smoke.mjs'
       - '.github/workflows/p0-browser-smoke.yml'
 

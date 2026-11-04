@@ -84,14 +84,14 @@ function publishDialog(override=null){
  completedDraft=override?{...override,stops:[...override.stops]}:null;
  const draft=completedDraft||currentDraft();if(draft.stops.length<2)return alert('Dodaj co najmniej 2 przystanki.');
  if(!draft.name)return alert('Najpierw nazwij trasę.');
- let stored=null;try{stored=JSON.parse(sessionStorage.getItem(EDIT_KEY)||'null');}catch{sessionStorage.removeItem(EDIT_KEY);}
+ let stored=null;if(!completedDraft){try{stored=JSON.parse(sessionStorage.getItem(EDIT_KEY)||'null');}catch{sessionStorage.removeItem(EDIT_KEY);}}
  const dialog=document.createElement('dialog');dialog.className='social-dialog';
  dialog.innerHTML=`<form method="dialog" data-social-publish><button type="button" class="social-close" data-social-action="close-dialog" aria-label="Zamknij">×</button><p class="kicker">Społeczność</p><h2>${stored?.editingRouteId?'Zaktualizuj trasę':'Opublikuj trasę'}</h2><p class="fine">${esc(draft.name)} · ${draft.stops.length} przystanków</p><label>Opis<textarea name="description" maxlength="500" rows="4" placeholder="Co warto wiedzieć o tej trasie?">${esc(stored?.description||'')}</textarea></label><label>Tagi<input name="tags" value="${esc((stored?.tags||[]).join(', '))}" placeholder="np. lokalnie, jedzenie"></label><label>Widoczność<select name="visibility"><option value="public" ${stored?.visibility!=='unlisted'?'selected':''}>Publiczna — widoczna w Społeczności</option><option value="unlisted" ${stored?.visibility==='unlisted'?'selected':''}>Tylko link</option></select></label><button class="primary big" type="submit">${stored?.editingRouteId?'Zapisz zmiany':'Opublikuj'}</button><p class="social-form-status" role="status"></p></form>`;
  document.body.append(dialog);dialog.showModal();
 }
 async function submitPublish(form){
  const button=form.querySelector('button[type=submit]'),status=form.querySelector('.social-form-status');button.disabled=true;status.textContent='Publikuję…';
- const fd=new FormData(form),draft=completedDraft||currentDraft();let stored=null;try{stored=JSON.parse(sessionStorage.getItem(EDIT_KEY)||'null');}catch{sessionStorage.removeItem(EDIT_KEY);}
+ const fd=new FormData(form),draft=completedDraft||currentDraft();let stored=null;if(!completedDraft){try{stored=JSON.parse(sessionStorage.getItem(EDIT_KEY)||'null');}catch{sessionStorage.removeItem(EDIT_KEY);}}
  const tags=String(fd.get('tags')||'').split(',').map(x=>x.trim().toLowerCase().replace(/\s+/g,'-')).filter(Boolean);
  try{
   const id=await api.publishRoute({draft,description:String(fd.get('description')||'').trim(),tags,visibility:String(fd.get('visibility')||'public'),editingRouteId:stored?.editingRouteId||null,forkedFrom:stored?.forkedFrom||null});

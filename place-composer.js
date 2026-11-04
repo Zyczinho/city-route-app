@@ -154,7 +154,7 @@ function renderPreview(form,sel){
 
 function knownCard(form,place){
  const {preview}=ui(form);writeLocation(form,null);selection=null;
- preview.innerHTML=`<div class="pc-dup"><div class="pc-known-preview">${optionPhoto({kind:'known',place})}<p><strong>Już mamy to miejsce: ${esc(place.name)}</strong></p></div><p><strong>Już mamy to miejsce: ${esc(place.name)}</strong>${place.area?` · ${esc(place.area)}`:''}</p><div class="pc-actions"><button type="button" data-action="place" data-id="${esc(place.id)}">Zobacz</button><button type="button" class="primary" data-action="add" data-id="${esc(place.id)}">Dodaj do Mojej trasy</button></div></div>`;
+ preview.innerHTML=`<div class="pc-dup"><div class="pc-known-preview">${optionPhoto({kind:'known',place})}<p><strong>Już mamy to miejsce: ${esc(place.name)}</strong>${place.area?` · ${esc(place.area)}`:''}</p><div class="pc-actions"><button type="button" data-action="place" data-id="${esc(place.id)}">Zobacz</button><button type="button" class="primary" data-action="add" data-id="${esc(place.id)}">Dodaj do Mojej trasy</button></div></div>`;
  preview.hidden=false;hideMap(form);status(form,'Nie trzeba dodawać go drugi raz.','ok');
 }
 

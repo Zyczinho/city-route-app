@@ -64,7 +64,7 @@ test('guide assets are present in build and offline cache; navbar has exactly si
   assert.ok(build.includes(name),'missing from production build: '+name);
   assert.ok(sw.includes(name),'not offline: '+name);
  }
- assert.match(index,/onboarding-guide\.css\?v=1/);
+ assert.match(index,/onboarding-guide\.css\?v=2/);
  assert.match(index,/nav-enhancements\.js\?v=4/);
  assert.match(sw,/city-route-v53/);
  assert.match(css,/#navigation\{grid-template-columns:repeat\(6,minmax\(0,1fr\)\)/);

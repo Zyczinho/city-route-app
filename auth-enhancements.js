@@ -1,4 +1,5 @@
 import { supabase,SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY } from './supabase-client.js';
+import {activateLocalScope,guestImportAvailable,importGuestActivity,friendlyNickname} from './account-scope.js';
 
 const STORAGE_KEY='city-route-v1';
 let session=null;
@@ -9,7 +10,7 @@ let hydrating=false;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const readLocal=()=>{try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');}catch{return null;}};
 const writeLocal=value=>{try{localStorage.setItem(STORAGE_KEY,JSON.stringify(value));return true;}catch{return false;}};
-const meaningful=v=>typeof v==='string'&&v.trim()&&v.trim()!=='Explorer';
+const meaningful=v=>!!friendlyNickname(v);
 
 function profilePayload(user){
   const local=readLocal();
@@ -26,7 +27,7 @@ function profilePayload(user){
 }
 
 async function pushProfile(){
-  if(!session?.user||hydrating)return;
+  if(!session?.user||hydrating||!meaningful(readLocal()?.tester?.nickname))return;
   const {error}=await supabase.from('profiles').upsert(profilePayload(session.user),{onConflict:'id'});
   if(error?.code==='23505'||/profiles_nickname_ci_unique|nickname-taken/i.test(error?.message||'')){
     const {data}=await supabase.from('profiles').select('nickname').eq('id',session.user.id).maybeSingle();
@@ -60,7 +61,7 @@ async function hydrateProfile(user){
     if(data){
       const remoteName=meaningful(data.nickname)?data.nickname:'';
       if(remoteName){if(local.tester.nickname!==remoteName){local.tester.nickname=remoteName;changed=true;}}
-      else if(firstLink&&meaningful(local.tester.nickname))needsPush=true;
+      else if(meaningful(local.tester.nickname))needsPush=true;
 
       if(data.bio){if(data.bio!==(local.profile.bio||'')){local.profile.bio=data.bio;changed=true;}}
       else if(firstLink&&local.profile.bio)needsPush=true;
@@ -106,7 +107,13 @@ function signedOutMarkup(){
 
 function signedInMarkup(){
   const email=session?.user?.email||'';
-  return `<section class="auth-card auth-card-on" data-city-auth data-auth-state="in" data-auth-user="${esc(email)}" data-auth-notice="${esc(notice)}"><div><p class="kicker">Konto City Route</p><h2>Konto aktywne</h2><p class="fine">${esc(email)} · profil synchronizowany przez Supabase.</p></div>${notice?`<p class="auth-notice" role="status">${esc(notice)}</p>`:''}<button data-auth-action="logout">Wyloguj</button></section>`;
+  const canImport=guestImportAvailable(localStorage,session?.user?.id);
+  const nickname=readLocal()?.tester?.nickname;
+  return `<section class="auth-card auth-card-on" data-city-auth data-auth-state="in" data-auth-user="${esc(email)}" data-auth-notice="${esc(notice)}" data-guest-import="${canImport}">
+   <div><p class="kicker">Konto City Route</p><h2>Konto aktywne</h2><p class="fine">${esc(email)} · profil synchronizowany przez Supabase.</p>
+   ${!meaningful(nickname)?'<p class="fine"><strong>Ustaw swoją nazwę odkrywcy</strong> w edycji profilu — techniczne ID nie będzie wyświetlane.</p>':''}
+   ${canImport?'<div class="auth-import"><p><strong>Masz aktywność sprzed logowania?</strong> Znaleźliśmy lokalną historię na tym urządzeniu. Możesz dobrowolnie przenieść ją na to konto. Nie usuwamy kopii gościa.</p><button type="button" data-auth-action="import-guest">Przenieś lokalne miejsca, trasy i oceny</button></div>':''}</div>
+   ${notice?`<p class="auth-notice" role="status">${esc(notice)}</p>`:''}<button data-auth-action="logout">Wyloguj</button></section>`;
 }
 
 function renderAuth(){
@@ -185,6 +192,15 @@ document.addEventListener('click',async e=>{
     }
     return;
   }
+  if(action==='import-guest'){
+    e.preventDefault();
+    if(!session?.user||!guestImportAvailable(localStorage,session.user.id))return;
+    if(!confirm('Przenieść lokalną aktywność gościa na to konto? Zachowamy także kopię oryginalnych danych. Nie jest to jeszcze synchronizacja między urządzeniami.'))return;
+    try{const result=importGuestActivity(localStorage,session.user.id);
+      if(result.imported)location.reload();
+    }catch(error){setNotice('Import nie powiódł się. Dane gościa pozostały zachowane.');}
+    return;
+  }
   if(action==='logout'){
     await supabase.auth.signOut();
     setNotice('Wylogowano.');
@@ -199,6 +215,17 @@ window.addEventListener('hashchange',()=>setTimeout(renderAuth));
 
 const {data:{session:initialSession}}=await supabase.auth.getSession();
 session=initialSession;
+let bootChanged=false;
+try{bootChanged=activateLocalScope(localStorage,session?.user?.id).changed;}catch(error){
+ notice='Nie można bezpiecznie przełączyć profilu na tym urządzeniu. Sprawdź dostępne miejsce w przeglądarce.';
+ console.warn('City Route account scope:',error);
+}
+if(bootChanged){
+ if(session?.user&&new URLSearchParams(location.search).get('cityroute_auth')==='google')
+  history.replaceState(null,'',location.pathname+'#profile');
+ location.reload();
+}
+if(!bootChanged){
 if(new URLSearchParams(location.search).get('cityroute_auth')==='google'){
   if(session?.user){
     // OAuth code has already been exchanged automatically by supabase-js (PKCE).
@@ -214,9 +241,13 @@ if(new URLSearchParams(location.search).get('cityroute_auth')==='google'){
 }
 renderAuth();
 if(session?.user)await hydrateProfile(session.user);
-
+}
 supabase.auth.onAuthStateChange((_event,nextSession)=>{
-  session=nextSession;
-  renderAuth();
-  if(session?.user)setTimeout(()=>hydrateProfile(session.user));
+ session=nextSession;
+ try{
+  const changed=activateLocalScope(localStorage,session?.user?.id).changed;
+  if(changed){location.reload();return;}
+ }catch(error){setNotice('Nie udało się bezpiecznie przełączyć lokalnych danych konta.');return;}
+ renderAuth();
+ if(session?.user)setTimeout(()=>hydrateProfile(session.user));
 });

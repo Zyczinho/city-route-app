@@ -7,3 +7,8 @@
 .google-auth-button:focus-visible{outline:3px solid #a5d8ff;outline-offset:2px}.google-auth-button:hover{background:#f7fbff}.google-auth-button:disabled{opacity:.65;cursor:wait}
 .google-auth-mark{display:grid;place-items:center;font-size:20px;font-weight:900;font-family:Arial,sans-serif;color:#4285f4}
 .auth-divider{display:flex;align-items:center;gap:10px;color:#64748b;font-size:12px;justify-content:center}.auth-divider:before,.auth-divider:after{content:'';height:1px;background:#dbe2ec;flex:1}
+
+/* Account isolation: guest import is opt-in; no silent transfer of local stats. */
+.auth-import{margin-top:12px;border:1px solid #bfdfff;border-radius:14px;padding:12px;background:#f1f8ff;display:grid;gap:10px}
+.auth-import p{font-size:13px;line-height:1.5;color:#19436a;margin:0}
+.auth-import button{min-height:44px;border-radius:10px;background:#0878c5;border:1px solid #0878c5;color:white;font-weight:800}

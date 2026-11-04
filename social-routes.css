@@ -21,3 +21,15 @@
 .social-author-feedback blockquote{margin:0;padding:11px 13px;border-left:3px solid var(--blue);background:var(--blue-soft);border-radius:10px}
 .social-author-feedback blockquote span{font-size:12px;font-weight:700}
 .social-author-feedback blockquote p{font-size:14px;line-height:1.45;overflow-wrap:anywhere;margin:3px 0 0}
+
+/* 047: signed-in saved community routes are unmistakably blue (feed + detail). */
+.social-route-card [data-social-action="save"][aria-pressed="true"],
+.social-detail [data-social-action="save"][aria-pressed="true"]{
+ background:#0877c5!important;border:1px solid #0877c5!important;color:#fff!important;
+ box-shadow:0 0 0 2px #b8e0ff,0 4px 14px #0877c53d;
+ font-weight:800;
+}
+.social-route-card [data-social-action="save"][aria-pressed="true"]:hover,
+.social-detail [data-social-action="save"][aria-pressed="true"]:hover{background:#075fa2!important}
+[data-social-action="save"]:focus-visible{outline:3px solid #8ccaff;outline-offset:2px}
+[data-social-action="save"]:disabled{opacity:.65;cursor:wait}

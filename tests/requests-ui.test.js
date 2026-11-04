@@ -16,7 +16,9 @@ test('requests runtime module parses and is wired into the app shell',async()=>{
 
 test('request UI covers entry points, duplicate +1, ranking and own lifecycle without a new nav tab',async()=>{
  const [ui,app]=await Promise.all([read('requests-enhancements.js'),read('app.js')]);
- for(const contract of ['data-request-search','data-request-category','data-request-user-place','data-request-profile-entry'])assert.ok(ui.includes(contract),`missing entry point ${contract}`);
+ assert.ok(ui.includes('data-request-profile-entry'),'profile request history remains available');
+ for(const old of ['data-request-search','data-request-category','data-request-user-place','data-request-generic'])assert.ok(!ui.includes(old),`confusing duplicate entry point remains: ${old}`);
+ assert.ok(app.includes('data-request-entry'),'an optional editorial request remains in the add-place form');
  assert.match(ui,/findSimilarRequests/);assert.match(ui,/supportRequest/);assert.match(ui,/unsupportRequest/);
  assert.match(ui,/loadRequests/);assert.match(ui,/loadMyRequests/);
  assert.ok(ui.includes("id==='request'"));assert.ok(ui.includes("id==='requests'"));

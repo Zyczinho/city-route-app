@@ -49,6 +49,19 @@ begin
    raise exception 'public proposals were incorrectly limited'; end if;
 end $;
 \echo 'PASS: contributor may submit more than ten different places without quotas'
+-- The previously deployed "Poproś o miejsce" RPC also loses its old 20/day quota in 014.
+do $
+declare i integer;
+begin
+ for i in 1..21 loop
+   perform public.create_catalogue_request('warsaw','place',format('Missing item %s',i));
+ end loop;
+ if (select count(*) from public.catalogue_requests where created_by=auth.uid())<>21 then
+   raise exception 'public request proposals were incorrectly capped at 20/day'; end if;
+end $;
+\echo 'PASS: legacy catalogue requests also have no daily quota'
+
+
 
 \echo 'PASS: owner proposal pending, duplicate and coordinate validation'
 

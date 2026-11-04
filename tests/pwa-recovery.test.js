@@ -11,7 +11,7 @@ test('PWA cache and entrypoint versions change with navigation hotfix',async()=>
  ]);
  assert.match(html,/sw-update\.js\?v=1/);
  assert.match(html,/nav-enhancements\.js\?v=3/);
- assert.match(worker,/city-route-v44/);
+ assert.match(worker,/city-route-v45/);
  assert.match(worker,/nav-enhancements\.js\?v=3/);
  assert.match(worker,/sw-update\.js\?v=1/);
  assert.match(build,/'sw-update\.js'/);

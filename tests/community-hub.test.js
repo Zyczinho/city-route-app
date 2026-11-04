@@ -15,7 +15,7 @@ test('community hub ships through HTML, build and offline cache',async()=>{
  assert.match(build,/'community-hub\.js'/);
  assert.match(sw,/community-hub\.js\?v=2/);
  assert.match(sw,/community-enhancements\.js\?v=20/);
- assert.match(sw,/city-route-v44/);
+ assert.match(sw,/city-route-v45/);
  assert.match(css,/:not\(\[data-community-tabs\]\)/,'Community focus must keep the inner tabs visible');
  assert.match(hub,/\['#routes\/community','Trasy'\]/);
  assert.match(hub,/\['#routes\/community\/groups','Grupy'\]/);
@@ -24,8 +24,13 @@ test('community hub ships through HTML, build and offline cache',async()=>{
  assert.match(html,/friends\.js\?v=1/);
  assert.match(sw,/friends\.js\?v=1/);
  assert.match(build,/'friends-client\.js'/);
- assert.match(hub,/\['#social-saved','Zapisane trasy'\]/);
- assert.match(hub,/\['#social-saved-places','Zapisane miejsca'\]/);
+ assert.match(hub,/\['#social-saved-places','Zapisane'\]/);
+ assert.doesNotMatch(hub,/\['#social-saved-places','Zapisane miejsca'\]/,'saved places must be inside one top-level Saved tab');
+ assert.match(hub,/href="#social-saved-places">Miejsca/,'nested Places link remains accessible');
+ assert.match(hub,/saved:'#social-saved-places','saved-places':'#social-saved-places'/,'both saved views activate the same top-level tab');
+ const communityCss=await read('community.css');
+ assert.match(communityCss,/grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);
+ assert.match(communityCss,/\.community-saved-switch\{display:grid/);
 });
 
 test('groups and chat share the existing member-authorized Supabase flow',async()=>{

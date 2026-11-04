@@ -135,8 +135,15 @@ try{
  await placesPage.locator('article.place[data-place-id="u-spoco-smoke"]').waitFor();
  await placesPage.locator('article.place[data-place-id="u-spoco-smoke"] [data-action="bookmark"]').click();
  await placesPage.locator('#navigation a[href="#routes/community"]').click();
- await placesPage.locator('[data-community-tabs] a[href="#social-saved-places"]').click();
+ await placesPage.locator('[data-community-tabs] .community-hub-links a[href="#social-saved-places"]').click();
+ await placesPage.locator('[data-community-tabs] [data-saved-switch] a[href="#social-saved-places"]').waitFor();
+ await placesPage.locator('[data-community-tabs] [data-saved-switch] a[href="#social-saved-places"]').click();
  await placesPage.locator('h1').getByText('Zapisane miejsca').waitFor();
+ assert.equal(await placesPage.locator('[data-community-tabs] .community-hub-links a[href="#social-saved-places"]').getAttribute('aria-current'),'page');
+ assert.equal(await placesPage.locator('[data-community-tabs] [data-saved-switch] a[href="#social-saved-places"]').getAttribute('aria-current'),'page');
+ // Unauthenticated users can browse locally saved places; routes require account sign-in.
+ assert.equal(await placesPage.locator('[data-community-tabs] [data-saved-switch] a[href="#social-saved"]').count(),1,
+  'Routes remains a visible second-level choice');
  await placesPage.locator('article.place[data-place-id="u-spoco-smoke"]').waitFor();
  await placesPage.locator('#navigation a[href="#places"]').click();
  await placesPage.locator('#search').fill('poco');
@@ -162,8 +169,7 @@ try{
   {label:'Grupy',href:'#routes/community/groups'},
   {label:'Czaty',href:'#routes/community/chats'},
   {label:'Znajomi',href:'#routes/community/friends'},
-  {label:'Zapisane trasy',href:'#social-saved'},
-    {label:'Zapisane miejsca',href:'#social-saved-places'}
+  {label:'Zapisane',href:'#social-saved-places'}
  ]);
  assert.ok(await page.locator('[data-community-tabs]').isVisible(),'inner community tabs must not be hidden by feed focus');
  await page.locator('[data-community-tabs] a[href="#routes/community/groups"]').click();
@@ -179,6 +185,19 @@ try{
  assert.equal(await page.locator('[data-community-tabs] a[href="#routes/community/chats"]').getAttribute('aria-current'),'page');
  const communityWidth=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,inner:innerWidth}));
  assert.ok(communityWidth.scroll<=communityWidth.inner+1,'community tabs have no 375px horizontal overflow: '+JSON.stringify(communityWidth));
+ // A 320px phone must still show all five top links without clipping or horizontal scrolling.
+ await page.setViewportSize({width:320,height:700});
+ const compactNav=await page.locator('[data-community-tabs] .community-hub-links').evaluate(nav=>{
+  const bounds=nav.getBoundingClientRect();
+  const links=[...nav.querySelectorAll('a')].map(a=>({label:a.textContent.trim(),left:a.getBoundingClientRect().left,right:a.getBoundingClientRect().right}));
+  return {viewport:innerWidth,scrollWidth:document.documentElement.scrollWidth,navScrollWidth:nav.scrollWidth,navClientWidth:nav.clientWidth,
+    left:bounds.left,right:bounds.right,links};
+ });
+ assert.equal(compactNav.links.length,5,'Community top navigation has exactly five links at 320px');
+ assert.ok(compactNav.navScrollWidth<=compactNav.navClientWidth+1&&compactNav.scrollWidth<=compactNav.viewport+1&&compactNav.links.every(link=>link.left>=compactNav.left-1&&link.right<=compactNav.right+1),
+  'Community 320px grid must not overflow: '+JSON.stringify(compactNav));
+ await page.screenshot({path:'p0-smoke-artifacts/community-saved-nav-320.png',fullPage:true});
+ await page.setViewportSize({width:375,height:812});
  await page.screenshot({path:'p0-smoke-artifacts/community-hub-chats-guest.png',fullPage:true});
  await page.locator('[data-community-tabs] a[href="#routes/community"]').click();
  await page.locator('[data-community-tabs] a[href="#routes/community"]').waitFor({state:'visible'});
@@ -367,8 +386,8 @@ try{
  // Simulate an old-installed PWA (v33) upgrading to the new release (v35) on the same origin.
  // No production server mutation: only the temporary dist/ built by this GitHub job is changed.
  const swPath='dist/service-worker.js',latestSW=await readFile(swPath,'utf8');
- assert.match(latestSW,/city-route-v44/);
- await writeFile(swPath,latestSW.replace("city-route-v44","city-route-v33"));
+ assert.match(latestSW,/city-route-v45/);
+ await writeFile(swPath,latestSW.replace("city-route-v45","city-route-v33"));
  try{
   const upgradeCtx=await browser.newContext({viewport:{width:375,height:812},isMobile:true,hasTouch:true});
   await upgradeCtx.route(/supabase\.co/,route=>route.abort());
@@ -379,7 +398,7 @@ try{
   await upgradePage.waitForFunction(()=>!!navigator.serviceWorker?.controller,undefined,{timeout:15000});
   await writeFile(swPath,latestSW);
   await upgradePage.evaluate(()=>navigator.serviceWorker.getRegistration().then(reg=>reg.update())).catch(()=>{});
-  await upgradePage.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('city-route-v44')&&!keys.includes('city-route-v33');},undefined,{timeout:30000});
+  await upgradePage.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('city-route-v45')&&!keys.includes('city-route-v33');},undefined,{timeout:30000});
   await upgradePage.goto(BASE+'/#add-place',{waitUntil:'domcontentloaded'});
   await upgradePage.locator('#pc-q').waitFor({timeout:15000});
   await upgradePage.screenshot({path:'p0-smoke-artifacts/pwa-upgraded-v33-to-v41.png',fullPage:true});

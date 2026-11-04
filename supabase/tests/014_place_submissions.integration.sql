@@ -36,7 +36,7 @@ begin
 end $$;
 -- Unlimited submissions: 12 more distinct public candidates from the same user must be allowed,
 -- while the author's first pending place remains hidden from everyone else.
-do $
+do $unlimited_places$
 declare i integer;
 begin
  for i in 1..12 loop
@@ -47,10 +47,10 @@ begin
  end loop;
  if (select count(*) from public.place_submissions where submitted_by=auth.uid() and status='pending')<>13 then
    raise exception 'public proposals were incorrectly limited'; end if;
-end $;
+end $unlimited_places$;
 \echo 'PASS: contributor may submit more than ten different places without quotas'
 -- The previously deployed "Poproś o miejsce" RPC also loses its old 20/day quota in 014.
-do $
+do $unlimited_requests$
 declare i integer;
 begin
  for i in 1..21 loop
@@ -60,7 +60,7 @@ begin
    raise exception 'public request proposals were incorrectly capped at 20/day'; end if;
  if exists(select 1 from public.places where name like 'Missing item %') then
    raise exception 'requests must never publish places without admin approval'; end if;
-end $;
+end $unlimited_requests$;
 \echo 'PASS: legacy catalogue requests also have no daily quota'
 
 

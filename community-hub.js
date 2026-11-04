@@ -5,6 +5,7 @@ const links=[
  ['#routes/community','Trasy'],
  ['#routes/community/groups','Grupy'],
  ['#routes/community/chats','Czaty'],
+ ['#routes/community/friends','Znajomi'],
  ['#social-saved','Zapisane']
 ];
 const communityView=()=>{
@@ -13,13 +14,14 @@ const communityView=()=>{
  if(hash.startsWith('#profile/community'))return 'groups';
  if(hash.startsWith('#routes/community')){
   if(hash.startsWith('#routes/community/chats')||hash.startsWith('#routes/community/chat/'))return 'chats';
+  if(hash.startsWith('#routes/community/friends'))return 'friends';
   if(hash.startsWith('#routes/community/groups')||hash.startsWith('#routes/community/group/'))return 'groups';
   return 'routes';
  }
  if(hash.startsWith('#community-route/')||hash.startsWith('#social-profile/'))return 'routes';
  return null;
 };
-const hrefForView={routes:'#routes/community',groups:'#routes/community/groups',chats:'#routes/community/chats',saved:'#social-saved'};
+const hrefForView={routes:'#routes/community',groups:'#routes/community/groups',chats:'#routes/community/chats',friends:'#routes/community/friends',saved:'#social-saved'};
 let queued=false;
 
 function updateNav(){

@@ -94,3 +94,13 @@ test('Terra review snippets respect partner API access and preserve author/sourc
  assert.equal(without.reviews.length,0);
  assert.equal(reviewCalls,1,'disabled Terra reviews must not issue separate paid requests');
 });
+
+test('enrichment prefers highest-quality Google venue image and correctly attributes that image',async()=>{
+ const photos=[
+  {name:'places/id/photos/poster',widthPx:600,heightPx:1400,authorAttributions:[{displayName:'Wrong poster author',uri:'https://maps.google.com/author1'}]},
+  {name:'places/id/photos/wide',widthPx:2100,heightPx:1400,authorAttributions:[{displayName:'Venue photographer',uri:'https://maps.google.com/author2'}]}
+ ];
+ const result=await enrichPlace({...point,googlePlaceId:google.id,googleKey:'secret',
+  fetcher:async()=>reply({...google,photos})});
+ assert.equal(result.image.credit.author,'Venue photographer');
+});

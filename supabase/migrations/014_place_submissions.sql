@@ -38,7 +38,8 @@ drop policy if exists place_submissions_owner_read on public.place_submissions;
 create policy place_submissions_owner_read on public.place_submissions
  for select to authenticated using (submitted_by=(select auth.uid()));
 
--- No direct user writes; security-definer RPCs own all validation and rate limits.
+-- No direct user writes; security-definer RPCs own validation and duplicate protection.
+-- Private local places and public proposals have no daily submission quota.
 create or replace function public.create_place_submission(
  p_city_slug text,p_name text,p_category_id text,p_lat double precision,p_lng double precision,
  p_description text default '',p_source_url text default null
@@ -71,9 +72,7 @@ begin
  v_key:=public.catalogue_request_key(v_name);
  if v_key='' then raise exception 'invalid-name' using errcode='22023'; end if;
  perform pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended(v_city.id::text||':'||v_key,0));
- if (select count(*) from public.place_submissions where submitted_by=v_user and created_at>now()-interval '24 hours')>=10 then
-   raise exception 'rate-limited' using errcode='22023';
- end if;
+ -- The approval procedure uses the same per-city/name lock to serialize duplicate checks.
  if exists(select 1 from public.places p
     where p.city_id=v_city.id and p.status='published' and p.visibility='public'
       and public.catalogue_request_key(p.name)=v_key
@@ -181,6 +180,9 @@ begin
    update public.place_submissions set status='merged',resolved_place_id=v_existing,reviewed_at=now() where id=v.id;
    return btrim(p_existing_place_id);
  end if;
+ -- Acquire the same lock as submission. Concurrent submit/approve operations must not
+ -- publish two canonical records with the same name and nearby coordinates.
+ perform pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended(v.city_id::text||':'||v.normalized_key,0));
  -- Second duplicate guard at approval time (may have been approved since this was submitted).
  if exists(select 1 from public.places p where p.city_id=v.city_id and p.status='published'
    and p.visibility='public' and public.catalogue_request_key(p.name)=v.normalized_key

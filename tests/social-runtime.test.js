@@ -35,21 +35,21 @@ test('Social Routes UI and navigation modules ship in index, build and PWA cache
  }
  assert.match(index,/social-routes\.css/);
  assert.match(index,/social-routes-enhancements\.js/);
- assert.match(index,/nav-enhancements\.js\?v=3/);
+ assert.match(index,/nav-enhancements\.js\?v=4/);
  assert.match(index,/ux-cleanup\.js\?v=3/);
  assert.match(index,/ux-cleanup\.css\?v=2/);
- assert.match(sw,/city-route-v50/);
+ assert.match(sw,/city-route-v51/);
 });
 
 test('Bottom navigation has Community and keeps My Route compact and central',async()=>{
  const [nav,ux]=await Promise.all([read('nav-enhancements.js'),read('ux-cleanup.css')]);
- assert.match(nav,/desiredNav=\['#plan','#routes','#my-route','#routes\/community','#places'\]/);
+ assert.match(nav,/desiredNav=\['#plan','#routes','#my-route','#routes\/community','#places','#about'\]/);
  assert.match(nav,/Społeczność/);
  assert.match(nav,/users\.svg/);
  assert.match(nav,/book\?\.remove\(\)/);
  assert.match(nav,/dataset\.headerBook/);
  assert.match(nav,/Zobacz trasę/);
- assert.match(ux,/#navigation\{grid-template-columns:repeat\(5,minmax\(0,1fr\)\)\}/);
+ const guideCss=await read('onboarding-guide.css'); assert.match(guideCss,/#navigation\{grid-template-columns:repeat\(6,minmax\(0,1fr\)\)/);
  assert.match(ux,/a\[href="#my-route"\][\s\S]*min-height:56px/);
 });
 

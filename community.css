@@ -11,7 +11,7 @@
 /* COMMUNITY-HUB-023: all social features under one light, four-tab header. */
 .community-hub-header{display:grid;gap:12px;max-width:960px;margin:0 0 18px}
 .community-hub-title{display:grid;gap:2px}.community-hub-title h1{font-size:27px}.community-hub-title p{font-size:13px;color:var(--muted)}
-.community-hub-links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:4px;background:var(--line-2);border:1px solid var(--line);border-radius:15px}
+.community-hub-links{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;padding:4px;background:var(--line-2);border:1px solid var(--line);border-radius:15px}
 .community-hub-links>a{display:grid;place-items:center;min-width:0;min-height:43px;padding:8px 4px;border-radius:11px;text-decoration:none;font-size:13px;font-weight:650;color:var(--ink-2);white-space:nowrap}
 .community-hub-links>a.active{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
 .community-hub-links>a:hover{color:var(--blue)}

@@ -10,9 +10,10 @@ Date: 2026-11-03. **Draft PR #60. Not yet applied to the hosted database.**
 
 ## Database design
 Migration `supabase/migrations/014_place_submissions.sql` after `013_app_admins.sql`:
+- Migration 014 also replaces the previously deployed `create_catalogue_request` RPC from migration 012 to remove its 20-per-day quota without editing migration 012.
 - `place_submissions`: author UUID, city, name and folded duplicate key, category, PostGIS location, source URL and short note, optional creator-photo object path, pending/approved/rejected/merged status, resolved canonical place UUID. Owner-only RLS SELECT. **No browser direct write grants**.
 - Explicit security-definer RPCs: `create_place_submission`, `my_place_submissions`, `attach_place_submission_photo`, `admin_place_submissions`, `admin_review_place_submission`.
-- Creator must be authenticated; city must be launched/next; coordinates must be valid and within city radius; name/category/source validated. **No daily submission limits or quotas.** The same normalized name within **150 m** of a pending/published place is rejected for community submissions only; distinct private local entries are never blocked. The per-city/name advisory lock is used by both submission and admin approval to prevent concurrent publication of duplicates.
+- Creator must be authenticated; city must be launched/next; coordinates must be valid and within city radius; name/category/source validated. **No daily submission limits or quotas, including legacy `Poproś o miejsce dla wszystkich` requests.** The same normalized name within **150 m** of a pending/published place is rejected for community submissions only; distinct private local entries are never blocked. The per-city/name advisory lock is used by both submission and admin approval to prevent concurrent publication of duplicates.
 - Approval creates the canonical `public.places` record only after authorized review; reject/merge does not create a duplicate. Server-side admin allow-list `app_admins` reused from 013. No automatic external photo scraping.
 
 ### Images

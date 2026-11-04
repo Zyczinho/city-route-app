@@ -22,7 +22,7 @@ export function normalizeExternalRatings({google=null,tripadvisor=null}={},check
 // Separate City Route sorting metric. A single 5★ review is visible but doesn't outrank
 // a well-supported place. No global/blended Google+Tripadvisor score is modified.
 export function cityRouteSortScore({average_rating=null,review_count=0,sort_score=null}={}){
- if(Number.isFinite(Number(sort_score))&&Number(review_count)>0)return Number(sort_score);
+ if(sort_score!==null&&sort_score!==undefined&&sort_score!==''&&Number.isFinite(Number(sort_score))&&Number(review_count)>0)return Number(sort_score);
  const count=validCount(review_count),avg=validScore(average_rating);
  return count!==null&&avg!==null?(count*avg+20*4)/(count+20):null;
 }

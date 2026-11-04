@@ -11,8 +11,8 @@
 /* COMMUNITY-HUB-023: all social features under one light, four-tab header. */
 .community-hub-header{display:grid;gap:12px;max-width:960px;margin:0 0 18px}
 .community-hub-title{display:grid;gap:2px}.community-hub-title h1{font-size:27px}.community-hub-title p{font-size:13px;color:var(--muted)}
-.community-hub-links{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;padding:4px;background:var(--line-2);border:1px solid var(--line);border-radius:15px}
-.community-hub-links>a{display:grid;place-items:center;min-width:0;min-height:43px;padding:8px 4px;border-radius:11px;text-decoration:none;font-size:13px;font-weight:650;color:var(--ink-2);white-space:nowrap}
+.community-hub-links{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;padding:4px;max-width:100%;min-width:0;background:var(--line-2);border:1px solid var(--line);border-radius:15px}
+.community-hub-links>a{display:grid;place-items:center;min-width:0;min-height:43px;padding:8px 2px;border-radius:11px;text-decoration:none;font-size:clamp(10px,2.8vw,13px);font-weight:650;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .community-hub-links>a.active{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
 .community-hub-links>a:hover{color:var(--blue)}
 .community-chat-index{display:grid;gap:8px;max-width:720px}
@@ -40,3 +40,14 @@
 .friend-actions button{font-size:12px;min-height:38px;padding:7px 9px}
 .friend-pending{font-size:12px;color:var(--muted)}
 @media(max-width:440px){.friend-row{flex-wrap:wrap}.friend-actions{width:100%;justify-content:flex-start;margin-left:53px}.community-hub-links{gap:2px}.community-hub-links>a{font-size:11px;padding:8px 1px}}
+
+/* COMMUNITY-SAVED-NAV-040: a single fifth top-level tab, with a clear two-way inner selection. */
+.community-saved-switch{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;max-width:100%;padding:4px;background:var(--line-2);border:1px solid var(--line);border-radius:14px}
+.community-saved-switch>a{display:grid;place-items:center;min-width:0;min-height:40px;padding:8px 12px;border-radius:10px;color:var(--ink-2);text-decoration:none;font-size:14px;font-weight:650}
+.community-saved-switch>a.active{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.community-saved-switch>a:focus-visible,.community-hub-links>a:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+@media(max-width:359px){
+ .community-hub-links{gap:2px;padding:3px}
+ .community-hub-links>a{font-size:10px;letter-spacing:-.015em;padding:8px 1px}
+ .community-saved-switch>a{min-height:40px}
+}

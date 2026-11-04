@@ -7,5 +7,8 @@
     "directory": "./dist",
     "binding": "ASSETS"
   },
+  // Required by Cloudflare Worker Previews on non-main branches.
+  // Empty: no production secrets/bindings copied into preview environments.
+  "previews": {},
   "workers_dev": true
 }

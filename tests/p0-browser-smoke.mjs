@@ -62,10 +62,10 @@ try{
  assert.equal(order.indexOf(target),order.indexOf(anchor)+1,'nearby place must insert directly after selected stop');
  await page.screenshot({path:'p0-smoke-artifacts/my-route-after.png',fullPage:true});
  // Check all five real bottom-nav destinations in a running browser.
- await page.waitForFunction(()=>document.querySelectorAll('#navigation a').length===5,{timeout:10000}).catch(()=>{});
+ await page.waitForFunction(()=>document.querySelectorAll('#navigation a').length===6,{timeout:10000}).catch(()=>{});
  const tabs=await page.locator('#navigation a').evaluateAll(nodes=>nodes.map(a=>a.getAttribute('href')));
- assert.equal(tabs.length,5,'bottom navigation must have five tabs');
- for(const tab of ['#plan','#routes','#my-route','#routes/community','#places']){
+ assert.equal(tabs.length,6,'bottom navigation must have six tabs including Poradnik');
+ for(const tab of ['#plan','#routes','#my-route','#routes/community','#places','#about']){
   assert.ok(tabs.includes(tab),'missing navigation tab '+tab);
   await page.locator('#navigation a[href="'+tab+'"]').click();
   assert.equal(new URL(page.url()).hash,tab,'tab click changes hash');
@@ -255,7 +255,7 @@ try{
      return r.width>0&&r.height>0&&cs.display!=='none'&&cs.position!=='fixed'&&r.right>window.screen.width+1;
    }).slice(0,18).map(e=>{const r=e.getBoundingClientRect();return {tag:e.tagName,cls:String(e.className||'').slice(0,65),id:e.id,left:Math.round(r.left),right:Math.round(r.right),scrollWidth:e.scrollWidth,clientWidth:e.clientWidth};})};
  });
- assert.ok(bottom.tabCount===5&&bottom.scrollWidth<=bottom.screenWidth+1&&bottom.innerWidth<=bottom.screenWidth+1&&bottom.right<=bottom.screenWidth+1&&bottom.avatarRight<=bottom.screenWidth+1,
+ assert.ok(bottom.tabCount===6&&bottom.scrollWidth<=bottom.screenWidth+1&&bottom.innerWidth<=bottom.screenWidth+1&&bottom.right<=bottom.screenWidth+1&&bottom.avatarRight<=bottom.screenWidth+1,
   '320px bottom navigation must never widen screen to 324px: '+JSON.stringify(bottom));
  assert.ok(compactNav.navScrollWidth<=compactNav.navClientWidth+1&&compactNav.scrollWidth<=compactNav.viewport+1&&compactNav.links.every(link=>link.left>=compactNav.left-1&&link.right<=compactNav.right+1),
   'Community 320px grid must not overflow: '+JSON.stringify(compactNav));
@@ -270,6 +270,21 @@ try{
  await page.locator('#main a.start-here[href="#about"]').click();
  await page.locator('#main .start-guide-menu').waitFor({timeout:10000});
  assert.equal(new URL(page.url()).hash,'#about');
+ assert.equal(await page.locator('#navigation a[href="#about"]').getAttribute('aria-current'),'page','Poradnik should be active in main bottom menu');
+ assert.equal(await page.locator('#main .guide-feature').count(),34,'every important feature should have a standalone explanation');
+ assert.equal(await page.locator('#main .guide-group').count(),6,'guide groups should cover each core area');
+ await page.locator('#main #guide-search').fill('znajomego');
+ assert.ok(await page.locator('#main .guide-feature:not([hidden])').count()>=1,'search finds relevant feature');
+ assert.ok(await page.locator('#main .guide-feature:not([hidden])').count()<34,'guide search filters unrelated items');
+ await page.locator('#main #guide-search').fill('brak-takiej-funkcji-001');
+ assert.ok(await page.locator('[data-guide-count]').textContent().then(s=>s.includes('Nie znaleziono tematu')));
+ await page.locator('#main #guide-search').fill('');
+ await page.setViewportSize({width:320,height:700});
+ const guideNav320=await page.locator('#navigation').evaluate(nav=>({n:nav.querySelectorAll('a').length,right:nav.getBoundingClientRect().right,scroll:document.documentElement.scrollWidth,w:innerWidth}));
+ assert.ok(guideNav320.n===6&&guideNav320.right<=guideNav320.w+1&&guideNav320.scroll<=guideNav320.w+1,'320px six-tab guide nav must fit: '+JSON.stringify(guideNav320));
+ await page.screenshot({path:'p0-smoke-artifacts/onboarding-guide-320.png',fullPage:true});
+ await page.setViewportSize({width:375,height:812});
+ 
  const guideTargets=await page.locator('#main .start-guide-menu a').evaluateAll(nodes=>nodes.map(a=>a.getAttribute('href')));
  assert.deepEqual(guideTargets,['#plan','#routes','#places','#my-route','#routes/community','#book']);
  const guideWidth=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,inner:innerWidth}));

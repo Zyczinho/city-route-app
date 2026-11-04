@@ -38,6 +38,8 @@ function updateNav(){
   a.classList.toggle('active',active);
   if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');
  }
+ const feedTitle=main.querySelector('[data-social-feed] .section-head h2');
+ if(view==='routes'&&feedTitle?.textContent==='Społeczność')feedTitle.textContent='Trasy odkrywców';
  // The older Saved routes screen marks the Routes tab active directly; correct it
  // after its asynchronous render so all four subviews share one main-nav parent.
  if(view==='saved'){

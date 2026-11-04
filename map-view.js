@@ -106,7 +106,7 @@ export function routeListHtml(stops,selectedId=null){
 export function createMapView(opts){
   const {container,onSelect,onAddToRoute,onDetails,onViewportChange,onNearbyChange,isInRoute=()=>false}=opts;
   const doc=opts.doc||globalThis.document;
-  const coarsePointer=opts.coarsePointer??Boolean(globalThis.window?.matchMedia?.('(pointer: coarse)')?.matches||(globalThis.window?.navigator?.maxTouchPoints||0)>0);
+  const coarsePointer=opts.coarsePointer??Boolean((globalThis.window?.innerWidth||Infinity)<760||globalThis.window?.matchMedia?.('(pointer: coarse)')?.matches||(globalThis.window?.navigator?.maxTouchPoints||0)>0);
   let mapInteractionEnabled=!coarsePointer;
   let places=opts.places||[],city=opts.city,filter=opts.filter||{},selectedId=null,nearbyOn=false,nearbyCenter=null;
   let L=null,map=null,layer=null,circle=null,resizer=null,markers=new Map(),mode='loading',tileErrors=0,destroyed=false;

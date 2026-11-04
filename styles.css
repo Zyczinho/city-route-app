@@ -337,3 +337,12 @@ img.avatar{object-fit:cover;display:block}.avatar.sm{width:36px;height:36px;font
 .photo-source-hint summary{cursor:pointer;font-size:13px;font-weight:650}
 .photo-source-hint label{display:block;margin-top:10px}
 .photo-source-hint input{display:block;width:100%;font-size:16px;min-height:42px;margin-top:5px}
+
+/* 047: prominent direct save/unsave on every Places card, above the detail hit area. */
+.place .side .save-place{display:inline-flex;align-items:center;justify-content:center;gap:5px;width:auto;min-width:88px;min-height:40px;padding:6px 9px;position:relative;z-index:3;line-height:1.1;font-size:11px;font-weight:800;border:1px solid #bcd5ee;background:#eef6ff;color:#0964aa}
+.place .side .save-place.on{background:#0878c5;border-color:#0878c5;color:#fff;box-shadow:0 2px 12px #0878c538}
+.place .side .save-place .i{flex:none;width:16px;height:16px}
+.place .side .save-place:hover{border-color:#0878c5}
+.place .side .save-place:focus-visible{outline:3px solid #9fd1fc;outline-offset:2px}
+@media(max-width:759px){.place .side .save-place{min-width:82px;min-height:42px;padding:5px 7px;font-size:10px}}
+@media(max-width:359px){.place .side .save-place{min-width:70px;padding:5px}.place .side .save-place .i{width:14px;height:14px}}

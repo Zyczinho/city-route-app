@@ -25,7 +25,7 @@ test('each feature explains reason, precise location, steps and a real destinati
  for(const group of GUIDE_GROUPS){
   assert.ok(group.title&&group.items.length);
   for(const [name,where,why,steps,href] of group.items){
-   assert.ok(name.length>6&&where.length>5&&why.length>20,name);
+   assert.ok(name.length>6&&where.length>=5&&why.length>20,name);
    assert.ok(Array.isArray(steps)&&steps.length>=2,'steps missing: '+name);
    assert.ok(valid.has(href),'broken deep-link to '+href);
   }

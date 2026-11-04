@@ -1,0 +1,43 @@
+/* FIRST-30S-IPHONE-UX-051 follow-up: verified hardware feedback from iPhone 13 Pro. */
+/* Compact choices: a 1 h label must never consume a third of the form. */
+#build-form.ux-planner .ux-time .choice{display:flex!important;flex-wrap:wrap;align-items:stretch;justify-content:flex-start;gap:7px}
+#build-form.ux-planner .ux-time .choice label{flex:0 0 auto;min-width:0;max-width:100%}
+#build-form.ux-planner .ux-time .choice label span{width:auto;min-width:48px;min-height:44px;max-width:100%;padding:8px 12px;font-size:13px;line-height:1.2;white-space:normal;text-align:center}
+#build-form.ux-planner .ux-when,
+#build-form.ux-planner .ux-when .ux-disclosure-body,
+#build-form.ux-planner .ux-when .planner-when-fields{min-width:0;max-width:100%}
+#build-form.ux-planner .planner-when-fields label{overflow:hidden}
+#build-form.ux-planner .planner-when-fields input[type=date],
+#build-form.ux-planner .planner-when-fields input[type=time]{-webkit-appearance:auto;appearance:auto;min-width:0;max-width:100%;overflow:hidden}
+@media(max-width:699px){
+ /* Preserve the entire name Warszawa and native select arrow. */
+ .top{gap:6px;min-width:0}
+ .top .brand{min-width:0;flex:0 1 auto}
+ .top .logo{width:clamp(90px,28vw,122px);max-width:100%}
+ .top .right{min-width:0;flex:0 0 auto;gap:4px}
+ .top .city-select{display:inline-flex;min-width:0;flex:0 0 auto;gap:2px;white-space:nowrap}
+ .top .city-select select{box-sizing:border-box;width:118px;max-width:none;min-width:108px;padding:7px 15px 7px 2px;font-size:13px;line-height:1.3;text-overflow:clip}
+ .top .header-book{flex:none;width:32px;height:34px}
+ .top .avatar.sm{width:32px;height:32px;flex:none}
+ /* Put the rating/brands and the save/add actions in different grid tracks. */
+ .place-list .place{grid-template-columns:76px minmax(0,1fr);grid-template-areas:"photo info" "actions actions";align-items:start;row-gap:8px}
+ .place-list .place>.thumb{align-self:start}
+ .place-list .place>.info{grid-area:info;min-width:0;overflow-wrap:anywhere}
+ .place-list .place>.info .score{flex-wrap:wrap;min-width:0}
+ .place-list .place>.info .srcs{display:flex;flex-wrap:wrap;overflow:visible;gap:4px;max-width:100%;min-width:0}
+ .place-list .place>.info .src{max-width:100%;white-space:nowrap}
+ .place-list .place>.info .cr-score{max-width:100%;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .place-list .place>.side{position:relative;grid-area:actions;grid-column:1/-1;justify-self:stretch;align-self:stretch;display:flex;justify-content:flex-end;gap:8px;top:auto;right:auto;min-width:0;margin-top:1px;padding-top:9px;border-top:1px solid var(--line-2);z-index:2}
+ .place-list .place>.side .icon-btn{flex:0 0 auto;min-height:44px;min-width:44px}
+ .place-list .place>.side .save-place{min-width:90px;padding-inline:10px}
+}
+@media(max-width:359px){
+ .top{gap:3px;padding-inline:8px}
+ .top .logo{width:90px}
+ .top .city-select select{width:112px;min-width:105px;font-size:12px;padding-right:12px}
+ .top .city-select>.i{display:none}
+ .top .right{gap:3px}
+ .top .header-book{width:30px}
+ .top .avatar.sm{width:30px;height:30px}
+ .place-list .place>.side .save-place{min-width:84px}
+}

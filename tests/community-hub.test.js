@@ -24,10 +24,10 @@ test('community hub ships through HTML, build and offline cache',async()=>{
  assert.match(html,/friends\.js\?v=1/);
  assert.match(sw,/friends\.js\?v=1/);
  assert.match(build,/'friends-client\.js'/);
- assert.match(hub,/\['#social-saved','Zapisane'\]/);
+ assert.match(hub,/\['#social-saved-places','Zapisane'\]/);
  assert.doesNotMatch(hub,/\['#social-saved-places','Zapisane miejsca'\]/,'saved places must be inside one top-level Saved tab');
  assert.match(hub,/href="#social-saved-places">Miejsca/,'nested Places link remains accessible');
- assert.match(hub,/'saved-places':'#social-saved'/,'both saved views activate the same top-level tab');
+ assert.match(hub,/saved:'#social-saved-places','saved-places':'#social-saved-places'/,'both saved views activate the same top-level tab');
  const communityCss=await read('community.css');
  assert.match(communityCss,/grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);
  assert.match(communityCss,/\.community-saved-switch\{display:grid/);

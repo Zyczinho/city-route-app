@@ -300,7 +300,7 @@ img.avatar{object-fit:cover;display:block}.avatar.sm{width:36px;height:36px;font
  .place .score strong{font-size:13px}
  .place .srcs,.place .cr-score{display:none}
  .place .side{position:relative;grid-area:actions;justify-self:end;align-self:end;top:auto;right:auto;z-index:2}
- .place .side .icon-btn{width:36px;height:34px;min-height:34px;border-radius:10px}
+ .place .side .icon-btn{width:42px;height:42px;min-height:42px;border-radius:10px}
  .place .hit{border-radius:14px}
  .place .must{font-size:9px}
  .chips{margin-bottom:4px;gap:5px;padding-bottom:6px}

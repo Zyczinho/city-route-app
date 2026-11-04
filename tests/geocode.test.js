@@ -37,3 +37,20 @@ test('returns not-found when providers have no Warsaw result',async()=>{
  const result=await searchPlaceAddress('Nieistniejące miejsce 123',{fetcher});
  assert.deepEqual(result,{status:'not-found'});
 });
+
+test('best aspect and resolution Google photo is selected, not always photos[0]',async()=>{
+ const {placePhotoById}=await import('../geocode.js');
+ const pics=[{name:'places/id/photos/tiny',widthPx:160,heightPx:130},
+  {name:'places/id/photos/best',widthPx:1800,heightPx:1200}];
+ const paths=[];
+ const fake=async url=>{
+  paths.push(String(url));
+  if(String(url).includes('/media'))return new Response(new Uint8Array([255,216]),{status:200,headers:{'content-type':'image/jpeg'}});
+  return new Response(JSON.stringify({photos:pics}),{status:200,headers:{'content-type':'application/json'}});
+ };
+ const result=await placePhotoById('ChIJabcdefgh1234',{googleKey:'fake',fetcher:fake});
+ assert.equal(result.status,200);
+ assert.ok(paths[1].includes('photos/best/media'));
+ assert.ok(!paths[1].includes('photos/tiny/media'));
+ assert.equal(result.headers.get('cache-control'),'private, no-store');
+});

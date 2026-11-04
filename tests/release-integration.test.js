@@ -18,14 +18,14 @@ test('release 029 includes all three feature modules in HTML, build and offline 
  assert.match(html,/auth-enhancements\.js\?v=21/);
  assert.match(html,/community-hub\.js\?v=2/);
  assert.match(html,/social-routes-enhancements\.js\?v=4/);
- assert.match(sw,/city-route-v50/);
+ assert.match(sw,/city-route-v51/);
  assert.ok(!html.includes('city-route-v33'));
 });
 
 test('release keeps onboard, variant picker, arrival review and finished-route publishing',async()=>{
- const [app,social,guide]=await Promise.all(['app.js','social-routes-enhancements.js','community-hub.js'].map(read));
+ const [app,social,guide,onboard]=await Promise.all(['app.js','social-routes-enhancements.js','community-hub.js','onboarding-guide.js'].map(read));
  for(const token of ['start-guide-menu','generatedPicker','arrival-rating','publish-finished','cityroute:submission-updated','cityroute:place-reviewed']){
-  assert.ok(app.includes(token),'regression in live route UI: '+token);
+  assert.ok((app+onboard).includes(token),'regression in live route UI: '+token);
  }
  assert.match(social,/function normalizedPublicDraft/);
  assert.match(social,/hasUnapprovedStops/,'no publishing unapproved public places');

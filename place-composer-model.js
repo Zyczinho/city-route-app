@@ -89,6 +89,11 @@ export function findDuplicate(candidate,places=[],{meters=DUPLICATE_METERS}={}){
 
 // Provider types are matched as whole tokens ("italian_restaurant" -> restaurant), names by Polish stems.
 const TYPE_TOKENS=[
+ ['club','nightclub discotheque dance club disco'],
+ ['bar','bar pub cocktail wine'],
+ ['live_music','concert concert_hall music live'],
+ ['sport','gym sport fitness yoga recreation'],
+ ['workshop','workshop workshop_space studio'],
  ['jedzenie','restaurant cafe coffee bakery bar pub food meal ice cream pizza bistro fast dessert confectionery deli biergarten cafeteria'],
  ['muzea','museum gallery exhibition planetarium aquarium'],
  ['zielen','park garden forest nature wood zoo botanical meadow playground'],
@@ -96,6 +101,9 @@ const TYPE_TOKENS=[
  ['zabytki','monument memorial church cathedral castle palace historic historical landmark attraction worship synagogue ruins fort hall']
 ].map(([cat,list])=>[cat,new Set(list.split(' '))]);
 const NAME_STEMS=[
+ ['club',/klub|night ?club|dyskotek|sketch nite/],
+ ['bar',/pub|cocktail bar|wine bar/],
+ ['sport',/silown|fitness|studio jogi|basen/],
  ['jedzenie',/kawiarn|restaurac|bistro|piekarn|cukierni|bar mleczny|pierogarn|ramen|nudl|pizzer|kuchni/],
  ['muzea',/muzeum|galeri/],
  ['zielen',/\bpark|ogrod|\blas\b|skwer/],

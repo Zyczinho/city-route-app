@@ -88,7 +88,7 @@ try{
    panToggle:button?.getAttribute('aria-pressed'),overflow:document.documentElement.scrollWidth};
  });
  assert.ok(mapLayout.left>=16&&mapLayout.right<=mapLayout.viewport-16,'map leaves a finger-scroll corridor at both edges: '+JSON.stringify(mapLayout));
- assert.ok(mapLayout.height>=280&&mapLayout.height<=410,'mobile map does not occupy most of the page: '+JSON.stringify(mapLayout));
+ assert.ok(mapLayout.height>=330&&mapLayout.height<=460,'mobile map does not occupy most of the page: '+JSON.stringify(mapLayout));
  console.log('MAP_SCROLL_QA '+JSON.stringify(mapLayout));
  assert.equal(mapLayout.scrollMode,true,'narrow map defaults to page scroll');
  assert.equal(mapLayout.touchAction,'pan-y','map canvas must allow vertical page touch scrolling');
@@ -153,6 +153,7 @@ try{
  await placesPage.locator('#place-dialog .close').click();
  await placesPage.locator('.add-place').click();
  await placesPage.locator('#place-form select[name="cat"]').waitFor();
+ assert.equal(await placesPage.locator('input[name="photo_source_url"]').count(),1,'owner can provide a website or official Instagram/Facebook profile for photo research');
  assert.equal(await placesPage.locator('#place-form select[name="cat"] option[value="club"]').count(),1,
   'nightclub must be a selectable real category');
  assert.ok(await placesPage.locator('a[data-request-entry][href="#places/request"]').count()>=1,
@@ -194,6 +195,13 @@ try{
     left:bounds.left,right:bounds.right,links};
  });
  assert.equal(compactNav.links.length,5,'Community top navigation has exactly five links at 320px');
+ const bottom=await page.locator('#navigation').evaluate(nav=>{
+  const rect=nav.getBoundingClientRect();
+  return {screenWidth:window.screen.width,innerWidth:window.innerWidth,clientWidth:document.documentElement.clientWidth,
+   scrollWidth:document.documentElement.scrollWidth,left:rect.left,right:rect.right,tabCount:nav.querySelectorAll('a').length};
+ });
+ assert.ok(bottom.tabCount===5&&bottom.scrollWidth<=bottom.screenWidth+1&&bottom.innerWidth<=bottom.screenWidth+1&&bottom.right<=bottom.screenWidth+1,
+  '320px bottom navigation must never widen screen to 324px: '+JSON.stringify(bottom));
  assert.ok(compactNav.navScrollWidth<=compactNav.navClientWidth+1&&compactNav.scrollWidth<=compactNav.viewport+1&&compactNav.links.every(link=>link.left>=compactNav.left-1&&link.right<=compactNav.right+1),
   'Community 320px grid must not overflow: '+JSON.stringify(compactNav));
  await page.screenshot({path:'p0-smoke-artifacts/community-saved-nav-320.png',fullPage:true});

@@ -37,7 +37,7 @@ export function guideView(){
   '<section class="guide-why" aria-label="Do czego służy City Route">'+
   '<h2>Po co jest City Route?</h2>'+
   '<p>To Twój przewodnik po mieście. Możesz <strong>znaleźć miejsce</strong>, <strong>ułożyć spacer</strong>, <strong>sprawdzić propozycje innych</strong> i <strong>zachować pomysły na później</strong> — we własnym mieście lub w podróży.</p>'+
-  '<div class="guide-first-steps"><div><b>1</b><span>Wybierz miasto</span></div><div><b>2</b><span>Znajdź miejsca lub trasę</span></div><div><b>3</b><span>Dodaj przystanki i ruszaj</span></div></div></section>'+
+  '<div class="guide-first-steps"><div><b>1</b><span>Wybierz miasto</span></div><div><b>2</b><span>Znajdź miejsca lub trasę</span></div><div><b>3</b><span>Dodaj przystanki i ruszaj</span></div></div>'+'<h3 class="guide-scenarios-label">Przykłady: od czego zacząć?</h3>'+'<div class="guide-scenarios"><a href="#plan"><strong>Mam wolne 2 godziny</strong><small>Ułóż gotowy spacer na dzisiaj</small></a><a href="#places"><strong>Szukam dobrej restauracji</strong><small>Otwórz Miejsca, wybierz Jedzenie</small></a><a href="#routes/community"><strong>Chcę poznać polecenia innych</strong><small>Przeglądaj trasy społeczności</small></a></div></section>'+
   '<h2 class="h-sm">Gdzie mam kliknąć?</h2>'+
   '<nav class="menu start-guide-menu" aria-label="Najważniejsze funkcje City Route">'+
   QUICK.map(([emoji,name,desc,href])=>

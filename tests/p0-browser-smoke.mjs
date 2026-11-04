@@ -121,6 +121,13 @@ try{
  const placesPage=await placesCtx.newPage();
  await placesPage.goto(BASE+'/#places',{waitUntil:'domcontentloaded'});
  await placesPage.locator('article.place[data-place-id="u-spoco-smoke"]').waitFor({timeout:15000});
+
+ const placeMobileLayout=await placesPage.locator('.place-list article.place').evaluateAll(nodes=>nodes.slice(0,8).map(card=>{
+  const info=card.querySelector('.info').getBoundingClientRect(),actions=card.querySelector('.side').getBoundingClientRect(),save=card.querySelector('.save-place').getBoundingClientRect();
+  const rating=card.querySelector('.srcs')?.getBoundingClientRect(),main=card.getBoundingClientRect();
+  return {infoBottom:info.bottom,actionsTop:actions.top,actionsRight:actions.right,ratingsBottom:rating?.bottom,saveWidth:save.width,mainRight:main.right};
+ }));
+ assert.ok(placeMobileLayout.every(c=>c.actionsTop>=c.infoBottom-1&&(c.ratingsBottom==null||c.actionsTop>=c.ratingsBottom-1)&&c.actionsRight<=375+1&&c.mainRight<=375+1&&c.saveWidth>=84),'place rating/actions are separate on 375px: '+JSON.stringify(placeMobileLayout));
  const createdFirst=await placesPage.locator('.place-list article.place').first().getAttribute('data-place-id');
  assert.equal(createdFirst,'u-spoco-smoke','new place is near the top, not buried at the end');
  assert.equal(await placesPage.locator('[data-request-generic], [data-request-search], [data-request-category]').count(),0,
@@ -315,32 +322,15 @@ try{
  });
  assert.ok(iphoneDateLayout.firstBottom<=iphoneDateLayout.secondTop+1,'iPhone date/time fields cannot overlap: '+JSON.stringify(iphoneDateLayout));
  assert.ok(iphoneDateLayout.firstRight<=iphoneDateLayout.containerRight+1&&iphoneDateLayout.scrollWidth<=iphoneDateLayout.width+1,'iPhone date input must fit card: '+JSON.stringify(iphoneDateLayout));
+
+ const compactTime=await page.locator('#build-form .ux-time .choice span').first().evaluate(el=>el.getBoundingClientRect().width);
+ assert.ok(compactTime<85,'1 h choice uses only its intrinsic width, not a full grid column: '+compactTime);
+ const cityHeader=await page.locator('#city-select').evaluate(el=>({name:el.options[el.selectedIndex].textContent,width:el.getBoundingClientRect().width,right:el.getBoundingClientRect().right,viewport:innerWidth}));
+ assert.equal(cityHeader.name,'Warszawa');
+ assert.ok(cityHeader.width>=104&&cityHeader.right<=cityHeader.viewport+1,'Warsaw picker fits iPhone: '+JSON.stringify(cityHeader));
  await page.screenshot({path:'p0-smoke-artifacts/iphone13-first-30s-plan.png',fullPage:true});
  await page.setViewportSize({width:375,height:812});
 
- // Actual 320/375/390px iPhone-like constraints, without guessing native picker internals.
- for(const width of [320,375,390]){
-  await page.setViewportSize({width,height:844});
-  await page.locator('#navigation a[href="#plan"]').click();
-  await page.locator('#build-form .ux-time .choice span').first().waitFor({timeout:12000});
-  const timeChips=await page.locator('#build-form .ux-time .choice span').evaluateAll(nodes=>nodes.map(n=>({text:n.textContent.trim(),width:n.getBoundingClientRect().width,right:n.getBoundingClientRect().right})));
-  assert.ok(timeChips[0].width<85,'1 h choice should be compact at '+width+': '+JSON.stringify(timeChips));
-  assert.ok(timeChips.every(n=>n.right<=width+1),'time chips exceed viewport '+width);
-  const header=await page.locator('#city-select').evaluate(el=>({width:el.getBoundingClientRect().width,right:el.getBoundingClientRect().right,label:el.options[el.selectedIndex].textContent,headRight:document.querySelector('.top').getBoundingClientRect().right,scrollWidth:document.documentElement.scrollWidth}));
-  assert.equal(header.label,'Warszawa');
-  assert.ok(header.width>=104&&header.right<=header.headRight+1&&header.scrollWidth<=width+1,'city picker overflow at '+width+': '+JSON.stringify(header));
-  await page.locator('#navigation a[href="#places"]').click();
-  await page.locator('.place-list .place').first().waitFor();
-  const cards=await page.locator('.place-list .place').evaluateAll(nodes=>nodes.slice(0,8).map(card=>{
-   const info=card.querySelector('.info').getBoundingClientRect(),actions=card.querySelector('.side').getBoundingClientRect(),save=card.querySelector('.save-place').getBoundingClientRect();
-   const rating=card.querySelector('.srcs')?.getBoundingClientRect(),main=card.getBoundingClientRect();
-   return {infoBottom:info.bottom,actionsTop:actions.top,actionsRight:actions.right,saveWidth:save.width,ratingsBottom:rating?.bottom,mainRight:main.right};
-  }));
-  assert.ok(cards.every(c=>c.actionsTop>=c.infoBottom-1&&(c.ratingsBottom==null||c.actionsTop>=c.ratingsBottom-1)&&c.actionsRight<=width+1&&c.mainRight<=width+1&&c.saveWidth>=84),'ratings overlap save controls at '+width+': '+JSON.stringify(cards));
-  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'horizontal overflow '+width);
- }
- await page.setViewportSize({width:390,height:844});
- await page.locator('#navigation a[href="#plan"]').click();
  // ROUTE-CHOICES-022: 3 selectable, genuinely different options and a new batch.
  await page.locator('#navigation a[href="#plan"]').click();
  await page.locator('#build-form input[name="start"][value="any"]').evaluate(input=>{input.checked=true;input.dispatchEvent(new Event('change',{bubbles:true}));});

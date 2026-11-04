@@ -81,6 +81,8 @@ async function suggest(form,query){
 }
 
 function setCategory(form,cat){
+ const select=$('select[name="cat"]',form);
+ if(select&&[...select.options].some(option=>option.value===cat)){select.value=cat;select.dispatchEvent(new Event('change',{bubbles:true}));return;}
  const radio=$(`input[name="cat"][value="${cat}"]`,form);if(radio&&!radio.checked){radio.checked=true;radio.dispatchEvent(new Event('change',{bubbles:true}));}
 }
 
@@ -240,7 +242,7 @@ function decorate(){
  form.dataset.composer='1';form.classList.add('pc-form');
  form.insertAdjacentHTML('afterbegin',MARKUP);
  // Order for one-handed use: search, name, where, category, note, photo, visibility.
- const nameLabel=$('input[name="name"]',form)?.closest('label'),whereSet=$('input[name="where"]',form)?.closest('fieldset'),cat=$('input[name="cat"]',form)?.closest('fieldset');
+ const nameLabel=$('input[name="name"]',form)?.closest('label'),whereSet=$('input[name="where"]',form)?.closest('fieldset'),cat=$('select[name="cat"]',form)?.closest('label')||$('input[name="cat"]',form)?.closest('fieldset');
  const note=$('textarea[name="note"]',form)?.closest('label'),photo=$('input[name="photo"]',form)?.closest('label'),vis=$('input[name="vis"]',form)?.closest('fieldset');
  const root=$('.pc',form);let after=root;
  for(const el of [nameLabel,whereSet,cat,note,photo,vis])if(el){after.after(el);after=el;}

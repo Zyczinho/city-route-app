@@ -83,7 +83,7 @@ function cleanPlanner(){
 function communityFocus(){
  const root=main();if(!root)return;
  const hash=location.hash;
- const communityTab=hash.startsWith('#routes/community');
+ const communityTab=hash==='#routes/community';
  const feed=root.querySelector('[data-social-feed]');
  if(communityTab&&feed)root.dataset.communityFocus='1';else delete root.dataset.communityFocus;
  if(hash.startsWith('#community-route/')){

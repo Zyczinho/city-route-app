@@ -4,12 +4,24 @@ let session=null;
 let channel=null;
 let rendering=false;
 let rerenderQueued=false;
+let renderAgain=false;
 let reloadTimer=null;
 
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmtDate=value=>new Intl.DateTimeFormat('pl-PL',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(value));
-const communityRoute=()=>location.hash.startsWith('#profile/community');
-const groupId=()=>communityRoute()?(location.hash.split('/')[2]||''):'';
+const communityPath=()=>{
+  const parts=location.hash.slice(1).split('/');
+  if(parts[0]==='profile'&&parts[1]==='community')return {view:parts[2]?'group':'groups',id:parts[2]||null};
+  if(parts[0]!=='routes'||parts[1]!=='community')return null;
+  if(parts[2]==='groups')return {view:'groups',id:null};
+  if(parts[2]==='chats')return {view:'chats',id:null};
+  if(parts[2]==='group'||parts[2]==='chat')return {view:'group',id:parts[3]||null,origin:parts[2]};
+  return null;
+};
+const communityRoute=()=>!!communityPath();
+const groupId=()=>communityPath()?.id||'';
+const groupHref=(id,kind='group')=>`#routes/community/${kind}/${encodeURIComponent(id)}`;
+const groupBack=()=>communityPath()?.view==='group'?(communityPath()?.origin==='chat'?'#routes/community/chats':'#routes/community/groups'):'#routes/community';
 const main=()=>document.querySelector('#main');
 
 function stopRealtime(){
@@ -23,20 +35,13 @@ function queueRender(){
   queueMicrotask(()=>{rerenderQueued=false;routeRender();});
 }
 
-function profileEntry(){
-  if(communityRoute()||location.hash.split('/')[0]!=='#profile')return;
-  const root=main();
-  if(!root||root.querySelector('[data-community-entry]'))return;
-  const anchor=root.querySelector('.community-card')||root.querySelector('.profile-card');
-  if(!anchor)return;
-  const text=session?'Twórz grupy, dołączaj do innych odkrywców i rozmawiaj na żywo.':'Zaloguj się, żeby tworzyć grupy odkrywców i korzystać z czatu.';
-  anchor.insertAdjacentHTML('afterend',`<section class="community-entry" data-community-entry><div><p class="kicker">Społeczność</p><h2>Grupy odkrywców</h2><p>${esc(text)}</p></div><a class="button primary" href="${session?'#profile/community':'#profile'}">${session?'Otwórz grupy':'Zaloguj się'}</a></section>`);
-}
+// Groups and chats now belong to the Community hub; legacy Profile links still resolve.
+function profileEntry(){}
 
 function shell(title,body){
   const root=main();
   if(!root)return;
-  root.innerHTML=`<section class="community-page" data-community-root><header class="community-head"><a class="back" href="#profile">← Profil</a><p class="kicker">Społeczność</p><h1>${esc(title)}</h1></header>${body}</section>`;
+  root.innerHTML=`<section class="community-page" data-community-root><header class="community-head"><a class="back" href="${groupBack()}">← ${communityPath()?.view==='group'?'Wróć':'Społeczność'}</a><p class="kicker">Społeczność</p><h1>${esc(title)}</h1></header>${body}</section>`;
 }
 
 function status(text,kind=''){
@@ -71,7 +76,7 @@ async function renderGroups(){
   const cards=(groups||[]).map(g=>{
     const role=roleByGroup.get(g.id),joined=!!role,count=counts.get(g.id)||0;
     const roleLabel=role==='owner'?'Założyciel':role==='moderator'?'Moderator':role==='member'?'Członek':'';
-    return `<article class="group-card"><div class="group-card-top"><div><p class="kicker">${g.is_public?'Grupa publiczna':'Grupa prywatna'}${roleLabel?' · '+esc(roleLabel):''}</p><h2>${esc(g.name)}</h2></div><span class="member-count">${count} ${count===1?'osoba':'osób'}</span></div><p>${esc(g.description)||'Bez opisu.'}</p><div class="group-actions"><a class="button ${joined?'primary':''}" href="#profile/community/${encodeURIComponent(g.id)}">${joined?'Otwórz chat':'Zobacz grupę'}</a>${!joined&&g.is_public?`<button data-community-action="join" data-group="${esc(g.id)}">Dołącz</button>`:''}</div></article>`;
+    return `<article class="group-card"><div class="group-card-top"><div><p class="kicker">${g.is_public?'Grupa publiczna':'Grupa prywatna'}${roleLabel?' · '+esc(roleLabel):''}</p><h2>${esc(g.name)}</h2></div><span class="member-count">${count} ${count===1?'osoba':'osób'}</span></div><p>${esc(g.description)||'Bez opisu.'}</p><div class="group-actions"><a class="button ${joined?'primary':''}" href="${groupHref(g.id)}">${joined?'Otwórz chat':'Zobacz grupę'}</a>${!joined&&g.is_public?`<button data-community-action="join" data-group="${esc(g.id)}">Dołącz</button>`:''}</div></article>`;
   }).join('');
 
   shell('Grupy odkrywców',`<section class="community-create"><details><summary>+ Utwórz grupę</summary><form data-community-form="create"><label>Nazwa<input name="name" minlength="2" maxlength="80" required placeholder="Np. Warszawa po pracy"></label><label>Opis<textarea name="description" maxlength="500" rows="3" placeholder="Dla kogo jest ta grupa?"></textarea></label><p class="fine">W MVP grupy są publiczne. Prywatne zaproszenia dodamy później.</p><button class="primary">Utwórz grupę</button></form></details></section><p class="community-status" data-community-status></p><section class="group-list">${cards||'<div class="community-empty"><h2>Jeszcze nie ma grup</h2><p>Utwórz pierwszą grupę odkrywców City Route.</p></div>'}</section>`);
@@ -86,15 +91,15 @@ async function fetchProfiles(ids){
 async function renderGroup(id){
   stopRealtime();
   shell('Grupa','<p class="community-status">Wczytuję grupę…</p>');
-  if(!session){location.hash='#profile';return;}
+  if(!session){shell('Grupa','<div class="community-empty"><h2>Zaloguj się, aby otworzyć rozmowę</h2><p>Wiadomości grupowe są widoczne tylko dla członków.</p><a class="button primary" href="#profile">Przejdź do logowania</a></div>');return;}
 
   const {data:group,error:gErr}=await supabase.from('explorer_groups').select('id,name,description,created_by,is_public,created_at').eq('id',id).maybeSingle();
-  if(gErr||!group){shell('Grupa',`<div class="community-empty"><h2>Nie znaleziono grupy</h2><a class="button" href="#profile/community">Wróć do grup</a></div>`);return;}
+  if(gErr||!group){shell('Grupa',`<div class="community-empty"><h2>Nie znaleziono grupy</h2><a class="button" href="#routes/community/groups">Wróć do grup</a></div>`);return;}
 
   const {data:myMembership}=await supabase.from('group_members').select('role').eq('group_id',id).eq('user_id',session.user.id).maybeSingle();
   const joined=!!myMembership;
   if(!joined){
-    shell(group.name,`<p class="lead">${esc(group.description)||'Bez opisu.'}</p><div class="community-empty"><p>Dołącz do grupy, żeby zobaczyć członków i chat.</p>${group.is_public?`<button class="primary" data-community-action="join" data-group="${esc(group.id)}">Dołącz do grupy</button>`:'<p>Ta grupa jest prywatna.</p>'}<a class="button" href="#profile/community">Wszystkie grupy</a></div>`);
+    shell(group.name,`<p class="lead">${esc(group.description)||'Bez opisu.'}</p><div class="community-empty"><p>Dołącz do grupy, żeby zobaczyć członków i chat.</p>${group.is_public?`<button class="primary" data-community-action="join" data-group="${esc(group.id)}">Dołącz do grupy</button>`:'<p>Ta grupa jest prywatna.</p>'}<a class="button" href="#routes/community/groups">Wszystkie grupy</a></div>`);
     return;
   }
 
@@ -108,7 +113,7 @@ async function renderGroup(id){
   const membersHtml=(members||[]).map(m=>`<li><span>${esc(profiles.get(m.user_id)||'Odkrywca')}</span><small>${m.role==='owner'?'Założyciel':m.role==='moderator'?'Moderator':'Członek'}</small></li>`).join('');
   const messagesHtml=(messages||[]).map(m=>{const own=m.user_id===session.user.id;return `<article class="chat-message ${own?'own':''}"><div class="chat-meta"><strong>${esc(profiles.get(m.user_id)||'Odkrywca')}</strong><time>${esc(fmtDate(m.created_at))}</time></div><p>${esc(m.body)}</p>${own?`<button class="chat-delete" data-community-action="delete-message" data-message="${m.id}" aria-label="Usuń wiadomość">Usuń</button>`:''}</article>`;}).join('');
 
-  shell(group.name,`<div class="group-detail-head"><div><p class="lead">${esc(group.description)||'Bez opisu.'}</p><p class="fine">${(members||[]).length} ${(members||[]).length===1?'członek':'członków'} · ${myMembership.role==='owner'?'Jesteś założycielem':'Jesteś członkiem'}</p></div><a class="button" href="#profile/community">Wszystkie grupy</a></div><div class="community-grid"><section class="chat-panel"><div class="chat-list" data-chat-list>${messagesHtml||'<p class="community-empty-inline">Napisz pierwszą wiadomość.</p>'}</div><form class="chat-form" data-community-form="message" data-group="${esc(id)}"><label class="sr-only" for="chat-body">Wiadomość</label><textarea id="chat-body" name="body" maxlength="2000" rows="2" required placeholder="Napisz do grupy…"></textarea><button class="primary">Wyślij</button></form></section><aside class="members-panel"><h2>Członkowie</h2><ul>${membersHtml}</ul>${myMembership.role!=='owner'?`<button class="danger" data-community-action="leave" data-group="${esc(id)}">Opuść grupę</button>`:'<p class="fine">Jako założyciel nie możesz opuścić grupy w tym MVP.</p>'}</aside></div><p class="community-status" data-community-status></p>`);
+  shell(group.name,`<div class="group-detail-head"><div><p class="lead">${esc(group.description)||'Bez opisu.'}</p><p class="fine">${(members||[]).length} ${(members||[]).length===1?'członek':'członków'} · ${myMembership.role==='owner'?'Jesteś założycielem':'Jesteś członkiem'}</p></div><a class="button" href="#routes/community/groups">Wszystkie grupy</a></div><div class="community-grid"><section class="chat-panel"><div class="chat-list" data-chat-list>${messagesHtml||'<p class="community-empty-inline">Napisz pierwszą wiadomość.</p>'}</div><form class="chat-form" data-community-form="message" data-group="${esc(id)}"><label class="sr-only" for="chat-body">Wiadomość</label><textarea id="chat-body" name="body" maxlength="2000" rows="2" required placeholder="Napisz do grupy…"></textarea><button class="primary">Wyślij</button></form></section><aside class="members-panel"><h2>Członkowie</h2><ul>${membersHtml}</ul>${myMembership.role!=='owner'?`<button class="danger" data-community-action="leave" data-group="${esc(id)}">Opuść grupę</button>`:'<p class="fine">Jako założyciel nie możesz opuścić grupy w tym MVP.</p>'}</aside></div><p class="community-status" data-community-status></p>`);
 
   const list=document.querySelector('[data-chat-list]');
   if(list)list.scrollTop=list.scrollHeight;
@@ -119,18 +124,55 @@ async function renderGroup(id){
   }).subscribe();
 }
 
+// The Chats tab indexes the user's group conversations; no separate message backend.
+async function renderChats(){
+  stopRealtime();
+  const initialHash=location.hash;
+  shell('Czaty','<p class="community-status" data-community-status>Wczytuję Twoje rozmowy…</p>');
+  if(!session){
+    shell('Czaty','<div class="community-empty"><h2>Zaloguj się, aby zobaczyć czaty</h2><p>Czaty są dostępne dla członków grup odkrywców.</p><a class="button primary" href="#profile">Przejdź do logowania</a></div>');
+    return;
+  }
+  const {data:mine,error:memberError}=await supabase.from('group_members').select('group_id').eq('user_id',session.user.id);
+  if(location.hash!==initialHash)return;
+  if(memberError){shell('Czaty',`<p class="community-status error">${esc(memberError.message)}</p>`);return;}
+  const ids=[...new Set((mine||[]).map(x=>x.group_id))];
+  if(!ids.length){
+    shell('Czaty','<div class="community-empty"><h2>Jeszcze nie masz rozmów</h2><p>Dołącz do grupy odkrywców, aby zobaczyć jej czat tutaj.</p><a class="button primary" href="#routes/community/groups">Przeglądaj grupy</a></div>');
+    return;
+  }
+  const [{data:groups,error:groupError},{data:messages,error:messagesError}]=await Promise.all([
+    supabase.from('explorer_groups').select('id,name,description').in('id',ids),
+    supabase.from('messages').select('group_id,body,created_at').in('group_id',ids).order('created_at',{ascending:false}).limit(200)
+  ]);
+  if(location.hash!==initialHash)return;
+  if(groupError||messagesError){shell('Czaty',`<p class="community-status error">${esc(groupError?.message||messagesError?.message)}</p>`);return;}
+  const latest=new Map();
+  for(const message of messages||[])if(!latest.has(message.group_id))latest.set(message.group_id,message);
+  const cards=(groups||[]).map(group=>{
+    const last=latest.get(group.id);
+    return `<a class="community-chat-link" href="${groupHref(group.id,'chat')}"><span class="community-chat-icon" aria-hidden="true">#</span><span class="community-chat-copy"><strong>${esc(group.name)}</strong><small>${last?esc(last.body):'Brak wiadomości. Rozpocznij rozmowę.'}</small></span>${last?`<time>${esc(fmtDate(last.created_at))}</time>`:''}</a>`;
+  }).join('');
+  shell('Czaty',`<p class="lead">Rozmowy z grup, do których należysz. Wybierz grupę, aby pisać.</p><div class="community-chat-index">${cards||'<p class="community-empty-inline">Brak dostępnych rozmów.</p>'}</div><a class="button" href="#routes/community/groups">Zobacz grupy</a>`);
+}
+
 async function routeRender(){
-  if(rendering)return;
+  if(rendering){renderAgain=true;return;}
   rendering=true;
   try{
-    if(communityRoute()){
-      const id=groupId();
-      if(id)await renderGroup(id);else await renderGroups();
+    const path=communityPath();
+    if(path){
+      if(path.view==='chats')await renderChats();
+      else if(path.view==='group'&&path.id)await renderGroup(path.id);
+      else await renderGroups();
     }else{
       stopRealtime();
       profileEntry();
     }
-  }finally{rendering=false;}
+  }finally{
+    rendering=false;
+    if(renderAgain){renderAgain=false;queueRender();}
+  }
 }
 
 async function joinGroup(id){
@@ -138,7 +180,7 @@ async function joinGroup(id){
   status('Dołączam…');
   const {error}=await supabase.from('group_members').insert({group_id:id,user_id:session.user.id,role:'member'});
   if(error&&error.code!=='23505'){status(error.message,'error');return;}
-  location.hash=`#profile/community/${id}`;
+  location.hash=groupHref(id);
 }
 
 async function leaveGroup(id){
@@ -146,7 +188,7 @@ async function leaveGroup(id){
   status('Opuszczam grupę…');
   const {error}=await supabase.from('group_members').delete().eq('group_id',id).eq('user_id',session.user.id);
   if(error){status(error.message,'error');return;}
-  location.hash='#profile/community';
+  location.hash='#routes/community/groups';
 }
 
 async function createGroup(form){
@@ -157,7 +199,7 @@ async function createGroup(form){
   const {data,error}=await supabase.from('explorer_groups').insert({name,description,created_by:session.user.id,is_public:true}).select('id').single();
   button?.removeAttribute('disabled');
   if(error){status(error.message,'error');return;}
-  location.hash=`#profile/community/${data.id}`;
+  location.hash=groupHref(data.id);
 }
 
 async function sendMessage(form){

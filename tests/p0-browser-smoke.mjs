@@ -291,6 +291,32 @@ try{
  assert.ok(guideWidth.scroll<=guideWidth.inner+1,'start guide has no mobile horizontal overflow: '+JSON.stringify(guideWidth));
  await page.locator('#main .start-guide-menu a[href="#my-route"]').click();
  assert.equal(new URL(page.url()).hash,'#my-route','guide links directly to existing functionality');
+ // FIRST-30S-IPHONE-UX-051: user-reported real iPhone 13 Pro viewport.
+ await page.locator('#navigation a[href="#plan"]').click();
+ await page.setViewportSize({width:390,height:844});
+ await page.locator('#main .ux-plan-head h1').waitFor();
+ assert.match(await page.locator('#main .ux-plan-head h1').textContent(),/Odkrywaj miasto po swojemu/);
+ assert.equal(await page.locator('#build-form .ux-time input[name="time"]:checked').inputValue(),'120','2h must remain one-tap default');
+ assert.equal(await page.locator('#build-form button.ux-submit').textContent(),'Ułóż mi trasę');
+ const fastPlanOrder=await page.locator('#build-form').evaluate(form=>{
+  const time=form.querySelector('.ux-time'),submit=form.querySelector('.ux-submit'),when=form.querySelector('.ux-when');
+  const rows=[...form.children];return {t:rows.indexOf(time?.parentElement),submit:rows.indexOf(submit),when:rows.indexOf(when)};
+ });
+ assert.ok(fastPlanOrder.submit<fastPlanOrder.when,'quick generation must come before date and advanced options: '+JSON.stringify(fastPlanOrder));
+ const shortcutHrefs=await page.locator('#build-form .ux-plan-alternatives a').evaluateAll(els=>els.map(a=>a.getAttribute('href')));
+ assert.ok(shortcutHrefs.includes('#places')&&shortcutHrefs.includes('#routes/community'),'manual discovery and community are visible');
+ const myRouteInactive=await page.locator('#navigation a[href="#my-route"]').evaluate(a=>({active:a.classList.contains('active'),shadow:getComputedStyle(a).boxShadow}));
+ assert.equal(myRouteInactive.active,false);
+ assert.equal(myRouteInactive.shadow,'none','My Route must not look selected while user is on Plan');
+ await page.locator('#build-form .ux-when > summary').click();
+ const iphoneDateLayout=await page.locator('#build-form .planner-when-fields').evaluate(box=>{
+  const date=box.querySelector('input[type="date"]').getBoundingClientRect(),time=box.querySelector('input[type="time"]').getBoundingClientRect();
+  return {firstRight:date.right,secondLeft:time.left,firstBottom:date.bottom,secondTop:time.top,containerRight:box.getBoundingClientRect().right,scrollWidth:document.documentElement.scrollWidth,width:innerWidth};
+ });
+ assert.ok(iphoneDateLayout.firstBottom<=iphoneDateLayout.secondTop+1,'iPhone date/time fields cannot overlap: '+JSON.stringify(iphoneDateLayout));
+ assert.ok(iphoneDateLayout.firstRight<=iphoneDateLayout.containerRight+1&&iphoneDateLayout.scrollWidth<=iphoneDateLayout.width+1,'iPhone date input must fit card: '+JSON.stringify(iphoneDateLayout));
+ await page.screenshot({path:'p0-smoke-artifacts/iphone13-first-30s-plan.png',fullPage:true});
+ await page.setViewportSize({width:375,height:812});
  // ROUTE-CHOICES-022: 3 selectable, genuinely different options and a new batch.
  await page.locator('#navigation a[href="#plan"]').click();
  await page.locator('#build-form input[name="start"][value="any"]').evaluate(input=>{input.checked=true;input.dispatchEvent(new Event('change',{bubbles:true}));});
@@ -464,8 +490,8 @@ try{
  // Simulate an old-installed PWA (v33) upgrading to the new release (v35) on the same origin.
  // No production server mutation: only the temporary dist/ built by this GitHub job is changed.
  const swPath='dist/service-worker.js',latestSW=await readFile(swPath,'utf8');
- assert.match(latestSW,/city-route-v51/);
- await writeFile(swPath,latestSW.replace("city-route-v51","city-route-v33"));
+ assert.match(latestSW,/city-route-v52/);
+ await writeFile(swPath,latestSW.replace("city-route-v52","city-route-v33"));
  try{
   const upgradeCtx=await browser.newContext({viewport:{width:375,height:812},isMobile:true,hasTouch:true});
   await upgradeCtx.route(/supabase\.co/,route=>route.abort());
@@ -476,7 +502,7 @@ try{
   await upgradePage.waitForFunction(()=>!!navigator.serviceWorker?.controller,undefined,{timeout:15000});
   await writeFile(swPath,latestSW);
   await upgradePage.evaluate(()=>navigator.serviceWorker.getRegistration().then(reg=>reg.update())).catch(()=>{});
-  await upgradePage.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('city-route-v51')&&!keys.includes('city-route-v33');},undefined,{timeout:30000});
+  await upgradePage.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('city-route-v52')&&!keys.includes('city-route-v33');},undefined,{timeout:30000});
   await upgradePage.goto(BASE+'/#add-place',{waitUntil:'domcontentloaded'});
   await upgradePage.locator('#pc-q').waitFor({timeout:15000});
   await upgradePage.screenshot({path:'p0-smoke-artifacts/pwa-upgraded-v33-to-v41.png',fullPage:true});

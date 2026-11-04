@@ -119,6 +119,10 @@ An agent should respond only to `OPEN` items addressed to it, not every historic
 
 Use PR comments for code-specific review. Use `DECISIONS.md` for durable architectural decisions. Once an item is recorded as `DONE`, do not reopen it without new evidence.
 
+## Independent product auditor personas
+
+For discovery/ranking changes, first read [AUDITORS.md](AUDITORS.md) and use the four role-specific Markdown files in `auditors/` as **independent product-review lenses**, not autonomous coders. Each audit is tied to an exact commit and real evidence; report up to three findings with impact and a regression case. Archive insights and proposed persona updates in `auditors/AUDIT_LOG.md`. Persona "learning" means versioned changes reviewed by the Product Owner, not hidden memory or automated re-training. See the draft [discovery ranking proposal](docs/DISCOVERY_RANKING_V0.1.md); no production ranking change is authorized merely by adding docs.
+
 ## Existing project constraints
 
 Keep vanilla HTML/CSS/JS unless a separately approved architectural change says otherwise. Preserve the current Supabase + static `dist/` deployment model. No paid API, backend replacement or framework without a demonstrated need and appropriate approval.

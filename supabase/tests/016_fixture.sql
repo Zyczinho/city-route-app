@@ -11,6 +11,7 @@ grant usage on schema public to authenticated,anon;
 create or replace function public.set_updated_at() returns trigger language plpgsql as $$
 begin new.updated_at=now();return new;end $$;
 create table public.cities(id uuid primary key,slug text unique not null);
+grant select on public.cities to authenticated,anon;
 create table public.places(
  id uuid primary key,city_id uuid not null references public.cities(id),
  legacy_id text,slug text not null,visibility text not null default 'public',

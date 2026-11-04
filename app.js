@@ -1,4 +1,5 @@
 import {summary,optimize,generate,generateAlternatives,advance,mapsUrl,routeMapsUrl,parseLocation,distance,combinedRating,smoothedRating,matches} from './core.js';
+import {localDate,validDate,scheduleRoute,feasibleFor} from './opening-hours.js';
 import {DEFAULT_CITY_ID,cityById,cityPoint,forCity,isInsideCity,routeTitle,searchQuery,withCityId} from './city-context.js';
 import {createRestRpcClient,loadCatalogueWithFallback} from './catalogue-client.js';
 import {loadNearbyPlaces} from './nearby-client.js';
@@ -285,8 +286,10 @@ const keepDraft=()=>{const f=$('#place-form');if(!f)return;const v=new FormData(
 
 // Plan tab
 const radio=(name,opts,val)=>`<div class="choice" role="radiogroup">${opts.map(([v,l])=>`<label><input type="radio" name="${name}" value="${v}" ${v===val?'checked':''}><span>${l}</span></label>`).join('')}</div>`;
-function planView(){return `<section class="page-head"><p class="kicker">TWÓJ CZAS · TWOJE MIEJSCA</p><h1>Zaplanuj moją trasę.</h1><p class="lead">Powiedz, ile masz czasu i na co masz ochotę. Ułożymy przystanki w sensownej kolejności.</p><a class="inline" href="#routes">Wolisz gotowy pomysł? Zobacz trasy →</a></section><a class="start-here" href="#about" aria-label="Zacznij tutaj — poznaj funkcje City Route"><span class="start-here-icon">${ic('compass')}</span><span class="start-here-copy"><strong>Pierwszy raz tutaj? Zacznij tutaj</strong><small>Poznaj najważniejsze funkcje w minutę.</small></span>${ic('chevron-right')}</a>${liveBanner()}
+function planView(){const today=localDate(city().timezone||'Europe/Warsaw'),date=generationPrefs?.visitDate&&generationPrefs.visitDate>=today?generationPrefs.visitDate:today,time=generationPrefs?.startTime||'10:00',mode=generationPrefs?.visitMode||'inside';return `<section class="page-head"><p class="kicker">TWÓJ CZAS · TWOJE MIEJSCA</p><h1>Zaplanuj moją trasę.</h1><p class="lead">Powiedz, ile masz czasu i na co masz ochotę. Ułożymy przystanki w sensownej kolejności.</p><a class="inline" href="#routes">Wolisz gotowy pomysł? Zobacz trasy →</a></section><a class="start-here" href="#about" aria-label="Zacznij tutaj — poznaj funkcje City Route"><span class="start-here-icon">${ic('compass')}</span><span class="start-here-copy"><strong>Pierwszy raz tutaj? Zacznij tutaj</strong><small>Poznaj najważniejsze funkcje w minutę.</small></span>${ic('chevron-right')}</a>${liveBanner()}
  <a class="button wide" href="#my-route">${ic("pencil")}Ułożę trasę samodzielnie — dodaję i przesuwam miejsca</a><form id="build-form" class="planner"><fieldset><legend>Ile masz czasu?</legend>${radio('time',[['60','1 h'],['120','2 h'],['240','4 h'],['360','Pół dnia'],['480','Cały dzień']],'120')}</fieldset>
+ <fieldset class="planner-when"><legend>Kiedy chcesz zwiedzać?</legend><div class="planner-when-fields"><label>Data<input type="date" name="visitDate" required min="${today}" value="${esc(date)}"></label><label>Start<input type="time" name="startTime" required min="06:00" max="22:00" value="${esc(time)}"></label></div><p class="fine">Godziny sprawdzamy dla wybranych muzeów. Pozostałe wymagają potwierdzenia.</p></fieldset>
+ <fieldset><legend>Chcesz wchodzić do muzeów?</legend>${radio('visitMode',[['inside','Tak — sprawdź godziny wejścia'],['outside','Nie — tylko oglądanie z zewnątrz']],mode)}</fieldset>
  <fieldset><legend>Na co masz ochotę?</legend><div class="choice">${[['mix','Wszystko po trochu'],['sightseeing','Klasyka'],['culture','Kultura'],['nature','Zieleń'],['views','Widoki'],['food','Jedzenie'],['hidden','Nieoczywiste']].map(([v,l])=>`<label><input type="checkbox" name="interests" value="${v}" ${v==='mix'?'checked':''}><span>${l}</span></label>`).join('')}</div></fieldset>
  <fieldset><legend>Jak się poruszasz?</legend>${radio('transport',[['walking','Pieszo'],['bike','Rower'],['transit','Komunikacja'],['mix','Różnie']],'walking')}</fieldset>
  <fieldset><legend>Kawa albo jedzenie po drodze?</legend>${radio('food',[['none','Nie'],['quick','Kawa lub przekąska'],['sit','Restauracja']],'none')}</fieldset>
@@ -314,9 +317,21 @@ function generatedPicker(){
  }).join('');
  return `<section class="generated-picker" aria-labelledby="generated-heading"><h2 id="generated-heading">Wybierz trasę dla siebie</h2><p class="lead">Oto ${generatedOptions.length} ${generatedOptions.length===1?'propozycja':generatedOptions.length<5?'propozycje':'propozycji'} na podstawie Twoich ustawień. Wybierz jedną lub sprawdź inne.</p><div class="generated-options">${options}</div><div class="generated-picker-actions"><button type="button" data-action="refresh-generated">${ic('shuffle')}Pokaż inne propozycje</button><a href="#plan">Zmień ustawienia</a></div></section>`;
 }
+function generatedTimingView(ps){
+ if(!generationPrefs)return '';
+ const timeline=scheduleRoute(ps,{cityId:city().id,date:generationPrefs.visitDate,startTime:generationPrefs.startTime,
+  mode:generationPrefs.visitMode,transport:generationPrefs.transport,origin:generationPrefs.start,maxMinutes:Number(generationPrefs.time)});
+ const day=new Intl.DateTimeFormat('pl-PL',{day:'numeric',month:'long',year:'numeric',timeZone:city().timezone||'Europe/Warsaw'})
+  .format(new Date(generationPrefs.visitDate+'T12:00:00Z'));
+ return `<section class="detail route-timeline" aria-label="Orientacyjny plan dnia"><h2>Plan na ${esc(day)} · od ${esc(generationPrefs.startTime)}</h2>
+ <p class="fine">Orientacyjne czasy podróży i zwiedzania, bez danych o ruchu i kolejkach. Godziny wejścia do wybranych muzeów sprawdziliśmy 4.11.2026; nie są danymi na żywo. Przed zakupem biletu potwierdź termin.</p>
+ <ol class="timeline-list">${timeline.rows.map(x=>`<li><strong>${esc(x.visitStart)}–${esc(x.departure)}</strong><span>${esc(x.name)}<small>${x.status==='known'?`Zweryfikowane ${esc(x.opening.label)}`:x.status==='unknown'?'Godziny wymagają sprawdzenia':x.status==='closed'?'Nieczynne':x.status==='exterior'?'Z zewnątrz':'Zwiedzanie bez potwierdzonych godzin'}${x.wait?' · oczekiwanie '+x.wait+' min':''}${x.opening.source?` · <a href="${esc(x.opening.source)}" target="_blank" rel="noopener noreferrer">Źródło</a>`:''}</small></span></li>`).join('')}</ol>
+ ${timeline.unknownCount?`<p class="fine">Uwaga: ${timeline.unknownCount} ${timeline.unknownCount===1?'miejsce wymaga':'miejsca wymagają'} sprawdzenia godzin otwarcia.</p>`:''}
+ <p class="fine">Plan jest podglądem na wybrany dzień; po zapisaniu samej trasy jej harmonogram nie jest jeszcze synchronizowany między urządzeniami.</p></section>`;
+}
 function detailView(r){const ps=items(r.stops),own=state.myRoutes.some(x=>x.id===r.id),cover=routeCoverAssignments().get(r.id)||null;
  return `<section class="detail"><a class="back" href="${r.id==='generated'?'#plan':'#routes'}">${ic('arrow-left')}${r.id==='generated'?'Ułóż trasę':'Trasy'}</a>${r.id==='generated'?generatedPicker():''}<div class="cover">${photo(cover,'',true)}</div>${credit(cover)}<p class="kicker">${r.id==='generated'?'Ułożona dla Ciebie':own?'Twoja trasa':'Redakcja City Route'}${(r.cats||[]).map(c=>' · '+catName(c,ROUTE_CATS)).join('')}</p><h1>${esc(r.name)}</h1><p class="lead">${esc(r.description)}</p>${meta(ps,r.transport)}
- <div class="detail-actions"><button class="primary big" data-action="start" data-id="${r.id}">${ic('play')}Rozpocznij trasę</button>${r.id==='generated'?`<button data-action="save-generated">${ic('bookmark')}Zapisz trasę</button>`:''}<button data-action="save-route" data-id="${r.id}">${ic('pencil')}Edytuj jako Moją trasę</button>${wholeRoute(ps,r.transport)}${own?`<button class="danger" data-action="delete-route" data-id="${r.id}">${ic('trash-2')}Usuń tę trasę</button>`:''}</div><h2>Przystanki</h2>${stopList(ps)}${estimation}</section>`;}
+ <div class="detail-actions"><button class="primary big" data-action="start" data-id="${r.id}">${ic('play')}Rozpocznij trasę</button>${r.id==='generated'?`<button data-action="save-generated">${ic('bookmark')}Zapisz trasę</button>`:''}<button data-action="save-route" data-id="${r.id}">${ic('pencil')}Edytuj jako Moją trasę</button>${wholeRoute(ps,r.transport)}${own?`<button class="danger" data-action="delete-route" data-id="${r.id}">${ic('trash-2')}Usuń tę trasę</button>`:''}</div><h2>Przystanki</h2>${stopList(ps)}${r.id==='generated'?generatedTimingView(ps):''}${estimation}</section>`;}
 
 // My route tab
 function liveView(){const s=state.session,p=all[s.stops[s.index]],next=items(s.stops.slice(s.index+1));
@@ -523,10 +538,16 @@ function plan(prefs,start){
  if(!prefs.interests.length)prefs.interests=['mix'];
  if(prefs.interests.length>1)prefs.interests=prefs.interests.filter(x=>x!=='mix');
  if(start&&distance(start,cityPoint(city()))>Math.min(25,city().radiusKm)){toast(`Jesteś daleko od ${city().name} — układam trasę bez punktu startu.`);start=null;}
+ if(!validDate(prefs.visitDate)||prefs.visitDate<localDate(city().timezone||'Europe/Warsaw')||!/^([01]\\d|2[0-3]):[0-5]\\d$/.test(prefs.startTime||'')){
+  return toast('Wybierz poprawną datę i godzinę rozpoczęcia trasy.');
+ }
  const chosenPrefs={...prefs,start:start||undefined};
+ chosenPrefs.timeFeasible=stops=>feasibleFor(stops,{cityId:city().id,date:chosenPrefs.visitDate,
+   startTime:chosenPrefs.startTime,mode:chosenPrefs.visitMode,transport:chosenPrefs.transport,
+   origin:chosenPrefs.start,maxMinutes:Number(chosenPrefs.time)});
  const choices=generateAlternatives([...places,...forCity(state.userPlaces,city().id)],chosenPrefs,{count:3});
  log('build_generate',{preferences:chosenPrefs,stops:choices[0]?.length||0,variants:choices.length});
- if(!choices.length)return toast('Nic nie pasuje. Daj więcej czasu albo zmień budżet.');
+ if(!choices.length)return toast('Nie ma wykonalnej trasy w tych godzinach. Zmień start, datę lub długość zwiedzania.');
  generationPrefs=chosenPrefs;generationHistory=[];setGeneratedOptions(choices);
  location.hash='route/generated';
 }

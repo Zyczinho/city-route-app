@@ -538,7 +538,7 @@ function plan(prefs,start){
  if(!prefs.interests.length)prefs.interests=['mix'];
  if(prefs.interests.length>1)prefs.interests=prefs.interests.filter(x=>x!=='mix');
  if(start&&distance(start,cityPoint(city()))>Math.min(25,city().radiusKm)){toast(`Jesteś daleko od ${city().name} — układam trasę bez punktu startu.`);start=null;}
- if(!validDate(prefs.visitDate)||prefs.visitDate<localDate(city().timezone||'Europe/Warsaw')||!/^([01]\\d|2[0-3]):[0-5]\\d$/.test(prefs.startTime||'')){
+ if(!validDate(prefs.visitDate)||prefs.visitDate<localDate(city().timezone||'Europe/Warsaw')||!/^([01]\d|2[0-3]):[0-5]\d$/.test(prefs.startTime||'')){
   return toast('Wybierz poprawną datę i godzinę rozpoczęcia trasy.');
  }
  const chosenPrefs={...prefs,start:start||undefined};

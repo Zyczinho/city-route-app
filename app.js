@@ -180,7 +180,7 @@ function placesView(){
  ${cat==='jedzenie'?chips([['all','Każda kuchnia'],...cuisines.map(k=>[k,k[0].toUpperCase()+k.slice(1)])],cuisine,'cuisine'):''}
  
  <div class="list-head"><span>${list.length} ${plural(list.length,'wynik','wyniki','wyników')}</span><label class="sort">Sortuj<select id="sort"><option value="default" ${sort==='default'?'selected':''}>Polecane</option><option value="rating" ${sort==='rating'?'selected':''}>Najlepiej oceniane</option><option value="count" ${sort==='count'?'selected':''}>Najwięcej opinii</option><option value="near" ${sort==='near'?'selected':''}>Najbliżej mnie</option></select></label></div>
- <div class="place-list">${list.map(placeRow).join('')||`<div class="empty"><p>${cat==='saved'?'Nie masz jeszcze zapisanych miejsc. Otwórz dowolne miejsce i dodaj je do Zapisanych.':`Nic nie pasuje do „${esc(query)}”. Spróbuj innego słowa albo kategorii.`}</p></div>`}</div><p class="foot"><a href="#sources">${ic('info')}Skąd są oceny i zdjęcia?</a></p>`;}
+ <div class="place-list">${list.map(placeRow).join('')||`<div class="empty"><p>${cat==='saved'?'Nie masz jeszcze zapisanych miejsc. Otwórz dowolne miejsce i dodaj je do Zapisanych.':cat==='nocne'&&!query?'Jeszcze nie mamy w tym mieście opublikowanych barów i klubów. Pomóż uzupełnić przewodnik!':query?`Nic nie pasuje do „${esc(query)}”. Spróbuj innego słowa albo kategorii.`:'Na razie nie mamy miejsc w tej kategorii.'}</p>${cat==='nocne'?'<a class="button primary" href="#add-place">Dodaj bar lub klub</a>':''}</div>`}</div><p class="foot"><a href="#sources">${ic('info')}Skąd są oceny i zdjęcia?</a></p>`;}
 async function mountPlacesMap(){
  const host=$('#places-map');if(!host)return;
  const base=[...renderedPlaceList],baseById=new Map(base.map(p=>[String(p.id),p]));

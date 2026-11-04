@@ -5,6 +5,9 @@ on:
     paths:
       - 'app.js'
       - 'styles.css'
+      - 'map.css'
+      - 'map-view.js'
+      - 'tests/map-view.test.js'
       - 'place-composer.js'
       - 'place-composer-model.js'
       - 'route-optimizer.js'

@@ -73,6 +73,29 @@ try{
   assert.equal(await page.locator('#main .loading').count(),0,'tab must not show perpetual loading');
  }
 
+
+ // MAP-SCROLL-037: protect mobile vertical scrolling with a short inset map and an explicit gesture toggle.
+ try{
+  await page.locator('#places-map.cr-map').waitFor({state:'attached',timeout:12000});
+ }catch(error){
+  const debug=await page.evaluate(()=>({hash:location.hash,mapHost:!!document.querySelector('#places-map'),map:!!document.querySelector('#places-map.cr-map'),mainText:document.querySelector('#main')?.textContent?.slice(0,250)}));
+  throw new Error('Map mount missing in mobile browser: '+JSON.stringify({...debug,errors}),{cause:error});
+ }
+ const mapLayout=await page.locator('#places-map.cr-map').evaluate(el=>{
+  const rect=el.getBoundingClientRect(),canvas=el.querySelector('.cr-map-canvas'),button=el.querySelector('.cr-map-interaction');
+  return {left:rect.left,right:rect.right,height:rect.height,viewport:innerWidth,
+   touchAction:getComputedStyle(canvas).touchAction,scrollMode:el.classList.contains('is-scroll-mode'),
+   panToggle:button?.getAttribute('aria-pressed'),overflow:document.documentElement.scrollWidth};
+ });
+ assert.ok(mapLayout.left>=16&&mapLayout.right<=mapLayout.viewport-16,'map leaves a finger-scroll corridor at both edges: '+JSON.stringify(mapLayout));
+ assert.ok(mapLayout.height>=280&&mapLayout.height<=410,'mobile map does not occupy most of the page: '+JSON.stringify(mapLayout));
+ console.log('MAP_SCROLL_QA '+JSON.stringify(mapLayout));
+ assert.equal(mapLayout.scrollMode,true,'narrow map defaults to page scroll');
+ assert.equal(mapLayout.touchAction,'pan-y','map canvas must allow vertical page touch scrolling');
+ assert.equal(mapLayout.panToggle,'false','user must explicitly enable map panning');
+ assert.ok(mapLayout.overflow<=mapLayout.viewport+1,'map toolbar does not create horizontal overflow');
+ await page.screenshot({path:'p0-smoke-artifacts/places-mobile-scroll.png',fullPage:true});
+
  // COMMUNITY-HUB-023: four accessible community subviews are reachable without altering bottom tabs.
  await page.locator('#navigation a[href="#routes/community"]').click();
  await page.locator('[data-community-tabs] .community-hub-links').waitFor({timeout:12000});
@@ -286,8 +309,8 @@ try{
  // Simulate an old-installed PWA (v33) upgrading to the new release (v35) on the same origin.
  // No production server mutation: only the temporary dist/ built by this GitHub job is changed.
  const swPath='dist/service-worker.js',latestSW=await readFile(swPath,'utf8');
- assert.match(latestSW,/city-route-v42/);
- await writeFile(swPath,latestSW.replace("city-route-v42","city-route-v33"));
+ assert.match(latestSW,/city-route-v43/);
+ await writeFile(swPath,latestSW.replace("city-route-v43","city-route-v33"));
  try{
   const upgradeCtx=await browser.newContext({viewport:{width:375,height:812},isMobile:true,hasTouch:true});
   await upgradeCtx.route(/supabase\.co/,route=>route.abort());
@@ -298,7 +321,7 @@ try{
   await upgradePage.waitForFunction(()=>!!navigator.serviceWorker?.controller,undefined,{timeout:15000});
   await writeFile(swPath,latestSW);
   await upgradePage.evaluate(()=>navigator.serviceWorker.getRegistration().then(reg=>reg.update())).catch(()=>{});
-  await upgradePage.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('city-route-v42')&&!keys.includes('city-route-v33');},undefined,{timeout:30000});
+  await upgradePage.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('city-route-v43')&&!keys.includes('city-route-v33');},undefined,{timeout:30000});
   await upgradePage.goto(BASE+'/#add-place',{waitUntil:'domcontentloaded'});
   await upgradePage.locator('#pc-q').waitFor({timeout:15000});
   await upgradePage.screenshot({path:'p0-smoke-artifacts/pwa-upgraded-v33-to-v41.png',fullPage:true});

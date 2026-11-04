@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {NEARBY_RADIUS_M,LEAFLET,categoryGroup,nearbyPlaces,filterPlaces,placeLabel,boundsOf,cardHtml,listHtml,loadLeaflet,createMapView} from '../map-view.js';
 
 const places=[
@@ -27,10 +28,11 @@ function fakeDoc(){
 const click=(container,attrs)=>{const target={attrs,getAttribute:k=>attrs[k]??null,closest(){return this;}};for(const f of container.listeners.click||[])f({target});};
 
 function fakeLeaflet(){
-  const calls={markers:[],views:[],circles:0};
+  const calls={markers:[],views:[],circles:0,gestureChanges:[]};
+  const gesture=name=>({enable(){calls.gestureChanges.push(name+':on');},disable(){calls.gestureChanges.push(name+':off');}});
   const evented=o=>Object.assign({handlers:{},on(t,f){this.handlers[t]=f;return this;},addTo(){return this;},remove(){}},o);
   const L={
-    map:()=>calls.map=evented({setView(c,z){calls.views.push([c,z]);return this;},panTo(c){calls.pan=c;},getCenter:()=>({lat:50.06,lng:19.94}),getZoom:()=>14,remove(){calls.removed=true;}}),
+    map:(_canvas,options)=>{calls.mapOptions=options;return calls.map=evented({dragging:gesture('dragging'),touchZoom:gesture('touchZoom'),setView(c,z){calls.views.push([c,z]);return this;},panTo(c){calls.pan=c;},getCenter:()=>({lat:50.06,lng:19.94}),getZoom:()=>14,remove(){calls.removed=true;}});},
     tileLayer:(url,o)=>{calls.tiles={url,o};return evented({});},
     layerGroup:()=>evented({clearLayers(){calls.markers=calls.markers.filter(m=>m.layer!==this);}}),
     divIcon:o=>o,
@@ -138,4 +140,39 @@ test('map view renders markers, selects places and reports callbacks',async()=>{
   view.destroy();
   assert.equal(calls.removed,true);
   assert.equal((container.listeners.click||[]).length,0);
+});
+
+test('touch map does not trap page scrolling until user explicitly enables map gestures',async()=>{
+  const doc=fakeDoc(),container=doc.createElement('div'),{L,calls}=fakeLeaflet();
+  const view=createMapView({container,doc,places,city,coarsePointer:true,leaflet:async()=>L});
+  assert.equal(await view.ready,'map');
+  assert.equal(calls.mapOptions.dragging,false);
+  assert.equal(calls.mapOptions.touchZoom,false);
+  assert.equal(calls.mapOptions.scrollWheelZoom,false);
+  assert.equal(container.classList.contains('is-scroll-mode'),true);
+  const interaction=container.children[0].children[1];
+  assert.equal(interaction.hidden,false);
+  assert.equal(interaction.getAttribute('aria-pressed'),'false');
+  assert.equal(interaction.textContent,'Przesuwaj mapę');
+  click(container,{'data-map-action':'interaction'});
+  assert.equal(container.classList.contains('is-scroll-mode'),false);
+  assert.equal(interaction.textContent,'Przewijaj stronę');
+  assert.equal(interaction.getAttribute('aria-pressed'),'true');
+  assert.deepEqual(calls.gestureChanges.slice(-2),['dragging:on','touchZoom:on']);
+  click(container,{'data-map-action':'interaction'});
+  assert.equal(container.classList.contains('is-scroll-mode'),true);
+  assert.deepEqual(calls.gestureChanges.slice(-2),['dragging:off','touchZoom:off']);
+  click(container,{'data-map-action':'toggle'});
+  assert.equal(interaction.hidden,true);
+  click(container,{'data-map-action':'toggle'});
+  assert.equal(interaction.hidden,false);
+  view.destroy();
+});
+
+test('mobile map reserves screen edges and allows vertical touch scrolling',()=>{
+  const css=readFileSync(new URL('../map.css',import.meta.url),'utf8');
+  assert.match(css,/\.cr-map\{position:relative;isolation:isolate;/);
+  assert.match(css,/\.places-map-shell\{margin:12px 16px 20px\}/);
+  assert.match(css,/height:clamp\(280px,45svh,410px\)/);
+  assert.match(css,/\.cr-map\.is-scroll-mode \.leaflet-container\{touch-action:pan-y!important\}/);
 });

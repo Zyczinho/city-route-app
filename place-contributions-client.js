@@ -40,7 +40,7 @@ export function createPlaceContributionsClient({client}={}){
    return String(await rpc('create_place_submission',{
     p_city_slug:place.cityId,p_name:String(place.name).trim(),p_category_id:resolveCategory(place),
     p_lat:place.lat,p_lng:place.lng,p_description:place.description==='Twoje miejsce.'?'':place.description||'',
-    p_source_url:place.sourceUrl||null
+    p_source_url:place.photoSourcePage||place.sourceUrl||null
    }));
   },
   async uploadOwnPhoto(userId,submissionId,dataUrl,confirmed){

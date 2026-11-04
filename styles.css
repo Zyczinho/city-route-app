@@ -123,8 +123,8 @@ main{max-width:1080px;margin:0 auto;padding:22px 16px 128px;min-height:80vh}main
 .chat{max-width:640px;display:grid;gap:12px}.messages{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;min-height:160px;display:grid;gap:8px;align-content:start}.message{background:var(--blue-soft);border-radius:12px;padding:10px 12px}.message strong{font-size:12px}.message p{overflow-wrap:anywhere;font-size:14px}.chat form{display:flex;gap:8px}
 
 /* Bottom navigation: five tabs, My Route gets its own accent */
-#navigation{position:fixed;z-index:30;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(5,1fr);gap:2px;padding:6px 6px calc(6px + env(safe-area-inset-bottom));background:#ffffffef;backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px);border-top:1px solid var(--line)}
-#navigation a{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:54px;border-radius:14px;text-decoration:none;font-size:11px;font-weight:600;color:var(--muted);white-space:nowrap}
+#navigation{position:fixed;z-index:30;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));min-width:0;max-width:100vw;gap:2px;padding:6px 6px calc(6px + env(safe-area-inset-bottom));background:#ffffffef;backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px);border-top:1px solid var(--line)}
+#navigation a{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:0;overflow:hidden;text-overflow:ellipsis;min-height:54px;border-radius:14px;text-decoration:none;font-size:11px;font-weight:600;color:var(--muted);white-space:nowrap}
 #navigation a .i{width:23px;height:23px}#navigation a.active{color:var(--ink)}#navigation a.active:not(.chosen):after{content:'';position:absolute;top:2px;width:18px;height:3px;border-radius:3px;background:var(--ink)}
 #navigation a.chosen{background:var(--cyan-soft);color:#00788f}#navigation a.chosen.active{background:var(--cyan);color:#fff}
 #navigation a.live,#navigation a.live.active{background:var(--live);color:#fff;box-shadow:0 6px 18px #e0323c55}#navigation a.live .pulse{width:12px;height:12px;margin:5px 0 6px}
@@ -298,7 +298,13 @@ img.avatar{object-fit:cover;display:block}.avatar.sm{width:36px;height:36px;font
  .place .sub{font-size:11px}
  .place .score{font-size:11px}
  .place .score strong{font-size:13px}
- .place .srcs,.place .cr-score{display:none}
+ .place .srcs{display:flex;flex-wrap:nowrap;gap:3px;overflow:hidden;min-width:0}
+ .place .srcs .src{font-size:10px;padding:2px 4px;gap:2px;min-width:0}
+ .place .srcs .src.none{display:none}
+ .place .srcs .src .b{width:11px;height:11px;flex:none}
+ .place .cr-score{display:none}
+ .place .cr-score.has-score{display:inline-flex;font-size:10px;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+
  .place .side{position:relative;grid-area:actions;justify-self:end;align-self:end;top:auto;right:auto;z-index:2}
  .place .side .icon-btn{width:42px;height:42px;min-height:42px;border-radius:10px}
  .place .hit{border-radius:14px}
@@ -308,3 +314,26 @@ img.avatar{object-fit:cover;display:block}.avatar.sm{width:36px;height:36px;font
  .place-list .place .info .idea{font-size:11px}
  .place-list .place .info .idea+.cr-score{display:none}
 }
+
+/* AUDIT-041: the bottom navigation may not stretch the visual viewport at 320px. */
+@media(max-width:359px){
+ /* Reduce header content intrinsically instead of clipping the overflowing avatar. */
+ .top{padding-inline:10px;gap:4px}
+ .top .brand{min-width:0;flex:0 1 auto}
+ .top .logo{width:116px;max-width:100%}
+ .top .right{flex:0 0 auto;gap:6px;min-width:0}
+ .top .city{font-size:11px;gap:3px}
+ .top .city .i{width:12px;height:12px}
+ .top .avatar.sm{width:32px;height:32px;font-size:13px}
+ #navigation{grid-template-columns:repeat(5,minmax(0,1fr));box-sizing:border-box;max-width:100vw;overflow:hidden}
+ #navigation a{min-width:0;font-size:10px;letter-spacing:-.015em;overflow:hidden;text-overflow:ellipsis}
+ #navigation a .i{width:21px;height:21px}
+ .place .srcs .src{font-size:9px}
+}
+/* Nightlife placeholders are a branded fallback, not falsely presented as real photos. */
+.ph-nightlife{background:linear-gradient(145deg,#162036,#3b275d 64%,#0b4e59);color:#eae6f9}
+.ph-letter{font-size:30px;font-weight:800;letter-spacing:-.05em;color:#f3e5ff;text-shadow:0 2px 12px #0006}
+.photo-source-hint{border:1px solid var(--line);background:var(--surface);padding:10px 12px;border-radius:12px}
+.photo-source-hint summary{cursor:pointer;font-size:13px;font-weight:650}
+.photo-source-hint label{display:block;margin-top:10px}
+.photo-source-hint input{display:block;width:100%;font-size:16px;min-height:42px;margin-top:5px}

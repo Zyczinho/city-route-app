@@ -173,6 +173,6 @@ test('mobile map reserves screen edges and allows vertical touch scrolling',()=>
   const css=readFileSync(new URL('../map.css',import.meta.url),'utf8');
   assert.match(css,/\.cr-map\{position:relative;isolation:isolate;/);
   assert.match(css,/\.places-map-shell\{margin:12px 16px 20px\}/);
-  assert.match(css,/height:clamp\(280px,45svh,410px\)/);
+  assert.match(css,/height:clamp\(330px,53svh,460px\)/);
   assert.match(css,/\.cr-map\.is-scroll-mode \.leaflet-container\{touch-action:pan-y!important\}/);
 });

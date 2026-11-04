@@ -59,7 +59,7 @@
 /* Keep a clear finger-scroll corridor around the map on narrow screens. */
 .places-map-shell{margin:12px 16px 20px}
 @media(max-width:759px){
-  .cr-map{min-height:0;height:clamp(280px,45svh,410px)}
+  .cr-map{min-height:0;height:clamp(330px,53svh,460px)}
   .cr-map-toolbar{flex-wrap:wrap}
   .cr-map-toolbar button{flex:1 1 auto;min-width:0;padding:8px 10px;font-size:13px}
 }

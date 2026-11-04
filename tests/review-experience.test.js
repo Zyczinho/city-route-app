@@ -67,3 +67,10 @@ test('DB schema keeps unverified personal reviews separate from provider aggrega
  for(const path of ['social-routes-enhancements.js','place-reviews.js','place-reviews-client.js','review-source-model.js'])
   execFileSync(process.execPath,['--check',path],{stdio:'pipe'});
 });
+
+test('compact place cards keep explicit Google/Tripadvisor source values on phones, and only reveal actual City Route scores',async()=>{
+ const css=await readFile(new URL('../styles.css',import.meta.url),'utf8');
+ assert.match(css,/\.place \.srcs\{display:flex;flex-wrap:nowrap/);
+ assert.match(css,/\.place \.cr-score\.has-score\{display:inline-flex/);
+ assert.match(css,/#navigation\{grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);
+});

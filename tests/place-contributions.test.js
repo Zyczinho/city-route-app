@@ -31,6 +31,11 @@ test('proposal creates city-scoped, validated RPC; user rating is never sent as 
  assert.equal(calls[0].args.p_lng,place.lng);
  assert.ok(!('rating' in calls[0].args));
 });
+test('photo provenance link is passed to moderation instead of being scraped for a photo',async()=>{
+ const {client,calls}=fake();
+ await createPlaceContributionsClient({client}).submit({...place,photoSourcePage:'https://www.instagram.com/samplevenue/'});
+ assert.equal(calls[0].args.p_source_url,'https://www.instagram.com/samplevenue/');
+});
 test('my submission state cannot disclose other users and admin approve RPC has only intended params',async()=>{
  const {client,calls}=fake(),api=createPlaceContributionsClient({client});
  assert.equal((await api.mine())[0].cityId,'warsaw');
@@ -70,7 +75,7 @@ test('UI and PWA bundle shared-place modules without exposing private proposals'
  for(const path of ['place-contributions.js','place-contributions-client.js'])assert.ok(build.includes(path));
  for(const path of ['./place-contributions.js?v=1','./place-contributions-client.js'])assert.ok(sw.includes(path));
  assert.match(index,/place-contributions\.js\?v=1/);
- assert.match(sw,/city-route-v45/);
+ assert.match(sw,/city-route-v46/);
  assert.match(app,/cityroute:place-created/);
  assert.match(app,/cityroute:submission-updated/);
  assert.match(app,/data-community-submit/);

@@ -43,6 +43,7 @@ function update(){
   const txt=metric&&metric.reviewCount>0&&Number.isFinite(metric.average)
    ?'★ City Route '+fmt(metric.average)+'/5 · '+fmt(metric.reviewCount)+' ocen'
    :'★ City Route · Brak ocen';
+  badge.classList.toggle('has-score',!!metric&&metric.reviewCount>0&&Number.isFinite(metric.average));
   if(badge.textContent!==txt)badge.textContent=txt;
  }
  const dialog=document.querySelector('#place-dialog[open]'),ratingHost=dialog?.querySelector('.city-route-own-rating'),p=dialog?.querySelector('#place-review-form')?.dataset.id;

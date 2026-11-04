@@ -43,7 +43,7 @@ export const PILOT_HOURS=Object.freeze({
   }
  }
 });
-const hhmm=s=>{if(!/^([01]\\d|2[0-3]):[0-5]\\d$/.test(String(s)))return NaN;const [h,m]=s.split(':').map(Number);return h*60+m;};
+const hhmm=s=>{if(!/^([01]\d|2[0-3]):[0-5]\d$/.test(String(s)))return NaN;const [h,m]=s.split(':').map(Number);return h*60+m;};
 const clock=n=>String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0');
 export function localDate(timezone='Europe/Warsaw',instant=new Date()){
  const parts=new Intl.DateTimeFormat('en-GB',{timeZone:timezone,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(instant);
@@ -51,7 +51,7 @@ export function localDate(timezone='Europe/Warsaw',instant=new Date()){
  return p.year+'-'+p.month+'-'+p.day;
 }
 export function validDate(s){
- if(!/^\\d{4}-\\d{2}-\\d{2}$/.test(String(s)))return false;
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(String(s)))return false;
  const d=new Date(s+'T12:00:00Z');
  return Number.isFinite(d.valueOf())&&d.toISOString().slice(0,10)===s;
 }

@@ -192,8 +192,28 @@ try{
  assert.equal(state.placeReviews[added.id],5,'optional add-time rating should be stored');
  assert.ok(Math.abs(added.lat-52.230123)<0.000001);
  assert.ok(Math.abs(added.lng-21.012345)<0.000001);
+ assert.ok(state.savedPlacesByCity?.warsaw?.includes(added.id),'added user place must be bookmarked automatically');
  await p2.screenshot({path:'p0-smoke-artifacts/added-place.png',fullPage:true});
  await p2.locator('#place-dialog button[data-action="add-another-place"]').click();
+ await p2.locator('#pc-q').waitFor({timeout:10000});
+ // New Places UX: saved places sit directly beside all, purple City Route scores do not
+ // enter any Google/Tripadvisor combined mean, and bookmarks can be toggled in place.
+ await p2.goto(BASE+'/#places',{waitUntil:'domcontentloaded'});
+ await p2.locator('button[data-action="cat"][data-value="saved"]').waitFor({timeout:10000});
+ const filters=await p2.locator('button[data-action="cat"]').evaluateAll(nodes=>nodes.map(n=>n.dataset.value));
+ assert.equal(filters.indexOf('saved'),filters.indexOf('all')+1,'Zapisane must sit beside Wszystkie');
+ await p2.locator('button[data-action="cat"][data-value="saved"]').click();
+ const savedCard=p2.locator('.place-list article.place:has(button[data-action="place"][data-id="'+added.id+'"])');
+ await savedCard.waitFor({timeout:12000});
+ assert.equal(await savedCard.locator('.cr-score').count(),1,'City Route score must be visible separately on saved place');
+ assert.match(await savedCard.locator('.cr-score').innerText(),/City Route/);
+ await p2.screenshot({path:'p0-smoke-artifacts/places-saved-purple-score.png',fullPage:true});
+ await savedCard.locator('button[data-action="bookmark"]').click();
+ assert.equal(await p2.locator('.place-list button[data-action="place"][data-id="'+added.id+'"]').count(),0,'unsave removes place from saved filter');
+ await p2.locator('button[data-action="cat"][data-value="all"]').click();
+ await p2.locator('.place-list article.place:has(button[data-action="place"][data-id="'+added.id+'"]) button[data-action="bookmark"]').click();
+ assert.ok((await p2.evaluate(()=>JSON.parse(localStorage.getItem('city-route-v1')))).savedPlacesByCity.warsaw.includes(added.id),'bookmark persisted across route change');
+ await p2.goto(BASE+'/#add-place',{waitUntil:'domcontentloaded'});
  await p2.locator('#pc-q').waitFor({timeout:10000});
  assert.equal(new URL(p2.url()).hash,'#add-place');
  // Verify a freshly installed PWA actually serves the new composer offline.

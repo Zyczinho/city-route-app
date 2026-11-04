@@ -2,14 +2,16 @@
 // Kept separate from app.js so it can grow without changing the router.
 import {GUIDE_GROUPS,GUIDE_TOPIC_COUNT} from './onboarding-content.js';
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const guideIcon=name=>'<span class="i" style="--i:url(./assets/icons/ui/'+name+'.svg)" aria-hidden="true"></span>';
 const QUICK=[
- ['🧭','Ułóż trasę','Plan spaceru na Twój czas','#plan'],
- ['🗺️','Trasy','Gotowe spacery i inspiracje','#routes'],
- ['📍','Miejsca','Odkrywaj i zapisuj lokalizacje','#places'],
- ['🚶','Moja trasa','Twoje przystanki i nawigacja','#my-route'],
- ['👥','Społeczność','Odkrycia innych i znajomi','#routes/community'],
- ['🎟️','Zarezerwuj','Noclegi, bilety i stoliki','#book']
+ ['compass','Ułóż trasę','Plan spaceru na Twój czas','#plan'],
+ ['route','Trasy','Gotowe spacery i inspiracje','#routes'],
+ ['map-pin','Miejsca','Odkrywaj i zapisuj lokalizacje','#places'],
+ ['navigation','Moja trasa','Twoje przystanki i nawigacja','#my-route'],
+ ['users','Społeczność','Odkrycia innych i znajomi','#routes/community'],
+ ['ticket-percent','Zarezerwuj','Noclegi, bilety i stoliki','#book']
 ];
+const GROUP_ICONS=['compass','map-pin','navigation','map','users','user-round'];
 const textList=(items,tag)=>'<'+tag+'>'+items.map(item=>'<li>'+esc(item)+'</li>').join('')+'</'+tag+'>';
 const topic=(item)=>{
  const [name,where,why,steps,href,limit]=item;
@@ -24,7 +26,7 @@ const topic=(item)=>{
 };
 const section=(group,index)=>
  '<details class="guide-group"'+(index===0?' open':'')+'>'+
- '<summary><span class="guide-group-emoji" aria-hidden="true">'+group.emoji+'</span>'+
+ '<summary><span class="guide-group-emoji" aria-hidden="true">'+guideIcon(GROUP_ICONS[index]||'info')+'</span>'+
  '<span>'+esc(group.title)+'<small>'+group.items.length+' funkcji</small></span>'+
  '<span class="guide-chevron" aria-hidden="true">⌄</span></summary>'+
  '<div class="guide-group-content">'+group.items.map(topic).join('')+'</div></details>';
@@ -40,8 +42,8 @@ export function guideView(){
   '<div class="guide-first-steps"><div><b>1</b><span>Wybierz miasto</span></div><div><b>2</b><span>Znajdź miejsca lub trasę</span></div><div><b>3</b><span>Dodaj przystanki i ruszaj</span></div></div>'+'<h3 class="guide-scenarios-label">Przykłady: od czego zacząć?</h3>'+'<div class="guide-scenarios"><a href="#plan"><strong>Mam wolne 2 godziny</strong><small>Ułóż gotowy spacer na dzisiaj</small></a><a href="#places"><strong>Szukam dobrej restauracji</strong><small>Otwórz Miejsca, wybierz Jedzenie</small></a><a href="#routes/community"><strong>Chcę poznać polecenia innych</strong><small>Przeglądaj trasy społeczności</small></a></div></section>'+
   '<h2 class="h-sm">Gdzie mam kliknąć?</h2>'+
   '<nav class="menu start-guide-menu" aria-label="Najważniejsze funkcje City Route">'+
-  QUICK.map(([emoji,name,desc,href])=>
-   '<a class="help-row" href="'+href+'"><span class="guide-quick-emoji" aria-hidden="true">'+emoji+'</span><span><strong>'+name+'</strong><small>'+desc+'</small></span><span class="guide-arrow" aria-hidden="true">›</span></a>').join('')+
+  QUICK.map(([icon,name,desc,href])=>
+   '<a class="help-row" href="'+href+'"><span class="guide-quick-emoji" aria-hidden="true">'+guideIcon(icon)+'</span><span><strong>'+name+'</strong><small>'+desc+'</small></span><span class="guide-arrow" aria-hidden="true">›</span></a>').join('')+
   '</nav>'+
   '<section class="guide-directory" aria-label="Instrukcje wszystkich funkcji">'+
   '<div class="guide-directory-heading"><div><p class="kicker">INSTRUKCJE KROK PO KROKU</p><h2>Wszystkie ważne funkcje</h2><p>Otwórz kategorię lub wyszukaj funkcję.</p></div><span class="guide-count">'+GUIDE_TOPIC_COUNT+' tematów</span></div>'+

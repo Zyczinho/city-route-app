@@ -70,7 +70,7 @@ async function enrichPlaceOnDemand(p){
   const r=await fetch('/api/place-enrichment?'+qs.toString(),{cache:'no-store'}),data=await r.json();
   if(!r.ok||!['ok','no-match','no-key'].includes(data.status))return;
   if(!all[p.id]||p.cityId!==city().id)return;
-  providerOverlay.set(p.id,{ratings:Array.isArray(data.ratings)?data.ratings:[],image:data.image||null});
+  providerOverlay.set(p.id,{ratings:Array.isArray(data.ratings)?data.ratings:[],reviews:Array.isArray(data.reviews)?data.reviews:[],image:data.image||null});
   render();
   if($('#place-dialog')?.open&&$('#place-dialog').dataset.placeId===p.id)openPlace(p.id);
  }catch{/* Offline/provider unavailable; place itself remains saved. */}
@@ -99,11 +99,26 @@ function scoreLine(p,compact=false){
  if(p.kind==='user'&&!providerRatings(p).length)return `<p class="idea">${ic('user-round')}Dodane przez Ciebie · ${isPublic(p)?'propozycja społeczności':'prywatne'}</p>${cityRouteBadge(p)}`;
  const c=combinedRating(providerRatings(p)),chip=s=>{const r=rating(p,s),ok=Number.isFinite(r?.value);return `<span class="src src-${s}${ok?'':' none'}" title="${esc(SOURCES[s])}">${brand(s)}${ok?`${dec(r.value)} · ${fmt(r.reviewCount)}`:'brak'}</span>`;};
  return `<div class="score">${c.value===null?'<span class="muted">Brak ocen</span>':`<strong><span class="star" aria-hidden="true">★</span> ${dec(c.value,2)}</strong><span>${opinii(c.total)}</span>`}</div>${compact?'':`<div class="srcs" aria-label="Oceny według platform">${chip('google')}${chip('tripadvisor')}</div>`}${cityRouteBadge(p)}`;}
+
+function providerReviewSnippets(p){
+ const rows=(providerOverlay.get(p.id)?.reviews||[]).filter(r=>['google','tripadvisor'].includes(r.source)&&r.text&&/^https:\/\//.test(r.url||'')).slice(0,6);
+ if(!rows.length)return '';
+ let html='<section class="provider-reviews" aria-label="Opinie z Google Maps i Tripadvisor"><h3>Wybrane opinie z platform</h3><p class="fine">Google: według trafności; Tripadvisor: najnowsze dostępne opinie. Tekst tylko z uprawnionych API, bez wpływu na oceny City Route.</p>';
+ for(const r of rows){
+  html+='<article class="provider-review"><header>'+brand(r.source)+'<strong>'+esc(r.author)+'</strong><span>★ '+(Number.isFinite(Number(r.rating))?dec(Number(r.rating)):'—')+'/5</span></header>';
+  if(r.title)html+='<b>'+esc(r.title)+'</b>';
+  html+='<p>'+esc(r.text)+'</p><div class="provider-review-meta">';
+  if(r.when)html+='<small>'+esc(r.when)+'</small>';
+  if(r.translated)html+='<small>Tłumaczenie udostępnione przez platformę</small>';
+  html+='<a href="'+esc(r.url)+'" rel="noopener noreferrer" target="_blank">Zobacz w '+(r.source==='google'?'Google Maps':'Tripadvisor')+'</a></div></article>';
+ }
+ return html+'</section>';
+}
 function breakdown(p){const c=combinedRating(providerRatings(p));
  const rows=['google','tripadvisor'].map(s=>{const r=rating(p,s);if(!r||!Number.isFinite(r.value))return `<div class="row none">${brand(s)}<span class="name">${SOURCES[s]}</span><span class="why">${esc(r?.reason||'Brak oceny')}</span></div>`;
   return `<a class="row" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" data-action="source" data-id="${p.id}" data-source="${s}">${brand(s)}<span class="name">${SOURCES[s]}<small>${esc(r.listing)}</small></span><span class="val">★ ${dec(r.value)}</span><span class="cnt">${opinii(r.reviewCount)}</span>${ic('arrow-up-right','go')}</a>`;}).join('');
  const share=c.parts.map(r=>`<span class="sh-${r.source}" style="width:${(r.reviewCount/c.total*100).toFixed(1)}%"></span>`).join('');
- return `<section class="breakdown" aria-label="Oceny z platform"><div class="total">${c.value===null?'<strong>—</strong><span>Brak ocen na obu platformach</span>':`<strong>${dec(c.value,2)}</strong><span>na 5 · ${opinii(c.total)} łącznie</span>`}</div>${c.total?`<div class="share" aria-hidden="true">${share}</div>`:''}${rows}<div class="city-route-own-rating"><strong>City Route · oceny społeczności</strong><span>${state.placeReviews[p.id]?`★ ${state.placeReviews[p.id]}/5 · Twoja ocena`:'Jeszcze nie oceniłeś tego miejsca'}</span><small>Fioletowe oceny City Route nie wpływają na średnią Google i Tripadvisor. Po zalogowaniu ocena zatwierdzonego miejsca trafia również do społeczności.</small></div><p class="fine">Wynik łączny to średnia ważona liczbą opinii: każda opinia z Google i Tripadvisor waży tyle samo. Oceny katalogowe sprawdzono 2 listopada 2026; dane nowo dodanych miejsc są pobierane z oficjalnych API, jeśli są dostępne. <a href="#sources">Skąd są dane?</a></p></section>`;}
+ return `<section class="breakdown" aria-label="Oceny z platform"><div class="total">${c.value===null?'<strong>—</strong><span>Brak ocen na obu platformach</span>':`<strong>${dec(c.value,2)}</strong><span>na 5 · ${opinii(c.total)} łącznie</span>`}</div>${c.total?`<div class="share" aria-hidden="true">${share}</div>`:''}${rows}${providerReviewSnippets(p)}<div class="city-route-own-rating"><strong>City Route · oceny społeczności</strong><span>${state.placeReviews[p.id]?`★ ${state.placeReviews[p.id]}/5 · Twoja ocena`:'Jeszcze nie oceniłeś tego miejsca'}</span><small>Fioletowe oceny City Route nie wpływają na średnią Google i Tripadvisor. Po zalogowaniu ocena zatwierdzonego miejsca trafia również do społeczności.</small></div><p class="fine">Wynik łączny to średnia ważona liczbą opinii: każda opinia z Google i Tripadvisor waży tyle samo. Oceny katalogowe sprawdzono 2 listopada 2026; dane nowo dodanych miejsc są pobierane z oficjalnych API, jeśli są dostępne. <a href="#sources">Skąd są dane?</a></p></section>`;}
 const q=p=>encodeURIComponent(searchQuery(p,city()));
 function hotelLinks(p){const l=(href,label,src,primary)=>`<a class="button wide ${primary?'primary':''}" href="${esc(href)}" target="_blank" rel="noopener noreferrer" data-action="compare" data-id="${p.id}" data-source="${src}">${ic('arrow-up-right')}${label}</a>`;
  return `<p class="fine">Ceny na Twoje daty porównasz w Google Hotels, które zbiera oferty wielu serwisów rezerwacyjnych. City Route nie pokazuje jeszcze cen.</p>${l('https://www.google.com/travel/search?q='+q(p),'Porównaj ceny (Google Hotels)','google-hotels',true)}${l(p.bookingSearch||'https://www.booking.com/searchresults.pl.html?ss='+q(p),'Szukaj na Booking','booking')}${p.website?l(p.website,'Strona hotelu','official'):''}`;}

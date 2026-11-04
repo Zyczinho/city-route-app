@@ -251,3 +251,15 @@ img.avatar{object-fit:cover;display:block}.avatar.sm{width:36px;height:36px;font
 .city-route-own-rating span{color:#6b21a8}
 .sheet-actions>.save-place{color:#7e22ce;border:1px solid #e9d5ff;background:#faf5ff}
 @media(max-width:390px){.place .info h3{padding-right:74px}.place .side{gap:3px}.place .side .save-place{width:32px}}
+
+.provider-reviews{display:grid;gap:8px;padding:12px 0;border-top:1px solid var(--line-2)}
+.provider-reviews h3{font-size:15px}
+.provider-review{padding:11px;border:1px solid var(--line);border-radius:12px;background:var(--surface);display:grid;gap:6px}
+.provider-review header{display:flex;gap:7px;align-items:center;font-size:12px}
+.provider-review header strong{flex:1}
+.provider-review header span:last-child{white-space:nowrap;color:var(--ink);font-weight:700}
+.provider-review p{font-size:13px;line-height:1.5;white-space:pre-line;overflow-wrap:anywhere}
+.provider-review>b{font-size:13px}
+.provider-review-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12px}
+.provider-review-meta small{color:var(--muted)}
+.provider-review-meta a{margin-left:auto;color:var(--blue);font-weight:700}

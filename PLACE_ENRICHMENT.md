@@ -12,7 +12,7 @@ Cloudflare Worker variables/secrets (never store in GitHub/frontend):
 
 Endpoint: GET /api/place-enrichment?name=...&lat=...&lng=...&city=...&cityName=...&centerLat=...&centerLng=...&r=...&googleId=...
 
-The Worker restricts input to the requested city and uses a combination of geographic distance and normalized name tokens to prevent attaching an unrelated business's ratings/photo. It returns only **aggregate rating, total review count, official listing URL, and temporary display-only photo reference/attribution**. No review body text is copied or stored; Google Places responses are not cached in the app's persistent state. User-created place IDs can be stored locally where provider policy allows.
+The Worker restricts input to the requested city and uses a combination of geographic distance and normalized name tokens to prevent attaching an unrelated business's ratings/photo. It returns **aggregate rating, total review count, official listing URL and temporary photo reference/attribution**. Optional ephemeral review snippets require additional provider entitlements: set `GOOGLE_PLACES_INCLUDE_REVIEWS=on` (Enterprise + Atmosphere SKU) and `TRIPADVISOR_TERRA_INCLUDE_REVIEWS=on` (contract-limited API access). These snippets include source, author and direct review link, never stored in Supabase/localStorage/offline cache. Defaults OFF to prevent unexpected spend/licensing issues. User-created place IDs can be stored locally where provider policy allows.
 
 The mobile UI shows a separate violet **City Route 1–5 community rating** from existing Supabase RPC 016. It **does not enter** Google/Tripadvisor combined score. For places with no City Route reviews, display Brak ocen. Visitor's own rating and community aggregate are distinguishable.
 
@@ -21,3 +21,5 @@ In Miejsca, Zapisane appears directly after Wszystkie and saved place bookmarks 
 Before claiming real production provider sync, verify secrets, provider billing/access, applicable photo display rights and one actual authorized Google + Tripadvisor lookup on a real named place. If no key is configured, the Worker returns \`no-key\` and the app continues to allow saving places.
 
 Docs: https://developers.google.com/maps/documentation/places/web-service/place-details and https://developers.google.com/maps/documentation/places/web-service/policies and https://docs.terra.tripadvisor.com/reference/locationssearch
+
+Official review policies and API: https://developers.google.com/maps/documentation/places/web-service/place-details#reviews ; https://developers.google.com/maps/documentation/places/web-service/policies ; https://docs.terra.tripadvisor.com/reference/locationreviewsget .

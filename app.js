@@ -55,7 +55,8 @@ const isPublic=p=>p.visibility==='public';
 // Until accounts and a shared database exist, "public" is a stated intent: nothing leaves the device yet.
 const VIS_NOTE={private:'Miejsce widzisz tylko Ty.',public:'Propozycja trafia do wspólnego katalogu dopiero po zalogowaniu, wysłaniu i zatwierdzeniu przez moderatora.'};
 const SUBMISSION_NOTE={needs_login:'Zapisano lokalnie. Zaloguj się w Profilu, a potem wyślij propozycję.',submitting:'Wysyłam zgłoszenie…',pending:'Czeka na zatwierdzenie. Inni nie widzą jeszcze tego miejsca.',approved:'Zatwierdzone. Miejsce jest dostępne w katalogu.',merged:'Połączone z istniejącym miejscem w katalogu.',rejected:'Moderator nie zatwierdził tej propozycji.',error:'Nie udało się wysłać. Miejsce nadal jest zapisane na urządzeniu.'};
-const catalog=()=>[...places,...forCity(state.userPlaces,city().id).filter(p=>!p.resolvedPlaceId||!places.some(x=>x.id===p.resolvedPlaceId))].filter(p=>p.kind!=='hotel');
+const myPlaces=()=>forCity(state.userPlaces,city().id);
+const catalog=()=>[...places,...myPlaces().filter(p=>!p.resolvedPlaceId||!places.some(x=>x.id===p.resolvedPlaceId))].filter(p=>p.kind!=='hotel');
 
 const savedIds=()=>state.savedPlacesByCity[city().id]||[];
 const savedPlace=p=>savedIds().includes(String(p.id));
@@ -168,7 +169,7 @@ const away=p=>here?` · ${dec(distance(here,p))} km`:'';
 function placeRow(p){return `<article class="place" data-place-id="${esc(p.id)}"><button class="hit" data-action="place" data-id="${p.id}" aria-label="Szczegóły: ${esc(p.name)}"></button><div class="thumb">${photo(p)}${p.top?'<span class="must">Must-see</span>':''}</div><div class="info"><h3>${esc(p.name)}</h3><p class="sub">${esc(p.area)}${p.cuisine?' · '+esc(p.cuisine.join(', ')):p.kind==='sidequest'?'':' · '+esc(catName(p.cats?.[0]))}${p.outside?' · z zewnątrz':''}${away(p)}</p>${scoreLine(p)}</div><div class="side"><button class="icon-btn save-place ${savedPlace(p)?'on':''}" data-action="bookmark" data-id="${esc(p.id)}" aria-pressed="${savedPlace(p)}" aria-label="${savedPlace(p)?'Usuń z Zapisanych':'Zapisz miejsce'}: ${esc(p.name)}">${ic('bookmark')}</button>${addButton(p)}</div></article>`;}
 function placesView(){
  if(cat!=='sidequests'&&!PLACE_CATS.some(c=>c[0]===cat))cat='all';
- let list=cat==='sidequests'?[...quests]:catalog().filter(p=>cat==='all'||(cat==='saved'?savedPlace(p):cat==='mine'?p.kind==='user':p.cats?.[0]===cat));
+ let list=cat==='sidequests'?[...quests]:cat==='mine'?myPlaces():[...new Map([...catalog(),...myPlaces().filter(savedPlace)].map(p=>[String(p.id),p])).values()].filter(p=>cat==='all'?catalog().some(x=>x.id===p.id):cat==='saved'?savedPlace(p):p.cats?.[0]===cat);
  list=list.filter(p=>matches(placeHay(p),query)&&(cat!=='jedzenie'||cuisine==='all'||(p.cuisine||[]).includes(cuisine)));
  const c=p=>combinedRating(p.ratings);
  if(sort==='default')list.sort((a,b)=>(b.kind==='user'?1:0)-(a.kind==='user'?1:0)||(b.top?1:0)-(a.top?1:0)||String(b.createdAt||'').localeCompare(String(a.createdAt||'')));if(sort==='near'&&here)list.sort((a,b)=>distance(here,a)-distance(here,b));
@@ -338,7 +339,7 @@ function socialUrl(kind,v){v=String(v||'').trim();if(!v)return '';
 function stats(){const n=t=>state.events.filter(e=>e.type===t).length,visited=new Set(state.events.filter(e=>e.type==='stop_complete').map(e=>e.place_id)).size;
  return [[visited,'Odwiedzone miejsca'],[Object.keys(state.placeReviews).length,'Wystawione oceny'],[n('route_complete'),'Ukończone trasy'],[state.myRoutes.length,'Utworzone trasy'],[state.userPlaces.length,'Dodane miejsca']];}
 function savedPlacesView(){
- const list=catalog().filter(savedPlace);
+ const list=[...new Map([...catalog(),...myPlaces()].filter(savedPlace).map(p=>[String(p.id),p])).values()];
  return `<section class="page-head"><p class="kicker">Społeczność · Twoje kolekcje</p><h1>Zapisane miejsca</h1><p class="lead">Miejsca zapisane na tym urządzeniu. Swoje dodane miejsca znajdziesz także w „Moje miejsca”.</p><a href="#places" data-action="show-my-places" class="inline">Moje dodane miejsca →</a></section><div class="place-list">${list.map(placeRow).join('')||'<div class="empty"><p>Jeszcze nic tu nie ma. Zapisz miejsce zakładką w katalogu.</p><a href="#places">Przeglądaj miejsca</a></div>'}</div>`;
 }
 function profileView(){const name=state.tester.nickname==='Explorer'?'Odkrywca':state.tester.nickname,so=state.profile.socials,links=[['instagram','Instagram'],['tiktok','TikTok'],['web','Strona']].map(([k,l])=>[l,socialUrl(k,so[k])]).filter(x=>x[1]);

@@ -166,7 +166,7 @@ try{
  // UX MutationObserver previously created an endless microtask loop after response.
  const detailCtx=await browser.newContext({viewport:{width:375,height:812},deviceScaleFactor:1,isMobile:true,hasTouch:true});
  const testRouteId='11111111-2222-4333-8444-555555555555';
- await detailCtx.route(/supabase\\.co/,async route=>{
+ await detailCtx.route(/supabase\.co/,async route=>{
   const path=new URL(route.request().url).pathname;
   const data=path.endsWith('/rpc/community_route')?[{
    id:testRouteId,city_slug:'krakow',name:'Kraków — test trasy',description:'Trasa testowa',

@@ -173,6 +173,17 @@ try{
   {label:'Zapisane',href:'#social-saved-places'}
  ]);
  assert.ok(await page.locator('[data-community-tabs]').isVisible(),'inner community tabs must not be hidden by feed focus');
+ const eventsEntry=page.locator('[data-community-tabs] .community-events-entry[href="#events"]');
+ await eventsEntry.waitFor({timeout:10000});
+ await eventsEntry.click();
+ await page.locator('h1').getByText('Co się dzieje w Warszawie?').waitFor({timeout:10000});
+ await page.locator('[data-action="ev-scope"][data-value="community"]').click();
+ await page.getByText('Spacery grupowe, spotkania i wydarzenia od społeczności').waitFor({timeout:10000});
+ assert.ok(await page.getByText('Obecnie nie można jeszcze utworzyć publicznego wydarzenia',{exact:false}).isVisible(),
+  'do not promise RSVP/creator actions without a live backend');
+ await page.locator('#navigation a[href="#routes/community"]').click();
+ await page.locator('[data-community-tabs] .community-hub-links').waitFor({timeout:10000});
+
  await page.locator('[data-community-tabs] a[href="#routes/community/groups"]').click();
  await page.locator('.community-page h1').getByText('Grupy odkrywców').waitFor({timeout:10000});
  assert.equal(await page.locator('[data-community-tabs] a[href="#routes/community/groups"]').getAttribute('aria-current'),'page');
@@ -400,8 +411,8 @@ try{
  // Simulate an old-installed PWA (v33) upgrading to the new release (v35) on the same origin.
  // No production server mutation: only the temporary dist/ built by this GitHub job is changed.
  const swPath='dist/service-worker.js',latestSW=await readFile(swPath,'utf8');
- assert.match(latestSW,/city-route-v46/);
- await writeFile(swPath,latestSW.replace("city-route-v46","city-route-v33"));
+ assert.match(latestSW,/city-route-v47/);
+ await writeFile(swPath,latestSW.replace("city-route-v47","city-route-v33"));
  try{
   const upgradeCtx=await browser.newContext({viewport:{width:375,height:812},isMobile:true,hasTouch:true});
   await upgradeCtx.route(/supabase\.co/,route=>route.abort());
@@ -412,7 +423,7 @@ try{
   await upgradePage.waitForFunction(()=>!!navigator.serviceWorker?.controller,undefined,{timeout:15000});
   await writeFile(swPath,latestSW);
   await upgradePage.evaluate(()=>navigator.serviceWorker.getRegistration().then(reg=>reg.update())).catch(()=>{});
-  await upgradePage.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('city-route-v46')&&!keys.includes('city-route-v33');},undefined,{timeout:30000});
+  await upgradePage.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('city-route-v47')&&!keys.includes('city-route-v33');},undefined,{timeout:30000});
   await upgradePage.goto(BASE+'/#add-place',{waitUntil:'domcontentloaded'});
   await upgradePage.locator('#pc-q').waitFor({timeout:15000});
   await upgradePage.screenshot({path:'p0-smoke-artifacts/pwa-upgraded-v33-to-v41.png',fullPage:true});

@@ -1,3 +1,4 @@
+import {SUPABASE_URL} from './supabase-config.js';
 const LEGACY_CATEGORY={
  landmark:'zabytki',museum:'muzea',gallery:'muzea',architecture:'zabytki',religious_site:'zabytki',
  viewpoint:'widoki',neighborhood:'okolice',hidden_gem:'okolice',park:'zielen',garden:'zielen',waterfront:'widoki',beach:'widoki',walk:'zielen',
@@ -30,7 +31,7 @@ export function placeFromCatalogue(row,cityId){
   partner:!!row.partner,
   top:!!row.is_top,
   kind:meta.kind||(STAY.has(categoryId)?'hotel':'place'),
-  image:row.image_url||null,
+  image:row.image_url||(/^[0-9a-f-]{36}\/[0-9a-f-]{36}\.jpg$/.test(meta.communityImagePath||'')?SUPABASE_URL+'/storage/v1/object/public/city-route-place-photos/'+meta.communityImagePath:null),
   imageCaption:imageMeta.caption||'',
   imageCredit:imageMeta.credit||null,
   tags:Array.isArray(row.tags)?row.tags:[],

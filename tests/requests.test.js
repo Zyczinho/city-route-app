@@ -46,7 +46,7 @@ test('duplicate lookup before creating, skipped for empty titles',async()=>{
   assert.deepEqual(calls[0],['similar_catalogue_requests',{p_city_slug:'warsaw',p_title:'kebab king',p_kind:'place',p_category:null,p_limit:5}]);
 });
 
-test('create validates locally with the same limits as 012, then one RPC',async()=>{
+test('create validates input fields locally, then one RPC',async()=>{
   const {client,calls}=fake({create_catalogue_request:{data:R,error:null}});
   const api=createRequestsClient({client});
   assert.equal(await api.createRequest({citySlug:'warsaw',kind:'place',title:'  Kebab   King ',categoryId:'street_food',note:'dobry',sourceUrl:' https://maps.example/k '}),R);
@@ -91,7 +91,6 @@ test('own requests: lifecycle read and validated edit',async()=>{
 test('server errors map to stable codes',async()=>{
   assert.equal(toRequestsError({message:'creator-support-required'}).code,'creator-support-required');
   assert.equal(toRequestsError({message:'not-editable'}).code,'not-editable');
-  assert.equal(toRequestsError({message:'rate-limited'}).code,'rate-limited');
   assert.equal(toRequestsError({message:'request-not-supportable'}).code,'request-not-supportable');
   assert.equal(toRequestsError({message:'permission denied for function support_catalogue_request',code:'42501'}).code,'forbidden');
   assert.equal(toRequestsError({message:'new row violates row-level security policy'}).code,'forbidden');

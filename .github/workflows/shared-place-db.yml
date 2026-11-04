@@ -1,0 +1,49 @@
+name: Shared place database contract
+
+on:
+  pull_request:
+    paths:
+      - 'supabase/migrations/014_place_submissions.sql'
+      - 'supabase/tests/014_fixture.sql'
+      - 'supabase/tests/014_place_submissions.integration.sql'
+      - '.github/workflows/shared-place-db.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  postgis-rls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    services:
+      postgis:
+        image: postgis/postgis:16-3.4
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: dev-test-only
+          POSTGRES_DB: city_route_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d city_route_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: dev-test-only
+      PGDATABASE: city_route_test
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PostgreSQL client
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq postgresql-client
+      - name: Seed isolated PostGIS environment
+        run: psql -X -v ON_ERROR_STOP=1 -f supabase/tests/014_fixture.sql
+      - name: Apply migration 014 once
+        run: psql -X -v ON_ERROR_STOP=1 -f supabase/migrations/014_place_submissions.sql
+      - name: Exercise authenticated proposals, duplicate checks, RLS, admin review and photo upload policies
+        run: psql -X -v ON_ERROR_STOP=1 -f supabase/tests/014_place_submissions.integration.sql
+      - name: Verify migration is safely re-runnable
+        run: psql -X -v ON_ERROR_STOP=1 -f supabase/migrations/014_place_submissions.sql

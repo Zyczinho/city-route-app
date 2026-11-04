@@ -104,7 +104,7 @@ async function renderRanking(force=false){
  }catch(error){root.innerHTML=`<section data-requests-ranking><a class="back" href="#places">← Miejsca</a><div class="empty"><p>Nie udało się wczytać próśb (${esc(error.code||'błąd')}).</p></div></section>`;}
 }
 
-function requestError(code){return ({'invalid-title':'Wpisz nazwę lub opis brakującego miejsca (2–120 znaków).','invalid-category':'Wybierz prawidłową kategorię.','category-required':'Wybierz kategorię.','invalid-note':'Notatka może mieć maksymalnie 500 znaków.','invalid-url':'Link musi zaczynać się od http:// lub https://.','rate-limited':'Osiągnąłeś limit 20 nowych próśb w ciągu 24 godzin.','request-not-supportable':'Ta prośba nie przyjmuje już głosów.','creator-support-required':'Autor prośby nie może wycofać własnego +1.','auth-required':'Zaloguj się, aby wykonać tę akcję.','network':'Nie udało się połączyć. Spróbuj ponownie.'}[code]||`Nie udało się (${code||'błąd'}).`);}
+function requestError(code){return ({'invalid-title':'Wpisz nazwę lub opis brakującego miejsca (2–120 znaków).','invalid-category':'Wybierz prawidłową kategorię.','category-required':'Wybierz kategorię.','invalid-note':'Notatka może mieć maksymalnie 500 znaków.','invalid-url':'Link musi zaczynać się od http:// lub https://.','request-not-supportable':'Ta prośba nie przyjmuje już głosów.','creator-support-required':'Autor prośby nie może wycofać własnego +1.','auth-required':'Zaloguj się, aby wykonać tę akcję.','network':'Nie udało się połączyć. Spróbuj ponownie.'}[code]||`Nie udało się (${code||'błąd'}).`);}
 
 async function renderRequestForm(force=false){
  const root=main();if(!root)return;if(!force&&root.querySelector('[data-request-form-root]'))return;

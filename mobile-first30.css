@@ -56,3 +56,11 @@
  #main .ux-plan-head h1{font-size:27px}
  #build-form.ux-planner .ux-plan-alternatives .ux-text-link{font-size:10px}
 }
+
+/* ROUTES on a real iPhone 13 Pro: show the route name above the fold, not only a tall cover. */
+@media(max-width:699px){
+ .route-card.big .media{aspect-ratio:16/9;min-height:0}
+ .route-card.big .body{padding:13px 15px 15px}
+ .route-card.big h3{font-size:19px;line-height:1.24}
+ .route-card.big .desc{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden}
+}

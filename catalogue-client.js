@@ -1,4 +1,5 @@
 import {SUPABASE_URL} from './supabase-config.js';
+import {distance,fold} from './core.js';
 const LEGACY_CATEGORY={
  landmark:'zabytki',museum:'muzea',gallery:'muzea',architecture:'zabytki',religious_site:'zabytki',
  viewpoint:'widoki',neighborhood:'okolice',hidden_gem:'okolice',park:'zielen',garden:'zielen',waterfront:'widoki',beach:'widoki',walk:'zielen',
@@ -89,8 +90,31 @@ export async function loadSupabaseCatalogue(client,city){
  };
 }
 
+// Reuse already licensed editorial images for the exact same place in live Supabase.
+// Never borrow a photo by category, similarity alone or a nearby venue.
+export function mergeCuratedPhotos(livePlaces=[],curated=[]){
+ const photos=curated.filter(p=>p?.image&&['Wikimedia Commons','Pexels'].includes(p.imageCredit?.via)&&
+  Number.isFinite(Number(p.lat))&&Number.isFinite(Number(p.lng)));
+ const grouped=new Map();
+ for(const p of photos){
+  const name=fold(p.name||'');if(!name)continue;
+  const previous=grouped.get(name)||[];previous.push(p);grouped.set(name,previous);
+ }
+ return livePlaces.map(p=>{
+  if(p.image||!Number.isFinite(Number(p.lat))||!Number.isFinite(Number(p.lng)))return p;
+  const matches=(grouped.get(fold(p.name||''))||[]).filter(c=>distance(p,c)<=.18);
+  if(matches.length!==1)return p;
+  const source=matches[0];
+  return {...p,image:source.image,imageCaption:source.imageCaption||'',imageCredit:source.imageCredit};
+ });
+}
+
 export async function loadCatalogueWithFallback({client,city,fallback}){
- try{return await loadSupabaseCatalogue(client,city);}
+ try{
+  const result=await loadSupabaseCatalogue(client,city);
+  const curated=typeof fallback==='function'?null:fallback;
+  return {...result,places:mergeCuratedPhotos(result.places,curated?.places||[])};
+ }
  catch(error){
   const value=typeof fallback==='function'?await fallback(error):fallback;
   if(!value)throw error;

@@ -10,7 +10,7 @@ function finishIntro(next){
 function maybeShowIntro(){
  if(done()||document.getElementById('first-launch-overlay'))return;
  if(location.hash&&location.hash!=='#plan')return; // never interrupt a shared deep-link
- if(location.search.includes('code=')||location.hash.includes('access_token='))return;
+ if(new URLSearchParams(location.search).has('cityroute_auth')||location.search.includes('code=')||location.hash.includes('access_token='))return;
  const root=document.getElementById('main');
  if(!root?.querySelector('#build-form'))return;
  const dialog=document.createElement('section');

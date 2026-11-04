@@ -21,7 +21,7 @@ const communityPath=()=>{
 const communityRoute=()=>!!communityPath();
 const groupId=()=>communityPath()?.id||'';
 const groupHref=(id,kind='group')=>`#routes/community/${kind}/${encodeURIComponent(id)}`;
-const groupBack=()=>communityPath()?.origin==='chat'?'#routes/community/chats':'#routes/community/groups';
+const groupBack=()=>communityPath()?.view==='group'?(communityPath()?.origin==='chat'?'#routes/community/chats':'#routes/community/groups'):'#routes/community';
 const main=()=>document.querySelector('#main');
 
 function stopRealtime(){

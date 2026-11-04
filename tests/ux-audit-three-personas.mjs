@@ -39,10 +39,15 @@ async function scenario(id,name,viewport,fn){
   const mapRect=map?.getBoundingClientRect();
   const n=document.querySelector('.community-hub-links');
   return {hash:location.hash,catalogueSource:document.documentElement.dataset.catalogueSource||'unknown',
-   viewport:innerWidth,scrollWidth:document.documentElement.scrollWidth,horizontalOverflow:document.documentElement.scrollWidth>innerWidth+1,
+   viewport:innerWidth,screenWidth:screen.width,documentClientWidth:document.documentElement.clientWidth,
+   visualViewportWidth:Math.round(visualViewport?.width||innerWidth),
+   scrollWidth:document.documentElement.scrollWidth,
+   horizontalOverflow:document.documentElement.scrollWidth>document.documentElement.clientWidth+1||innerWidth>screen.width+1,
    buttonsTotal:buttons.length,buttonsAboveFold:buttons.filter(b=>b.top>=0&&b.top<innerHeight).length,
    fullWidthTallButtons:buttons.filter(b=>b.width>=innerWidth*.74&&b.height>=54).slice(0,8),
    placeCards:photos.length,imagesWithSrc:imageCount,imagesLoaded:loaded,placeholders:photos.length-imageCount,
+   catalogIntro:document.querySelector('.places-intro .lead')?.textContent?.slice(0,150)||null,
+   categoryName:document.querySelector('[data-action="cat"][aria-pressed="true"]')?.textContent?.trim()||null,
    map:mapRect?{height:Math.round(mapRect.height),left:Math.round(mapRect.left),right:Math.round(mapRect.right),scrollMode:map.classList.contains('is-scroll-mode')}:null,
    communityTabs:n?[...n.querySelectorAll('a')].map(a=>a.textContent.trim()):null};
  });
@@ -61,7 +66,7 @@ await scenario('01','Turysta: pierwsza wizyta i szybka trasa',{width:375,height:
  });
  await shot('planner');
  await step('Generowanie trasy',async()=>{
-  await page.locator('#build-form input[name="start"][value="any"]').check({force:true});
+  await page.locator('#build-form label:has(input[name="start"][value="any"])').click();
   await page.locator('#build-form button.primary.big').click();
   await page.locator('.generated-options').waitFor({timeout:20000});
   return {routeSuggestions:await page.locator('.generated-option').count(),hash:new URL(page.url()).hash};
@@ -73,6 +78,14 @@ await scenario('01','Turysta: pierwsza wizyta i szybka trasa',{width:375,height:
   return await measure();
  });
  await shot('places-list');
+ await step('Pierwsze zdjęcie po dociągnięciu kafelka',async()=>{
+  const img=page.locator('article.place .thumb img').first();
+  await img.scrollIntoViewIfNeeded();
+  return await img.evaluate(async image=>{
+   try{await image.decode();}catch{}
+   return {src:image.currentSrc?.slice(0,130),complete:image.complete,naturalWidth:image.naturalWidth,naturalHeight:image.naturalHeight};
+  });
+ });
  await step('Działania na kafelku i czytelność ocen',async()=>{
   return await page.locator('article.place').first().evaluate(row=>{
    const buttons=[...row.querySelectorAll('.side button')].map(b=>({name:b.getAttribute('aria-label'),width:Math.round(b.getBoundingClientRect().width),height:Math.round(b.getBoundingClientRect().height)}));

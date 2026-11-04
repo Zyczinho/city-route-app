@@ -6,7 +6,7 @@ const links=[
  ['#routes/community/groups','Grupy'],
  ['#routes/community/chats','Czaty'],
  ['#routes/community/friends','Znajomi'],
- ['#social-saved','Zapisane']
+ ['#social-saved-places','Zapisane']
 ];
 const communityView=()=>{
  const hash=location.hash;
@@ -22,7 +22,7 @@ const communityView=()=>{
  if(hash.startsWith('#community-route/')||hash.startsWith('#social-profile/'))return 'routes';
  return null;
 };
-const hrefForView={routes:'#routes/community',groups:'#routes/community/groups',chats:'#routes/community/chats',friends:'#routes/community/friends',saved:'#social-saved','saved-places':'#social-saved'};
+const hrefForView={routes:'#routes/community',groups:'#routes/community/groups',chats:'#routes/community/chats',friends:'#routes/community/friends',saved:'#social-saved-places','saved-places':'#social-saved-places'};
 let queued=false;
 
 function updateNav(){

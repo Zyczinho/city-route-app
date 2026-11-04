@@ -8,7 +8,7 @@ import {assignRouteCovers} from './route-covers.js';
 import {createDraft,hydrateDraft,addStop,removeStop,moveStop,moveStopBy,clearDraft,setName,setTransport,serializeDraft,toRoute,moveStopToTargetIndex} from './route-builder-model.js';
 import {SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY} from './supabase-config.js';
 import {catalogueMatches} from './place-composer-model.js';
-import {parsePhotoSourceUrl,photoSourceKind} from './photo-quality.js';
+import {parsePhotoSourceUrl,photoSourceKind,choosePlacePhoto} from './photo-quality.js';
 const $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const key='city-route-v1';let storageOK=true,state;
 try{state=JSON.parse(localStorage.getItem(key)||'null');}catch{storageOK=false;}
@@ -95,8 +95,9 @@ function nav(){$('#me').innerHTML=avatar('sm');$('#me').classList.toggle('active
   return `<a href="#${id}" class="${cls}" ${id==='plan'?'aria-label="Zaplanuj moją trasę"':''} ${t===id?'aria-current="page"':''}>${mine&&live?'<span class="pulse" aria-hidden="true"></span>':ic(icon)}<span>${label}</span>${mine&&chosen?`<small class="nav-status">${live?'W toku':'Gotowa'}</small>`:''}${mine&&!live&&state.basket.length?`<b class="badge" aria-label="${state.basket.length} w trasie">${state.basket.length}</b>`:''}</a>`;}).join('');}
 
 // Shared pieces
-function photo(p,cls='',eager=false){const image=p?.image||providerOverlay.get(p?.id)?.image?.src;if(!image){const nightlife=p?.cats?.[0]==='nocne';return `<div class="ph ${cls}${nightlife?' ph-nightlife':''}" aria-label="Brak fotografii lokalu">${nightlife?`<span class="ph-letter">${esc(String(p?.name||'K').slice(0,1).toUpperCase())}</span>`:ic(p?.kind==='user'?'map-pin':'camera')}</div>`;} const src=/^(https?:|data:image\/|\/api\/place-photo\?)/.test(image)?image:`./assets/images/${image}`;return `<img class="${cls}" src="${esc(src)}" alt="${esc(p.imageCaption||p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer">`;}
-function credit(p){const c=p?.imageCredit||(!p?.image?providerOverlay.get(p?.id)?.image?.credit:null);if(!c)return '';const lic=c.licenseUrl?`<a href="${esc(c.licenseUrl)}" target="_blank" rel="noopener noreferrer">${esc(c.license)}</a>`:esc(c.license);return `<p class="credit">${ic('camera')}<span>${p.imageCaption?esc(p.imageCaption)+'. ':''}Zdjęcie: ${esc(c.author)} · ${lic} · <a href="${esc(c.source)}" target="_blank" rel="noopener noreferrer">${esc(c.via)}</a></span></p>`;}
+function approvedPhoto(p){return choosePlacePhoto(p?.photoCandidates||[],{placeId:p?.id})}
+function photo(p,cls='',eager=false){const image=p?.image||approvedPhoto(p)?.src||providerOverlay.get(p?.id)?.image?.src;if(!image){const nightlife=p?.cats?.[0]==='nocne';return `<div class="ph ${cls}${nightlife?' ph-nightlife':''}" aria-label="Brak fotografii lokalu">${nightlife?`<span class="ph-letter">${esc(String(p?.name||'K').slice(0,1).toUpperCase())}</span>`:ic(p?.kind==='user'?'map-pin':'camera')}</div>`;} const src=/^(https?:|data:image\/|\/api\/place-photo\?)/.test(image)?image:`./assets/images/${image}`;return `<img class="${cls}" src="${esc(src)}" alt="${esc(p.imageCaption||p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer">`;}
+function credit(p){const c=p?.imageCredit||(!p?.image?(approvedPhoto(p)?.credit||providerOverlay.get(p?.id)?.image?.credit):null);if(!c)return '';const lic=c.licenseUrl?`<a href="${esc(c.licenseUrl)}" target="_blank" rel="noopener noreferrer">${esc(c.license)}</a>`:esc(c.license);return `<p class="credit">${ic('camera')}<span>${p.imageCaption?esc(p.imageCaption)+'. ':''}Zdjęcie: ${esc(c.author)} · ${lic} · <a href="${esc(c.source)}" target="_blank" rel="noopener noreferrer">${esc(c.via)}</a></span></p>`;}
 const rating=(p,s)=>providerRatings(p).find(r=>r.source===s);
 const cityRouteBadge=p=>`<span class="cr-score" data-cityroute-ref="${esc(p.id)}" title="Średnia społeczności City Route — niezależna od ocen Google i Tripadvisor">★ City Route · Brak ocen</span>`;
 function scoreLine(p,compact=false){

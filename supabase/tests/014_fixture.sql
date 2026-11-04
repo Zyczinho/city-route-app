@@ -61,6 +61,50 @@ returns text set search_path='' language sql immutable as $$
  select btrim(regexp_replace(lower(coalesce(p_text,'')),'[^a-z0-9]+',' ','g'));
 $$;
 
+-- Only test-local dependencies for the already deployed 012 request RPC, which 014 overrides.
+create table if not exists public.catalogue_requests (
+  id uuid primary key default gen_random_uuid(),
+  city_id uuid not null references public.cities(id) on delete cascade,
+  request_kind text not null check (request_kind in ('place','category_gap')),
+  title text not null check (char_length(btrim(title)) between 2 and 120),
+  normalized_key text not null,
+  category_id text references public.place_categories(id),
+  note text not null default '' check (char_length(note)<=500),
+  source_url text check (source_url is null or (char_length(source_url)<=500 and source_url ~* '^https?://')),
+  status text not null default 'open' check (status in ('open','planned','added','declined')),
+  created_by uuid not null references auth.users(id) on delete cascade,
+  resolved_place_id uuid references public.places(id) on delete set null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  check (request_kind<>'category_gap' or category_id is not null)
+);
+create index if not exists catalogue_requests_city_status_idx on public.catalogue_requests(city_id,status,created_at desc);
+create index if not exists catalogue_requests_key_idx on public.catalogue_requests(city_id,normalized_key);
+create index if not exists catalogue_requests_creator_idx on public.catalogue_requests(created_by,created_at desc);
+
+create table if not exists public.catalogue_request_supports (
+  request_id uuid not null references public.catalogue_requests(id) on delete cascade,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  created_at timestamptz not null default now(),
+  primary key(request_id,user_id)
+);
+create index if not exists catalogue_request_supports_user_idx on public.catalogue_request_supports(user_id);
+
+
+create or replace function public.catalogue_request_validate(
+  p_kind text,p_title text,p_category text,p_note text,p_source_url text
+) returns void set search_path='' language plpgsql stable as $request_validate$
+begin
+  if p_kind not in ('place','category_gap') then raise exception 'invalid-kind' using errcode='22023'; end if;
+  if char_length(p_title) not between 2 and 120 or public.catalogue_request_key(p_title)='' then raise exception 'invalid-title' using errcode='22023'; end if;
+  if p_category is not null and not exists(select 1 from public.place_categories pc where pc.id=p_category and pc.active)
+  then raise exception 'invalid-category' using errcode='22023'; end if;
+  if p_kind='category_gap' and p_category is null then raise exception 'category-required' using errcode='22023'; end if;
+  if char_length(coalesce(p_note,''))>500 then raise exception 'invalid-note' using errcode='22023'; end if;
+  if p_source_url is not null and (char_length(p_source_url)>500 or p_source_url !~* '^https?://') then raise exception 'invalid-url' using errcode='22023'; end if;
+end $request_validate$;
+grant select on public.catalogue_requests to authenticated;
+
 create table storage.buckets(
  id text primary key,
  name text not null,

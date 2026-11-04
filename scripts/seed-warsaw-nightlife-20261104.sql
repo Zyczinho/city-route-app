@@ -1,5 +1,6 @@
 -- Verified Warsaw nightlife seed, 2026-11-04. Idempotent inserts only.
--- No invented ratings, no copied social-platform images, no modifications/deletes.
+-- No invented ratings or social-platform images, no modifications/deletes.
+-- Smolna photo: verified venue signage, CC BY-SA 4.0 by Followthestep, 2730x1820 master; 1280px thumbnail + full attribution.
 -- Sources (address/venue): https://ra.co/clubs/pl/warsaw ,
 -- https://mapcarta.com/N4227971279 , https://sketchnite.com/wp-content/uploads/2016/06/sketch-nite4-1.pdf
 -- https://smolna38.org/ , https://commons.wikimedia.org/wiki/File:Smolna_38.JPG
@@ -11,7 +12,14 @@ INSERT INTO public.places
 (city_id,slug,legacy_id,name,category_id,location,area,description,minutes,cost_minor,currency,tourist_level,food_style,partner,is_top,visibility,status,image_url,image_meta,metadata)
 SELECT c.id,v.slug,v.slug,v.name,v.category_id,
        extensions.st_point(v.lng,v.lat)::extensions.geography,
-       v.area,v.description,v.minutes,0,'PLN','local','none',false,false,'public','published',NULL,'{}'::jsonb,
+       v.area,v.description,v.minutes,0,'PLN','local','none',false,false,'public','published',
+       CASE WHEN v.slug='smolna-38' THEN 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/MG_6605-2.jpg/1280px-MG_6605-2.jpg' ELSE NULL END,
+       CASE WHEN v.slug='smolna-38' THEN jsonb_build_object(
+         'caption','Szyld klubu Smolna (2016)',
+         'credit',jsonb_build_object('author','Followthestep','license','CC BY-SA 4.0',
+           'licenseUrl','https://creativecommons.org/licenses/by-sa/4.0/',
+           'via','Wikimedia Commons','source','https://commons.wikimedia.org/wiki/File:MG_6605-2.jpg'))
+       ELSE '{}'::jsonb END,
        jsonb_build_object('kind','place','website',v.website,'address',v.address,
         'photoStatus','awaiting-authorized-photo',
         'source',jsonb_build_object('provider','verified-public-listing','url',v.source_url,'checked','2026-11-04'))

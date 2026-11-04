@@ -25,19 +25,20 @@ export function generate(places,prefs){
  const variantBias=p=>{if(!Number.isInteger(prefs.variantIndex)||prefs.variantIndex<1)return 0;let hash=2166136261;for(const ch of String(p.id))hash=Math.imul(hash^ch.charCodeAt(0),16777619);hash=Math.imul(hash^(prefs.variantIndex*2654435761),2246822519)>>>0;return (hash%1000/1000-.5)*3;};
  const score=p=>(interests.includes('mix')?1:p.tags.filter(t=>interests.includes(t)).length*4)+(prefs.tourist==='balanced'?0:prefs.tourist==='must'?(p.tourist==='must'?3:0):(p.tourist==='local'?3:0))+(smoothedRating(p.ratings)-4.3)*4+(p.top&&prefs.tourist!=='local'?1:0)-Math.max(0,Number(prefs.diversityCounts?.[p.id])||0)*(Number(prefs.diversityWeight)||0)+variantBias(p);
  const legs=ps=>summary(origin?[origin,...ps]:ps,prefs.transport).minutes;
+ const timeFeasible=ps=>typeof prefs.timeFeasible!=='function'||prefs.timeFeasible(ps);
  const pool=candidates.filter(p=>!isFood(p)),food=candidates.filter(isFood);
  const result=[];let cost=0;const cap=prefs.budget==='low'?25:prefs.budget==='medium'?100:Infinity;
  const from=()=>result.at(-1)||origin;
  while(pool.length&&result.length<9){
   pool.sort((a,b)=>(score(b)-(from()?distance(from(),b)*2:0))-(score(a)-(from()?distance(from(),a)*2:0))||a.id.localeCompare(b.id));
   const p=pool.shift();if(cost+p.cost>cap)continue;
-  if(legs([...result,p])<=limit){result.push(p);cost+=p.cost;}
+  if(legs([...result,p])<=limit&&timeFeasible([...result,p])){result.push(p);cost+=p.cost;}
  }
  if(food.length){
   // Meal goes in the middle third of the route, at the spot that adds the least walking; the last sights give way until it fits.
   const mid={lat:result.reduce((t,p)=>t+p.lat,origin?origin.lat:0)/(result.length+(origin?1:0))||0,lng:result.reduce((t,p)=>t+p.lng,origin?origin.lng:0)/(result.length+(origin?1:0))||0};
   food.sort((a,b)=>(score(b)-distance(mid,b)*3)-(score(a)-distance(mid,a)*3)||a.id.localeCompare(b.id));
-  const fits=t=>legs(t)<=limit&&t.reduce((n,p)=>n+p.cost,0)<=cap;
+  const fits=t=>legs(t)<=limit&&timeFeasible(t)&&t.reduce((n,p)=>n+p.cost,0)<=cap;
   for(const f of food.slice(0,5)){const base=[...result];while(true){let best=null;const lo=Math.floor(base.length/3),hi=Math.ceil(base.length*2/3);
    for(let k=lo;k<=hi;k++){const t=[...base];t.splice(k,0,f);if(fits(t)&&(!best||legs(t)<legs(best)))best=t;}
    if(best)return best;if(!base.length)break;base.pop();}}

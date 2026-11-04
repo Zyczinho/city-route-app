@@ -37,7 +37,7 @@ function cleanPlanner(){
  const form=document.querySelector('#build-form.planner');
  if(!form||form.dataset.uxClean==='1')return;
  const field=name=>form.querySelector(`input[name="${name}"]`)?.closest('fieldset');
- const time=field('time'),interests=field('interests');
+ const time=field('time'),interests=field('interests'),when=field('visitDate'),visitMode=field('visitMode');
  if(!time||!interests)return;
  const transport=field('transport'),food=field('food'),start=field('start'),budget=field('budget'),tourist=field('tourist'),offers=field('offers');
  const note=form.querySelector('.planner-advanced-body .fine, details.more .fine');
@@ -61,13 +61,13 @@ function cleanPlanner(){
  if(manual){manual.textContent='Ułóż ręcznie';manual.className='ux-text-link';}
 
  const primary=document.createElement('section');primary.className='ux-planner-primary';
- time.classList.add('ux-time');primary.append(time);
+ time.classList.add('ux-time');primary.append(time);if(when)primary.append(when);
 
  const climate=disclosure('Klimat trasy','data-ux-interest-summary','ux-disclosure ux-climate');
  interests.classList.add('ux-interest-field');climate.body.append(interests);
 
  const advanced=disclosure('Więcej ustawień','data-ux-advanced-summary','ux-disclosure ux-advanced');
- for(const fs of [transport,food,start,budget,tourist,offers])if(fs)advanced.body.append(fs);
+ for(const fs of [visitMode,transport,food,start,budget,tourist,offers])if(fs)advanced.body.append(fs);
  if(note){note.textContent='Te ustawienia są opcjonalne.';advanced.body.append(note);}
 
  submit.textContent='Ułóż trasę';submit.classList.add('ux-submit');

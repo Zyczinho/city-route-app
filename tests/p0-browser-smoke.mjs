@@ -89,8 +89,9 @@ try{
  });
  assert.ok(mapLayout.left>=16&&mapLayout.right<=mapLayout.viewport-16,'map leaves a finger-scroll corridor at both edges: '+JSON.stringify(mapLayout));
  assert.ok(mapLayout.height>=280&&mapLayout.height<=410,'mobile map does not occupy most of the page: '+JSON.stringify(mapLayout));
+ console.log('MAP_SCROLL_QA '+JSON.stringify(mapLayout));
+ assert.equal(mapLayout.scrollMode,true,'narrow map defaults to page scroll');
  assert.equal(mapLayout.touchAction,'pan-y','map canvas must allow vertical page touch scrolling');
- assert.equal(mapLayout.scrollMode,true,'touch map defaults to page scroll');
  assert.equal(mapLayout.panToggle,'false','user must explicitly enable map panning');
  assert.ok(mapLayout.overflow<=mapLayout.viewport+1,'map toolbar does not create horizontal overflow');
  await page.screenshot({path:'p0-smoke-artifacts/places-mobile-scroll.png',fullPage:true});

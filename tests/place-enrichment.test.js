@@ -58,3 +58,39 @@ test('Google score field absent => no invented rating, photo still allowed',asyn
  const r=await enrichPlace({...point,googleKey:'g',googlePlaceId:google.id,fetcher:async()=>reply({...google,userRatingCount:null,rating:null})});
  assert.equal(r.ratings.length,0);assert.equal(r.status,'ok');assert.ok(r.image);
 });
+
+test('Google review bodies are available only with explicit Atmosphere opt-in, with author and source',async()=>{
+ const review={rating:5,text:{text:'Świetna obsługa i kawa.'},authorAttribution:{
+  displayName:'Autorka',uri:'https://maps.google.com/contributor',photoUri:'https://lh3.googleusercontent.com/portrait'
+ },googleMapsUri:'https://maps.google.com/review/123',relativePublishTimeDescription:'tydzień temu'};
+ const result=await enrichPlace({...point,googleKey:'g',googlePlaceId:google.id,includeGoogleReviews:true,
+  fetcher:async()=>reply({...google,reviews:[review]})});
+ assert.equal(result.reviews.length,1);
+ assert.equal(result.reviews[0].text,'Świetna obsługa i kawa.');
+ assert.equal(result.reviews[0].author,'Autorka');
+ assert.equal(result.reviews[0].authorUrl,'https://maps.google.com/contributor');
+ assert.equal(result.reviews[0].source,'google');
+ const noReview=await enrichPlace({...point,googleKey:'g',googlePlaceId:google.id,
+  fetcher:async()=>reply({...google,reviews:[review]})});
+ assert.deepEqual(noReview.reviews,[],'review text must not be retrieved without opt-in');
+});
+test('Terra review snippets respect partner API access and preserve author/source attribution',async()=>{
+ let reviewCalls=0;
+ const sample={id:112233,rating:4,publish_ts:'2026-10-20T00:00:00Z',url:'https://www.tripadvisor.com/ShowUserReviews-g.html',
+  user:{name:'Odwiedzający'},title:[{language:'pl',primary:true,value:'Dobry wybór'}],
+  text:[{language:'pl',primary:true,value:'Czysto i bardzo blisko centrum.'}]};
+ const fetcher=async(url)=>{
+  if(url.includes('/locations/search'))return reply({data:[{location:terra}]});
+  if(url.includes('/reviews')){reviewCalls++;return reply({data:[sample]});}
+  return {ok:false,json:async()=>null};
+ };
+ const result=await enrichPlace({...point,terraKey:'partner',includeTerraReviews:true,fetcher});
+ assert.equal(reviewCalls,1);
+ assert.equal(result.reviews.length,1);
+ assert.equal(result.reviews[0].text,'Czysto i bardzo blisko centrum.');
+ assert.equal(result.reviews[0].author,'Odwiedzający');
+ assert.equal(result.reviews[0].source,'tripadvisor');
+ const without=await enrichPlace({...point,terraKey:'partner',fetcher});
+ assert.equal(without.reviews.length,0);
+ assert.equal(reviewCalls,1,'disabled Terra reviews must not issue separate paid requests');
+});

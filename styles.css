@@ -263,3 +263,5 @@ img.avatar{object-fit:cover;display:block}.avatar.sm{width:36px;height:36px;font
 .provider-review-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12px}
 .provider-review-meta small{color:var(--muted)}
 .provider-review-meta a{margin-left:auto;color:var(--blue);font-weight:700}
+
+.provider-review .review-avatar{width:26px;height:26px;object-fit:cover;border-radius:50%}.provider-review header a{flex:1;min-width:0;color:var(--ink);text-decoration:none}.provider-review header a:hover{text-decoration:underline}

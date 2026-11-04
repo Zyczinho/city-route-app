@@ -105,7 +105,11 @@ function providerReviewSnippets(p){
  if(!rows.length)return '';
  let html='<section class="provider-reviews" aria-label="Opinie z Google Maps i Tripadvisor"><h3>Wybrane opinie z platform</h3><p class="fine">Google: według trafności; Tripadvisor: najnowsze dostępne opinie. Tekst tylko z uprawnionych API, bez wpływu na oceny City Route.</p>';
  for(const r of rows){
-  html+='<article class="provider-review"><header>'+brand(r.source)+'<strong>'+esc(r.author)+'</strong><span>★ '+(Number.isFinite(Number(r.rating))?dec(Number(r.rating)):'—')+'/5</span></header>';
+  html+='<article class="provider-review"><header>'+brand(r.source);
+  if(r.avatar)html+='<img class="review-avatar" src="'+esc(r.avatar)+'" alt="" loading="lazy" referrerpolicy="no-referrer">';
+  if(r.authorUrl)html+='<a href="'+esc(r.authorUrl)+'" rel="noopener noreferrer" target="_blank"><strong>'+esc(r.author)+'</strong></a>';
+  else html+='<strong>'+esc(r.author)+'</strong>';
+  html+='<span>★ '+(Number.isFinite(Number(r.rating))?dec(Number(r.rating)):'—')+'/5</span></header>';
   if(r.title)html+='<b>'+esc(r.title)+'</b>';
   html+='<p>'+esc(r.text)+'</p><div class="provider-review-meta">';
   if(r.when)html+='<small>'+esc(r.when)+'</small>';

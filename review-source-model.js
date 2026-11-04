@@ -1,7 +1,7 @@
 // Provider rating metadata adapter. Raw third-party review text is deliberately NOT
 // persisted: licences/attribution vary by provider and market (incl. Google EEA).
 // Consume licensed official API responses only. Never scrape provider websites.
-const validScore=v=>Number.isFinite(Number(v))&&Number(v)>=0&&Number(v)<=5?Number(v):null;
+const validScore=v=>v!==null&&v!==undefined&&v!==''&&Number.isFinite(Number(v))&&Number(v)>=1&&Number(v)<=5?Number(v):null;
 const validCount=v=>Number.isSafeInteger(Number(v))&&Number(v)>0?Number(v):null;
 const safeUrl=value=>{try{const u=new URL(value);return u.protocol==='https:'?u.href:null;}catch{return null;}};
 const record=(source,payload,{checked=null}={})=>{

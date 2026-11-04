@@ -8,7 +8,7 @@ test('wide crisp venue photo beats a small poster or thumbnail, irrespective of 
  assert.equal(bestGooglePhoto(portraits).index,2);
 });
 test('publisher permission and place identity always outrank visual quality',()=>{
- const candidate=(src,rights,placeId,widthPx=1400)=>({src,credit:{source:'https://example.com/credits'},displayPermitted:rights,placeId,widthPx,heightPx:950});
+ const candidate=(src,rights,placeId,widthPx=1400)=>({src,credit:{source:'https://example.com/credits',author:'Venue owner',license:'Owner approval'},displayPermitted:rights,rightsVerified:rights,placeId,widthPx,heightPx:950});
  const photo=choosePlacePhoto([
  candidate('https://instagram.com/huge',false,'p-1',3000),
  candidate('https://example.com/wrong',true,'p-2',3000),

@@ -12,7 +12,7 @@ test('visit rating stays local and never inflates Google/Tripadvisor weighted me
  assert.match(app,/verified:false/,'arrivals are not geolocated or externally verified');
  assert.match(app,/Ocena jest dobrowolna/);
  assert.match(app,/City Route.*Twoja ocena/);
- const start=core.indexOf('export function combinedRating'),end=core.indexOf('export function smoothedRating',start);
+ const start=core.indexOf('export function combinedRating'),end=core.indexOf('export function blendedRating',start);
  assert.ok(start>=0&&end>start);
  assert.doesNotMatch(core.slice(start,end),/placeReviews|cityroute/,'City Route ratings must stay out of external-weighted score');
 });

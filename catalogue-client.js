@@ -3,8 +3,8 @@ const LEGACY_CATEGORY={
  landmark:'zabytki',museum:'muzea',gallery:'muzea',architecture:'zabytki',religious_site:'zabytki',
  viewpoint:'widoki',neighborhood:'okolice',hidden_gem:'okolice',park:'zielen',garden:'zielen',waterfront:'widoki',beach:'widoki',walk:'zielen',
  restaurant:'jedzenie',cafe:'jedzenie',breakfast:'jedzenie',street_food:'jedzenie',food_hall:'jedzenie',bakery:'jedzenie',dessert:'jedzenie',
- bar:'okolice',pub:'okolice',cocktail_bar:'okolice',wine_bar:'okolice',club:'okolice',live_music:'okolice',
- sport:'okolice',spa:'okolice',workshop:'okolice',experience:'okolice',hotel:'noclegi',hostel:'noclegi',apartment:'noclegi',guesthouse:'noclegi'
+ bar:'nocne',pub:'nocne',cocktail_bar:'nocne',wine_bar:'nocne',club:'nocne',live_music:'nocne',
+ sport:'aktywnosci',spa:'aktywnosci',workshop:'aktywnosci',experience:'aktywnosci',hotel:'noclegi',hostel:'noclegi',apartment:'noclegi',guesthouse:'noclegi'
 };
 const STAY=new Set(['hotel','hostel','apartment','guesthouse']);
 

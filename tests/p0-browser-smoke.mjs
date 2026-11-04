@@ -173,6 +173,17 @@ try{
   {label:'Zapisane',href:'#social-saved-places'}
  ]);
  assert.ok(await page.locator('[data-community-tabs]').isVisible(),'inner community tabs must not be hidden by feed focus');
+ const eventsEntry=page.locator('[data-community-tabs] .community-events-entry[href="#events"]');
+ await eventsEntry.waitFor({timeout:10000});
+ await eventsEntry.click();
+ await page.locator('h1').getByText('Co się dzieje w Warszawie?').waitFor({timeout:10000});
+ await page.locator('[data-action="ev-scope"][data-value="community"]').click();
+ await page.getByText('Spacery grupowe, spotkania i wydarzenia od społeczności').waitFor({timeout:10000});
+ assert.ok(await page.getByText('Obecnie nie można jeszcze utworzyć publicznego wydarzenia',{exact:false}).isVisible(),
+  'do not promise RSVP/creator actions without a live backend');
+ await page.locator('#navigation a[href="#routes/community"]').click();
+ await page.locator('[data-community-tabs] .community-hub-links').waitFor({timeout:10000});
+
  await page.locator('[data-community-tabs] a[href="#routes/community/groups"]').click();
  await page.locator('.community-page h1').getByText('Grupy odkrywców').waitFor({timeout:10000});
  assert.equal(await page.locator('[data-community-tabs] a[href="#routes/community/groups"]').getAttribute('aria-current'),'page');

@@ -10,7 +10,7 @@ test('Route Builder draft is synchronized to the map after mutations and mount',
 
 test('builder-map integration invalidates the PWA cache',async()=>{
  const sw=await readFile('service-worker.js','utf8');
- assert.match(sw,/city-route-v53/);
+ assert.match(sw,/city-route-v54/);
  assert.match(sw,/map-view\.js/);
  assert.match(sw,/route-builder-model\.js/);
 });

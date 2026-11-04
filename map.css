@@ -37,12 +37,21 @@
 @media(prefers-reduced-motion:reduce){.cr-stop.is-selected{transform:none}}
 
 /* Place card: bottom sheet on phones, floating card on wider screens; both keep the OSM attribution visible */
-.cr-map-card{position:absolute;left:8px;right:8px;bottom:var(--cr-attribution,34px);z-index:1001;display:grid;gap:8px;padding:16px;background:var(--surface);border-radius:20px;box-shadow:0 -6px 24px #0e1a261f;max-height:60%;overflow:auto;animation:cr-map-up .2s ease-out}
+.cr-map-card{position:absolute;left:8px;right:8px;bottom:var(--cr-attribution,34px);z-index:1001;display:grid;gap:6px;padding:12px;background:var(--surface);border-radius:16px;box-shadow:0 -4px 18px #0e1a261c;max-height:44%;overflow:auto;animation:cr-map-up .2s ease-out}
 .cr-map-card-text{font-size:14px;color:var(--ink-2)}
 .cr-map-card-actions{display:flex;flex-wrap:wrap;gap:8px}
 .cr-map-card-actions .primary{flex:1}
 .cr-map-card-close{width:44px;padding:0;font-size:22px}
 @keyframes cr-map-up{from{transform:translateY(16px);opacity:.6}}
+@media(max-width:759px){
+ .cr-map-card{top:calc(100% - 162px);bottom:auto;left:12px;right:12px;max-height:124px;padding:9px 12px;gap:3px;border-radius:14px}
+ .cr-map-card-head .kicker,.cr-map-card-text{display:none}
+ .cr-map-card-head h3{font-size:14px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:22px}
+ .cr-map-card-actions{flex-wrap:nowrap;gap:5px}
+ .cr-map-card-actions button{font-size:12px;min-height:32px;padding:5px 8px}
+ .cr-map-card-actions .primary{flex:1 1 60px}
+ .cr-map-card-close{position:absolute;top:5px;right:6px;width:28px;min-height:28px!important;padding:0!important}
+}
 @media(min-width:760px){.cr-map-card{left:auto;right:12px;bottom:var(--cr-attribution,34px);width:360px;border-radius:18px}}
 @media(prefers-reduced-motion:reduce){.cr-map-card{animation:none}.cr-pin.is-selected{transform:none}}
 

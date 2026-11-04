@@ -4,7 +4,7 @@ import {createSocialRoutesClient} from './social-routes-client.js';
 const api=createSocialRoutesClient({client:supabase});
 const STORAGE_KEY='city-route-v1';
 const EDIT_KEY='city-route-social-editing';
-let session=null,feed=[],marks=new Map(),sort='popular',rendering=false,queued=false,placeIndex=new Map();
+let session=null,feed=[],marks=new Map(),sort='popular',rendering=false,queued=false,placeIndex=new Map(),completedDraft=null;
 
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[c]));
 const readState=()=>{try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'null')||{};}catch{return {};}};
@@ -79,9 +79,10 @@ function currentDraft(){
  const stops=[...(s.basketsByCity?.[city]||s.basket||[])];
  return {cityId:city,name:String(name).trim(),transport,stops};
 }
-function publishDialog(){
+function publishDialog(override=null){
  if(authRequired())return;
- const draft=currentDraft();if(draft.stops.length<2)return alert('Dodaj co najmniej 2 przystanki.');
+ completedDraft=override?{...override,stops:[...override.stops]}:null;
+ const draft=completedDraft||currentDraft();if(draft.stops.length<2)return alert('Dodaj co najmniej 2 przystanki.');
  if(!draft.name)return alert('Najpierw nazwij trasę.');
  let stored=null;try{stored=JSON.parse(sessionStorage.getItem(EDIT_KEY)||'null');}catch{sessionStorage.removeItem(EDIT_KEY);}
  const dialog=document.createElement('dialog');dialog.className='social-dialog';
@@ -90,11 +91,11 @@ function publishDialog(){
 }
 async function submitPublish(form){
  const button=form.querySelector('button[type=submit]'),status=form.querySelector('.social-form-status');button.disabled=true;status.textContent='Publikuję…';
- const fd=new FormData(form),draft=currentDraft();let stored=null;try{stored=JSON.parse(sessionStorage.getItem(EDIT_KEY)||'null');}catch{sessionStorage.removeItem(EDIT_KEY);}
+ const fd=new FormData(form),draft=completedDraft||currentDraft();let stored=null;try{stored=JSON.parse(sessionStorage.getItem(EDIT_KEY)||'null');}catch{sessionStorage.removeItem(EDIT_KEY);}
  const tags=String(fd.get('tags')||'').split(',').map(x=>x.trim().toLowerCase().replace(/\s+/g,'-')).filter(Boolean);
  try{
   const id=await api.publishRoute({draft,description:String(fd.get('description')||'').trim(),tags,visibility:String(fd.get('visibility')||'public'),editingRouteId:stored?.editingRouteId||null,forkedFrom:stored?.forkedFrom||null});
-  sessionStorage.removeItem(EDIT_KEY);log('community_route_publish',{route_id:id,editing:!!stored?.editingRouteId});form.closest('dialog')?.remove();location.hash=`#community-route/${id}`;
+  completedDraft=null;sessionStorage.removeItem(EDIT_KEY);log('community_route_publish',{route_id:id,editing:!!stored?.editingRouteId});form.closest('dialog')?.remove();location.hash=`#community-route/${id}`;
  }catch(error){status.textContent=error.code==='unknown-stop'?'Jednego z miejsc nie można opublikować. Usuń prywatne lub nieaktualne miejsce.':`Nie udało się opublikować (${error.code||'błąd'}).`;button.disabled=false;}
 }
 
@@ -164,7 +165,7 @@ async function rate(routeId,rating){if(authRequired())return;try{await api.rateR
 
 async function handleAction(el){
  const action=el.dataset.socialAction,id=el.dataset.route;
- if(action==='close-dialog'){el.closest('dialog')?.remove();return;}
+ if(action==='close-dialog'){completedDraft=null;el.closest('dialog')?.remove();return;}
  if(action==='publish'){publishDialog();return;}
  if(action==='save'){await toggleSave(id);return;}
  if(action==='rate'){await rate(id,el.dataset.rating);return;}
@@ -187,6 +188,13 @@ async function routeRender(){
 }
 function queueRender(){if(queued)return;queued=true;setTimeout(()=>{queued=false;routeRender();},0);}
 
+// Finished sessions can be published verbatim; do not replace the user's editable basket.
+// The normal publish form remains the only network write path (auth/RLS validation unchanged).
+document.addEventListener('cityroute:publish-completed',event=>{
+ const d=event.detail||{},current=cityId();
+ if(!Array.isArray(d.stops)||d.stops.length<2||d.cityId!==current)return;
+ publishDialog({cityId:d.cityId,name:String(d.name||'Ukończona trasa').slice(0,80),transport:d.transport||'walking',stops:d.stops.filter(id=>typeof id==='string')});
+});
 document.addEventListener('click',e=>{const el=e.target.closest?.('[data-social-action]');if(el){e.preventDefault();handleAction(el).catch(console.error);}},true);
 document.addEventListener('change',e=>{if(e.target.matches?.('[data-social-sort]')){sort=e.target.value;const host=document.querySelector('[data-social-feed]');if(host)host.remove();const note=document.querySelector('.community-note');if(note)note.hidden=false;queueRender();}});
 document.addEventListener('submit',e=>{const form=e.target.closest?.('[data-social-publish]');if(form){e.preventDefault();e.stopImmediatePropagation();submitPublish(form);}},true);

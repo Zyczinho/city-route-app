@@ -1,6 +1,7 @@
 // Provider metadata displayed on demand. Do not store provider photo bytes, review text
 // or Google ratings in Supabase/localStorage. Official API credentials remain on Worker.
 import {kmBetween} from './geocode.js';
+import {lookupContent,contentPhoto,contentReviews} from './tripadvisor-content.js';
 
 const GOOGLE_MASK='id,displayName,location,rating,userRatingCount,photos,googleMapsUri';
 const GOOGLE_SEARCH_MASK=GOOGLE_MASK.split(',').map(x=>'places.'+x).join(',');
@@ -89,17 +90,23 @@ async function terraReviews(id,key,fetcher){
    when:String(r.publish_ts||'').slice(0,10),translated:false};
  }).filter(Boolean);
 }
-export async function enrichPlace({name,lat,lng,googlePlaceId='',city=null,googleKey='',terraKey='',fetcher=fetch,allowGoogle=()=>true,allowTerra=()=>true,includeGoogleReviews=false,includeTerraReviews=false}={}){
+export async function enrichPlace({name,lat,lng,googlePlaceId='',city=null,googleKey='',terraKey='',contentKey='',fetcher=fetch,allowGoogle=()=>true,allowTerra=()=>true,allowContent=()=>true,includeGoogleReviews=false,includeTerraReviews=false,includeContentReviews=false}={}){
  name=String(name||'').replace(/\s+/g,' ').trim().slice(0,120);lat=Number(lat);lng=Number(lng);
  if(name.length<3||![lat,lng].every(Number.isFinite)||lat<-90||lat>90||lng<-180||lng>180)return {status:'invalid',ratings:[],image:null};
  const checked=new Date().toISOString(),ratings=[],reviews=[];
- const providers={google:!!googleKey,tripadvisor:!!terraKey};
+ const providers={google:!!googleKey,tripadvisor:!!contentKey||!!terraKey};
  const google=providers.google&&allowGoogle()?await googleLookup({name,lat,lng,googlePlaceId,key:googleKey,fetcher,city,includeReviews:includeGoogleReviews}):null;
  if(google){
   const found=rating('google',google.rating,google.userRatingCount,google.googleMapsUri,google.displayName?.text,checked);if(found)ratings.push(found);
   if(includeGoogleReviews)reviews.push(...(Array.isArray(google.reviews)?google.reviews:[]).slice(0,3).map(r=>googleReview(r,google.googleMapsUri)).filter(Boolean));
  }
- const terraQuota=providers.tripadvisor&&allowTerra();
+ const content=contentKey?await lookupContent({name,lat,lng,key:contentKey,fetcher,allowCall:allowContent}):null;
+ if(content){
+  const found=rating('tripadvisor',content.rating,content.reviewCount,content.url,content.name,checked);
+  if(found)ratings.push(found);
+  if(includeContentReviews)reviews.push(...await contentReviews({id:content.id,key:contentKey,fetcher,allowCall:allowContent}));
+ }
+ const terraQuota=!contentKey&&!!terraKey&&allowTerra();
  const ta=terraQuota?await terraLookup({name,lat,lng,key:terraKey,fetcher,city}):null;
  if(ta){
   const overall=ta.traveler_ratings?.overall||{},link=typeof ta.urls?.tripadvisor==='string'?ta.urls.tripadvisor:ta.urls?.tripadvisor?.url;
@@ -113,6 +120,9 @@ export async function enrichPlace({name,lat,lng,googlePlaceId='',city=null,googl
    author:String(author?.displayName||'Google Maps'),license:'Zdjęcie Google Maps',via:'Google Maps',
    source:safeUrl(author?.uri)||safeUrl(google.googleMapsUri)||'https://maps.google.com'
   }};
+ }else if(content?.id){
+  image=await contentPhoto({id:content.id,key:contentKey,fetcher,allowCall:allowContent});
+  if(image&&content.url)image.credit.source=content.url;
  }else if(ta?.id&&terraQuota){
   image=await terraPhoto(ta.id,terraKey,fetcher);
   if(image){
@@ -121,5 +131,5 @@ export async function enrichPlace({name,lat,lng,googlePlaceId='',city=null,googl
   }
  }
  return {status:ratings.length||image||reviews.length?'ok':!providers.google&&!providers.tripadvisor?'no-key':'no-match',
-  ratings,reviews,image,googlePlaceId:google?.id||null,tripadvisorId:ta?.id||null,available:providers,checked};
+  ratings,reviews,image,googlePlaceId:google?.id||null,tripadvisorId:content?.id||ta?.id||null,available:providers,checked};
 }

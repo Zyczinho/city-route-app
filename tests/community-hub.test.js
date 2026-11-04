@@ -15,7 +15,7 @@ test('community hub ships through HTML, build and offline cache',async()=>{
  assert.match(build,/'community-hub\.js'/);
  assert.match(sw,/community-hub\.js\?v=1/);
  assert.match(sw,/community-enhancements\.js\?v=20/);
- assert.match(sw,/city-route-v38/);
+ assert.match(sw,/city-route-v39/);
  assert.match(css,/:not\(\[data-community-tabs\]\)/,'Community focus must keep the inner tabs visible');
  assert.match(hub,/\['#routes\/community','Trasy'\]/);
  assert.match(hub,/\['#routes\/community\/groups','Grupy'\]/);

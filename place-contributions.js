@@ -53,7 +53,7 @@ async function submitLocal(placeId,{silent=false}={}){
  }catch(error){
   const e=contributionError(error);
   patch(placeId,{submissionStatus:'error',submissionError:e.code});
-  const msg=e.code==='duplicate-place'?'Takie miejsce już znajduje się w katalogu.':e.code==='rate-limited'?'Osiągnięto limit 10 propozycji na dobę.':e.code==='outside-city'?'Miejsce jest poza granicami wybranego miasta.':e.code==='network'?'Nie udało się teraz połączyć z bazą. Miejsce nadal jest zapisane na urządzeniu.':e.code==='duplicate-pending'?'Takie miejsce już czeka na zatwierdzenie.':'Nie udało się wysłać propozycji ('+e.code+').';
+  const msg=e.code==='duplicate-place'?'Takie miejsce już znajduje się w katalogu.':e.code==='outside-city'?'Miejsce jest poza granicami wybranego miasta.':e.code==='network'?'Nie udało się teraz połączyć z bazą. Miejsce nadal jest zapisane na urządzeniu.':e.code==='duplicate-pending'?'Takie miejsce już czeka na zatwierdzenie.':'Nie udało się wysłać propozycji ('+e.code+').';
   announce(msg);
  }finally{inFlight.delete(placeId);}
 }

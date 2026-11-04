@@ -94,6 +94,15 @@ try{
  assert.equal(mapLayout.touchAction,'pan-y','map canvas must allow vertical page touch scrolling');
  assert.equal(mapLayout.panToggle,'false','user must explicitly enable map panning');
  assert.ok(mapLayout.overflow<=mapLayout.viewport+1,'map toolbar does not create horizontal overflow');
+ const popup=await page.locator('#places-map .cr-map-card').evaluate(card=>{
+  card.hidden=false;
+  card.innerHTML='<div class="cr-map-card-head"><h3>Przykładowe miejsce</h3></div><div class="cr-map-card-actions"><button>Do trasy</button><button>Szczegóły</button></div>';
+  const box=card.getBoundingClientRect(),map=card.closest('.cr-map').getBoundingClientRect();
+  const result={popupHeight:box.height,mapHeight:map.height,top:box.top-map.top,bottom:box.bottom-map.top};
+  card.hidden=true;return result;
+ });
+ assert.ok(popup.popupHeight<=130&&popup.bottom<popup.mapHeight-25,
+  'map place popup should remain a short card, preserving visible map and attribution: '+JSON.stringify(popup));
  await page.screenshot({path:'p0-smoke-artifacts/places-mobile-scroll.png',fullPage:true});
 
  // PLACES-UX-038: own creations remain discoverable after unbookmarking.

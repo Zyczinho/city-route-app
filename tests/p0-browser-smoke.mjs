@@ -214,10 +214,10 @@ try{
   await p2.screenshot({path:'p0-smoke-artifacts/add-place-failure.png',fullPage:true});
   throw error;
  }
- await p2.locator('#place-dialog[open] .src-google').waitFor({timeout:12000});
- await p2.locator('#place-dialog[open] .src-tripadvisor').waitFor({timeout:12000});
- assert.match(await p2.locator('#place-dialog[open] .src-google').innerText(),/4,5/,'Google rating is visible after add');
- assert.match(await p2.locator('#place-dialog[open] .src-tripadvisor').innerText(),/4,7/,'Tripadvisor rating is visible after add');
+ await p2.locator('#place-dialog[open] a.row[data-source="google"]').waitFor({timeout:12000});
+ await p2.locator('#place-dialog[open] a.row[data-source="tripadvisor"]').waitFor({timeout:12000});
+ assert.match(await p2.locator('#place-dialog[open] a.row[data-source="google"]').innerText(),/4,5/,'Google rating is visible after add');
+ assert.match(await p2.locator('#place-dialog[open] a.row[data-source="tripadvisor"]').innerText(),/4,7/,'Tripadvisor rating is visible after add');
  assert.match(await p2.locator('#place-dialog[open] img.sheet-photo').getAttribute('src'),/api\/place-photo/,'photo is set after add');
  assert.equal(betaEnrichmentCalls,1,'only one enrichment call per newly added place');
 

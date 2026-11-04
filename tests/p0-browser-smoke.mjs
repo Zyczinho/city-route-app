@@ -178,6 +178,22 @@ try{
  // Fresh visitor adds a totally new coordinate-only point and optional 5/5 rating.
  const ctx2=await browser.newContext({viewport:{width:375,height:812},deviceScaleFactor:1,isMobile:true,hasTouch:true});
  await ctx2.route(/supabase\.co/,route=>route.abort());
+ // Julian scenario without paid API credentials: mock the official provider aggregate
+ // response at the Worker boundary; verify real add/save → photo/ratings UI → bookmark.
+ let betaEnrichmentCalls=0;
+ await ctx2.route(/\/api\/place-enrichment\?/,route=>{
+  betaEnrichmentCalls++;
+  return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({
+   status:'ok',available:{google:true,tripadvisor:true},ratings:[
+    {source:'google',value:4.5,reviewCount:60,url:'https://maps.google.com/?q=test',listing:'P0 test punkt widokowy'},
+    {source:'tripadvisor',value:4.7,reviewCount:30,url:'https://www.tripadvisor.com/',listing:'P0 test punkt widokowy'}
+   ],reviews:[],image:{src:'/api/place-photo?id=ChIJmockPlace12345',
+    credit:{author:'QA',license:'Mock Google',via:'Google Maps',source:'https://maps.google.com/'}}
+  })});
+ });
+ await ctx2.route(/\/api\/place-photo\?/,route=>route.fulfill({status:200,contentType:'image/gif',
+  body:Buffer.from('R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=','base64')}));
+
  const p2=await ctx2.newPage();const pageErrors=[];p2.on('pageerror',e=>pageErrors.push(e.message));
  await p2.goto(BASE+'/#add-place',{waitUntil:'domcontentloaded'});
  await p2.locator('#pc-q').waitFor({timeout:30000});
@@ -186,6 +202,13 @@ try{
  await p2.locator('#place-form input[name="rating"][value="5"]').check({force:true});
  await p2.locator('#place-form button.primary.big').click();
  await p2.locator('#place-dialog[open] button[data-action="add-another-place"]').waitFor({timeout:15000});
+ await p2.locator('#place-dialog[open] .src-google').waitFor({timeout:12000});
+ await p2.locator('#place-dialog[open] .src-tripadvisor').waitFor({timeout:12000});
+ assert.match(await p2.locator('#place-dialog[open] .src-google').innerText(),/4,5/,'Google rating is visible after add');
+ assert.match(await p2.locator('#place-dialog[open] .src-tripadvisor').innerText(),/4,7/,'Tripadvisor rating is visible after add');
+ assert.match(await p2.locator('#place-dialog[open] img.sheet-photo').getAttribute('src'),/api\/place-photo/,'photo is set after add');
+ assert.equal(betaEnrichmentCalls,1,'only one enrichment call per newly added place');
+
  const state=await p2.evaluate(()=>JSON.parse(localStorage.getItem('city-route-v1')));
  const added=state.userPlaces.find(p=>p.name==='P0 test punkt widokowy');
  assert.ok(added,'custom coordinates must be saved locally');
@@ -193,6 +216,7 @@ try{
  assert.ok(Math.abs(added.lat-52.230123)<0.000001);
  assert.ok(Math.abs(added.lng-21.012345)<0.000001);
  assert.ok(state.savedPlacesByCity?.warsaw?.includes(added.id),'added user place must be bookmarked automatically');
+ assert.equal(state.userPlaces.find(p=>p.id===added.id).ratings.length,0,'external provider data is not persisted into localStorage');
  await p2.screenshot({path:'p0-smoke-artifacts/added-place.png',fullPage:true});
  await p2.locator('#place-dialog button[data-action="add-another-place"]').click();
  await p2.locator('#pc-q').waitFor({timeout:10000});

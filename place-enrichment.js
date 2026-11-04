@@ -2,6 +2,7 @@
 // or Google ratings in Supabase/localStorage. Official API credentials remain on Worker.
 import {kmBetween} from './geocode.js';
 import {lookupContent,contentPhoto,contentReviews} from './tripadvisor-content.js';
+import {bestGooglePhoto} from './photo-quality.js';
 
 const GOOGLE_MASK='id,displayName,location,rating,userRatingCount,photos,googleMapsUri';
 const GOOGLE_SEARCH_MASK=GOOGLE_MASK.split(',').map(x=>'places.'+x).join(',');
@@ -114,7 +115,7 @@ export async function enrichPlace({name,lat,lng,googlePlaceId='',city=null,googl
   if(includeTerraReviews&&allowTerra())reviews.push(...await terraReviews(ta.id,terraKey,fetcher));
  }
  let image=null;
- const photo=google?.photos?.[0],author=photo?.authorAttributions?.[0];
+ const photo=bestGooglePhoto(google?.photos)?.photo,author=photo?.authorAttributions?.[0];
  if(photo?.name&&google?.id){
   image={src:'/api/place-photo?id='+encodeURIComponent(google.id),credit:{
    author:String(author?.displayName||'Google Maps'),license:'Zdjęcie Google Maps',via:'Google Maps',

@@ -49,7 +49,11 @@ async function scenario(id,name,viewport,fn){
    catalogIntro:document.querySelector('.places-intro .lead')?.textContent?.slice(0,150)||null,
    categoryName:document.querySelector('[data-action="cat"][aria-pressed="true"]')?.textContent?.trim()||null,
    map:mapRect?{height:Math.round(mapRect.height),left:Math.round(mapRect.left),right:Math.round(mapRect.right),scrollMode:map.classList.contains('is-scroll-mode')}:null,
-   communityTabs:n?[...n.querySelectorAll('a')].map(a=>a.textContent.trim()):null};
+   communityTabs:n?[...n.querySelectorAll('a')].map(a=>a.textContent.trim()):null,
+   edges:['header.top','.top .brand','.top .right','.city-host','main','#navigation','.community-hub-header','.community-hub-links'].map(sel=>{
+    const e=document.querySelector(sel);if(!e)return null;const r=e.getBoundingClientRect();
+    return {element:sel,left:Math.round(r.left),right:Math.round(r.right),width:Math.round(r.width)};
+   }).filter(Boolean)};
  });
  try{
   await fn({page,step,shot,measure,person,context:ctx});
@@ -66,6 +70,8 @@ await scenario('01','Turysta: pierwsza wizyta i szybka trasa',{width:375,height:
  });
  await shot('planner');
  await step('Generowanie trasy',async()=>{
+  const advanced=page.locator('#build-form details.ux-advanced');
+  if(await advanced.count())await advanced.locator('summary').click();
   await page.locator('#build-form label:has(input[name="start"][value="any"])').click();
   await page.locator('#build-form button.primary.big').click();
   await page.locator('.generated-options').waitFor({timeout:20000});

@@ -19,15 +19,15 @@ export function isSamePlace({requestedName,requestedLat,requestedLng,candidateNa
 const rating=(source,score,count,url,name,checked)=>Number.isFinite(Number(score))&&Number(score)>=1&&Number(score)<=5&&Number.isSafeInteger(Number(count))&&Number(count)>0&&safeUrl(url)?{
  source,value:Number(score),reviewCount:Number(count),max:5,url:safeUrl(url),listing:String(name||'').slice(0,140),checked,method:'licensed-official-api'
 }:null;
-async function googleLookup({name,lat,lng,googlePlaceId,key,fetcher,city}){
+async function googleLookup({name,lat,lng,googlePlaceId,key,fetcher,city,includeReviews=false}){
  if(!key)return null;
  let url,opts;
  if(googlePlaceId&&/^[A-Za-z0-9_-]{10,300}$/.test(googlePlaceId)){
   url='https://places.googleapis.com/v1/places/'+encodeURIComponent(googlePlaceId)+'?languageCode=pl';
-  opts={headers:{'x-goog-api-key':key,'x-goog-fieldmask':GOOGLE_MASK}};
+  opts={headers:{'x-goog-api-key':key,'x-goog-fieldmask':GOOGLE_MASK+(includeReviews?',reviews':'')}};
  }else{
   url='https://places.googleapis.com/v1/places:searchText';
-  opts={method:'POST',headers:{'content-type':'application/json','x-goog-api-key':key,'x-goog-fieldmask':GOOGLE_SEARCH_MASK},body:JSON.stringify({
+  opts={method:'POST',headers:{'content-type':'application/json','x-goog-api-key':key,'x-goog-fieldmask':GOOGLE_SEARCH_MASK+(includeReviews?',places.reviews':'')},body:JSON.stringify({
    textQuery:name+', '+String(city?.name||'Warszawa'),languageCode:'pl',regionCode:'PL',
    locationBias:{circle:{center:{latitude:lat,longitude:lng},radius:500}}
   })};
@@ -61,20 +61,50 @@ async function terraPhoto(id,key,fetcher){
  if(!/(^|\.)tripadvisor\.com$/.test(host))return null;
  return {src,credit:{author:String(pic?.user?.name||pic?.contributor?.name||'Tripadvisor'),license:'Treść Tripadvisor',via:'Tripadvisor',source:'https://www.tripadvisor.com/'}};
 }
-export async function enrichPlace({name,lat,lng,googlePlaceId='',city=null,googleKey='',terraKey='',fetcher=fetch,allowGoogle=()=>true,allowTerra=()=>true}={}){
+
+const authorName=(value,fallback)=>String(value||fallback).slice(0,180);
+const textInLanguage=values=>Array.isArray(values)?values.find(x=>x.primary)?.value||values[0]?.value||'':String(values||'');
+function googleReview(r,placeUrl){
+ const text=String(r?.text?.text||'').trim(),author=r?.authorAttribution;
+ if(!text)return null;
+ const avatar=safeUrl(author?.photoUri),url=safeUrl(r.googleMapsUri)||safeUrl(placeUrl);
+ return {source:'google',text,author:authorName(author?.displayName,'Użytkownik Google Maps'),avatar,
+  authorUrl:safeUrl(author?.uri),url,rating:Number(r.rating)||null,when:String(r.relativePublishTimeDescription||''),translated:!!r.originalText?.text&&r.originalText.text!==text};
+}
+async function terraReviews(id,key,fetcher){
+ if(!/^[0-9]{1,12}$/.test(String(id||'')))return [];
+ const u=new URL('https://terra.tripadvisor.com/api/locations/'+id+'/reviews');
+ u.searchParams.set('version','1');u.searchParams.set('page','1');u.searchParams.set('size','3');
+ u.searchParams.set('language','primary');
+ let response;
+ try{response=await fetcher(u.href,{headers:{'x-api-key':key,'accept':'application/json'},signal:AbortSignal.timeout(7000)});}catch{return [];}
+ if(!response.ok)return [];
+ const body=await response.json().catch(()=>null);
+ return (Array.isArray(body?.data)?body.data:[]).slice(0,3).map(r=>{
+  const txt=String(textInLanguage(r?.text)||'').trim(),url=safeUrl(r?.url);
+  if(!txt||!url)return null;
+  return {source:'tripadvisor',text:txt,title:String(textInLanguage(r.title)||''),
+   rating:Number(r.rating)||null,author:authorName(r.user?.username||r.user?.display_name||r.user?.name,'Użytkownik Tripadvisor'),
+   authorUrl:safeUrl(r.user?.url),avatar:safeUrl(r.user?.avatar_url),url,
+   when:String(r.publish_ts||'').slice(0,10),translated:false};
+ }).filter(Boolean);
+}
+export async function enrichPlace({name,lat,lng,googlePlaceId='',city=null,googleKey='',terraKey='',fetcher=fetch,allowGoogle=()=>true,allowTerra=()=>true,includeGoogleReviews=false,includeTerraReviews=false}={}){
  name=String(name||'').replace(/\s+/g,' ').trim().slice(0,120);lat=Number(lat);lng=Number(lng);
  if(name.length<3||![lat,lng].every(Number.isFinite)||lat<-90||lat>90||lng<-180||lng>180)return {status:'invalid',ratings:[],image:null};
- const checked=new Date().toISOString(),ratings=[];
+ const checked=new Date().toISOString(),ratings=[],reviews=[];
  const providers={google:!!googleKey,tripadvisor:!!terraKey};
- const google=providers.google&&allowGoogle()?await googleLookup({name,lat,lng,googlePlaceId,key:googleKey,fetcher,city}):null;
+ const google=providers.google&&allowGoogle()?await googleLookup({name,lat,lng,googlePlaceId,key:googleKey,fetcher,city,includeReviews:includeGoogleReviews}):null;
  if(google){
   const found=rating('google',google.rating,google.userRatingCount,google.googleMapsUri,google.displayName?.text,checked);if(found)ratings.push(found);
+  if(includeGoogleReviews)reviews.push(...(Array.isArray(google.reviews)?google.reviews:[]).slice(0,3).map(r=>googleReview(r,google.googleMapsUri)).filter(Boolean));
  }
  const terraQuota=providers.tripadvisor&&allowTerra();
  const ta=terraQuota?await terraLookup({name,lat,lng,key:terraKey,fetcher,city}):null;
  if(ta){
   const overall=ta.traveler_ratings?.overall||{},link=typeof ta.urls?.tripadvisor==='string'?ta.urls.tripadvisor:ta.urls?.tripadvisor?.url;
   const found=rating('tripadvisor',overall.rating,overall.count,link,terraName(ta),checked);if(found)ratings.push(found);
+  if(includeTerraReviews&&allowTerra())reviews.push(...await terraReviews(ta.id,terraKey,fetcher));
  }
  let image=null;
  const photo=google?.photos?.[0],author=photo?.authorAttributions?.[0];
@@ -90,6 +120,6 @@ export async function enrichPlace({name,lat,lng,googlePlaceId='',city=null,googl
    if(safeUrl(url))image.credit.source=safeUrl(url);
   }
  }
- return {status:ratings.length||image?'ok':!providers.google&&!providers.tripadvisor?'no-key':'no-match',
-  ratings,image,googlePlaceId:google?.id||null,tripadvisorId:ta?.id||null,available:providers,checked};
+ return {status:ratings.length||image||reviews.length?'ok':!providers.google&&!providers.tripadvisor?'no-key':'no-match',
+  ratings,reviews,image,googlePlaceId:google?.id||null,tripadvisorId:ta?.id||null,available:providers,checked};
 }

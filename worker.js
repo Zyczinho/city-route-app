@@ -72,7 +72,9 @@ async function placeEnrichment(url,env){
  if(name.length<3||!url.searchParams.has('lat')||!url.searchParams.has('lng')||![lat,lng].every(Number.isFinite)||Math.abs(lat)>90||Math.abs(lng)>180||kmBetween({lat,lng},city.center)>city.radiusKm)return json({status:'invalid',ratings:[]},422);
  const googlePlaceId=String(url.searchParams.get('googleId')||'').slice(0,300);
  try{
-  const result=await enrichPlace({name,lat,lng,googlePlaceId,city,googleKey:env.GOOGLE_PLACES_API_KEY||'',terraKey:env.TRIPADVISOR_TERRA_API_KEY||'',allowGoogle:()=>googleAllowed(env),allowTerra:()=>terraAllowed(env)});
+  const result=await enrichPlace({name,lat,lng,googlePlaceId,city,googleKey:env.GOOGLE_PLACES_API_KEY||'',terraKey:env.TRIPADVISOR_TERRA_API_KEY||'',allowGoogle:()=>googleAllowed(env),allowTerra:()=>terraAllowed(env),
+   includeGoogleReviews:env.GOOGLE_PLACES_INCLUDE_REVIEWS==='on',
+   includeTerraReviews:env.TRIPADVISOR_TERRA_INCLUDE_REVIEWS==='on'});
   return json(result,200);
  }catch{return json({status:'unavailable',ratings:[]},502);}
 }

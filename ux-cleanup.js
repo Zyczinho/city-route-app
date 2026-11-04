@@ -87,7 +87,12 @@ function communityFocus(){
  const feed=root.querySelector('[data-social-feed]');
  if(communityTab&&feed)root.dataset.communityFocus='1';else delete root.dataset.communityFocus;
  if(hash.startsWith('#community-route/')){
-  const back=root.querySelector('.social-detail .back');if(back){back.href='#routes/community';back.textContent='Społeczność';}
+  const back=root.querySelector('.social-detail .back');if(back){
+    // A MutationObserver watches #main's childList. Reassigning an unchanged
+    // textContent still emits a childList mutation and can starve the UI forever.
+    if(back.getAttribute('href')!=='#routes/community')back.setAttribute('href','#routes/community');
+    if(back.textContent!=='Społeczność')back.textContent='Społeczność';
+   }
  }
 }
 

@@ -161,6 +161,44 @@ try{
  await placesPage.screenshot({path:'p0-smoke-artifacts/add-place-mobile-clean.png',fullPage:true});
  await placesCtx.close();
 
+ // COMMUNITY-DETAIL-FREEZE-044: a real mobile route detail must paint and remain interactive.
+ // The server RPCs resolve successfully; a redundant textContent assignment in the
+ // UX MutationObserver previously created an endless microtask loop after response.
+ const detailCtx=await browser.newContext({viewport:{width:375,height:812},deviceScaleFactor:1,isMobile:true,hasTouch:true});
+ const testRouteId='11111111-2222-4333-8444-555555555555';
+ await detailCtx.route(/supabase\.co/,async route=>{
+  const path=new URL(route.request().url).pathname;
+  const data=path.endsWith('/rpc/community_route')?[{
+   id:testRouteId,city_slug:'krakow',name:'Kraków — test trasy',description:'Trasa testowa',
+   author_id:'11111111-2222-4333-8444-666666666666',author_nickname:'Tester',
+   visibility:'public',status:'published',transport:'walking',
+   stops:['krakow-smoke-a','krakow-smoke-b'],stop_count:2,save_count:1,rating_count:0,fork_count:0
+  }]:path.endsWith('/rpc/catalogue_places')?[
+   {id:'krakow-smoke-a',name:'Rynek Główny',image_url:null},
+   {id:'krakow-smoke-b',name:'Planty',image_url:null}
+  ]:null;
+  if(data){await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(data)});return;}
+  await route.abort();
+ });
+ await detailCtx.addInitScript(()=>localStorage.setItem('city-route-v1',JSON.stringify({
+  version:1,tester:{id:'route-detail-smoke',nickname:'Test'},basket:[],basketsByCity:{krakow:[]},
+  events:[],session:null,cityId:'krakow',userPlaces:[],placeReviews:{}
+ })));
+ const detailPage=await detailCtx.newPage();
+ await detailPage.goto(BASE+'/#community-route/'+testRouteId,{waitUntil:'domcontentloaded'});
+ await detailPage.locator('[data-social-route-root="'+testRouteId+'"] .social-stops li').first().waitFor({timeout:20000});
+ assert.equal(await detailPage.locator('.social-stops li').count(),2,'detail shows published route stops');
+ assert.equal(await detailPage.locator('.social-detail h1').textContent(),'Kraków — test trasy');
+ assert.equal(await detailPage.locator('.social-detail .back').textContent(),'Społeczność');
+ assert.equal(await detailPage.locator('.social-detail .back').getAttribute('href'),'#routes/community');
+ const alive=await detailPage.evaluate(()=>new Promise(resolve=>setTimeout(()=>resolve('responsive'),100)));
+ assert.equal(alive,'responsive','browser event loop must not be starved by a recursive MutationObserver');
+ await detailPage.locator('.social-detail .back').click();
+ assert.equal(new URL(detailPage.url()).hash,'#routes/community');
+ await detailPage.goto(BASE+'/#community-route/'+testRouteId,{waitUntil:'domcontentloaded'});
+ await detailPage.locator('.social-detail h1').waitFor({timeout:20000});
+ await detailCtx.close();
+
  // COMMUNITY-HUB-023: four accessible community subviews are reachable without altering bottom tabs.
  await page.locator('#navigation a[href="#routes/community"]').click();
  await page.locator('[data-community-tabs] .community-hub-links').waitFor({timeout:12000});

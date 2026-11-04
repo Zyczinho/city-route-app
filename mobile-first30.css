@@ -1,0 +1,66 @@
+/* FIRST-30S-IPHONE-UX-051: screen one is a promise and an immediate outcome, not a form manual. */
+#main .ux-plan-head{max-width:660px;margin:0 0 13px!important}
+#main .ux-plan-head h1{max-width:620px;font-size:clamp(29px,4.8vw,41px);line-height:1.09;letter-spacing:-.045em;margin:0 0 11px!important;text-wrap:balance}
+#main .ux-plan-head .lead{max-width:580px!important;font-size:15px;line-height:1.5;color:#516476;margin:0}
+#main .start-here{max-width:640px;min-height:36px;padding:5px 1px;margin-bottom:12px;background:transparent;border:0;box-shadow:none;gap:8px}
+#main .start-here .start-here-icon{width:25px;height:25px;border-radius:8px;background:#e4f3ff}
+#main .start-here .start-here-icon .i{width:16px;height:16px}
+#main .start-here-copy{display:flex;flex-wrap:wrap;gap:4px 9px;align-items:baseline}
+#main .start-here-copy strong{font-size:12px;color:#116aa6}
+#main .start-here-copy small{font-size:11px;color:#718497}
+#main .start-here>.i:last-child{width:15px;height:15px}
+#build-form.ux-planner{max-width:640px;gap:12px}
+#build-form.ux-planner .ux-planner-primary{border-color:#c9dce9;box-shadow:0 3px 16px #142d420b}
+#build-form.ux-planner .ux-time legend{font-size:17px;font-weight:800;line-height:1.35;margin-bottom:10px}
+#build-form.ux-planner .ux-submit{width:100%;min-height:56px;border-radius:14px;padding:12px 16px;font-weight:800;font-size:16px;box-shadow:0 6px 18px #071f3540;background:#0c2132;color:#fff}
+#build-form.ux-planner .ux-submit:hover{background:#143950}
+#build-form.ux-planner .ux-submit:focus-visible{outline:3px solid #9fd6f5;outline-offset:2px}
+#build-form.ux-planner .ux-plan-alternatives{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px 12px;padding:0 2px 6px}
+#build-form.ux-planner .ux-plan-alternatives .ux-text-link{font-size:12px;font-weight:740;color:#116fae;min-height:39px;display:inline-flex;align-items:center;justify-content:center;padding:5px 10px;background:#f6fbff;border:1px solid #d5e7f3;border-radius:999px;text-decoration:none}
+#build-form.ux-planner .ux-plan-alternatives .ux-text-link:hover{background:#e6f4ff}
+#build-form.ux-planner .ux-plan-alternatives .ux-text-link:focus-visible{outline:3px solid #95cef4;outline-offset:2px}
+#build-form.ux-planner .ux-when{border-color:#d5e5ef}
+#build-form.ux-planner .ux-when>summary{background:#f8fbfe}
+#build-form.ux-planner .ux-when>summary strong{font-weight:760}
+#build-form.ux-planner .ux-when>summary small{max-width:none;color:#317399}
+#build-form.ux-planner .ux-when .planner-when{width:100%;min-width:0}
+#build-form.ux-planner .planner-when-fields{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+#build-form.ux-planner .planner-when-fields label{display:grid;grid-template-columns:minmax(0,1fr);min-width:0;width:100%;max-width:100%;box-sizing:border-box;font-size:13px}
+#build-form.ux-planner .planner-when-fields input{display:block;box-sizing:border-box;min-width:0;max-width:100%;width:100%;min-height:48px;padding:10px 12px;border:1px solid #cbdce8;border-radius:12px;font-size:16px;line-height:1.2;text-align:left;color:#15283a;background:white;font-family:inherit}
+#build-form.ux-planner .planner-when-fields input::-webkit-date-and-time-value{min-width:0;max-width:100%;text-align:left}
+#build-form.ux-planner .planner-when-fields input:focus-visible{outline:3px solid #9fd6f5;outline-offset:2px}
+/* The active route is the only prominent tab; saved progress is indicated by its small badge. */
+#navigation a[href="#my-route"]:not(.active){margin-top:0!important;min-height:54px!important;background:transparent!important;border-color:transparent!important;box-shadow:none!important;color:var(--muted)!important}
+#navigation a[href="#my-route"]:not(.active).chosen .i{color:#0e8eab}
+#navigation a[href="#my-route"].active{border:1px solid #17b9d8!important;background:#e7faff!important;color:#006d87!important;box-shadow:0 3px 10px #12a6c72d!important}
+#navigation a[href="#my-route"].active.live{background:var(--live)!important;color:white!important}
+@media(max-width:700px){
+ #build-form.ux-planner .planner-when-fields{grid-template-columns:minmax(0,1fr);gap:12px}
+ #build-form.ux-planner .planner-when-fields label{min-width:0}
+ #build-form.ux-planner .planner-when-fields input{min-width:0;width:100%;max-width:100%}
+}
+@media(max-width:520px){
+ #main .ux-plan-head{margin-top:1px!important;margin-bottom:8px!important}
+ #main .ux-plan-head h1{font-size:30px;line-height:1.09;letter-spacing:-.036em}
+ #main .ux-plan-head .lead{font-size:14px;line-height:1.48}
+ #main .start-here{margin-bottom:7px}
+ #main .start-here-copy small{display:none}
+ #build-form.ux-planner{gap:10px}
+ #build-form.ux-planner .ux-planner-primary{padding:15px;border-radius:16px}
+ #build-form.ux-planner .ux-time legend{font-size:16px}
+ #build-form.ux-planner .ux-submit{min-height:54px}
+ #build-form.ux-planner .ux-plan-alternatives{gap:6px 8px}
+ #build-form.ux-planner .ux-plan-alternatives .ux-text-link{font-size:11px;min-height:37px;padding:6px 9px}
+}
+@media(max-width:349px){
+ #main .ux-plan-head h1{font-size:27px}
+ #build-form.ux-planner .ux-plan-alternatives .ux-text-link{font-size:10px}
+}
+
+/* ROUTES on a real iPhone 13 Pro: show the route name above the fold, not only a tall cover. */
+@media(max-width:699px){
+ .route-card.big .media{aspect-ratio:16/9;min-height:0}
+ .route-card.big .body{padding:13px 15px 15px}
+ .route-card.big h3{font-size:19px;line-height:1.24}
+ .route-card.big .desc{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden}
+}

@@ -10,12 +10,12 @@ test('community hub ships through HTML, build and offline cache',async()=>{
  ]);
  assert.match(html,/community-hub\.js\?v=2/);
  assert.match(html,/community-enhancements\.js\?v=20/);
- assert.match(html,/ux-cleanup\.js\?v=3/);
+ assert.match(html,/ux-cleanup\.js\?v=4/);
  assert.match(html,/ux-cleanup\.css\?v=2/);
  assert.match(build,/'community-hub\.js'/);
  assert.match(sw,/community-hub\.js\?v=2/);
  assert.match(sw,/community-enhancements\.js\?v=20/);
- assert.match(sw,/city-route-v51/);
+ assert.match(sw,/city-route-v52/);
  assert.match(css,/:not\(\[data-community-tabs\]\)/,'Community focus must keep the inner tabs visible');
  assert.match(hub,/\['#routes\/community','Trasy'\]/);
  assert.match(hub,/\['#routes\/community\/groups','Grupy'\]/);

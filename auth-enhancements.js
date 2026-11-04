@@ -98,6 +98,8 @@ function setNotice(text){notice=text;renderAuth();}
 function signedOutMarkup(){
   return `<section class="auth-card" data-city-auth data-auth-state="out" data-auth-user="" data-auth-notice="${esc(notice)}"><div><p class="kicker">Konto City Route</p><h2>Zapisz swój profil i korzystaj na różnych urządzeniach</h2><p class="fine">Trasy pozostają dostępne lokalnie. Konto synchronizuje na razie profil; grupy i chat dołączą na tej samej bazie.</p></div>
   ${notice?`<p class="auth-notice" role="status">${esc(notice)}</p>`:''}
+  <button type="button" class="google-auth-button" data-auth-action="google"><span class="google-auth-mark" aria-hidden="true">G</span>Kontynuuj z Google</button>
+  <div class="auth-divider" aria-hidden="true"><span>lub zaloguj się e-mailem</span></div>
   <form data-auth-form="login" class="auth-form"><h3>Zaloguj się</h3><label>E-mail<input name="email" type="email" autocomplete="email" required></label><label>Hasło<input name="password" type="password" autocomplete="current-password" minlength="6" required></label><button class="primary">Zaloguj</button></form>
   <details class="auth-signup"><summary>Nie masz konta? Utwórz je</summary><form data-auth-form="signup" class="auth-form"><label>Nazwa<input name="nickname" minlength="2" maxlength="40" autocomplete="nickname" placeholder="Wybierz unikalny nick" required></label><label>E-mail<input name="email" type="email" autocomplete="email" required></label><label>Hasło<input name="password" type="password" autocomplete="new-password" minlength="6" required></label><button class="primary">Utwórz konto</button></form></details></section>`;
 }
@@ -148,6 +150,30 @@ document.addEventListener('submit',e=>{
 
 document.addEventListener('click',async e=>{
   const action=e.target.closest?.('[data-auth-action]')?.dataset.authAction;
+  if(action==='google'){
+    e.preventDefault();
+    if(session)return;
+    const button=e.target.closest('[data-auth-action="google"]');
+    if(button.disabled)return;
+    button.disabled=true;
+    setNotice('Przechodzę do logowania Google…');
+    try{
+      const {error}=await supabase.auth.signInWithOAuth({
+        provider:'google',
+        options:{redirectTo:location.origin+location.pathname+'?cityroute_auth=google'}
+      });
+      if(error){
+        setNotice(/not enabled|provider.*disabled|unsupported/i.test(error.message||'')
+          ?'Logowanie Google wymaga jeszcze aktywacji w ustawieniach konta City Route. Możesz zalogować się e-mailem.'
+          :'Google: '+error.message);
+        button.disabled=false;
+      }
+    }catch(error){
+      setNotice('Nie udało się rozpocząć logowania Google. Spróbuj e-mailem.');
+      button.disabled=false;
+    }
+    return;
+  }
   if(action==='logout'){
     await supabase.auth.signOut();
     setNotice('Wylogowano.');
@@ -162,6 +188,18 @@ window.addEventListener('hashchange',()=>setTimeout(renderAuth));
 
 const {data:{session:initialSession}}=await supabase.auth.getSession();
 session=initialSession;
+if(new URLSearchParams(location.search).get('cityroute_auth')==='google'){
+  if(session?.user){
+    // OAuth code has already been exchanged automatically by supabase-js (PKCE).
+    history.replaceState(null,'',location.pathname+'#profile');
+  }else{
+    const params=new URLSearchParams(location.search);
+    if(params.has('error')||params.has('error_description')){
+      notice='Google: logowanie nie zostało zakończone. Spróbuj ponownie lub użyj e-maila.';
+      history.replaceState(null,'',location.pathname+'#profile');
+    }
+  }
+}
 renderAuth();
 if(session?.user)await hydrateProfile(session.user);
 

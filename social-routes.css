@@ -33,3 +33,9 @@
 .social-detail [data-social-action="save"][aria-pressed="true"]:hover{background:#075fa2!important}
 [data-social-action="save"]:focus-visible{outline:3px solid #8ccaff;outline-offset:2px}
 [data-social-action="save"]:disabled{opacity:.65;cursor:wait}
+
+/* Author connections: mutual friend action is separate from one-way follows. */
+.social-author-relationship{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:11px 0 8px}
+.social-author-relationship [data-author-friend]{min-height:44px;padding:8px 14px;border:1px solid #bfdcf3;background:#eaf5ff;color:#0868a7;font-weight:750}
+.social-author-relationship [data-author-friend]:disabled{opacity:1;background:var(--line-2);border-color:var(--line);color:var(--muted);cursor:default}
+.social-author-relationship [data-author-friend-status]{min-width:0;max-width:100%;overflow-wrap:anywhere;margin:0}

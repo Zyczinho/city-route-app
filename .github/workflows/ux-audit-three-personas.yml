@@ -1,0 +1,31 @@
+name: Three-customer UX audit
+
+on:
+  push:
+    branches:
+      - audit/three-customer-personas-20261104
+
+permissions:
+  contents: read
+
+jobs:
+  three-customer-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-save playwright@1.58.2
+      - run: npx playwright install --with-deps chromium
+      - name: Run three isolated client personas against deployed application
+        env:
+          AUDIT_BASE: https://city-route-app.jakublojek.workers.dev
+        run: node tests/ux-audit-three-personas.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: three-customer-ux-audit-evidence
+          path: ux-audit-artifacts/
+          if-no-files-found: ignore

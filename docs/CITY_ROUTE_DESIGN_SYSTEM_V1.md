@@ -79,7 +79,7 @@ Do not use: emoji as UI navigation, Unicode `+` or `›` in place of existing ic
 
 ## Photo policy and acceptance
 
-- Existing catalog photos with verified rights take priority; then official licensed provider photos; then name+geolocation matched geotagged Commons; otherwise honest no-photo state.
+- Existing catalog photos with verified rights take priority; then official licensed provider photos; then name+geolocation matched geotagged **Wikimedia Commons** photos; otherwise honest no-photo state.
 - Commons candidate: geotagged, hard distance gate, **matching venue identity**, sufficient resolution, attribution and allowed reuse license. Keep author + source visible. Do not blindly copy third-party source bytes to storage.
 - User-owned uploaded photos with explicit consent stay a separate flow.
 - Prioritize real Kraków coverage after production smoke. The old audit reported ~208 seeded Kraków places without images; this is a **coverage backlog**, not a promise that Commons automatically supplies all 208.

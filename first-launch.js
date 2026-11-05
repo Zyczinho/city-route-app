@@ -34,7 +34,7 @@ function maybeShowIntro(){
    </ol>
    <div class="welcome-actions"><button type="button" class="welcome-primary" data-intro="plan">Ułóż pierwszą trasę</button>
    <button type="button" class="welcome-secondary" data-intro="places">Przeglądaj miejsca</button></div>
-   <small class="welcome-foot">Pełny poradnik wszystkich funkcji jest zawsze w dolnym menu → Poradnik.</small>
+   <small class="welcome-foot">Pełny poradnik znajdziesz w dolnym menu w zakładce Poradnik.</small>
  </div>`;
  document.body.append(dialog);
  dialog.querySelector('[data-intro="plan"]')?.focus({preventScroll:true});

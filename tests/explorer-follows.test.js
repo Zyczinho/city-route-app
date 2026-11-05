@@ -68,6 +68,6 @@ test('author pages preserve friend actions while adding a distinct follow flow',
  const sw=read('service-worker.js'),html=read('index.html'),build=read('scripts/build.mjs');
  for(const file of [sw,build])assert.match(file,/follows-client\.js/);
  assert.match(html,/social-routes-enhancements\.js\?v=9/);
- assert.match(sw,/city-route-v61/);
+ assert.match(sw,/city-route-v62/);
  execFileSync(process.execPath,['--check','social-routes-enhancements.js'],{stdio:'pipe'});
 });

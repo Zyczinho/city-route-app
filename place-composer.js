@@ -4,6 +4,7 @@
 import {iconMarkup} from './ui-icons.js';
 import {MIN_QUERY,SUGGEST_DELAY_MS,classifyInput,formatCoords,normalizeQuery,keepsSelection,cityCheck,activeCity,cityParams,catalogueMatches,findDuplicate,categoryFromTypes,SOURCE_LABEL,latestOnly,sessionToken} from './place-composer-model.js';
 import {loadLeaflet} from './map-view.js';
+import {findPlacePhotoCandidates,acceptedPhotoRecord,acceptedGooglePlaceId} from './place-photo-proposal.js';
 
 const STATE_KEY='city-route-v1';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -11,6 +12,9 @@ const $=(s,root=document)=>root.querySelector(s);
 const appState=()=>{try{return JSON.parse(localStorage.getItem(STATE_KEY)||'null');}catch{return null;}};
 
 let cities=null,catalogueByCity={},selection=null,generation=0,staleWhere='',lastQuery='',session=sessionToken(),timer=0,controller=null,map=null,marker=null,activeIndex=-1,options=[];
+// P0 #1: automatic photo proposal for the picked venue. {key,status,candidates,index,accepted,skipped}
+let proposal=null,proposalController=null;
+const icon=n=>`<span class="i" style="--i:url(./assets/icons/ui/${n}.svg)" aria-hidden="true"></span>`;
 const requests=latestOnly();
 
 async function jsonOrNull(url,opts){
@@ -112,7 +116,7 @@ function resetSelection(form){
  const where=$('input[name="where"]',form),name=$('input[name="name"]',form);
  if(where&&(where.value===form.dataset.pcWhere||!where.value)){if(where.value)staleWhere=where.value;where.value='';delete form.dataset.placeResolved;delete form.dataset.pcWhere;}
  if(name?.dataset.pcAuto==='1'){name.value='';delete name.dataset.pcAuto;}
- renderPreview(form,null);hideMap(form);
+ clearProposal(form);renderPreview(form,null);hideMap(form);
 }
 
 function fillName(form,name){
@@ -124,7 +128,7 @@ async function choose(form,picked){
  const gen=generation,city=await currentCity();if(gen!==generation)return;
  const check=cityCheck(picked.location,city);
  if(picked.location&&!check.ok){
-  selection=null;writeLocation(form,null);renderPreview(form,null);
+  selection=null;writeLocation(form,null);clearProposal(form);renderPreview(form,null);
   return status(form,`To miejsce jest ${check.km} km od centrum: ${city.name} (limit ${check.limit} km). Zmień miasto u góry albo wybierz inny wynik.`,'error');
  }
  const dup=picked.source==='catalogue'||picked.source==='mine'?null:findDuplicate(picked,await knownPlaces(city));
@@ -135,6 +139,7 @@ async function choose(form,picked){
  setCategory(form,selection.category);
  writeLocation(form,picked.location||null);
  renderPreview(form,selection);
+ proposePhoto(form,selection);
  if(picked.location&&picked.source!=='google')showMap(form,picked.location);
  const name=$('input[name="name"]',form);
  if(!picked.location)status(form,'Ustaw pinezkę na mapie albo wklej współrzędne do pola wyszukiwania.');
@@ -145,16 +150,92 @@ async function choose(form,picked){
 function renderPreview(form,sel){
  const {preview}=ui(form);if(!preview)return;
  if(!sel){preview.hidden=true;preview.replaceChildren();return;}
- const photo=sel.photo?.available&&sel.placeId?`<figure class="pc-photo"><img src="/api/place-photo?id=${encodeURIComponent(sel.placeId)}" alt="" loading="lazy" decoding="async"><figcaption>Zdjęcie: ${sel.photo.authorUri?`<a href="${esc(sel.photo.authorUri)}" target="_blank" rel="noopener noreferrer">${esc(sel.photo.authorName)}</a>`:esc(sel.photo.authorName)} · Google Maps. Tylko podgląd, nie zapisujemy go.</figcaption></figure>`:'';
+ const photo='<div class="pc-photo-slot" aria-live="polite"></div>';
  const dup=sel.dup?`<div class="pc-dup" role="alert"><p><strong>To chyba już jest: ${esc(sel.dup.place.name)}</strong> (${sel.dup.m} m stąd).</p><div class="pc-actions"><button type="button" data-action="place" data-id="${esc(sel.dup.place.id)}">Zobacz</button><button type="button" data-action="add" data-id="${esc(sel.dup.place.id)}">Dodaj do Mojej trasy</button></div></div>`:'';
  const where=sel.location?formatCoords(sel.location):'brak lokalizacji';
  preview.innerHTML=`${photo}<div class="pc-card"><p class="pc-name">${esc(sel.name||'Nowe miejsce')}</p>${sel.address?`<p class="pc-addr">${esc(sel.address)}</p>`:''}<p class="pc-meta">${esc(SOURCE_LABEL[sel.source]||'')} · ${esc(where)}</p>${sel.source==='google'&&sel.location?'<button type="button" class="pc-link" data-pc="adjust">Popraw pinezkę</button>':''}</div>${dup}`;
  preview.hidden=false;
- preview.querySelector('img')?.addEventListener('error',e=>e.target.closest('figure')?.remove(),{once:true});
+ renderProposal(form);
+}
+
+// ---- Automatic photo proposal (P0 #1) ----
+const proposalKey=sel=>sel?.location&&String(sel.name||'').trim().length>=3?[String(sel.name).trim().toLowerCase(),Number(sel.location.lat).toFixed(4),Number(sel.location.lng).toFixed(4),sel.placeId||''].join('|'):'';
+const currentCandidate=()=>proposal?.candidates?.[proposal.index]||null;
+
+const validGoogleId=id=>/^[A-Za-z0-9_-]{10,300}$/.test(String(id||''))?String(id):'';
+function syncAccepted(form){
+ const c=proposal?.accepted?currentCandidate():null,record=c?acceptedPhotoRecord(c):null;
+ if(record)form.dataset.pcPhoto=JSON.stringify(record);else delete form.dataset.pcPhoto;
+ // An accepted Google photo is not copied: the place keeps its Google id and shows the photo through the proxy.
+ form.dataset.pcGooglePlaceId=validGoogleId(selection?.placeId)||acceptedGooglePlaceId(c);
+}
+
+function clearProposal(form){
+ proposalController?.abort();proposalController=null;proposal=null;
+ if(form)delete form.dataset.pcPhoto;
+}
+
+async function proposePhoto(form,sel){
+ const key=proposalKey(sel);
+ if(!key){clearProposal(form);return renderProposal(form);}
+ if(proposal?.key===key)return renderProposal(form);
+ clearProposal(form);
+ const controller=new AbortController();proposalController=controller;
+ proposal={key,status:'loading',candidates:[],index:0,accepted:false,skipped:false};renderProposal(form);
+ const city=await currentCity();
+ let result;
+ try{result=await findPlacePhotoCandidates(sel,{city:city?.name||'',cityInfo:city,signal:controller.signal});}
+ catch{if(controller.signal.aborted)return;result={status:'error',candidates:[]};}
+ if(proposalController!==controller||proposal?.key!==key)return;
+ proposal={...proposal,status:result.status,candidates:result.candidates};
+ renderProposal(formOf()||form);
+}
+
+function creditLine(c){
+ const author=c.source?`<a href="${esc(c.source)}" target="_blank" rel="noopener noreferrer">${esc(c.author)}</a>`:esc(c.author);
+ const license=c.licenseUrl?`<a href="${esc(c.licenseUrl)}" target="_blank" rel="noopener noreferrer">${esc(c.license)}</a>`:esc(c.license);
+ return c.via==='Google Maps'?`Zdjęcie: ${author} · Google Maps. Wyświetlamy je z Google, nie kopiujemy pliku.`:`Zdjęcie: ${author} · ${license} · ${esc(c.via)}`;
+}
+
+function renderProposal(form){
+ const slot=form&&$('.pc-photo-slot',form);if(!slot)return;
+ syncAccepted(form);
+ if(!proposal){slot.replaceChildren();return;}
+ const own='<button type="button" data-pc-photo="own">'+icon('image-plus')+'Dodaj własne</button>';
+ if(proposal.status==='loading'){slot.innerHTML='<p class="pc-photo-state">'+icon('camera')+'Szukam zdjęcia tego miejsca…</p>';return;}
+ if(proposal.status!=='ok'){
+  slot.innerHTML=`<div class="pc-photo-empty"><p class="pc-photo-state">${icon('camera')}${proposal.status==='error'?'Nie udało się teraz sprawdzić zdjęć.':'Nie mamy pewnego zdjęcia tego miejsca.'}</p><div class="pc-photo-actions">${own}</div></div>`;return;
+ }
+ if(proposal.skipped){slot.innerHTML=`<div class="pc-photo-empty"><p class="pc-photo-state">${icon('camera')}Bez proponowanego zdjęcia.</p><div class="pc-photo-actions"><button type="button" data-pc-photo="undo">Pokaż propozycję</button>${own}</div></div>`;return;}
+ const c=currentCandidate(),many=proposal.candidates.length>1,name=$('input[name="name"]',form)?.value.trim()||'to miejsce';
+ slot.innerHTML=`<figure class="pc-photo${proposal.accepted?' is-accepted':''}">
+  <img src="${esc(c.src)}" alt="Zdjęcie: ${esc(name)}" decoding="async" referrerpolicy="no-referrer">
+  <figcaption><strong>${proposal.accepted?icon('check')+'Zdjęcie wybrane':'Proponowane zdjęcie'}</strong><span>${creditLine(c)}</span>${many?`<span class="pc-photo-count">${proposal.index+1} z ${proposal.candidates.length}</span>`:''}</figcaption>
+ </figure>
+ <div class="pc-photo-actions">${proposal.accepted
+  ?`${many?'<button type="button" data-pc-photo="next">'+icon('shuffle')+'Inne</button>':''}<button type="button" data-pc-photo="skip">${icon('x')}Usuń</button>`
+  :`<button type="button" class="primary" data-pc-photo="accept">${icon('check')}Użyj zdjęcia</button>${many?'<button type="button" data-pc-photo="next">'+icon('shuffle')+'Inne</button>':own}<button type="button" data-pc-photo="skip">${icon('x')}Pomiń</button>`}</div>
+ ${proposal.accepted?'<p class="fine pc-photo-note">Jeśli dodasz własne zdjęcia, okładką będzie Twoje.</p>':''}`;
+ slot.querySelector('img')?.addEventListener('error',()=>{
+  if(!proposal||currentCandidate()!==c)return;
+  proposal.candidates=proposal.candidates.filter(x=>x!==c);proposal.index=0;proposal.accepted=false;
+  if(!proposal.candidates.length)proposal.status='none';
+  renderProposal(formOf()||form);
+ },{once:true});
+}
+
+function onProposalAction(form,action){
+ if(!proposal)return;
+ if(action==='own'){$('input[name="photo"]',form)?.click();return;}
+ if(action==='accept'){proposal.accepted=true;proposal.skipped=false;}
+ if(action==='next'&&proposal.candidates.length>1){proposal.index=(proposal.index+1)%proposal.candidates.length;proposal.accepted=false;}
+ if(action==='skip'){proposal.accepted=false;proposal.skipped=true;}
+ if(action==='undo')proposal.skipped=false;
+ renderProposal(form);
 }
 
 function knownCard(form,place){
- const {preview}=ui(form);writeLocation(form,null);selection=null;
+ const {preview}=ui(form);writeLocation(form,null);selection=null;clearProposal(form);
  preview.innerHTML=`<div class="pc-dup"><div class="pc-known-preview">${optionPhoto({kind:'known',place})}<p><strong>Już mamy to miejsce: ${esc(place.name)}</strong>${place.area?` · ${esc(place.area)}`:''}</p><div class="pc-actions"><button type="button" data-action="place" data-id="${esc(place.id)}">Zobacz</button><button type="button" class="primary" data-action="add" data-id="${esc(place.id)}">Dodaj do Mojej trasy</button></div></div>`;
  preview.hidden=false;hideMap(form);status(form,'Nie trzeba dodawać go drugi raz.','ok');
 }
@@ -184,6 +265,7 @@ async function movePin(form,latlng){
  selection={...(selection||{source:'pin',name:$('input[name="name"]',form)?.value||'',query:normalizeQuery(lastQuery)}),location,source:selection?.source==='google'?'google':'pin'};
  selection.dup=findDuplicate(selection,await knownPlaces(city));
  writeLocation(form,location);renderPreview(form,selection);
+ proposePhoto(form,{...selection,name:$('input[name="name"]',form)?.value.trim()||selection.name});
  status(form,$('input[name="name"]',form)?.value.trim()?'':'Dodaj nazwę miejsca.','ok');
 }
 
@@ -193,7 +275,7 @@ async function pick(form,option){
  if(option.kind==='custom'){
   const city=await currentCity();fillName(form,option.query);
   selection={source:'pin',name:option.query,query:normalizeQuery(lastQuery),category:categoryFromTypes([],option.query)};setCategory(form,selection.category);
-  renderPreview(form,null);status(form,'Przesuń pinezkę na właściwe miejsce, wklej współrzędne albo użyj swojej lokalizacji.');
+  clearProposal(form);renderPreview(form,null);status(form,'Przesuń pinezkę na właściwe miejsce, wklej współrzędne albo użyj swojej lokalizacji.');
   return showMap(form,selection.location||city.center);
  }
  const s=option.suggestion;
@@ -276,13 +358,13 @@ function decorate(){
  }
 }
 
-window.addEventListener('hashchange',()=>{if(location.hash.slice(1).split('/')[0]!=='add-place'){selection=null;staleWhere='';lastQuery='';session=sessionToken();}});
+window.addEventListener('hashchange',()=>{if(location.hash.slice(1).split('/')[0]!=='add-place'){selection=null;staleWhere='';lastQuery='';session=sessionToken();clearProposal(null);}});
 
 // Runs before enhancements.js (window capture precedes document capture): a typed address that was not picked
 // from the list goes to `where`, so the existing save-time address lookup still finds it.
 window.addEventListener('submit',e=>{
  const form=e.target;if(form?.id!=='place-form')return;
- form.dataset.pcGooglePlaceId=/^[A-Za-z0-9_-]{10,300}$/.test(String(selection?.placeId||''))?selection.placeId:'';
+ syncAccepted(form);
  const where=$('input[name="where"]',form),q=$('#pc-q',form),input=classifyInput(q?.value);
  if(where&&!where.value.trim()&&selection?.source==='pin'&&!selection.location){
   e.preventDefault();e.stopImmediatePropagation();status(form,'Najpierw dotknij mapy albo przeciągnij pinezkę na to miejsce.','error');return;
@@ -308,6 +390,7 @@ document.addEventListener('click',e=>{
  const form=e.target.closest?.('#place-form');if(!form)return;
  const opt=e.target.closest('[data-pc-index]');if(opt){e.preventDefault();return pick(form,options[Number(opt.dataset.pcIndex)]);}
  if(e.target.closest('[data-pc="adjust"]')&&selection?.location)showMap(form,selection.location);
+ const photoAction=e.target.closest('[data-pc-photo]');if(photoAction){e.preventDefault();onProposalAction(form,photoAction.dataset.pcPhoto);}
 });
 
 const observer=new MutationObserver(decorate);

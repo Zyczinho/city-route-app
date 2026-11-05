@@ -58,7 +58,7 @@ async function injectUserPlaceRequest(){
 function injectProfileEntry(){
  const {kind,id}=route();if(kind!=='profile'||id)return;const root=main();if(!root||root.querySelector('[data-request-profile-entry]'))return;
  const menus=[...root.querySelectorAll('.menu')],menu=menus.at(-1);if(!menu)return;
- menu.insertAdjacentHTML('afterbegin',`<a href="#profile/requests" data-request-profile-entry><span aria-hidden="true">＋</span><span>Twoje prośby<small>Status miejsc i kategorii, o które prosisz</small></span><span aria-hidden="true">›</span></a>`);
+ menu.insertAdjacentHTML('afterbegin',`<a href="#profile/requests" data-request-profile-entry><span class="i" style="--i:url(./assets/icons/ui/plus.svg)" aria-hidden="true"></span><span>Twoje prośby<small>Status miejsc i kategorii, o które prosisz</small></span><span class="i" style="--i:url(./assets/icons/ui/chevron-right.svg)" aria-hidden="true"></span></a>`);
 }
 
 function markNav(tab){

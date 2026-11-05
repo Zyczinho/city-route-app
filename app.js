@@ -437,7 +437,7 @@ document.addEventListener('click',e=>{
  if(action==='add-another-place'){d?.close();draft=null;location.hash='add-place';return;}
  if(action==='route-view')log('route_view',{route_id:id});
  if(action==='cat'){cat=value;cuisine='all';render();}
- if(action==='bookmark'){const p=all[id];if(!p)return;const ids=savedIds(),was=ids.includes(id);state.savedPlacesByCity[city().id]=was?ids.filter(x=>x!==id):[...ids,id];persist();render();if(d?.open&&d.dataset.placeId===id)openPlace(id);toast(was?'Usunięto z Zapisanych.':'Zapisano miejsce.');return;}
+ if(action==='bookmark'){const p=all[id];if(!p)return;const ids=savedIds(),was=ids.includes(id);state.savedPlacesByCity[city().id]=was?ids.filter(x=>x!==id):[...ids,id];persist();render();window.dispatchEvent(new CustomEvent('cityroute:saved-changed',{detail:{cityId:city().id,placeId:id,saved:!was}}));if(d?.open&&d.dataset.placeId===id)openPlace(id);toast(was?'Usunięto z Zapisanych.':'Zapisano miejsce.');return;}
  if(action==='rcat'){rcat=value;render();}
  if(action==='cuisine'){cuisine=value;render();}
  if(action==='clear-search'){query='';render();$('#search')?.focus();}
@@ -595,6 +595,8 @@ function plan(prefs,start){
  generationPrefs=chosenPrefs;generationHistory=[];setGeneratedOptions(choices);
  location.hash='route/generated';
 }
+// SAVED-PLACES-SYNC: saved-places-sync.js merges saves with the account; apply its result to the in-memory state.
+window.addEventListener('cityroute:saved-synced',e=>{const byCity=e.detail?.byCity;if(!byCity||typeof byCity!=='object')return;let changed=false;for(const [c,ids] of Object.entries(byCity)){if(!Array.isArray(ids))continue;const cur=state.savedPlacesByCity[c]||[];if(cur.length===ids.length&&cur.every((x,i)=>x===ids[i]))continue;state.savedPlacesByCity[c]=ids.map(String);changed=true;}if(changed){persist();render();}});
 // PROFILE-AVATAR: profile-avatar.js syncs the photo with the account; apply its result to the in-memory state.
 window.addEventListener('cityroute:avatar-synced',e=>{const {photo,pending}=e.detail||{};const before=state.profile.photo+'|'+!!state.profile.avatarPending;if(photo)state.profile.photo=photo;if(pending)state.profile.avatarPending=true;else delete state.profile.avatarPending;if(before===state.profile.photo+'|'+!!state.profile.avatarPending)return;persist();render();});
 window.addEventListener('cityroute:submission-updated',e=>{const {placeId,patch}=e.detail||{};const place=state.userPlaces.find(x=>x.id===placeId);if(!place||!patch)return;Object.assign(place,patch);persist();const dialog=$('#place-dialog');if(dialog?.open&&dialog.querySelector('#sheet-title')?.textContent===place.name)openPlace(placeId);});

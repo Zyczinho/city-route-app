@@ -46,7 +46,7 @@ test('guide, place search, planner, photo fallback and community use SVG rather 
  for(const [path,pattern] of [
   ['place-composer.js',/iconMarkup\('camera'\)/],
   ['photo-fallback.js',/iconNode\('camera'\)/],
-  ['ux-cleanup.js',/iconMarkup\("chevron-right"\)/],
+  ['ux-cleanup.js',/UX_CHEVRON.*chevron-right\.svg/],
   ['social-routes-enhancements.js',/iconMarkup\('heart'\)/],
   ['social-routes-enhancements.js',/iconMarkup\('shuffle'\)/],
   ['place-reviews.js',/labeledIcon\(badge,'star',txt\)/],

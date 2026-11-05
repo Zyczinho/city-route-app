@@ -3,7 +3,7 @@
 // never accept untrusted text as an asset path.
 export const ICON_NAMES=Object.freeze([
  'arrow-down','arrow-left','arrow-up-right','arrow-up','bed-double','bookmark',
- 'building-2','camera','check','chevron-right','clock','compass','flag','heart',
+ 'building-2','camera','check','chevron-down','chevron-right','clock','compass','flag','heart',
  'house','image-plus','info','landmark','layers','library','link','locate-fixed',
  'map-pin','map','minus','navigation','pencil','play','plus','radio','route',
  'search','shuffle','signpost','sliders-horizontal','sparkles','star',

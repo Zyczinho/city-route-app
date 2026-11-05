@@ -123,6 +123,11 @@ Use PR comments for code-specific review. Use `DECISIONS.md` for durable archite
 
 For discovery/ranking changes, first read [AUDITORS.md](AUDITORS.md) and use the four role-specific Markdown files in `auditors/` as **independent product-review lenses**, not autonomous coders. Each audit is tied to an exact commit and real evidence; report up to three findings with impact and a regression case. Archive insights and proposed persona updates in `auditors/AUDIT_LOG.md`. Persona "learning" means versioned changes reviewed by the Product Owner, not hidden memory or automated re-training. See the draft [discovery ranking proposal](docs/DISCOVERY_RANKING_V0.1.md); no production ranking change is authorized merely by adding docs.
 
+## Visual design and photo work
+
+For every UI, layout, icon, profile, route action, onboarding or photo discovery change, **read `docs/CITY_ROUTE_DESIGN_SYSTEM_V1.md` first**. It defines the agreed blue-and-white visual direction, the **single Lucide icon family**, mobile touch targets, independent follower/friend counters and photo attribution rules. Preserve app semantics: optional sections collapsed, no invented sponsored options, route stop removal reversible from its source card, and real photo source/identity match.
+When modifying asset names, verify the corresponding `assets/icons/ui/*.svg` exists and is included in the deployed `dist/assets`. Run unit CI and mobile smoke; never claim a photo fill rate from static implementation alone.
+
 ## Existing project constraints
 
 Keep vanilla HTML/CSS/JS unless a separately approved architectural change says otherwise. Preserve the current Supabase + static `dist/` deployment model. No paid API, backend replacement or framework without a demonstrated need and appropriate approval.

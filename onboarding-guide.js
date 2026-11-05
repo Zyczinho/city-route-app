@@ -25,7 +25,7 @@ const topic=(item)=>{
   '</article>';
 };
 const section=(group,index)=>
- '<details class="guide-group"'+(index===0?' open':'')+'>'+
+ '<details class="guide-group">'+
  '<summary><span class="guide-group-emoji" aria-hidden="true">'+guideIcon(GROUP_ICONS[index]||'info')+'</span>'+
  '<span>'+esc(group.title)+'<small>'+group.items.length+' funkcji</small></span>'+
  '<span class="guide-chevron" aria-hidden="true">⌄</span></summary>'+

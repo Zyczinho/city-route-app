@@ -11,7 +11,8 @@ test('requests runtime module parses and is wired into the app shell',async()=>{
  const [html,build,sw]=await Promise.all([read('index.html'),read('scripts/build.mjs'),read('service-worker.js')]);
  assert.match(html,/requests\.css/);assert.match(html,/requests-enhancements\.js/);
  for(const file of ['requests.css','requests-client.js','requests-enhancements.js'])assert.match(build,new RegExp(file.replace('.','\\.')),`${file} must ship in dist`);
- for(const file of ['./requests.css','./requests-client.js','./requests-enhancements.js'])assert.ok(sw.includes(`'${file}'`),`${file} must be precached`);
+ for(const file of ['./requests.css','./requests-client.js'])assert.ok(sw.includes(`'${file}'`),`${file} must be precached`);
+ assert.match(sw,/['"]\.\/requests-enhancements\.js(?:\?v=2)?['"]/,`requests-enhancements.js must be precached with its current cache-busting version`);
 });
 
 test('request UI covers entry points, duplicate +1, ranking and own lifecycle without a new nav tab',async()=>{

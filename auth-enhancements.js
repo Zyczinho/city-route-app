@@ -106,27 +106,28 @@ function signedOutMarkup(){
 }
 
 function signedInMarkup(){
-  const email=session?.user?.email||'';
-  const canImport=guestImportAvailable(localStorage,session?.user?.id);
-  const nickname=readLocal()?.tester?.nickname;
-  return `<section class="auth-card auth-card-on" data-city-auth data-auth-state="in" data-auth-user="${esc(email)}" data-auth-notice="${esc(notice)}" data-guest-import="${canImport}">
-   <div><p class="kicker">Konto City Route</p><h2>Konto aktywne</h2><p class="fine">${esc(email)} · profil synchronizowany przez Supabase.</p>
-   ${!meaningful(nickname)?'<p class="fine"><strong>Ustaw swoją nazwę odkrywcy</strong> w edycji profilu — techniczne ID nie będzie wyświetlane.</p>':''}
-   ${canImport?'<div class="auth-import"><p><strong>Masz aktywność sprzed logowania?</strong> Znaleźliśmy lokalną historię na tym urządzeniu. Możesz dobrowolnie przenieść ją na to konto. Nie usuwamy kopii gościa.</p><button type="button" data-auth-action="import-guest">Przenieś lokalne miejsca, trasy i oceny</button></div>':''}</div>
-   ${notice?`<p class="auth-notice" role="status">${esc(notice)}</p>`:''}<button data-auth-action="logout">Wyloguj</button></section>`;
+ const canImport=guestImportAvailable(localStorage,session?.user?.id);
+ // Signed-in users already have their identity at the top of Profile. Keep only real actions,
+ // behind the collapsed More disclosure; never duplicate the account hero card.
+ return `<section class="auth-account-tools" data-city-auth data-auth-state="in" data-auth-user="${esc(session?.user?.email||'')}" data-auth-notice="${esc(notice)}" data-guest-import="${canImport}">
+  ${canImport?'<div class="auth-import"><p>Masz aktywność zapisaną jako gość na tym urządzeniu?</p><button type="button" data-auth-action="import-guest">Przenieś dane gościa</button></div>':''}
+  <button type="button" class="auth-logout-button" data-auth-action="logout">Wyloguj się</button>
+  ${notice&&notice!=='Zalogowano. Synchronizuję profil…'?'<p class="auth-notice" role="status">'+esc(notice)+'</p>':''}
+ </section>`;
 }
 
 function renderAuth(){
-  if(location.hash.split('/')[0]!=='#profile')return;
-  const main=document.querySelector('#main');
-  if(!main)return;
-  const current=main.querySelector('[data-city-auth]');
-  const html=session?signedInMarkup():signedOutMarkup();
-  const wantedState=session?'in':'out',wantedUser=session?.user?.email||'';
-  if(current&&current.dataset.authState===wantedState&&current.dataset.authUser===wantedUser&&current.dataset.authNotice===notice)return;
-  if(current){current.outerHTML=html;return;}
-  const profile=main.querySelector('.profile-card');
-  if(profile)profile.insertAdjacentHTML('afterend',html);
+ if(location.hash.split('/')[0]!=='#profile')return;
+ const main=document.querySelector('#main');
+ if(!main)return;
+ const current=main.querySelector('[data-city-auth]');
+ const html=session?signedInMarkup():signedOutMarkup();
+ const wantedState=session?'in':'out',wantedUser=session?.user?.email||'';
+ const host=session?main.querySelector('.profile-more-content'):main.querySelector('.profile-card');
+ if(current&&current.dataset.authState===wantedState&&current.dataset.authUser===wantedUser&&current.dataset.authNotice===notice&&(session?host?.contains(current):current.previousElementSibling===host))return;
+ if(current)current.remove();
+ if(!host)return;
+ host.insertAdjacentHTML(session?'beforeend':'afterend',html);
 }
 
 async function handleSubmit(form){

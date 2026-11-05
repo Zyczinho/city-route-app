@@ -58,7 +58,7 @@ create policy city_route_place_gallery_insert_own on storage.objects
       select 1 from public.place_submissions s
       where s.submitted_by=(select auth.uid())
         and s.status='pending'
-        and name in (
+        and storage.objects.name in (
           s.submitted_by::text||'/'||s.id::text||'-2.jpg',
           s.submitted_by::text||'/'||s.id::text||'-3.jpg',
           s.submitted_by::text||'/'||s.id::text||'-4.jpg',

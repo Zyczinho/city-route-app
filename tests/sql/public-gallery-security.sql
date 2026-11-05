@@ -34,10 +34,10 @@ insert into storage.objects(bucket_id,name) values
  ('city-route-place-photos','11111111-1111-4111-8111-111111111111/bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb-2.jpg'),
  ('city-route-place-photos','11111111-1111-4111-8111-111111111111/bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb-3.jpg');
 select public.attach_place_submission_gallery_photo(
- 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',2,
+ 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',2::smallint,
  '11111111-1111-4111-8111-111111111111/bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb-2.jpg',true);
 select public.attach_place_submission_gallery_photo(
- 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',3,
+ 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',3::smallint,
  '11111111-1111-4111-8111-111111111111/bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb-3.jpg',true);
 do $$
 declare denied boolean:=false;
@@ -47,7 +47,7 @@ begin
  end if;
  begin
   perform public.attach_place_submission_gallery_photo(
-  'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',4,
+  'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',4::smallint,
   '11111111-1111-4111-8111-111111111111/bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb-4.jpg',false);
  exception when sqlstate '22023' then denied:=true;
  end;
@@ -66,7 +66,7 @@ begin
  end if;
  begin
   perform public.attach_place_submission_gallery_photo(
-  'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',2,
+  'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',2::smallint,
   '22222222-2222-4222-8222-222222222222/bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb-2.jpg',true);
  exception when sqlstate '42501' then denied:=true;
  end;
@@ -101,7 +101,7 @@ begin
  select count(*) into n from public.admin_place_submission_gallery('krakow','pending');
  if n<>2 then raise exception 'moderator listing did not return both photos: %',n; end if;
 end $$;
-select public.admin_moderate_place_gallery_photo('bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',3,false);
+select public.admin_moderate_place_gallery_photo('bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',3::smallint,false);
 reset role;
 
 -- Simulate legacy approval flow: canonical public place created, submission approved.

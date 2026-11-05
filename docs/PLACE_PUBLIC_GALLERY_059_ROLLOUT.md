@@ -3,6 +3,18 @@
 **Code owner:** ChatGPT / integration. **Status:** PR staged; production schema unchanged until approved by founder.
 **Based on:** City Route `main` at 2026-11-05 after #94. Existing single-photo flow preserved.
 
+## Audyt izolowanej migracji — 2026-11-05
+
+**SQL executed successfully in isolated PostgreSQL 17 in GitHub Actions.** Production is PostgreSQL 17.11, checked read-only. The CI creates a production-aligned *minimal fixture* for `auth.uid()`, `storage.objects`, existing place submission, city and canonical place tables and applies the exact staged SQL with `psql -v ON_ERROR_STOP=1`. Test cases: owner uploads + attaches two extras, explicit rights check, outsider cannot attach or write in owner's folder, anon cannot SELECT pending metadata, admin can list and exclude photo 3, original approval updates photo 2 while leaving rejected 3 hidden. Test workflows CI, P0 browser smoke, and Cloudflare Worker build diagnostic also PASS for PR #95 after correction.
+
+Detected and fixed a real blocking SQL syntax error: reserved result column `position` in `RETURNS TABLE` required quoting. The SQL integration test additionally required `::smallint` casts on literal call arguments to match the existing typed RPC signature; this was a test invocation correction, not a production migration change.
+
+**Boundary:** this is PostgreSQL SQL/RLS execution against a schema fixture, not a complete Supabase hosted clone nor a live Storage HTTP transfer. Supabase project currently reports *no registered migration history and no development branches*. Do not infer that new branches automatically mirror manually applied production DDL. There were zero changes to the hosted production schema.
+
+**Known privacy characteristic, unchanged from existing cover:** `city-route-place-photos` is a PUBLIC bucket. An unlisted, pending or rejected blob can still be retrieved if its direct path is known; metadata visibility RLS does not protect bucket bytes. The founder must explicitly accept this limitation for the current MVP or choose private staging storage before approving production deployment.
+
+Run evidence: `.github/workflows/public-gallery-sql.yml`, `tests/sql/public-gallery-fixture.sql`, `tests/sql/public-gallery-security.sql`. Run exact branch HEAD checks on PR #95 before production `Run`.
+
 ## User story
 
 1. User selects **public** place and uploads up to 5 own JPEG/PNG/WebP files in the existing editor, picks cover, crops and explicitly confirms rights.

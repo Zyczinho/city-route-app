@@ -126,7 +126,7 @@ grant execute on function public.admin_moderate_place_gallery_photo(uuid,smallin
 
 -- Admin list can read pending photos without broad table SELECT permissions.
 create or replace function public.admin_place_submission_gallery(p_city_slug text default 'warsaw',p_status text default 'pending')
-returns table(submission_id uuid,position smallint,image_path text,moderation_status text)
+returns table(submission_id uuid,"position" smallint,image_path text,moderation_status text)
 language plpgsql stable security definer set search_path=''
 as $$
 begin

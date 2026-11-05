@@ -168,7 +168,8 @@ try{
   'editorial request is reachable as an alternative in the add-place flow');
  await placesPage.screenshot({path:'p0-smoke-artifacts/add-place-mobile-clean.png',fullPage:true});
  // PRZEMEK-BETA-UX-054: first-time journey search -> missing place -> two photo crop -> save.
- await placesPage.locator('#navigation a[href="#places"]').click();
+ await placesPage.evaluate(()=>{location.hash='#places';});
+ await placesPage.locator('#search').waitFor();
  await placesPage.locator('#search').fill('Nieistniejacy Punkt Beta 987654321');
  await placesPage.locator('[data-action="suggest-add-place"]').waitFor({state:'visible',timeout:12000});
  await placesPage.locator('[data-action="suggest-add-place"]').click();

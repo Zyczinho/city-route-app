@@ -113,7 +113,7 @@ test('photo fallback and account scope are part of PWA build and cached offline'
   assert.ok(build.includes(name),name+' missing build');
   assert.ok(sw.includes(name),name+' missing service-worker precache');
  }
- assert.match(sw,/city-route-v56/);
+ assert.match(sw,/city-route-v57/);
  assert.match(html,/auth-enhancements\.js\?v=22/);
  assert.match(html,/social-routes-enhancements\.js\?v=7/);
  assert.match(html,/photo-fallback\.js\?v=1/);

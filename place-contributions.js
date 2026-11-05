@@ -44,10 +44,21 @@ async function submitLocal(placeId,{silent=false}={}){
    }
   }
   patch(placeId,{submissionId,submissionStatus:'pending'});
-  let photoWarning='';
-  if(place.image?.startsWith('data:')&&place.imageRightsConfirmed&&!place.photoUploaded){
-   try{await api.uploadOwnPhoto(session.user.id,submissionId,place.image,true);patch(placeId,{photoUploaded:true});}
-   catch(error){photoWarning=' Zdjęcia nie udało się przesłać; miejsce nadal czeka na moderację.';console.warn('City Route photo contribution:',contributionError(error).code);}
+  let photoWarning='',coverReady=!!place.photoUploaded;
+  if(place.image?.startsWith('data:')&&place.imageRightsConfirmed&&!coverReady){
+   try{await api.uploadOwnPhoto(session.user.id,submissionId,place.image,true);patch(placeId,{photoUploaded:true});coverReady=true;}
+   catch(error){photoWarning=' Nie udało się przesłać zdjęcia głównego.';console.warn('City Route cover contribution:',contributionError(error).code);}
+  }
+  if(coverReady&&place.imageRightsConfirmed&&Array.isArray(place.images)&&place.images.length>1){
+   const result=await api.uploadGalleryPhotos(session.user.id,submissionId,place.images,true,place.galleryUploadedPositions||[]);
+   patch(placeId,{
+    galleryUploadedPositions:[...new Set([...(place.galleryUploadedPositions||[]),...result.uploaded])],
+    galleryUploadError:result.failed.length>0
+   });
+   if(result.failed.length){
+    photoWarning+=' Część zdjęć nie została wysłana. Możesz ponowić przesyłanie.';
+    console.warn('City Route gallery upload:',result.failed.map(x=>x.code).join(','));
+   }
   }
   announce('Miejsce zgłoszone. Zobaczą je inni po zatwierdzeniu.'+photoWarning);
  }catch(error){

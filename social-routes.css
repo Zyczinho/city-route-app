@@ -39,3 +39,13 @@
 .social-author-relationship [data-author-friend]{min-height:44px;padding:8px 14px;border:1px solid #bfdcf3;background:#eaf5ff;color:#0868a7;font-weight:750}
 .social-author-relationship [data-author-friend]:disabled{opacity:1;background:var(--line-2);border-color:var(--line);color:var(--muted);cursor:default}
 .social-author-relationship [data-author-friend-status]{min-width:0;max-width:100%;overflow-wrap:anywhere;margin:0}
+
+/* EXPLORER-FOLLOW-053: separate one-way follow and mutual friendship controls. */
+.social-author-relationship{display:flex;align-items:center;flex-wrap:wrap;gap:8px;min-width:0}
+.social-author-relationship [data-author-follow]{min-height:44px;padding:8px 16px;border:1px solid #0a66c2;background:#0a66c2;color:#fff;font-weight:800;border-radius:12px}
+.social-author-relationship [data-author-follow][aria-pressed="true"]{background:#eaf5ff;color:#0a66c2;border-color:#afd6f5}
+.social-author-relationship [data-author-follow]:disabled{opacity:.6}
+.social-author-relationship [data-author-follow][hidden]{display:none}
+.social-author-relationship .social-followers{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.social-author-relationship [data-author-follow-status]{flex-basis:100%;color:var(--muted);margin:0}
+@media(max-width:420px){.social-author-relationship{gap:8px}.social-author-relationship [data-author-follow],.social-author-relationship [data-author-friend]{font-size:13px;padding:8px 11px}}

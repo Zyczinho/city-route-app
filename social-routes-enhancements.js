@@ -1,5 +1,7 @@
 import {supabase} from './supabase-client.js';
 import {iconMarkup} from './ui-icons.js';
+import {avatarUrl} from './profile-avatar-model.js';
+import {SUPABASE_URL} from './supabase-config.js';
 import {createSocialRoutesClient} from './social-routes-client.js';
 import {createFriendsClient,normalizeFriendsError} from './friends-client.js';
 import {createFollowsClient} from './follows-client.js';
@@ -224,7 +226,7 @@ async function renderProfile(id){
   const [profile,routes]=await Promise.all([api.loadPublicProfile(id),api.loadAuthorRoutes({userId:id,citySlug:activeCity})]);
   if(!profile){root.innerHTML=`<div class="empty" data-social-profile-root="${esc(id)}"><p>Profil nie jest publiczny.</p><a class="button" href="#routes">Wróć</a></div>`;return;}
   await loadPlaces(activeCity);const used=new Set();
-  root.innerHTML=`<section class="social-profile" data-social-profile-root="${esc(id)}"><a class="back" href="#routes">${iconMarkup("arrow-left")} Trasy</a><p class="kicker">Odkrywca</p><h1>${esc(profile.nickname)}</h1><p class="lead">${esc(profile.bio||'Autor tras społeczności City Route.')}</p>${authorRelationship(id)}<div class="social-links">${Object.entries(profile.socials).filter(([,v])=>v).map(([k,v])=>`<a href="${esc(/^https?:/.test(v)?v:'https://'+v)}" target="_blank" rel="noopener noreferrer">${esc(k)}</a>`).join('')}</div><div class="section-head"><h2>Publiczne trasy w tym mieście</h2><span>${routes.length} / ${profile.routeCount}</span></div><div class="social-grid">${routes.map(r=>card(r,routeCover(r,used))).join('')||'<div class="empty"><p>Brak publicznych tras w tym mieście.</p></div>'}</div></section>`;
+  root.innerHTML=`<section class="social-profile" data-social-profile-root="${esc(id)}"><a class="back" href="#routes">${iconMarkup("arrow-left")} Trasy</a>${profile.avatarPath?`<img class="social-profile-avatar" src="${esc(avatarUrl(profile.avatarPath,'',SUPABASE_URL))}" alt="" width="72" height="72" loading="lazy" referrerpolicy="no-referrer">`:''}<p class="kicker">Odkrywca</p><h1>${esc(profile.nickname)}</h1><p class="lead">${esc(profile.bio||(profile.routeCount?'Autor tras społeczności City Route.':'Odkrywca City Route.'))}</p>${authorRelationship(id)}<div class="social-links">${Object.entries(profile.socials).filter(([,v])=>v).map(([k,v])=>`<a href="${esc(/^https?:/.test(v)?v:'https://'+v)}" target="_blank" rel="noopener noreferrer">${esc(k)}</a>`).join('')}</div><div class="section-head"><h2>Publiczne trasy w tym mieście</h2><span>${routes.length} / ${profile.routeCount}</span></div><div class="social-grid">${routes.map(r=>card(r,routeCover(r,used))).join('')||'<div class="empty"><p>Brak publicznych tras w tym mieście.</p></div>'}</div></section>`;
   void syncAuthorRelationship(id);
   void syncAuthorFollow(id);
  }catch(error){root.innerHTML=`<div class="empty" data-social-profile-root="${esc(id)}"><p>Nie udało się wczytać profilu.</p></div>`;console.warn(error);}

@@ -21,8 +21,8 @@ test('community hub ships through HTML, build and offline cache',async()=>{
  assert.match(hub,/\['#routes\/community\/groups','Grupy'\]/);
  assert.match(hub,/\['#routes\/community\/chats','Czaty'\]/);
  assert.match(hub,/\['#routes\/community\/friends','Znajomi'\]/);
- assert.match(html,/friends\.js\?v=1/);
- assert.match(sw,/friends\.js\?v=1/);
+ assert.match(html,/friends\.js\?v=2/);
+ assert.match(sw,/friends\.js\?v=2/);
  assert.match(build,/'friends-client\.js'/);
  assert.match(hub,/\['#social-saved-places','Zapisane'\]/);
  assert.match(hub,/class="community-events-entry" href="#events"/,'Events must be reachable from Community without a sixth nav tab');

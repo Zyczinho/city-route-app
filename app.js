@@ -476,7 +476,7 @@ document.addEventListener('click',e=>{
  if(action==='ev-kind'){evKind=value;render();}
  if(action==='events-retry'){for(const k in evCache)delete evCache[k];render();}
  if(action==='event-ticket')log('event_ticket_click',{event_id:id,source:b.dataset.source});
- if(action==='remove-avatar'){delete state.profile.photo;persist();render();}
+ if(action==='remove-avatar'){delete state.profile.photo;delete state.profile.avatarPending;persist();render();window.dispatchEvent(new Event('cityroute:avatar-removed'));}
  if(action==='listen'){if(speaking){speechSynthesis.cancel();speaking=false;render();}else{const p=all[id],qq=quests.find(x=>x.placeId===id),u=new SpeechSynthesisUtterance(`${p.name}. ${p.description}${p.outside?' Na trasie oglądasz je z zewnątrz.':''}${qq?' Zadanie: '+qq.description:''}`);u.lang='pl-PL';u.rate=.95;u.onend=u.onerror=()=>{speaking=false;render();};speechSynthesis.cancel();speechSynthesis.speak(u);speaking=true;render();log('audio_play',{place_id:id});}}
  if(action==='compare')log('hotel_compare_click',{place_id:id,source:b.dataset.source});
  if(action==='whole-route')log('whole_route_maps');
@@ -533,7 +533,7 @@ document.addEventListener('change',async e=>{
  if(e.target.id==='builder-transport'&&builderDraft){const r=applyBuilder(setTransport(builderDraft,e.target.value,{now:now()}));if(r?.changed)render();}
  if(e.target.name==='vis'&&e.target.closest('#place-form')){keepDraft();if(draft.vis!=='public')draft.imageRights=false;const rights=$('[data-photo-rights]');if(rights){rights.hidden=draft.vis!=='public'||!draft.photos?.length;if(draft.vis!=='public'){const cb=rights.querySelector('input');if(cb)cb.checked=false;}}return;}
  if(e.target.id==='sort'){sort=e.target.value;if(sort==='near'&&!here){if(!navigator.geolocation){sort='default';toast('Ta przeglądarka nie udostępnia lokalizacji.');}else navigator.geolocation.getCurrentPosition(pos=>{here={lat:pos.coords.latitude,lng:pos.coords.longitude};render();},()=>{sort='default';render();toast('Bez zgody na lokalizację nie posortujemy według odległości.');},{timeout:10000});}render();$('#sort')?.focus();}
- if(e.target.dataset.action==='avatar'&&e.target.files[0]){try{state.profile.photo=await shrink(e.target.files[0],256);persist();render();toast('Zdjęcie profilowe zapisane.');}catch{toast('Nie udało się wczytać zdjęcia.');}}
+ if(e.target.dataset.action==='avatar'&&e.target.files[0]){try{state.profile.photo=await shrink(e.target.files[0],256);persist();render();toast('Zdjęcie profilowe zapisane.');window.dispatchEvent(new Event('cityroute:avatar-changed'));}catch{toast('Nie udało się wczytać zdjęcia.');}}
  if(e.target.dataset.action==='photo'&&e.target.files.length){keepDraft();const selected=[...e.target.files],old=Array.isArray(draft.photos)?draft.photos:[],available=MAX_PLACE_PHOTOS-old.length;
   if(available<1){toast('Możesz dodać maksymalnie 5 zdjęć.');return;}
   const added=[];for(const file of selected.slice(0,available)){const problem=photoFileProblem(file);if(problem){toast(problem==='size'?'Zdjęcie jest zbyt duże (maks. 10 MB).':'Obsługujemy JPG, PNG i WebP.');continue;}
@@ -595,6 +595,8 @@ function plan(prefs,start){
  generationPrefs=chosenPrefs;generationHistory=[];setGeneratedOptions(choices);
  location.hash='route/generated';
 }
+// PROFILE-AVATAR: profile-avatar.js syncs the photo with the account; apply its result to the in-memory state.
+window.addEventListener('cityroute:avatar-synced',e=>{const {photo,pending}=e.detail||{};const before=state.profile.photo+'|'+!!state.profile.avatarPending;if(photo)state.profile.photo=photo;if(pending)state.profile.avatarPending=true;else delete state.profile.avatarPending;if(before===state.profile.photo+'|'+!!state.profile.avatarPending)return;persist();render();});
 window.addEventListener('cityroute:submission-updated',e=>{const {placeId,patch}=e.detail||{};const place=state.userPlaces.find(x=>x.id===placeId);if(!place||!patch)return;Object.assign(place,patch);persist();const dialog=$('#place-dialog');if(dialog?.open&&dialog.querySelector('#sheet-title')?.textContent===place.name)openPlace(placeId);});
 document.addEventListener('error',e=>{const t=e.target;if(t.tagName==='IMG'&&!t.dataset.failed){t.dataset.failed='1';t.outerHTML=`<div class="ph ${t.className}">${ic('camera')}</div>`;}},true);
 document.addEventListener('change',e=>{if(e.target?.id==='city-select'){switchCity(e.target.value).catch(error=>{console.error(error);toast('Nie udało się przełączyć miasta.');render();});}});

@@ -49,7 +49,8 @@ export function communityRouteFromRow(row){
 export function publicProfileFromRow(row){
   if(!row||!row.id)return null;
   return {id:String(row.id),nickname:row.nickname||'Odkrywca',bio:row.bio||'',
-    socials:{instagram:row.instagram||'',tiktok:row.tiktok||'',website:row.website||''},routeCount:int(row.route_count)};
+    socials:{instagram:row.instagram||'',tiktok:row.tiktok||'',website:row.website||''},routeCount:int(row.route_count),
+    avatarPath:typeof row.avatar_path==='string'?row.avatar_path:null};
 }
 
 // Fork provenance reference for a public source: editorial routes by slug, community routes by UUID.

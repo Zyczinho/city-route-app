@@ -21,7 +21,7 @@ test('rows become normalized application objects, never raw rows',()=>{
   assert.ok(!('author_id' in r)&&!('city_slug' in r));
   assert.equal(communityRouteFromRow(null),null);
   const p=publicProfileFromRow({id:A,nickname:'Ala',bio:'Hej',instagram:'ala',tiktok:'',website:'',route_count:2,stay:'visitor'});
-  assert.deepEqual(p,{id:A,nickname:'Ala',bio:'Hej',socials:{instagram:'ala',tiktok:'',website:''},routeCount:2});
+  assert.deepEqual(p,{id:A,nickname:'Ala',bio:'Hej',socials:{instagram:'ala',tiktok:'',website:''},routeCount:2,avatarPath:null});
 });
 
 test('feed is one city-scoped RPC with clamped paging and a cursor',async()=>{

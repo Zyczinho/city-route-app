@@ -1,5 +1,4 @@
 import { supabase } from './supabase-client.js';
-import {iconMarkup} from './ui-icons.js';
 
 let session=null;
 let channel=null;
@@ -8,6 +7,7 @@ let rerenderQueued=false;
 let renderAgain=false;
 let reloadTimer=null;
 
+const BACK_ICON='<span class="i" style="--i:url(./assets/icons/ui/arrow-left.svg)" aria-hidden="true"></span>';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmtDate=value=>new Intl.DateTimeFormat('pl-PL',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(value));
 const communityPath=()=>{
@@ -42,7 +42,7 @@ function profileEntry(){}
 function shell(title,body){
   const root=main();
   if(!root)return;
-  root.innerHTML=`<section class="community-page" data-community-root><header class="community-head"><a class="back" href="${groupBack()}">${iconMarkup('arrow-left')} ${communityPath()?.view==='group'?'Wróć':'Społeczność'}</a><p class="kicker">Społeczność</p><h1>${esc(title)}</h1></header>${body}</section>`;
+  root.innerHTML=`<section class="community-page" data-community-root><header class="community-head"><a class="back" href="${groupBack()}">${BACK_ICON} ${communityPath()?.view==='group'?'Wróć':'Społeczność'}</a><p class="kicker">Społeczność</p><h1>${esc(title)}</h1></header>${body}</section>`;
 }
 
 function status(text,kind=''){

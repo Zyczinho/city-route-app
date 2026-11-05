@@ -38,7 +38,7 @@ test('Social Routes UI and navigation modules ship in index, build and PWA cache
  assert.match(index,/nav-enhancements\.js\?v=4/);
  assert.match(index,/ux-cleanup\.js\?v=4/);
  assert.match(index,/ux-cleanup\.css\?v=2/);
- assert.match(sw,/city-route-v59/);
+ assert.match(sw,/city-route-v60/);
 });
 
 test('Bottom navigation has Community and keeps My Route compact and central',async()=>{

@@ -245,7 +245,19 @@ try{
  await detailPage.locator('.social-detail .back').click();
  assert.equal(new URL(detailPage.url()).hash,'#routes/community');
  await detailPage.goto(BASE+'/#community-route/'+testRouteId,{waitUntil:'domcontentloaded'});
- await detailPage.locator('.social-detail h1').waitFor({timeout:20000});
+ try{
+  await detailPage.locator('.social-detail h1').waitFor({timeout:12000});
+ }catch(error){
+  const state=await detailPage.evaluate(()=>({
+   url:location.href,ready:document.readyState,
+   root:document.querySelector('#main')?.innerHTML?.slice(0,1800),
+   swController:!!navigator.serviceWorker?.controller,
+   cached:performance.getEntriesByType('resource').filter(x=>x.name.includes('ui-icons')||x.name.includes('social-routes-enhancements')).map(x=>({name:x.name,duration:x.duration}))
+  })).catch(e=>({error:String(e)}));
+  console.log('SOCIAL_SECOND_RELOAD_DIAGNOSTIC',JSON.stringify(state));
+  await detailPage.screenshot({path:'p0-smoke-artifacts/social-second-reload-debug.png',fullPage:true}).catch(()=>{});
+  throw error;
+ }
  await detailCtx.close();
 
  // COMMUNITY-HUB-023: four accessible community subviews are reachable without altering bottom tabs.

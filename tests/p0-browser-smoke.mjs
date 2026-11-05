@@ -201,9 +201,9 @@ try{
  await placesPage.waitForFunction(()=>{const s=JSON.parse(localStorage.getItem('city-route-v1')||'null');return s?.userPlaces?.some(p=>p.name==='Nieistniejacy Punkt Beta 987654321')},{timeout:15000});
  const savedGallery=await placesPage.evaluate(()=>{
   const p=JSON.parse(localStorage.getItem('city-route-v1')).userPlaces.find(p=>p.name==='Nieistniejacy Punkt Beta 987654321');
-  return {count:p.images?.length,source:p.image?.slice(0,24),rights:p.imageRightsConfirmed,visibility:p.visibility};
+  return {count:p.images?.length,source:p.image?.startsWith('data:image/jpeg;base64,'),rights:p.imageRightsConfirmed,visibility:p.visibility};
  });
- assert.deepEqual(savedGallery,{count:2,source:'data:image/jpeg;base64,',rights:false,visibility:'private'});
+ assert.deepEqual(savedGallery,{count:2,source:true,rights:false,visibility:'private'});
  await placesPage.screenshot({path:'p0-smoke-artifacts/place-gallery-first-visit.png',fullPage:true});
  await placesCtx.close();
 

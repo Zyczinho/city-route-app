@@ -4,6 +4,10 @@ GitHub `Zyczinho/city-route-app` is the sole source of truth. Start every task b
 
 For normal parallel work use `ECONOMY_MODE.md`: keep context narrow, avoid duplicate research/status ping-pong, run targeted tests while developing and full test/build before PR, checkpoint only at logical boundaries or before a likely session/credit interruption, and automatically continue only through bounded READY work.
 
+## Agent team (v1)
+
+Work is split across eight role-based agents (Coordinator, Auditor, UX Editor, API Integrator, Source Scout, Place Curator, QA / Release, Reviewer). Read [docs/agents/TEAM.md](docs/agents/TEAM.md) for roles, file ownership and flow, then your role file in `.claude/agents/<role>.md` and your notes in `docs/agents/<role>/NOTES.md`. ChatGPT/Codex agents follow the same role files. Work items live in GitHub Issues labelled `agent:<role>`.
+
 ## Roles
 
 Jakub is Product Owner. He decides **what** the product should do, priority, positioning, monetization, and meaningful UX/product trade-offs.
@@ -121,7 +125,7 @@ Use PR comments for code-specific review. Use `DECISIONS.md` for durable archite
 
 ## Independent product auditor personas
 
-For discovery/ranking changes, first read [AUDITORS.md](AUDITORS.md) and use the four role-specific Markdown files in `auditors/` as **independent product-review lenses**, not autonomous coders. Each audit is tied to an exact commit and real evidence; report up to three findings with impact and a regression case. Archive insights and proposed persona updates in `auditors/AUDIT_LOG.md`. Persona "learning" means versioned changes reviewed by the Product Owner, not hidden memory or automated re-training. See the draft [discovery ranking proposal](docs/DISCOVERY_RANKING_V0.1.md); no production ranking change is authorized merely by adding docs.
+Canonical consumer personas are **v1.0** in [docs/personas/CITY_ROUTE_PERSONAS_V1.md](docs/personas/CITY_ROUTE_PERSONAS_V1.md); they replace the consumer personas 01–03 below. For discovery/ranking changes, first read [AUDITORS.md](AUDITORS.md) and use the four role-specific Markdown files in `auditors/` as **independent product-review lenses**, not autonomous coders. Each audit is tied to an exact commit and real evidence; report up to three findings with impact and a regression case. Archive insights and proposed persona updates in `auditors/AUDIT_LOG.md`. Persona "learning" means versioned changes reviewed by the Product Owner, not hidden memory or automated re-training. See the draft [discovery ranking proposal](docs/DISCOVERY_RANKING_V0.1.md); no production ranking change is authorized merely by adding docs.
 
 ## Visual design and photo work
 

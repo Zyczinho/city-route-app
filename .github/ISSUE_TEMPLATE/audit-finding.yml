@@ -1,0 +1,71 @@
+name: Audit finding
+description: A problem found by the Auditor (or a real user) for one persona.
+title: "[Audit] "
+labels: ["agent:auditor"]
+body:
+  - type: dropdown
+    id: persona
+    attributes:
+      label: Persona
+      options:
+        - "1 — The Newcomer"
+        - "2 — The Time-Limited Explorer"
+        - "3 — The Authenticity Seeker"
+        - "4 — The Spontaneous Social Explorer"
+        - "Operator (internal)"
+    validations:
+      required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      options:
+        - "Bug in an existing feature"
+        - "Missing feature (roadmap)"
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - "Blocker — persona cannot finish the core task"
+        - "Major — finishes with significant friction or wrong information"
+        - "Minor — cosmetic or small friction"
+    validations:
+      required: true
+  - type: input
+    id: scenario
+    attributes:
+      label: Scenario
+      description: Which persona test scenario, or which step of it.
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Production / preview URL, commit, device or viewport (e.g. 375 px), signed in or guest, city.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result (with evidence)
+      description: Screenshot, console output or URL. No evidence, no issue.
+    validations:
+      required: true
+  - type: textarea
+    id: fix
+    attributes:
+      label: Proposed fix

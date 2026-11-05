@@ -1,5 +1,7 @@
 # City Route — Four Auditors (proposed v0.1)
 
+> **Superseded for consumer personas (2026-11-05):** the canonical personas are v1.0 in [docs/personas/CITY_ROUTE_PERSONAS_V1.md](docs/personas/CITY_ROUTE_PERSONAS_V1.md) (Newcomer, Time-Limited Explorer, Authenticity Seeker, Spontaneous Social Explorer), used by the Auditor agent (`.claude/agents/auditor.md`). Auditor 04 (operator) stays as an internal lens for QA and Reviewer. Files 01–03 are kept for history.
+
 The four auditor personas live in `auditors/` and evaluate each new City Route release **from independent perspectives**. They are written as ready-to-use agent instructions, but **are not automatically scheduled or running**.
 
 - **Auditor 01 — Erasmus student in Warsaw for one year:** [auditors/AUDITOR_01_ERASMUS.md](auditors/AUDITOR_01_ERASMUS.md)

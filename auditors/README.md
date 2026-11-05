@@ -1,5 +1,7 @@
 # City Route — Four Product Auditors (v0.1)
 
+> **2026-11-05:** consumer personas 01–03 are superseded by v1.0 in `docs/personas/CITY_ROUTE_PERSONAS_V1.md`. The evidence rules and `AUDIT_LOG.md` format below still apply.
+
 **Status:** DRAFT personas, ready as repeatable audit instructions. Not autonomous background agents. **Founder acceptance required before auditors become authoritative acceptance gates.**
 **Source of truth:** GitHub `main`, `AGENT_COORDINATION.md`, `DECISIONS.md`, `AGENTS.md`, actual product/tests. Read `docs/DISCOVERY_RANKING_V0.1.md` for proposed discovery/ranking decisions. If a linked PR is only a draft, do not treat its features as shipped.
 

@@ -16,7 +16,10 @@ export function isSamePlace({requestedName,requestedLat,requestedLng,candidateNa
  const x=tokens(requestedName),y=tokens(candidateName);
  if(!x.size||!y.size)return false;
  let common=0;for(const t of x)if(y.has(t))common++;
- return common/Math.max(x.size,y.size)>=0.5;
+ if(common/Math.max(x.size,y.size)>=0.5)return true;
+ // OSM often has the short name ("Charlotte") and Google the long one ("Charlotte. Chleb i Wino"):
+ // accept when every word of the shorter name is in the longer one AND both points are within 100 m.
+ return common>0&&common===Math.min(x.size,y.size)&&kmBetween(a,b)*1000<=100;
 }
 const rating=(source,score,count,url,name,checked)=>Number.isFinite(Number(score))&&Number(score)>=1&&Number(score)<=5&&Number.isSafeInteger(Number(count))&&Number(count)>0&&safeUrl(url)?{
  source,value:Number(score),reviewCount:Number(count),max:5,url:safeUrl(url),listing:String(name||'').slice(0,140),checked,method:'licensed-official-api'

@@ -71,23 +71,23 @@ function setActive(form,i){
  q.setAttribute('aria-activedescendant',`pc-opt-${activeIndex}`);list.children[activeIndex]?.scrollIntoView?.({block:'nearest'});
 }
 
-const customOption=query=>({kind:'custom',title:`Dodaj „${query}” jako własne miejsce`,sub:'Nie ma na mapach? Ustawisz pinezkę albo wkleisz współrzędne.',badge:'',query});
+const customOption=query=>({kind:'custom',title:`Nie ma tego miejsca? Dodaj „${query}”`,sub:'Wybierz punkt na mapie i zapisz.',badge:'',query});
 
 async function suggest(form,query){
  const id=requests.next(),city=await currentCity();
  const local=catalogueMatches(query,await knownPlaces(city)).map(p=>({kind:'known',title:p.name,sub:p.source==='mine'?'Twoje miejsce · już zapisane':`Już w City Route${p.area?' · '+p.area:''}`,badge:SOURCE_LABEL[p.source],place:p}));
  if(!requests.isCurrent(id))return;
- renderList(form,[...local,customOption(query)]);
+ renderList(form,local);
  clearTimeout(timer);controller?.abort();
  timer=setTimeout(async()=>{
   controller=new AbortController();status(form,`Szukam w: ${city.name}…`);
   let r=null;try{r=await jsonOrNull(`/api/place-suggest?q=${encodeURIComponent(query)}&${cityParams(city)}&session=${session}`,{signal:controller.signal,headers:{accept:'application/json'}});}catch{return;}
   if(!requests.isCurrent(id))return;
   const found=(r?.data?.suggestions||[]).filter(s=>!local.some(p=>p.place.name.toLowerCase()===String(s.name).toLowerCase())).map(s=>({kind:'provider',title:s.name,sub:[s.address,s.district].filter(Boolean).filter((x,i,a)=>a.indexOf(x)===i).join(' · '),badge:SOURCE_LABEL[s.provider]||'',suggestion:s}));
-  renderList(form,[...local,...found,customOption(query)]);
-  if(!r)status(form,'Wyszukiwarka adresów jest teraz niedostępna. Dodasz miejsce pinezką albo współrzędnymi.');
-  else if(!found.length&&!local.length)status(form,`Brak wyników w: ${city.name}. Dodaj własne miejsce poniżej.`);
-  else status(form,r.data?.provider==='photon-osm'?'Wyniki: © OpenStreetMap contributors.':'');
+  renderList(form,[...local,...found,...(!local.length&&!found.length?[customOption(query)]:[])]);
+  if(!r||!r.ok){renderList(form,[...local,customOption(query)]);status(form,'Wyszukiwanie online jest teraz niedostępne. Możesz dodać miejsce samodzielnie.','error');}
+  else if(!found.length&&!local.length)status(form,`Nie znaleziono miejsca w ${city.name}. Wybierz „Dodaj własne miejsce”.`);
+  else status(form,'');
  },SUGGEST_DELAY_MS);
 }
 
@@ -138,14 +138,14 @@ async function choose(form,picked){
  const name=$('input[name="name"]',form);
  if(!picked.location)status(form,'Ustaw pinezkę na mapie albo wklej współrzędne do pola wyszukiwania.');
  else if(!name?.value.trim()){status(form,'Lokalizacja ustawiona. Dodaj jeszcze nazwę.','ok');name?.focus();}
- else status(form,'Gotowe. Opis, zdjęcie i reszta są opcjonalne.','ok');
+ else status(form,'');
 }
 
 function renderPreview(form,sel){
  const {preview}=ui(form);if(!preview)return;
  if(!sel){preview.hidden=true;preview.replaceChildren();return;}
  const photo=sel.photo?.available&&sel.placeId?`<figure class="pc-photo"><img src="/api/place-photo?id=${encodeURIComponent(sel.placeId)}" alt="" loading="lazy" decoding="async"><figcaption>Zdjęcie: ${sel.photo.authorUri?`<a href="${esc(sel.photo.authorUri)}" target="_blank" rel="noopener noreferrer">${esc(sel.photo.authorName)}</a>`:esc(sel.photo.authorName)} · Google Maps. Tylko podgląd, nie zapisujemy go.</figcaption></figure>`:'';
- const dup=sel.dup?`<div class="pc-dup" role="alert"><p><strong>To chyba już jest: ${esc(sel.dup.place.name)}</strong> (${sel.dup.m} m stąd).</p><div class="pc-actions"><button type="button" data-action="place" data-id="${esc(sel.dup.place.id)}">Zobacz</button><button type="button" data-action="add" data-id="${esc(sel.dup.place.id)}">Dodaj do Mojej trasy</button></div><p class="fine">To inne miejsce? Po prostu zapisz dalej.</p></div>`:'';
+ const dup=sel.dup?`<div class="pc-dup" role="alert"><p><strong>To chyba już jest: ${esc(sel.dup.place.name)}</strong> (${sel.dup.m} m stąd).</p><div class="pc-actions"><button type="button" data-action="place" data-id="${esc(sel.dup.place.id)}">Zobacz</button><button type="button" data-action="add" data-id="${esc(sel.dup.place.id)}">Dodaj do Mojej trasy</button></div></div>`:'';
  const where=sel.location?formatCoords(sel.location):'brak lokalizacji';
  preview.innerHTML=`${photo}<div class="pc-card"><p class="pc-name">${esc(sel.name||'Nowe miejsce')}</p>${sel.address?`<p class="pc-addr">${esc(sel.address)}</p>`:''}<p class="pc-meta">${esc(SOURCE_LABEL[sel.source]||'')} · ${esc(where)}</p>${sel.source==='google'&&sel.location?'<button type="button" class="pc-link" data-pc="adjust">Popraw pinezkę</button>':''}</div>${dup}`;
  preview.hidden=false;
@@ -183,7 +183,7 @@ async function movePin(form,latlng){
  selection={...(selection||{source:'pin',name:$('input[name="name"]',form)?.value||'',query:normalizeQuery(lastQuery)}),location,source:selection?.source==='google'?'google':'pin'};
  selection.dup=findDuplicate(selection,await knownPlaces(city));
  writeLocation(form,location);renderPreview(form,selection);
- status(form,$('input[name="name"]',form)?.value.trim()?'Pinezka ustawiona. Możesz dodać miejsce.':'Pinezka ustawiona. Dodaj jeszcze nazwę.','ok');
+ status(form,$('input[name="name"]',form)?.value.trim()?'':'Dodaj nazwę miejsca.','ok');
 }
 
 async function pick(form,option){
@@ -263,6 +263,7 @@ function decorate(){
  // app.js re-renders the form (photo, location button); restore what the user already picked.
  const {q}=ui(form);
  if(lastQuery)q.value=lastQuery;
+ else{const seeded=$('input[name="name"]',form)?.value.trim();if(seeded){lastQuery=seeded;q.value=seeded;}}
  if(selection){
   form.dataset.pcGooglePlaceId=/^[A-Za-z0-9_-]{10,300}$/.test(String(selection.placeId||''))?selection.placeId:'';
   renderPreview(form,selection);

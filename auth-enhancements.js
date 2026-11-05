@@ -6,6 +6,19 @@ let session=null;
 let notice='';
 let syncTimer=null;
 let hydrating=false;
+const LOGIN_TOAST_KEY='city-route-login-success-pending-v1';
+function markLoginSuccess(userId){try{if(userId)sessionStorage.setItem(LOGIN_TOAST_KEY,String(userId));}catch{}}
+function clearLoginSuccess(){try{sessionStorage.removeItem(LOGIN_TOAST_KEY);}catch{}}
+function showLoginSuccess(){
+ if(!session?.user?.id)return;
+ let pending=null;try{pending=sessionStorage.getItem(LOGIN_TOAST_KEY);}catch{}
+ if(pending!==String(session.user.id))return;
+ clearLoginSuccess();
+ const el=document.querySelector('#toast');if(!el)return;
+ el.textContent='Zalogowano pomyślnie';el.classList.add('show');
+ setTimeout(()=>{if(el.textContent==='Zalogowano pomyślnie')el.classList.remove('show');},3200);
+}
+
 
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const readLocal=()=>{try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');}catch{return null;}};
@@ -97,7 +110,7 @@ async function hydrateProfile(user){
 function setNotice(text){notice=text;renderAuth();}
 
 function signedOutMarkup(){
-  return `<section class="auth-card" data-city-auth data-auth-state="out" data-auth-user="" data-auth-notice="${esc(notice)}"><div><p class="kicker">Konto City Route</p><h2>Zapisz swój profil i korzystaj na różnych urządzeniach</h2><p class="fine">Trasy pozostają dostępne lokalnie. Konto synchronizuje na razie profil; grupy i chat dołączą na tej samej bazie.</p></div>
+  return `<section class="auth-card" data-city-auth data-auth-state="out" data-auth-user="" data-auth-notice="${esc(notice)}"><div><p class="kicker">Konto City Route</p><h2>Zaloguj się do City Route</h2></div>
   ${notice?`<p class="auth-notice" role="status">${esc(notice)}</p>`:''}
   <button type="button" class="google-auth-button" data-auth-action="google"><span class="google-auth-mark" aria-hidden="true">G</span>Kontynuuj z Google</button>
   <div class="auth-divider" aria-hidden="true"><span>lub zaloguj się e-mailem</span></div>
@@ -136,7 +149,7 @@ async function handleSubmit(form){
   setNotice('Łączenie z kontem…');
   if(form.dataset.authForm==='login'){
     const {error}=await supabase.auth.signInWithPassword({email,password});
-    if(error)setNotice(error.message);else setNotice('Zalogowano. Synchronizuję profil…');
+    if(error)setNotice(error.message);else setNotice('');
   }else{
     const nickname=String(fd.get('nickname')||'').trim();
     if(nickname.length<2||nickname.length>40){setNotice('Nick musi mieć 2–40 znaków.');form.querySelector('button')?.removeAttribute('disabled');return;}
@@ -216,6 +229,7 @@ window.addEventListener('hashchange',()=>setTimeout(renderAuth));
 
 const {data:{session:initialSession}}=await supabase.auth.getSession();
 session=initialSession;
+if(session?.user&&new URLSearchParams(location.search).get('cityroute_auth')==='google')markLoginSuccess(session.user.id);
 let bootChanged=false;
 try{bootChanged=activateLocalScope(localStorage,session?.user?.id).changed;}catch(error){
  notice='Nie można bezpiecznie przełączyć profilu na tym urządzeniu. Sprawdź dostępne miejsce w przeglądarce.';
@@ -242,13 +256,17 @@ if(new URLSearchParams(location.search).get('cityroute_auth')==='google'){
 }
 renderAuth();
 if(session?.user)await hydrateProfile(session.user);
+ if(session?.user)setTimeout(showLoginSuccess,350);
 }
-supabase.auth.onAuthStateChange((_event,nextSession)=>{
+supabase.auth.onAuthStateChange((event,nextSession)=>{
+ const wasUser=session?.user?.id||null;
+ if(event==='SIGNED_IN'&&nextSession?.user?.id&&wasUser!==nextSession.user.id)markLoginSuccess(nextSession.user.id);
+ if(event==='SIGNED_OUT')clearLoginSuccess();
  session=nextSession;
  try{
   const changed=activateLocalScope(localStorage,session?.user?.id).changed;
   if(changed){location.reload();return;}
  }catch(error){setNotice('Nie udało się bezpiecznie przełączyć lokalnych danych konta.');return;}
  renderAuth();
- if(session?.user)setTimeout(()=>hydrateProfile(session.user));
+ if(session?.user){setTimeout(()=>hydrateProfile(session.user),120);setTimeout(showLoginSuccess,450);}
 });

@@ -15,10 +15,10 @@ test('release 029 includes all three feature modules in HTML, build and offline 
   assert.ok(build.includes("'"+file+"'"),'missing build dependency '+file);
   assert.ok(sw.includes(file),'missing offline dependency '+file);
  }
- assert.match(html,/auth-enhancements\.js\?v=22/);
+ assert.match(html,/auth-enhancements\.js\?v=23/);
  assert.match(html,/community-hub\.js\?v=3/);
  assert.match(html,/social-routes-enhancements\.js\?v=7/);
- assert.match(sw,/city-route-v57/);
+ assert.match(sw,/city-route-v58/);
  assert.ok(!html.includes('city-route-v33'));
 });
 

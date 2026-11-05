@@ -167,6 +167,47 @@ try{
  assert.ok(await placesPage.locator('a[data-request-entry][href="#places/request"]').count()>=1,
   'editorial request is reachable as an alternative in the add-place flow');
  await placesPage.screenshot({path:'p0-smoke-artifacts/add-place-mobile-clean.png',fullPage:true});
+ // PRZEMEK-BETA-UX-054: first-time journey search -> missing place -> two photo crop -> save.
+ await placesPage.evaluate(()=>{location.hash='#places';});
+ await placesPage.locator('#search').waitFor();
+ await placesPage.locator('#search').fill('Nieistniejacy Punkt Beta 987654321');
+ await placesPage.locator('[data-action="suggest-add-place"]').waitFor({state:'visible',timeout:12000});
+ await placesPage.locator('[data-action="suggest-add-place"]').click();
+ await placesPage.locator('#place-form input[name="name"]').waitFor();
+ assert.equal(await placesPage.locator('#place-form input[name="name"]').inputValue(),'Nieistniejacy Punkt Beta 987654321');
+ const samplePng=await placesPage.evaluate(()=>{
+  const c=document.createElement('canvas');c.width=320;c.height=240;
+  const ctx=c.getContext('2d');ctx.fillStyle='#1978cc';ctx.fillRect(0,0,320,240);
+  ctx.fillStyle='#f8f9fc';ctx.fillRect(32,30,100,100);
+  return c.toDataURL('image/png').split(',')[1];
+ });
+ const fileBuffer=Buffer.from(samplePng,'base64');
+ await placesPage.locator('#place-form input[name="photo"]').setInputFiles([
+  {name:'pierwsze.png',mimeType:'image/png',buffer:fileBuffer},
+  {name:'drugie.png',mimeType:'image/png',buffer:fileBuffer}
+ ]);
+ await placesPage.locator('.place-photo-item').first().waitFor();
+ assert.equal(await placesPage.locator('.place-photo-item').count(),2);
+ assert.equal(await placesPage.locator('[data-photo-rights]').isVisible(),false,'rights must not be prechecked or shown for private notes');
+ await placesPage.locator('[data-photo-crop="ratio"]').selectOption('1:1');
+ await placesPage.locator('[data-action="edit-place-photo"]').nth(1).click();
+ await placesPage.locator('[data-action="cover-place-photo"]').click();
+ assert.ok(await placesPage.locator('.place-photo-item').first().textContent().then(s=>s.includes('Główne')));
+ await placesPage.locator('#place-form input[name="vis"][value="public"]').evaluate(input=>input.click());
+ assert.equal(await placesPage.locator('#place-form input[name="vis"][value="public"]').isChecked(),true);
+ assert.equal(await placesPage.locator('[data-photo-rights]').isVisible(),true);
+ assert.equal(await placesPage.locator('input[name="image_rights"]').isChecked(),false);
+ await placesPage.locator('#place-form input[name="vis"][value="private"]').evaluate(input=>input.click());
+ assert.equal(await placesPage.locator('#place-form input[name="vis"][value="private"]').isChecked(),true);
+ await placesPage.locator('#place-form input[name="where"]').evaluate(el=>{el.value='52.2322, 21.0111';});
+ await placesPage.locator('#place-form button.primary.big').click();
+ await placesPage.waitForFunction(()=>{const s=JSON.parse(localStorage.getItem('city-route-v1')||'null');return s?.userPlaces?.some(p=>p.name==='Nieistniejacy Punkt Beta 987654321')},{timeout:15000});
+ const savedGallery=await placesPage.evaluate(()=>{
+  const p=JSON.parse(localStorage.getItem('city-route-v1')).userPlaces.find(p=>p.name==='Nieistniejacy Punkt Beta 987654321');
+  return {count:p.images?.length,source:p.image?.startsWith('data:image/jpeg;base64,'),rights:p.imageRightsConfirmed,visibility:p.visibility};
+ });
+ assert.deepEqual(savedGallery,{count:2,source:true,rights:false,visibility:'private'});
+ await placesPage.screenshot({path:'p0-smoke-artifacts/place-gallery-first-visit.png',fullPage:true});
  await placesCtx.close();
 
  // COMMUNITY-DETAIL-FREEZE-044: a real mobile route detail must paint and remain interactive.
@@ -505,8 +546,8 @@ try{
  // Simulate an old-installed PWA (v33) upgrading to the new release (v35) on the same origin.
  // No production server mutation: only the temporary dist/ built by this GitHub job is changed.
  const swPath='dist/service-worker.js',latestSW=await readFile(swPath,'utf8');
- assert.match(latestSW,/city-route-v57/);
- await writeFile(swPath,latestSW.replace("city-route-v57","city-route-v33"));
+ assert.match(latestSW,/city-route-v58/);
+ await writeFile(swPath,latestSW.replace("city-route-v58","city-route-v33"));
  try{
   const upgradeCtx=await browser.newContext({viewport:{width:375,height:812},isMobile:true,hasTouch:true});
   await upgradeCtx.route(/supabase\.co/,route=>route.abort());
@@ -517,7 +558,7 @@ try{
   await upgradePage.waitForFunction(()=>!!navigator.serviceWorker?.controller,undefined,{timeout:15000});
   await writeFile(swPath,latestSW);
   await upgradePage.evaluate(()=>navigator.serviceWorker.getRegistration().then(reg=>reg.update())).catch(()=>{});
-  await upgradePage.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('city-route-v57')&&!keys.includes('city-route-v33');},undefined,{timeout:30000});
+  await upgradePage.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('city-route-v58')&&!keys.includes('city-route-v33');},undefined,{timeout:30000});
   await upgradePage.goto(BASE+'/#add-place',{waitUntil:'domcontentloaded'});
   await upgradePage.locator('#pc-q').waitFor({timeout:15000});
   await upgradePage.screenshot({path:'p0-smoke-artifacts/pwa-upgraded-v33-to-v41.png',fullPage:true});

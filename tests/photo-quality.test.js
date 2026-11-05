@@ -31,3 +31,12 @@ test('new browser module is bundled and precached in the production PWA',async()
  assert.match(build,/'photo-quality\.js'/);
  assert.match(sw,/'\.\/photo-quality\.js'/);
 });
+
+test('Google main photo (first in Google order) wins over a sharper visitor shot',()=>{
+ const photos=[{name:'main-cover',widthPx:1200,heightPx:900},{name:'dance-floor',widthPx:4032,heightPx:2600},{name:'menu',widthPx:3000,heightPx:4000}];
+ assert.equal(bestGooglePhoto(photos).photo.name,'main-cover');
+ assert.equal(bestGooglePhoto(photos).index,0);
+ assert.equal(bestGooglePhoto([{name:'tiny-logo',widthPx:250,heightPx:250},...photos]).photo.name,'main-cover','an unusable first photo is skipped, order still respected');
+ assert.equal(bestGooglePhoto([{name:'no-size'}]).photo.name,'no-size');
+ assert.equal(bestGooglePhoto([]),null);
+});

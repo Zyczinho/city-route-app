@@ -49,3 +49,6 @@ Follow-up: cafés and restaurants without a free photo now get the Google photo 
 
 ## 2026-11-05 — icon cleanup completed (VISUAL-SYSTEM-057, P0 #2, on top of PR #96)
 The last text glyphs that stood in for icons are now local Lucide SVGs: route stop paths ("A › B" chevrons instead of "→"), "Zobacz trasy", "Moje dodane miejsca", "Gotowe trasy" and request ranking links, the drag handle (new Lucide grip-vertical, 44 px target instead of "⠿"), the planner disclosure ("⌄"), the external request link ("↗"), the map card and publish dialog close buttons ("×"), and every "GDZIE TO JEST?" menu path in the guide. The guard test now covers these modules and characters. PWA cache v61.
+
+## 2026-11-05 — Google main photo first
+Google photos now keep Google's order: the place's main photo (the cover shown in Google Maps) is used unless it is unusable (short side under 400 px or extreme ratio). Ranking by resolution had picked random visitor shots, e.g. a blurry dance floor for Sketch Nite. PWA cache v63.

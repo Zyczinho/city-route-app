@@ -54,7 +54,7 @@ test('search offers a prefilled Add Place only when city results are empty, not 
  assert.match(src,/draft=\{name,cat:'okolice',vis:'private'/);
  assert.match(src,/catalog\(\)\.some\(p=>matches\(placeHay\(p\),query\)\)/);
  assert.match(composer,/!local.length&&!found.length\?\[customOption\(query\)\]/);
- assert.doesNotMatch(composer,/renderList\(form,\[\.\.\.local,customOption\(query\)\]\);/);
+ assert.match(composer,/renderList\(form,local\);/,'initial autocomplete list must not show add-place before provider resolves');
  assert.match(composer,/if\(!r\|\|!r.ok\)/);
 });
 test('success message is shown once across login redirect/scope reload and not on normal navigation',()=>{

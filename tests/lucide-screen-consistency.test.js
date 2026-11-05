@@ -51,7 +51,7 @@ test('guide, place search, planner, photo fallback and community use SVG rather 
   ['social-routes-enhancements.js',/iconMarkup\('shuffle'\)/],
   ['place-reviews.js',/labeledIcon\(badge,'star',txt\)/],
   ['requests-enhancements.js',/iconMarkup\("chevron-right"\)/],
-  ['community-enhancements.js',/iconMarkup\('arrow-left'\)/]
+  ['community-enhancements.js',/BACK_ICON.*arrow-left\.svg/]
  ])assert.match(read(path),pattern,path);
 });
 test('PWA includes icon renderer, CSS, missing SVGs and correct module version bumps',()=>{

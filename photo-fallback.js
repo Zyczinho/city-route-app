@@ -1,5 +1,6 @@
 // PHOTO-COVERAGE-039: never show a broken img icon when a real venue photo fails.
 // No scraping, no stock-photo substitution and no extra API calls.
+import {iconNode} from './ui-icons.js';
 const selectors='.place .thumb img, .sheet-media img, .social-media img, .social-detail-cover img, .social-stops img, .route-card .media img, .cover img';
 export function replaceBrokenPhoto(img){
  if(!img?.matches?.(selectors)||!img.isConnected)return false;
@@ -9,7 +10,8 @@ export function replaceBrokenPhoto(img){
  fallback.setAttribute('aria-label','Zdjęcie niedostępne');
  const mark=document.createElement('span');
  mark.className='photo-unavailable-mark';
- mark.textContent='📍';
+ mark.append(iconNode('camera'));
+ mark.setAttribute('aria-hidden','true');
  const note=document.createElement('small');
  note.textContent='Zdjęcie niedostępne';
  fallback.append(mark,note);

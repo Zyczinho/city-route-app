@@ -1,3 +1,4 @@
+const UX_CHEVRON='<span class="i" style="--i:url(./assets/icons/ui/chevron-right.svg)" aria-hidden="true"></span>';
 const main=()=>document.querySelector('#main');
 
 const checkedLabel=(form,name)=>form.querySelector(`input[name="${name}"]:checked`)?.nextElementSibling?.textContent?.trim()||'';
@@ -36,7 +37,7 @@ function disclosure(title,summaryAttr,className){
  const details=document.createElement('details');
  details.className=className;
  const summary=document.createElement('summary');
- summary.innerHTML=`<span><strong>${title}</strong><small ${summaryAttr}></small></span><span class="ux-chevron" aria-hidden="true">⌄</span>`;
+ summary.innerHTML=`<span><strong>${title}</strong><small ${summaryAttr}></small></span><span class="ux-chevron" aria-hidden="true">${UX_CHEVRON}</span>`;
  const body=document.createElement('div');body.className='ux-disclosure-body';
  details.append(summary,body);
  return {details,body};

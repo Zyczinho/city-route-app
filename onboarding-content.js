@@ -1,7 +1,7 @@
 export const GUIDE_GROUPS = [
   {
     "title": "Pierwszy spacer i planowanie",
-    "emoji": "🧭",
+    "icon": "compass",
     "items": [
       [
         "Zaplanuj trasę automatycznie",
@@ -54,7 +54,7 @@ export const GUIDE_GROUPS = [
   },
   {
     "title": "Miejsca, zdjęcia i mapa",
-    "emoji": "📍",
+    "icon": "map-pin",
     "items": [
       [
         "Znajdź restaurację, bar lub atrakcję",
@@ -141,7 +141,7 @@ export const GUIDE_GROUPS = [
   },
   {
     "title": "Moja trasa — przed wyjściem i w drodze",
-    "emoji": "🚶",
+    "icon": "navigation",
     "items": [
       [
         "Zbuduj trasę ręcznie",
@@ -215,7 +215,7 @@ export const GUIDE_GROUPS = [
   },
   {
     "title": "Gotowe trasy i odkrywanie społeczności",
-    "emoji": "🗺️",
+    "icon": "map",
     "items": [
       [
         "Znajdź gotowy spacer",
@@ -289,7 +289,7 @@ export const GUIDE_GROUPS = [
   },
   {
     "title": "Znajomi, grupy, czaty i wydarzenia",
-    "emoji": "👥",
+    "icon": "users",
     "items": [
       [
         "Znajdź i dodaj znajomego",
@@ -342,7 +342,7 @@ export const GUIDE_GROUPS = [
   },
   {
     "title": "Rezerwacje, konto i bezpieczeństwo danych",
-    "emoji": "🔐",
+    "icon": "user-round",
     "items": [
       [
         "Sprawdź rezerwacje, bilety i noclegi",

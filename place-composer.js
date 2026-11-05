@@ -1,6 +1,7 @@
 // CLAUDE-PLACE-017: one input to add a place fast (name, address, Google Maps link or coordinates).
 // It decorates the existing #place-form rendered by app.js; app.js still validates and saves the place on submit,
 // so this module only fills `name`, `where` (as coordinates) and `cat`. Saved places stay on this device.
+import {iconMarkup} from './ui-icons.js';
 import {MIN_QUERY,SUGGEST_DELAY_MS,classifyInput,formatCoords,normalizeQuery,keepsSelection,cityCheck,activeCity,cityParams,catalogueMatches,findDuplicate,categoryFromTypes,SOURCE_LABEL,latestOnly,sessionToken} from './place-composer-model.js';
 import {loadLeaflet} from './map-view.js';
 
@@ -53,7 +54,7 @@ function optionPhoto(o){
  if(typeof photo==='string'&&/^(https:\/\/|data:image\/(?:jpeg|png|webp);base64,)/i.test(photo))src=photo;
  else if(typeof photo==='string'&&/^[a-z0-9_./-]+\.(?:jpg|jpeg|png|webp)$/i.test(photo))src='./assets/images/'+photo.replace(/^assets\/images\//,'');
  else if(o.kind==='provider'&&o.suggestion?.provider==='google'&&o.suggestion?.photo?.available&&/^[A-Za-z0-9_-]{10,300}$/.test(o.suggestion.placeId||''))src='/api/place-photo?id='+encodeURIComponent(o.suggestion.placeId);
- return src?`<img src="${esc(src)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">`:'<span class="pc-opt-no-photo" aria-hidden="true">◫</span>';
+ return src?`<img src="${esc(src)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">`:'<span class="pc-opt-no-photo" aria-hidden="true">'+iconMarkup('camera')+'</span>';
 }
 
 function renderList(form,items){

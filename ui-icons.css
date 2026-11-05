@@ -1,0 +1,33 @@
+/* One Lucide icon system across discovery, route builder, social, profile and guide.
+   Icons are decorative unless the adjacent text/aria-label communicates the action. */
+.i{display:inline-block;flex:0 0 auto;vertical-align:middle}
+.social-ph>.i,.photo-unavailable-mark>.i{width:30px;height:30px}
+.social-ph{font-size:0}
+.photo-unavailable-mark{display:grid;place-items:center}
+.social-stats>span{display:inline-flex;align-items:center;gap:5px}
+.social-stats .i{width:15px;height:15px}
+.social-stat-icon{display:inline-flex;gap:5px;align-items:center}
+.social-stat-icon .i{width:15px;height:15px}
+.social-rating button{display:inline-flex;align-items:center;justify-content:center;gap:3px;min-height:44px}
+.social-rating button .i{width:16px;height:16px}
+.social-author-feedback blockquote>span{display:inline-flex;align-items:center;gap:4px}
+.social-author-feedback blockquote .i{width:14px;height:14px}
+.social-route-card .social-card-actions button{min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.social-card-actions button .i,.social-detail-actions button .i{width:17px;height:17px}
+.social-detail-actions button{display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.social-detail .back .i,.social-profile .back .i,.request-entry .i{width:18px;height:18px}
+.social-route-hit .i{color:inherit}
+.social-ph,.photo-unavailable{color:var(--muted)}
+.guide-arrow,.guide-chevron,.ux-chevron{display:inline-flex;align-items:center;justify-content:center;font-size:0}
+.guide-arrow .i,.guide-chevron .i,.ux-chevron .i{width:18px;height:18px}
+.guide-group[open] .guide-chevron,.ux-disclosure[open] .ux-chevron{transform:rotate(90deg)}
+.guide-go{gap:8px;min-height:44px}
+.guide-go .i{width:16px;height:16px}
+.request-entry .i{flex:none;color:var(--blue)}
+.pc-opt-no-photo{display:inline-flex;align-items:center;justify-content:center}
+.pc-opt-no-photo .i{width:20px;height:20px}
+[data-cityroute-ref]{display:inline-flex;align-items:center;gap:4px}
+[data-cityroute-ref]>.i,.city-route-own-rating [data-cityroute-global]>.i{width:14px;height:14px;vertical-align:middle}
+.city-route-own-rating [data-cityroute-global]{display:inline-flex;gap:4px;align-items:center}
+@media(max-width:390px){.social-stats{gap:6px 10px}.social-stats .i{width:14px;height:14px}}
+@media(prefers-reduced-motion:reduce){.guide-chevron,.ux-chevron{transition:none}}

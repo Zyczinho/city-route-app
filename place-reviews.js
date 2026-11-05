@@ -1,12 +1,26 @@
 // Separate, unverified City Route review signal. External Google/Tripadvisor ratings
 // remain untouched. The RPC is unavailable until hosted migration 016 is approved.
 import {supabase} from './supabase-client.js';
+import {iconMarkup} from './ui-icons.js';
 import {createPlaceReviewsClient} from './place-reviews-client.js';
 const api=createPlaceReviewsClient(supabase),root=()=>document.querySelector('#main');
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const city=()=>document.querySelector('#city-select')?.value||JSON.parse(localStorage.getItem('city-route-v1')||'{}').cityId||'warsaw';
 let scores=new Map(),loadedCity=null,loading=false,requestedCity=null,sortCityRoute=false,scheduled=false;
 const fmt=n=>Number(n).toLocaleString('pl-PL',{maximumFractionDigits:2});
+// Keep SVG nodes separate from text. MutationObserver then sees real rating updates only.
+function labeledIcon(host,name,label){
+ let text=host.querySelector('[data-ui-icon-label]');
+ if(!text){
+  host.replaceChildren();
+  host.insertAdjacentHTML('afterbegin',iconMarkup(name));
+  text=document.createElement('span');
+  text.dataset.uiIconLabel='1';
+  host.append(text);
+ }
+ if(text.textContent!==label)text.textContent=label;
+}
+
 
 async function loadScores(force=false){
  const key=city();if(loading||(!force&&loadedCity===key))return;
@@ -41,18 +55,18 @@ function update(){
  for(const badge of document.querySelectorAll('[data-cityroute-ref]')){
   const metric=scores.get(badge.dataset.cityrouteRef);
   const txt=metric&&metric.reviewCount>0&&Number.isFinite(metric.average)
-   ?'★ City Route '+fmt(metric.average)+'/5 · '+fmt(metric.reviewCount)+' ocen'
-   :'★ City Route · Brak ocen';
+   ?'City Route '+fmt(metric.average)+'/5 · '+fmt(metric.reviewCount)+' ocen'
+   :'City Route · Brak ocen';
   badge.classList.toggle('has-score',!!metric&&metric.reviewCount>0&&Number.isFinite(metric.average));
-  if(badge.textContent!==txt)badge.textContent=txt;
+  labeledIcon(badge,'star',txt);
  }
  const dialog=document.querySelector('#place-dialog[open]'),ratingHost=dialog?.querySelector('.city-route-own-rating'),p=dialog?.querySelector('#place-review-form')?.dataset.id;
  if(ratingHost&&p){
   let global=ratingHost.querySelector('[data-cityroute-global]');
   const metric=scores.get(p);
-  const text=metric?`Średnia społeczności: ★ ${fmt(metric.average)} · ${fmt(metric.reviewCount)} ocen`:'Brak publicznych ocen City Route';
+  const text=metric?`Średnia społeczności: ${fmt(metric.average)} · ${fmt(metric.reviewCount)} ocen`:'Brak publicznych ocen City Route';
   if(!global){global=document.createElement('span');global.dataset.cityrouteGlobal='1';ratingHost.append(global);}
-  if(global.textContent!==text)global.textContent=text;
+  labeledIcon(global,'star',text);
  }
  if(loadedCity!==city()&&!loading)loadScores();
 }

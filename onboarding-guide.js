@@ -1,8 +1,9 @@
 // ONBOARDING-MENU-050: a permanent guide explaining why, where, and how.
 // Kept separate from app.js so it can grow without changing the router.
 import {GUIDE_GROUPS,GUIDE_TOPIC_COUNT} from './onboarding-content.js';
+import {iconMarkup} from './ui-icons.js';
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const guideIcon=name=>'<span class="i" style="--i:url(./assets/icons/ui/'+name+'.svg)" aria-hidden="true"></span>';
+const guideIcon=iconMarkup;
 const QUICK=[
  ['compass','Ułóż trasę','Plan spaceru na Twój czas','#plan'],
  ['route','Trasy','Gotowe spacery i inspiracje','#routes'],
@@ -21,14 +22,14 @@ const topic=(item)=>{
   '<p class="guide-feature-why">'+esc(why)+'</p>'+
   textList(steps,'ol')+
   (limit?'<p class="guide-limit"><strong>Ważne na etapie beta:</strong> '+esc(limit)+'</p>':'')+
-  '<a class="guide-go" href="'+esc(href)+'">Przejdź do funkcji <span aria-hidden="true">→</span></a>'+
+  '<a class="guide-go" href="'+esc(href)+'">Przejdź do funkcji '+guideIcon('arrow-up-right')+'</a>'+
   '</article>';
 };
 const section=(group,index)=>
  '<details class="guide-group">'+
- '<summary><span class="guide-group-emoji" aria-hidden="true">'+guideIcon(GROUP_ICONS[index]||'info')+'</span>'+
+ '<summary><span class="guide-group-icon" aria-hidden="true">'+guideIcon(group.icon||GROUP_ICONS[index]||'info')+'</span>'+
  '<span>'+esc(group.title)+'<small>'+group.items.length+' funkcji</small></span>'+
- '<span class="guide-chevron" aria-hidden="true">⌄</span></summary>'+
+ '<span class="guide-chevron" aria-hidden="true">'+guideIcon('chevron-right')+'</span></summary>'+
  '<div class="guide-group-content">'+group.items.map(topic).join('')+'</div></details>';
 export {GUIDE_TOPIC_COUNT};
 export function guideView(){
@@ -43,7 +44,7 @@ export function guideView(){
   '<h2 class="h-sm">Gdzie mam kliknąć?</h2>'+
   '<nav class="menu start-guide-menu" aria-label="Najważniejsze funkcje City Route">'+
   QUICK.map(([icon,name,desc,href])=>
-   '<a class="help-row" href="'+href+'"><span class="guide-quick-emoji" aria-hidden="true">'+guideIcon(icon)+'</span><span><strong>'+name+'</strong><small>'+desc+'</small></span><span class="guide-arrow" aria-hidden="true">›</span></a>').join('')+
+   '<a class="help-row" href="'+href+'"><span class="guide-quick-icon" aria-hidden="true">'+guideIcon(icon)+'</span><span><strong>'+name+'</strong><small>'+desc+'</small></span><span class="guide-arrow" aria-hidden="true">'+guideIcon('chevron-right')+'</span></a>').join('')+
   '</nav>'+
   '<section class="guide-directory" aria-label="Instrukcje wszystkich funkcji">'+
   '<div class="guide-directory-heading"><div><p class="kicker">INSTRUKCJE KROK PO KROKU</p><h2>Wszystkie ważne funkcje</h2><p>Otwórz kategorię lub wyszukaj funkcję.</p></div><span class="guide-count">'+GUIDE_TOPIC_COUNT+' tematów</span></div>'+

@@ -1,0 +1,46 @@
+name: Public gallery SQL security (isolated PostgreSQL)
+on:
+  pull_request:
+    paths:
+      - 'scripts/staged-place-public-gallery-20261105.sql'
+      - 'tests/sql/public-gallery-*.sql'
+      - '.github/workflows/public-gallery-sql.yml'
+  push:
+    branches:
+      - 'work/public-place-gallery-059-*'
+    paths:
+      - 'scripts/staged-place-public-gallery-20261105.sql'
+      - 'tests/sql/public-gallery-*.sql'
+      - '.github/workflows/public-gallery-sql.yml'
+  workflow_dispatch:
+jobs:
+  gallery-sql:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: gallery_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d gallery_ci"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: gallery_ci
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bootstrap production-aligned test schema
+        run: psql -v ON_ERROR_STOP=1 -f tests/sql/public-gallery-fixture.sql
+      - name: Execute exact staged migration
+        run: psql -v ON_ERROR_STOP=1 -f scripts/staged-place-public-gallery-20261105.sql
+      - name: Verify owner, stranger, anon, admin, RLS and approval trigger
+        run: psql -v ON_ERROR_STOP=1 -f tests/sql/public-gallery-security.sql

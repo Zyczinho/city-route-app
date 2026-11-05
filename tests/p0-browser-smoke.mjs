@@ -167,6 +167,44 @@ try{
  assert.ok(await placesPage.locator('a[data-request-entry][href="#places/request"]').count()>=1,
   'editorial request is reachable as an alternative in the add-place flow');
  await placesPage.screenshot({path:'p0-smoke-artifacts/add-place-mobile-clean.png',fullPage:true});
+ // PRZEMEK-BETA-UX-054: first-time journey search -> missing place -> two photo crop -> save.
+ await placesPage.locator('#navigation a[href="#places"]').click();
+ await placesPage.locator('#search').fill('Nieistniejacy Punkt Beta 987654321');
+ await placesPage.locator('[data-action="suggest-add-place"]').waitFor({state:'visible',timeout:12000});
+ await placesPage.locator('[data-action="suggest-add-place"]').click();
+ await placesPage.locator('#place-form input[name="name"]').waitFor();
+ assert.equal(await placesPage.locator('#place-form input[name="name"]').inputValue(),'Nieistniejacy Punkt Beta 987654321');
+ const samplePng=await placesPage.evaluate(()=>{
+  const c=document.createElement('canvas');c.width=320;c.height=240;
+  const ctx=c.getContext('2d');ctx.fillStyle='#1978cc';ctx.fillRect(0,0,320,240);
+  ctx.fillStyle='#f8f9fc';ctx.fillRect(32,30,100,100);
+  return c.toDataURL('image/png').split(',')[1];
+ });
+ const fileBuffer=Buffer.from(samplePng,'base64');
+ await placesPage.locator('#place-form input[name="photo"]').setInputFiles([
+  {name:'pierwsze.png',mimeType:'image/png',buffer:fileBuffer},
+  {name:'drugie.png',mimeType:'image/png',buffer:fileBuffer}
+ ]);
+ await placesPage.locator('.place-photo-item').first().waitFor();
+ assert.equal(await placesPage.locator('.place-photo-item').count(),2);
+ assert.equal(await placesPage.locator('[data-photo-rights]').isVisible(),false,'rights must not be prechecked or shown for private notes');
+ await placesPage.locator('[data-photo-crop="ratio"]').selectOption('1:1');
+ await placesPage.locator('[data-action="edit-place-photo"]').nth(1).click();
+ await placesPage.locator('[data-action="cover-place-photo"]').click();
+ assert.ok(await placesPage.locator('.place-photo-item').first().textContent().then(s=>s.includes('Główne')));
+ await placesPage.locator('#place-form input[name="vis"][value="public"]').check({force:true});
+ assert.equal(await placesPage.locator('[data-photo-rights]').isVisible(),true);
+ assert.equal(await placesPage.locator('input[name="image_rights"]').isChecked(),false);
+ await placesPage.locator('#place-form input[name="vis"][value="private"]').check({force:true});
+ await placesPage.locator('#place-form input[name="where"]').evaluate(el=>{el.value='52.2322, 21.0111';});
+ await placesPage.locator('#place-form button.primary.big').click();
+ await placesPage.waitForFunction(()=>{const s=JSON.parse(localStorage.getItem('city-route-v1')||'null');return s?.userPlaces?.some(p=>p.name==='Nieistniejacy Punkt Beta 987654321')},{timeout:15000});
+ const savedGallery=await placesPage.evaluate(()=>{
+  const p=JSON.parse(localStorage.getItem('city-route-v1')).userPlaces.find(p=>p.name==='Nieistniejacy Punkt Beta 987654321');
+  return {count:p.images?.length,source:p.image?.slice(0,24),rights:p.imageRightsConfirmed,visibility:p.visibility};
+ });
+ assert.deepEqual(savedGallery,{count:2,source:'data:image/jpeg;base64,',rights:false,visibility:'private'});
+ await placesPage.screenshot({path:'p0-smoke-artifacts/place-gallery-first-visit.png',fullPage:true});
  await placesCtx.close();
 
  // COMMUNITY-DETAIL-FREEZE-044: a real mobile route detail must paint and remain interactive.

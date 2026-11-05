@@ -128,3 +128,9 @@ Branch claude/krakow-content-quality-v1 from main 12a52f6. Kraków data and edit
 - New tooling: scripts/city-curation.mjs (used by the generator), scripts/apply-city-curation.mjs, scripts/generate-enrichment-report.mjs; data/cities/krakow/enrichment-report.json lists the remaining gaps.
 - Validation: 59 tests pass (13 Kraków dataset tests), build passes.
 - Supabase is not updated by this branch: migration 006 still holds the previous snapshot, so live Kraków parity will report mismatches until a new import migration is generated and removed slugs are unpublished.
+
+## Icon cleanup completion — 2026-11-05 (Claude Code)
+- Branch `claude/icons-finish-057`, stacked on PR #96 (`fix/lucide-icon-unification-057-20261105`); merge #96 first.
+- Replaced remaining glyph icons in app.js, enhancements.js, requests-enhancements.js, map-view.js, social-routes-enhancements.js and onboarding-guide.js; added `assets/icons/ui/grip-vertical.svg` (Lucide 0.454.0, ISC).
+- Verified in Chromium at 320, 375 and 390 px on Trasy, Miejsca, Ułóż trasę, Moja trasa, Poradnik, Dodaj miejsce: no glyph icons in visible text, no horizontal page overflow, drag handle 44×44 px. Tests 288/288, build passes.
+- Remaining: iPhone 13 Pro screenshots and founder acceptance. Prose arrows in code comments and the "× 1,3" distance estimate are intentional text, not icons.

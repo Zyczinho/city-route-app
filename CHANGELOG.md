@@ -42,3 +42,6 @@ Manual route entry, pointer drag ordering and sequential stop addition; broader 
 
 ## 2026-11-03 — Kraków content quality
 Kraków catalogue cleaned from 220 to 208 places: duplicates and chains removed, 5 important places added, wrong coordinates of seven curated places fixed, real neighbourhoods instead of "Kraków", better categories and tags, short descriptions for every curated place. All 15 Kraków routes checked and re-ordered, with the Nowa Huta walk going from 14.5 km to 3.3 km. Editorial decisions live in curation.json and survive regeneration; an enrichment report lists missing photos, ratings, websites and hours. 59 tests pass.
+
+## 2026-11-05 — icon cleanup completed (VISUAL-SYSTEM-057, P0 #2, on top of PR #96)
+The last text glyphs that stood in for icons are now local Lucide SVGs: route stop paths ("A › B" chevrons instead of "→"), "Zobacz trasy", "Moje dodane miejsca", "Gotowe trasy" and request ranking links, the drag handle (new Lucide grip-vertical, 44 px target instead of "⠿"), the planner disclosure ("⌄"), the external request link ("↗"), the map card and publish dialog close buttons ("×"), and every "GDZIE TO JEST?" menu path in the guide. The guard test now covers these modules and characters. PWA cache v61.

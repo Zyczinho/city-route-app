@@ -1,3 +1,4 @@
+import {iconMarkup} from './ui-icons.js';
 // Interactive map for City Route places. Self-contained: the app passes places, the active city and callbacks;
 // Leaflet + OpenStreetMap tiles load lazily here and any failure degrades to an accessible list of the same places.
 import {distance} from './core.js';
@@ -57,7 +58,7 @@ export function cardHtml(p,{inRoute=false}={}){
     (p.description?`<p class="cr-map-card-text">${esc(p.description)}</p>`:'')+
     `<div class="cr-map-card-actions"><button type="button" class="primary" data-map-action="add" data-id="${esc(p.id)}"${inRoute?' disabled':''}>${inRoute?'W trasie':'Dodaj do trasy'}</button>`+
     `<button type="button" data-map-action="details" data-id="${esc(p.id)}">Szczegóły</button>`+
-    `<button type="button" class="cr-map-card-close" data-map-action="close" aria-label="Zamknij">×</button></div>`;
+    `<button type="button" class="cr-map-card-close" data-map-action="close" aria-label="Zamknij">${iconMarkup('x')}</button></div>`;
 }
 
 export function listHtml(places,selectedId=null){

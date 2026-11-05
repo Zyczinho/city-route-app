@@ -1,3 +1,4 @@
+import {iconMarkup,iconNode} from './ui-icons.js';
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 let enriching=false,lastPreview='',lastDirectSearchAt=0;
 
@@ -229,11 +230,11 @@ function simplifyPlanner(){
  const field=name=>form.querySelector(`input[name="${name}"]`)?.closest('fieldset');
  const time=field('time'),interests=field('interests');if(!time||!interests)return;
  ensurePlannerStyles();form.dataset.mobileSimple='1';form.classList.add('planner-simple');
- const head=document.querySelector('#main .page-head');if(head){head.classList.add('planner-head-compact');const h=head.querySelector('h1'),lead=head.querySelector('.lead'),ready=head.querySelector('a.inline');if(h)h.textContent='Ułóż trasę po swojemu.';if(lead)lead.textContent='Wybierz czas i klimat. Resztę możesz dopasować, jeśli chcesz.';if(ready)ready.textContent='Gotowe trasy →';}
+ const head=document.querySelector('#main .page-head');if(head){head.classList.add('planner-head-compact');const h=head.querySelector('h1'),lead=head.querySelector('.lead'),ready=head.querySelector('a.inline');if(h)h.textContent='Ułóż trasę po swojemu.';if(lead)lead.textContent='Wybierz czas i klimat. Resztę możesz dopasować, jeśli chcesz.';if(ready)ready.innerHTML='Gotowe trasy'+iconMarkup('chevron-right','link-arrow');}
  const manual=form.previousElementSibling?.matches?.('a[href="#my-route"]')?form.previousElementSibling:null;
- if(manual){manual.classList.add('planner-manual');manual.replaceChildren();const copy=document.createElement('span');copy.className='planner-manual-copy';const strong=document.createElement('strong');strong.textContent='Wolę ułożyć trasę ręcznie';const small=document.createElement('small');small.textContent='Dodawaj i przesuwaj miejsca';copy.append(strong,small);const arrow=document.createElement('span');arrow.setAttribute('aria-hidden','true');arrow.textContent='→';manual.append(copy,arrow);form.insertAdjacentElement('afterend',manual);}
+ if(manual){manual.classList.add('planner-manual');manual.replaceChildren();const copy=document.createElement('span');copy.className='planner-manual-copy';const strong=document.createElement('strong');strong.textContent='Wolę ułożyć trasę ręcznie';const small=document.createElement('small');small.textContent='Dodawaj i przesuwaj miejsca';copy.append(strong,small);const arrow=iconNode('chevron-right');manual.append(copy,arrow);form.insertAdjacentElement('afterend',manual);}
  const primary=document.createElement('section');primary.className='planner-primary';primary.setAttribute('aria-label','Najważniejsze ustawienia trasy');form.insertBefore(primary,form.firstChild);primary.append(time,interests);
- const details=document.createElement('details');details.className='planner-advanced';const summary=document.createElement('summary');summary.innerHTML='<span><strong>Dopasuj szczegóły</strong><small data-planner-summary></small></span><span class="planner-chevron" aria-hidden="true">⌄</span>';const body=document.createElement('div');body.className='planner-advanced-body';details.append(summary,body);
+ const details=document.createElement('details');details.className='planner-advanced';const summary=document.createElement('summary');summary.innerHTML='<span><strong>Dopasuj szczegóły</strong><small data-planner-summary></small></span><span class="planner-chevron" aria-hidden="true">'+iconMarkup('chevron-down')+'</span>';const body=document.createElement('div');body.className='planner-advanced-body';details.append(summary,body);
  for(const name of ['transport','food','start']){const fs=field(name);if(fs)body.append(fs);}
  const oldMore=form.querySelector('details.more');if(oldMore){for(const child of [...oldMore.children])if(child.tagName!=='SUMMARY')body.append(child);oldMore.remove();}
  const submit=form.querySelector('button.primary.big');form.insertBefore(details,submit||null);updatePlannerSummary(form);

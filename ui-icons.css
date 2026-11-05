@@ -31,3 +31,16 @@
 .city-route-own-rating [data-cityroute-global]{display:inline-flex;gap:4px;align-items:center}
 @media(max-width:390px){.social-stats{gap:6px 10px}.social-stats .i{width:14px;height:14px}}
 @media(prefers-reduced-motion:reduce){.guide-chevron,.ux-chevron{transition:none}}
+/* VISUAL-SYSTEM-057 completion: remaining glyph replacements (route path, inline links, drag handle,
+   planner disclosure, close buttons, guide menu paths). */
+.path .path-sep{width:13px;height:13px;margin:0 3px;vertical-align:-2px;opacity:.7}
+.link-arrow{width:16px;height:16px;margin-left:4px;vertical-align:-3px}
+a.inline,.planner-head-compact a.inline{display:inline-flex;align-items:center}
+.drag-handle{display:inline-grid;place-items:center;min-width:44px;min-height:44px;font-size:0}
+.drag-handle .i{width:20px;height:20px}
+.planner-chevron{display:inline-grid;place-items:center;font-size:0}
+.planner-chevron .i{width:20px;height:20px}
+.planner-manual>.i{width:20px;height:20px;color:var(--muted)}
+.cr-map-card-close,.social-close{display:inline-grid;place-items:center;font-size:0}
+.cr-map-card-close .i,.social-close .i{width:18px;height:18px}
+.guide-sep{width:13px;height:13px;margin:0 3px;vertical-align:-2px;color:var(--muted)}

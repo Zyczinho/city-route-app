@@ -13,12 +13,14 @@ const QUICK=[
  ['ticket-percent','Zarezerwuj','Noclegi, bilety i stoliki','#book']
 ];
 const GROUP_ICONS=['compass','map-pin','navigation','map','users','user-round'];
-const textList=(items,tag)=>'<'+tag+'>'+items.map(item=>'<li>'+esc(item)+'</li>').join('')+'</'+tag+'>';
+// Menu paths are written "Miejsca → Mapa" in content; render the separator as a Lucide chevron, not a glyph.
+const crumbs=text=>esc(text).split(' → ').join(guideIcon('chevron-right','guide-sep'));
+const textList=(items,tag)=>'<'+tag+'>'+items.map(item=>'<li>'+crumbs(item)+'</li>').join('')+'</'+tag+'>';
 const topic=(item)=>{
  const [name,where,why,steps,href,limit]=item;
  return '<article class="guide-feature" data-guide-topic>'+
   '<h3>'+esc(name)+'</h3>'+
-  '<div class="guide-location"><strong>GDZIE TO JEST?</strong><span>'+esc(where)+'</span></div>'+
+  '<div class="guide-location"><strong>GDZIE TO JEST?</strong><span>'+crumbs(where)+'</span></div>'+
   '<p class="guide-feature-why">'+esc(why)+'</p>'+
   textList(steps,'ol')+
   (limit?'<p class="guide-limit"><strong>Ważne na etapie beta:</strong> '+esc(limit)+'</p>':'')+

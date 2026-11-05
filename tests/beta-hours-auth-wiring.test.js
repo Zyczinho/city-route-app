@@ -37,7 +37,7 @@ test('one-time onboarding can be skipped without login or forced geolocation',as
  for(const file of ['first-launch.js','first-launch.css','opening-hours.js'])assert.ok(build.includes(file),file);
  assert.match(html,/first-launch\.css/);
  assert.match(html,/first-launch\.js\?v=2/);
- assert.match(sw,/city-route-v61/);
+ assert.match(sw,/city-route-v62/);
  assert.ok(css.includes('.welcome-overlay'));
 });
 test('new modules are syntax valid',()=>{

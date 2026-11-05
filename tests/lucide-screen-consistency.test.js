@@ -9,7 +9,8 @@ import {guideView} from '../onboarding-guide.js';
 const read=path=>readFileSync(new URL('../'+path,import.meta.url),'utf8');
 const sourceModules=['app.js','onboarding-guide.js','onboarding-content.js',
  'photo-fallback.js','ux-cleanup.js','place-composer.js','social-routes-enhancements.js',
- 'community-enhancements.js','place-reviews.js','requests-enhancements.js','first-launch.js'];
+ 'community-enhancements.js','place-reviews.js','requests-enhancements.js','first-launch.js',
+ 'enhancements.js','map-view.js','onboarding-guide.js'];
 
 test('Lucide icon inventory is complete, local, unique and stroke-consistent',()=>{
  assert.equal(new Set(ICON_NAMES).size,ICON_NAMES.length,'icon paths must be unique');
@@ -29,7 +30,8 @@ test('Lucide icon inventory is complete, local, unique and stroke-consistent',()
  assert.throws(()=>iconMarkup('camera','unsafe" onclick="alert(1)'),/Invalid icon class/);
 });
 test('no emojis or decorative Unicode-as-icon remain in first-run UI modules',()=>{
- const forbidden=/[📍🧭🚶👥🔐🗺♡⑂◎◫⌄›‹★✓]/u;
+ // "×" stays allowed in prose ("× 1,3"); only a bare × or → as element content is an icon substitute.
+ const forbidden=/[📍🧭🚶👥🔐🗺♡⑂◎◫⌄›‹★✓⠿↗]|>\s*[→×]\s*<|→\s*</u;
  for(const path of sourceModules)assert.doesNotMatch(read(path),forbidden,path+' contains glyph in place of SVG');
  assert.ok(GUIDE_GROUPS.every(g=>ICON_NAMES.includes(g.icon)),'every guide category must resolve to a real Lucide icon');
 });
@@ -56,13 +58,26 @@ test('guide, place search, planner, photo fallback and community use SVG rather 
 });
 test('PWA includes icon renderer, CSS, missing SVGs and correct module version bumps',()=>{
  const html=read('index.html'),sw=read('service-worker.js'),build=read('scripts/build.mjs');
- assert.match(sw,/city-route-v61/);
- assert.match(html,/ui-icons\.css\?v=1/);
+ assert.match(sw,/city-route-v62/);
+ assert.match(html,/ui-icons\.css\?v=2/);
  for(const path of ['ui-icons.css','ui-icons.js']){assert.ok(build.includes(path));assert.ok(sw.includes(path));}
- for(const name of ['chevron-down','minus','heart'])assert.ok(sw.includes('assets/icons/ui/'+name+'.svg'),'missing offline icon '+name);
- for(const [file,v] of [['photo-fallback.js','2'],['place-composer.js','5'],['social-routes-enhancements.js','8'],['place-reviews.js','3'],['requests-enhancements.js','3'],['ux-cleanup.js','5'],['community-enhancements.js','21'],['first-launch.js','2']]){
+ for(const name of ['chevron-down','minus','heart','grip-vertical'])assert.ok(sw.includes('assets/icons/ui/'+name+'.svg'),'missing offline icon '+name);
+ for(const [file,v] of [['photo-fallback.js','2'],['place-composer.js','5'],['social-routes-enhancements.js','9'],['place-reviews.js','3'],['requests-enhancements.js','4'],['enhancements.js','24'],['ux-cleanup.js','5'],['community-enhancements.js','21'],['first-launch.js','2']]){
   assert.ok(html.includes(file+'?v='+v),'new JS not versioned in HTML: '+file);
   assert.ok(sw.includes(file+'?v='+v),'new JS not cached: '+file);
  }
  for(const path of [...sourceModules,'ui-icons.js'])execFileSync(process.execPath,['--check',path],{stdio:'pipe'});
+});
+
+test('remaining text arrows, drag dots and close crosses render as Lucide icons',()=>{
+ const app=read('app.js'),guide=guideView();
+ assert.match(app,/join\(ic\('chevron-right','path-sep'\)\)/,'route path separator');
+ assert.match(app,/\$\{ic\('grip-vertical'\)\}<\/button>/,'drag handle');
+ assert.ok(ICON_NAMES.includes('grip-vertical'));
+ assert.doesNotMatch(guide,/→/,'guide menu paths use chevrons');
+ assert.match(guide,/guide-sep/);
+ assert.match(read('enhancements.js'),/iconMarkup\('chevron-down'\)/);
+ assert.match(read('map-view.js'),/aria-label="Zamknij">\$\{iconMarkup\('x'\)\}/);
+ assert.match(read('social-routes-enhancements.js'),/aria-label="Zamknij">\$\{iconMarkup\('x'\)\}/);
+ assert.match(read('requests-enhancements.js'),/iconMarkup\('arrow-up-right','link-arrow'\)/);
 });

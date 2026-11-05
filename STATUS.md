@@ -137,3 +137,9 @@ Branch claude/krakow-content-quality-v1 from main 12a52f6. Kraków data and edit
 - Verified in Chromium at 375 px and 320 px against the real Worker routes: proposal appears, accept/skip/undo work, photo and credit persist on the saved place after reload. Old fragment-of-column photo no longer outranks the canonical one.
 - NOT verified: real iPhone Safari, production Cloudflare, Google-key path (no key locally). Tests 290/290, build passes.
 - Follow-up same day: when no free photo exists (cafés, bars, restaurants), the proposal asks the Worker's `/api/place-enrichment` for the Google photo of the same venue (Text Search, same-place check ≤300 m + name) and offers it; accepting keeps the Google place id on the new place so the photo shows through `/api/place-photo` (the file is never copied). Free Wikipedia/Commons photos are tried first, so Google is called only when needed. Worker soft cap fixed: it was clamped to 25 Google calls/instance/day regardless of `GOOGLE_PLACES_DAILY_CAP`; now default 300, max 5000. Production needs secrets `GOOGLE_PLACES_API_KEY` and `GOOGLE_PLACES_BETA_ENABLED=on`; until then cafés stay honest no-photo. Not yet verified with a real key.
+
+## Icon cleanup completion — 2026-11-05 (Claude Code)
+- Branch `claude/icons-finish-057`, stacked on PR #96 (`fix/lucide-icon-unification-057-20261105`); merge #96 first.
+- Replaced remaining glyph icons in app.js, enhancements.js, requests-enhancements.js, map-view.js, social-routes-enhancements.js and onboarding-guide.js; added `assets/icons/ui/grip-vertical.svg` (Lucide 0.454.0, ISC).
+- Verified in Chromium at 320, 375 and 390 px on Trasy, Miejsca, Ułóż trasę, Moja trasa, Poradnik, Dodaj miejsce: no glyph icons in visible text, no horizontal page overflow, drag handle 44×44 px. Tests 288/288, build passes.
+- Remaining: iPhone 13 Pro screenshots and founder acceptance. Prose arrows in code comments and the "× 1,3" distance estimate are intentional text, not icons.

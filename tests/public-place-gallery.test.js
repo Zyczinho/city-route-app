@@ -75,7 +75,7 @@ test('staged SQL enforces ownership, moderation, RLS and no direct writes',()=>{
 });
 test('user place and published place detail have independent, staged gallery views',()=>{
  const app=read('app.js'),runtime=read('place-contributions.js'),gallery=read('place-public-gallery.js'),admin=read('admin/place-submissions.js');
- assert.match(app,/data\.gallerySubmissionId=p\.communitySubmissionId/);
+ assert.match(app,/d\.dataset\.gallerySubmissionId=p\.communitySubmissionId/);
  assert.match(app,/Ponów przesyłanie zdjęć/);
  assert.match(runtime,/uploadGalleryPhotos/);
  assert.match(runtime,/coverReady&&place\.imageRightsConfirmed/);

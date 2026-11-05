@@ -1,4 +1,5 @@
 import {summary,optimize,generate,generateAlternatives,advance,mapsUrl,routeMapsUrl,parseLocation,distance,combinedRating,smoothedRating,matches} from './core.js';
+import {iconMarkup} from './ui-icons.js';
 import {localDate,validDate,scheduleRoute,feasibleFor} from './opening-hours.js';
 import {guideView} from './onboarding-guide.js';
 import {suggestVisitStart} from './planner-defaults.js';
@@ -37,7 +38,7 @@ const nf=new Intl.NumberFormat('pl-PL',{useGrouping:'always'}),fmt=n=>nf.format(
 const plural=(n,one,few,many)=>n===1?one:[2,3,4].includes(n%10)&&![12,13,14].includes(n%100)?few:many;
 const opinii=n=>`${fmt(n)} ${plural(n,'opinia','opinie','opinii')}`, stopsLabel=n=>`${n} ${plural(n,'przystanek','przystanki','przystanków')}`;
 const minutes=n=>n>=60?`${Math.floor(n/60)} h${n%60?' '+n%60+' min':''}`:`${n} min`;
-const ic=(n,cls='')=>`<span class="i ${cls}" style="--i:url(./assets/icons/ui/${n}.svg)" aria-hidden="true"></span>`;
+const ic=iconMarkup;
 const brand=s=>`<span class="b b-${s}" aria-hidden="true"></span>`;
 const SOURCES={google:'Google Maps',tripadvisor:'Tripadvisor'};
 const items=ids=>ids.map(id=>all[id]).filter(Boolean);

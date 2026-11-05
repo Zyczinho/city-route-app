@@ -124,7 +124,7 @@ function renderAuth(){
  const html=session?signedInMarkup():signedOutMarkup();
  const wantedState=session?'in':'out',wantedUser=session?.user?.email||'';
  const host=session?main.querySelector('.profile-more-content'):main.querySelector('.profile-card');
- if(current&&current.dataset.authState===wantedState&&current.dataset.authUser===wantedUser&&current.dataset.authNotice===notice&&host?.contains(current))return;
+ if(current&&current.dataset.authState===wantedState&&current.dataset.authUser===wantedUser&&current.dataset.authNotice===notice&&(session?host?.contains(current):current.previousElementSibling===host))return;
  if(current)current.remove();
  if(!host)return;
  host.insertAdjacentHTML(session?'beforeend':'afterend',html);

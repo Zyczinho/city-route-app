@@ -6,13 +6,30 @@ export const resolveCategory=place=>ALIASES[place?.cats?.[0]]||place?.categoryId
 export class PlaceContributionError extends Error{
  constructor(code,cause){super(code);this.name='PlaceContributionError';this.code=code;this.cause=cause;}
 }
-const KNOWN=/\b(auth-required|city-not-found|invalid-name|invalid-description|invalid-url|invalid-coordinates|invalid-category|outside-city|duplicate-place|duplicate-pending|photo-rights-required|invalid-photo-path|image-not-uploaded|not-editable|already-reviewed|forbidden|submission-not-found|unknown-place|place-required|duplicate-place-use-merge)\b/;
+const KNOWN=/\b(auth-required|city-not-found|invalid-name|invalid-description|invalid-url|invalid-coordinates|invalid-category|outside-city|duplicate-place|duplicate-pending|photo-rights-required|invalid-photo-position|photo-slot-conflict|invalid-photo-path|image-not-uploaded|not-editable|already-reviewed|forbidden|submission-not-found|unknown-place|place-required|duplicate-place-use-merge)\b/;
 export function contributionError(error){
  if(error instanceof PlaceContributionError)return error;
  const m=String(error?.message||error).match(KNOWN);
  return new PlaceContributionError(m?.[1]||(error?.code==='42501'?'auth-required':'network'),error);
 }
 export const photoPath=(userId,submissionId)=>userId+'/'+submissionId+'.jpg';
+export const galleryPhotoPath=(userId,submissionId,position)=>{
+ if(!Number.isInteger(position)||position<2||position>5)throw new PlaceContributionError('invalid-photo-position');
+ return userId+'/'+submissionId+'-'+position+'.jpg';
+};
+export const galleryPhotoPublicUrl=(base,path)=>{
+ if(!/^https:\/\/[^/]+\.supabase\.co\/?$/.test(String(base||''))||
+    !/^[0-9a-f-]{36}\/[0-9a-f-]{36}-[2-5]\.jpg$/.test(String(path||'')))return null;
+ return base.replace(/\/$/,'')+'/storage/v1/object/public/'+BUCKET+'/'+path;
+};
+async function jpegBlob(dataUrl){
+ if(!/^data:image\/jpeg;base64,/.test(dataUrl||''))throw new PlaceContributionError('invalid-photo-format');
+ const response=await fetch(dataUrl);
+ const blob=await response.blob();
+ if(blob.size>3145728)throw new PlaceContributionError('image-too-large');
+ return blob;
+}
+
 export function validateLocalPlace(place){
  if(!place||!/^u-/.test(place.id||''))return 'invalid-place';
  if((place.visibility||'private')!=='public')return 'not-shared';
@@ -46,13 +63,41 @@ export function createPlaceContributionsClient({client}={}){
   async uploadOwnPhoto(userId,submissionId,dataUrl,confirmed){
    if(!dataUrl||!confirmed)return {uploaded:false};
    if(!/^data:image\/jpeg;base64,/.test(dataUrl))throw new PlaceContributionError('invalid-photo-format');
-   const response=await fetch(dataUrl),blob=await response.blob();
-   if(blob.size>3145728)throw new PlaceContributionError('image-too-large');
+   const blob=await jpegBlob(dataUrl);
    const path=photoPath(userId,submissionId);
    const {error}=await client.storage.from(BUCKET).upload(path,blob,{contentType:'image/jpeg',upsert:false});
    if(error)throw contributionError(error);
    await rpc('attach_place_submission_photo',{p_submission_id:submissionId,p_image_path:path,p_confirm_rights:true});
    return {uploaded:true,path};
+  },
+  async uploadGalleryPhotos(userId,submissionId,images=[],confirmed,alreadyUploaded=[]){
+   if(!confirmed||!Array.isArray(images)||images.length<2)return {uploaded:[],failed:[]};
+   const uploaded=[],failed=[];
+   const previously=new Set(alreadyUploaded);
+   for(let index=1;index<Math.min(images.length,5);index++){
+    const position=index+1;
+    if(previously.has(position)){uploaded.push(position);continue;}
+    try{
+     const blob=await jpegBlob(images[index]);
+     const path=galleryPhotoPath(userId,submissionId,position);
+     const {error}=await client.storage.from(BUCKET).upload(path,blob,{contentType:'image/jpeg',upsert:false});
+     if(error&&!/(already exists|duplicate|409)/i.test(String(error.message||'')))throw contributionError(error);
+     await rpc('attach_place_submission_gallery_photo',{
+      p_submission_id:submissionId,p_position:position,p_image_path:path,p_confirm_rights:true
+     });
+     uploaded.push(position);
+    }catch(error){failed.push({position,code:contributionError(error).code});}
+   }
+   return {uploaded,failed};
+  },
+  async reviewGallery(citySlug='warsaw',status='pending'){
+   return await rpc('admin_place_submission_gallery',{p_city_slug:citySlug,p_status:status})||[];
+  },
+  async moderateGalleryPhoto(submissionId,position,allow){
+   if(!Number.isInteger(position)||position<2||position>5)throw new PlaceContributionError('invalid-photo-position');
+   return await rpc('admin_moderate_place_gallery_photo',{
+    p_submission_id:submissionId,p_position:position,p_allow:allow===true
+   });
   },
   async mine(){return (await rpc('my_place_submissions',{})||[]).map(contributionFromRow);},
   async reviewQueue(citySlug='warsaw',status='pending'){

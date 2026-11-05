@@ -169,7 +169,7 @@ test('Google photos are never copied into the user photo upload',async()=>{
  assert.doesNotMatch(enhancements,/20\.35,52\.55,21\.55,51\.90/,'no fixed Warsaw viewbox');
  const composer=await read('place-composer.js');
  assert.doesNotMatch(composer,/DataTransfer|\.files\s*=/,'composer only previews Google photos');
- assert.match(composer,/Tylko podgląd, nie zapisujemy go/);
+ assert.match(composer,/Wyświetlamy je z Google, nie kopiujemy pliku/);
 });
 
 test('composer ships, loads after app.js and leaves app.js the only writer of places',async()=>{

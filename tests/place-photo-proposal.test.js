@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {titleMatch,wikiSearchUrl,pickWikiPages,commonsInfoUrl,googleCandidate,findPlacePhotoCandidates,acceptedPhotoRecord,readAcceptedPhoto} from '../place-photo-proposal.js';
+import {titleMatch,wikiSearchUrl,pickWikiPages,commonsInfoUrl,googleCandidate,findPlacePhotoCandidates,acceptedPhotoRecord,readAcceptedPhoto,acceptedGooglePlaceId,googleCandidateFromEnrichment,enrichmentUrl} from '../place-photo-proposal.js';
 import {licensedCommonsImage} from '../commons-photo-source.js';
 const read=n=>readFileSync(new URL('../'+n,import.meta.url),'utf8');
 
@@ -99,4 +99,44 @@ test('composer proposes automatically and the user decides; app.js stores it onl
  assert.match(app,/imageCredit:proposed\?\.imageCredit\|\|null/);
  assert.match(sw,/'\.\/place-photo-proposal\.js'/);
  assert.match(build,/'place-photo-proposal\.js'/);
+});
+
+test('a café with no free photo gets the Google photo of the same venue when the Worker has a key',async()=>{
+ const krakow={id:'krakow',name:'Kraków',center:{lat:50.0614,lng:19.9366},radiusKm:30};
+ const calls=[];
+ const fetcher=async url=>{calls.push(url);
+  if(url.startsWith('/api/place-enrichment?'))return json({status:'ok',googlePlaceId:'ChIJmassolit123',image:{src:'/api/place-photo?id=ChIJmassolit123',credit:{author:'Ola K',license:'Zdjęcie Google Maps',via:'Google Maps',source:'https://maps.google.com/?cid=1'}}});
+  return json({query:{pages:[]}});
+ };
+ const r=await findPlacePhotoCandidates({name:'Massolit Books & Cafe',location:{lat:50.0606,lng:19.9248},source:'photon-osm'},{city:'Kraków',cityInfo:krakow,fetcher});
+ assert.equal(r.status,'ok');
+ assert.equal(r.candidates[0].via,'Google Maps');
+ assert.equal(r.candidates[0].googlePlaceId,'ChIJmassolit123');
+ const q=new URL('http://x'+calls.find(u=>u.startsWith('/api/place-enrichment')));
+ assert.equal(q.searchParams.get('name'),'Massolit Books & Cafe');
+ assert.equal(q.searchParams.get('centerLat'),'50.0614');
+ assert.equal(acceptedGooglePlaceId(r.candidates[0]),'ChIJmassolit123','accepting keeps the Google id on the place');
+ assert.equal(acceptedPhotoRecord(r.candidates[0]),null,'the Google file itself is never stored');
+});
+
+test('Google is not called when a free Wikipedia photo already exists, and no key means honest none',async()=>{
+ const krakow={id:'krakow',name:'Kraków',center:{lat:50.0614,lng:19.9366},radiusKm:30};
+ const calls=[];
+ const withWiki=async url=>{calls.push(url);const u=new URL(url,'http://x');
+  if(u.hostname==='pl.wikipedia.org')return json({query:{pages:wikiPages}});
+  if(u.searchParams.get('titles'))return json({query:{pages:[info('20190218 075039 TL.jpg')]}});
+  return json({query:{pages:[]}});
+ };
+ await findPlacePhotoCandidates(sukiennice,{city:'Kraków',cityInfo:krakow,fetcher:withWiki});
+ assert.ok(!calls.some(u=>u.startsWith('/api/place-enrichment')),'free source first, no paid call');
+ const noKey=await findPlacePhotoCandidates({name:'Alchemia',location:{lat:50.0517,lng:19.9452}},{cityInfo:krakow,fetcher:async url=>url.startsWith('/api/')?json({status:'no-key',ratings:[],image:null}):json({query:{pages:[]}})});
+ assert.equal(noKey.status,'none');
+ assert.equal(googleCandidateFromEnrichment({image:{src:'https://evil.example/x.jpg'}}),null);
+ assert.equal(enrichmentUrl({name:'Alchemia',lat:50,lng:19}),null,'needs the active city');
+});
+
+test('Worker Google soft cap defaults to the documented 300 per instance, not 25',()=>{
+ const worker=read('worker.js');
+ assert.match(worker,/Math\.min\(5000,Number\(env\.GOOGLE_PLACES_DAILY_CAP\)\|\|300\)/);
+ assert.doesNotMatch(worker,/Math\.min\(25,Number\(env\.GOOGLE_PLACES_DAILY_CAP\)/);
 });

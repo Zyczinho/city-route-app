@@ -52,7 +52,8 @@ let googleDay='',googleCalls=0;
 function googleAllowed(env){
  if(!env.GOOGLE_PLACES_API_KEY||env.GOOGLE_PLACES_BETA_ENABLED!=='on')return false;
  const day=new Date().toISOString().slice(0,10);if(day!==googleDay){googleDay=day;googleCalls=0;}
- const cap=Math.max(1,Math.min(25,Number(env.GOOGLE_PLACES_DAILY_CAP)||25));if(googleCalls>=cap)return false;
+ // Default 300/instance/day as documented above; GOOGLE_PLACES_DAILY_CAP may raise it up to 5000. The hard budget is the Google Cloud quota.
+ const cap=Math.max(1,Math.min(5000,Number(env.GOOGLE_PLACES_DAILY_CAP)||300));if(googleCalls>=cap)return false;
  googleCalls++;return true;
 }
 const sessionOf=url=>String(url.searchParams.get('session')||'').replace(/[^A-Za-z0-9_-]/g,'').slice(0,64);

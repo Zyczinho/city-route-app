@@ -3,7 +3,7 @@
 // so this module only fills `name`, `where` (as coordinates) and `cat`. Saved places stay on this device.
 import {MIN_QUERY,SUGGEST_DELAY_MS,classifyInput,formatCoords,normalizeQuery,keepsSelection,cityCheck,activeCity,cityParams,catalogueMatches,findDuplicate,categoryFromTypes,SOURCE_LABEL,latestOnly,sessionToken} from './place-composer-model.js';
 import {loadLeaflet} from './map-view.js';
-import {findPlacePhotoCandidates,acceptedPhotoRecord} from './place-photo-proposal.js';
+import {findPlacePhotoCandidates,acceptedPhotoRecord,acceptedGooglePlaceId} from './place-photo-proposal.js';
 
 const STATE_KEY='city-route-v1';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -161,9 +161,12 @@ function renderPreview(form,sel){
 const proposalKey=sel=>sel?.location&&String(sel.name||'').trim().length>=3?[String(sel.name).trim().toLowerCase(),Number(sel.location.lat).toFixed(4),Number(sel.location.lng).toFixed(4),sel.placeId||''].join('|'):'';
 const currentCandidate=()=>proposal?.candidates?.[proposal.index]||null;
 
+const validGoogleId=id=>/^[A-Za-z0-9_-]{10,300}$/.test(String(id||''))?String(id):'';
 function syncAccepted(form){
- const record=proposal?.accepted?acceptedPhotoRecord(currentCandidate()):null;
+ const c=proposal?.accepted?currentCandidate():null,record=c?acceptedPhotoRecord(c):null;
  if(record)form.dataset.pcPhoto=JSON.stringify(record);else delete form.dataset.pcPhoto;
+ // An accepted Google photo is not copied: the place keeps its Google id and shows the photo through the proxy.
+ form.dataset.pcGooglePlaceId=validGoogleId(selection?.placeId)||acceptedGooglePlaceId(c);
 }
 
 function clearProposal(form){
@@ -180,7 +183,7 @@ async function proposePhoto(form,sel){
  proposal={key,status:'loading',candidates:[],index:0,accepted:false,skipped:false};renderProposal(form);
  const city=await currentCity();
  let result;
- try{result=await findPlacePhotoCandidates(sel,{city:city?.name||'',signal:controller.signal});}
+ try{result=await findPlacePhotoCandidates(sel,{city:city?.name||'',cityInfo:city,signal:controller.signal});}
  catch{if(controller.signal.aborted)return;result={status:'error',candidates:[]};}
  if(proposalController!==controller||proposal?.key!==key)return;
  proposal={...proposal,status:result.status,candidates:result.candidates};
@@ -190,7 +193,7 @@ async function proposePhoto(form,sel){
 function creditLine(c){
  const author=c.source?`<a href="${esc(c.source)}" target="_blank" rel="noopener noreferrer">${esc(c.author)}</a>`:esc(c.author);
  const license=c.licenseUrl?`<a href="${esc(c.licenseUrl)}" target="_blank" rel="noopener noreferrer">${esc(c.license)}</a>`:esc(c.license);
- return c.via==='Google Maps'?`Zdjęcie: ${author} · Google Maps. Tylko podgląd, nie zapisujemy go.`:`Zdjęcie: ${author} · ${license} · ${esc(c.via)}`;
+ return c.via==='Google Maps'?`Zdjęcie: ${author} · Google Maps. Wyświetlamy je z Google, nie kopiujemy pliku.`:`Zdjęcie: ${author} · ${license} · ${esc(c.via)}`;
 }
 
 function renderProposal(form){
@@ -360,7 +363,6 @@ window.addEventListener('hashchange',()=>{if(location.hash.slice(1).split('/')[0
 // from the list goes to `where`, so the existing save-time address lookup still finds it.
 window.addEventListener('submit',e=>{
  const form=e.target;if(form?.id!=='place-form')return;
- form.dataset.pcGooglePlaceId=/^[A-Za-z0-9_-]{10,300}$/.test(String(selection?.placeId||''))?selection.placeId:'';
  syncAccepted(form);
  const where=$('input[name="where"]',form),q=$('#pc-q',form),input=classifyInput(q?.value);
  if(where&&!where.value.trim()&&selection?.source==='pin'&&!selection.location){

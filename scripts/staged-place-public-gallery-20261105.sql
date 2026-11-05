@@ -41,10 +41,8 @@ create policy place_gallery_public_select on public.place_submission_gallery
   using (
     moderation_status='approved'
     and exists (
-      select 1 from public.place_submissions s
-      join public.places p on p.id=s.resolved_place_id
-      where s.id=place_submission_gallery.submission_id
-        and s.status='approved'
+      select 1 from public.places p
+      where p.metadata->>'communitySubmissionId'=place_submission_gallery.submission_id::text
         and p.status='published'
         and p.visibility='public'
     )

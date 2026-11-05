@@ -55,3 +55,6 @@ Google photos now keep Google's order: the place's main photo (the cover shown i
 
 ## 2026-11-05 — Add Place no longer widens the phone layout
 The invisible "Dodaj zdjęcia" file input was absolutely positioned against the whole page, so it took the full page width and pushed the layout to ~406 px on a 375 px phone; the photo proposal buttons did not wrap either. On iPhone this shifts and zooms the page and can make taps on "Zaproponuj społeczności" and "Dodaj miejsce" miss. The input now stays inside its label and the buttons wrap. PWA cache v64.
+
+## 2026-11-05 — agent team v1 and personas v1.0
+Eight role-based agents (Coordinator, Auditor, UX Editor, API Integrator, Source Scout, Place Curator, QA / Release, Reviewer) with Claude Code subagent files in `.claude/agents/`, shared rules and file ownership in `docs/agents/TEAM.md`, per-role notes, a sources registry and an "Audit finding" issue template. The founder's four v1.0 personas are canonical in `docs/personas/`. The built service worker's cache name now carries a content hash, so feature PRs no longer bump the PWA version by hand. No app behaviour change.

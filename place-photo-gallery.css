@@ -35,3 +35,6 @@
 .place-not-found-action{min-height:44px}
 @media(max-width:360px){.place-photo-controls{grid-template-columns:1fr}.place-photo-item{flex-basis:72px}.place-photo-item>[data-action=edit-place-photo]{width:72px;height:72px}}
 @media(prefers-reduced-motion:reduce){.place-photo-frame img{will-change:auto}}
+
+/* Informational toasts never cover navigation or form controls. */
+#toast{pointer-events:none}

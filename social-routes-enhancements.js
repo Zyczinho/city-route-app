@@ -292,15 +292,19 @@ async function handleAction(el){
  if(action==='delete'){if(authRequired())return;if(confirm('Usunąć tę trasę? Tego nie można cofnąć.')){await api.deleteOwnedRoute(id);location.hash='#routes';log('community_route_delete',{route_id:id});}return;}
 }
 
+// #109: a hash change that arrives while the previous render is still awaiting the network (e.g. tapping a route
+// before the community feed finished loading) used to be dropped, leaving only the hub header. Remember it and
+// render again when the current pass ends.
+let renderAgain=false;
 async function routeRender(){
- if(rendering)return;rendering=true;
+ if(rendering){renderAgain=true;return;}rendering=true;
  try{
   const {kind,id}=socialHash();
   if(kind==='community-route'&&id){await renderCommunityRoute(id);return;}
   if(kind==='social-profile'&&id){await renderProfile(id);return;}
   if(kind==='social-saved'){await renderSaved();return;}
   injectMyRoute();injectProfileEntry();await injectFeed();
- }finally{rendering=false;}
+ }finally{rendering=false;if(renderAgain){renderAgain=false;queueRender();}}
 }
 function queueRender(){if(queued)return;queued=true;setTimeout(()=>{queued=false;routeRender();},0);}
 

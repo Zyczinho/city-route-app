@@ -63,3 +63,10 @@ test('app.js reports saves and applies the merged result; module never writes ap
  assert.match(read('service-worker.js'),/saved-places-model\.js/);
  assert.match(read('scripts/build.mjs'),/'saved-places-sync\.js'/);
 });
+
+test('#109: a community route requested while the feed is still loading is rendered, not dropped',()=>{
+ const src=read('social-routes-enhancements.js');
+ assert.match(src,/if\(rendering\)\{renderAgain=true;return;\}/);
+ assert.match(src,/finally\{rendering=false;if\(renderAgain\)\{renderAgain=false;queueRender\(\);\}\}/);
+ assert.doesNotMatch(src,/if\(rendering\)return;/);
+});

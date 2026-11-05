@@ -327,4 +327,8 @@ document.addEventListener('submit',async e=>{
 document.addEventListener('submit',e=>{const form=e.target.closest?.('[data-social-publish]');if(form){e.preventDefault();e.stopImmediatePropagation();submitPublish(form);}},true);
 window.addEventListener('hashchange',queueRender);
 const observer=new MutationObserver(queueRender);observer.observe(document.querySelector('#main')||document.documentElement,{subtree:true,childList:true});
-const {data:{session:initialSession}}=await supabase.auth.getSession();session=initialSession;supabase.auth.onAuthStateChange((_event,next)=>{session=next;queueRender();});queueRender();
+// Public routes must render even when an auth refresh is delayed or unavailable (offline/PWA reload).
+// Only relationship, save and review actions require a confirmed session.
+supabase.auth.onAuthStateChange((_event,next)=>{session=next;queueRender();});
+queueRender();
+void supabase.auth.getSession().then(({data})=>{session=data?.session||null;queueRender();}).catch(()=>{queueRender();});

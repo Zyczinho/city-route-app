@@ -54,6 +54,6 @@ test('all missing-image displays are lazy scoped, and source/renderer are includ
   for(const src of [sw,build])assert.ok(src.includes(name),name+' not included in distribution');
  }
  assert.match(html,/commons-photo-runtime\.js\?v=1/);
- assert.match(sw,/city-route-v63/);
+ assert.match(sw,/city-route-v64/);
  for(const name of ['commons-photo-source.js','commons-photo-runtime.js','app.js'])execFileSync(process.execPath,['--check',name],{stdio:'pipe'});
 });

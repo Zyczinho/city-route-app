@@ -58,7 +58,7 @@ test('guide, place search, planner, photo fallback and community use SVG rather 
 });
 test('PWA includes icon renderer, CSS, missing SVGs and correct module version bumps',()=>{
  const html=read('index.html'),sw=read('service-worker.js'),build=read('scripts/build.mjs');
- assert.match(sw,/city-route-v63/);
+ assert.match(sw,/city-route-v64/);
  assert.match(html,/ui-icons\.css\?v=2/);
  for(const path of ['ui-icons.css','ui-icons.js']){assert.ok(build.includes(path));assert.ok(sw.includes(path));}
  for(const name of ['chevron-down','minus','heart','grip-vertical'])assert.ok(sw.includes('assets/icons/ui/'+name+'.svg'),'missing offline icon '+name);

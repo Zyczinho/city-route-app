@@ -1,5 +1,8 @@
 /* BETA-GALLERY-058 — compact, touch-friendly, non-destructive photo editor. */
-#place-form .file input[type=file]{width:100%;max-width:100%;min-width:0}
+/* The invisible file input must stay inside its label: absolutely positioned against a static label it took the
+   whole page width, widened the layout viewport to ~406 px on a 375 px phone and shifted taps on iPhone. */
+#place-form label.file{position:relative;overflow:hidden}
+#place-form .file input[type=file]{position:absolute;inset:0;width:100%;height:100%;max-width:100%;min-width:0;opacity:0;cursor:pointer}
 .place-photo-editor{display:grid;gap:12px;min-width:0}
 .place-photo-editor-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .place-photo-editor-heading strong{font-size:15px;color:var(--ink)}

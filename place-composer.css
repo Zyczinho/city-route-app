@@ -60,7 +60,7 @@
 .pc-photo.is-accepted figcaption strong{color:var(--ta)}
 .pc-photo-count{font-variant-numeric:tabular-nums}
 .pc-photo-actions{display:flex;flex-wrap:wrap;gap:8px}
-.pc-photo-actions button{flex:1 1 0;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px}
+.pc-photo-actions button{flex:1 1 130px;min-width:0;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px}
 .pc-photo-actions .i{width:18px;height:18px}
 .pc-photo-actions .primary{flex-basis:100%}
 .pc-photo-actions button{white-space:nowrap}
@@ -68,3 +68,6 @@
 .pc-photo-empty{display:grid;gap:8px;padding:10px 12px;border-radius:12px;background:var(--bg)}
 .pc-photo-note{margin:0}
 @media (prefers-reduced-motion:no-preference){.pc-photo img{transition:outline-color .15s}}
+
+/* Never let the composer push the page wider than the phone. */
+.pc-preview,.pc-photo-slot,.pc-photo,.pc-photo-actions{min-width:0;max-width:100%}

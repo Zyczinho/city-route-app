@@ -47,6 +47,6 @@ test('shared SVG system is consistent and assets shipped in PWA',()=>{
  assert.match(requests,/icons\/ui\/plus\.svg/);
  assert.doesNotMatch(saved,/🔖/);
  for(const v of ['profile-polish.css','profile-social-stats.js'])for(const src of [html,sw,build])assert.ok(src.includes(v),v+' missing');
- assert.match(sw,/city-route-v63/);
+ assert.match(sw,/city-route-v64/);
  for(const p of ['app.js','auth-enhancements.js','onboarding-guide.js','profile-social-stats.js'])execFileSync(process.execPath,['--check',p],{stdio:'pipe'});
 });

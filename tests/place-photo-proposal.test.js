@@ -140,3 +140,10 @@ test('Worker Google soft cap defaults to the documented 300 per instance, not 25
  assert.match(worker,/Math\.min\(5000,Number\(env\.GOOGLE_PLACES_DAILY_CAP\)\|\|300\)/);
  assert.doesNotMatch(worker,/Math\.min\(25,Number\(env\.GOOGLE_PLACES_DAILY_CAP\)/);
 });
+
+test('Add Place never widens the phone layout: file input stays inside its label, photo buttons wrap',()=>{
+ const gallery=read('place-photo-gallery.css'),composer=read('place-composer.css');
+ assert.match(gallery,/#place-form label\.file\{position:relative;overflow:hidden\}/);
+ assert.match(gallery,/#place-form \.file input\[type=file\]\{position:absolute;inset:0;width:100%;height:100%/);
+ assert.match(composer,/\.pc-photo-actions button\{flex:1 1 130px;min-width:0;/);
+});

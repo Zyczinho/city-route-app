@@ -19,8 +19,21 @@ export function choosePlacePhoto(candidates=[],{placeId=null}={}){
   .filter(c=>Number.isFinite(c.quality))
   .sort((a,b)=>b.quality-a.quality)[0]||null;
 }
+// Google lists the place's main photo first (the cover shown in Google Maps, usually picked by the owner
+// or Google). Keep Google's order and take the first photo that is usable on a card; fall back to visual
+// quality only when none is. Ranking by resolution alone picked random visitor shots (e.g. a dark dance floor).
+export function usableGooglePhoto(photo){
+ const w=finite(photo?.widthPx??photo?.width),h=finite(photo?.heightPx??photo?.height);
+ if(!photo?.name)return false;
+ if(w<=0||h<=0)return true; // size unknown: trust Google's order
+ const ratio=w/h;
+ return Math.min(w,h)>=400&&ratio>=.6&&ratio<=2.6;
+}
 export function bestGooglePhoto(photos=[]){
- const ranked=(Array.isArray(photos)?photos:[])
+ const list=Array.isArray(photos)?photos:[];
+ const main=list.findIndex(usableGooglePhoto);
+ if(main>=0)return {photo:list[main],index:main,score:photoQuality(list[main])};
+ const ranked=list
   .map((photo,index)=>({photo,index,score:photoQuality(photo)}))
   .filter(x=>x.photo?.name&&Number.isFinite(x.score))
   .sort((a,b)=>b.score-a.score||a.index-b.index);

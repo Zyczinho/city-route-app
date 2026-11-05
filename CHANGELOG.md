@@ -52,3 +52,6 @@ The last text glyphs that stood in for icons are now local Lucide SVGs: route st
 
 ## 2026-11-05 — Google main photo first
 Google photos now keep Google's order: the place's main photo (the cover shown in Google Maps) is used unless it is unusable (short side under 400 px or extreme ratio). Ranking by resolution had picked random visitor shots, e.g. a blurry dance floor for Sketch Nite. PWA cache v63.
+
+## 2026-11-05 — Add Place no longer widens the phone layout
+The invisible "Dodaj zdjęcia" file input was absolutely positioned against the whole page, so it took the full page width and pushed the layout to ~406 px on a 375 px phone; the photo proposal buttons did not wrap either. On iPhone this shifts and zooms the page and can make taps on "Zaproponuj społeczności" and "Dodaj miejsce" miss. The input now stays inside its label and the buttons wrap. PWA cache v64.

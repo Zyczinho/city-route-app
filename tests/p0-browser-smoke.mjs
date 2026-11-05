@@ -136,6 +136,7 @@ try{
  const removed=await placesPage.evaluate(()=>JSON.parse(localStorage.getItem('city-route-v1')).savedPlacesByCity.warsaw);
  assert.ok(!removed.includes('u-spoco-smoke'),'unbookmark removes only the bookmark, never the created place');
  await placesPage.locator('#me').click();
+ await placesPage.locator('.profile-statistics > summary').click();
  await placesPage.locator('[data-action="show-my-places"]').waitFor();
  await placesPage.locator('[data-action="show-my-places"]').click();
  assert.equal(await placesPage.locator('[data-action="cat"][data-value="mine"]').getAttribute('aria-pressed'),'true');

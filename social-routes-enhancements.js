@@ -248,7 +248,7 @@ function injectMyRoute(){
 }
 function injectProfileEntry(){
  if(location.hash.split('/')[0]!=='#profile')return;const root=main();if(!root||root.querySelector('[data-social-saved-entry]'))return;
- const menu=root.querySelector('.menu');if(menu){const a=document.createElement('a');a.href='#social-saved';a.dataset.socialSavedEntry='1';a.innerHTML='<span>🔖</span><span>Zapisane trasy<small>Trasy City Route i społeczności</small></span><span>›</span>';menu.prepend(a);}
+ const menu=root.querySelector('.menu');if(menu){const a=document.createElement('a');a.href='#social-saved';a.dataset.socialSavedEntry='1';a.innerHTML='<span class="i" style="--i:url(./assets/icons/ui/bookmark.svg)" aria-hidden="true"></span><span>Zapisane trasy<small>Trasy City Route i społeczności</small></span><span class="i" style="--i:url(./assets/icons/ui/chevron-right.svg)" aria-hidden="true"></span>';menu.prepend(a);}
 }
 
 function syncSaveButtons(routeId){

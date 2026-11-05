@@ -110,7 +110,7 @@ async function hydrateProfile(user){
 function setNotice(text){notice=text;renderAuth();}
 
 function signedOutMarkup(){
-  return `<section class="auth-card" data-city-auth data-auth-state="out" data-auth-user="" data-auth-notice="${esc(notice)}"><div><p class="kicker">Konto City Route</p><h2>Zapisz swój profil i korzystaj na różnych urządzeniach</h2><p class="fine">Trasy pozostają dostępne lokalnie. Konto synchronizuje na razie profil; grupy i chat dołączą na tej samej bazie.</p></div>
+  return `<section class="auth-card" data-city-auth data-auth-state="out" data-auth-user="" data-auth-notice="${esc(notice)}"><div><p class="kicker">Konto City Route</p><h2>Zaloguj się do City Route</h2></div>
   ${notice?`<p class="auth-notice" role="status">${esc(notice)}</p>`:''}
   <button type="button" class="google-auth-button" data-auth-action="google"><span class="google-auth-mark" aria-hidden="true">G</span>Kontynuuj z Google</button>
   <div class="auth-divider" aria-hidden="true"><span>lub zaloguj się e-mailem</span></div>

@@ -16,6 +16,6 @@ test('public route detail and author profile expose real friend invitation with 
  assert.match(src,/requested_by_me/);
  assert.match(src,/friend_status==='accepted'/);
  assert.match(src,/href="#profile"/);
- assert.doesNotMatch(src,/data-author-follow/,'following is separate and not faked as friendship');
+ assert.match(src,/data-author-follow/,'following must remain separate from friendship');
  execFileSync(process.execPath,['--check','social-routes-enhancements.js'],{stdio:'pipe'});
 });

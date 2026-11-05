@@ -193,10 +193,12 @@ try{
  await placesPage.locator('[data-action="edit-place-photo"]').nth(1).click();
  await placesPage.locator('[data-action="cover-place-photo"]').click();
  assert.ok(await placesPage.locator('.place-photo-item').first().textContent().then(s=>s.includes('Główne')));
- await placesPage.locator('#place-form input[name="vis"][value="public"] + span').click();
+ await placesPage.locator('#place-form input[name="vis"][value="public"]').evaluate(input=>input.click());
+ assert.equal(await placesPage.locator('#place-form input[name="vis"][value="public"]').isChecked(),true);
  assert.equal(await placesPage.locator('[data-photo-rights]').isVisible(),true);
  assert.equal(await placesPage.locator('input[name="image_rights"]').isChecked(),false);
- await placesPage.locator('#place-form input[name="vis"][value="private"] + span').click();
+ await placesPage.locator('#place-form input[name="vis"][value="private"]').evaluate(input=>input.click());
+ assert.equal(await placesPage.locator('#place-form input[name="vis"][value="private"]').isChecked(),true);
  await placesPage.locator('#place-form input[name="where"]').evaluate(el=>{el.value='52.2322, 21.0111';});
  await placesPage.locator('#place-form button.primary.big').click();
  await placesPage.waitForFunction(()=>{const s=JSON.parse(localStorage.getItem('city-route-v1')||'null');return s?.userPlaces?.some(p=>p.name==='Nieistniejacy Punkt Beta 987654321')},{timeout:15000});

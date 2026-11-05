@@ -1,4 +1,5 @@
 import { supabase } from './supabase-client.js';
+import {iconMarkup} from './ui-icons.js';
 
 let session=null;
 let channel=null;
@@ -41,7 +42,7 @@ function profileEntry(){}
 function shell(title,body){
   const root=main();
   if(!root)return;
-  root.innerHTML=`<section class="community-page" data-community-root><header class="community-head"><a class="back" href="${groupBack()}">← ${communityPath()?.view==='group'?'Wróć':'Społeczność'}</a><p class="kicker">Społeczność</p><h1>${esc(title)}</h1></header>${body}</section>`;
+  root.innerHTML=`<section class="community-page" data-community-root><header class="community-head"><a class="back" href="${groupBack()}">${iconMarkup('arrow-left')} ${communityPath()?.view==='group'?'Wróć':'Społeczność'}</a><p class="kicker">Społeczność</p><h1>${esc(title)}</h1></header>${body}</section>`;
 }
 
 function status(text,kind=''){

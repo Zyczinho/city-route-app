@@ -6,7 +6,7 @@ const read=p=>readFile(new URL('../'+p,import.meta.url),'utf8');
 
 test('release 029 includes all three feature modules in HTML, build and offline cache',async()=>{
  const [html,build,sw]=await Promise.all(['index.html','scripts/build.mjs','service-worker.js'].map(read));
- for(const [id,version] of [['place-contributions.js','v=1'],['friends.js','v=1'],['place-reviews.js','v=2']]){
+ for(const [id,version] of [['place-contributions.js','v=2'],['friends.js','v=1'],['place-reviews.js','v=2']]){
   assert.ok(html.includes(id+'?'+version),'missing frontend module '+id);
   assert.ok(sw.includes(id+'?'+version),'missing offline resource '+id);
   assert.ok(build.includes("'"+id+"'"),'missing production build copy '+id);
@@ -18,7 +18,7 @@ test('release 029 includes all three feature modules in HTML, build and offline 
  assert.match(html,/auth-enhancements\.js\?v=23/);
  assert.match(html,/community-hub\.js\?v=3/);
  assert.match(html,/social-routes-enhancements\.js\?v=7/);
- assert.match(sw,/city-route-v58/);
+ assert.match(sw,/city-route-v59/);
  assert.ok(!html.includes('city-route-v33'));
 });
 

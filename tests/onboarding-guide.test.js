@@ -66,7 +66,7 @@ test('guide assets are present in build and offline cache; navbar has exactly si
  }
  assert.match(index,/onboarding-guide\.css\?v=2/);
  assert.match(index,/nav-enhancements\.js\?v=4/);
- assert.match(sw,/city-route-v58/);
+ assert.match(sw,/city-route-v59/);
  assert.match(css,/#navigation\{grid-template-columns:repeat\(6,minmax\(0,1fr\)\)/);
  assert.match(css,/guide-group\[hidden\].*display:none/);
  for(const p of ['onboarding-guide.js','onboarding-content.js','app.js','nav-enhancements.js'])

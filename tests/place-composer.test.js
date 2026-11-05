@@ -169,13 +169,13 @@ test('Google photos are never copied into the user photo upload',async()=>{
  assert.doesNotMatch(enhancements,/20\.35,52\.55,21\.55,51\.90/,'no fixed Warsaw viewbox');
  const composer=await read('place-composer.js');
  assert.doesNotMatch(composer,/DataTransfer|\.files\s*=/,'composer only previews Google photos');
- assert.match(composer,/Tylko podgląd, nie zapisujemy go/);
+ assert.match(composer,/Wyświetlamy je z Google, nie kopiujemy pliku/);
 });
 
 test('composer ships, loads after app.js and leaves app.js the only writer of places',async()=>{
  const [html,build,composer]=await Promise.all([read('index.html'),read('scripts/build.mjs'),read('place-composer.js')]);
- assert.match(html,/place-composer\.js\?v=4/);
- assert.match(html,/place-composer\.css\?v=1/);
+ assert.match(html,/place-composer\.js\?v=5/);
+ assert.match(html,/place-composer\.css\?v=2/);
  assert.ok(html.indexOf('./app.js')<html.indexOf('place-composer.js'));
  for(const f of ['place-composer.js','place-composer-model.js','place-composer.css'])assert.ok(build.includes(`'${f}'`),`${f} must ship in dist`);
  assert.doesNotMatch(composer,/from '\.\/app\.js'|localStorage\.setItem/,'saving stays in app.js; nothing is published');

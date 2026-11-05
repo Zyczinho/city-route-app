@@ -46,3 +46,25 @@
 .pc-known-preview{display:flex;align-items:center;gap:10px}
 .pc-known-preview img{width:56px;height:56px;object-fit:cover;border-radius:8px}
 .pc-known-preview .pc-opt-no-photo{width:44px;height:44px;display:grid;place-items:center;background:var(--line-2)}
+
+/* P0 #1 automatic photo proposal in Add Place. */
+.pc-photo-slot:empty{display:none}
+.pc-photo-slot{display:grid;gap:8px}
+.pc-photo{margin:0;display:grid;gap:6px}
+.pc-photo img{width:100%;aspect-ratio:16/10;max-height:240px;object-fit:cover;border-radius:12px;background:var(--line-2)}
+.pc-photo.is-accepted img{outline:3px solid var(--ta);outline-offset:-3px}
+.pc-photo figcaption{display:grid;gap:2px;font-size:12px;color:var(--muted)}
+.pc-photo figcaption strong{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--ink)}
+.pc-photo figcaption a{color:inherit}
+.pc-photo .i{width:18px;height:18px}
+.pc-photo.is-accepted figcaption strong{color:var(--ta)}
+.pc-photo-count{font-variant-numeric:tabular-nums}
+.pc-photo-actions{display:flex;flex-wrap:wrap;gap:8px}
+.pc-photo-actions button{flex:1 1 0;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px}
+.pc-photo-actions .i{width:18px;height:18px}
+.pc-photo-actions .primary{flex-basis:100%}
+.pc-photo-actions button{white-space:nowrap}
+.pc-photo-state{display:flex;align-items:center;gap:8px;margin:0;font-size:14px;color:var(--muted)}
+.pc-photo-empty{display:grid;gap:8px;padding:10px 12px;border-radius:12px;background:var(--bg)}
+.pc-photo-note{margin:0}
+@media (prefers-reduced-motion:no-preference){.pc-photo img{transition:outline-color .15s}}

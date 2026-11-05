@@ -38,7 +38,7 @@ test('mobile CSS guards iPhone native date/time width and route nav active statu
  assert.match(css,/#navigation a\[href="#my-route"\]\.active/);
  assert.match(css,/\.ux-submit\{width:100%/);
  const sw=read('service-worker.js'),index=read('index.html'),build=read('scripts/build.mjs');
- assert.match(sw,/city-route-v60/);
+ assert.match(sw,/city-route-v61/);
  assert.match(sw,/mobile-first30\.css\?v=1/);
  assert.match(index,/mobile-first30\.css\?v=1/);
  assert.match(index,/ux-cleanup\.js\?v=5/);

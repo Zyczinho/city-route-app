@@ -69,7 +69,7 @@ test('release ships all gallery code/css and refreshed modules offline',()=>{
  for(const file of ['place-photo-gallery.css','place-photo-model.js']){assert.ok(sw.includes(file),file+' missing from cache');assert.ok(build.includes(file),file+' missing from build');}
  assert.ok(html.includes('place-photo-gallery.css?v=1'));
  assert.match(html,/auth-enhancements\.js\?v=23/);
- assert.match(html,/place-composer\.js\?v=4/);
- assert.match(sw,/city-route-v60/);
+ assert.match(html,/place-composer\.js\?v=5/);
+ assert.match(sw,/city-route-v61/);
  for(const file of ['app.js','auth-enhancements.js','place-composer.js','place-photo-model.js'])execFileSync(process.execPath,['--check',file],{stdio:'pipe'});
 });

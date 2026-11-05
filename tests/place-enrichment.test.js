@@ -104,3 +104,10 @@ test('enrichment prefers highest-quality Google venue image and correctly attrib
   fetcher:async()=>reply({...google,photos})});
  assert.equal(result.image.credit.author,'Venue photographer');
 });
+
+test('short OSM name matches the longer Google name only when the venues are within 100 m',()=>{
+ const base={requestedName:'Charlotte',requestedLat:52.22009,requestedLng:21.01864,candidateName:'Charlotte. Chleb i Wino'};
+ assert.equal(isSamePlace({...base,candidateLat:52.22015,candidateLng:21.01870}),true);
+ assert.equal(isSamePlace({...base,candidateLat:52.22200,candidateLng:21.01870}),false,'~210 m away is another venue');
+ assert.equal(isSamePlace({...base,candidateName:'Charlie Burger',candidateLat:52.22015,candidateLng:21.01870}),false);
+});

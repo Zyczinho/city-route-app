@@ -73,9 +73,9 @@ test('migration locks down all direct writes and moderates via app-admin only',a
 test('UI and PWA bundle shared-place modules without exposing private proposals',async()=>{
  const [app,index,sw,build,runtime,admin]=await Promise.all(['app.js','index.html','service-worker.js','scripts/build.mjs','place-contributions.js','admin/place-submissions.js'].map(load));
  for(const path of ['place-contributions.js','place-contributions-client.js'])assert.ok(build.includes(path));
- for(const path of ['./place-contributions.js?v=1','./place-contributions-client.js'])assert.ok(sw.includes(path));
- assert.match(index,/place-contributions\.js\?v=1/);
- assert.match(sw,/city-route-v58/);
+ for(const path of ['./place-contributions.js?v=2','./place-contributions-client.js'])assert.ok(sw.includes(path));
+ assert.match(index,/place-contributions\.js\?v=2/);
+ assert.match(sw,/city-route-v59/);
  assert.match(app,/cityroute:place-created/);
  assert.match(app,/cityroute:submission-updated/);
  assert.match(app,/data-community-submit/);

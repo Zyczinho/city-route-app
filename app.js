@@ -88,7 +88,9 @@ async function enrichPlaceOnDemand(p){
   if(!r.ok||!['ok','no-match','no-key'].includes(data.status))return;
   if(!all[p.id]||p.cityId!==city().id)return;
   providerOverlay.set(p.id,{ratings:Array.isArray(data.ratings)?data.ratings:[],reviews:Array.isArray(data.reviews)?data.reviews:[],image:data.image||null});
-  render();
+  // A visible list row is swapped in place: re-rendering the whole screen per photo would rebuild the map and jump the scroll.
+  const row=document.querySelector(`.place-list article.place[data-place-id="${CSS.escape(String(p.id))}"]`);
+  if(row)row.outerHTML=placeRow(all[p.id]);else render();
   if($('#place-dialog')?.open&&$('#place-dialog').dataset.placeId===p.id)openPlace(p.id);
  }catch{/* Offline/provider unavailable; place itself remains saved. */}
  finally{providerLoading.delete(p.id);}
@@ -108,7 +110,15 @@ function nav(){$('#me').innerHTML=avatar('sm');$('#me').classList.toggle('active
 
 // Shared pieces
 function approvedPhoto(p){return choosePlacePhoto(p?.photoCandidates||[],{placeId:p?.id})}
-function photo(p,cls='',eager=false){const image=p?.image||approvedPhoto(p)?.src||providerOverlay.get(p?.id)?.image?.src;if(!image){const nightlife=p?.cats?.[0]==='nocne',geo=p?.id&&p?.name&&Number.isFinite(p?.lat)&&Number.isFinite(p?.lng)?` data-commons-photo="${esc(p.id)}" data-commons-name="${esc(p.name)}" data-commons-lat="${p.lat}" data-commons-lng="${p.lng}"`:'';return `<div class="ph ${cls}${nightlife?' ph-nightlife':''}"${geo} aria-label="Brak fotografii lokalu">${nightlife?`<span class="ph-letter">${esc(String(p?.name||'K').slice(0,1).toUpperCase())}</span>`:ic(p?.kind==='user'?'map-pin':'camera')}</div>`;} const src=/^(https?:|data:image\/|\/api\/place-photo\?)/.test(image)?image:`./assets/images/${image}`;return `<img class="${cls}" src="${esc(src)}" alt="${esc(p.imageCaption||p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer">`;}
+// No authorised photo yet (loading, no provider match, or daily provider cap reached): an honest category tile.
+const CAT_TILE={bar:['wine','night'],pub:['beer','night'],cocktail_bar:['martini','night'],wine_bar:['wine','night'],club:['disc-3','night'],live_music:['music','night'],
+ restaurant:['utensils','food'],street_food:['utensils','food'],cafe:['coffee','food'],breakfast:['croissant','food'],bakery:['croissant','food'],dessert:['cake-slice','food'],food_hall:['store','food'],
+ museum:['library','culture'],gallery:['palette','culture'],landmark:['landmark','culture'],architecture:['landmark','culture'],religious_site:['church','culture'],
+ viewpoint:['binoculars','nature'],park:['trees','nature'],garden:['trees','nature'],walk:['trees','nature'],waterfront:['waves','nature'],beach:['waves','nature'],
+ neighborhood:['signpost','city'],hidden_gem:['signpost','city'],hotel:['bed-double','stay'],hostel:['bed-double','stay'],guesthouse:['bed-double','stay'],apartment:['bed-double','stay'],sport:['trophy','city']};
+const LEGACY_TILE={zabytki:'landmark',muzea:'museum',zielen:'park',widoki:'viewpoint',okolice:'neighborhood',jedzenie:'restaurant',nocne:'bar',noclegi:'hotel',aktywnosci:'sport'};
+function catTile(p,cls,geo){const [icon,mood]=CAT_TILE[p?.categoryId]||CAT_TILE[LEGACY_TILE[p?.cats?.[0]]]||['map-pin','city'];return `<div class="ph ph-cat ph-${mood} ${cls}"${geo} aria-label="Brak fotografii lokalu">${ic(icon,'ph-cat-ghost')}${ic(icon,'ph-cat-glyph')}</div>`;}
+function photo(p,cls='',eager=false){const image=p?.image||approvedPhoto(p)?.src||providerOverlay.get(p?.id)?.image?.src;if(!image){const geo=p?.id&&p?.name&&Number.isFinite(p?.lat)&&Number.isFinite(p?.lng)?` data-commons-photo="${esc(p.id)}" data-commons-name="${esc(p.name)}" data-commons-lat="${p.lat}" data-commons-lng="${p.lng}"`:'';return catTile(p,cls,geo);} const src=/^(https?:|data:image\/|\/api\/place-photo\?)/.test(image)?image:`./assets/images/${image}`;return `<img class="${cls}" src="${esc(src)}" alt="${esc(p.imageCaption||p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer">`;}
 function credit(p){const c=p?.imageCredit||(!p?.image?(approvedPhoto(p)?.credit||providerOverlay.get(p?.id)?.image?.credit):null);if(!c)return '';const lic=c.licenseUrl?`<a href="${esc(c.licenseUrl)}" target="_blank" rel="noopener noreferrer">${esc(c.license)}</a>`:esc(c.license);return `<p class="credit">${ic('camera')}<span>${p.imageCaption?esc(p.imageCaption)+'. ':''}Zdjęcie: ${esc(c.author)} · ${lic} · <a href="${esc(c.source)}" target="_blank" rel="noopener noreferrer">${esc(c.via)}</a></span></p>`;}
 const rating=(p,s)=>providerRatings(p).find(r=>r.source===s);
 const cityRouteBadge=p=>`<span class="cr-score" data-cityroute-ref="${esc(p.id)}" title="Średnia społeczności City Route — niezależna od ocen Google i Tripadvisor">${ic("star")} City Route · Brak ocen</span>`;
@@ -226,8 +236,18 @@ async function mountPlacesMap(){
 
 // Newly added private/approved community places are enriched when visible, including after reload.
 // Never auto-query all 275+ existing catalogue entries or spend provider quota on page load.
+// Only rows that scroll into view are queued, at most three requests at a time, and the queue is dropped when the list
+// changes, so a filter switch never spends provider quota on rows nobody saw. The Worker caps daily Google calls.
+const enrichQueue=[];let enrichActive=0;
+const needsProvider=p=>!!p&&!providerOverlay.has(p.id)&&(!p.image||!providerRatings(p).length);
+function pumpEnrichment(){
+ while(enrichActive<3&&enrichQueue.length){
+  const p=enrichQueue.shift();enrichActive++;
+  enrichPlaceOnDemand(p).finally(()=>{enrichActive--;pumpEnrichment();});
+ }
+}
 function observeApprovedPlaceEnrichment(){
- providerObserver?.disconnect();providerObserver=null;
+ providerObserver?.disconnect();providerObserver=null;enrichQueue.length=0;
  if(typeof IntersectionObserver==='undefined')return;
  const rows=[...document.querySelectorAll('.place-list article.place[data-place-id]')];
  if(!rows.length)return;
@@ -236,13 +256,10 @@ function observeApprovedPlaceEnrichment(){
    if(!entry.isIntersecting)continue;
    io.unobserve(entry.target);
    const p=all[entry.target.dataset.placeId];
-   if((p?.origin==='community'||p?.kind==='user')&&!providerOverlay.has(p.id)&&(!p.image||!providerRatings(p).length))void enrichPlaceOnDemand(p);
+   if(needsProvider(p)&&!enrichQueue.includes(p)){enrichQueue.push(p);pumpEnrichment();}
   }
  },{rootMargin:'180px 0px'});
- for(const row of rows){
-  const p=all[row.dataset.placeId];
-  if((p?.origin==='community'||p?.kind==='user')&&!providerOverlay.has(p.id)&&(!p.image||!providerRatings(p).length))io.observe(row);
- }
+ for(const row of rows)if(needsProvider(all[row.dataset.placeId]))io.observe(row);
  providerObserver=io;
 }
 function openPlace(id){const p=all[id];if(!p)return;if(!providerOverlay.has(p.id)&&(p.kind==='user'||(!p.image&&!providerRatings(p).length)))void enrichPlaceOnDemand(p);const d=$('#place-dialog');const freshlySaved=id===justSavedPlaceId||(d.open&&d.dataset.placeId===id&&!!d.querySelector('[data-action="add-another-place"]'));if(id===justSavedPlaceId)justSavedPlaceId=null;const anchor=p.kind==='sidequest'?all[p.placeId]:null;d.dataset.placeId=id;if(/^[0-9a-f-]{36}$/.test(p.communitySubmissionId||''))d.dataset.gallerySubmissionId=p.communitySubmissionId;else delete d.dataset.gallerySubmissionId;

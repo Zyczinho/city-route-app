@@ -331,8 +331,6 @@ img.avatar{object-fit:cover;display:block}.avatar.sm{width:36px;height:36px;font
  .place .srcs .src{font-size:9px}
 }
 /* Nightlife placeholders are a branded fallback, not falsely presented as real photos. */
-.ph-nightlife{background:linear-gradient(145deg,#162036,#3b275d 64%,#0b4e59);color:#eae6f9}
-.ph-letter{font-size:30px;font-weight:800;letter-spacing:-.05em;color:#f3e5ff;text-shadow:0 2px 12px #0006}
 .photo-source-hint{border:1px solid var(--line);background:var(--surface);padding:10px 12px;border-radius:12px}
 .photo-source-hint summary{cursor:pointer;font-size:13px;font-weight:650}
 .photo-source-hint label{display:block;margin-top:10px}

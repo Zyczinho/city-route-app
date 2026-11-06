@@ -44,3 +44,17 @@ a.inline,.planner-head-compact a.inline{display:inline-flex;align-items:center}
 .cr-map-card-close,.social-close{display:inline-grid;place-items:center;font-size:0}
 .cr-map-card-close .i,.social-close .i{width:18px;height:18px}
 .guide-sep{width:13px;height:13px;margin:0 3px;vertical-align:-2px;color:var(--muted)}
+
+/* Category tiles for places without an authorised photo. One Lucide glyph, two layers: a crisp centred mark and a large cropped echo. */
+.ph.ph-cat,.thumb .ph.ph-cat,.sheet-media .ph.ph-cat,.cover .ph.ph-cat,.media .ph.ph-cat{display:grid;place-items:center;position:relative;overflow:hidden;isolation:isolate;background:none}
+.ph-cat::before{content:"";position:absolute;inset:0;z-index:-2;background:radial-gradient(130% 100% at 20% 0%,var(--ph-hi),transparent 60%),linear-gradient(155deg,var(--ph-a),var(--ph-b))}
+.ph-cat::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background-image:radial-gradient(var(--ph-dot) 1px,transparent 1.2px);background-size:9px 9px;-webkit-mask-image:linear-gradient(200deg,#000,transparent 70%);mask-image:linear-gradient(200deg,#000,transparent 70%);box-shadow:inset 0 0 0 1px var(--ph-line)}
+.ph-cat .ph-cat-glyph{grid-area:1/1;width:38%;height:38%;min-width:26px;min-height:26px;max-width:72px;max-height:72px;color:var(--ph-ink);filter:drop-shadow(0 0 10px var(--ph-glow)) drop-shadow(0 4px 10px var(--ph-glow))}
+.ph-cat .ph-cat-ghost{position:absolute;width:120%;height:120%;right:-48%;bottom:-46%;color:var(--ph-ink);opacity:.1;transform:rotate(-14deg);z-index:-1}
+.ph-night{--ph-a:#10172e;--ph-b:#3b1f66;--ph-hi:#14b8a640;--ph-ink:#f5edff;--ph-glow:#c084fcaa;--ph-line:#ffffff1a;--ph-dot:#ffffff22}
+.ph-night .ph-cat-ghost{opacity:.16;color:#c4b5fd}
+.ph-food{--ph-a:#fff6ec;--ph-b:#ffd3ad;--ph-hi:#ffffffd9;--ph-ink:#c2410c;--ph-glow:#fb923c66;--ph-line:#c2410c1f;--ph-dot:#c2410c1f}
+.ph-culture{--ph-a:#f1f5fd;--ph-b:#c9d8f3;--ph-hi:#ffffffe0;--ph-ink:#1d4ed8;--ph-glow:#3b82f655;--ph-line:#1d4ed81f;--ph-dot:#1d4ed81c}
+.ph-nature{--ph-a:#effaf3;--ph-b:#bfe8cf;--ph-hi:#ffffffe0;--ph-ink:#15803d;--ph-glow:#22c55e55;--ph-line:#15803d1f;--ph-dot:#15803d1c}
+.ph-stay{--ph-a:#f4f6f9;--ph-b:#d6dee8;--ph-hi:#ffffffe0;--ph-ink:#334155;--ph-glow:#64748b44;--ph-line:#3341551f;--ph-dot:#3341551a}
+.ph-city{--ph-a:#f7f4ee;--ph-b:#e3dacb;--ph-hi:#ffffffe0;--ph-ink:#57534e;--ph-glow:#a8a29e55;--ph-line:#57534e1f;--ph-dot:#57534e1a}

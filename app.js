@@ -28,7 +28,10 @@ state.savedPlacesByCity=state.savedPlacesByCity&&typeof state.savedPlacesByCity=
 state.profile={bio:'',...state.profile,socials:{instagram:'',tiktok:'',web:'',...state.profile?.socials}};
 state.cityId=state.cityId||DEFAULT_CITY_ID;state.basketsByCity=state.basketsByCity&&typeof state.basketsByCity==='object'?state.basketsByCity:{};state.builderMetaByCity=state.builderMetaByCity&&typeof state.builderMetaByCity==='object'?state.builderMetaByCity:{};if(!state.basketsByCity[DEFAULT_CITY_ID]&&state.basket.length)state.basketsByCity[DEFAULT_CITY_ID]=[...state.basket];state.basket=[...(state.basketsByCity[state.cityId]||[])];
 let cities=[],taxonomy=null,activeCity=null,places=[],quests=[],routes=[],all={},cat='all',rcat='all',query='',cuisine='all',sort='default',pending=null,generated=null,generatedOptions=[],generatedIndex=0,generationPrefs=null,generationHistory=[],editing=false,keepQuery=false,here=null,draft=null,bookTab=null,speaking=false,evScope='global',evWhen='week',evKind='all';const evCache={};
-let mapView=null,renderedPlaceList=[],builderDraft=null,nearbyAfterId=null,nearbyRadiusM=500,addNewPlaceAfterId=null,justSavedPlaceId=null;
+// On the Places tab, only a conscious category selection reveals map pins.
+// The catalogue list can still be browsed and searched without crowding the map.
+let mapCategorySelected=false;
+let mapView=null;renderedPlaceList=[],builderDraft=null,nearbyAfterId=null,nearbyRadiusM=500,addNewPlaceAfterId=null,justSavedPlaceId=null;
 const providerOverlay=new Map(),providerLoading=new Set();let providerObserver=null;
 const persist=()=>{try{if(state?.cityId){state.basketsByCity=state.basketsByCity||{};state.basketsByCity[state.cityId]=[...(state.basket||[])];if(builderDraft?.cityId===state.cityId){const {name,transport,revision,updatedAt}=serializeDraft(builderDraft);state.builderMetaByCity=state.builderMetaByCity||{};state.builderMetaByCity[state.cityId]={cityId:state.cityId,name,transport,revision,updatedAt};}}localStorage.setItem(key,JSON.stringify(state));}catch{storageOK=false;$('#connection').textContent='Zapis lokalny niedostępny. Wyeksportuj dane przed zamknięciem karty.';}};
 const log=(type,data={})=>{state.events.push({type,...data,tester_id:state.tester.id,at:new Date().toISOString()});state.events=state.events.slice(-5000);persist();};
@@ -96,7 +99,7 @@ const LEGACY={home:['plan'],explore:['routes'],best:['places'],food:['places','j
 const route=()=>{const [t,id]=(location.hash.slice(1)||'').split('/');return [t,id];};
 const avatar=(cls='')=>state.profile.photo?`<img class="avatar ${cls}" src="${esc(state.profile.photo)}" alt="">`:`<span class="avatar ${cls}" aria-hidden="true">${esc((!friendlyNickname(state.tester.nickname)?'O':state.tester.nickname[0]).toUpperCase())}</span>`;
 function cityPicker(){const available=cities.filter(c=>['launch','next'].includes(c.status));return `<label class="city-select"><span class="sr-only">Wybierz miasto</span><span class="i" style="--i:url(./assets/icons/ui/map-pin.svg)" aria-hidden="true"></span><select id="city-select" aria-label="Wybierz miasto" ${isLive()?'disabled':''}>${available.map(c=>`<option value="${esc(c.id)}" ${c.id===city().id?'selected':''}>${esc(c.name)}</option>`).join('')}</select></label>`;}
-async function switchCity(nextId){if(nextId===city().id)return;if(isLive())return toast('Najpierw zakończ aktywną trasę.');const next=cities.map(cityById.bind(null,cities)).find(c=>c?.id===nextId)||cities.find(c=>c.id===nextId);if(!next||!['launch','next'].includes(next.status))return toast('To miasto nie jest jeszcze dostępne.');state.basketsByCity[city().id]=[...state.basket];const previous=city(),previousBuilder=builderDraft;state.cityId=next.id;activeCity=next;state.basket=[...(state.basketsByCity[next.id]||[])];generated=null;generatedOptions=[];generationPrefs=null;generationHistory=[];generatedIndex=0;query='';cat='all';rcat='all';cuisine='all';nearbyAfterId=null;addNewPlaceAfterId=null;try{const client=createRestRpcClient({url:SUPABASE_URL,key:SUPABASE_PUBLISHABLE_KEY});const fallback=await loadCityFallback(next);const data=await loadCatalogueWithFallback({client,city:next,fallback});places=data.places;routes=data.routes;quests=next.id===DEFAULT_CITY_ID?forCity(withCityId(await fetchJson('./data/sidequests.json'),DEFAULT_CITY_ID),next.id):[];all=Object.fromEntries([...places,...quests,...forCity(state.userPlaces,next.id)].map(p=>[p.id,p]));const builderReport=hydrateBuilderDraft(next.id);document.documentElement.dataset.catalogueSource=data.source;document.title=`City Route · ${next.name}`;updateCityMeta(next);persist();location.hash='#plan';render();toast(builderReport.dropped.length?'Przełączono na '+next.name+'. '+builderReport.dropped.length+' miejsca nie są już dostępne.':'Przełączono na '+next.name+'.');}catch(error){state.cityId=previous.id;activeCity=previous;builderDraft=previousBuilder;state.basket=[...(state.basketsByCity[previous.id]||[])];throw error;}}
+async function switchCity(nextId){if(nextId===city().id)return;if(isLive())return toast('Najpierw zakończ aktywną trasę.');const next=cities.map(cityById.bind(null,cities)).find(c=>c?.id===nextId)||cities.find(c=>c.id===nextId);if(!next||!['launch','next'].includes(next.status))return toast('To miasto nie jest jeszcze dostępne.');state.basketsByCity[city().id]=[...state.basket];const previous=city(),previousBuilder=builderDraft;state.cityId=next.id;activeCity=next;state.basket=[...(state.basketsByCity[next.id]||[])];generated=null;generatedOptions=[];generationPrefs=null;generationHistory=[];generatedIndex=0;query='';cat='all';mapCategorySelected=false;rcat='all';cuisine='all';nearbyAfterId=null;addNewPlaceAfterId=null;try{const client=createRestRpcClient({url:SUPABASE_URL,key:SUPABASE_PUBLISHABLE_KEY});const fallback=await loadCityFallback(next);const data=await loadCatalogueWithFallback({client,city:next,fallback});places=data.places;routes=data.routes;quests=next.id===DEFAULT_CITY_ID?forCity(withCityId(await fetchJson('./data/sidequests.json'),DEFAULT_CITY_ID),next.id):[];all=Object.fromEntries([...places,...quests,...forCity(state.userPlaces,next.id)].map(p=>[p.id,p]));const builderReport=hydrateBuilderDraft(next.id);document.documentElement.dataset.catalogueSource=data.source;document.title=`City Route · ${next.name}`;updateCityMeta(next);persist();location.hash='#plan';render();toast(builderReport.dropped.length?'Przełączono na '+next.name+'. '+builderReport.dropped.length+' miejsca nie są już dostępne.':'Przełączono na '+next.name+'.');}catch(error){state.cityId=previous.id;activeCity=previous;builderDraft=previousBuilder;state.basket=[...(state.basketsByCity[previous.id]||[])];throw error;}}
 function nav(){$('#me').innerHTML=avatar('sm');$('#me').classList.toggle('active',['profile','sources'].includes(route()[0]));const [h,hid]=route(),t=h==='route'&&hid==='generated'?'plan':TAB_OF[h]||'plan',live=isLive(),chosen=live||state.basket.length>0;
  $('#navigation').innerHTML=TABS.map(([id,icon,label])=>{const mine=id==='my-route',cls=[t===id?'active':'',mine&&chosen?'chosen':'',mine&&live?'live':''].join(' ').trim();
   return `<a href="#${id}" class="${cls}" ${id==='plan'?'aria-label="Zaplanuj moją trasę"':''} ${t===id?'aria-current="page"':''}>${mine&&live?'<span class="pulse" aria-hidden="true"></span>':ic(icon)}<span>${label}</span>${mine&&chosen?`<small class="nav-status">${live?'W toku':'Gotowa'}</small>`:''}${mine&&!live&&state.basket.length?`<b class="badge" aria-label="${state.basket.length} w trasie">${state.basket.length}</b>`:''}</a>`;}).join('');}
@@ -185,7 +188,7 @@ function placesView(){
  if(sort==='rating')list.sort((a,b)=>smoothedRating(b.ratings)-smoothedRating(a.ratings));if(sort==='count')list.sort((a,b)=>c(b).total-c(a).total);
  renderedPlaceList=[...list];
  const cuisines=[...new Set(places.flatMap(p=>p.cuisine||[]))].sort((a,b)=>a.localeCompare(b,'pl'));
- return `${exploreSwitch('places')}<section class="page-head places-intro"><p class="kicker">Miejsca</p><h1>Co chcesz zobaczyć?</h1></section>${placesSearchBox()}${chips([...PLACE_CATS,['sidequests','Side questy','flag']],cat,'cat',true)}${cat==='sidequests'?'<p class="note">Krótkie zadania przy konkretnych miejscach. Pomysły City Route — rekomendacje społeczności pojawią się później.</p>':''}${cat!=='sidequests'?'<div id="places-map" class="places-map-shell" aria-label="Mapa miejsc"></div>':''}<a class="add-place" href="#add-place">${ic('plus')}<span><strong>Dodaj własne miejsce</strong><small>Twoje ulubione miejsce, którego tu brakuje</small></span>${ic('chevron-right')}</a>
+ return `${exploreSwitch('places')}<section class="page-head places-intro"><p class="kicker">Miejsca</p><h1>Co chcesz zobaczyć?</h1></section>${placesSearchBox()}${chips([...PLACE_CATS,['sidequests','Side questy','flag']],mapCategorySelected?cat:null,'cat',true)}${cat==='sidequests'?'<p class="note">Krótkie zadania przy konkretnych miejscach. Pomysły City Route — rekomendacje społeczności pojawią się później.</p>':''}${cat!=='sidequests'?(mapCategorySelected?'':'<p class="fine map-hint" role="status">Wybierz kategorię, aby wyświetlić miejsca na mapie.</p>')+'<div id="places-map" class="places-map-shell" aria-label="Mapa miejsc"></div>':''}<a class="add-place" href="#add-place">${ic('plus')}<span><strong>Dodaj własne miejsce</strong><small>Twoje ulubione miejsce, którego tu brakuje</small></span>${ic('chevron-right')}</a>
  ${cat==='jedzenie'?chips([['all','Każda kuchnia'],...cuisines.map(k=>[k,k[0].toUpperCase()+k.slice(1)])],cuisine,'cuisine'):''}
  
  <div class="list-head"><span>${list.length} ${plural(list.length,'wynik','wyniki','wyników')}</span><label class="sort">Sortuj<select id="sort"><option value="default" ${sort==='default'?'selected':''}>Polecane</option><option value="rating" ${sort==='rating'?'selected':''}>Najlepiej oceniane</option><option value="count" ${sort==='count'?'selected':''}>Najwięcej opinii</option><option value="near" ${sort==='near'?'selected':''}>Najbliżej mnie</option></select></label></div>
@@ -207,14 +210,16 @@ async function mountPlacesMap(){
   }catch{if(mapView===view)view.setPlaces(base);}
  };
  view=createMapView({
-  container:host,places:base,city:city(),
+  container:host,places:base,city:city(),filter:{showPlaces:mapCategorySelected},
   onAddToRoute:p=>{if(isLive())return toast('Najpierw zakończ aktywną trasę.');if(!state.basket.includes(p.id)){const r=applyBuilder(addStop(builderDraft,p,{now:now()}),{eventType:'builder_add',eventData:{place_id:p.id,source:'map'}});if(r?.changed){log('add_to_route',{place_id:p.id,source:'map'});nav();toast(`Dodano jako ${builderDraft.stops.length}. przystanek`);}}},
   onDetails:p=>openPlace(p.id),
   onNearbyChange:syncNearby,
   isInRoute:p=>state.basket.includes(p.id)
  });
  mapView=view;
- view.setRouteStops(items(builderDraft?.stops||[]));
+ // The Places map starts with zero pins, including route-stop overlays.
+ // Once a category is selected, show only draft stops that belong to the visible category.
+ view.setRouteStops(mapCategorySelected?items(builderDraft?.stops||[]).filter(p=>baseById.has(String(p.id))):[]);
 }
 
 // Newly added private/approved community places are enriched when visible, including after reload.
@@ -432,17 +437,17 @@ document.addEventListener('click',e=>{
   if(action==='cover-place-photo'){keepDraft();draft.photos=withCoverFirst(photos,photoId);draft.editPhotoId=photoId;}
   render();return;
  }
- if(action==='show-my-places'||action==='show-saved-places'){cat=action==='show-my-places'?'mine':'saved';query='';if(location.hash==='#places')render();else location.hash='#places';return;}
+ if(action==='show-my-places'||action==='show-saved-places'){cat=action==='show-my-places'?'mine':'saved';mapCategorySelected=true;query='';if(location.hash==='#places')render();else location.hash='#places';return;}
  if(action==='jump-to-place'){cat='all';query='';render();openPlace(id);return;}
  if(action==='add-another-place'){d?.close();draft=null;location.hash='add-place';return;}
  if(action==='route-view')log('route_view',{route_id:id});
- if(action==='cat'){cat=value;cuisine='all';render();}
+ if(action==='cat'){cat=value;mapCategorySelected=true;cuisine='all';render();}
  if(action==='bookmark'){const p=all[id];if(!p)return;const ids=savedIds(),was=ids.includes(id);state.savedPlacesByCity[city().id]=was?ids.filter(x=>x!==id):[...ids,id];persist();render();window.dispatchEvent(new CustomEvent('cityroute:saved-changed',{detail:{cityId:city().id,placeId:id,saved:!was}}));if(d?.open&&d.dataset.placeId===id)openPlace(id);toast(was?'Usunięto z Zapisanych.':'Zapisano miejsce.');return;}
  if(action==='rcat'){rcat=value;render();}
  if(action==='cuisine'){cuisine=value;render();}
  if(action==='clear-search'){query='';render();$('#search')?.focus();}
- if(action==='search-places'){cat='all';keepQuery=true;location.hash='places';}
- if(action==='show-all-search'){cat='all';cuisine='all';render();return;}
+ if(action==='search-places'){cat='all';mapCategorySelected=true;keepQuery=true;location.hash='places';}
+ if(action==='show-all-search'){cat='all';mapCategorySelected=true;cuisine='all';render();return;}
  if(action==='suggest-add-place'){const name=query.trim().slice(0,60);if(name.length<2)return;draft={name,cat:'okolice',vis:'private',rating:'none',photos:[],imageRights:false};query='';location.hash='#add-place';return;}
  if(action==='add'&&!state.basket.includes(id)){const r=applyBuilder(addStop(builderDraft,all[id],{now:now()}),{eventType:'builder_add',eventData:{place_id:id,source:b.dataset.source||'ui'}});if(r?.changed){log('add_to_route',{place_id:id,source:b.dataset.source||'ui'});render();if(d.open)openPlace(id);toast(`Dodano jako ${builderDraft.stops.length}. przystanek`);}}
  if(action==='remove'){const r=applyBuilder(removeStop(builderDraft,id,{now:now()}),{eventType:'builder_remove',eventData:{place_id:id}});if(r?.changed){render();if(d?.open)openPlace(id);toast('Usunięto przystanek z Mojej trasy.');}}

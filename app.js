@@ -611,6 +611,14 @@ window.addEventListener('online',connection);window.addEventListener('offline',c
 try{
  let staticPlaces,staticRoutes;
  [cities,taxonomy,staticPlaces,quests,staticRoutes]=await Promise.all(['cities','taxonomy','places','sidequests','routes'].map(n=>fetchJson(`./data/${n}.json`)));
+ // A shared editorial/community route may belong to a different city than the visitor's saved preference.
+ const requestedShareCity=new URLSearchParams(location.search).get('shareCity');
+ if(/^#(?:route|community-route)\/[^/]+$/.test(location.hash)&&requestedShareCity&&(!state.session||state.session.finished)){
+  if(cities.some(c=>c.id===requestedShareCity&&['launch','next'].includes(c.status))){
+   state.cityId=requestedShareCity;state.basket=[...(state.basketsByCity[requestedShareCity]||[])];
+  }
+  history.replaceState(null,'',location.pathname+location.hash);
+ }
  activeCity=cityById(cities,state.cityId);if(!activeCity)throw Error('city');state.cityId=activeCity.id;
  const jsonCatalogue=activeCity.id===DEFAULT_CITY_ID?{places:forCity(withCityId(staticPlaces,DEFAULT_CITY_ID),activeCity.id),routes:forCity(withCityId(staticRoutes,DEFAULT_CITY_ID),activeCity.id)}:await loadCityFallback(activeCity);
  const catalogueClient=createRestRpcClient({url:SUPABASE_URL,key:SUPABASE_PUBLISHABLE_KEY});

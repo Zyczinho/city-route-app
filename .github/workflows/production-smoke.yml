@@ -5,42 +5,41 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# If main moves while Cloudflare deploys, verify the newest commit rather than
+# failing an older, superseded push run against the newer live app.js.
+concurrency:
+  group: city-route-production-verification-main
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
 jobs:
   production-assets:
     runs-on: ubuntu-24.04
-    timeout-minutes: 8
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Verify Cloudflare active deployment matches repository version
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build exact distributable used by Cloudflare
+        run: npm run build
+      - name: Verify production app.js has exact SHA-256 of this Git commit
+        env:
+          CITY_ROUTE_PROD: https://city-route-app.jakublojek.workers.dev
+        run: node scripts/verify-production-app.mjs
+      - name: Verify app shell and other critical public modules
         shell: bash
         env:
           CITY_ROUTE_PROD: https://city-route-app.jakublojek.workers.dev
         run: |
           set -euo pipefail
-          wanted="$(grep -Eo 'city-route-v[0-9]+' service-worker.js | head -1)"
-          echo "Expected PWA cache version: $wanted"
-          matched=0
-          for attempt in $(seq 1 40); do
-            curl -fsSL --max-time 15 -H 'Cache-Control: no-cache' "$CITY_ROUTE_PROD/service-worker.js?probe=$attempt" -o /tmp/city-route-sw.js || true
-            if grep -Fq "$wanted" /tmp/city-route-sw.js 2>/dev/null; then
-              echo "Cloudflare serves expected version $wanted (attempt $attempt)"
-              matched=1
-              break
-            fi
-            echo "Waiting for Cloudflare main build/deployment (attempt $attempt)..."
-            sleep 8
-          done
-          if [ "$matched" -ne 1 ]; then
-            echo "::error::Cloudflare has not deployed expected PWA version $wanted"
-            exit 1
-          fi
-          curl -fsSL --max-time 15 "$CITY_ROUTE_PROD/index.html?verify=$wanted" -o /tmp/city-route-index.html
+          # These checks supplement, but never replace, the exact app.js hash gate.
+          curl -fsSL --max-time 15 -H 'Cache-Control: no-cache' "$CITY_ROUTE_PROD/index.html?verify=$GITHUB_SHA" -o /tmp/city-route-index.html
           grep -Fq "place-composer.js" /tmp/city-route-index.html
-          curl -fsSL --max-time 15 "$CITY_ROUTE_PROD/route-optimizer.js?verify=$wanted" -o /tmp/city-route-optimizer.js
-          curl -fsSL --max-time 15 "$CITY_ROUTE_PROD/place-composer.js?verify=$wanted" -o /tmp/city-route-place-composer.js
+          curl -fsSL --max-time 15 -H 'Cache-Control: no-cache' "$CITY_ROUTE_PROD/route-optimizer.js?verify=$GITHUB_SHA" -o /tmp/city-route-optimizer.js
+          curl -fsSL --max-time 15 -H 'Cache-Control: no-cache' "$CITY_ROUTE_PROD/place-composer.js?verify=$GITHUB_SHA" -o /tmp/city-route-place-composer.js
           grep -Fq "optimizeRoutePlaces" /tmp/city-route-optimizer.js
           grep -Fq "onQuery" /tmp/city-route-place-composer.js
-          echo "PASS: production app shell and both new P0 modules are deployed."
+          echo "PASS: production app.js SHA-256 and critical public assets verified."

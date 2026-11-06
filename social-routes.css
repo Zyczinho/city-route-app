@@ -50,5 +50,13 @@
 .social-author-relationship [data-author-follow-status]{flex-basis:100%;color:var(--muted);margin:0}
 @media(max-width:420px){.social-author-relationship{gap:8px}.social-author-relationship [data-author-follow],.social-author-relationship [data-author-friend]{font-size:13px;padding:8px 11px}}
 
+.social-card-actions{flex-wrap:wrap;justify-content:flex-start}
+.social-card-actions button{min-height:44px}
+.route-share-dialog form{gap:12px}
+.route-share-dialog input[readonly]{font-size:16px;min-width:0}
+.route-share-choices{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.route-share-choices > *{min-height:44px;flex:1 1 120px;text-align:center;display:inline-flex;align-items:center;justify-content:center}
+[data-route-share]:focus-visible{outline:3px solid #8ccaff;outline-offset:2px}
+
 /* PROFILE-AVATAR: account photo on public profiles. */
 .social-profile-avatar{display:block;width:72px;height:72px;border-radius:50%;object-fit:cover;background:var(--line-2);margin:12px 0 4px}

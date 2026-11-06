@@ -31,7 +31,7 @@ let cities=[],taxonomy=null,activeCity=null,places=[],quests=[],routes=[],all={}
 // On the Places tab, only a conscious category selection reveals map pins.
 // The catalogue list can still be browsed and searched without crowding the map.
 let mapCategorySelected=false;
-let mapView=null;renderedPlaceList=[],builderDraft=null,nearbyAfterId=null,nearbyRadiusM=500,addNewPlaceAfterId=null,justSavedPlaceId=null;
+let mapView=null,renderedPlaceList=[],builderDraft=null,nearbyAfterId=null,nearbyRadiusM=500,addNewPlaceAfterId=null,justSavedPlaceId=null;
 const providerOverlay=new Map(),providerLoading=new Set();let providerObserver=null;
 const persist=()=>{try{if(state?.cityId){state.basketsByCity=state.basketsByCity||{};state.basketsByCity[state.cityId]=[...(state.basket||[])];if(builderDraft?.cityId===state.cityId){const {name,transport,revision,updatedAt}=serializeDraft(builderDraft);state.builderMetaByCity=state.builderMetaByCity||{};state.builderMetaByCity[state.cityId]={cityId:state.cityId,name,transport,revision,updatedAt};}}localStorage.setItem(key,JSON.stringify(state));}catch{storageOK=false;$('#connection').textContent='Zapis lokalny niedostępny. Wyeksportuj dane przed zamknięciem karty.';}};
 const log=(type,data={})=>{state.events.push({type,...data,tester_id:state.tester.id,at:new Date().toISOString()});state.events=state.events.slice(-5000);persist();};

@@ -385,7 +385,7 @@ function generatedTimingView(ps){
 }
 function detailView(r){const ps=items(r.stops),own=state.myRoutes.some(x=>x.id===r.id),cover=routeCoverAssignments().get(r.id)||null;
  return `<section class="detail"><a class="back" href="${r.id==='generated'?'#plan':'#routes'}">${ic('arrow-left')}${r.id==='generated'?'Ułóż trasę':'Trasy'}</a>${r.id==='generated'?generatedPicker():''}<div class="cover">${photo(cover,'',true)}</div>${credit(cover)}<p class="kicker">${r.id==='generated'?'Ułożona dla Ciebie':own?'Twoja trasa':'Redakcja City Route'}${(r.cats||[]).map(c=>' · '+catName(c,ROUTE_CATS)).join('')}</p><h1>${esc(r.name)}</h1><p class="lead">${esc(r.description)}</p>${meta(ps,r.transport)}
- <div class="detail-actions"><button class="primary big" data-action="start" data-id="${r.id}">${ic('play')}Rozpocznij trasę</button>${r.id==='generated'?`<button data-action="save-generated">${ic('bookmark')}Zapisz trasę</button>`:''}<button data-action="save-route" data-id="${r.id}">${ic('pencil')}Edytuj jako Moją trasę</button>${wholeRoute(ps,r.transport)}${own?`<button class="danger" data-action="delete-route" data-id="${r.id}">${ic('trash-2')}Usuń tę trasę</button>`:''}</div><h2>Przystanki</h2>${stopList(ps)}${r.id==='generated'?generatedTimingView(ps):''}${estimation}</section>`;}
+ <div class="detail-actions"><button class="primary big" data-action="start" data-id="${r.id}">${ic('play')}Rozpocznij trasę</button>${r.id==='generated'?`<button data-action="save-generated">${ic('bookmark')}Zapisz trasę</button>`:''}<button data-action="save-route" data-id="${r.id}">${ic('pencil')}Edytuj jako Moją trasę</button>${wholeRoute(ps,r.transport)}${!own&&r.id!=='generated'?`<button type="button" data-route-share="editorial" data-route-ref="${esc(r.id)}" data-route-city="${esc(city().id)}" data-route-title="${esc(r.name)}">${ic("link")}Udostępnij</button>`:''}${own?`<button class="danger" data-action="delete-route" data-id="${r.id}">${ic('trash-2')}Usuń tę trasę</button>`:''}</div><h2>Przystanki</h2>${stopList(ps)}${r.id==='generated'?generatedTimingView(ps):''}${estimation}</section>`;}
 
 // My route tab
 function liveView(){const s=state.session,p=all[s.stops[s.index]],next=items(s.stops.slice(s.index+1));
@@ -635,6 +635,14 @@ window.addEventListener('online',connection);window.addEventListener('offline',c
 try{
  let staticPlaces,staticRoutes;
  [cities,taxonomy,staticPlaces,quests,staticRoutes]=await Promise.all(['cities','taxonomy','places','sidequests','routes'].map(n=>fetchJson(`./data/${n}.json`)));
+ // A shared editorial/community route may belong to a different city than the visitor's saved preference.
+ const requestedShareCity=new URLSearchParams(location.search).get('shareCity');
+ if(/^#(?:route|community-route)\/[^/]+$/.test(location.hash)&&requestedShareCity&&(!state.session||state.session.finished)){
+  if(cities.some(c=>c.id===requestedShareCity&&['launch','next'].includes(c.status))){
+   state.cityId=requestedShareCity;state.basket=[...(state.basketsByCity[requestedShareCity]||[])];
+  }
+  history.replaceState(null,'',location.pathname+location.hash);
+ }
  activeCity=cityById(cities,state.cityId);if(!activeCity)throw Error('city');state.cityId=activeCity.id;
  const jsonCatalogue=activeCity.id===DEFAULT_CITY_ID?{places:forCity(withCityId(staticPlaces,DEFAULT_CITY_ID),activeCity.id),routes:forCity(withCityId(staticRoutes,DEFAULT_CITY_ID),activeCity.id)}:await loadCityFallback(activeCity);
  const catalogueClient=createRestRpcClient({url:SUPABASE_URL,key:SUPABASE_PUBLISHABLE_KEY});

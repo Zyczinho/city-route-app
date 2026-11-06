@@ -211,6 +211,7 @@ test('Places tab does not auto-activate map when the catalogue list is rendered'
   assert.match(source,/let mapCategorySelected=false;/);
   assert.match(source,/filter:\{showPlaces:mapCategorySelected\}/);
   assert.match(source,/if\(action==='cat'\)\{cat=value;mapCategorySelected=true;/);
-  assert.match(source,/mapCategorySelected\?items\(builderDraft\?\.stops\|\|\[\]\)\.filter/);
+  assert.match(source,/view\.setRouteStops\(stopsForPlacesMap\(builderDraft\?\.stops\|\|\[\]\)\)/);
+  assert.match(source,/mapView\?\.setRouteStops\(stopsForPlacesMap\(nextDraft\.stops\)\)/);
   assert.match(source,/mapCategorySelected\?cat:null,'cat',true/);
 });

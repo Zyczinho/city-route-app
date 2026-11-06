@@ -6,6 +6,8 @@ self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(C
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('city-route-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',e=>{
  const u=new URL(e.request.url);if(e.request.method!=='GET'||u.origin!==self.location.origin)return;
+ // /r/... contains unique crawler metadata; NEVER cache its HTML as the generic offline index shell.
+ if(u.pathname.startsWith('/r/'))return;
  const paths=FILES.map(p=>new URL(p,self.registration.scope).pathname),photo=u.pathname.startsWith(new URL('./assets/images/',self.registration.scope).pathname);
  if(!paths.includes(u.pathname)&&!photo&&e.request.mode!=='navigate')return;
  // HTML must be network-first: a stale app shell must not permanently pin buggy JS.

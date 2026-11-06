@@ -176,3 +176,40 @@ test('mobile map reserves screen edges and allows vertical touch scrolling',()=>
   assert.match(css,/height:clamp\(330px,53svh,460px\)/);
   assert.match(css,/\.cr-map\.is-scroll-mode \.leaflet-container\{touch-action:pan-y!important\}/);
 });
+
+
+test('Places map starts without POI pins and reveals only explicitly selected categories',async()=>{
+  const doc=fakeDoc(),container=doc.createElement('div'),{L,calls}=fakeLeaflet();
+  const view=createMapView({container,doc,places,city,filter:{showPlaces:false},leaflet:async()=>L});
+  assert.equal(await view.ready,'map');
+  assert.equal(calls.markers.length,0,'initial map shows no markers');
+  assert.deepEqual(view.visiblePlaces(),[]);
+  assert.match(container.children[4].textContent,/0 miejsc na mapie/);
+
+  view.setNearby({lat:50.0615,lng:19.9373});
+  assert.equal(calls.markers.length,0,'nearby filter cannot bypass the empty default');
+  view.setNearby(null);
+
+  view.setFilter({showPlaces:true,groups:['food']});
+  assert.deepEqual(view.visiblePlaces().map(p=>p.id),['jama']);
+  assert.equal(calls.markers.length,1,'only matching cafes are visible');
+
+  view.setFilter({showPlaces:true,groups:['sightseeing']});
+  assert.deepEqual(view.visiblePlaces().map(p=>p.id),['rynek','mariacki','plac-nowy']);
+  assert.equal(calls.markers.length,3,'old cafe pin is removed');
+
+  view.setFilter({showPlaces:true});
+  assert.equal(calls.markers.length,4,'all pins appear only after explicit selection');
+  view.setFilter({showPlaces:false});
+  assert.equal(calls.markers.length,0,'clearing the filter removes all pins');
+  view.destroy();
+});
+
+test('Places tab does not auto-activate map when the catalogue list is rendered',()=>{
+  const source=readFileSync(new URL('../app.js',import.meta.url),'utf8');
+  assert.match(source,/let mapCategorySelected=false;/);
+  assert.match(source,/filter:\{showPlaces:mapCategorySelected\}/);
+  assert.match(source,/if\(action==='cat'\)\{cat=value;mapCategorySelected=true;/);
+  assert.match(source,/mapCategorySelected\?items\(builderDraft\?\.stops\|\|\[\]\)\.filter/);
+  assert.match(source,/mapCategorySelected\?cat:null,'cat',true/);
+});

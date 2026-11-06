@@ -103,7 +103,16 @@ function nav(){$('#me').innerHTML=avatar('sm');$('#me').classList.toggle('active
 
 // Shared pieces
 function approvedPhoto(p){return choosePlacePhoto(p?.photoCandidates||[],{placeId:p?.id})}
-function photo(p,cls='',eager=false){const image=p?.image||approvedPhoto(p)?.src||providerOverlay.get(p?.id)?.image?.src;if(!image){const nightlife=p?.cats?.[0]==='nocne',geo=p?.id&&p?.name&&Number.isFinite(p?.lat)&&Number.isFinite(p?.lng)?` data-commons-photo="${esc(p.id)}" data-commons-name="${esc(p.name)}" data-commons-lat="${p.lat}" data-commons-lng="${p.lng}"`:'';return `<div class="ph ${cls}${nightlife?' ph-nightlife':''}"${geo} aria-label="Brak fotografii lokalu">${nightlife?`<span class="ph-letter">${esc(String(p?.name||'K').slice(0,1).toUpperCase())}</span>`:ic(p?.kind==='user'?'map-pin':'camera')}</div>`;} const src=/^(https?:|data:image\/|\/api\/place-photo\?)/.test(image)?image:`./assets/images/${image}`;return `<img class="${cls}" src="${esc(src)}" alt="${esc(p.imageCaption||p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer">`;}
+// THUMB TEST (?thumbs=icons|photos): compare category tiles with live provider photos on lists.
+const THUMBS=new URLSearchParams(location.search).get('thumbs');
+const CAT_TILE={bar:['wine','night'],pub:['beer','night'],cocktail_bar:['martini','night'],wine_bar:['wine','night'],club:['disc-3','night'],live_music:['music','night'],
+ restaurant:['utensils','food'],street_food:['utensils','food'],cafe:['coffee','food'],breakfast:['croissant','food'],bakery:['croissant','food'],dessert:['cake-slice','food'],food_hall:['store','food'],
+ museum:['library','culture'],gallery:['palette','culture'],landmark:['landmark','culture'],architecture:['landmark','culture'],religious_site:['church','culture'],
+ viewpoint:['binoculars','nature'],park:['trees','nature'],garden:['trees','nature'],walk:['trees','nature'],waterfront:['waves','nature'],beach:['waves','nature'],
+ neighborhood:['signpost','city'],hidden_gem:['signpost','city'],hotel:['bed-double','stay'],hostel:['bed-double','stay'],guesthouse:['bed-double','stay'],apartment:['bed-double','stay'],sport:['trophy','city']};
+const LEGACY_TILE={zabytki:'landmark',muzea:'museum',zielen:'park',widoki:'viewpoint',okolice:'neighborhood',jedzenie:'restaurant',nocne:'bar',noclegi:'hotel',aktywnosci:'sport'};
+function catTile(p,cls,geo){const [icon,mood]=CAT_TILE[p?.categoryId]||CAT_TILE[LEGACY_TILE[p?.cats?.[0]]]||['map-pin','city'];return `<div class="ph ph-cat ph-${mood} ${cls}"${geo} aria-label="Brak fotografii lokalu">${ic(icon,'ph-cat-ghost')}${ic(icon,'ph-cat-glyph')}</div>`;}
+function photo(p,cls='',eager=false){const image=p?.image||approvedPhoto(p)?.src||providerOverlay.get(p?.id)?.image?.src;if(!image&&THUMBS){const geo=p?.id&&p?.name&&Number.isFinite(p?.lat)&&Number.isFinite(p?.lng)?` data-commons-photo="${esc(p.id)}" data-commons-name="${esc(p.name)}" data-commons-lat="${p.lat}" data-commons-lng="${p.lng}"`:'';return catTile(p,cls,geo);}if(!image){const nightlife=p?.cats?.[0]==='nocne',geo=p?.id&&p?.name&&Number.isFinite(p?.lat)&&Number.isFinite(p?.lng)?` data-commons-photo="${esc(p.id)}" data-commons-name="${esc(p.name)}" data-commons-lat="${p.lat}" data-commons-lng="${p.lng}"`:'';return `<div class="ph ${cls}${nightlife?' ph-nightlife':''}"${geo} aria-label="Brak fotografii lokalu">${nightlife?`<span class="ph-letter">${esc(String(p?.name||'K').slice(0,1).toUpperCase())}</span>`:ic(p?.kind==='user'?'map-pin':'camera')}</div>`;} const src=/^(https?:|data:image\/|\/api\/place-photo\?)/.test(image)?image:`./assets/images/${image}`;return `<img class="${cls}" src="${esc(src)}" alt="${esc(p.imageCaption||p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer">`;}
 function credit(p){const c=p?.imageCredit||(!p?.image?(approvedPhoto(p)?.credit||providerOverlay.get(p?.id)?.image?.credit):null);if(!c)return '';const lic=c.licenseUrl?`<a href="${esc(c.licenseUrl)}" target="_blank" rel="noopener noreferrer">${esc(c.license)}</a>`:esc(c.license);return `<p class="credit">${ic('camera')}<span>${p.imageCaption?esc(p.imageCaption)+'. ':''}Zdjęcie: ${esc(c.author)} · ${lic} · <a href="${esc(c.source)}" target="_blank" rel="noopener noreferrer">${esc(c.via)}</a></span></p>`;}
 const rating=(p,s)=>providerRatings(p).find(r=>r.source===s);
 const cityRouteBadge=p=>`<span class="cr-score" data-cityroute-ref="${esc(p.id)}" title="Średnia społeczności City Route — niezależna od ocen Google i Tripadvisor">${ic("star")} City Route · Brak ocen</span>`;
@@ -229,12 +238,12 @@ function observeApprovedPlaceEnrichment(){
    if(!entry.isIntersecting)continue;
    io.unobserve(entry.target);
    const p=all[entry.target.dataset.placeId];
-   if((p?.origin==='community'||p?.kind==='user')&&!providerOverlay.has(p.id)&&(!p.image||!providerRatings(p).length))void enrichPlaceOnDemand(p);
+   if((p?.origin==='community'||p?.kind==='user'||THUMBS==='photos')&&!providerOverlay.has(p.id)&&(!p.image||!providerRatings(p).length))void enrichPlaceOnDemand(p);
   }
  },{rootMargin:'180px 0px'});
  for(const row of rows){
   const p=all[row.dataset.placeId];
-  if((p?.origin==='community'||p?.kind==='user')&&!providerOverlay.has(p.id)&&(!p.image||!providerRatings(p).length))io.observe(row);
+  if((p?.origin==='community'||p?.kind==='user'||THUMBS==='photos')&&!providerOverlay.has(p.id)&&(!p.image||!providerRatings(p).length))io.observe(row);
  }
  providerObserver=io;
 }

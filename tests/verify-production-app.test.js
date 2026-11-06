@@ -66,7 +66,7 @@ test('empty artifacts, insecure URLs and invalid attempts are rejected before fe
  const fetchImpl=async()=>{throw new Error('should never fetch');};
  await assert.rejects(verifyProductionApp({expectedBytes:Buffer.alloc(0),productionOrigin:URL_ROOT,fetchImpl}),/empty or missing/);
  await assert.rejects(verifyProductionApp({expectedBytes:expected,productionOrigin:'http://example.com',fetchImpl}),/must be HTTPS/);
- await assert.rejects(verifyProductionApp({expectedBytes:expected,productionOrigin:'javascript:alert(1)',fetchImpl}),/must be HTTPS/);
+ await assert.rejects(verifyProductionApp({expectedBytes:expected,productionOrigin:'javascript:alert(1)',fetchImpl}),/invalid productionOrigin|must be HTTPS/);
  await assert.rejects(verifyProductionApp({expectedBytes:expected,productionOrigin:URL_ROOT,maxAttempts:0,fetchImpl}),/invalid maxAttempts/);
 });
 

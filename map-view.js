@@ -37,8 +37,11 @@ export function nearbyPlaces(places,center,radiusM=NEARBY_RADIUS_M){
     .filter(p=>p.distanceM<=radiusM).sort((a,b)=>a.distanceM-b.distanceM||String(a.id).localeCompare(String(b.id)));
 }
 
-// filter: {categories?:string[], groups?:string[], nearby?:{lat,lng,radiusM?}}; empty arrays mean "all".
+// filter: {showPlaces?:boolean, categories?:string[], groups?:string[], nearby?:{lat,lng,radiusM?}};
+// showPlaces:false leaves the map free of POIs until the visitor explicitly selects a category.
+// Empty category/group arrays keep their previous "all" meaning for existing callers.
 export function filterPlaces(places,filter={}){
+  if(filter.showPlaces===false)return [];
   const cats=new Set(filter.categories||[]),groups=new Set(filter.groups||[]);
   let out=places.filter(valid).filter(p=>(!cats.size||cats.has(p.categoryId))&&(!groups.size||groups.has(categoryGroup(p.categoryId))));
   if(filter.nearby)out=nearbyPlaces(out,filter.nearby,filter.nearby.radiusM||NEARBY_RADIUS_M);

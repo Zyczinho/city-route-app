@@ -3,6 +3,7 @@
 Short, dated lessons this role must know on its next run. Newest first. Update in the same PR as the work.
 
 - 2026-11-06 — SHARE-LINKS-116: use 44px native share/WhatsApp/copy controls on route detail and community cards; never give local-only drafts a public URL. Shared-route opening must choose the route's city without overwriting saved baskets.
+- 2026-11-06 — Places map defaults to 0 POI pins and 0 route-stop markers until the visitor explicitly selects a category. `filterPlaces({showPlaces:false})` preserves existing filter defaults. A category switch replaces pins; avoid implying that 'Wszystkie' is selected on first load. See #129.
 
 - 2026-11-05 — Invisible `input[type=file]` must sit inside a `position:relative` label; otherwise it spans the page and widens the mobile layout.
 - 2026-11-05 — Flex buttons with `flex:1 1 0` + `nowrap` overflow on 375 px; use a real basis (`flex:1 1 130px`) so they wrap.

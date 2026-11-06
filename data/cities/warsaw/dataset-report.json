@@ -1,0 +1,29 @@
+{
+  "cityId": "warsaw",
+  "count": 258,
+  "generatedAt": "2026-11-06T12:18:25.389Z",
+  "counts": {
+    "bar": 36,
+    "cafe": 50,
+    "club": 14,
+    "cocktail_bar": 1,
+    "food_hall": 4,
+    "gallery": 10,
+    "garden": 1,
+    "landmark": 18,
+    "museum": 14,
+    "park": 12,
+    "pub": 16,
+    "religious_site": 8,
+    "restaurant": 70,
+    "viewpoint": 4
+  },
+  "source": "OpenStreetMap/Overpass + curated anchors",
+  "skipped": {
+    "chain": 288,
+    "quality": 1158,
+    "existing": 18,
+    "nearby": 30
+  },
+  "areaBoundaries": 37
+}

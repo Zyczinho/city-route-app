@@ -1,0 +1,139 @@
+{
+  "cityId": "warsaw",
+  "about": "Additive OSM discovery layer for Warsaw (#112). The editorial Warsaw catalogue stays in data/places.json; records here must not duplicate it.",
+  "bbox": [
+    52.0977,
+    20.8516,
+    52.3681,
+    21.2711
+  ],
+  "overpassQuery": "[out:json][timeout:120];area(id:3600336075)->.w;(nwr[\"amenity\"~\"^(restaurant|cafe|bar|pub|nightclub|food_court|music_venue)$\"](area.w);nwr[\"tourism\"~\"^(museum|gallery|viewpoint)$\"](area.w);nwr[\"tourism\"=\"attraction\"][\"wikidata\"](area.w);nwr[\"historic\"][\"wikidata\"](area.w);nwr[\"leisure\"~\"^(park|garden)$\"][\"wikidata\"](area.w););out center tags;",
+  "targetCount": 264,
+  "quotas": {
+    "restaurant": 70,
+    "cafe": 50,
+    "food_hall": 5,
+    "bar": 36,
+    "pub": 16,
+    "cocktail_bar": 10,
+    "club": 14,
+    "live_music": 6,
+    "museum": 14,
+    "gallery": 10,
+    "landmark": 18,
+    "religious_site": 8,
+    "viewpoint": 4,
+    "park": 12,
+    "garden": 4
+  },
+  "areaAdminLevel": "9",
+  "strictDedupe": true,
+  "excludeCatalogues": [
+    "data/places.json"
+  ],
+  "excludePoints": [
+    {
+      "id": "sketch-nite",
+      "name": "Sketch NITE",
+      "lat": 52.23776,
+      "lng": 21.01275,
+      "note": "scripts/seed-warsaw-nightlife-20261104.sql"
+    },
+    {
+      "id": "smolna-38",
+      "name": "Smolna",
+      "lat": 52.232754,
+      "lng": 21.022875,
+      "note": "scripts/seed-warsaw-nightlife-20261104.sql"
+    },
+    {
+      "id": "jasna-1",
+      "name": "Jasna 1",
+      "lat": 52.23375,
+      "lng": 21.01175,
+      "note": "scripts/seed-warsaw-nightlife-20261104.sql"
+    },
+    {
+      "id": "plan-b-warsaw",
+      "name": "Plan B",
+      "lat": 52.21964,
+      "lng": 21.01904,
+      "note": "scripts/seed-warsaw-nightlife-20261104.sql"
+    }
+  ],
+  "skipChains": {
+    "brandTags": true,
+    "names": [
+      "Starbucks",
+      "Costa Coffee",
+      "Green Caffè Nero",
+      "Caffe Nero",
+      "Tchibo",
+      "Columbus Coffee",
+      "McDonald's",
+      "KFC",
+      "Burger King",
+      "Pizza Hut",
+      "Subway",
+      "Telepizza",
+      "Domino's",
+      "Da Grasso",
+      "Sphinx",
+      "North Fish",
+      "Bobby Burger",
+      "Manekin",
+      "Pijalnia Wódki i Piwa",
+      "Bierhalle",
+      "Etno Cafe",
+      "Grycan",
+      "Coffeedesk",
+      "Żabka",
+      "Carrefour",
+      "Lidl",
+      "Biedronka",
+      "SaladStory",
+      "Vapiano",
+      "Costa"
+    ]
+  },
+  "requireAnyTag": {
+    "categories": [
+      "restaurant",
+      "cafe",
+      "food_hall",
+      "bar",
+      "pub",
+      "cocktail_bar",
+      "club",
+      "live_music",
+      "gallery",
+      "viewpoint"
+    ],
+    "tags": [
+      "website",
+      "contact:website",
+      "opening_hours",
+      "contact:instagram",
+      "contact:facebook",
+      "wikidata"
+    ]
+  },
+  "requireWikidataFor": [
+    "landmark",
+    "religious_site",
+    "museum",
+    "park",
+    "garden"
+  ],
+  "skipTags": {
+    "office": ".",
+    "diplomatic": ".",
+    "government": ".",
+    "amenity": "^(university|college|school|kindergarten|embassy|townhall|courthouse)$",
+    "building": "^(university|college|government|train_station)$",
+    "railway": "^station$",
+    "public_transport": "^station$",
+    "landuse": "^cemetery$",
+    "cemetery": "."
+  }
+}

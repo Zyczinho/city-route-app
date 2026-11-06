@@ -46,11 +46,13 @@ const ic=iconMarkup;
 const brand=s=>`<span class="b b-${s}" aria-hidden="true"></span>`;
 const SOURCES={google:'Google Maps',tripadvisor:'Tripadvisor'};
 const items=ids=>ids.map(id=>all[id]).filter(Boolean);
+// Keep the Places map blank until category opt-in; when active, only show draft markers in the current filtered list.
+const stopsForPlacesMap=ids=>mapCategorySelected?items(ids).filter(p=>renderedPlaceList.some(v=>String(v.id)===String(p.id))):[];
 const isLive=()=>!!state.session&&!state.session.finished;
 const city=()=>activeCity||{id:DEFAULT_CITY_ID,slug:'warsaw',name:'Warszawa',center:{lat:52.2297,lng:21.0122},radiusKm:40,locale:'pl-PL',currency:'PLN'};
 const now=()=>new Date().toISOString();
 function hydrateBuilderDraft(cityId=city().id){const basket=state.basketsByCity?.[cityId]||[],stored=state.builderMetaByCity?.[cityId],meta=stored&&(!stored.cityId||stored.cityId===cityId)?stored:{};const result=hydrateDraft({...meta,cityId,stops:basket},{cityId,isKnown:id=>!!all[id],now:now()});builderDraft=result.draft;state.basket=[...builderDraft.stops];state.basketsByCity[cityId]=[...builderDraft.stops];return result.report;}
-function setBuilderDraft(nextDraft,{eventType=null,eventData={}}={}){builderDraft=nextDraft;state.basket=[...nextDraft.stops];state.basketsByCity[nextDraft.cityId]=[...nextDraft.stops];mapView?.setRouteStops(items(nextDraft.stops));if(eventType){state.events.push({type:eventType,...eventData,city_id:nextDraft.cityId,stops:nextDraft.stops.length,tester_id:state.tester.id,at:now()});state.events=state.events.slice(-5000);}persist();return nextDraft;}
+function setBuilderDraft(nextDraft,{eventType=null,eventData={}}={}){builderDraft=nextDraft;state.basket=[...nextDraft.stops];state.basketsByCity[nextDraft.cityId]=[...nextDraft.stops];mapView?.setRouteStops(stopsForPlacesMap(nextDraft.stops));if(eventType){state.events.push({type:eventType,...eventData,city_id:nextDraft.cityId,stops:nextDraft.stops.length,tester_id:state.tester.id,at:now()});state.events=state.events.slice(-5000);}persist();return nextDraft;}
 function applyBuilder(result,opts){if(!result?.changed)return result;setBuilderDraft(result.draft,opts);return result;}
 function setBuilderOrder(ids,method='optimize'){let d=builderDraft,changed=false;for(const [i,id] of ids.entries()){const r=moveStop(d,id,i,{now:now()});if(r.changed){d=r.draft;changed=true;}}if(changed)setBuilderDraft(d,{eventType:'builder_move',eventData:{method}});return changed;}
 function loadRouteIntoBuilder(r){const result=hydrateDraft({cityId:city().id,stops:r.stops.filter(id=>all[id]),name:r.name||'',transport:r.transport||'walking'},{cityId:city().id,isKnown:id=>!!all[id],now:now()});setBuilderDraft(result.draft,{eventType:'route_edit',eventData:{route_id:r.id}});return result.report;}
@@ -219,7 +221,7 @@ async function mountPlacesMap(){
  mapView=view;
  // The Places map starts with zero pins, including route-stop overlays.
  // Once a category is selected, show only draft stops that belong to the visible category.
- view.setRouteStops(mapCategorySelected?items(builderDraft?.stops||[]).filter(p=>baseById.has(String(p.id))):[]);
+ view.setRouteStops(stopsForPlacesMap(builderDraft?.stops||[]));
 }
 
 // Newly added private/approved community places are enriched when visible, including after reload.

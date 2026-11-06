@@ -11,6 +11,9 @@
 //   GOOGLE_PLACES_AUTOCOMPLETE  set to "on" to use Google Autocomplete for type-ahead (paid per session; off = OSM Photon only)
 //   GOOGLE_PLACES_DAILY_CAP     optional soft cap of Google calls per Worker instance per day (default 300); the hard cap belongs in Google Cloud quotas
 import {resolveMaps} from './location.js';
+import {routeShareResponse} from './share-preview.js';
+import {createRestRpcClient} from './catalogue-client.js';
+import {SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY} from './supabase-config.js';
 import {placePreview,placePhoto} from './maps-preview.js';
 import {searchPlaceAddress,suggestPlaces,placeDetails,placePhotoById,cityFromParams} from './geocode.js';
 import {ticketmasterQuery,normalizeTicketmaster,dedupe} from './events.js';
@@ -119,6 +122,8 @@ async function placeDetail(url,env){
 export default {
  async fetch(request,env,ctx){
   const url=new URL(request.url),{pathname}=url;
+  // Crawlers cannot see #hash fragments. /r/... serves real metadata and redirects browsers.
+  if(pathname.startsWith('/r/'))return routeShareResponse(request,createRestRpcClient({url:SUPABASE_URL,key:SUPABASE_PUBLISHABLE_KEY}));
   if(pathname==='/api/location'){
    if(request.method!=='GET')return json({status:'method-not-allowed'},405);
    try{const result=await resolveMaps(url.searchParams.get('url'));return json(result,result.status==='ok'?200:422);}catch{return json({status:'unavailable'},502);}

@@ -37,8 +37,11 @@ export function nearbyPlaces(places,center,radiusM=NEARBY_RADIUS_M){
     .filter(p=>p.distanceM<=radiusM).sort((a,b)=>a.distanceM-b.distanceM||String(a.id).localeCompare(String(b.id)));
 }
 
-// filter: {categories?:string[], groups?:string[], nearby?:{lat,lng,radiusM?}}; empty arrays mean "all".
+// filter: {showPlaces?:boolean, categories?:string[], groups?:string[], nearby?:{lat,lng,radiusM?}};
+// showPlaces:false leaves the map free of POIs until the visitor explicitly selects a category.
+// Empty category/group arrays keep their previous "all" meaning for existing callers.
 export function filterPlaces(places,filter={}){
+  if(filter.showPlaces===false)return [];
   const cats=new Set(filter.categories||[]),groups=new Set(filter.groups||[]);
   let out=places.filter(valid).filter(p=>(!cats.size||cats.has(p.categoryId))&&(!groups.size||groups.has(categoryGroup(p.categoryId))));
   if(filter.nearby)out=nearbyPlaces(out,filter.nearby,filter.nearby.radiusM||NEARBY_RADIUS_M);
@@ -131,7 +134,7 @@ export function createMapView(opts){
   const byId=id=>visible().find(p=>String(p.id)===String(id))||places.find(p=>String(p.id)===String(id))||routeSource.get(String(id));
   const isStop=id=>routeStops.some(s=>s.id===String(id));
 
-  function renderList(){list.innerHTML=routeListHtml(routeStops,selectedId)+listHtml(visible(),selectedId);}
+  function renderList(){list.innerHTML=routeListHtml(routeStops,selectedId)+(filter.showPlaces===false?'<p class="muted cr-map-empty">Wybierz kategorię, aby zobaczyć miejsca na mapie.</p>':listHtml(visible(),selectedId));}
   // Draft stops: numbered markers above place pins and a straight line between consecutive located stops.
   function renderRoute(){
     if(!map)return;

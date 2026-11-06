@@ -1,0 +1,22 @@
+{
+  "about": "Editorial curation applied on top of the generated Warsaw OSM layer (#112) by scripts/city-curation.mjs. Removed records are skipped before selection so the quota backfills with the next candidate.",
+  "removed": [
+    {"id":"ambasada-bulgarii","name":"Ambasada Bułgarii","source":"node/11777561530","kind":"not-a-visit","reason":"Embassy; not open to visitors."},
+    {"id":"ministerstwo-finansow","name":"Ministerstwo Finansów","source":"relation/14329051","kind":"not-a-visit","reason":"Government office; not open to visitors."},
+    {"id":"wydzial-polonistyki-uw","name":"Wydział Polonistyki UW","source":"way/24881925","kind":"not-a-visit","reason":"University faculty building."},
+    {"id":"instytut-kultury-polskiej-uw","name":"Instytut Kultury Polskiej UW","source":"relation/12160344","kind":"not-a-visit","reason":"University institute building."},
+    {"id":"auditorium-maximum","name":"Auditorium Maximum","source":"way/23589313","kind":"not-a-visit","reason":"University lecture hall."},
+    {"id":"instytut-teatralny-im-z-raszewskiego","name":"Instytut Teatralny im. Z. Raszewskiego","source":"way/76273567","kind":"not-a-visit","reason":"Institution office; events would belong in Wydarzenia."},
+    {"id":"cmentarz-mauzoleum-zolnierzy-radzieckich","name":"Cmentarz Mauzoleum Żołnierzy Radzieckich","source":"way/883956400","kind":"wrong-category","reason":"War cemetery tagged as a park."},
+    {"id":"cafe-przygoda-sala-zabaw-kawiarnia","name":"Cafe Przygoda Sala Zabaw Kawiarnia","source":"node/10822196273","kind":"off-audience","reason":"Children's playroom café."},
+    {"id":"rugs-and-more","name":"Rugs and More","source":"node/11818446070","kind":"wrong-category","reason":"Rug shop with a coffee corner."},
+    {"id":"dom-kultury-rakowiec","name":"Dom Kultury Rakowiec","source":"way/63058477","kind":"not-a-visit","reason":"Local community centre without a public gallery page."},
+    {"id":"stoleczne-centrum-edukacji-kulturalnej","name":"Stołeczne Centrum Edukacji Kulturalnej","source":"way/196756174","kind":"not-a-visit","reason":"Education centre, not a gallery."},
+    {"id":"fort-rakowiec","name":"Fort Rakowiec","source":"way/28383589","kind":"low-value","reason":"Small neighbourhood green area."},
+    {"id":"warszawa-centralna","name":"Warszawa Centralna","source":"way/367491792","kind":"not-a-visit","reason":"Railway station."},
+    {"id":"fotopol","name":"Fotopol","source":"node/13024512113","kind":"unclear","reason":"Gallery status unclear from the listing; not kept without a public exhibition page."},
+    {"id":"biblioteka-szkoly-glownej-handlowej","name":"Biblioteka Szkoły Głównej Handlowej","source":"way/29552188","kind":"not-a-visit","reason":"University library."},
+    {"id":"biblioteka-publiczna-m-st-warszawy","name":"Biblioteka Publiczna m.st. Warszawy","source":"way/156960829","kind":"not-a-visit","reason":"Working public library, not a sight."}
+  ],
+  "overrides": {}
+}

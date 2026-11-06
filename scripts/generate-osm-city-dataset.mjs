@@ -7,8 +7,19 @@ if(!cityId)throw new Error('Usage: node scripts/generate-osm-city-dataset.mjs <c
 const base=`data/cities/${cityId}`;
 const read=async p=>JSON.parse(await readFile(p,'utf8'));
 const [config,anchors,taxonomy,cities,curation]=await Promise.all([
-  read(`${base}/source-config.json`),read(`${base}/anchors.json`),read('data/taxonomy.json'),read('data/cities.json'),read(`${base}/curation.json`).catch(()=>({}))
+  read(`${base}/source-config.json`),read(`${base}/anchors.json`).catch(()=>[]),read('data/taxonomy.json'),read('data/cities.json'),read(`${base}/curation.json`).catch(()=>({}))
 ]);
+// Optional quality settings (all off by default, so the Kraków snapshot regenerates unchanged):
+//   overpassQuery       custom Overpass body; {{bbox}} is replaced with the city bbox
+//   excludeCatalogues   existing place files (name/lat/lng) the new records must not duplicate
+//   excludePoints       extra existing places, e.g. staged seed records
+//   skipChains          {brandTags:true,names:[...]} drops chain outlets
+//   requireAnyTag       {categories:[...],tags:[...]} a record in these categories needs one of these OSM tags
+//   requireWikidataFor  categories kept only when OSM links them to Wikidata
+//   skipTags            {osmKey:regex} drops places that are not visits (offices, embassies, faculties, stations)
+//   areaAdminLevel      OSM admin_level whose boundaries name the area (Warsaw districts = 9)
+//   strictDedupe        same name within 120 m (identical name within 1 km), or any name within 25 m, against existing
+//                       and chosen records; curation.json removals are skipped before selection so quotas backfill
 const city=cities.find(c=>c.id===cityId);
 if(!city)throw new Error(`Unknown city: ${cityId}`);
 const validCategories=new Set(taxonomy.groups.flatMap(g=>g.types.map(t=>t.id)));
@@ -16,7 +27,7 @@ for(const a of anchors)if(!validCategories.has(a.categoryId))throw new Error(`In
 
 const [south,west,north,east]=config.bbox;
 const bbox=`${south},${west},${north},${east}`;
-const overpass=`[out:json][timeout:90];(
+const overpass=config.overpassQuery?config.overpassQuery.replaceAll('{{bbox}}',bbox):`[out:json][timeout:90];(
   nwr["tourism"~"museum|gallery|attraction|viewpoint|hotel|hostel|guest_house|apartment"](${bbox});
   nwr["historic"](${bbox});
   nwr["amenity"~"restaurant|cafe|bar|pub|nightclub|fast_food|food_court|place_of_worship|arts_centre|music_venue"](${bbox});
@@ -41,14 +52,17 @@ const overpassEndpoints=[
   'https://overpass.kumi.systems/api/interpreter',
   'https://overpass.nchc.org.tw/api/interpreter'
 ];
-let overpassData=null,overpassError=null;
-for(const endpoint of overpassEndpoints){
-  try{
-    overpassData=await fetchJson(endpoint,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({data:overpass})},2);
-    if(overpassData?.elements)break;
-  }catch(error){overpassError=error;await sleep(1000);}
+async function queryOverpass(body){
+  let error=null;
+  for(const endpoint of overpassEndpoints){
+    try{
+      const data=await fetchJson(endpoint,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({data:body})},2);
+      if(data?.elements)return data;
+    }catch(e){error=e;await sleep(1000);}
+  }
+  throw error||new Error('All Overpass endpoints failed');
 }
-if(!overpassData?.elements)throw overpassError||new Error('All Overpass endpoints failed');
+const overpassData=await queryOverpass(overpass);
 
 const polishMap={'ą':'a','ć':'c','ę':'e','ł':'l','ń':'n','ó':'o','ś':'s','ż':'z','ź':'z'};
 const fold=v=>String(v||'').toLowerCase().replace(/[ąćęłńóśżź]/g,c=>polishMap[c]).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
@@ -102,14 +116,46 @@ function scoreFor(t,p,c){
   return s;
 }
 
+// Area names from administrative boundaries. Ray casting over all outer-way segments
+// does not need the ways assembled into rings: crossings are counted per segment.
+let areaBoundaries=[];
+if(config.areaAdminLevel){
+  const data=await queryOverpass(`[out:json][timeout:90];rel["boundary"="administrative"]["admin_level"="${config.areaAdminLevel}"](${bbox});out geom;`);
+  areaBoundaries=(data.elements||[]).filter(r=>r.tags?.name).map(r=>({
+    name:r.tags.name,
+    segments:(r.members||[]).filter(m=>m.role==='outer'&&Array.isArray(m.geometry)).flatMap(m=>m.geometry.slice(1).map((g,i)=>[m.geometry[i],g]))
+  })).filter(b=>b.segments.length);
+}
+const insideBoundary=(p,b)=>{let inside=false;for(const [a,c] of b.segments){if((a.lat>p.lat)!==(c.lat>p.lat)&&p.lng<(c.lon-a.lon)*(p.lat-a.lat)/(c.lat-a.lat)+a.lon)inside=!inside;}return inside;};
+const areaFor=(p,t)=>{
+  const hit=areaBoundaries.find(b=>insideBoundary(p,b));
+  if(hit)return hit.name;
+  const tagged=t['addr:suburb']||t['addr:district']||t['addr:city']||'';
+  return fold(tagged)===fold(city.name)?'':tagged;
+};
+
+const chainNames=(config.skipChains?.names||[]).map(fold);
+const isChain=t=>!!config.skipChains&&((config.skipChains.brandTags&&(t.brand||t['brand:wikidata']))||chainNames.some(n=>(` ${fold(t.name)} `).includes(` ${n} `)));
+const skipTagRules=Object.entries(config.skipTags||{}).map(([k,v])=>[k,new RegExp(v)]);
+const passesQuality=(t,categoryId)=>{
+  if(skipTagRules.some(([k,re])=>t[k]!=null&&re.test(String(t[k]))))return false;
+  if(config.requireWikidataFor?.includes(categoryId)&&!t.wikidata)return false;
+  const need=config.requireAnyTag;
+  if(need?.categories?.includes(categoryId)&&!need.tags.some(k=>t[k]))return false;
+  return true;
+};
+const skipped={chain:0,quality:0,existing:0,nearby:0};
+
 const raw=[];
 for(const e of overpassData.elements||[]){
   const t=e.tags||{},name=t['name:pl']||t.name;if(!name)continue;
   const p=point(e);if(!p||!Number.isFinite(p.lat)||!Number.isFinite(p.lng))continue;
   const categoryId=categoryFor(t);if(!categoryId||!validCategories.has(categoryId))continue;
+  if(isChain(t)){skipped.chain++;continue;}
+  if(!passesQuality(t,categoryId)){skipped.quality++;continue;}
   raw.push({
     id:null,name,lat:p.lat,lng:p.lng,categoryId,
-    area:t['addr:suburb']||t['addr:district']||t['addr:city']||'',
+    area:areaFor(p,t),
     description:'',minutes:minutesFor(categoryId),cost:0,tourist:'balanced',foodStyle:foodFor(categoryId),partner:false,top:false,
     tags:tagsFor(t,categoryId),ratings:[],
     website:t.website||t['contact:website']||null,
@@ -158,6 +204,17 @@ for(const a of anchors){
   });
 }
 
+const existing=[...(config.excludePoints||[])];
+for(const path of config.excludeCatalogues||[])existing.push(...await read(path));
+for(const x of existing)if(!Number.isFinite(Number(x.lat))||!Number.isFinite(Number(x.lng)))throw new Error(`Excluded place without coordinates: ${x.id||x.name}`);
+// Short OSM names ("Charlotte") match long listing names ("Charlotte. Chleb i Wino") when every word of the shorter is in the longer.
+const words=v=>fold(v).split(' ').filter(w=>w.length>1);
+const sameName=(a,b)=>{const x=words(a),y=words(b);if(!x.length||!y.length)return false;const [s,l]=x.length<=y.length?[x,new Set(y)]:[y,new Set(x)];return s.every(w=>l.has(w));};
+// Parks and palaces are large, so their OSM centre can sit far from the catalogue pin: an identical name within 1 km is the same place.
+const duplicateOf=(p,list)=>list.find(x=>{const d=hav(x,p);return d<0.025||(d<0.12&&sameName(x.name,p.name))||(d<1&&fold(x.name)===fold(p.name));});
+const removedRefs=new Set((curation.removed||[]).map(r=>r.source).filter(Boolean));
+const osmRef=p=>p.metadata?.source?.type?`${p.metadata.source.type}/${p.metadata.source.id}`:null;
+
 const chosen=[];const counts={};const anchorNames=new Set(anchorPlaces.map(a=>fold(a.name)));
 for(const a of anchorPlaces){chosen.push(a);counts[a.categoryId]=(counts[a.categoryId]||0)+1;}
 for(const p of candidates.sort((a,b)=>b._score-a._score)){
@@ -166,10 +223,15 @@ for(const p of candidates.sort((a,b)=>b._score-a._score)){
   const cap=config.quotas[p.categoryId]??0;if(!cap)continue;
   if((counts[p.categoryId]||0)>=cap)continue;
   if(chosen.some(x=>hav(x,p)<0.03&&fold(x.name)===fold(p.name)))continue;
+  if(config.strictDedupe){
+    if(removedRefs.has(osmRef(p)))continue;
+    if(duplicateOf(p,existing)){skipped.existing++;continue;}
+    if(duplicateOf(p,chosen)){skipped.nearby++;continue;}
+  }
   chosen.push(p);counts[p.categoryId]=(counts[p.categoryId]||0)+1;
 }
 
-const used=new Set();
+const used=new Set(existing.map(x=>x.id).filter(Boolean));
 for(const p of chosen){
   if(!p.id){let id=slugify(p.name),n=2;while(used.has(id))id=`${slugify(p.name)}-${n++}`;p.id=id;}
   if(used.has(p.id))throw new Error(`Duplicate generated id: ${p.id}`);used.add(p.id);
@@ -180,6 +242,9 @@ if(curated.length<Math.min(150,config.targetCount))throw new Error(`Dataset too 
 
 await mkdir(base,{recursive:true});
 await writeFile(`${base}/places.json`,JSON.stringify(curated,null,2)+'\n');
-await writeFile(`${base}/dataset-report.json`,JSON.stringify({cityId,count:curated.length,generatedAt:new Date().toISOString(),counts:categoryCounts(curated),source:'OpenStreetMap/Overpass + curated anchors'},null,2)+'\n');
-console.log(`Generated ${curated.length} places for ${city.name}.`);
+const report={cityId,count:curated.length,generatedAt:new Date().toISOString(),counts:categoryCounts(curated),source:'OpenStreetMap/Overpass + curated anchors'};
+if(config.strictDedupe||config.skipChains||config.requireAnyTag||config.requireWikidataFor)report.skipped=skipped;
+if(config.areaAdminLevel)report.areaBoundaries=areaBoundaries.length;
+await writeFile(`${base}/dataset-report.json`,JSON.stringify(report,null,2)+'\n');
+console.log(`Generated ${curated.length} places for ${city.name}.`,config.strictDedupe?skipped:'');
 console.log(categoryCounts(curated));

@@ -184,6 +184,7 @@ test('Places map starts without POI pins and reveals only explicitly selected ca
   assert.equal(await view.ready,'map');
   assert.equal(calls.markers.length,0,'initial map shows no markers');
   assert.deepEqual(view.visiblePlaces(),[]);
+  assert.match(container.children[2].innerHTML,/Wybierz kategorię, aby zobaczyć miejsca/);
   assert.match(container.children[4].textContent,/0 miejsc na mapie/);
 
   view.setNearby({lat:50.0615,lng:19.9373});

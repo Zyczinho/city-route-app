@@ -122,6 +122,8 @@ async function placeDetail(url,env){
 export default {
  async fetch(request,env,ctx){
   const url=new URL(request.url),{pathname}=url;
+  // Crawlers cannot see #hash fragments. /r/... serves real metadata and redirects browsers.
+  if(pathname.startsWith('/r/'))return routeShareResponse(request,createRestRpcClient({url:SUPABASE_URL,key:SUPABASE_PUBLISHABLE_KEY}));
   if(pathname==='/api/location'){
    if(request.method!=='GET')return json({status:'method-not-allowed'},405);
    try{const result=await resolveMaps(url.searchParams.get('url'));return json(result,result.status==='ok'?200:422);}catch{return json({status:'unavailable'},502);}

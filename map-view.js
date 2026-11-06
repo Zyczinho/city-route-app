@@ -134,7 +134,7 @@ export function createMapView(opts){
   const byId=id=>visible().find(p=>String(p.id)===String(id))||places.find(p=>String(p.id)===String(id))||routeSource.get(String(id));
   const isStop=id=>routeStops.some(s=>s.id===String(id));
 
-  function renderList(){list.innerHTML=routeListHtml(routeStops,selectedId)+listHtml(visible(),selectedId);}
+  function renderList(){list.innerHTML=routeListHtml(routeStops,selectedId)+(filter.showPlaces===false?'<p class="muted cr-map-empty">Wybierz kategorię, aby zobaczyć miejsca na mapie.</p>':listHtml(visible(),selectedId));}
   // Draft stops: numbered markers above place pins and a straight line between consecutive located stops.
   function renderRoute(){
     if(!map)return;

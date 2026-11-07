@@ -63,3 +63,5 @@
   min-width:0;width:100%;min-height:48px;white-space:normal;font-size:13px;
  }
 }
+
+.route-share-trigger:disabled{opacity:.56;cursor:not-allowed;background:var(--line-2);color:var(--muted);border-color:var(--line)}

@@ -8,7 +8,7 @@ const json=async p=>JSON.parse(await readFile(p,'utf8'));
 const [places,cities,taxonomy,report,sql]=await Promise.all([
  json('data/cities/lisbon/places.json'),json('data/cities.json'),json('data/taxonomy.json'),
  json('data/cities/lisbon/import-report.json'),
- readFile('supabase/migrations/021_import_lisbon_osm.sql','utf8')
+ readFile('supabase/migrations/021_add_lisbon_osm_places.sql','utf8')
 ]);
 const city=cities.find(c=>c.id==='lisbon');
 const categories=new Set(taxonomy.groups.flatMap(g=>g.types.map(t=>t.id)));
@@ -52,6 +52,7 @@ test('Lisbon generated import SQL is aligned and city isolated',()=>{
  assert.doesNotMatch(sql,/where slug='warsaw'|where slug='krakow'/);
  assert.doesNotMatch(sql,/update public\.cities|delete from public\.cities/i);
  assert.doesNotMatch(sql,/delete from public\.routes/i);
+ assert.match(sql,/where public\.places\.metadata->'source'->>'provider'='openstreetmap'/);
  assert.match(sql,/OpenStreetMap/i);
  assert.match(sql,/parity failed/i);
  const p=places.find(p=>p.categoryId==='restaurant')||places[0];

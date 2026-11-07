@@ -11,7 +11,7 @@ test('Route Builder draft is category-gated on the Places map after mutations an
 
 test('builder-map integration invalidates the PWA cache',async()=>{
  const sw=await readFile('service-worker.js','utf8');
- assert.match(sw,/city-route-v65/);
+ assert.match(sw,/city-route-v66/);
  assert.match(sw,/map-view\.js/);
  assert.match(sw,/route-builder-model\.js/);
 });

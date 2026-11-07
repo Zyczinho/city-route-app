@@ -23,6 +23,43 @@ export const SCENARIOS=[
   {name:'09 — Kultura i kawa 4 godziny',time:240,start:origin(52.232,21.019),interests:['culture'],food:'quick'},
   {name:'10 — Zwiedzanie z obiadem 6 godzin',time:360,start:origin(52.221,21.018),interests:['sightseeing','food'],food:'sit'}
 ];
+const INTEREST_CATEGORY={
+  sightseeing:['landmark','architecture','religious_site','neighborhood','viewpoint'],
+  culture:['museum','gallery','religious_site','architecture'],
+  nature:['park','garden','waterfront','beach','walk'],
+  views:['viewpoint','waterfront','architecture'],
+  hidden:['hidden_gem','neighborhood','workshop','experience'],
+  food:['restaurant','cafe','street_food','food_hall','bakery','dessert'],
+  nightlife:['bar','pub','cocktail_bar','wine_bar','club','live_music']
+};
+const group=p=>{
+  if(['museum','gallery'].includes(p.categoryId)||p.cats?.includes('muzea'))return 'museum';
+  if(['park','garden','waterfront','walk','beach'].includes(p.categoryId)||p.cats?.includes('zielen'))return 'nature';
+  if(['restaurant','cafe','street_food','food_hall','bakery','dessert'].includes(p.categoryId)||p.foodStyle!=='none'&&p.foodStyle)return 'food';
+  if(['bar','pub','club','cocktail_bar'].includes(p.categoryId))return 'nightlife';
+  return p.categoryId||p.cats?.[0]||'sight';
+};
+function qualitySignals(route,prefs){
+  if(!route)return {interestFitPercent:0,categoryGroups:0,travelSharePercent:0,timeUsedPercent:0,alerts:['no-route']};
+  const interestMatch=p=>(prefs.interests||['mix']).some(interest=>
+    interest==='mix'||p.tags?.includes(interest)||
+    INTEREST_CATEGORY[interest]?.includes(p.categoryId)||
+    interest==='sightseeing'&&p.cats?.includes('zabytki')||
+    interest==='culture'&&p.cats?.includes('muzea')||
+    interest==='nature'&&p.cats?.includes('zielen')
+  )||(prefs.food!=='none'&&p.foodStyle&&p.foodStyle!=='none');
+  const interestFitPercent=Math.round(route.stops.filter(interestMatch).length/route.stops.length*100);
+  const categoryGroups=new Set(route.stops.map(group)).size;
+  const travelSharePercent=Math.round(route.breakdown.travel/route.totalMinutes*100);
+  const timeUsedPercent=Math.round(route.totalMinutes/prefs.time*100);
+  const alerts=[];
+  if(interestFitPercent<60)alerts.push('low-thematic-fit');
+  if(travelSharePercent>40)alerts.push('travel-heavy');
+  if(timeUsedPercent<50)alerts.push('underfilled');
+  if(route.unknownHours)alerts.push('venue-hours-unverified');
+  if(route.estimatedLegs)alerts.push('street-times-unverified');
+  return {interestFitPercent,categoryGroups,travelSharePercent,timeUsedPercent,alerts};
+}
 export function runBenchmark(){
   const osmIds=new Set(WARSAW_OSM.map(p=>p.id));
   return SCENARIOS.map(({name,...config})=>{
@@ -46,6 +83,7 @@ export function runBenchmark(){
       unknownHours:best?.unknownHours??null,
       estimatedLegs:best?.estimatedLegs??null,
       budgetRespected:!!best&&best.totalMinutes<=prefs.time,
+      quality:qualitySignals(best,prefs),
       route:best,
       reason:result.reason
     };

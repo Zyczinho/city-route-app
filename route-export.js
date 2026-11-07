@@ -8,7 +8,7 @@ export function routeGpx({name='Trasa City Route',places=[]}={}){
  return '<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="City Route" xmlns="http://www.topografix.com/GPX/1/1"><metadata><name>'+xml(name)+'</name><desc>Punkty orientacyjne do planowania. Brak rzeczywistego sladu GPS i geometrii ulic.</desc></metadata><rte><name>'+xml(name)+'</name>\n'+rte+'\n</rte></gpx>';
 }
 export function routeGpxFilename(name){
- const slug=String(name||'trasa').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()
+ const slug=String(name||'trasa').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/ł/g,'l')
   .replace(/[^a-z0-9-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,60)||'trasa';
  return 'cityroute-'+slug+'.gpx';
 }

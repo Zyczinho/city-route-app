@@ -21,16 +21,42 @@ export function smoothedRating(ratings=[],prior=4.3,weight=200){
 export function generate(places,prefs){
  const limit=Number(prefs.time), interests=prefs.interests||['mix'], origin=prefs.start?{lat:prefs.start.lat,lng:prefs.start.lng,minutes:0,cost:0}:null;
  const isFood=p=>p.foodStyle!=='none';
- const candidates=places.filter(p=>p.kind!=='hotel'&&(prefs.food!=='none'||!isFood(p))&&(prefs.food!=='quick'||p.foodStyle!=='sit')&&(prefs.food!=='sit'||p.foodStyle!=='quick')&&(prefs.offers==='yes'||!p.partner)&&(prefs.budget!=='low'||p.cost<=25));
+ // A visit without indoor entries should not silently suggest museum exhibitions as a facade stop.
+ // A later place-specific exterior-attraction flag can opt exceptional architecture back in.
+ const indoorExhibition=p=>['museum','gallery'].includes(p.categoryId)||Array.isArray(p.cats)&&p.cats.includes('muzea');
+ const candidates=places.filter(p=>p.kind!=='hotel'&&(prefs.visitMode!=='outside'||!indoorExhibition(p))&&(prefs.food!=='none'||!isFood(p))&&(prefs.food!=='quick'||p.foodStyle!=='sit')&&(prefs.food!=='sit'||p.foodStyle!=='quick')&&(prefs.offers==='yes'||!p.partner)&&(prefs.budget!=='low'||p.cost<=25));
  const variantBias=p=>{if(!Number.isInteger(prefs.variantIndex)||prefs.variantIndex<1)return 0;let hash=2166136261;for(const ch of String(p.id))hash=Math.imul(hash^ch.charCodeAt(0),16777619);hash=Math.imul(hash^(prefs.variantIndex*2654435761),2246822519)>>>0;return (hash%1000/1000-.5)*3;};
- const score=p=>(interests.includes('mix')?1:p.tags.filter(t=>interests.includes(t)).length*4)+(prefs.tourist==='balanced'?0:prefs.tourist==='must'?(p.tourist==='must'?3:0):(p.tourist==='local'?3:0))+(smoothedRating(p.ratings)-4.3)*4+(p.top&&prefs.tourist!=='local'?1:0)-Math.max(0,Number(prefs.diversityCounts?.[p.id])||0)*(Number(prefs.diversityWeight)||0)+variantBias(p);
+ // Newly imported catalogue POIs often have a category but no editorial tags/ratings yet.
+ // Category affinity gives them a fair chance; a missing rating is neutral, never an exclusion.
+ const CATEGORY_INTERESTS={
+  sightseeing:['landmark','architecture','religious_site','neighborhood'],
+  culture:['museum','gallery','religious_site','architecture'],
+  nature:['park','garden','waterfront','beach','walk'],
+  views:['viewpoint','waterfront','architecture'],
+  food:['restaurant','cafe','breakfast','street_food','food_hall','bakery','dessert'],
+  hidden:['hidden_gem','neighborhood','workshop','experience']
+ };
+ const interestScore=p=>interests.includes('mix')?1:interests.reduce((sum,interest)=>sum+
+   (Array.isArray(p.tags)&&p.tags.includes(interest)?4:0)+
+   (CATEGORY_INTERESTS[interest]?.includes(p.categoryId)?3:0),0);
+ const group=p=>{
+  const category=p.categoryId||'';
+  if(['museum','gallery','religious_site'].includes(category))return 'culture';
+  if(['park','garden','waterfront','beach','walk'].includes(category))return 'nature';
+  if(['bar','pub','cocktail_bar','wine_bar','club','live_music'].includes(category))return 'nightlife';
+  if(['landmark','architecture','viewpoint'].includes(category))return 'sights';
+  return category||p.cats?.[0]||'other';
+ };
+ const score=p=>interestScore(p)+(prefs.tourist==='balanced'?0:prefs.tourist==='must'?(p.tourist==='must'?3:0):(p.tourist==='local'?3:0))+(smoothedRating(p.ratings)-4.3)*4+(p.top&&prefs.tourist!=='local'?1:0)-Math.max(0,Number(prefs.diversityCounts?.[p.id])||0)*(Number(prefs.diversityWeight)||0)+variantBias(p);
  const legs=ps=>summary(origin?[origin,...ps]:ps,prefs.transport).minutes;
  const timeFeasible=ps=>typeof prefs.timeFeasible!=='function'||prefs.timeFeasible(ps);
  const pool=candidates.filter(p=>!isFood(p)),food=candidates.filter(isFood);
  const result=[];let cost=0;const cap=prefs.budget==='low'?25:prefs.budget==='medium'?100:Infinity;
  const from=()=>result.at(-1)||origin;
  while(pool.length&&result.length<9){
-  pool.sort((a,b)=>(score(b)-(from()?distance(from(),b)*2:0))-(score(a)-(from()?distance(from(),a)*2:0))||a.id.localeCompare(b.id));
+  const visitedGroups=new Map();for(const place of result){const key=group(place);visitedGroups.set(key,(visitedGroups.get(key)||0)+1);}
+  const utility=p=>score(p)-(from()?distance(from(),p)*2:0)-(visitedGroups.get(group(p))||0)*1.75;
+  pool.sort((a,b)=>utility(b)-utility(a)||a.id.localeCompare(b.id));
   const p=pool.shift();if(cost+p.cost>cap)continue;
   if(legs([...result,p])<=limit&&timeFeasible([...result,p])){result.push(p);cost+=p.cost;}
  }

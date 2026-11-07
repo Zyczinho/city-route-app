@@ -96,7 +96,7 @@ test('all requested social channels are visible in share chooser, without privat
  const text=await fs.readFile(new URL('../share-links.js',import.meta.url),'utf8');
  const app=await fs.readFile(new URL('../app.js',import.meta.url),'utf8');
  for(const word of ['WhatsApp','Instagram','Messenger','Udostępnij przez aplikację'])assert.match(text,new RegExp(word));
- assert.match(app,/data-route-share=\\"maps\\"/);
- assert.match(app,/data-route-share=\\"editorial\\"/);
- assert.match(app,/data-action=\\"export-gpx\\"/);
+ assert.match(app,/data-route-share="maps"/);
+ assert.match(app,/data-route-share="editorial"/);
+ assert.match(app,/data-action="export-gpx"/);
 });

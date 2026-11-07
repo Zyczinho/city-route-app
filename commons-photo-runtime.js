@@ -3,7 +3,7 @@
 // Paid Google/Tripadvisor photos remain handled independently by existing provider overlay.
 import {findCommonsPhoto,commonsPhotoUrl} from './commons-photo-source.js';
 
-const MAX_REQUESTS=48,MAX_PARALLEL=2,MAX_WAIT_MS=6000;
+const MAX_REQUESTS=48,MAX_PARALLEL=3,MAX_WAIT_MS=5500;
 const cache=new Map(),queued=new Set(),tasks=[],observed=new WeakSet();
 let active=0,total=0,scanScheduled=false;
 const attr='[data-commons-photo]';

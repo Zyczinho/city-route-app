@@ -66,12 +66,19 @@ export function runBenchmark(){
     const prefs={...base,...config};
     const result=planRoutesV2(WARSAW_CATALOGUE,prefs,{candidateLimit:90,beamWidth:45,maxStops:8,maxExpansions:30000});
     const best=result.routes[0];
+    const overlaps=[];
+    for(let i=0;i<result.routes.length;i++)for(let j=i+1;j<result.routes.length;j++){
+      const x=new Set(result.routes[i].stopIds),y=new Set(result.routes[j].stopIds);
+      overlaps.push([...x].filter(id=>y.has(id)).length/Math.max(x.size,y.size));
+    }
+    const maxVariantOverlapPercent=overlaps.length?Math.round(Math.max(...overlaps)*100):null;
     return {
       scenario:name,
       requestedMinutes:prefs.time,
       candidates:result.diagnostics.candidateCount,
       considered:result.diagnostics.evaluated,
       options:result.routes.length,
+      maxVariantOverlapPercent,
       stopIds:best?.stopIds||[],
       stopCount:best?.stopIds.length||0,
       newOsmStops:best?.stopIds.filter(id=>osmIds.has(id)).length||0,

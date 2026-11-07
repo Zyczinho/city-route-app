@@ -66,6 +66,7 @@ function budgetLimit(prefs){
 function validForPrefs(p,prefs,interests){
   if(!p||!p.id||!hasCoords(p)||STAY.has(p.categoryId)||p.kind==='hotel')return false;
   if(prefs.cityId&&p.cityId&&p.cityId!==prefs.cityId)return false;
+  if(Array.isArray(prefs.allowedAreas)&&prefs.allowedAreas.length&&!prefs.allowedAreas.includes(p.area))return false;
   if(Number(prefs.maxRadiusKm)>0&&hasCoords(prefs.start)&&distance(p,prefs.start)>Number(prefs.maxRadiusKm))return false;
   if(prefs.visitMode==='outside'&&museumPlace(p)&&p.exteriorWorthVisiting!==true)return false;
   if(prefs.offers!=='yes'&&p.partner)return false;
@@ -101,7 +102,17 @@ function candidatePool(raw,prefs,opts){
     groupCounts.set(group,(groupCounts.get(group)||0)+1);
     return true;
   };
-  for(const item of ranked){if(selected.length>=limit)break;maybeAdd(item);}
+  // Mandatory meal needs candidates from the correct food style even when cultural sights dominate the shortlist.
+  if(prefs.food&&prefs.food!=='none'){
+    const mealItems=ranked.filter(item=>foodPlace(item.p)).sort((a,b)=>{
+      const da=origin?distance(origin,a.p):0;
+      const db=origin?distance(origin,b.p):0;
+      return da-db||b.rank-a.rank||idOf(a.p).localeCompare(idOf(b.p));
+    }).slice(0,12);
+    for(const item of mealItems)maybeAdd(item,true);
+  }
+  const pinned=new Set(selected.map(x=>idOf(x.p)));
+  for(const item of ranked){if(selected.length>=limit)break;if(!pinned.has(idOf(item.p))&&maybeAdd(item))pinned.add(idOf(item.p));}
   if(selected.length<limit){
     const taken=new Set(selected.map(x=>idOf(x.p)));
     for(const item of ranked){if(selected.length>=limit)break;if(!taken.has(idOf(item.p))){maybeAdd(item,true);taken.add(idOf(item.p));}}
@@ -231,12 +242,19 @@ export function planRoutesV2(places,prefs={},opts={}){
     }
     expanded.sort((a,b)=>b.score-a.score||a.minutes-b.minutes||sameStopSet(a.stops).localeCompare(sameStopSet(b.stops)));
     const seen=new Set();frontier=[];
-    for(const candidate of expanded){
+    const addState=candidate=>{
       const key=`${sameStopSet(candidate.stops)}|${candidate.stops.at(-1).id}`;
-      if(seen.has(key))continue;
+      if(seen.has(key)||frontier.length>=beamWidth)return;
       seen.add(key);frontier.push(candidate);
-      if(frontier.length>=beamWidth)break;
+    };
+    // Preserve food-inclusive partial routes; otherwise higher-scoring museums can
+    // monopolize the beam and make a requested café mathematically unreachable.
+    if(ctx.food!=='none'){
+      const reserve=Math.ceil(beamWidth*.3);
+      let picked=0;
+      for(const candidate of expanded){if(candidate.foodCount!==1)continue;addState(candidate);if(++picked>=reserve)break;}
     }
+    for(const candidate of expanded){if(frontier.length>=beamWidth)break;addState(candidate);}
   }
   const picked=bestSolutions(solutions,clamp(Math.trunc(Number(opts.count)||3),1,5),prefs.food&&prefs.food!=='none');
   return {

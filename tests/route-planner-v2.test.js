@@ -89,3 +89,27 @@ test('route search is deterministic for the same catalogue and preferences',()=>
   const second=planRoutesV2(subset,config,{beamWidth:12,maxExpansions:5000});
   assert.deepEqual(first,second);
 });
+
+test('local Praga scenario stays near the declared neighborhood origin',()=>{
+  const route=benchmarks[5].route;
+  assert.ok(route,'Praga scenario must be feasible');
+  const start=SCENARIOS[5].start;
+  // Haversine straight-line radius check (coordinates are supplied by real Warsaw POI data).
+  const km=(a,b)=>{
+    const R=6371,rad=n=>n*Math.PI/180;
+    const dl=rad(b.lat-a.lat),dn=rad(b.lng-a.lng);
+    const h=Math.sin(dl/2)**2+Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(dn/2)**2;
+    return R*2*Math.asin(Math.sqrt(h));
+  };
+  assert.ok(route.stops.every(p=>km(start,p)<=1.5),'route must not drift out of Praga planning radius');
+});
+test('requested coffee and lunch are neither the first nor the last stop',()=>{
+  for(const b of [benchmarks[8],benchmarks[9]]){
+    const r=b.route;
+    assert.ok(r&&r.stops.length>=3,`requested meal missing in ${b.scenario}`);
+    const index=r.stops.findIndex(p=>p.foodStyle&&p.foodStyle!=='none');
+    assert.ok(index>0&&index<r.stops.length-1,`meal must interrupt a route in ${b.scenario}`);
+    const entry=r.rows[index].visitStartMinute;
+    if(b===benchmarks[9])assert.ok(entry>=11*60+30&&entry<=15*60,`lunch at ${entry} must fit 11:30–15:00`);
+  }
+});

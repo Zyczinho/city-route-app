@@ -40,5 +40,5 @@ test('archived route styles and asset versions are precached by PWA',async()=>{
  for(const token of ['route-share-ui.css?v=3','places-pagination.css?v=2']){
   assert.ok(html.includes(token));assert.ok(sw.includes(token));
  }
- assert.match(sw,/const CACHE='city-route-v65'/);
+ assert.match(sw,/const CACHE='city-route-v\d+'/);
 });

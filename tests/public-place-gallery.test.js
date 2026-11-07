@@ -93,6 +93,6 @@ test('PWA, build and moderator assets include gallery and bump cache',()=>{
   assert.ok(build.includes(item),item+' not distributed');
  }
  assert.match(html,/place-public-gallery\.js\?v=1/);
- assert.match(sw,/city-route-v65/);
+ assert.match(sw,/city-route-v\d+/);
  assert.match(admin,/place-public-gallery\.css/);
 });

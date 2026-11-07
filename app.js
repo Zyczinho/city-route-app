@@ -130,6 +130,8 @@ function thumbUrl(p,w=320){
 }
 document.addEventListener('error',e=>{
  const img=e.target;if(!(img instanceof HTMLImageElement)||!img.dataset.thumbFor)return;
+ // The list may have re-rendered before the 404 arrived; a detached image has nothing to replace.
+ if(!img.isConnected||!img.parentNode)return;
  const p=all[img.dataset.thumbFor];img.outerHTML=catTile(p,img.dataset.thumbCls||'','');
 },true);
 function photo(p,cls='',eager=false,listThumb=false){const image=p?.image||approvedPhoto(p)?.src||providerOverlay.get(p?.id)?.image?.src;const thumb=!image&&listThumb&&thumbUrl(p,listThumb===800?800:320);if(thumb)return `<img class="${cls}" src="${esc(thumb)}" alt="${esc(p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer" data-thumb-for="${esc(p.id)}" data-thumb-cls="${esc(cls)}">`;if(!image){const geo=p?.id&&p?.name&&Number.isFinite(p?.lat)&&Number.isFinite(p?.lng)?` data-commons-photo="${esc(p.id)}" data-commons-name="${esc(p.name)}" data-commons-lat="${p.lat}" data-commons-lng="${p.lng}"`:'';return catTile(p,cls,geo);} const src=/^(https?:|data:image\/|\/api\/place-photo\?)/.test(image)?image:`./assets/images/${image}`;return `<img class="${cls}" src="${esc(src)}" alt="${esc(p.imageCaption||p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer">`;}

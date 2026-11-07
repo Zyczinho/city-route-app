@@ -37,6 +37,7 @@ let mapCategorySelected=false;
 let placesPage=1;
 let mapView=null,renderedPlaceList=[],builderDraft=null,nearbyAfterId=null,nearbyRadiusM=500,addNewPlaceAfterId=null,justSavedPlaceId=null;
 const providerOverlay=new Map(),providerLoading=new Set();let providerObserver=null;
+let googlePhotoState='unknown';
 const persist=()=>{try{if(state?.cityId){state.basketsByCity=state.basketsByCity||{};state.basketsByCity[state.cityId]=[...(state.basket||[])];if(builderDraft?.cityId===state.cityId){const {name,transport,revision,updatedAt}=serializeDraft(builderDraft);state.builderMetaByCity=state.builderMetaByCity||{};state.builderMetaByCity[state.cityId]={cityId:state.cityId,name,transport,revision,updatedAt};}}localStorage.setItem(key,JSON.stringify(state));}catch{storageOK=false;$('#connection').textContent='Zapis lokalny niedostępny. Wyeksportuj dane przed zamknięciem karty.';}};
 const log=(type,data={})=>{state.events.push({type,...data,tester_id:state.tester.id,at:new Date().toISOString()});state.events=state.events.slice(-5000);persist();};
 let toastTimer;function toast(s){$('#toast').textContent=s;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),2600);}
@@ -115,6 +116,16 @@ async function showProviderHealth(){
   const {providers}=await response.json();
   if(!host.isConnected||!providers)return;
   const photo=providers.google?.photos,rating=providers.google?.ratings;
+  if(typeof photo==='string'&&photo!==googlePhotoState){
+   googlePhotoState=photo;
+   if(['no-key','disabled','quota'].includes(photo)){
+    // Render Commons placeholders immediately instead of creating doomed Google image loads.
+    const list=document.querySelector('.place-list');
+    if(list){list.querySelectorAll('article.place[data-place-id]').forEach(row=>{
+     const place=all[row.dataset.placeId];if(place)row.outerHTML=placeRow(place);
+    });observeApprovedPlaceEnrichment();}
+   }
+  }
   const blocked=x=>['no-key','disabled'].includes(x);
   const ta=Object.values(providers.tripadvisor||{});
   const lines=[];
@@ -208,7 +219,7 @@ function handlePhotoError(img){
  return true;
 }
 document.addEventListener('error',e=>handlePhotoError(e.target),true);
-function photo(p,cls='',eager=false,listThumb=false){const image=p?.image||approvedPhoto(p)?.src||providerOverlay.get(p?.id)?.image?.src;const thumb=!image&&listThumb&&thumbUrl(p,listThumb===800?800:320);if(thumb)return `<img class="${cls}" src="${esc(thumb)}" alt="${esc(p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer" data-thumb-for="${esc(p.id)}" data-thumb-cls="${esc(cls)}">`;if(!image){return catTile(p,cls,commonsAttrs(p));} const src=/^(https?:|data:image\/|\/api\/place-photo\?)/.test(image)?image:`./assets/images/${image}`;return `<img class="${cls}" src="${esc(src)}" alt="${esc(p.imageCaption||p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer">`;}
+function photo(p,cls='',eager=false,listThumb=false){const image=p?.image||approvedPhoto(p)?.src||providerOverlay.get(p?.id)?.image?.src;const thumb=!image&&listThumb&&!['no-key','disabled','quota'].includes(googlePhotoState)&&thumbUrl(p,listThumb===800?800:320);if(thumb)return `<img class="${cls}" src="${esc(thumb)}" alt="${esc(p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer" data-thumb-for="${esc(p.id)}" data-thumb-cls="${esc(cls)}">`;if(!image){return catTile(p,cls,commonsAttrs(p));} const src=/^(https?:|data:image\/|\/api\/place-photo\?)/.test(image)?image:`./assets/images/${image}`;return `<img class="${cls}" src="${esc(src)}" alt="${esc(p.imageCaption||p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer">`;}
 function credit(p){const c=p?.imageCredit||(!p?.image?(approvedPhoto(p)?.credit||providerOverlay.get(p?.id)?.image?.credit):null);if(!c)return '';const lic=c.licenseUrl?`<a href="${esc(c.licenseUrl)}" target="_blank" rel="noopener noreferrer">${esc(c.license)}</a>`:esc(c.license);return `<p class="credit">${ic('camera')}<span>${p.imageCaption?esc(p.imageCaption)+'. ':''}Zdjęcie: ${esc(c.author)} · ${lic} · <a href="${esc(c.source)}" target="_blank" rel="noopener noreferrer">${esc(c.via)}</a></span></p>`;}
 const rating=(p,s)=>providerRatings(p).find(r=>r.source===s);
 const cityRouteBadge=p=>`<span class="cr-score" data-cityroute-ref="${esc(p.id)}" title="Średnia społeczności City Route — niezależna od ocen Google i Tripadvisor">${ic("star")} City Route · Brak ocen</span>`;

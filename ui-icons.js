@@ -6,7 +6,7 @@ export const ICON_NAMES=Object.freeze([
  'building-2','camera','check','chevron-down','chevron-right','clock','compass','grip-vertical','flag','heart',
  'house','image-plus','info','landmark','layers','library','link','locate-fixed','message-circle',
  'map-pin','map','minus','navigation','pencil','play','plus','radio','route',
- 'search','shuffle','signpost','sliders-horizontal','sparkles','star',
+ 'search','send','shuffle','signpost','sliders-horizontal','sparkles','star',
  'ticket-percent','trash-2','trees','trophy','user-round','users','utensils',
  'wand-sparkles','waves','x',
  'wine','beer','martini','coffee','music','disc-3','church','palette','binoculars','store','croissant','cake-slice'

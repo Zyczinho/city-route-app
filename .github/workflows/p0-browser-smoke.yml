@@ -17,6 +17,10 @@ on:
       - 'index.html'
       - 'service-worker.js'
       - 'tests/p0-browser-smoke.mjs'
+      - 'tests/integrations-browser-smoke.mjs'
+      - 'share-links.js'
+      - 'google-saved-import.js'
+      - 'route-export.js'
       - '.github/workflows/p0-browser-smoke.yml'
 
 permissions:
@@ -35,6 +39,7 @@ jobs:
       - run: npm install --no-save playwright@1.58.2
       - run: npx playwright install --with-deps chromium
       - run: node tests/p0-browser-smoke.mjs
+      - run: node tests/integrations-browser-smoke.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

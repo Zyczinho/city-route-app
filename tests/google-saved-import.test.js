@@ -21,6 +21,9 @@ test('coordinates from Google URL never infer location from map viewport /@lat,l
  assert.deepEqual(coordinatesFromGoogleUrl('https://www.google.com/maps/place/Powisle/data=!4m2!3d52.2395!4d21.0458'),{lat:52.2395,lng:21.0458});
  assert.equal(coordinatesFromGoogleUrl('https://www.google.com/maps/@52.2297,21.0122,13z'),null);
  assert.equal(coordinatesFromGoogleUrl('https://evil.com/maps?q=52.2297,21.0122'),null);
+ assert.equal(coordinatesFromGoogleUrl('https://www.google.evil.com/maps?q=52.2297,21.0122'),null,'forged Google hostname');
+ assert.equal(coordinatesFromGoogleUrl('http://www.google.com/maps?q=52.2297,21.0122'),null,'insecure URL');
+ assert.deepEqual(coordinatesFromGoogleUrl('https://www.google.pl/maps?q=52.2297,21.0122'),{lat:52.2297,lng:21.0122});
 });
 test('GeoJSON imports only Point features with valid coordinates',()=>{
  const json=JSON.stringify({type:'FeatureCollection',features:[{type:'Feature',properties:{name:'Plac Zbawiciela'},geometry:{type:'Point',coordinates:[21.018,52.219]}},{type:'Feature',properties:{name:'Shape'},geometry:{type:'LineString',coordinates:[[21,52],[21.1,52.1]]}}]});
@@ -36,6 +39,12 @@ test('import matches catalogue names and duplicates once; unknown coordinates cr
  assert.deepEqual(p.matched.map(x=>x.placeId),['place-1']);
  assert.equal(p.created.length,1);assert.equal(p.created[0].name,'Nocny bar');
  assert.equal(p.unresolved.length,2);
+});
+test('accent-insensitive names match uniquely without fake coordinates',()=>{
+ const plan=planGoogleSavedImport([{name:'Lazienki Krolewskie',lat:null,lng:null}],{
+  cities:[warsaw],catalogue:[{id:'lazienki',cityId:'warsaw',name:'Łazienki Królewskie',lat:52.2,lng:21.0}]});
+ assert.deepEqual(plan.matched.map(x=>x.placeId),['lazienki']);
+ assert.equal(plan.created.length,0);
 });
 test('only active supported city can receive new locations',()=>{
  const out=planGoogleSavedImport([{name:'Kraków bar',lat:50.065,lng:19.94}],{cities:[warsaw],catalogue});

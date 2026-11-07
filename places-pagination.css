@@ -1,0 +1,20 @@
+/* Places pagination — CityRoute blue/white, mobile-friendly, 44px tap targets. */
+.places-pager{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:14px 0 18px;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.places-pager-progress{font-size:12px;font-weight:750;color:var(--muted);white-space:nowrap}
+.places-page-numbers{display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap}
+.places-page-number,.places-page-arrow{min-width:44px;min-height:44px;padding:8px 11px;border:1px solid #c6d9ea;border-radius:12px;background:var(--surface);color:var(--blue);font-size:14px;font-weight:750}
+.places-page-arrow{display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.places-page-arrow .i{width:18px;height:18px;flex:none}
+.places-page-number:hover:not(:disabled),.places-page-arrow:hover:not(:disabled){background:var(--blue-soft);border-color:var(--blue)}
+.places-page-number.current,.places-page-number[aria-current=page]{color:#fff;background:var(--blue);border-color:var(--blue);box-shadow:0 2px 8px #0a66c229}
+.places-page-number:focus-visible,.places-page-arrow:focus-visible{outline:3px solid #86c6ff;outline-offset:2px}
+.places-page-arrow:disabled{opacity:.45;cursor:default}
+.places-page-dots{display:inline-flex;align-items:center;justify-content:center;min-width:18px;font-size:15px;color:var(--muted)}
+.list-head [data-places-range]{font-weight:700;color:var(--ink)}
+@media(max-width:500px){
+ .places-pager{gap:8px;padding:10px 8px}
+ .places-pager-progress{width:100%;text-align:center;order:0}
+ .places-page-arrow{order:1;flex:1 1 120px}
+ .places-page-numbers{order:2;flex:1 1 100%;max-width:100%}
+ .places-page-number,.places-page-arrow{min-height:44px}
+}

@@ -55,7 +55,7 @@ test('Lisbon generated import SQL is aligned and city isolated',()=>{
  assert.match(sql,/OpenStreetMap/i);
  assert.match(sql,/parity failed/i);
  const p=places.find(p=>p.categoryId==='restaurant')||places[0];
- const item=placeFromCatalogue({id:p.id,name:p.name,lat:p.lat,lng:p.lng,category_id:p.categoryId,area:p.area,metadata:p.metadata,image_meta:{},tags:p.tags,ratings:p.ratings},'lisbon');
+ const item=placeFromCatalogue({id:p.id,name:p.name,lat:p.lat,lng:p.lng,category_id:p.categoryId,area:p.area,currency:'EUR',metadata:p.metadata,image_meta:{},tags:p.tags,ratings:p.ratings},'lisbon');
  assert.equal(item.cityId,'lisbon');
- assert.equal(item.currency,'PLN'); // Omitted mock currency follows catalogue-client legacy default only
+ assert.equal(item.currency,'EUR');
 });

@@ -581,6 +581,19 @@ function render(){const cityHost=document.querySelector('.city-host');if(cityHos
 function start(r){const stops=r.stops.filter(id=>all[id]);if(!stops.length)return toast('Najpierw dodaj co najmniej jedno miejsce.');state.session={id:uuid(),name:r.name,routeId:r.id,stops,index:0,results:[],finished:false,transport:r.transport||'walking',startedAt:new Date().toISOString()};log('route_start',{route_id:r.id,session_id:state.session.id,stops:stops.length});location.hash='my-route';render();}
 function saveRoute(r){const saved={id:'mine-'+uuid().slice(0,8),cityId:city().id,name:r.name,description:r.description,stops:r.stops.slice(),cats:[],transport:r.transport||'walking',createdAt:new Date().toISOString(),archivedAt:null};state.myRoutes.unshift(saved);log('route_save',{route_id:saved.id,stops:saved.stops.length});return saved;}
 
+function openSaveRouteDialog(source,routeId=''){
+ const dialog=$('#route-save-dialog');if(!dialog)return;
+ const selected=source==='rename'?state.myRoutes.find(r=>r.id===routeId):
+  source==='generated'?generated:builderDraft;
+ if(!selected||!Array.isArray(selected.stops)||!selected.stops.length)return toast('Najpierw dodaj przystanki do trasy.');
+ dialog.dataset.source=source;dialog.dataset.routeId=routeId;
+ dialog.querySelector('#route-save-title').textContent=source==='rename'?'Zmień nazwę zapisanej trasy':'Zapisz swoją trasę';
+ dialog.querySelector('#route-save-name').value=selected.name||'Moja trasa';
+ dialog.querySelector('#route-save-description').value=source==='basket'?items(state.basket).map(p=>p.name).join(' · ').slice(0,500):selected.description||'';
+ dialog.querySelector('.route-save-submit').textContent=source==='rename'?'Zapisz zmiany':'Zapisz w Moich trasach';
+ dialog.showModal();
+ dialog.querySelector('#route-save-name').focus();
+}
 document.addEventListener('click',e=>{
  const d=$('#place-dialog');if(e.target===d){d.close();return;}
  const b=e.target.closest('[data-action]');if(!b)return;const {action,id,value}=b.dataset;
@@ -592,6 +605,15 @@ document.addEventListener('click',e=>{
   try{downloadRouteGpx({name:r.name,places:items(r.stops)});toast('Plik GPX pobrany. W Stravie wybierz import trasy.');}
   catch(err){toast(err.message||'Nie udało się utworzyć GPX.');}
   return;
+ }
+ if(action==='close-save-route'){$('#route-save-dialog')?.close();return;}
+ if(action==='rename-route'){openSaveRouteDialog('rename',id);return;}
+ if(action==='archive-route'||action==='unarchive-route'){
+  const r=state.myRoutes.find(row=>row.id===id&&row.cityId===city().id);
+  if(!r)return toast('Nie znaleziono zapisanej trasy.');
+  r.archivedAt=action==='archive-route'?new Date().toISOString():null;
+  log(action==='archive-route'?'route_archive':'route_unarchive',{route_id:r.id});
+  location.hash='#routes';render();toast(action==='archive-route'?'Trasa zachowana w Archiwum.':'Trasa przywrócona do Moich tras.');return;
  }
  if(action==='places-page'){if(route()[0]==='places'){const target=Number(value);if(Number.isSafeInteger(target)&&target>=1)showPlacesPage(target);}return;}
  if(action==='place')return openPlace(id);
@@ -665,8 +687,8 @@ document.addEventListener('click',e=>{
   log('build_variant_refresh',{count:fresh.length,stops:generated.stops.length});
   render();document.querySelector('.generated-picker')?.scrollIntoView?.({block:'start'});
  }
- if(action==='save-generated'&&generated){const s=saveRoute(generated);persist();location.hash='route/'+s.id;toast('Zapisano w Twoich trasach');}
- if(action==='save-basket'){const name=builderDraft?.name||('Moja trasa · '+new Date().toLocaleDateString('pl-PL'));saveRoute({...toRoute(builderDraft,{id:'custom',name}),description:items(state.basket).map(p=>p.name).join(', ')});persist();render();toast('Zapisano. Znajdziesz ją w zakładce Trasy.');}
+ if(action==='save-generated'&&generated){openSaveRouteDialog('generated');return;}
+ if(action==='save-basket'){openSaveRouteDialog('basket');return;}
  if(action==='clear-builder'&&(!state.basket.length||state.basket.length<=2||confirm('Wyczyścić całą trasę?'))){const r=applyBuilder(clearDraft(builderDraft,{now:now()}),{eventType:'builder_clear'});if(r?.changed){render();toast('Trasa wyczyszczona.');}}
  if(action==='start'){const r=id==='basket'?toRoute(builderDraft,{id:'custom',name:builderDraft?.name||'Moja trasa'}):findRoute(id);if(isLive()){pending=r;$('#confirm').showModal();}else start(r);}
  if(action==='cancel-replace'){$('#confirm').close();pending=null;}
@@ -753,7 +775,27 @@ document.addEventListener('change',async e=>{
   if(selected.length>available)toast('Maksymalnie 5 zdjęć — pominięto nadmiar.');render();}
 });
 document.addEventListener('submit',async e=>{const f=e.target,data=new FormData(f);
- if(f.id==='profile-form'){e.preventDefault();state.tester.nickname=String(data.get('nickname')).trim()||'Explorer';state.profile.bio=String(data.get('bio')).trim().slice(0,160);const bad=[];for(const k of ['instagram','tiktok','web']){const v=String(data.get(k)).trim();state.profile.socials[k]=v&&socialUrl(k,v)?v:'';if(v&&!socialUrl(k,v))bad.push(k);}persist();editing=false;render();toast(bad.length?'Zapisano. Pominięto niepoprawny link.':'Profil zapisany.');}
+ if(f.id==='route-save-form'){
+   e.preventDefault();
+   const dialog=f.closest('dialog'),source=dialog?.dataset.source,id=dialog?.dataset.routeId;
+   const name=String(data.get('name')||'').trim().slice(0,80),description=String(data.get('description')||'').trim().slice(0,500);
+   if(name.length<2)return toast('Podaj nazwę trasy (minimum 2 znaki).');
+   if(source==='rename'){
+    const r=state.myRoutes.find(x=>x.id===id&&x.cityId===city().id);
+    if(!r)return toast('Nie znaleziono zapisanej trasy.');
+    r.name=name;r.description=description;r.updatedAt=now();
+    log('route_rename',{route_id:r.id});
+   }else{
+    const candidate=source==='generated'?generated:source==='basket'&&builderDraft?toRoute(builderDraft,{id:'custom',name}):null;
+    if(!candidate||!candidate.stops?.length)return toast('Najpierw dodaj przystanki do trasy.');
+    saveRoute({...candidate,name,description});
+    persist();
+   }
+   dialog.close();location.hash='#routes';render();
+   toast(storageOK?'Zapisano w Moich trasach. Możesz ją później archiwizować.':'Zapis lokalny nie działa. Wyeksportuj dane, zanim zamkniesz kartę.');
+   return;
+  }
+  if(f.id==='profile-form'){e.preventDefault();state.tester.nickname=String(data.get('nickname')).trim()||'Explorer';state.profile.bio=String(data.get('bio')).trim().slice(0,160);const bad=[];for(const k of ['instagram','tiktok','web']){const v=String(data.get(k)).trim();state.profile.socials[k]=v&&socialUrl(k,v)?v:'';if(v&&!socialUrl(k,v))bad.push(k);}persist();editing=false;render();toast(bad.length?'Zapisano. Pominięto niepoprawny link.':'Profil zapisany.');}
  if(f.id==='place-review-form'){e.preventDefault();const score=Number(data.get('rating'));state.placeReviews[f.dataset.id]=score;persist();window.dispatchEvent(new CustomEvent('cityroute:place-reviewed',{detail:{placeId:f.dataset.id,cityId:city().id,rating:score}}));toast('Twoja ocena jest zapisana.');openPlace(f.dataset.id);}
  if(f.id==='place-form'){e.preventDefault();if(f.dataset.saving)return;keepDraft();
   if(draft.sourcePageUrl&&!parsePhotoSourceUrl(draft.sourcePageUrl))return toast('Link do źródła musi być poprawnym publicznym adresem HTTPS (strona, Instagram lub Facebook).');

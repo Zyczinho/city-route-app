@@ -1,12 +1,13 @@
 // Google Takeout "Saved" CSV + point GeoJSON. Pure, client-side, no Google credentials or scraping.
-const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().toLowerCase().replace(/\s+/g,' ');
+const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/ł/g,'l').trim().replace(/\s+/g,' ');
 const number=n=>n===''||n===null||n===undefined?NaN:Number(n);
 const valid=(lat,lng)=>Number.isFinite(lat)&&Number.isFinite(lng)&&Math.abs(lat)<=90&&Math.abs(lng)<=180;
 // Only a place coordinate embedded in a Maps URL is trusted; never mistake /@viewport for a venue.
 export function coordinatesFromGoogleUrl(raw){
  try{
   const u=new URL(raw);
-  if(!/(^|\.)google\.[a-z.]+$/.test(u.hostname)&&u.hostname!=='maps.google.com')return null;
+  const official=u.hostname==='maps.google.com'||/^(?:www\.)?google\.(?:[a-z]{2,3}|(?:co|com)\.[a-z]{2})$/.test(u.hostname);
+  if(u.protocol!=='https:'||!official)return null;
   const q=u.searchParams.get('q')||u.searchParams.get('query')||'';
   const m=q.match(/^\s*(-?\d{1,2}(?:\.\d+)?)\s*,\s*(-?\d{1,3}(?:\.\d+)?)\s*$/);
   if(m&&valid(Number(m[1]),Number(m[2])))return {lat:Number(m[1]),lng:Number(m[2])};

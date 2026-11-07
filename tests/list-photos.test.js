@@ -32,9 +32,13 @@ test('tile is an honest placeholder, not a photo',()=>{
  assert.match(ctx.catTile({},'',''),/map-pin\.svg/);
 });
 
-test('visible catalogue rows are enriched in a bounded queue and patched in place',()=>{
- assert.match(app,/const needsProvider=p=>!!p&&!providerOverlay\.has\(p\.id\)&&\(!p\.image\|\|!providerRatings\(p\)\.length\)/);
- assert.doesNotMatch(app,/origin==='community'\|\|p\?\.kind==='user'\)&&!providerOverlay/,'no longer limited to community places');
+test('catalogue rows use the cheap thumbnail path; only community places use the full lookup from lists',()=>{
+ assert.match(app,/const needsProvider=p=>!!p&&\(p\.origin==='community'\|\|p\.kind==='user'\)&&!providerOverlay\.has\(p\.id\)/);
+ assert.match(app,/<div class="thumb">\$\{photo\(p,'',false,true\)\}/,'place list rows ask for a thumbnail');
+ assert.match(app,/'\/api\/place-thumb\?'\+new URLSearchParams\(/);
+ assert.match(app,/loading="lazy" decoding="async" referrerpolicy="no-referrer" data-thumb-for=/,'browser lazy loading limits requests to rows near the screen');
+ assert.match(app,/document\.addEventListener\('error',e=>\{[^]*?img\.outerHTML=catTile\(p,'',''\);[^]*?\},true\);/,'a missing photo falls back to the category tile');
+ assert.match(app,/p\.kind==='user'\|\|p\.kind==='sidequest'\)return null;/,'own places never go to the thumbnail path');
  assert.match(app,/while\(enrichActive<3&&enrichQueue\.length\)/);
  assert.match(app,/providerObserver\?\.disconnect\(\);providerObserver=null;enrichQueue\.length=0;/,'a list change drops unseen work');
  assert.match(app,/if\(row\)row\.outerHTML=placeRow\(all\[p\.id\]\);else render\(\);/);

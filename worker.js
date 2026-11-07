@@ -18,6 +18,7 @@ import {placePreview,placePhoto} from './maps-preview.js';
 import {searchPlaceAddress,suggestPlaces,placeDetails,placePhotoById,cityFromParams} from './geocode.js';
 import {ticketmasterQuery,normalizeTicketmaster,dedupe} from './events.js';
 import {enrichPlace} from './place-enrichment.js';
+import {cachedGooglePlaceId,googlePhotoUri,placeIdCacheKey} from './place-thumb.js';
 import {kmBetween} from './geocode.js';
 
 const json=(body,status=200,maxAge=0)=>new Response(JSON.stringify(body),{status,headers:{'content-type':'application/json; charset=utf-8','cache-control':maxAge?`public, max-age=${maxAge}`:'no-store'}});
@@ -78,7 +79,30 @@ function contentAllowed(env){
  if(contentCalls>=cap)return false;
  contentCalls++;return true;
 }
-async function placeEnrichment(url,env){
+// /api/place-thumb: list photo for a catalogue place. Redirects to Google's photo URL or answers 404 (the app then
+// shows its category tile). Costs one Place Photo call; the place_id lookup is free or cached (see place-thumb.js).
+async function placeThumb(url,env,ctx){
+ const name=String(url.searchParams.get('name')||'').replace(/\s+/g,' ').trim().slice(0,120);
+ const lat=Number(url.searchParams.get('lat')),lng=Number(url.searchParams.get('lng'));
+ const cityName=String(url.searchParams.get('cityName')||'Warszawa').replace(/\s+/g,' ').trim().slice(0,60);
+ const center={lat:Number(url.searchParams.get('centerLat')),lng:Number(url.searchParams.get('centerLng'))};
+ const radiusKm=Math.min(50,Number(url.searchParams.get('r'))||40);
+ const notFound=status=>new Response(null,{status:404,headers:{'cache-control':'private, max-age=600','x-thumb-status':status}});
+ if(name.length<2||![lat,lng,center.lat,center.lng].every(Number.isFinite)||kmBetween({lat,lng},center)>radiusKm)return notFound('invalid');
+ if(!googleAllowed(env))return notFound(env.GOOGLE_PLACES_API_KEY?'quota':'no-key');
+ try{
+  const key=env.GOOGLE_PLACES_API_KEY;
+  const id=String(url.searchParams.get('googleId')||'')||await cachedGooglePlaceId({name,lat,lng,cityName,googleKey:key},{cache:caches.default,ctx});
+  const uri=id&&await googlePhotoUri(id,{googleKey:key});
+  if(!uri)return notFound(id?'no-photo':'no-match');
+  return new Response(null,{status:302,headers:{location:uri,'cache-control':'private, max-age=3600','referrer-policy':'no-referrer'}});
+ }catch{return notFound('unavailable');}
+}
+async function peekGooglePlaceId(name,lat,lng,cache){
+ if(!name||![lat,lng].every(Number.isFinite))return '';
+ try{const hit=await cache.match(new Request(placeIdCacheKey(name,lat,lng)));const v=hit&&await hit.json();return typeof v?.id==='string'?v.id:'';}catch{return '';}
+}
+async function placeEnrichment(url,env,ctx){
  const name=String(url.searchParams.get('name')||'').replace(/\s+/g,' ').trim().slice(0,120);
  const lat=Number(url.searchParams.get('lat')),lng=Number(url.searchParams.get('lng'));
  const params=new URLSearchParams(url.searchParams);
@@ -86,13 +110,17 @@ async function placeEnrichment(url,env){
  params.set('name',url.searchParams.get('cityName')||'Warszawa');
  const city=cityFromParams(params);
  if(name.length<3||!url.searchParams.has('lat')||!url.searchParams.has('lng')||![lat,lng].every(Number.isFinite)||Math.abs(lat)>90||Math.abs(lng)>180||kmBetween({lat,lng},city.center)>city.radiusKm)return json({status:'invalid',ratings:[]},422);
- const googlePlaceId=String(url.searchParams.get('googleId')||'').slice(0,300);
+ // A place_id confirmed by a list thumbnail lets the card use Place Details instead of the dearer Text Search.
+ const googlePlaceId=String(url.searchParams.get('googleId')||'').slice(0,300)||await peekGooglePlaceId(name,lat,lng,caches.default);
  try{
   const result=await enrichPlace({name,lat,lng,googlePlaceId,city,googleKey:env.GOOGLE_PLACES_BETA_ENABLED==='on'?(env.GOOGLE_PLACES_API_KEY||''):'',terraKey:env.TRIPADVISOR_TERRA_API_KEY||'',
    contentKey:env.TRIPADVISOR_CONTENT_BETA_ENABLED==='on'?(env.TRIPADVISOR_CONTENT_API_KEY||''):'',
    allowContent:()=>contentAllowed(env),includeContentReviews:env.TRIPADVISOR_CONTENT_INCLUDE_REVIEWS==='on',allowGoogle:()=>googleAllowed(env),allowTerra:()=>terraAllowed(env),
    includeGoogleReviews:env.GOOGLE_PLACES_INCLUDE_REVIEWS==='on',
    includeTerraReviews:env.TRIPADVISOR_TERRA_INCLUDE_REVIEWS==='on'});
+  // Remember the place_id a card lookup confirmed, so list thumbnails skip their own confirmation call.
+  const found=String(result?.image?.src||'').match(/\/api\/place-photo\?id=([A-Za-z0-9_-]{10,300})/)?.[1];
+  if(found&&found!==googlePlaceId)ctx?.waitUntil?.(caches.default.put(new Request(placeIdCacheKey(name,lat,lng)),new Response(JSON.stringify({id:found}),{headers:{'content-type':'application/json','cache-control':'public, max-age=2592000'}})));
   return json(result,200);
  }catch{return json({status:'unavailable',ratings:[]},502);}
 }
@@ -142,7 +170,11 @@ export default {
   }
   if(pathname==='/api/place-enrichment'){
    if(request.method!=='GET')return json({status:'method-not-allowed'},405);
-   return placeEnrichment(url,env);
+   return placeEnrichment(url,env,ctx);
+  }
+  if(pathname==='/api/place-thumb'){
+   if(request.method!=='GET')return json({status:'method-not-allowed'},405);
+   return placeThumb(url,env,ctx);
   }
   if(pathname==='/api/place-details'){
    if(request.method!=='GET')return json({status:'method-not-allowed'},405);

@@ -118,7 +118,20 @@ const CAT_TILE={bar:['wine','night'],pub:['beer','night'],cocktail_bar:['martini
  neighborhood:['signpost','city'],hidden_gem:['signpost','city'],hotel:['bed-double','stay'],hostel:['bed-double','stay'],guesthouse:['bed-double','stay'],apartment:['bed-double','stay'],sport:['trophy','city']};
 const LEGACY_TILE={zabytki:'landmark',muzea:'museum',zielen:'park',widoki:'viewpoint',okolice:'neighborhood',jedzenie:'restaurant',nocne:'bar',noclegi:'hotel',aktywnosci:'sport'};
 function catTile(p,cls,geo){const [icon,mood]=CAT_TILE[p?.categoryId]||CAT_TILE[LEGACY_TILE[p?.cats?.[0]]]||['map-pin','city'];return `<div class="ph ph-cat ph-${mood} ${cls}"${geo} aria-label="Brak fotografii lokalu">${ic(icon,'ph-cat-ghost')}${ic(icon,'ph-cat-glyph')}</div>`;}
-function photo(p,cls='',eager=false){const image=p?.image||approvedPhoto(p)?.src||providerOverlay.get(p?.id)?.image?.src;if(!image){const geo=p?.id&&p?.name&&Number.isFinite(p?.lat)&&Number.isFinite(p?.lng)?` data-commons-photo="${esc(p.id)}" data-commons-name="${esc(p.name)}" data-commons-lat="${p.lat}" data-commons-lng="${p.lng}"`:'';return catTile(p,cls,geo);} const src=/^(https?:|data:image\/|\/api\/place-photo\?)/.test(image)?image:`./assets/images/${image}`;return `<img class="${cls}" src="${esc(src)}" alt="${esc(p.imageCaption||p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer">`;}
+// List rows of catalogue places without their own photo load a Google thumbnail through /api/place-thumb
+// (one paid Place Photo call; the place lookup is free or cached by the Worker). Browser lazy loading means only rows
+// near the screen are requested. A 404 swaps the image for the category tile (see the error listener below).
+function thumbUrl(p){
+ if(!p?.name||!Number.isFinite(Number(p.lat))||!Number.isFinite(Number(p.lng))||p.kind==='user'||p.kind==='sidequest')return null;
+ const c=cities.find(x=>x.id===p.cityId)||city();
+ return '/api/place-thumb?'+new URLSearchParams({name:String(p.name),lat:String(p.lat),lng:String(p.lng),cityName:c.name||'Warszawa',
+  centerLat:String(c.center?.lat||52.2297),centerLng:String(c.center?.lng||21.0122),r:String(c.radiusKm||40),googleId:p.googlePlaceId||''}).toString();
+}
+document.addEventListener('error',e=>{
+ const img=e.target;if(!(img instanceof HTMLImageElement)||!img.dataset.thumbFor)return;
+ const p=all[img.dataset.thumbFor];img.outerHTML=catTile(p,'','');
+},true);
+function photo(p,cls='',eager=false,listThumb=false){const image=p?.image||approvedPhoto(p)?.src||providerOverlay.get(p?.id)?.image?.src;const thumb=!image&&listThumb&&thumbUrl(p);if(thumb)return `<img class="${cls}" src="${esc(thumb)}" alt="${esc(p.name)}" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-thumb-for="${esc(p.id)}">`;if(!image){const geo=p?.id&&p?.name&&Number.isFinite(p?.lat)&&Number.isFinite(p?.lng)?` data-commons-photo="${esc(p.id)}" data-commons-name="${esc(p.name)}" data-commons-lat="${p.lat}" data-commons-lng="${p.lng}"`:'';return catTile(p,cls,geo);} const src=/^(https?:|data:image\/|\/api\/place-photo\?)/.test(image)?image:`./assets/images/${image}`;return `<img class="${cls}" src="${esc(src)}" alt="${esc(p.imageCaption||p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer">`;}
 function credit(p){const c=p?.imageCredit||(!p?.image?(approvedPhoto(p)?.credit||providerOverlay.get(p?.id)?.image?.credit):null);if(!c)return '';const lic=c.licenseUrl?`<a href="${esc(c.licenseUrl)}" target="_blank" rel="noopener noreferrer">${esc(c.license)}</a>`:esc(c.license);return `<p class="credit">${ic('camera')}<span>${p.imageCaption?esc(p.imageCaption)+'. ':''}Zdjęcie: ${esc(c.author)} · ${lic} · <a href="${esc(c.source)}" target="_blank" rel="noopener noreferrer">${esc(c.via)}</a></span></p>`;}
 const rating=(p,s)=>providerRatings(p).find(r=>r.source===s);
 const cityRouteBadge=p=>`<span class="cr-score" data-cityroute-ref="${esc(p.id)}" title="Średnia społeczności City Route — niezależna od ocen Google i Tripadvisor">${ic("star")} City Route · Brak ocen</span>`;
@@ -190,7 +203,7 @@ function routesView(){
 const exploreSwitch=on=>`<div class="segmented two" role="group" aria-label="Odkrywaj"><a href="#places" class="${on==='places'?'selected':''}" ${on==='places'?'aria-current="page"':''}>${ic('map-pin')}Miejsca</a><a href="#events" class="${on==='events'?'selected':''}" ${on==='events'?'aria-current="page"':''}>${ic('ticket-percent')}Wydarzenia</a></div>`;
 const placeHay=p=>`${p.name} ${p.area} ${p.description||''} ${(p.cuisine||[]).join(' ')} ${(p.cats||[]).map(c=>catName(c)).join(' ')} ${(p.ratings||[]).map(r=>r.listing).join(' ')} ${p.address||''}`;
 const away=p=>here?` · ${dec(distance(here,p))} km`:'';
-function placeRow(p){return `<article class="place" data-place-id="${esc(p.id)}"><button class="hit" data-action="place" data-id="${p.id}" aria-label="Szczegóły: ${esc(p.name)}"></button><div class="thumb">${photo(p)}${p.top?'<span class="must">Must-see</span>':''}</div><div class="info"><h3>${esc(p.name)}</h3><p class="sub">${esc(p.area)}${p.cuisine?' · '+esc(p.cuisine.join(', ')):p.kind==='sidequest'?'':' · '+esc(catName(p.cats?.[0]))}${p.outside?' · z zewnątrz':''}${away(p)}</p>${scoreLine(p)}</div><div class="side"><button class="icon-btn save-place ${savedPlace(p)?'on':''}" data-action="bookmark" data-id="${esc(p.id)}" aria-pressed="${savedPlace(p)}" aria-label="${savedPlace(p)?'Usuń z Zapisanych':'Zapisz miejsce'}: ${esc(p.name)}">${ic('bookmark')}<span class="bookmark-label">${savedPlace(p)?'Zapisane':'Zapisz'}</span></button>${addButton(p)}</div></article>`;}
+function placeRow(p){return `<article class="place" data-place-id="${esc(p.id)}"><button class="hit" data-action="place" data-id="${p.id}" aria-label="Szczegóły: ${esc(p.name)}"></button><div class="thumb">${photo(p,'',false,true)}${p.top?'<span class="must">Must-see</span>':''}</div><div class="info"><h3>${esc(p.name)}</h3><p class="sub">${esc(p.area)}${p.cuisine?' · '+esc(p.cuisine.join(', ')):p.kind==='sidequest'?'':' · '+esc(catName(p.cats?.[0]))}${p.outside?' · z zewnątrz':''}${away(p)}</p>${scoreLine(p)}</div><div class="side"><button class="icon-btn save-place ${savedPlace(p)?'on':''}" data-action="bookmark" data-id="${esc(p.id)}" aria-pressed="${savedPlace(p)}" aria-label="${savedPlace(p)?'Usuń z Zapisanych':'Zapisz miejsce'}: ${esc(p.name)}">${ic('bookmark')}<span class="bookmark-label">${savedPlace(p)?'Zapisane':'Zapisz'}</span></button>${addButton(p)}</div></article>`;}
 function placesView(){
  if(cat!=='sidequests'&&!PLACE_CATS.some(c=>c[0]===cat))cat='all';
  let list=cat==='sidequests'?[...quests]:cat==='mine'?myPlaces():[...new Map([...catalog(),...myPlaces().filter(savedPlace)].map(p=>[String(p.id),p])).values()].filter(p=>cat==='all'?catalog().some(x=>x.id===p.id):cat==='saved'?savedPlace(p):p.cats?.[0]===cat);
@@ -235,11 +248,11 @@ async function mountPlacesMap(){
 }
 
 // Newly added private/approved community places are enriched when visible, including after reload.
-// Never auto-query all 275+ existing catalogue entries or spend provider quota on page load.
-// Only rows that scroll into view are queued, at most three requests at a time, and the queue is dropped when the list
-// changes, so a filter switch never spends provider quota on rows nobody saw. The Worker caps daily Google calls.
+// Catalogue rows get their photo from the cheap thumbnail path (thumbUrl) and their rating when the card opens;
+// they never trigger the full rating lookup from the list. Only rows that scroll into view are queued, at most three
+// requests at a time, and the queue is dropped when the list changes. The Worker caps daily Google calls.
 const enrichQueue=[];let enrichActive=0;
-const needsProvider=p=>!!p&&!providerOverlay.has(p.id)&&(!p.image||!providerRatings(p).length);
+const needsProvider=p=>!!p&&(p.origin==='community'||p.kind==='user')&&!providerOverlay.has(p.id)&&(!p.image||!providerRatings(p).length);
 function pumpEnrichment(){
  while(enrichActive<3&&enrichQueue.length){
   const p=enrichQueue.shift();enrichActive++;

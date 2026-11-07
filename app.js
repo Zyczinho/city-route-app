@@ -251,10 +251,12 @@ const routeCoverAssignments=()=>assignRouteCovers(coverRoutes(),id=>all[id]);
 // A predictable share CTA in every route state. Drafts use Maps directions because they
 // do not have a public CityRoute URL; published editorial routes use real /r links.
 function shareRouteButton(ps,transport,title,{kind='maps',id=''}={}){
- const text=kind==='maps'?'Udostępnij trasę':'Udostępnij trasę';
- const label=ic('send')+text;
+ const label=ic('send')+'Udostępnij trasę';
  if(kind==='editorial')return '<button type="button" class="route-share-trigger" data-route-share="editorial" data-route-ref="'+esc(id)+'" data-route-city="'+esc(city().slug||city().id)+'" data-route-title="'+esc(title)+'">'+label+'</button>';
- if(!ps.length||ps.some(p=>!p||!Number.isFinite(Number(p.lat))||!Number.isFinite(Number(p.lng))))return '';
+ if(!ps.length)return '';
+ const valid=ps.every(p=>p&&p.lat!==null&&p.lat!==undefined&&p.lng!==null&&p.lng!==undefined&&
+  Number.isFinite(Number(p.lat))&&Number.isFinite(Number(p.lng))&&Math.abs(Number(p.lat))<=90&&Math.abs(Number(p.lng))<=180);
+ if(!valid)return '<button type="button" class="route-share-trigger" disabled title="Uzupełnij współrzędne przystanków, aby udostępnić trasę">'+label+'</button>';
  const url=routeMapsUrl(ps,transport);
  return '<button type="button" class="route-share-trigger" data-route-share="maps" data-route-url="'+esc(url)+'" data-route-title="'+esc(title)+'">'+label+'</button>';
 }

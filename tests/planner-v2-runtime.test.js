@@ -25,7 +25,7 @@ test('V2 time breakdown, rests and unknown-hours disclosure are visible to users
  assert.match(app,/\['480','Cały dzień · 8 h'\]/);
 });
 
-test('Transit's multi-stop Google Maps export uses valid two-point links, not transit waypoints',()=>{
+test("Transit multi-stop Google Maps export uses valid two-point links, not transit waypoints",()=>{
  const app=source('app.js');
  assert.match(app,/function transitLegLinks\(ps\)/);
  assert.match(app,/origin=\$\{ps\[i\]\.lat\},\$\{ps\[i\]\.lng\}&destination=\$\{p\.lat\},\$\{p\.lng\}&travelmode=transit/);

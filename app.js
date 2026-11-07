@@ -128,12 +128,21 @@ function thumbUrl(p,w=320){
  return '/api/place-thumb?'+new URLSearchParams({name:String(p.name),lat:String(p.lat),lng:String(p.lng),cityName:c.name||'Warszawa',
   centerLat:String(c.center?.lat||52.2297),centerLng:String(c.center?.lng||21.0122),r:String(c.radiusKm||40),w:String(w===800?800:320),googleId:p.googlePlaceId||''}).toString();
 }
-document.addEventListener('error',e=>{
- const img=e.target;if(!(img instanceof HTMLImageElement)||!img.dataset.thumbFor)return;
- // The list may have re-rendered before the 404 arrived; a detached image has nothing to replace.
- if(!img.isConnected||!img.parentNode)return;
- const p=all[img.dataset.thumbFor];img.outerHTML=catTile(p,img.dataset.thumbCls||'','');
-},true);
+// Exactly one delegated error handler for every image. Google thumbnails get the matching
+// category tile; other broken images keep the neutral camera fallback. Detached images may
+// still dispatch an error after a rerender, so never mutate one twice.
+function handlePhotoError(img){
+ if(!(img instanceof HTMLImageElement)||img.dataset.failed==='1'||!img.isConnected||!img.parentNode)return false;
+ img.dataset.failed='1';
+ if(img.dataset.thumbFor){
+  const p=all[img.dataset.thumbFor];
+  img.outerHTML=catTile(p,esc(img.dataset.thumbCls||''),'');
+ }else{
+  img.outerHTML=`<div class="ph ${esc(img.className)}">${ic('camera')}</div>`;
+ }
+ return true;
+}
+document.addEventListener('error',e=>handlePhotoError(e.target),true);
 function photo(p,cls='',eager=false,listThumb=false){const image=p?.image||approvedPhoto(p)?.src||providerOverlay.get(p?.id)?.image?.src;const thumb=!image&&listThumb&&thumbUrl(p,listThumb===800?800:320);if(thumb)return `<img class="${cls}" src="${esc(thumb)}" alt="${esc(p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer" data-thumb-for="${esc(p.id)}" data-thumb-cls="${esc(cls)}">`;if(!image){const geo=p?.id&&p?.name&&Number.isFinite(p?.lat)&&Number.isFinite(p?.lng)?` data-commons-photo="${esc(p.id)}" data-commons-name="${esc(p.name)}" data-commons-lat="${p.lat}" data-commons-lng="${p.lng}"`:'';return catTile(p,cls,geo);} const src=/^(https?:|data:image\/|\/api\/place-photo\?)/.test(image)?image:`./assets/images/${image}`;return `<img class="${cls}" src="${esc(src)}" alt="${esc(p.imageCaption||p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer">`;}
 function credit(p){const c=p?.imageCredit||(!p?.image?(approvedPhoto(p)?.credit||providerOverlay.get(p?.id)?.image?.credit):null);if(!c)return '';const lic=c.licenseUrl?`<a href="${esc(c.licenseUrl)}" target="_blank" rel="noopener noreferrer">${esc(c.license)}</a>`:esc(c.license);return `<p class="credit">${ic('camera')}<span>${p.imageCaption?esc(p.imageCaption)+'. ':''}Zdjęcie: ${esc(c.author)} · ${lic} · <a href="${esc(c.source)}" target="_blank" rel="noopener noreferrer">${esc(c.via)}</a></span></p>`;}
 const rating=(p,s)=>providerRatings(p).find(r=>r.source===s);
@@ -640,9 +649,7 @@ window.addEventListener('cityroute:saved-synced',e=>{const byCity=e.detail?.byCi
 // PROFILE-AVATAR: profile-avatar.js syncs the photo with the account; apply its result to the in-memory state.
 window.addEventListener('cityroute:avatar-synced',e=>{const {photo,pending}=e.detail||{};const before=state.profile.photo+'|'+!!state.profile.avatarPending;if(photo)state.profile.photo=photo;if(pending)state.profile.avatarPending=true;else delete state.profile.avatarPending;if(before===state.profile.photo+'|'+!!state.profile.avatarPending)return;persist();render();});
 window.addEventListener('cityroute:submission-updated',e=>{const {placeId,patch}=e.detail||{};const place=state.userPlaces.find(x=>x.id===placeId);if(!place||!patch)return;Object.assign(place,patch);persist();const dialog=$('#place-dialog');if(dialog?.open&&dialog.querySelector('#sheet-title')?.textContent===place.name)openPlace(placeId);});
-// Generic broken-image fallback. Google thumbnails (data-thumb-for) have their own tile fallback above, and an image
-// already removed from the page has nothing to replace.
-document.addEventListener('error',e=>{const t=e.target;if(t.tagName==='IMG'&&!t.dataset.failed&&!t.dataset.thumbFor&&t.isConnected&&t.parentNode){t.dataset.failed='1';t.outerHTML=`<div class="ph ${t.className}">${ic('camera')}</div>`;}},true);
+// Broken images are handled by the single delegated handler above (handlePhotoError).
 document.addEventListener('change',e=>{if(e.target?.id==='city-select'){switchCity(e.target.value).catch(error=>{console.error(error);toast('Nie udało się przełączyć miasta.');render();});}});
 window.addEventListener('hashchange',()=>{const t=route()[0];if(speaking){speechSynthesis.cancel();speaking=false;}if(t!=='add-place'){draft=null;addNewPlaceAfterId=null;}if(t!=='places')cuisine='all';if(!keepQuery)query='';keepQuery=false;editing=false;if($('#place-dialog').open)$('#place-dialog').close();render();window.scrollTo(0,0);$('#main').focus({preventScroll:true});});
 async function fetchJson(path){const r=await fetch(path);if(!r.ok)throw Error(path);return r.json();}

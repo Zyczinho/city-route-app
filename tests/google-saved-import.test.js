@@ -41,6 +41,17 @@ test('only active supported city can receive new locations',()=>{
  const out=planGoogleSavedImport([{name:'Kraków bar',lat:50.065,lng:19.94}],{cities:[warsaw],catalogue});
  assert.equal(out.created.length,0);assert.equal(out.unresolved.length,1);
 });
+test('Google My Maps KML imports only point placemarks and decodes XML names',()=>{
+ const kml='<?xml version="1.0"?><kml xmlns="http://www.opengis.net/kml/2.2"><Document>'+
+ '<Placemark><name>Żoliborz &amp; kawa</name><description><![CDATA[Warto odwiedzić]]></description><Point><coordinates>20.98,52.27,0</coordinates></Point></Placemark>'+
+ '<Placemark><name>Spacer</name><LineString><coordinates>21.0,52.2 21.1,52.3</coordinates></LineString></Placemark></Document></kml>';
+ const places=parseGoogleSaved(kml,'google-mymaps.kml');
+ assert.equal(places.length,1);
+ assert.equal(places[0].name,'Żoliborz & kawa');
+ assert.equal(places[0].note,'Warto odwiedzić');
+ assert.equal(places[0].lat,52.27);
+ assert.equal(places[0].lng,20.98);
+});
 test('malformed or excessively large files are rejected',()=>{
  assert.throws(()=>parseGoogleSaved('not CSV','bad.csv'),/Nie rozpoznano/);
  assert.throws(()=>parseGoogleSaved('x'.repeat(2_000_001),'bad.csv'),/2 MB/);

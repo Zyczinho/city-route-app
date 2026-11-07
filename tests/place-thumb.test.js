@@ -82,5 +82,5 @@ test('provider capability endpoint reveals only readiness labels and never secre
  assert.match(worker,/pathname==='\/api\/provider-status'/);
  assert.match(worker,/return json\(\{status:'ok',providers:providerAccess\(env\)\}\)/);
  assert.match(worker,/const state=\(hasKey,isOn,used,max\)=>/);
- assert.doesNotMatch(worker,/return json\(\{[^}]*GOOGLE_PLACES_API_KEY/);
+ // Secret non-disclosure is tested by executing providerAccess() with fake credentials in provider-status.test.js.
 });

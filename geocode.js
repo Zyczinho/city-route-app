@@ -2,7 +2,7 @@ import {bestGooglePhoto} from './photo-quality.js';
 // Place lookup for the Worker. Everything is scoped to the active city (centre + radius) that the client sends,
 // so Kraków searches stay in Kraków. Google Places is used only when a key is configured; autocomplete per keystroke
 // additionally needs GOOGLE_PLACES_AUTOCOMPLETE=on, so no new paid usage starts without an explicit switch.
-const WARSAW={id:'warsaw',name:'Warszawa',center:{lat:52.2297,lng:21.0122},radiusKm:40};
+const WARSAW={id:'warsaw',name:'Warszawa',countryCode:'PL',center:{lat:52.2297,lng:21.0122},radiusKm:40};
 const DEFAULT_PHOTON='https://photon.komoot.io';
 
 export function normalizePlaceQuery(value){
@@ -18,7 +18,9 @@ export function cityFromParams(params){
  if(!Number.isFinite(lat)||!Number.isFinite(lng)||lat<-90||lat>90||lng<-180||lng>180)return WARSAW;
  const id=String(get('city')||'').replace(/[^a-z0-9-]/gi,'').slice(0,40)||'custom';
  const name=String(get('name')||'').replace(/\s+/g,' ').trim().slice(0,60);
- return {id,name,center:{lat,lng},radiusKm:Number.isFinite(r)&&r>0?Math.min(r,50):40};
+ const requestedCountry=String(get('country')||'PL').toUpperCase();
+ const countryCode=/^[A-Z]{2}$/.test(requestedCountry)?requestedCountry:'PL';
+ return {id,name,countryCode,center:{lat,lng},radiusKm:Number.isFinite(r)&&r>0?Math.min(r,50):40};
 }
 
 export function kmBetween(a,b){
@@ -45,7 +47,7 @@ async function postJson(fetcher,url,key,fieldMask,body){
 async function googleSearch(query,key,fetcher,city){
  if(!key)return null;
  const data=await postJson(fetcher,'https://places.googleapis.com/v1/places:searchText',key,'places.id,places.displayName,places.formattedAddress,places.location,places.types',{
-  textQuery:queryForCity(query,city),languageCode:'pl',regionCode:'PL',
+  textQuery:queryForCity(query,city),languageCode:'pl',regionCode:city.countryCode||'PL',
   locationBias:{circle:{center:{latitude:city.center.lat,longitude:city.center.lng},radius:Math.min(50000,city.radiusKm*1000)}}
  });
  const place=data?.places?.[0],loc=place?.location;
@@ -101,7 +103,8 @@ export async function searchPlaceAddress(value,{googleKey='',photonUrl=DEFAULT_P
 }
 
 async function googleAutocomplete(query,key,fetcher,city,sessionToken,limit){
- const body={input:query,languageCode:'pl',regionCode:'pl',includedRegionCodes:['pl'],
+ const region=(city.countryCode||'PL').toLowerCase();
+ const body={input:query,languageCode:'pl',regionCode:region,includedRegionCodes:[region],
   locationRestriction:{circle:{center:{latitude:city.center.lat,longitude:city.center.lng},radius:Math.min(50000,city.radiusKm*1000)}}};
  if(sessionToken)body.sessionToken=sessionToken;
  const data=await postJson(fetcher,'https://places.googleapis.com/v1/places:autocomplete',key,'',body);

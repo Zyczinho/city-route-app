@@ -18,8 +18,8 @@ async function runPlannerBrowserSmoke(){
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.goto(BASE+'/#plan',{waitUntil:'domcontentloaded'});
   await page.locator('#build-form').waitFor({timeout:30000});
-  await page.locator('input[name="start"][value="any"] + span').click();
-  await page.locator('input[name="time"][value="240"] + span').click();
+  await page.locator('input[name="start"][value="any"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
+  await page.locator('input[name="time"][value="240"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
   await page.locator('#build-form button.primary.big').click();
   await page.waitForURL(/#route\/generated$/,{timeout:30000});
   await page.locator('.generated-option').first().waitFor({timeout:30000});
@@ -39,9 +39,9 @@ async function runPlannerBrowserSmoke(){
   await page.waitForURL(/#route\/mine-/,{timeout:10000});
   await page.goto(BASE+'/#plan',{waitUntil:'domcontentloaded'});
   await page.locator('#build-form').waitFor({timeout:10000});
-  await page.locator('input[name="start"][value="any"] + span').click();
-  await page.locator('input[name="time"][value="240"] + span').click();
-  await page.locator('input[name="transport"][value="transit"] + span').click();
+  await page.locator('input[name="start"][value="any"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
+  await page.locator('input[name="time"][value="240"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
+  await page.locator('input[name="transport"][value="transit"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
   await page.locator('#build-form button.primary.big').click();
   await page.waitForURL(/#route\/generated$/,{timeout:30000});
   await page.locator('summary').filter({hasText:'Komunikacja miejska — sprawdź odcinki'}).waitFor({timeout:10000});

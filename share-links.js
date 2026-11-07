@@ -9,7 +9,15 @@ export function routeShareUrl(kind,id,city,origin){
  return null;
 }
 
-function shareFallback(url,title){
+// Device-only drafts cannot have public City Route URLs, but their ordered stops can be shared as a Google Maps itinerary.
+export function sharedMapsRouteUrl(raw){
+ try{const u=new URL(raw);
+  if(u.protocol!=='https:'||!['www.google.com','google.com','maps.google.com'].includes(u.hostname)||u.pathname!=='/maps/dir/'||u.searchParams.get('api')!=='1'||!u.searchParams.get('destination'))return null;
+  return u.href;
+ }catch{return null;}
+}
+
+function shareFallback(url,title,external=false){
  const dlg=document.createElement("dialog");dlg.className="social-dialog route-share-dialog";
  const form=document.createElement("form");form.method="dialog";
  const heading=document.createElement("h2");heading.textContent="Udostępnij trasę";
@@ -17,7 +25,7 @@ function shareFallback(url,title){
  const field=document.createElement("input");field.type="url";field.readOnly=true;field.value=url;field.setAttribute("aria-label","Link do trasy");
  const actions=document.createElement("div");actions.className="route-share-choices";
  const copy=document.createElement("button");copy.type="button";copy.textContent="Kopiuj link";
- const whats=document.createElement("a");whats.className="button primary";whats.href="https://wa.me/?text="+encodeURIComponent("Sprawdź trasę "+title+" w City Route: "+url);whats.target="_blank";whats.rel="noopener noreferrer";whats.textContent="WhatsApp";
+ const whats=document.createElement("a");whats.className="button primary";whats.href="https://wa.me/?text="+encodeURIComponent("Sprawdź trasę "+title+(external?" w Google Maps":" w City Route")+": "+url);whats.target="_blank";whats.rel="noopener noreferrer";whats.textContent="WhatsApp";
  const system=document.createElement("button");system.type="button";system.textContent="Udostępnij przez aplikację";system.hidden=typeof navigator.share!=="function";
  system.addEventListener("click",async()=>{try{await navigator.share({title,text:"Odkryj trasę w City Route",url});dlg.close();}catch(error){if(error?.name!=="AbortError")status.textContent="Wybierz komunikator lub skopiuj link."; }});
  const openWithCopy=(label,href)=>{const a=document.createElement("a");a.className="button";a.textContent=label+" (skopiuj i wklej)";a.href=href;a.target="_blank";a.rel="noopener noreferrer";a.addEventListener("click",()=>{
@@ -39,10 +47,10 @@ function shareFallback(url,title){
 
 async function useRouteShare(button){
  const kind=button.dataset.routeShare,id=button.dataset.routeRef,city=button.dataset.routeCity;
- const title=String(button.dataset.routeTitle||"Trasa City Route").slice(0,140),url=routeShareUrl(kind,id,city,location.origin);
+ const title=String(button.dataset.routeTitle||"Trasa City Route").slice(0,140),url=kind==="maps"?sharedMapsRouteUrl(button.dataset.routeUrl):routeShareUrl(kind,id,city,location.origin);
  if(!url){alert("Najpierw opublikuj trasę, aby udostępnić ją innym.");return;}
  // Always show explicit sharing destinations. The system sheet is still available inside the dialog.
- shareFallback(url,title);
+ shareFallback(url,title,kind==="maps");
 }
 
 function installRouteShare(){

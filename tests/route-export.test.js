@@ -14,7 +14,9 @@ test('GPX exports route waypoints with safe XML and stops in order',()=>{
 test('GPX refuses one stop, invalid coordinates and empty route',()=>{
  assert.throws(()=>routeGpx({places:[]}),/minimum dwa/);
  assert.throws(()=>routeGpx({places:[places[0]]}),/minimum dwa/);
- assert.throws(()=>routeGpx({places:[places[0],{name:'Invalid',lat:999,lng:999}]}),/minimum dwa/);
+ assert.throws(()=>routeGpx({places:[places[0],{name:'Invalid',lat:999,lng:999}]}),/poprawnych współrzędnych/);
+ assert.throws(()=>routeGpx({places:[places[0],{name:'Missing',lat:null,lng:21.1}]}),/poprawnych współrzędnych/,'null must not turn into zero');
+ assert.throws(()=>routeGpx({places:[places[0],{name:'Missing',lng:21.1}]}),/poprawnych współrzędnych/,'missing latitude fails closed');
 });
 test('GPX file names are safe without path traversal',()=>{
  assert.equal(routeGpxFilename('Trasa: Łazienki / Stare Miasto'),'cityroute-trasa-lazienki-stare-miasto.gpx');

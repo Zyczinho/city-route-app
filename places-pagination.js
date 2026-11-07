@@ -23,3 +23,27 @@ export function paginationWindow(page,pages){
  }
  return result;
 }
+
+// "Polecane": own places and editorial highlights first, then places with verified
+// provider counts / existing licensed images. Never invent a rating for OSM-only rows.
+const validRatings=place=>(Array.isArray(place?.ratings)?place.ratings:[])
+ .filter(r=>Number.isFinite(r?.value)&&Number.isFinite(r?.max)&&r.max>0&&Number.isSafeInteger(r?.reviewCount)&&r.reviewCount>0);
+const quality=place=>{
+ const ratings=validRatings(place),reviews=ratings.reduce((sum,r)=>sum+r.reviewCount,0);
+ const prior=4.3,weight=200;
+ const score=reviews?(prior*weight+ratings.reduce((sum,r)=>sum+r.value/r.max*5*r.reviewCount,0))/(weight+reviews):0;
+ return {reviews,score,photo:!!place?.image||!!place?.image_url};
+};
+export function compareRecommendedPlaces(a,b){
+ const owner=(p)=>p?.kind==='user'?1:0;
+ if(owner(a)!==owner(b))return owner(b)-owner(a);
+ const highlighted=(p)=>p?.top?1:0;
+ if(highlighted(a)!==highlighted(b))return highlighted(b)-highlighted(a);
+ const A=quality(a),B=quality(b);
+ if(!!A.reviews!==!!B.reviews)return B.reviews?1:-1;
+ if(A.photo!==B.photo)return B.photo?1:-1;
+ if(Math.abs(A.score-B.score)>0.0001)return B.score-A.score;
+ if(A.reviews!==B.reviews)return B.reviews-A.reviews;
+ const latest=String(b?.createdAt||'').localeCompare(String(a?.createdAt||''));
+ return latest||String(a?.name||a?.id||'').localeCompare(String(b?.name||b?.id||''),'pl');
+}

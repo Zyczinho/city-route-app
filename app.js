@@ -574,7 +574,7 @@ document.addEventListener('click',e=>{
  if(action==='jump-to-place'){cat='all';query='';placesPage=1;render();openPlace(id);return;}
  if(action==='add-another-place'){d?.close();draft=null;location.hash='add-place';return;}
  if(action==='route-view')log('route_view',{route_id:id});
- if(action==='cat'){cat=value;placesPage=1;mapCategorySelected=true;cuisine='all';render();}
+ if(action==='cat'){cat=value;mapCategorySelected=true;placesPage=1;cuisine='all';render();}
  if(action==='bookmark'){const p=all[id];if(!p)return;const ids=savedIds(),was=ids.includes(id);state.savedPlacesByCity[city().id]=was?ids.filter(x=>x!==id):[...ids,id];persist();render();window.dispatchEvent(new CustomEvent('cityroute:saved-changed',{detail:{cityId:city().id,placeId:id,saved:!was}}));if(d?.open&&d.dataset.placeId===id)openPlace(id);toast(was?'Usunięto z Zapisanych.':'Zapisano miejsce.');return;}
  if(action==='rcat'){rcat=value;render();}
  if(action==='cuisine'){cuisine=value;placesPage=1;render();}

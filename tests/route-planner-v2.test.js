@@ -34,6 +34,11 @@ for(let i=0;i<benchmarks.length;i++){
     assert.equal(new Set(b.stopIds).size,b.stopIds.length,'no place may repeat');
     assert.ok(b.route.rows.every(row=>Number.isFinite(row.departureMinute)));
     assert.ok(b.estimatedLegs>=0,'offline is transparent about approximate legs');
+    assert.ok(b.quality.interestFitPercent>=0&&b.quality.interestFitPercent<=100);
+    assert.ok(b.quality.categoryGroups>=1);
+    assert.ok(b.quality.timeUsedPercent>=0&&b.quality.timeUsedPercent<=100);
+    if(b.estimatedLegs)assert.ok(b.quality.alerts.includes('street-times-unverified'));
+    if(b.options>=2)assert.ok(b.maxVariantOverlapPercent<=70,'variants should differ in their actual POI sets');
   });
 }
 test('benchmark actually compares thousands of candidates, and OSM venues appear in some routes',()=>{

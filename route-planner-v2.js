@@ -57,7 +57,8 @@ function fitOf(p,interests,tourist){
   if(tourist==='local'&&p.tourist==='local')fit+=2.5;
   if(p.top&&tourist!=='local')fit+=1;
   // Deliberately no ratings/review-count minimum, and no auto-ranking by review volume.
-  return 4+fit;
+  // A thematic trip should not turn into eight nearby but unrelated quick stops.
+  return (interests.includes('mix')?4:fit>0?6:-3)+fit;
 }
 function budgetLimit(prefs){
   return prefs.budget==='low'?25:prefs.budget==='medium'?100:Infinity;
@@ -65,6 +66,7 @@ function budgetLimit(prefs){
 function validForPrefs(p,prefs,interests){
   if(!p||!p.id||!hasCoords(p)||STAY.has(p.categoryId)||p.kind==='hotel')return false;
   if(prefs.cityId&&p.cityId&&p.cityId!==prefs.cityId)return false;
+  if(Number(prefs.maxRadiusKm)>0&&hasCoords(prefs.start)&&distance(p,prefs.start)>Number(prefs.maxRadiusKm))return false;
   if(prefs.visitMode==='outside'&&museumPlace(p)&&p.exteriorWorthVisiting!==true)return false;
   if(prefs.offers!=='yes'&&p.partner)return false;
   if(Number(p.cost)>budgetLimit(prefs))return false;
@@ -139,6 +141,14 @@ function stepState(state,item,ctx){
   const start=ctx.start+state.minutes+travel+rest;
   const waiting=hours.status==='known'?Math.max(0,hours.open-start):0;
   const visitStart=start+waiting,done=visitStart+dwell;
+  if(kind!=='none'){
+    // A requested meal must come after sightseeing, not as the first stop.
+    if(!state.stops.length)return null;
+    const isLunch=ctx.start<15*60;
+    const earliest=ctx.food==='sit'?(isLunch?11*60+30:18*60):ctx.start+45;
+    const latest=ctx.food==='sit'?(isLunch?15*60:22*60):ctx.start+ctx.maxMinutes-25;
+    if(visitStart<earliest||visitStart>latest)return null;
+  }
   if(hours.status==='known'&&(visitStart>hours.latestEntry||done>hours.close))return null;
   if(done-ctx.start>ctx.maxMinutes||done>1440)return null;
   const nextCost=state.cost+(Number(p.cost)||0);
@@ -162,7 +172,7 @@ function stepState(state,item,ctx){
   };
 }
 function bestSolutions(solutions,limit,mandatoryFood){
-  const sorted=solutions.filter(s=>!mandatoryFood||s.foodCount===1)
+  const sorted=solutions.filter(s=>!mandatoryFood||s.foodCount===1&&s.stops.length>=3&&s.stops.findIndex(foodPlace)<s.stops.length-1)
     .sort((a,b)=>b.score-a.score||b.stops.length-a.stops.length||a.minutes-b.minutes||sameStopSet(a.stops).localeCompare(sameStopSet(b.stops)));
   const chosen=[],seen=new Set();
   for(const s of sorted){
@@ -196,7 +206,7 @@ export function planRoutesV2(places,prefs={},opts={}){
   const ctx={
     origin:candidateData.origin,matrix:opts.matrix||null,transport:mode,
     cityId:prefs.cityId||'warsaw',date,start,maxMinutes,
-    maxCost:budgetLimit(prefs),visitMode:prefs.visitMode||'inside',
+    maxCost:budgetLimit(prefs),visitMode:prefs.visitMode||'inside',food:prefs.food||'none',
     restInterval:Math.max(60,Number(opts.restInterval)||105),
     restMinutes:Math.max(0,Number.isFinite(Number(opts.restMinutes))?Number(opts.restMinutes):10)
   };

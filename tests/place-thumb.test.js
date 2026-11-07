@@ -44,6 +44,7 @@ test('confirmed ids and misses are cached, so the lookup runs once per place',as
  assert.equal(await cachedGooglePlaceId(miss,{cache}),null);
  assert.equal(await cachedGooglePlaceId(miss,{cache}),null);
  assert.equal(none.calls.length,1,'a miss is remembered too');
+ assert.match(store.get(placeIdCacheKey('Nieznany Bar',52.2296553,21.0159019)).headers.get('cache-control'),/max-age=300/,'new cache misses expire quickly');
 });
 
 test('photo uri comes from the free photos field and one media call, sized for lists',async()=>{
@@ -62,7 +63,24 @@ test('Worker exposes /api/place-thumb as a redirect with a tile-friendly 404',as
  assert.match(worker,/status:302,headers:\{location:uri,'cache-control':'private, max-age=3600'/);
  assert.match(worker,/if\(!thumbAllowed\(env\)\)return notFound\(/,'thumbnails have their own daily cap');
  assert.match(worker,/Number\(env\.GOOGLE_THUMBS_DAILY_CAP\)\|\|3000/);
- assert.match(worker,/\['quota','unavailable'\]\.includes\(status\)\?60:600/,'a cap answer is retried after a minute');
+ assert.match(worker,/\['quota','unavailable','disabled','no-key'\]\.includes\(status\)\?60:600/,'a cap or inactive provider answer is retried after a minute');
  assert.match(worker,/maxWidthPx:url\.searchParams\.get\('w'\)==='800'\?800:320/,'card photos are 800 px, list photos 320 px');
  assert.match(worker,/\|\|await peekGooglePlaceId\(name,lat,lng,caches\.default\)/,'cards reuse a confirmed place_id');
+});
+
+test('old week-long negative cache records are retried rather than hiding newly available photos',async()=>{
+ const store=new Map(),key=placeIdCacheKey('Jabeerwocky',52.2296553,21.0159019);
+ store.set(key,new Response(JSON.stringify({id:null}),{headers:{'cache-control':'public,max-age=604800'}}));
+ const cache={match:async r=>store.get(r.url)?.clone(),put:async(r,res)=>{store.set(r.url,res);}};
+ const g=fakeGoogle(),params={name:'Jabeerwocky',lat:52.2296553,lng:21.0159019,googleKey:'k',fetcher:g.fetcher};
+ assert.equal(await cachedGooglePlaceId(params,{cache}),ID);
+ assert.equal(g.calls.length,2,'stale negative cache must not block the provider request');
+ const updated=await store.get(key).clone().json();assert.equal(updated.version,2);assert.equal(updated.id,ID);
+});
+test('provider capability endpoint reveals only readiness labels and never secret keys',async()=>{
+ const worker=await readFile(new URL('../worker.js',import.meta.url),'utf8');
+ assert.match(worker,/pathname==='\/api\/provider-status'/);
+ assert.match(worker,/return json\(\{status:'ok',providers:providerAccess\(env\)\}\)/);
+ assert.match(worker,/const state=\(hasKey,isOn,used,max\)=>/);
+ assert.doesNotMatch(worker,/return json\(\{[^}]*GOOGLE_PLACES_API_KEY/);
 });

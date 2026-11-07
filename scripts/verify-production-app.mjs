@@ -49,12 +49,37 @@ export async function verifyProductionApp({
   '; last observed: '+lastActual+' ('+lastProblem+'). Check the Cloudflare deployment, CDN cache and deployed dist/ directory.');
 }
 
+// Smoke an exact Lisbon release, not only app.js (which may remain unchanged).
+export async function verifyReleaseAssets({productionOrigin,commitSha='unknown',maxAttempts=20,intervalMs=6000,fetchImpl=globalThis.fetch,sleepImpl=sleep,log=console.log}={}){
+ const paths=['data/cities.json','data/cities/lisbon/places.json','data/cities/lisbon/routes.json','service-worker.js','place-composer-model.js'];
+ const expected=await Promise.all(paths.map(async path=>({path,hash:sha256Hex(await readFile('dist/'+path))})));
+ if(!productionOrigin||!String(productionOrigin).startsWith('https://'))throw new Error('HTTPS production origin required');
+ let failures=[];
+ for(let attempt=1;attempt<=maxAttempts;attempt++){
+  const checks=await Promise.all(expected.map(async item=>{
+   const url=new URL('/'+item.path,productionOrigin);
+   url.searchParams.set('release',String(commitSha));url.searchParams.set('probe',String(attempt));
+   try{
+    const response=await fetchImpl(url.href,{headers:{'Cache-Control':'no-cache','Pragma':'no-cache'},signal:AbortSignal.timeout(15000)});
+    if(!response.ok)return item.path+': HTTP '+response.status;
+    return sha256Hex(Buffer.from(await response.arrayBuffer()))===item.hash?null:item.path+': SHA-256 mismatch';
+   }catch(e){return item.path+': '+(e.message||String(e));}
+  }));
+  failures=checks.filter(Boolean);
+  if(!failures.length){log('PASS: Lisbon city configuration, 188 OSM places, route fallback, PWA and city-aware client all match production.');return {matched:true,files:paths,attempt};}
+  log('Lisbon asset verification '+attempt+'/'+maxAttempts+': '+failures.join('; '));
+  if(attempt<maxAttempts)await sleepImpl(intervalMs);
+ }
+ throw new Error('Production Lisbon assets differ from Git build: '+failures.join('; '));
+}
+
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  try{
   const expectedBytes=await readFile('dist/app.js');
   await verifyProductionApp({
    expectedBytes,productionOrigin:process.env.CITY_ROUTE_PROD,commitSha:process.env.GITHUB_SHA
   });
+  await verifyReleaseAssets({productionOrigin:process.env.CITY_ROUTE_PROD,commitSha:process.env.GITHUB_SHA});
  }catch(error){
   console.error('::error::'+(error?.message||String(error)));
   process.exitCode=1;

@@ -53,7 +53,7 @@ export function activeCity(cities=[],{selectValue='',state=null}={}){
 
 export function cityParams(city){
  if(!city?.center)return '';
- const p=new URLSearchParams({city:city.id||'',name:city.name||'',lat:String(city.center.lat),lng:String(city.center.lng),r:String(city.radiusKm||40)});
+ const p=new URLSearchParams({city:city.id||'',name:city.name||'',country:city.countryCode||'PL',lat:String(city.center.lat),lng:String(city.center.lng),r:String(city.radiusKm||40)});
  return p.toString();
 }
 

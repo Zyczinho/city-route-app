@@ -21,6 +21,7 @@ test('latest Warsaw fixture: 50 editorial and 258 imported, no Google rating thr
   assert.ok(WARSAW_OSM.some(p=>p.ratings?.length===0));
 });
 const benchmarks=runBenchmark();
+console.log('PLANNER_V2_BENCHMARK '+JSON.stringify(benchmarks.map(({route,...row})=>row)));
 assert.equal(benchmarks.length,10,'all ten scenarios must execute');
 for(let i=0;i<benchmarks.length;i++){
   test('Warsaw scenario '+benchmarks[i].scenario+' stays in its true experience budget',()=>{

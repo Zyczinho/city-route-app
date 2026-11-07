@@ -589,6 +589,45 @@ document.addEventListener('input',e=>{
  if(e.target.dataset.photoCrop){const photos=draft?.photos||[],active=photos.find(p=>p.id===draft.editPhotoId)||photos[0];if(active){const key=e.target.dataset.photoCrop;active.crop=sanitizePhotoCrop({...active.crop,[key]:e.target.value});const frame=e.target.closest('.place-photo-crop')?.querySelector('.place-photo-frame');if(frame){const c=active.crop;frame.style.aspectRatio=c.ratio==='1:1'?'1':c.ratio==='16:9'?'16/9':'4/3';const image=frame.querySelector('img');image.style.objectPosition=c.x+'% '+c.y+'%';image.style.transform='scale('+c.zoom+')';image.style.transformOrigin=c.x+'% '+c.y+'%';}}return;}
  if(e.target.id==='search'){const pos=e.target.selectionStart;query=e.target.value;render();const s=$('#search');s.focus();s.setSelectionRange(pos,pos);}if(e.target.id==='builder-name'&&builderDraft){applyBuilder(setName(builderDraft,e.target.value,{now:now()}));}});
 document.addEventListener('change',async e=>{
+ if(e.target.dataset.action==='google-saved-import'){
+  const file=e.target.files?.[0];if(!file)return;
+  if(file.size>2_000_000){toast('Plik jest większy niż 2 MB.');return;}
+  try{
+   const entries=parseGoogleSaved(await file.text(),file.name);
+   const {matched,created,unresolved}=planGoogleSavedImport(entries,{cities:[city()],catalogue:places,ownPlaces:myPlaces()});
+   if(!matched.length&&!created.length){toast('Nie znaleziono miejsc. Sprawdź nazwy lub współrzędne w pliku.');return;}
+   const answer='Import do '+city().name+': '+matched.length+' dopasowań do katalogu, '+created.length+' prywatnych miejsc. '+unresolved.length+' nierozpoznanych zostanie pominiętych. Kontynuować?';
+   if(!confirm(answer))return;
+   const previousPlaces=state.userPlaces.slice(),previousSaved={...state.savedPlacesByCity},newIds=[],notices=[];let imported=0;
+   for(const entry of matched){
+    const ids=state.savedPlacesByCity[entry.cityId]||[];
+    if(!ids.includes(entry.placeId)){
+     state.savedPlacesByCity[entry.cityId]=[...ids,entry.placeId];notices.push(entry);imported++;
+    }
+   }
+   for(const entry of created){
+    const id='u-'+uuid().slice(0,8);
+    const p={id,cityId:entry.cityId,categoryId:'hidden_gem',kind:'user',visibility:'private',
+     name:entry.name,cats:['okolice'],area:'Import z Google Maps',description:entry.note||'Prywatne miejsce z Google Maps.',
+     lat:entry.lat,lng:entry.lng,minutes:20,cost:0,tags:['hidden'],tourist:'local',foodStyle:'none',
+     partner:false,ratings:[],image:null,images:[],sourceUrl:entry.url||null,
+     verification:{editorial:false,community:false},createdAt:new Date().toISOString()};
+    state.userPlaces.unshift(p);all[id]=p;newIds.push(id);
+    state.savedPlacesByCity[entry.cityId]=[...(state.savedPlacesByCity[entry.cityId]||[]),id];imported++;
+   }
+   try{localStorage.setItem(key,JSON.stringify(state));}
+   catch{
+    state.userPlaces=previousPlaces;state.savedPlacesByCity=previousSaved;
+    for(const id of newIds)delete all[id];
+    throw Error('Brak miejsca w pamięci urządzenia; import został cofnięty.');
+   }
+   for(const entry of notices)window.dispatchEvent(new CustomEvent('cityroute:saved-changed',{detail:{cityId:entry.cityId,placeId:entry.placeId,saved:true}}));
+   log('google_saved_import',{matched:matched.length,created:created.length,unresolved:unresolved.length});
+   render();toast('Zaimportowano '+imported+' miejsc. Pominięto '+unresolved.length+'.');
+  }catch(error){toast(error.message||'Nie udało się odczytać eksportu.');}
+  finally{e.target.value='';}
+  return;
+ }
  if(e.target.id==='builder-transport'&&builderDraft){const r=applyBuilder(setTransport(builderDraft,e.target.value,{now:now()}));if(r?.changed)render();}
  if(e.target.name==='vis'&&e.target.closest('#place-form')){keepDraft();if(draft.vis!=='public')draft.imageRights=false;const rights=$('[data-photo-rights]');if(rights){rights.hidden=draft.vis!=='public'||!draft.photos?.length;if(draft.vis!=='public'){const cb=rights.querySelector('input');if(cb)cb.checked=false;}}return;}
  if(e.target.id==='sort'){sort=e.target.value;if(sort==='near'&&!here){if(!navigator.geolocation){sort='default';toast('Ta przeglądarka nie udostępnia lokalizacji.');}else navigator.geolocation.getCurrentPosition(pos=>{here={lat:pos.coords.latitude,lng:pos.coords.longitude};render();},()=>{sort='default';render();toast('Bez zgody na lokalizację nie posortujemy według odległości.');},{timeout:10000});}render();$('#sort')?.focus();}

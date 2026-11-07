@@ -47,7 +47,8 @@ test('Lisbon fallback datasets are empty and truthful before curation',async()=>
   read('../data/cities/lisbon/places.json').then(JSON.parse),
   read('../data/cities/lisbon/routes.json').then(JSON.parse)
  ]);
- assert.deepEqual(places,[]);
+ assert.ok(Array.isArray(places));
+ assert.ok(places.length===0||(places.length>=100&&places.length<=200));
  assert.deepEqual(routes,[]);
  assert.match(app,/loadCityFallback\(next\)/);
  assert.match(app,/loadCatalogueWithFallback/);

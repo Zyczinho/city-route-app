@@ -62,7 +62,7 @@ function shareFallback(url,title,external=false){
  });
  const whats=document.createElement('a');whats.className='route-share-action route-share-whatsapp';whats.target='_blank';whats.rel='noopener noreferrer';
  whats.href='https://wa.me/?text='+encodeURIComponent('Sprawdź trasę '+title+(external?' w Google Maps':' w City Route')+': '+url);
- whats.innerHTML=iconMarkup('radio')+'<span>WhatsApp</span>';
+ whats.innerHTML=iconMarkup('message-circle')+'<span>WhatsApp</span>';
  const externalAction=(label,icon,href)=>{
   const a=document.createElement('a');a.href=href;a.target='_blank';a.rel='noopener noreferrer';a.className='route-share-action route-share-secondary';
   a.innerHTML=iconMarkup(icon);const span=document.createElement('span');span.textContent=label;a.append(span);

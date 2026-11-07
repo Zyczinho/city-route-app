@@ -198,7 +198,7 @@ export function planRoutesV2(places,prefs={},opts={}){
     cityId:prefs.cityId||'warsaw',date,start,maxMinutes,
     maxCost:budgetLimit(prefs),visitMode:prefs.visitMode||'inside',
     restInterval:Math.max(60,Number(opts.restInterval)||105),
-    restMinutes:Math.max(0,Number(opts.restMinutes)??10)
+    restMinutes:Math.max(0,Number.isFinite(Number(opts.restMinutes))?Number(opts.restMinutes):10)
   };
   const beamWidth=clamp(Math.trunc(Number(opts.beamWidth)||40),4,90);
   const maxExpansions=clamp(Math.trunc(Number(opts.maxExpansions)||25000),100,100000);

@@ -1,3 +1,4 @@
+import {iconMarkup} from './ui-icons.js';
 // SHARE-LINKS-116: stable HTTPS route paths; device-only drafts are not shareable.
 export function routeShareUrl(kind,id,city,origin){
  const uuid=/^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i;
@@ -18,31 +19,67 @@ export function sharedMapsRouteUrl(raw){
 }
 
 function shareFallback(url,title,external=false){
- const dlg=document.createElement("dialog");dlg.className="social-dialog route-share-dialog";
- const form=document.createElement("form");form.method="dialog";
- const heading=document.createElement("h2");heading.textContent="Udostępnij trasę";
- const note=document.createElement("p");note.textContent=title;
- const field=document.createElement("input");field.type="url";field.readOnly=true;field.value=url;field.setAttribute("aria-label","Link do trasy");
- const actions=document.createElement("div");actions.className="route-share-choices";
- const copy=document.createElement("button");copy.type="button";copy.textContent="Kopiuj link";
- const whats=document.createElement("a");whats.className="button primary";whats.href="https://wa.me/?text="+encodeURIComponent("Sprawdź trasę "+title+(external?" w Google Maps":" w City Route")+": "+url);whats.target="_blank";whats.rel="noopener noreferrer";whats.textContent="WhatsApp";
- const system=document.createElement("button");system.type="button";system.textContent="Udostępnij przez aplikację";system.hidden=typeof navigator.share!=="function";
- system.addEventListener("click",async()=>{try{await navigator.share({title,text:"Odkryj trasę w City Route",url});dlg.close();}catch(error){if(error?.name!=="AbortError")status.textContent="Wybierz komunikator lub skopiuj link."; }});
- const openWithCopy=(label,href)=>{const a=document.createElement("a");a.className="button";a.textContent=label+" (skopiuj i wklej)";a.href=href;a.target="_blank";a.rel="noopener noreferrer";a.addEventListener("click",()=>{
-  field.focus();field.select();if(navigator.clipboard?.writeText)void navigator.clipboard.writeText(url).catch(()=>{});
-  status.textContent="Link zaznaczony. Wklej go w rozmowie w "+label+".";
- });return a;};
- const messenger=openWithCopy("Messenger","https://www.messenger.com/");
- const instagram=openWithCopy("Instagram","https://www.instagram.com/direct/inbox/");
- const close=document.createElement("button");close.type="submit";close.textContent="Zamknij";
- const status=document.createElement("p");status.setAttribute("role","status");status.className="fine";
- copy.addEventListener("click",async()=>{try{
-  if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(url);
-  else{field.focus();field.select();if(!document.execCommand("copy"))throw Error("clipboard");}
-  status.textContent="Link skopiowany.";
- }catch{field.focus();field.select();status.textContent="Zaznaczony link możesz skopiować ręcznie."; }});
- actions.append(system,whats,messenger,instagram,copy,close);form.append(heading,note,field,actions,status);dlg.append(form);
- dlg.addEventListener("close",()=>dlg.remove(),{once:true});document.body.append(dlg);dlg.showModal();
+ document.querySelector('dialog.route-share-dialog[open]')?.close();
+ const dlg=document.createElement('dialog');dlg.className='social-dialog route-share-dialog';
+ dlg.setAttribute('aria-labelledby','route-share-heading');
+ const form=document.createElement('form');form.method='dialog';
+ const head=document.createElement('div');head.className='route-share-head';
+ const symbol=document.createElement('span');symbol.className='route-share-emblem';symbol.innerHTML=iconMarkup('route');
+ const heading=document.createElement('h2');heading.id='route-share-heading';heading.textContent=external?'Udostępnij plan':'Udostępnij trasę';
+ const lead=document.createElement('p');lead.textContent=external?'Wyślij znajomym plan przystanków w Google Maps.':'Wyślij znajomym publiczną trasę City Route.';
+ const headingText=document.createElement('div');headingText.append(heading,lead);head.append(symbol,headingText);
+ const preview=document.createElement('div');preview.className='route-share-preview';
+ const previewIcon=document.createElement('span');previewIcon.className='route-share-preview-icon';previewIcon.innerHTML=iconMarkup(external?'map':'route');
+ const previewText=document.createElement('div');
+ const previewLabel=document.createElement('strong');previewLabel.textContent=external?'Plan w Google Maps':'Trasa w City Route';
+ const previewTitle=document.createElement('span');previewTitle.textContent=title;
+ const previewHost=document.createElement('small');previewHost.textContent=new URL(url).hostname;
+ previewText.append(previewLabel,previewTitle,previewHost);preview.append(previewIcon,previewText);
+ const status=document.createElement('p');status.className='route-share-status';status.setAttribute('role','status');status.setAttribute('aria-live','polite');
+ const actions=document.createElement('div');actions.className='route-share-choices';
+ const button=(label,icon,className='')=>{const el=document.createElement('button');el.type='button';el.className='route-share-action '+className;
+  el.innerHTML=iconMarkup(icon);const name=document.createElement('span');name.textContent=label;el.append(name);return el;};
+ const copy=button('Kopiuj link','link','route-share-copy');
+ const raw=document.createElement('details');raw.className='route-share-raw';
+ const sum=document.createElement('summary');sum.textContent='Pokaż pełny adres';
+ const field=document.createElement('input');field.type='url';field.readOnly=true;field.value=url;field.setAttribute('aria-label','Pełny link do trasy');
+ raw.append(sum,field);
+ const copyLink=async()=>{
+  try{
+   if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(url);
+   else{raw.open=true;field.focus();field.select();if(!document.execCommand('copy'))throw Error('clipboard');}
+   status.textContent='Link skopiowany. Możesz go wkleić w rozmowie.';copy.querySelector('span:last-child').textContent='Skopiowano';return true;
+  }catch{
+   raw.open=true;field.focus();field.select();status.textContent='Zaznaczony link możesz skopiować ręcznie.';return false;
+  }
+ };
+ copy.addEventListener('click',()=>{void copyLink();});
+ const native=button('Udostępnij przez aplikację','navigation','route-share-native');
+ native.hidden=typeof navigator.share!=='function';
+ native.addEventListener('click',async()=>{
+  try{await navigator.share({title,text:external?'Plan przystanków w Google Maps':'Odkryj trasę w City Route',url});dlg.close();}
+  catch(error){if(error?.name!=='AbortError')status.textContent='Wybierz komunikator albo skopiuj link.';}
+ });
+ const whats=document.createElement('a');whats.className='route-share-action route-share-whatsapp';whats.target='_blank';whats.rel='noopener noreferrer';
+ whats.href='https://wa.me/?text='+encodeURIComponent('Sprawdź trasę '+title+(external?' w Google Maps':' w City Route')+': '+url);
+ whats.innerHTML=iconMarkup('radio')+'<span>WhatsApp</span>';
+ const externalAction=(label,icon,href)=>{
+  const a=document.createElement('a');a.href=href;a.target='_blank';a.rel='noopener noreferrer';a.className='route-share-action route-share-secondary';
+  a.innerHTML=iconMarkup(icon);const span=document.createElement('span');span.textContent=label;a.append(span);
+  a.setAttribute('aria-label',label+' — skopiuj i wklej link');
+  a.addEventListener('click',()=>{
+   // Clipboard write is started inside the actual click, before navigating to the messenger.
+   if(navigator.clipboard?.writeText)void navigator.clipboard.writeText(url).catch(()=>{});
+   raw.open=true;field.focus();field.select();status.textContent='Wklej link w rozmowie w '+label+'.';
+  });return a;
+ };
+ const messenger=externalAction('Messenger','users','https://www.messenger.com/');
+ const instagram=externalAction('Instagram','camera','https://www.instagram.com/direct/inbox/');
+ const close=document.createElement('button');close.type='submit';close.className='route-share-close';
+ close.innerHTML=iconMarkup('x')+'<span>Zamknij</span>';
+ actions.append(native,whats,messenger,instagram,copy);
+ form.append(head,preview,actions,status,raw,close);dlg.append(form);
+ dlg.addEventListener('close',()=>dlg.remove(),{once:true});document.body.append(dlg);dlg.showModal();
 }
 
 async function useRouteShare(button){

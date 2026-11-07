@@ -1,0 +1,60 @@
+// Deterministic, offline benchmark on the actual checked-in Warsaw catalogue.
+// Run: node scripts/evaluate-planner-v2.mjs
+// No paid API requests. Travel times remain explicitly approximate.
+import {readFileSync} from 'node:fs';
+import {fileURLToPath} from 'node:url';
+import {planRoutesV2} from '../route-planner-v2.js';
+
+const read=path=>JSON.parse(readFileSync(new URL(path,import.meta.url),'utf8'));
+export const WARSAW_EDITORIAL=read('../data/places.json');
+export const WARSAW_OSM=read('../data/cities/warsaw/places.json');
+export const WARSAW_CATALOGUE=[...WARSAW_EDITORIAL,...WARSAW_OSM];
+const origin=(lat,lng)=>({lat,lng,id:'test-origin'});
+const base={cityId:'warsaw',transport:'walking',offers:'no',tourist:'balanced',budget:'premium',food:'none',visitMode:'inside',visitDate:'2026-11-07',startTime:'10:00'};
+export const SCENARIOS=[
+  {name:'01 — Starówka 2 godziny',time:120,start:origin(52.249,21.012),interests:['sightseeing']},
+  {name:'02 — Zieleń w centrum 4 godziny',time:240,start:origin(52.221,21.012),interests:['nature']},
+  {name:'03 — Muzea, sobota 4 godziny',time:240,start:origin(52.232,21.023),interests:['culture'],visitMode:'inside'},
+  {name:'04 — Historia bez muzeów 3 godziny',time:180,start:origin(52.249,21.013),interests:['culture','sightseeing'],visitMode:'outside'},
+  {name:'05 — Widoki nad Wisłą 4 godziny',time:240,start:origin(52.236,21.030),interests:['views','nature'],visitMode:'outside'},
+  {name:'06 — Nieoczywista Praga 4 godziny',time:240,start:origin(52.256,21.042),interests:['hidden','sightseeing'],tourist:'local'},
+  {name:'07 — Must-see 6 godzin',time:360,start:origin(52.233,21.009),interests:['sightseeing'],tourist:'must'},
+  {name:'08 — Lokalny spacer 8 godzin',time:480,start:origin(52.230,21.052),interests:['nature','hidden'],tourist:'local'},
+  {name:'09 — Kultura i kawa 4 godziny',time:240,start:origin(52.232,21.019),interests:['culture'],food:'quick'},
+  {name:'10 — Zwiedzanie z obiadem 6 godzin',time:360,start:origin(52.221,21.018),interests:['sightseeing','food'],food:'sit'}
+];
+export function runBenchmark(){
+  const osmIds=new Set(WARSAW_OSM.map(p=>p.id));
+  return SCENARIOS.map(({name,...config})=>{
+    const prefs={...base,...config};
+    const result=planRoutesV2(WARSAW_CATALOGUE,prefs,{candidateLimit:90,beamWidth:45,maxStops:8,maxExpansions:30000});
+    const best=result.routes[0];
+    return {
+      scenario:name,
+      requestedMinutes:prefs.time,
+      candidates:result.diagnostics.candidateCount,
+      considered:result.diagnostics.evaluated,
+      options:result.routes.length,
+      stopIds:best?.stopIds||[],
+      stopCount:best?.stopIds.length||0,
+      newOsmStops:best?.stopIds.filter(id=>osmIds.has(id)).length||0,
+      totalMinutes:best?.totalMinutes??null,
+      travelMinutes:best?.breakdown.travel??null,
+      visitMinutes:best?.breakdown.visits??null,
+      restMinutes:best?.breakdown.rests??null,
+      waitMinutes:best?.breakdown.wait??null,
+      unknownHours:best?.unknownHours??null,
+      estimatedLegs:best?.estimatedLegs??null,
+      budgetRespected:!!best&&best.totalMinutes<=prefs.time,
+      route:best,
+      reason:result.reason
+    };
+  });
+}
+const executedAsScript=process.argv[1]&&fileURLToPath(import.meta.url)===process.argv[1];
+if(executedAsScript){
+  const results=runBenchmark();
+  const summary=results.map(({route,...row})=>row);
+  process.stdout.write(JSON.stringify({dataSource:'checked-in Warsaw editorial 50 + OSM 258; not verified live API',realTravelTimes:false,scenarios:summary,pass:summary.every(s=>s.budgetRespected)},null,2)+'\n');
+  if(summary.some(s=>!s.budgetRespected))process.exitCode=1;
+}

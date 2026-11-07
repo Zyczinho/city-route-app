@@ -76,6 +76,56 @@ const catalog=()=>[...places,...myPlaces().filter(p=>!p.resolvedPlaceId||!places
 const savedIds=()=>state.savedPlacesByCity[city().id]||[];
 const savedPlace=p=>savedIds().includes(String(p.id));
 const providerRatings=p=>{const original=Array.isArray(p?.ratings)?p.ratings:[],live=providerOverlay.get(p?.id)?.ratings||[];return [...live,...original.filter(x=>!live.some(r=>r.source===x.source))];};
+
+const providerResult=p=>providerOverlay.get(p?.id)||null;
+function providerMessage(p){
+ if(providerLoading.has(p?.id))return 'Sprawdzanie ocen…';
+ const result=providerResult(p);
+ if(!result)return 'Oceny po otwarciu miejsca';
+ const access=result.providerStatus;
+ const google=access?.google?.ratings;
+ const ta=[access?.tripadvisor?.content,access?.tripadvisor?.terra];
+ const disabled=x=>['no-key','disabled'].includes(x);
+ if(disabled(google)&&ta.every(disabled))return 'Źródła ocen niepodłączone';
+ if([google,...ta].every(x=>disabled(x)||x==='quota'))return 'Limit API ocen';
+ if(result.status==='unavailable')return 'Nie udało się pobrać ocen';
+ if(result.status==='no-match')return 'Nie znaleziono pasujących ocen';
+ return 'Brak zweryfikowanych ocen';
+}
+function sourceReason(p,source){
+ const value=rating(p,source);
+ if(value?.reason)return value.reason;
+ if(providerLoading.has(p?.id))return 'Sprawdzamy…';
+ const result=providerResult(p);
+ if(!result)return 'Otwórz kartę, by sprawdzić';
+ const st=result.providerStatus;
+ const available=source==='google'?[st?.google?.ratings]:[st?.tripadvisor?.content,st?.tripadvisor?.terra];
+ if(available.every(x=>['no-key','disabled'].includes(x)))return 'Integracja nieaktywna';
+ if(available.every(x=>['no-key','disabled','quota'].includes(x)))return 'Limit zapytań API';
+ return result.status==='unavailable'?'Błąd pobierania':'Nie znaleziono dopasowania';
+}
+async function showProviderHealth(){
+ const host=document.querySelector('[data-provider-health]');
+ if(!host)return;
+ try{
+  const response=await fetch('/api/provider-status',{cache:'no-store'});
+  if(!response.ok)throw Error('status');
+  const {providers}=await response.json();
+  if(!host.isConnected||!providers)return;
+  const photo=providers.google?.photos,rating=providers.google?.ratings;
+  const blocked=x=>['no-key','disabled'].includes(x);
+  const ta=Object.values(providers.tripadvisor||{});
+  const lines=[];
+  if(blocked(photo))lines.push('Zdjęcia Google: brak aktywnego dostępu do API.');
+  else if(photo==='quota')lines.push('Zdjęcia Google: osiągnięto limit bieżącej instancji.');
+  if(blocked(rating))lines.push('Oceny Google: integracja API nieaktywna.');
+  else if(rating==='quota')lines.push('Oceny Google: osiągnięto limit bieżącej instancji.');
+  if(ta.length&&ta.every(blocked))lines.push('Tripadvisor: niepodłączone oficjalne źródło ocen.');
+  if(!lines.length)return;
+  host.textContent=lines.join(' ');host.hidden=false;
+ }catch{/* Place browsing must not depend on diagnostics. */}
+}
+
 // Provider responses are deliberately transient; only exempt Google place identifiers are stored locally.
 async function enrichPlaceOnDemand(p){
  if(!p||!Number.isFinite(Number(p.lat))||!Number.isFinite(Number(p.lng))||providerOverlay.has(p.id)||providerLoading.has(p.id))return;
@@ -87,9 +137,9 @@ async function enrichPlaceOnDemand(p){
  });
  try{
   const r=await fetch('/api/place-enrichment?'+qs.toString(),{cache:'no-store'}),data=await r.json();
-  if(!r.ok||!['ok','no-match','no-key'].includes(data.status))return;
+  if(!r.ok||!['ok','no-match','no-key'].includes(data.status)){if(all[p.id]&&p.cityId===city().id){providerOverlay.set(p.id,{status:'unavailable',ratings:[],reviews:[],image:null});if($('#place-dialog')?.open&&$('#place-dialog').dataset.placeId===p.id)openPlace(p.id);}return;}
   if(!all[p.id]||p.cityId!==city().id)return;
-  providerOverlay.set(p.id,{ratings:Array.isArray(data.ratings)?data.ratings:[],reviews:Array.isArray(data.reviews)?data.reviews:[],image:data.image||null});
+  providerOverlay.set(p.id,{status:data.status,providerStatus:data.providerStatus||null,ratings:Array.isArray(data.ratings)?data.ratings:[],reviews:Array.isArray(data.reviews)?data.reviews:[],image:data.image||null});
   // A visible list row is swapped in place: re-rendering the whole screen per photo would rebuild the map and jump the scroll.
   const row=document.querySelector(`.place-list article.place[data-place-id="${CSS.escape(String(p.id))}"]`);
   if(row)row.outerHTML=placeRow(all[p.id]);else render();
@@ -154,8 +204,8 @@ const cityRouteBadge=p=>`<span class="cr-score" data-cityroute-ref="${esc(p.id)}
 function scoreLine(p,compact=false){
  if(p.kind==='sidequest')return `<p class="idea">${ic('sparkles')}Pomysł City Route · przy: ${esc(all[p.placeId]?.name)}</p>`;
  if(p.kind==='user'&&!providerRatings(p).length)return `<p class="idea">${ic('user-round')}Dodane przez Ciebie · ${isPublic(p)?'propozycja społeczności':'prywatne'}</p>${cityRouteBadge(p)}`;
- const c=combinedRating(providerRatings(p)),chip=s=>{const r=rating(p,s),ok=Number.isFinite(r?.value);return `<span class="src src-${s}${ok?'':' none'}" title="${esc(SOURCES[s])}">${brand(s)}${ok?`${dec(r.value)} · ${fmt(r.reviewCount)}`:'brak'}</span>`;};
- return `<div class="score">${c.value===null?'<span class="muted">Brak ocen</span>':`<strong>${ic("star")} ${dec(c.value,2)}</strong><span>${opinii(c.total)}</span>`}</div>${compact?'':`<div class="srcs" aria-label="Oceny według platform">${chip('google')}${chip('tripadvisor')}</div>`}${cityRouteBadge(p)}`;}
+ const c=combinedRating(providerRatings(p)),chip=s=>{const r=rating(p,s),ok=Number.isFinite(r?.value);return `<span class="src src-${s}${ok?'':' none'}" title="${esc(SOURCES[s])}">${brand(s)}${ok?`${dec(r.value)} · ${fmt(r.reviewCount)}`:'sprawdź'}</span>`;};
+ return `<div class="score">${c.value===null?'<span class="muted">${esc(providerMessage(p))}</span>':`<strong>${ic("star")} ${dec(c.value,2)}</strong><span>${opinii(c.total)}</span>`}</div>${compact?'':`<div class="srcs" aria-label="Oceny według platform">${chip('google')}${chip('tripadvisor')}</div>`}${cityRouteBadge(p)}`;}
 
 function providerReviewSnippets(p){
  const rows=(providerOverlay.get(p.id)?.reviews||[]).filter(r=>['google','tripadvisor'].includes(r.source)&&r.text&&/^https:\/\//.test(r.url||'')).slice(0,6);
@@ -176,10 +226,10 @@ function providerReviewSnippets(p){
  return html+'</section>';
 }
 function breakdown(p){const c=combinedRating(providerRatings(p));
- const rows=['google','tripadvisor'].map(s=>{const r=rating(p,s);if(!r||!Number.isFinite(r.value))return `<div class="row none">${brand(s)}<span class="name">${SOURCES[s]}</span><span class="why">${esc(r?.reason||'Brak oceny')}</span></div>`;
+ const rows=['google','tripadvisor'].map(s=>{const r=rating(p,s);if(!r||!Number.isFinite(r.value))return `<div class="row none">${brand(s)}<span class="name">${SOURCES[s]}</span><span class="why">${esc(sourceReason(p,s))}</span></div>`;
   return `<a class="row" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" data-action="source" data-id="${p.id}" data-source="${s}">${brand(s)}<span class="name">${SOURCES[s]}<small>${esc(r.listing)}</small></span><span class="val">${ic("star")} ${dec(r.value)}</span><span class="cnt">${opinii(r.reviewCount)}</span>${ic('arrow-up-right','go')}</a>`;}).join('');
  const share=c.parts.map(r=>`<span class="sh-${r.source}" style="width:${(r.reviewCount/c.total*100).toFixed(1)}%"></span>`).join('');
- return `<section class="breakdown" aria-label="Oceny z platform"><div class="total">${c.value===null?'<strong>—</strong><span>Brak ocen na obu platformach</span>':`<strong>${dec(c.value,2)}</strong><span>na 5 · ${opinii(c.total)} łącznie</span>`}</div>${c.total?`<div class="share" aria-hidden="true">${share}</div>`:''}${rows}${providerReviewSnippets(p)}<div class="city-route-own-rating"><strong>City Route · oceny społeczności</strong><span>${state.placeReviews[p.id]?`${ic("star")} ${state.placeReviews[p.id]}/5 · Twoja ocena`:'Jeszcze nie oceniłeś tego miejsca'}</span><small>Fioletowe oceny City Route nie wpływają na średnią Google i Tripadvisor. Po zalogowaniu ocena zatwierdzonego miejsca trafia również do społeczności.</small></div><p class="fine">Wynik łączny to średnia ważona liczbą opinii: każda opinia z Google i Tripadvisor waży tyle samo. Oceny katalogowe sprawdzono 2 listopada 2026; dane nowo dodanych miejsc są pobierane z oficjalnych API, jeśli są dostępne. <a href="#sources">Skąd są dane?</a></p></section>`;}
+ return `<section class="breakdown" aria-label="Oceny z platform"><div class="total">${c.value===null?'<strong>—</strong><span>${esc(providerMessage(p))}</span>':`<strong>${dec(c.value,2)}</strong><span>na 5 · ${opinii(c.total)} łącznie</span>`}</div>${c.total?`<div class="share" aria-hidden="true">${share}</div>`:''}${rows}${providerReviewSnippets(p)}<div class="city-route-own-rating"><strong>City Route · oceny społeczności</strong><span>${state.placeReviews[p.id]?`${ic("star")} ${state.placeReviews[p.id]}/5 · Twoja ocena`:'Jeszcze nie oceniłeś tego miejsca'}</span><small>Fioletowe oceny City Route nie wpływają na średnią Google i Tripadvisor. Po zalogowaniu ocena zatwierdzonego miejsca trafia również do społeczności.</small></div><p class="fine">Wynik łączny to średnia ważona liczbą opinii: każda opinia z Google i Tripadvisor waży tyle samo. Oceny pokazujemy tylko przy zweryfikowanych źródłach. Nowe miejsca sprawdzamy po otwarciu karty, jeśli integracje API są aktywne. <a href="#sources">Skąd są dane?</a></p></section>`;}
 const q=p=>encodeURIComponent(searchQuery(p,city()));
 function hotelLinks(p){const l=(href,label,src,primary)=>`<a class="button wide ${primary?'primary':''}" href="${esc(href)}" target="_blank" rel="noopener noreferrer" data-action="compare" data-id="${p.id}" data-source="${src}">${ic('arrow-up-right')}${label}</a>`;
  return `<p class="fine">Ceny na Twoje daty porównasz w Google Hotels, które zbiera oferty wielu serwisów rezerwacyjnych. City Route nie pokazuje jeszcze cen.</p>${l('https://www.google.com/travel/search?q='+q(p),'Porównaj ceny (Google Hotels)','google-hotels',true)}${l(p.bookingSearch||'https://www.booking.com/searchresults.pl.html?ss='+q(p),'Szukaj na Booking','booking')}${p.website?l(p.website,'Strona hotelu','official'):''}`;}
@@ -229,7 +279,7 @@ function placesView(){
  if(sort==='rating')list.sort((a,b)=>smoothedRating(b.ratings)-smoothedRating(a.ratings));if(sort==='count')list.sort((a,b)=>c(b).total-c(a).total);
  renderedPlaceList=[...list];
  const cuisines=[...new Set(places.flatMap(p=>p.cuisine||[]))].sort((a,b)=>a.localeCompare(b,'pl'));
- return `${exploreSwitch('places')}<section class="page-head places-intro"><p class="kicker">Miejsca</p><h1>Co chcesz zobaczyć?</h1></section>${placesSearchBox()}${chips([...PLACE_CATS,['sidequests','Side questy','flag']],mapCategorySelected?cat:null,'cat',true)}${cat==='sidequests'?'<p class="note">Krótkie zadania przy konkretnych miejscach. Pomysły City Route — rekomendacje społeczności pojawią się później.</p>':''}${cat!=='sidequests'?(mapCategorySelected?'':'<p class="fine map-hint" role="status">Wybierz kategorię, aby wyświetlić miejsca na mapie.</p>')+'<div id="places-map" class="places-map-shell" aria-label="Mapa miejsc"></div>':''}<a class="add-place" href="#add-place">${ic('plus')}<span><strong>Dodaj własne miejsce</strong><small>Twoje ulubione miejsce, którego tu brakuje</small></span>${ic('chevron-right')}</a>
+ return `${exploreSwitch('places')}<section class="page-head places-intro"><p class="kicker">Miejsca</p><h1>Co chcesz zobaczyć?</h1></section>${placesSearchBox()}<p class="fine provider-notice" data-provider-health role="status" hidden></p>${chips([...PLACE_CATS,['sidequests','Side questy','flag']],mapCategorySelected?cat:null,'cat',true)}${cat==='sidequests'?'<p class="note">Krótkie zadania przy konkretnych miejscach. Pomysły City Route — rekomendacje społeczności pojawią się później.</p>':''}${cat!=='sidequests'?(mapCategorySelected?'':'<p class="fine map-hint" role="status">Wybierz kategorię, aby wyświetlić miejsca na mapie.</p>')+'<div id="places-map" class="places-map-shell" aria-label="Mapa miejsc"></div>':''}<a class="add-place" href="#add-place">${ic('plus')}<span><strong>Dodaj własne miejsce</strong><small>Twoje ulubione miejsce, którego tu brakuje</small></span>${ic('chevron-right')}</a>
  ${cat==='jedzenie'?chips([['all','Każda kuchnia'],...cuisines.map(k=>[k,k[0].toUpperCase()+k.slice(1)])],cuisine,'cuisine'):''}
  
  <div class="list-head"><span>${list.length} ${plural(list.length,'wynik','wyniki','wyników')}</span><label class="sort">Sortuj<select id="sort"><option value="default" ${sort==='default'?'selected':''}>Polecane</option><option value="rating" ${sort==='rating'?'selected':''}>Najlepiej oceniane</option><option value="count" ${sort==='count'?'selected':''}>Najwięcej opinii</option><option value="near" ${sort==='near'?'selected':''}>Najbliżej mnie</option></select></label></div>
@@ -468,7 +518,7 @@ function render(){const cityHost=document.querySelector('.city-host');if(cityHos
  if(tab==='routes')html=routesView();else if(tab==='places')html=placesView();else if(tab==='plan')html=planView();else if(tab==='my-route')html=myRouteView();else if(tab==='profile')html=profileView();else if(tab==='book')html=bookView();else if(tab==='events')html=eventsView();
  else if(tab==='route'){const r=findRoute(id);html=r?detailView(r):`<div class="empty"><p>Ta trasa nie jest już dostępna.</p><a class="button" href="#routes">Wszystkie trasy</a></div>`;}
  else if(tab==='sources')html=sourcesView();else if(tab==='about')html=aboutView();else if(tab==='add-place')html=addPlaceView();else if(tab==='social-saved-places')html=savedPlacesView();
- mapView?.destroy();mapView=null;$('#main').innerHTML=html;if(tab==='profile')window.dispatchEvent(new Event('cityroute:profile-rendered'));document.body.classList.toggle('is-live',isLive());if(tab==='places'){mountPlacesMap();observeApprovedPlaceEnrichment();}}
+ mapView?.destroy();mapView=null;$('#main').innerHTML=html;if(tab==='profile')window.dispatchEvent(new Event('cityroute:profile-rendered'));document.body.classList.toggle('is-live',isLive());if(tab==='places'){mountPlacesMap();observeApprovedPlaceEnrichment();void showProviderHealth();}}
 function start(r){const stops=r.stops.filter(id=>all[id]);if(!stops.length)return toast('Najpierw dodaj co najmniej jedno miejsce.');state.session={id:uuid(),name:r.name,routeId:r.id,stops,index:0,results:[],finished:false,transport:r.transport||'walking',startedAt:new Date().toISOString()};log('route_start',{route_id:r.id,session_id:state.session.id,stops:stops.length});location.hash='my-route';render();}
 function saveRoute(r){const saved={id:'mine-'+uuid().slice(0,8),cityId:city().id,name:r.name,description:r.description,stops:r.stops.slice(),cats:[],transport:r.transport||'walking',createdAt:new Date().toISOString()};state.myRoutes.unshift(saved);log('route_save',{route_id:saved.id,stops:saved.stops.length});return saved;}
 

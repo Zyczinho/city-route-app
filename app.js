@@ -3,6 +3,7 @@ import {iconMarkup} from './ui-icons.js';
 import {localDate,validDate,scheduleRoute,feasibleFor} from './opening-hours.js';
 import {guideView} from './onboarding-guide.js';
 import {suggestVisitStart} from './planner-defaults.js';
+import {planRoutesV2} from './route-planner-v2.js';
 import {DEFAULT_CITY_ID,cityById,cityPoint,forCity,isInsideCity,routeTitle,searchQuery,withCityId} from './city-context.js';
 import {createRestRpcClient,loadCatalogueWithFallback} from './catalogue-client.js';
 import {loadNearbyPlaces} from './nearby-client.js';
@@ -180,7 +181,15 @@ function meta(ps,transport){const s=summary(ps,transport);return `<div class="me
 const findRoute=id=>routes.find(r=>r.id===id)||state.myRoutes.find(r=>r.id===id)||(generated?.id===id?generated:null);
 const coverRoutes=()=>[...routes,...forCity(state.myRoutes,city().id),...(generated?[generated]:[])];
 const routeCoverAssignments=()=>assignRouteCovers(coverRoutes(),id=>all[id]);
-const wholeRoute=(ps,t)=>ps.length>1?`<a class="button wide" href="${routeMapsUrl(ps,t)}" target="_blank" rel="noopener noreferrer" data-action="whole-route">${ic('map')}Cała trasa w Google Maps${ps.length>10?' (pierwsze 10 przystanków)':''}</a>`:'';
+function transitLegLinks(ps){
+ if(ps.length<2)return '';
+ return `<details class="more" aria-label="Komunikacja miejska etapami"><summary>Komunikacja miejska — sprawdź odcinki</summary><p class="fine">Google Maps nie obsługuje wielopunktowej trasy komunikacją jako jednego linku. Sprawdź każdy przejazd osobno, uwzględniając godzinę odjazdu.</p>${ps.slice(1).map((p,i)=>`<a class="button wide" href="https://www.google.com/maps/dir/?api=1&origin=${ps[i].lat},${ps[i].lng}&destination=${p.lat},${p.lng}&travelmode=transit" target="_blank" rel="noopener noreferrer" data-action="whole-route">${ic('navigation')}${esc(ps[i].name)} → ${esc(p.name)}</a>`).join('')}</details>`;
+}
+function wholeRoute(ps,t){
+ if(ps.length<2)return '';
+ if(t==='transit')return transitLegLinks(ps);
+ return `<a class="button wide" href="${routeMapsUrl(ps,t)}" target="_blank" rel="noopener noreferrer" data-action="whole-route">${ic('map')}Cała trasa w Google Maps${ps.length>10?' (pierwsze 10 przystanków)':''}</a>`;
+}
 const liveBanner=()=>isLive()?`<a class="live-banner" href="#my-route"><span class="pulse" aria-hidden="true"></span><span><strong>Trasa w toku</strong>${esc(state.session.name)} · przystanek ${state.session.index+1} z ${state.session.stops.length}</span>${ic('chevron-right')}</a>`:'';
 
 // Routes tab
@@ -354,14 +363,14 @@ const keepDraft=()=>{const f=$('#place-form');if(!f)return;const v=new FormData(
 // Plan tab
 const radio=(name,opts,val)=>`<div class="choice" role="radiogroup">${opts.map(([v,l])=>`<label><input type="radio" name="${name}" value="${v}" ${v===val?'checked':''}><span>${l}</span></label>`).join('')}</div>`;
 function planView(){const timeZone=city().timezone||'Europe/Warsaw',today=localDate(timeZone),suggested=suggestVisitStart({timeZone}),date=generationPrefs?.visitDate&&generationPrefs.visitDate>=today?generationPrefs.visitDate:suggested.date,time=generationPrefs?.visitDate&&generationPrefs.visitDate>=today?(generationPrefs?.startTime||suggested.time):suggested.time,mode=generationPrefs?.visitMode||'inside';return `<section class="page-head"><p class="kicker">TWÓJ CZAS · TWOJE MIEJSCA</p><h1>Odkrywaj miasto po swojemu.</h1><a class="inline" href="#routes">Wolisz gotowy pomysł? Zobacz trasy${ic('chevron-right','link-arrow')}</a></section><a class="start-here" href="#about" aria-label="Zacznij tutaj — poznaj funkcje City Route"><span class="start-here-icon">${ic('compass')}</span><span class="start-here-copy"><strong>Nowy tutaj? Poznaj City Route</strong></span>${ic('chevron-right')}</a>${liveBanner()}
- <a class="button wide" href="#my-route">${ic("pencil")}Ułożę trasę samodzielnie — dodaję i przesuwam miejsca</a><form id="build-form" class="planner"><fieldset><legend>Ile masz czasu?</legend>${radio('time',[['60','1 h'],['120','2 h'],['240','4 h'],['360','Pół dnia'],['480','Cały dzień']],'120')}</fieldset>
+ <a class="button wide" href="#my-route">${ic("pencil")}Ułożę trasę samodzielnie — dodaję i przesuwam miejsca</a><form id="build-form" class="planner"><fieldset><legend>Ile masz czasu?</legend>${radio('time',[['60','1 h'],['120','2 h'],['240','4 h'],['360','Pół dnia · 6 h'],['480','Cały dzień · 8 h']],'120')}</fieldset>
  <fieldset class="planner-when"><legend>Kiedy chcesz zwiedzać?</legend><div class="planner-when-fields"><label>Data<input type="date" name="visitDate" required min="${today}" value="${esc(date)}"></label><label>Start<input type="time" name="startTime" required min="06:00" max="22:00" value="${esc(time)}"></label></div><p class="fine">Godziny sprawdzamy dla wybranych muzeów. Pozostałe wymagają potwierdzenia.</p></fieldset>
  <fieldset><legend>Chcesz wchodzić do muzeów?</legend>${radio('visitMode',[['inside','Tak — sprawdź godziny wejścia'],['outside','Nie — tylko oglądanie z zewnątrz']],mode)}</fieldset>
  <fieldset><legend>Na co masz ochotę?</legend><div class="choice">${[['mix','Wszystko po trochu'],['sightseeing','Klasyka'],['culture','Kultura'],['nature','Zieleń'],['views','Widoki'],['food','Jedzenie'],['hidden','Nieoczywiste']].map(([v,l])=>`<label><input type="checkbox" name="interests" value="${v}" ${v==='mix'?'checked':''}><span>${l}</span></label>`).join('')}</div></fieldset>
  <fieldset><legend>Jak się poruszasz?</legend>${radio('transport',[['walking','Pieszo'],['bike','Rower'],['transit','Komunikacja'],['mix','Różnie']],'walking')}</fieldset>
  <fieldset><legend>Kawa albo jedzenie po drodze?</legend>${radio('food',[['none','Nie'],['quick','Kawa lub przekąska'],['sit','Restauracja']],'none')}</fieldset>
  <fieldset><legend>Skąd ruszasz?</legend>${radio('start',[['here','Stąd, gdzie jestem'],['any','Obojętnie']],'here')}</fieldset>
- <details class="more"><summary>${ic('sliders-horizontal')}Więcej ustawień</summary><fieldset><legend>Budżet</legend>${radio('budget',[['low','Do 25 zł'],['medium','Do 100 zł'],['premium','Bez limitu']],'medium')}</fieldset><fieldset><legend>Styl zwiedzania</legend>${radio('tourist',[['balanced','Pół na pół'],['must','Najważniejsze punkty'],['local','Bardziej lokalnie']],'balanced')}</fieldset><input type="hidden" name="offers" value="no"><fieldset class="planner-sponsors-disabled" disabled aria-disabled="true"><legend>Oferty partnerów <small>Wkrótce</small></legend>${radio('offers',[['no','Brak ofert'],['yes','Sponsorowane']],'no')}</fieldset><p class="fine">Trasy sponsorowane są nieaktywne do czasu uruchomienia prawdziwych partnerstw. Czas dojazdu rowerem i komunikacją jest szacunkowy.</p></details>
+ <details class="more"><summary>${ic('sliders-horizontal')}Więcej ustawień</summary><fieldset><legend>Budżet</legend>${radio('budget',[['low','Do 25 zł'],['medium','Do 100 zł'],['premium','Bez limitu']],'medium')}</fieldset><fieldset><legend>Styl zwiedzania</legend>${radio('tourist',[['balanced','Pół na pół'],['must','Najważniejsze punkty'],['local','Bardziej lokalnie']],'balanced')}</fieldset><input type="hidden" name="offers" value="no"><fieldset class="planner-sponsors-disabled" disabled aria-disabled="true"><legend>Oferty partnerów <small>Wkrótce</small></legend>${radio('offers',[['no','Brak ofert'],['yes','Sponsorowane']],'no')}</fieldset><p class="fine">Trasy sponsorowane są nieaktywne do czasu uruchomienia prawdziwych partnerstw. Czas przejść i przejazdów jest orientacyjny. W trybie komunikacji miejskiej sprawdzaj poszczególne odcinki w mapach.</p></details>
  <button class="primary big">${ic('wand-sparkles')}Ułóż moją trasę</button></form>`;}
 
 // Route detail
@@ -378,14 +387,25 @@ const estimation='<p class="fine">Czas i dystans to szacunek (odległość w lin
 function generatedPicker(){
  if(!generatedOptions.length)return '';
  const options=generatedOptions.map((option,i)=>{
-  const ps=items(option.stops),stats=summary(ps,option.transport),selected=i===generatedIndex;
+  const ps=items(option.stops),stats=summary(ps,option.transport),plannedMinutes=option.plannerV2?.totalMinutes??stats.minutes,selected=i===generatedIndex;
   const names=ps.slice(0,3).map(p=>p.name).join(' · ');
-  return `<button type="button" class="generated-option ${selected?'selected':''}" data-action="choose-generated" data-value="${i}" aria-pressed="${selected}" aria-label="Wariant ${i+1}, ${stopsLabel(ps.length)}, ${minutes(stats.minutes)}"><span class="generated-option-title"><strong>Wariant ${i+1}</strong><span>${selected?'Wybrany':'Zobacz trasę'}</span></span><small>${stopsLabel(ps.length)} · około ${minutes(stats.minutes)}</small><span class="generated-option-stops">${esc(names)}</span></button>`;
+  return `<button type="button" class="generated-option ${selected?'selected':''}" data-action="choose-generated" data-value="${i}" aria-pressed="${selected}" aria-label="Wariant ${i+1}, ${stopsLabel(ps.length)}, ${minutes(plannedMinutes)}"><span class="generated-option-title"><strong>Wariant ${i+1}</strong><span>${selected?'Wybrany':'Zobacz trasę'}</span></span><small>${stopsLabel(ps.length)} · około ${minutes(plannedMinutes)}</small><span class="generated-option-stops">${esc(names)}</span></button>`;
  }).join('');
  return `<section class="generated-picker" aria-labelledby="generated-heading"><h2 id="generated-heading">Wybierz trasę dla siebie</h2><p class="lead">Oto ${generatedOptions.length} ${generatedOptions.length===1?'propozycja':generatedOptions.length<5?'propozycje':'propozycji'} na podstawie Twoich ustawień. Wybierz jedną lub sprawdź inne.</p><div class="generated-options">${options}</div><div class="generated-picker-actions"><button type="button" data-action="refresh-generated">${ic('shuffle')}Pokaż inne propozycje</button><a href="#plan">Zmień ustawienia</a></div></section>`;
 }
+function generatedV2TimelineView(plan){
+ const day=new Intl.DateTimeFormat('pl-PL',{day:'numeric',month:'long',year:'numeric',timeZone:city().timezone||'Europe/Warsaw'}).format(new Date(generationPrefs.visitDate+'T12:00:00Z'));
+ const clock=m=>`${String(Math.floor(m/60)).padStart(2,'0')}:${String(Math.floor(m%60)).padStart(2,'0')}`;
+ const parts=plan.breakdown;
+ return `<section class="detail route-timeline" aria-label="Orientacyjny plan dnia V2"><h2>Plan na ${esc(day)} · od ${esc(generationPrefs.startTime)}</h2><p><strong>Łącznie około ${minutes(plan.totalMinutes)}</strong> · przejścia ${minutes(parts.travel)}, zwiedzanie i posiłki ${minutes(parts.visits)}, odpoczynek ${minutes(parts.rests)}, oczekiwanie ${minutes(parts.wait)}.</p>
+ <p class="fine">Czasy przemieszczania są orientacyjne (odległość w linii prostej × 1,3, bez rzeczywistej sieci ulic). Korki, przejścia, przesiadki i kolejki mogą wydłużyć trasę. Nie gwarantujemy dokładnego czasu dotarcia.</p>
+ <ol class="timeline-list">${plan.rows.map(row=>`<li><strong>${clock(row.visitStartMinute)}–${clock(row.departureMinute)}</strong><span>${esc(row.name)}<small>Przejście ok. ${row.travelMinutes} min · pobyt ${row.visitMinutes} min${row.restMinutes?' · przerwa '+row.restMinutes+' min':''}${row.waitMinutes?' · oczekiwanie '+row.waitMinutes+' min':''}${row.hoursStatus==='unknown'?' · godziny do sprawdzenia':''}</small></span></li>`).join('')}</ol>
+ ${plan.unknownHours?`<p class="fine">Godziny otwarcia ${plan.unknownHours} ${plan.unknownHours===1?'miejsca wymagają':'miejsc wymagają'} potwierdzenia.</p>`:''}
+ <p class="fine">Plan i jego czasy to podgląd V2 dla wybranego dnia. Po zapisaniu samej trasy harmonogram nie synchronizuje się między urządzeniami.</p></section>`;
+}
 function generatedTimingView(ps){
  if(!generationPrefs)return '';
+ if(generated?.plannerV2)return generatedV2TimelineView(generated.plannerV2);
  const timeline=scheduleRoute(ps,{cityId:city().id,date:generationPrefs.visitDate,startTime:generationPrefs.startTime,
   mode:generationPrefs.visitMode,transport:generationPrefs.transport,origin:generationPrefs.start,maxMinutes:Number(generationPrefs.time)});
  const day=new Intl.DateTimeFormat('pl-PL',{day:'numeric',month:'long',year:'numeric',timeZone:city().timezone||'Europe/Warsaw'})
@@ -397,7 +417,7 @@ function generatedTimingView(ps){
  <p class="fine">Plan jest podglądem na wybrany dzień; po zapisaniu samej trasy jej harmonogram nie jest jeszcze synchronizowany między urządzeniami.</p></section>`;
 }
 function detailView(r){const ps=items(r.stops),own=state.myRoutes.some(x=>x.id===r.id),cover=routeCoverAssignments().get(r.id)||null;
- return `<section class="detail"><a class="back" href="${r.id==='generated'?'#plan':'#routes'}">${ic('arrow-left')}${r.id==='generated'?'Ułóż trasę':'Trasy'}</a>${r.id==='generated'?generatedPicker():''}<div class="cover">${photo(cover,'',true)}</div>${credit(cover)}<p class="kicker">${r.id==='generated'?'Ułożona dla Ciebie':own?'Twoja trasa':'Redakcja City Route'}${(r.cats||[]).map(c=>' · '+catName(c,ROUTE_CATS)).join('')}</p><h1>${esc(r.name)}</h1><p class="lead">${esc(r.description)}</p>${meta(ps,r.transport)}
+ return `<section class="detail"><a class="back" href="${r.id==='generated'?'#plan':'#routes'}">${ic('arrow-left')}${r.id==='generated'?'Ułóż trasę':'Trasy'}</a>${r.id==='generated'?generatedPicker():''}<div class="cover">${photo(cover,'',true)}</div>${credit(cover)}<p class="kicker">${r.id==='generated'?'Ułożona dla Ciebie':own?'Twoja trasa':'Redakcja City Route'}${(r.cats||[]).map(c=>' · '+catName(c,ROUTE_CATS)).join('')}</p><h1>${esc(r.name)}</h1><p class="lead">${esc(r.description)}</p>${meta(ps,r.transport)}${r.id==='generated'&&r.plannerV2?`<p class="fine">Planner V2 · ${minutes(r.plannerV2.totalMinutes)} łącznie z przerwami i przemieszczaniem · czas orientacyjny</p>`:''}
  <div class="detail-actions"><button class="primary big" data-action="start" data-id="${r.id}">${ic('play')}Rozpocznij trasę</button>${r.id==='generated'?`<button data-action="save-generated">${ic('bookmark')}Zapisz trasę</button>`:''}<button data-action="save-route" data-id="${r.id}">${ic('pencil')}Edytuj jako Moją trasę</button>${wholeRoute(ps,r.transport)}${!own&&r.id!=='generated'?`<button type="button" data-route-share="editorial" data-route-ref="${esc(r.id)}" data-route-city="${esc(city().id)}" data-route-title="${esc(r.name)}">${ic("link")}Udostępnij</button>`:''}${own?`<button class="danger" data-action="delete-route" data-id="${r.id}">${ic('trash-2')}Usuń tę trasę</button>`:''}</div><h2>Przystanki</h2>${stopList(ps)}${r.id==='generated'?generatedTimingView(ps):''}${estimation}</section>`;}
 
 // My route tab
@@ -525,7 +545,8 @@ document.addEventListener('click',e=>{
  }
  if(action==='refresh-generated'){
   if(!generationPrefs||!generatedOptions.length)return toast('Najpierw ułóż trasę.');
-  const fresh=generateAlternatives([...places,...forCity(state.userPlaces,city().id)],generationPrefs,{history:generationHistory,count:3});
+  const candidates=[...places,...forCity(state.userPlaces,city().id)];
+  const fresh=generated?.plannerV2?planRoutesV2(candidates,generationPrefs,{count:3,candidateLimit:72,beamWidth:32,maxExpansions:12000,history:generationHistory}).routes:generateAlternatives(candidates,generationPrefs,{history:generationHistory,count:3});
   if(!fresh.length)return toast('Nie znaleziono innych sensownych wariantów. Zmień ustawienia.');
   setGeneratedOptions(fresh);
   log('build_variant_refresh',{count:fresh.length,stops:generated.stops.length});
@@ -611,7 +632,10 @@ document.addEventListener('submit',async e=>{const f=e.target,data=new FormData(
   plan(prefs,null);}
 });
 function setGeneratedOptions(options){
- generatedOptions=options.map(ps=>({id:'generated',cityId:city().id,name:routeTitle(city()),description:`Plan na ${minutes(Number(generationPrefs.time))}, ułożony według Twoich wyborów. Możesz go zapisać albo od razu ruszyć.`,stops:ps.map(p=>p.id),transport:generationPrefs.transport,cats:[]}));
+ generatedOptions=options.map(entry=>{
+  const v2=!Array.isArray(entry),stops=v2?[...entry.stopIds]:entry.map(p=>p.id);
+  return {id:'generated',cityId:city().id,name:routeTitle(city()),description:`Plan na ${minutes(Number(generationPrefs.time))}, ułożony według Twoich wyborów. Możesz go zapisać albo od razu ruszyć.`,stops,transport:generationPrefs.transport,cats:[],plannerV2:v2?entry:null};
+ });
  generatedIndex=0;generated=generatedOptions[0]||null;
  generationHistory=[...generationHistory,...generatedOptions.map(r=>r.stops)].slice(-30);
 }
@@ -622,14 +646,25 @@ function plan(prefs,start){
  if(!validDate(prefs.visitDate)||prefs.visitDate<localDate(city().timezone||'Europe/Warsaw')||!/^([01]\d|2[0-3]):[0-5]\d$/.test(prefs.startTime||'')){
   return toast('Wybierz poprawną datę i godzinę rozpoczęcia trasy.');
  }
- const chosenPrefs={...prefs,start:start||undefined};
- chosenPrefs.timeFeasible=stops=>feasibleFor(stops,{cityId:city().id,date:chosenPrefs.visitDate,
+ const chosenPrefs={...prefs,start:start||undefined,cityId:city().id};
+ const candidates=[...places,...forCity(state.userPlaces,city().id)];
+ const isV2=prefs.transport!=='transit'&&new URLSearchParams(location.search).get('planner')!=='v1';
+ let choices=[];
+ if(isV2){
+  try{
+   const result=planRoutesV2(candidates,chosenPrefs,{count:3,candidateLimit:72,beamWidth:32,maxExpansions:12000});
+   choices=result.routes;
+   if(!choices.length)return toast('Nie znaleziono wykonalnej trasy. Zmień czas, start lub zakres zwiedzania.');
+  }catch(error){console.error('planner-v2',error);return toast('Nie udało się ułożyć trasy V2. Spróbuj ponownie.');}
+ }else{
+  chosenPrefs.timeFeasible=stops=>feasibleFor(stops,{cityId:city().id,date:chosenPrefs.visitDate,
    startTime:chosenPrefs.startTime,mode:chosenPrefs.visitMode,transport:chosenPrefs.transport,
    origin:chosenPrefs.start,maxMinutes:Number(chosenPrefs.time)});
- const choices=generateAlternatives([...places,...forCity(state.userPlaces,city().id)],chosenPrefs,{count:3});
- log('build_generate',{preferences:chosenPrefs,stops:choices[0]?.length||0,variants:choices.length});
- if(!choices.length)return toast('Nie ma wykonalnej trasy w tych godzinach. Zmień start, datę lub długość zwiedzania.');
+  choices=generateAlternatives(candidates,chosenPrefs,{count:3});
+  if(!choices.length)return toast('Nie ma wykonalnej trasy w tych godzinach. Zmień start, datę lub długość zwiedzania.');
+ }
  generationPrefs=chosenPrefs;generationHistory=[];setGeneratedOptions(choices);
+ log('build_generate',{preferences:{...chosenPrefs,timeFeasible:undefined},stops:generated?.stops.length||0,variants:choices.length,engine:isV2?'v2':'v1'});
  location.hash='route/generated';
 }
 // SAVED-PLACES-SYNC: saved-places-sync.js merges saves with the account; apply its result to the in-memory state.

@@ -17,7 +17,7 @@ export const SCENARIOS=[
   {name:'03 — Muzea, sobota 4 godziny',time:240,start:origin(52.232,21.023),interests:['culture'],visitMode:'inside'},
   {name:'04 — Historia bez muzeów 3 godziny',time:180,start:origin(52.249,21.013),interests:['culture','sightseeing'],visitMode:'outside'},
   {name:'05 — Widoki nad Wisłą 4 godziny',time:240,start:origin(52.236,21.030),interests:['views','nature'],visitMode:'outside'},
-  {name:'06 — Nieoczywista Praga 4 godziny',time:240,start:origin(52.256,21.042),interests:['hidden','sightseeing'],tourist:'local'},
+  {name:'06 — Nieoczywista Praga 4 godziny',time:240,start:origin(52.256,21.042),interests:['hidden','sightseeing'],tourist:'local',maxRadiusKm:1.5},
   {name:'07 — Must-see 6 godzin',time:360,start:origin(52.233,21.009),interests:['sightseeing'],tourist:'must'},
   {name:'08 — Lokalny spacer 8 godzin',time:480,start:origin(52.230,21.052),interests:['nature','hidden'],tourist:'local'},
   {name:'09 — Kultura i kawa 4 godziny',time:240,start:origin(52.232,21.019),interests:['culture'],food:'quick'},

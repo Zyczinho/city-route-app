@@ -18,3 +18,12 @@
  .places-page-numbers{order:2;flex:1 1 100%;max-width:100%}
  .places-page-number,.places-page-arrow{min-height:44px}
 }
+
+/* Desktop place cards: buttons must never cover a long venue name. */
+@media(min-width:760px){
+ .place-list .place{grid-template-columns:88px minmax(0,1fr);grid-template-rows:auto auto;grid-template-areas:"photo info" "photo actions";align-items:start;row-gap:7px;min-width:0}
+ .place-list .place>.thumb{grid-area:photo;align-self:start}
+ .place-list .place>.info{grid-area:info;min-width:0}
+ .place-list .place>.info h3{padding-right:0;overflow-wrap:anywhere}
+ .place-list .place>.side{position:relative;grid-area:actions;top:auto;right:auto;justify-self:end;align-self:end;z-index:2}
+}

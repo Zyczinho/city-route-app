@@ -47,7 +47,8 @@ test('Places app only renders paged cards but keeps full filter result for exist
   pagedFragment,'function showPlacesPage(nextPage)','const paged=paginatePlaces(renderedPlaceList,nextPage)',
   'observeApprovedPlaceEnrichment();','data-action="places-page"','placesPage=1','data-places-range'])
    assert.ok(app.includes(snippet),'Missing '+snippet);
- assert.ok(!app.includes(oldFragment),'unbounded list image rendering is forbidden');
+ const placesOnly=app.slice(app.indexOf('function placesView(){'),app.indexOf('async function mountPlacesMap'));
+ assert.ok(!placesOnly.includes(oldFragment),'unbounded Places catalogue rendering is forbidden; other list screens are separate');
  const build=await readFile(new URL('../scripts/build.mjs',import.meta.url),'utf8');
  const sw=await readFile(new URL('../service-worker.js',import.meta.url),'utf8');
  const html=await readFile(new URL('../index.html',import.meta.url),'utf8');

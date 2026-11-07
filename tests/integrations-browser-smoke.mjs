@@ -19,6 +19,10 @@ try{
  browser=await chromium.launch({headless:true,args:['--no-sandbox']});
  const context=await browser.newContext({viewport:{width:375,height:812},isMobile:true,hasTouch:true,acceptDownloads:true});
  await context.route(/supabase\.co/,route=>route.abort());
+ await context.route(/\/api\/provider-status/,route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({status:'ok',providers:{google:{photos:'no-key',ratings:'no-key'},tripadvisor:{content:'no-key',terra:'no-key'}}})}));
+ await context.route(/\/api\/place-thumb/,route=>route.fulfill({status:404,headers:{'x-thumb-status':'no-key'},body:''}));
+ await context.route(/commons\.wikimedia\.org/,route=>route.abort());
+
  await context.addInitScript(({a,b})=>{
   localStorage.setItem('city-route-first-launch-v1','1');
   localStorage.setItem('city-route-v1',JSON.stringify({version:1,tester:{id:'integration-browser',nickname:'Tester'},
@@ -44,6 +48,18 @@ try{
  const modal=page.locator('dialog.route-share-dialog');
  await modal.waitFor({state:'visible'});
  const shareUrl=await modal.locator('input[type="url"]').inputValue();
+ const modalStyle=await modal.evaluate(el=>({
+  blue:getComputedStyle(el.querySelector('.route-share-emblem')).backgroundColor,
+  grid:getComputedStyle(el.querySelector('.route-share-choices')).display,
+  icons:el.querySelectorAll('.route-share-choices .i').length,
+  rawHidden:!el.querySelector('.route-share-raw').open,
+  title:el.querySelector('.route-share-preview span:not(.i)')?.textContent
+ }));
+ assert.equal(modalStyle.blue,'rgb(10, 102, 194)','modal follows CityRoute blue brand');
+ assert.equal(modalStyle.grid,'grid','sharing options use a mobile responsive grid');
+ assert.ok(modalStyle.icons>=4,'all destinations have local Lucide icons');
+ assert.ok(modalStyle.rawHidden,'long technical URL stays collapsed by default');
+
  assert.match(shareUrl,/^https:\/\/www\.google\.com\/maps\/dir\/\?api=1/);
  for(const label of ['WhatsApp','Instagram','Messenger','Kopiuj link']){
   assert.ok(await modal.getByText(label,{exact:false}).count()>0,'visible share option: '+label);
@@ -72,10 +88,19 @@ try{
  assert.ok(finalState.savedPlacesByCity.warsaw.includes(first.id),'catalogue place saved');
  assert.ok(finalState.savedPlacesByCity.warsaw.includes(own[0].id),'private place saved locally');
  assert.ok(finalState.events.some(x=>x.type==='google_saved_import'&&x.unresolved===1),'unmatched disclosed');
+ await page.goto(ROOT+'/#places',{waitUntil:'domcontentloaded'});
+ await page.waitForFunction(()=>!!document.querySelector('[data-provider-health]:not([hidden])'),{timeout:15000});
+ const providerText=await page.locator('[data-provider-health]').textContent();
+ assert.match(providerText,/Zdjęcia Google.*brak aktywnego dostępu/);
+ assert.match(providerText,/Oceny Google.*nieaktywna/);
+ const importedRow=page.locator('.place-list article.place').filter({hasText:'Kawiarnia integracyjna'});
+ await importedRow.waitFor({state:'visible',timeout:15000});
+ await importedRow.locator('[data-commons-photo]').waitFor({state:'attached',timeout:15000});
+ assert.ok(await importedRow.locator('[data-commons-name]').count()>0,'failed Google thumbnail preserves exact Commons fallback metadata');
  const bounds=await page.evaluate(()=>({scrollWidth:document.documentElement.scrollWidth,width:innerWidth}));
  assert.ok(bounds.scrollWidth<=bounds.width+1,'375px profile has no horizontal overflow: '+JSON.stringify(bounds));
  assert.deepEqual(errors,[],'no uncaught browser errors: '+errors.join('; '));
- console.log('PASS integrations browser: 375px GPX download, private Maps share, social chooser, Takeout CSV import');
+ console.log('PASS integrations browser: 375px GPX, CityRoute share modal, exact Commons fallback, provider-status, Takeout CSV');
 }finally{
  if(browser)await browser.close();
  if(server)server.kill('SIGTERM');

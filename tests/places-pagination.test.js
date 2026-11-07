@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {PLACES_PAGE_SIZE,paginatePlaces,paginationWindow} from '../places-pagination.js';
+import {PLACES_PAGE_SIZE,paginatePlaces,paginationWindow,compareRecommendedPlaces} from '../places-pagination.js';
 
 const places=Array.from({length:258},(_,id)=>({id:'place-'+(id+1)}));
 
@@ -91,4 +91,22 @@ test('Places app only renders paged cards but keeps full filter result for exist
   assert.ok(sw.includes(path),path+' missing from PWA');
  }
  assert.match(html,/places-pagination\.css\?v=1/);
+});
+
+test('recommended order highlights own, editorial and verified photographed places before OSM without scores',()=>{
+ const rating=value=>[{source:'google',value,max:5,reviewCount:350}];
+ const fixtures=[
+  {id:'unrated-new-import',name:'Nowe OSM',createdAt:'2026-11-07T21:00:00Z',ratings:[]},
+  {id:'rated-no-image',name:'Ocena',ratings:rating(4.4)},
+  {id:'verified-image',name:'Sprawdzone',image:'licensed-photo.jpg',ratings:rating(4.8)},
+  {id:'editorial',name:'Top redakcji',top:true,ratings:[]},
+  {id:'owner',kind:'user',name:'Prywatne',ratings:[]}
+ ];
+ fixtures.sort(compareRecommendedPlaces);
+ assert.deepEqual(fixtures.map(p=>p.id),['owner','editorial','verified-image','rated-no-image','unrated-new-import']);
+});
+test('unrated rows never acquire a fabricated score from ranking, and tie breaks are stable',()=>{
+ const places=[{id:'b',name:'B',ratings:[]},{id:'a',name:'A',ratings:[]}];
+ assert.deepEqual(places.sort(compareRecommendedPlaces).map(p=>p.name),['A','B']);
+ assert.ok(!places.some(p=>'score' in p),'do not mutate catalogue ratings');
 });

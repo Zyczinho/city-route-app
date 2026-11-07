@@ -100,6 +100,39 @@ try{
  assert.match(await publicModal.locator('input[type="url"]').inputValue(),/\/r\/editorial\/warsaw\/old-warsaw$/);
  await publicModal.locator('button[type="submit"]').click();
 
+ // Named saved-route archive: no login required for local, device-scoped archive.
+ await page.goto(ROOT+'/#my-route',{waitUntil:'domcontentloaded'});
+ await page.locator('#builder-name').fill('Spacer po Warszawie');
+ await page.locator('button[data-action="save-basket"]').click();
+ const saveModal=page.locator('#route-save-dialog');
+ await saveModal.waitFor({state:'visible'});
+ await saveModal.locator('#route-save-name').fill('Moje ulubione zakątki');
+ await saveModal.locator('#route-save-description').fill('Spacer na spokojny wieczór');
+ await saveModal.locator('button[type="submit"]').click();
+ await page.waitForFunction(()=>{
+  const saved=JSON.parse(localStorage.getItem('city-route-v1')||'{}').myRoutes||[];
+  return saved.some(r=>r.name==='Moje ulubione zakątki');
+ },{timeout:12000});
+ const savedId=await page.evaluate(()=>JSON.parse(localStorage.getItem('city-route-v1')).myRoutes.find(r=>r.name==='Moje ulubione zakątki').id);
+ await page.locator('a.route-card[href="#route/'+savedId+'"]').click();
+ await page.locator('button[data-action="rename-route"]').click();
+ await saveModal.locator('#route-save-name').fill('Wieczorna Warszawa');
+ await saveModal.locator('button[type="submit"]').click();
+ assert.ok(await page.locator('#main').getByText('Wieczorna Warszawa').count()>0,'renamed route is visible in saved routes');
+ await page.locator('a.route-card[href="#route/'+savedId+'"]').click();
+ await page.locator('button[data-action="archive-route"]').click();
+ const arch=page.locator('.route-archive');
+ await arch.waitFor({state:'attached'});
+ await arch.locator('summary').click();
+ assert.ok(await arch.getByText('Wieczorna Warszawa').count()>0,'archived route is accessible');
+ await arch.locator('button[data-action="unarchive-route"]').click();
+ await page.reload({waitUntil:'domcontentloaded'});
+ const stored=await page.evaluate(id=>JSON.parse(localStorage.getItem('city-route-v1')).myRoutes.find(r=>r.id===id),savedId);
+ assert.equal(stored.name,'Wieczorna Warszawa');
+ assert.equal(stored.description,'Spacer na spokojny wieczór');
+ assert.equal(stored.archivedAt,null,'restored route remains in saved collection after reload');
+ assert.equal(stored.stops.length,2,'archived route preserves the two ordered stops');
+
  await page.goto(ROOT+'/#profile',{waitUntil:'domcontentloaded'});
  const details=page.locator('.profile-integrations');
  await details.locator('summary').click();
@@ -127,6 +160,10 @@ try{
  const providerText=await page.locator('[data-provider-health]').textContent();
  assert.match(providerText,/Zdjęcia Google.*brak aktywnego dostępu/);
  assert.match(providerText,/Oceny Google.*nieaktywna/);
+ const listingText=await page.locator('.place-list').textContent();
+ assert.ok(!listingText.includes('esc(providerMessage(p))'),'raw template source must never appear in ratings');
+ assert.equal(await page.locator('.place-list img[data-thumb-for]').count(),0,'disabled Google does not start doomed thumbnail network requests');
+
  const importedRow=page.locator('.place-list article.place').filter({hasText:'Kawiarnia integracyjna'});
  await importedRow.waitFor({state:'visible',timeout:15000});
  await importedRow.locator('[data-commons-photo]').waitFor({state:'attached',timeout:15000});
@@ -134,7 +171,7 @@ try{
  const bounds=await page.evaluate(()=>({scrollWidth:document.documentElement.scrollWidth,width:innerWidth}));
  assert.ok(bounds.scrollWidth<=bounds.width+1,'375px profile has no horizontal overflow: '+JSON.stringify(bounds));
  assert.deepEqual(errors,[],'no uncaught browser errors: '+errors.join('; '));
- console.log('PASS integrations browser: 375px GPX, all four transport share CTAs, published /r/ link, Commons fallback and Takeout CSV');
+ console.log('PASS integrations browser: GPX, share across transport, named save/rename/archive/restore, ratings template, disabled thumbnail and Takeout CSV');
 }finally{
  if(browser)await browser.close();
  if(server)server.kill('SIGTERM');

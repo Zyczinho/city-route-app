@@ -43,7 +43,43 @@ test('pagination shows compact, accessible numbered window, including first/last
 test('Places app only renders paged cards but keeps full filter result for existing map',async()=>{
  const app=await readFile(new URL('../app.js',import.meta.url),'utf8');
  for(const snippet of ['const paged=paginatePlaces(list,placesPage)','renderedPlaceList=[...list]',
-  '\${paged.items.map(placeRow).join','function showPlacesPage(nextPage)','const paged=paginatePlaces(renderedPlaceList,nextPage)',
+  ','function showPlacesPage(nextPage)','const paged=paginatePlaces(renderedPlaceList,nextPage)',
+  'observeApprovedPlaceEnrichment();','data-action="places-page"','placesPage=1','data-places-range'])
+   assert.ok(app.includes(snippet),'Missing '+snippet);
+ assert.ok(!app.includes('),"unbounded list image rendering is forbidden");
+ const build=await readFile(new URL('../scripts/build.mjs',import.meta.url),'utf8');
+ const sw=await readFile(new URL('../service-worker.js',import.meta.url),'utf8');
+ const html=await readFile(new URL('../index.html',import.meta.url),'utf8');
+ for(const path of ['places-pagination.js','places-pagination.css']){
+  assert.ok(build.includes(path),path+' missing from dist build');
+  assert.ok(sw.includes(path),path+' missing from PWA');
+ }
+ assert.match(html,/places-pagination\.css\?v=1/);
+});
++'{paged.items.map(placeRow).join','function showPlacesPage(nextPage)','const paged=paginatePlaces(renderedPlaceList,nextPage)',
+  'observeApprovedPlaceEnrichment();','data-action="places-page"','placesPage=1','data-places-range'])
+   assert.ok(app.includes(snippet),'Missing '+snippet);
+ assert.ok(!app.includes('\${list.map(placeRow).join'),"unbounded list image rendering is forbidden");
+ const build=await readFile(new URL('../scripts/build.mjs',import.meta.url),'utf8');
+ const sw=await readFile(new URL('../service-worker.js',import.meta.url),'utf8');
+ const html=await readFile(new URL('../index.html',import.meta.url),'utf8');
+ for(const path of ['places-pagination.js','places-pagination.css']){
+  assert.ok(build.includes(path),path+' missing from dist build');
+  assert.ok(sw.includes(path),path+' missing from PWA');
+ }
+ assert.match(html,/places-pagination\.css\?v=1/);
+});
++'{list.map(placeRow).join'),"unbounded list image rendering is forbidden");
+ const build=await readFile(new URL('../scripts/build.mjs',import.meta.url),'utf8');
+ const sw=await readFile(new URL('../service-worker.js',import.meta.url),'utf8');
+ const html=await readFile(new URL('../index.html',import.meta.url),'utf8');
+ for(const path of ['places-pagination.js','places-pagination.css']){
+  assert.ok(build.includes(path),path+' missing from dist build');
+  assert.ok(sw.includes(path),path+' missing from PWA');
+ }
+ assert.match(html,/places-pagination\.css\?v=1/);
+});
++'{paged.items.map(placeRow).join','function showPlacesPage(nextPage)','const paged=paginatePlaces(renderedPlaceList,nextPage)',
   'observeApprovedPlaceEnrichment();','data-action="places-page"','placesPage=1','data-places-range'])
    assert.ok(app.includes(snippet),'Missing '+snippet);
  assert.ok(!app.includes('\${list.map(placeRow).join'),"unbounded list image rendering is forbidden");

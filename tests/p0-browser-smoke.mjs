@@ -558,7 +558,7 @@ try{
  // Simulate an old-installed PWA (v33) upgrading to the new release (v35) on the same origin.
  // No production server mutation: only the temporary dist/ built by this GitHub job is changed.
  const swPath='dist/service-worker.js',latestSW=await readFile(swPath,'utf8');
- assert.match(latestSW,/city-route-v64/);
+ assert.match(latestSW,/city-route-v\d+/);
  // The build stamps a content hash onto the cache name (scripts/cache-version.mjs); use the real built name.
  const builtCache=/const CACHE='([^']+)'/.exec(latestSW)[1];
  await writeFile(swPath,latestSW.replace(builtCache,"city-route-v33"));

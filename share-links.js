@@ -73,7 +73,7 @@ function shareFallback(url,title,external=false){
    raw.open=true;field.focus();field.select();status.textContent='Wklej link w rozmowie w '+label+'.';
   });return a;
  };
- const messenger=externalAction('Messenger','users','https://www.messenger.com/');
+ const messenger=externalAction('Messenger','send','https://www.messenger.com/');
  const instagram=externalAction('Instagram','camera','https://www.instagram.com/direct/inbox/');
  const close=document.createElement('button');close.type='submit';close.className='route-share-close';
  close.innerHTML=iconMarkup('x')+'<span>Zamknij</span>';

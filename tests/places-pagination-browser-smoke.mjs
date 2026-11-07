@@ -68,6 +68,19 @@ try{
   const controls=await page.locator('.places-pager').first().locator('button').evaluateAll(bs=>bs.map(b=>({width:b.getBoundingClientRect().width,height:b.getBoundingClientRect().height})));
   assert.ok(controls.every(b=>b.height>=43.5&&b.width>=43.5),'pagination tap targets >=44px at '+width);
  }
+ // Desktop regression from founder screenshot: buttons must be in their own row,
+ // never overlay long place titles (3-column view).
+ await page.setViewportSize({width:1280,height:850});
+ const cards=await page.locator('.place-list article.place').evaluateAll(nodes=>nodes.slice(0,12).map(card=>{
+  const heading=card.querySelector('.info h3')?.getBoundingClientRect();
+  const actions=card.querySelector('.side')?.getBoundingClientRect();
+  return {name:card.querySelector('.info h3')?.textContent,headBottom:heading?.bottom,actionsTop:actions?.top,actionLeft:actions?.left,actionRight:actions?.right,cardRight:card.getBoundingClientRect().right};
+ }));
+ assert.ok(cards.length>0,'desktop card regression sample');
+ for(const card of cards){
+  assert.ok(card.actionsTop>=card.headBottom-2,'share/save controls overlap heading: '+JSON.stringify(card));
+  assert.ok(card.actionRight<=card.cardRight+1,'action controls must stay within card: '+JSON.stringify(card));
+ }
  assert.deepEqual(errors,[],'no uncaught runtime errors');
  console.log('PASS 30/page pagination: all Warsaw records, filtering, sorting, map preservation and 320/375/390px QA');
 }finally{

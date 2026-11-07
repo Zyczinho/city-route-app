@@ -1,0 +1,40 @@
+{
+  "cityId": "lisbon",
+  "licence": "ODbL-1.0",
+  "attribution": "© OpenStreetMap contributors",
+  "licenceUrl": "https://www.openstreetmap.org/copyright",
+  "importSource": "https://overpass-api.de/api/interpreter",
+  "osmDatasetTimestamp": "2026-11-07T18:23:21Z",
+  "rawRecords": 8645,
+  "rawSha256": "989674c93bdc14fc74326a2a8882c0d292c68dae84e50ca6bc0637c509959c2e",
+  "bbox": {
+    "south": 38.684,
+    "west": -9.235,
+    "north": 38.803,
+    "east": -9.075
+  },
+  "selection": "150–180 geographically filtered named POIs, category quotas, score and dedup; not a quality ranking",
+  "selected": 188,
+  "categoryCounts": {
+    "museum": 18,
+    "gallery": 9,
+    "viewpoint": 13,
+    "landmark": 15,
+    "religious_site": 7,
+    "park": 12,
+    "garden": 6,
+    "restaurant": 31,
+    "cafe": 23,
+    "bar": 14,
+    "pub": 7,
+    "club": 8,
+    "experience": 8,
+    "sport": 5,
+    "hotel": 7,
+    "hostel": 5
+  },
+  "noRatings": true,
+  "noPhotos": true,
+  "noEditorialRoutes": true,
+  "generatedAt": "2026-11-07T18:25:15.105Z"
+}

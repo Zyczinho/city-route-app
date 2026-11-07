@@ -37,9 +37,11 @@ test('catalogue rows use the cheap thumbnail path; only community places use the
  assert.match(app,/<div class="thumb">\$\{photo\(p,'',false,true\)\}/,'place list rows ask for a thumbnail');
  assert.match(app,/'\/api\/place-thumb\?'\+new URLSearchParams\(/);
  assert.match(app,/loading="\$\{eager\?'eager':'lazy'\}" decoding="async" referrerpolicy="no-referrer" data-thumb-for=/,'list rows are lazy, so only rows near the screen are requested');
- assert.match(app,/document\.addEventListener\('error',e=>\{[^]*?img\.outerHTML=catTile\(p,img\.dataset\.thumbCls\|\|'',''\);[^]*?\},true\);/,'a missing photo falls back to the category tile with the same class');
- assert.match(app,/if\(!img\.isConnected\|\|!img\.parentNode\)return;/,'a 404 for an image removed by a re-render is ignored');
- assert.match(app,/t\.tagName==='IMG'&&!t\.dataset\.failed&&!t\.dataset\.thumbFor&&t\.isConnected&&t\.parentNode\)/,'the generic fallback leaves Google thumbnails and detached images alone');
+ assert.match(app,/function handlePhotoError\(img\)\{/,'there is a single shared image-error handler');
+ assert.match(app,/if\(img\.dataset\.thumbFor\)\{/,'Google thumbnails get the category fallback');
+ assert.match(app,/img\.outerHTML=catTile\(p,esc\(img\.dataset\.thumbCls\|\|''\),'');/,'Google tile preserves the thumbnail class');
+ assert.match(app,/img\.dataset\.failed==='1'\|\|!img\.isConnected\|\|!img\.parentNode/,'already-handled or detached images are ignored');
+ assert.equal((app.match(/document\\.addEventListener\\('error'/g)||[]).length,1,'never attach competing image-error handlers');
  assert.match(app,/\|\|p\.kind==='sidequest'\)return null;/,'side quests have no venue photo');
  assert.doesNotMatch(app,/p\.kind==='user'\|\|p\.kind==='sidequest'\)return null;/,'own places also get a photo');
  assert.match(app,/<div class="sheet-media">\$\{photo\(p,'sheet-photo',true,800\)\}/,'the place card falls back to an 800 px photo');

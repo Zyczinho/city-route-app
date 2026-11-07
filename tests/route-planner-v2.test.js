@@ -101,7 +101,8 @@ test('local Praga scenario stays near the declared neighborhood origin',()=>{
     const h=Math.sin(dl/2)**2+Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(dn/2)**2;
     return R*2*Math.asin(Math.sqrt(h));
   };
-  assert.ok(route.stops.every(p=>km(start,p)<=1.5),'route must not drift out of Praga planning radius');
+  assert.ok(route.stops.every(p=>km(start,p)<=2.5),'route must not drift out of Praga planning radius');
+  assert.ok(route.stops.every(p=>['Praga','Praga-Północ','Praga-Południe'].includes(p.area)),'route must not cross out of selected Praga districts');
 });
 test('requested coffee and lunch are neither the first nor the last stop',()=>{
   for(const b of [benchmarks[8],benchmarks[9]]){

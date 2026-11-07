@@ -8,10 +8,7 @@
     "locale": "pl-PL",
     "currency": "PLN",
     "timezone": "Europe/Warsaw",
-    "center": {
-      "lat": 52.2297,
-      "lng": 21.0122
-    },
+    "center": {"lat": 52.2297, "lng": 21.0122},
     "defaultZoom": 12,
     "radiusKm": 40,
     "status": "launch"
@@ -25,10 +22,7 @@
     "locale": "pl-PL",
     "currency": "PLN",
     "timezone": "Europe/Warsaw",
-    "center": {
-      "lat": 50.0647,
-      "lng": 19.945
-    },
+    "center": {"lat": 50.0647, "lng": 19.9450},
     "defaultZoom": 12,
     "radiusKm": 35,
     "status": "next"
@@ -42,10 +36,7 @@
     "locale": "pt-PT",
     "currency": "EUR",
     "timezone": "Europe/Lisbon",
-    "center": {
-      "lat": 38.7223,
-      "lng": -9.1393
-    },
+    "center": {"lat": 38.7223, "lng": -9.1393},
     "defaultZoom": 12,
     "radiusKm": 25,
     "status": "next"
@@ -59,10 +50,7 @@
     "locale": "pl-PL",
     "currency": "PLN",
     "timezone": "Europe/Warsaw",
-    "center": {
-      "lat": 54.352,
-      "lng": 18.6466
-    },
+    "center": {"lat": 54.3520, "lng": 18.6466},
     "defaultZoom": 12,
     "radiusKm": 35,
     "status": "planned"
@@ -76,10 +64,7 @@
     "locale": "pl-PL",
     "currency": "PLN",
     "timezone": "Europe/Warsaw",
-    "center": {
-      "lat": 51.1079,
-      "lng": 17.0385
-    },
+    "center": {"lat": 51.1079, "lng": 17.0385},
     "defaultZoom": 12,
     "radiusKm": 35,
     "status": "planned"
@@ -93,10 +78,7 @@
     "locale": "pl-PL",
     "currency": "PLN",
     "timezone": "Europe/Warsaw",
-    "center": {
-      "lat": 52.4064,
-      "lng": 16.9252
-    },
+    "center": {"lat": 52.4064, "lng": 16.9252},
     "defaultZoom": 12,
     "radiusKm": 35,
     "status": "planned"
@@ -110,10 +92,7 @@
     "locale": "pl-PL",
     "currency": "PLN",
     "timezone": "Europe/Warsaw",
-    "center": {
-      "lat": 51.7592,
-      "lng": 19.456
-    },
+    "center": {"lat": 51.7592, "lng": 19.4560},
     "defaultZoom": 12,
     "radiusKm": 35,
     "status": "planned"
@@ -127,10 +106,7 @@
     "locale": "pl-PL",
     "currency": "PLN",
     "timezone": "Europe/Warsaw",
-    "center": {
-      "lat": 53.0138,
-      "lng": 18.5984
-    },
+    "center": {"lat": 53.0138, "lng": 18.5984},
     "defaultZoom": 13,
     "radiusKm": 25,
     "status": "planned"

@@ -1,4 +1,5 @@
 import test from 'node:test';
+import {readFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
 import {generate, generateAlternatives, summary} from '../core.js';
 
@@ -60,4 +61,17 @@ test('mixed-interest variants remain deterministic and within the configured tim
     assert.ok(v.every(p=>p.categoryId!=='museum'));
     assert.ok(summary(v,'walking').minutes<=config.time);
   }
+});
+
+test('actual Warsaw OSM layer participates in route generation alongside the editorial seed',()=>{
+  const read=path=>JSON.parse(readFileSync(new URL(path,import.meta.url),'utf8'));
+  const editorial=read('../data/places.json');
+  const imported=read('../data/cities/warsaw/places.json');
+  assert.ok(imported.length>=250,'latest Warsaw import fixture must be present');
+  const ids=new Set(imported.map(p=>p.id));
+  const chosen=generate([...editorial,...imported],prefs({
+    time:480,interests:['nature'],start:{lat:52.2297,lng:21.0122},visitMode:'outside'
+  }));
+  assert.ok(chosen.length>0,'route should be feasible');
+  assert.ok(chosen.some(p=>ids.has(p.id)),'the generated route should use some of the newly imported Warsaw layer');
 });

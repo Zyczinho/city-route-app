@@ -474,6 +474,14 @@ document.addEventListener('click',e=>{
  const d=$('#place-dialog');if(e.target===d){d.close();return;}
  const b=e.target.closest('[data-action]');if(!b)return;const {action,id,value}=b.dataset;
  if(isLive()&&['add','remove','up','down','optimize','save-route','clear-builder','delete-place'].includes(action))return toast('Najpierw zakończ aktywną trasę.');
+ if(action==='export-gpx'){
+  const r=id==='basket'?{name:builderDraft?.name||'Moja trasa',stops:state.basket,transport:builderDraft?.transport}
+   :id==='finished'&&state.session?{name:state.session.name,stops:state.session.stops,transport:state.session.transport}:findRoute(id);
+  if(!r)return toast('Nie znaleziono trasy do eksportu.');
+  try{downloadRouteGpx({name:r.name,places:items(r.stops)});toast('Plik GPX pobrany. W Stravie wybierz import trasy.');}
+  catch(err){toast(err.message||'Nie udało się utworzyć GPX.');}
+  return;
+ }
  if(action==='place')return openPlace(id);
  if(action==='view-own-photo'){const photo=all[id]?.images?.[Number(value)];const image=d?.querySelector('.sheet-media img.sheet-photo');if(/^data:image\/jpeg;base64,/.test(photo||'')&&image)image.src=photo;return;}
  if(action==='edit-place-photo'||action==='remove-place-photo'||action==='cover-place-photo'){

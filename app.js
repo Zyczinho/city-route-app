@@ -18,6 +18,7 @@ import {MAX_PLACE_PHOTOS,photoFileProblem,photoCropDefaults,sanitizePhotoCrop,cr
 import {readAcceptedPhoto} from './place-photo-proposal.js';
 import {downloadRouteGpx} from './route-export.js';
 import {parseGoogleSaved,planGoogleSavedImport} from './google-saved-import.js';
+import {paginatePlaces,paginationWindow} from './places-pagination.js';
 const $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const key='city-route-v1';let storageOK=true,state;
 try{state=JSON.parse(localStorage.getItem(key)||'null');}catch{storageOK=false;}
@@ -32,7 +33,7 @@ state.cityId=state.cityId||DEFAULT_CITY_ID;state.basketsByCity=state.basketsByCi
 let cities=[],taxonomy=null,activeCity=null,places=[],quests=[],routes=[],all={},cat='all',rcat='all',query='',cuisine='all',sort='default',pending=null,generated=null,generatedOptions=[],generatedIndex=0,generationPrefs=null,generationHistory=[],editing=false,keepQuery=false,here=null,draft=null,bookTab=null,speaking=false,evScope='global',evWhen='week',evKind='all';const evCache={};
 // On the Places tab, only a conscious category selection reveals map pins.
 // The catalogue list can still be browsed and searched without crowding the map.
-let mapCategorySelected=false;
+let mapCategorySelected=false,placesPage=1;
 let mapView=null,renderedPlaceList=[],builderDraft=null,nearbyAfterId=null,nearbyRadiusM=500,addNewPlaceAfterId=null,justSavedPlaceId=null;
 const providerOverlay=new Map(),providerLoading=new Set();let providerObserver=null;
 const persist=()=>{try{if(state?.cityId){state.basketsByCity=state.basketsByCity||{};state.basketsByCity[state.cityId]=[...(state.basket||[])];if(builderDraft?.cityId===state.cityId){const {name,transport,revision,updatedAt}=serializeDraft(builderDraft);state.builderMetaByCity=state.builderMetaByCity||{};state.builderMetaByCity[state.cityId]={cityId:state.cityId,name,transport,revision,updatedAt};}}localStorage.setItem(key,JSON.stringify(state));}catch{storageOK=false;$('#connection').textContent='Zapis lokalny niedostępny. Wyeksportuj dane przed zamknięciem karty.';}};
@@ -155,7 +156,7 @@ const LEGACY={home:['plan'],explore:['routes'],best:['places'],food:['places','j
 const route=()=>{const [t,id]=(location.hash.slice(1)||'').split('/');return [t,id];};
 const avatar=(cls='')=>state.profile.photo?`<img class="avatar ${cls}" src="${esc(state.profile.photo)}" alt="">`:`<span class="avatar ${cls}" aria-hidden="true">${esc((!friendlyNickname(state.tester.nickname)?'O':state.tester.nickname[0]).toUpperCase())}</span>`;
 function cityPicker(){const available=cities.filter(c=>['launch','next'].includes(c.status));return `<label class="city-select"><span class="sr-only">Wybierz miasto</span><span class="i" style="--i:url(./assets/icons/ui/map-pin.svg)" aria-hidden="true"></span><select id="city-select" aria-label="Wybierz miasto" ${isLive()?'disabled':''}>${available.map(c=>`<option value="${esc(c.id)}" ${c.id===city().id?'selected':''}>${esc(c.name)}</option>`).join('')}</select></label>`;}
-async function switchCity(nextId){if(nextId===city().id)return;if(isLive())return toast('Najpierw zakończ aktywną trasę.');const next=cities.map(cityById.bind(null,cities)).find(c=>c?.id===nextId)||cities.find(c=>c.id===nextId);if(!next||!['launch','next'].includes(next.status))return toast('To miasto nie jest jeszcze dostępne.');state.basketsByCity[city().id]=[...state.basket];const previous=city(),previousBuilder=builderDraft;state.cityId=next.id;activeCity=next;state.basket=[...(state.basketsByCity[next.id]||[])];generated=null;generatedOptions=[];generationPrefs=null;generationHistory=[];generatedIndex=0;query='';cat='all';mapCategorySelected=false;rcat='all';cuisine='all';nearbyAfterId=null;addNewPlaceAfterId=null;try{const client=createRestRpcClient({url:SUPABASE_URL,key:SUPABASE_PUBLISHABLE_KEY});const fallback=await loadCityFallback(next);const data=await loadCatalogueWithFallback({client,city:next,fallback});places=data.places;routes=data.routes;quests=next.id===DEFAULT_CITY_ID?forCity(withCityId(await fetchJson('./data/sidequests.json'),DEFAULT_CITY_ID),next.id):[];all=Object.fromEntries([...places,...quests,...forCity(state.userPlaces,next.id)].map(p=>[p.id,p]));const builderReport=hydrateBuilderDraft(next.id);document.documentElement.dataset.catalogueSource=data.source;document.title=`City Route · ${next.name}`;updateCityMeta(next);persist();location.hash='#plan';render();toast(builderReport.dropped.length?'Przełączono na '+next.name+'. '+builderReport.dropped.length+' miejsca nie są już dostępne.':'Przełączono na '+next.name+'.');}catch(error){state.cityId=previous.id;activeCity=previous;builderDraft=previousBuilder;state.basket=[...(state.basketsByCity[previous.id]||[])];throw error;}}
+async function switchCity(nextId){if(nextId===city().id)return;if(isLive())return toast('Najpierw zakończ aktywną trasę.');const next=cities.map(cityById.bind(null,cities)).find(c=>c?.id===nextId)||cities.find(c=>c.id===nextId);if(!next||!['launch','next'].includes(next.status))return toast('To miasto nie jest jeszcze dostępne.');state.basketsByCity[city().id]=[...state.basket];const previous=city(),previousBuilder=builderDraft;state.cityId=next.id;activeCity=next;state.basket=[...(state.basketsByCity[next.id]||[])];generated=null;generatedOptions=[];generationPrefs=null;generationHistory=[];generatedIndex=0;query='';cat='all';placesPage=1;mapCategorySelected=false;rcat='all';cuisine='all';nearbyAfterId=null;addNewPlaceAfterId=null;try{const client=createRestRpcClient({url:SUPABASE_URL,key:SUPABASE_PUBLISHABLE_KEY});const fallback=await loadCityFallback(next);const data=await loadCatalogueWithFallback({client,city:next,fallback});places=data.places;routes=data.routes;quests=next.id===DEFAULT_CITY_ID?forCity(withCityId(await fetchJson('./data/sidequests.json'),DEFAULT_CITY_ID),next.id):[];all=Object.fromEntries([...places,...quests,...forCity(state.userPlaces,next.id)].map(p=>[p.id,p]));const builderReport=hydrateBuilderDraft(next.id);document.documentElement.dataset.catalogueSource=data.source;document.title=`City Route · ${next.name}`;updateCityMeta(next);persist();location.hash='#plan';render();toast(builderReport.dropped.length?'Przełączono na '+next.name+'. '+builderReport.dropped.length+' miejsca nie są już dostępne.':'Przełączono na '+next.name+'.');}catch(error){state.cityId=previous.id;activeCity=previous;builderDraft=previousBuilder;state.basket=[...(state.basketsByCity[previous.id]||[])];throw error;}}
 function nav(){$('#me').innerHTML=avatar('sm');$('#me').classList.toggle('active',['profile','sources'].includes(route()[0]));const [h,hid]=route(),t=h==='route'&&hid==='generated'?'plan':TAB_OF[h]||'plan',live=isLive(),chosen=live||state.basket.length>0;
  $('#navigation').innerHTML=TABS.map(([id,icon,label])=>{const mine=id==='my-route',cls=[t===id?'active':'',mine&&chosen?'chosen':'',mine&&live?'live':''].join(' ').trim();
   return `<a href="#${id}" class="${cls}" ${id==='plan'?'aria-label="Zaplanuj moją trasę"':''} ${t===id?'aria-current="page"':''}>${mine&&live?'<span class="pulse" aria-hidden="true"></span>':ic(icon)}<span>${label}</span>${mine&&chosen?`<small class="nav-status">${live?'W toku':'Gotowa'}</small>`:''}${mine&&!live&&state.basket.length?`<b class="badge" aria-label="${state.basket.length} w trasie">${state.basket.length}</b>`:''}</a>`;}).join('');}
@@ -270,6 +271,29 @@ const exploreSwitch=on=>`<div class="segmented two" role="group" aria-label="Odk
 const placeHay=p=>`${p.name} ${p.area} ${p.description||''} ${(p.cuisine||[]).join(' ')} ${(p.cats||[]).map(c=>catName(c)).join(' ')} ${(p.ratings||[]).map(r=>r.listing).join(' ')} ${p.address||''}`;
 const away=p=>here?` · ${dec(distance(here,p))} km`:'';
 function placeRow(p){return `<article class="place" data-place-id="${esc(p.id)}"><button class="hit" data-action="place" data-id="${p.id}" aria-label="Szczegóły: ${esc(p.name)}"></button><div class="thumb">${photo(p,'',false,true)}${p.top?'<span class="must">Must-see</span>':''}</div><div class="info"><h3>${esc(p.name)}</h3><p class="sub">${esc(p.area)}${p.cuisine?' · '+esc(p.cuisine.join(', ')):p.kind==='sidequest'?'':' · '+esc(catName(p.cats?.[0]))}${p.outside?' · z zewnątrz':''}${away(p)}</p>${scoreLine(p)}</div><div class="side"><button class="icon-btn save-place ${savedPlace(p)?'on':''}" data-action="bookmark" data-id="${esc(p.id)}" aria-pressed="${savedPlace(p)}" aria-label="${savedPlace(p)?'Usuń z Zapisanych':'Zapisz miejsce'}: ${esc(p.name)}">${ic('bookmark')}<span class="bookmark-label">${savedPlace(p)?'Zapisane':'Zapisz'}</span></button>${addButton(p)}</div></article>`;}
+function placesPager(paged){
+ if(paged.pages<=1)return '';
+ const buttons=paginationWindow(paged.page,paged.pages).map(n=>n==='…'?'<span class="places-page-dots" aria-hidden="true">…</span>':
+  '<button type="button" class="places-page-number'+(n===paged.page?' current':'')+'" data-action="places-page" data-value="'+n+'" aria-label="Strona '+n+'"'+(n===paged.page?' aria-current="page"':'')+'>'+n+'</button>').join('');
+ return '<nav class="places-pager" aria-label="Strony katalogu miejsc">'+
+  '<button type="button" class="places-page-arrow" data-action="places-page" data-value="'+(paged.page-1)+'" aria-label="Poprzednia strona"'+(paged.hasPrev?'':' disabled')+'>'+ic('chevron-left')+'<span>Poprzednia</span></button>'+
+  '<span class="places-pager-progress" aria-live="polite">Strona '+paged.page+' z '+paged.pages+'</span>'+
+  '<div class="places-page-numbers">'+buttons+'</div>'+
+  '<button type="button" class="places-page-arrow" data-action="places-page" data-value="'+(paged.page+1)+'" aria-label="Następna strona"'+(paged.hasNext?'':' disabled')+'><span>Następna</span>'+ic('chevron-right')+'</button>'+
+  '</nav>';
+}
+function placesRange(paged){
+ return paged.total?paged.start+'–'+paged.end+' z '+paged.total+' miejsc':'0 miejsc';
+}
+function showPlacesPage(nextPage){
+ const host=document.querySelector('.place-list');if(!host)return;
+ const paged=paginatePlaces(renderedPlaceList,nextPage);placesPage=paged.page;
+ host.innerHTML=paged.items.map(placeRow).join('');
+ document.querySelectorAll('.places-pager').forEach(node=>{node.outerHTML=placesPager(paged);});
+ const range=document.querySelector('[data-places-range]');if(range)range.textContent=placesRange(paged);
+ observeApprovedPlaceEnrichment();
+ document.querySelector('.list-head')?.scrollIntoView({behavior:'auto',block:'start'});
+}
 function placesView(){
  if(cat!=='sidequests'&&!PLACE_CATS.some(c=>c[0]===cat))cat='all';
  let list=cat==='sidequests'?[...quests]:cat==='mine'?myPlaces():[...new Map([...catalog(),...myPlaces().filter(savedPlace)].map(p=>[String(p.id),p])).values()].filter(p=>cat==='all'?catalog().some(x=>x.id===p.id):cat==='saved'?savedPlace(p):p.cats?.[0]===cat);
@@ -278,12 +302,13 @@ function placesView(){
  if(sort==='default')list.sort((a,b)=>(b.kind==='user'?1:0)-(a.kind==='user'?1:0)||(b.top?1:0)-(a.top?1:0)||String(b.createdAt||'').localeCompare(String(a.createdAt||'')));if(sort==='near'&&here)list.sort((a,b)=>distance(here,a)-distance(here,b));
  if(sort==='rating')list.sort((a,b)=>smoothedRating(b.ratings)-smoothedRating(a.ratings));if(sort==='count')list.sort((a,b)=>c(b).total-c(a).total);
  renderedPlaceList=[...list];
+ const paged=paginatePlaces(list,placesPage);placesPage=paged.page;
  const cuisines=[...new Set(places.flatMap(p=>p.cuisine||[]))].sort((a,b)=>a.localeCompare(b,'pl'));
  return `${exploreSwitch('places')}<section class="page-head places-intro"><p class="kicker">Miejsca</p><h1>Co chcesz zobaczyć?</h1></section>${placesSearchBox()}<p class="fine provider-notice" data-provider-health role="status" hidden></p>${chips([...PLACE_CATS,['sidequests','Side questy','flag']],mapCategorySelected?cat:null,'cat',true)}${cat==='sidequests'?'<p class="note">Krótkie zadania przy konkretnych miejscach. Pomysły City Route — rekomendacje społeczności pojawią się później.</p>':''}${cat!=='sidequests'?(mapCategorySelected?'':'<p class="fine map-hint" role="status">Wybierz kategorię, aby wyświetlić miejsca na mapie.</p>')+'<div id="places-map" class="places-map-shell" aria-label="Mapa miejsc"></div>':''}<a class="add-place" href="#add-place">${ic('plus')}<span><strong>Dodaj własne miejsce</strong><small>Twoje ulubione miejsce, którego tu brakuje</small></span>${ic('chevron-right')}</a>
  ${cat==='jedzenie'?chips([['all','Każda kuchnia'],...cuisines.map(k=>[k,k[0].toUpperCase()+k.slice(1)])],cuisine,'cuisine'):''}
  
- <div class="list-head"><span>${list.length} ${plural(list.length,'wynik','wyniki','wyników')}</span><label class="sort">Sortuj<select id="sort"><option value="default" ${sort==='default'?'selected':''}>Polecane</option><option value="rating" ${sort==='rating'?'selected':''}>Najlepiej oceniane</option><option value="count" ${sort==='count'?'selected':''}>Najwięcej opinii</option><option value="near" ${sort==='near'?'selected':''}>Najbliżej mnie</option></select></label></div>
- <div class="place-list">${list.map(placeRow).join('')||`<div class="empty"><p>${cat==='saved'?'Nie masz jeszcze zapisanych miejsc. Otwórz dowolne miejsce i dodaj je do Zapisanych.':cat==='nocne'&&!query?'Jeszcze nie mamy w tym mieście opublikowanych barów i klubów. Pomóż uzupełnić przewodnik!':query?`Nic nie pasuje do „${esc(query)}”. Spróbuj innego słowa albo kategorii.`:'Na razie nie mamy miejsc w tej kategorii.'}</p>${query.trim().length>=2?(catalog().some(p=>matches(placeHay(p),query))?'<button type="button" class="button" data-action="show-all-search">'+ic('search')+'Szukaj we wszystkich kategoriach</button>':'<button type="button" class="button primary" data-action="suggest-add-place">'+ic('plus')+'Nie ma tego miejsca? Dodaj je</button>'):cat==='nocne'?'<a class="button primary" href="#add-place">Dodaj bar lub klub</a>':''}</div>`}</div><p class="foot"><a href="#sources">${ic('info')}Skąd są oceny i zdjęcia?</a></p>`;}
+ <div class="list-head"><span data-places-range>${placesRange(paged)}</span><label class="sort">Sortuj<select id="sort"><option value="default" ${sort==='default'?'selected':''}>Polecane</option><option value="rating" ${sort==='rating'?'selected':''}>Najlepiej oceniane</option><option value="count" ${sort==='count'?'selected':''}>Najwięcej opinii</option><option value="near" ${sort==='near'?'selected':''}>Najbliżej mnie</option></select></label></div>
+ ${placesPager(paged)}<div class="place-list">${paged.items.map(placeRow).join('')||`<div class="empty"><p>${cat==='saved'?'Nie masz jeszcze zapisanych miejsc. Otwórz dowolne miejsce i dodaj je do Zapisanych.':cat==='nocne'&&!query?'Jeszcze nie mamy w tym mieście opublikowanych barów i klubów. Pomóż uzupełnić przewodnik!':query?`Nic nie pasuje do „${esc(query)}”. Spróbuj innego słowa albo kategorii.`:'Na razie nie mamy miejsc w tej kategorii.'}</p>${query.trim().length>=2?(catalog().some(p=>matches(placeHay(p),query))?'<button type="button" class="button" data-action="show-all-search">'+ic('search')+'Szukaj we wszystkich kategoriach</button>':'<button type="button" class="button primary" data-action="suggest-add-place">'+ic('plus')+'Nie ma tego miejsca? Dodaj je</button>'):cat==='nocne'?'<a class="button primary" href="#add-place">Dodaj bar lub klub</a>':''}</div>`}</div>${placesPager(paged)}<p class="foot"><a href="#sources">${ic('info')}Skąd są oceny i zdjęcia?</a></p>`;}
 async function mountPlacesMap(){
  const host=$('#places-map');if(!host)return;
  const base=[...renderedPlaceList],baseById=new Map(base.map(p=>[String(p.id),p]));
@@ -534,6 +559,7 @@ document.addEventListener('click',e=>{
   catch(err){toast(err.message||'Nie udało się utworzyć GPX.');}
   return;
  }
+ if(action==='places-page'){if(route()[0]==='places'){const target=Number(value);if(Number.isSafeInteger(target)&&target>=1)showPlacesPage(target);}return;}
  if(action==='place')return openPlace(id);
  if(action==='view-own-photo'){const photo=all[id]?.images?.[Number(value)];const image=d?.querySelector('.sheet-media img.sheet-photo');if(/^data:image\/jpeg;base64,/.test(photo||'')&&image)image.src=photo;return;}
  if(action==='edit-place-photo'||action==='remove-place-photo'||action==='cover-place-photo'){
@@ -543,17 +569,17 @@ document.addEventListener('click',e=>{
   if(action==='cover-place-photo'){keepDraft();draft.photos=withCoverFirst(photos,photoId);draft.editPhotoId=photoId;}
   render();return;
  }
- if(action==='show-my-places'||action==='show-saved-places'){cat=action==='show-my-places'?'mine':'saved';mapCategorySelected=true;query='';if(location.hash==='#places')render();else location.hash='#places';return;}
- if(action==='jump-to-place'){cat='all';query='';render();openPlace(id);return;}
+ if(action==='show-my-places'||action==='show-saved-places'){placesPage=1;cat=action==='show-my-places'?'mine':'saved';mapCategorySelected=true;query='';if(location.hash==='#places')render();else location.hash='#places';return;}
+ if(action==='jump-to-place'){cat='all';query='';placesPage=1;render();openPlace(id);return;}
  if(action==='add-another-place'){d?.close();draft=null;location.hash='add-place';return;}
  if(action==='route-view')log('route_view',{route_id:id});
- if(action==='cat'){cat=value;mapCategorySelected=true;cuisine='all';render();}
+ if(action==='cat'){cat=value;placesPage=1;mapCategorySelected=true;cuisine='all';render();}
  if(action==='bookmark'){const p=all[id];if(!p)return;const ids=savedIds(),was=ids.includes(id);state.savedPlacesByCity[city().id]=was?ids.filter(x=>x!==id):[...ids,id];persist();render();window.dispatchEvent(new CustomEvent('cityroute:saved-changed',{detail:{cityId:city().id,placeId:id,saved:!was}}));if(d?.open&&d.dataset.placeId===id)openPlace(id);toast(was?'Usunięto z Zapisanych.':'Zapisano miejsce.');return;}
  if(action==='rcat'){rcat=value;render();}
- if(action==='cuisine'){cuisine=value;render();}
- if(action==='clear-search'){query='';render();$('#search')?.focus();}
- if(action==='search-places'){cat='all';mapCategorySelected=true;keepQuery=true;location.hash='places';}
- if(action==='show-all-search'){cat='all';mapCategorySelected=true;cuisine='all';render();return;}
+ if(action==='cuisine'){cuisine=value;placesPage=1;render();}
+ if(action==='clear-search'){query='';placesPage=1;render();$('#search')?.focus();}
+ if(action==='search-places'){cat='all';placesPage=1;mapCategorySelected=true;keepQuery=true;location.hash='places';}
+ if(action==='show-all-search'){cat='all';placesPage=1;mapCategorySelected=true;cuisine='all';render();return;}
  if(action==='suggest-add-place'){const name=query.trim().slice(0,60);if(name.length<2)return;draft={name,cat:'okolice',vis:'private',rating:'none',photos:[],imageRights:false};query='';location.hash='#add-place';return;}
  if(action==='add'&&!state.basket.includes(id)){const r=applyBuilder(addStop(builderDraft,all[id],{now:now()}),{eventType:'builder_add',eventData:{place_id:id,source:b.dataset.source||'ui'}});if(r?.changed){log('add_to_route',{place_id:id,source:b.dataset.source||'ui'});render();if(d.open)openPlace(id);toast(`Dodano jako ${builderDraft.stops.length}. przystanek`);}}
  if(action==='remove'){const r=applyBuilder(removeStop(builderDraft,id,{now:now()}),{eventType:'builder_remove',eventData:{place_id:id}});if(r?.changed){render();if(d?.open)openPlace(id);toast('Usunięto przystanek z Mojej trasy.');}}
@@ -639,7 +665,7 @@ document.addEventListener('click',e=>{
 });
 document.addEventListener('input',e=>{
  if(e.target.dataset.photoCrop){const photos=draft?.photos||[],active=photos.find(p=>p.id===draft.editPhotoId)||photos[0];if(active){const key=e.target.dataset.photoCrop;active.crop=sanitizePhotoCrop({...active.crop,[key]:e.target.value});const frame=e.target.closest('.place-photo-crop')?.querySelector('.place-photo-frame');if(frame){const c=active.crop;frame.style.aspectRatio=c.ratio==='1:1'?'1':c.ratio==='16:9'?'16/9':'4/3';const image=frame.querySelector('img');image.style.objectPosition=c.x+'% '+c.y+'%';image.style.transform='scale('+c.zoom+')';image.style.transformOrigin=c.x+'% '+c.y+'%';}}return;}
- if(e.target.id==='search'){const pos=e.target.selectionStart;query=e.target.value;render();const s=$('#search');s.focus();s.setSelectionRange(pos,pos);}if(e.target.id==='builder-name'&&builderDraft){applyBuilder(setName(builderDraft,e.target.value,{now:now()}));}});
+ if(e.target.id==='search'){const pos=e.target.selectionStart;query=e.target.value;placesPage=1;render();const s=$('#search');s.focus();s.setSelectionRange(pos,pos);}if(e.target.id==='builder-name'&&builderDraft){applyBuilder(setName(builderDraft,e.target.value,{now:now()}));}});
 document.addEventListener('change',async e=>{
  if(e.target.dataset.action==='google-saved-import'){
   const file=e.target.files?.[0];if(!file)return;
@@ -682,7 +708,7 @@ document.addEventListener('change',async e=>{
  }
  if(e.target.id==='builder-transport'&&builderDraft){const r=applyBuilder(setTransport(builderDraft,e.target.value,{now:now()}));if(r?.changed)render();}
  if(e.target.name==='vis'&&e.target.closest('#place-form')){keepDraft();if(draft.vis!=='public')draft.imageRights=false;const rights=$('[data-photo-rights]');if(rights){rights.hidden=draft.vis!=='public'||!draft.photos?.length;if(draft.vis!=='public'){const cb=rights.querySelector('input');if(cb)cb.checked=false;}}return;}
- if(e.target.id==='sort'){sort=e.target.value;if(sort==='near'&&!here){if(!navigator.geolocation){sort='default';toast('Ta przeglądarka nie udostępnia lokalizacji.');}else navigator.geolocation.getCurrentPosition(pos=>{here={lat:pos.coords.latitude,lng:pos.coords.longitude};render();},()=>{sort='default';render();toast('Bez zgody na lokalizację nie posortujemy według odległości.');},{timeout:10000});}render();$('#sort')?.focus();}
+ if(e.target.id==='sort'){sort=e.target.value;placesPage=1;if(sort==='near'&&!here){if(!navigator.geolocation){sort='default';toast('Ta przeglądarka nie udostępnia lokalizacji.');}else navigator.geolocation.getCurrentPosition(pos=>{here={lat:pos.coords.latitude,lng:pos.coords.longitude};render();},()=>{sort='default';render();toast('Bez zgody na lokalizację nie posortujemy według odległości.');},{timeout:10000});}render();$('#sort')?.focus();}
  if(e.target.dataset.action==='avatar'&&e.target.files[0]){try{state.profile.photo=await shrink(e.target.files[0],256);persist();render();toast('Zdjęcie profilowe zapisane.');window.dispatchEvent(new Event('cityroute:avatar-changed'));}catch{toast('Nie udało się wczytać zdjęcia.');}}
  if(e.target.dataset.action==='photo'&&e.target.files.length){keepDraft();const selected=[...e.target.files],old=Array.isArray(draft.photos)?draft.photos:[],available=MAX_PLACE_PHOTOS-old.length;
   if(available<1){toast('Możesz dodać maksymalnie 5 zdjęć.');return;}

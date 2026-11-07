@@ -7,8 +7,20 @@
     "directory": "./dist",
     "binding": "ASSETS"
   },
-  // Required by Cloudflare Worker Previews on non-main branches.
-  // Empty: no production secrets/bindings copied into preview environments.
-  "previews": {},
+  // Preview settings are isolated from production; secret values must NEVER be committed.
+  // These are low, per-isolate soft caps only. A provider-side hard quota is required
+  // before enabling paid Google Places calls. Start fail-closed.
+  "previews": {
+    "vars": {
+      "GOOGLE_PLACES_BETA_ENABLED": "off",
+      "GOOGLE_PLACES_DAILY_CAP": "5",
+      "GOOGLE_THUMBS_DAILY_CAP": "5",
+      "GOOGLE_PLACES_AUTOCOMPLETE": "off",
+      "GOOGLE_PLACES_INCLUDE_REVIEWS": "off",
+      "TRIPADVISOR_CONTENT_BETA_ENABLED": "off",
+      "TRIPADVISOR_CONTENT_INCLUDE_REVIEWS": "off",
+      "TRIPADVISOR_TERRA_INCLUDE_REVIEWS": "off"
+    }
+  },
   "workers_dev": true
 }

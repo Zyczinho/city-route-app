@@ -65,3 +65,32 @@
 }
 
 .route-share-trigger:disabled{opacity:.56;cursor:not-allowed;background:var(--line-2);color:var(--muted);border-color:var(--line)}
+
+/* Named, local route saves; reversible archive. */
+.route-save-trigger{border-color:var(--blue);background:var(--blue);color:#fff}
+.route-save-trigger:hover{background:#0757a5;color:#fff}
+.route-save-dialog{width:min(520px,calc(100vw - 24px));max-height:88dvh;overflow:auto;border:1px solid var(--line);border-radius:22px;padding:0;color:var(--ink);background:var(--surface);box-shadow:0 24px 80px #0e1a2650}
+.route-save-dialog::backdrop{background:#0e1a2673;backdrop-filter:blur(3px)}
+.route-save-dialog form{display:grid;gap:15px;padding:22px}
+.route-save-dialog .route-save-head{display:flex;gap:12px;align-items:flex-start}
+.route-save-head>.i{width:46px;height:46px;min-width:46px;padding:12px;border-radius:14px;background:var(--blue-soft);color:var(--blue)}
+.route-save-head h2{font-size:22px}
+.route-save-head p{font-size:13px;line-height:1.45;color:var(--muted);margin-top:4px}
+.route-save-dialog label{display:grid;gap:6px;font-size:13px;font-weight:750}
+.route-save-dialog input,.route-save-dialog textarea{display:block;width:100%;min-width:0;border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;font-size:15px;font-weight:400;color:var(--ink)}
+.route-save-dialog input:focus-visible,.route-save-dialog textarea:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.route-save-buttons{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.route-save-buttons button{min-height:48px}
+.route-save-buttons .primary{background:var(--blue);border-color:var(--blue)}
+.route-save-buttons .primary:hover{background:#0757a5}
+.route-archive{margin-top:20px;padding:14px;border-radius:16px;background:var(--surface);border:1px solid var(--line)}
+.route-archive>summary{display:flex;align-items:center;gap:9px;cursor:pointer;font-weight:750;color:var(--blue);list-style:none;min-height:44px}
+.route-archive>summary::-webkit-details-marker{display:none}
+.route-archive>summary .i{width:18px;height:18px}
+.route-archive>.fine{margin:8px 0 12px}
+.archive-route-entry{display:grid;gap:8px;min-width:0}
+.archive-route-entry>button{display:inline-flex;min-height:44px;color:var(--blue);border-color:#c6d9ea;background:var(--blue-soft)}
+@media(max-width:390px){
+ .route-save-dialog form{padding:16px}
+ .route-save-buttons button{width:100%}
+}

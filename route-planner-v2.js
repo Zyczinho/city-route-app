@@ -182,13 +182,14 @@ function stepState(state,item,ctx){
     groups:{...state.groups,[groupOf(p)]:repeated+1}
   };
 }
-function bestSolutions(solutions,limit,mandatoryFood){
+function bestSolutions(solutions,limit,mandatoryFood,history=[]){
+  const excluded=new Set(history.filter(s=>Array.isArray(s)&&s.length).map(s=>s.map(p=>typeof p==='string'?p:idOf(p)).sort().join('|')));
   const sorted=solutions.filter(s=>!mandatoryFood||s.foodCount===1&&s.stops.length>=3&&s.stops.findIndex(foodPlace)<s.stops.length-1)
     .sort((a,b)=>b.score-a.score||b.stops.length-a.stops.length||a.minutes-b.minutes||sameStopSet(a.stops).localeCompare(sameStopSet(b.stops)));
   const chosen=[],seen=new Set();
   for(const s of sorted){
     const signature=sameStopSet(s.stops);
-    if(seen.has(signature))continue;
+    if(seen.has(signature)||excluded.has(signature))continue;
     const overlap=chosen.length?Math.max(...chosen.map(other=>{
       const a=new Set(other.stops.map(p=>idOf(p)));
       const b=new Set(s.stops.map(p=>idOf(p)));
@@ -205,7 +206,7 @@ function bestSolutions(solutions,limit,mandatoryFood){
  * Bounded, deterministic orienteering search.
  * @param {Array} places published POIs from the selected city's catalogue
  * @param {Object} prefs same basic shape as the legacy generator; date/startTime required
- * @param {Object} opts candidateLimit, beamWidth, maxExpansions, matrix (directed leg durations by "a>b")
+ * @param {Object} opts candidateLimit, beamWidth, maxExpansions, matrix (directed leg durations by "a>b"), history (previous stop-id arrays)
  * @returns {{routes:Array,diagnostics:Object,reason?:string}}
  */
 export function planRoutesV2(places,prefs={},opts={}){
@@ -256,7 +257,7 @@ export function planRoutesV2(places,prefs={},opts={}){
     }
     for(const candidate of expanded){if(frontier.length>=beamWidth)break;addState(candidate);}
   }
-  const picked=bestSolutions(solutions,clamp(Math.trunc(Number(opts.count)||3),1,5),prefs.food&&prefs.food!=='none');
+  const picked=bestSolutions(solutions,clamp(Math.trunc(Number(opts.count)||3),1,5),prefs.food&&prefs.food!=='none',opts.history||[]);
   return {
     routes:picked.map((s,index)=>({
       id:`v2-${index+1}`,stops:s.stops,stopIds:s.stops.map(p=>idOf(p)),rows:s.rows,

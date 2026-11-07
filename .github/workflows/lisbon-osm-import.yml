@@ -32,7 +32,7 @@ jobs:
       - name: Retrieve a bounded Lisbon OpenStreetMap snapshot
         run: node scripts/import-lisbon-osm.mjs
       - name: Generate Lisbon-only Supabase import SQL
-        run: node scripts/generate-city-import.mjs lisbon 021
+        run: node scripts/generate-city-import.mjs lisbon 021 --additive
       - name: Validate 100-200 real places and migration
         run: npm test
       - name: Validate production asset build
@@ -46,13 +46,13 @@ jobs:
           path: |
             data/cities/lisbon/places.json
             data/cities/lisbon/import-report.json
-            supabase/migrations/021_import_lisbon_osm.sql
+            supabase/migrations/021_add_lisbon_osm_places.sql
       - name: Push verified dataset to the import branch only
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/cities/lisbon/places.json data/cities/lisbon/import-report.json supabase/migrations/021_import_lisbon_osm.sql
+          git add data/cities/lisbon/places.json data/cities/lisbon/import-report.json supabase/migrations/021_add_lisbon_osm_places.sql
           if git diff --cached --quiet; then
             echo "Verified snapshot already committed"
           else

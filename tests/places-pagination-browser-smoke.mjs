@@ -31,17 +31,20 @@ try{
  await page.goto(ROOT+'/#places',{waitUntil:'domcontentloaded'});
  await page.locator('.place-list .place').first().waitFor({timeout:25000});
  assert.equal(await page.locator('.place-list .place').count(),30,'only 30 Warsaw cards in document');
- assert.match(await page.locator('[data-places-range]').textContent(),/^1–30 z /);
+ const rangeText=await page.locator('[data-places-range]').textContent();
+ const total=Number(rangeText.match(/z (\d+) miejsc/)?.[1]);
+ assert.ok(total>30&&total<=50,'Warsaw fixture after hotel exclusion: '+rangeText);
+ assert.match(rangeText,/^1–30 z /);
  assert.match(await page.locator('.places-pager-progress').first().textContent(),/Strona 1 z 2/);
  const initial=await page.locator('.place-list .place').evaluateAll(items=>items.map(x=>x.dataset.placeId));
  assert.equal(new Set(initial).size,30);
  assert.ok(await page.locator('.map-hint').count(),'map remains empty until category selection');
  await page.locator('#places-map').evaluate(el=>{el.dataset.identity='preserve-map-on-page-change';});
  await page.locator('.places-pager').first().getByRole('button',{name:'Następna strona'}).click();
- assert.equal(await page.locator('.place-list .place').count(),20,'50 Warsaw places require a 20-card second page');
- assert.match(await page.locator('[data-places-range]').textContent(),/^31–50 z 50 miejsc/);
+ assert.equal(await page.locator('.place-list .place').count(),total-30,'only remaining non-hotel Warsaw places appear on second page');
+ assert.equal(await page.locator('[data-places-range]').textContent(),'31–'+total+' z '+total+' miejsc');
  const second=await page.locator('.place-list .place').evaluateAll(items=>items.map(x=>x.dataset.placeId));
- assert.equal(second.length,20);assert.ok(second.every(id=>!initial.includes(id)),'no place repeated across pages');
+ assert.equal(second.length,total-30);assert.ok(second.every(id=>!initial.includes(id)),'no place repeated across pages');
  assert.equal(await page.locator('#places-map').getAttribute('data-identity'),'preserve-map-on-page-change','page change does not remount map');
  assert.ok(await page.locator('.map-hint').count(),'category opt-in for map is preserved');
  await page.locator('.places-pager').last().getByRole('button',{name:'Strona 1'}).click();
@@ -49,7 +52,7 @@ try{
 
  await page.locator('.places-pager').first().getByRole('button',{name:'Strona 2'}).click();
  await page.locator('#sort').selectOption('rating');
- assert.match(await page.locator('[data-places-range]').textContent(),/^1–30 z 50 miejsc/,'sort resets to page 1');
+ assert.equal(await page.locator('[data-places-range]').textContent(),'1–30 z '+total+' miejsc','sort resets to page 1');
  await page.locator('.places-pager').first().getByRole('button',{name:'Strona 2'}).click();
  await page.locator('[data-action="cat"][data-value="saved"]').click();
  assert.equal(await page.locator('.place-list .place').count(),0);

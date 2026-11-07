@@ -65,6 +65,40 @@ try{
   assert.ok(await modal.getByText(label,{exact:false}).count()>0,'visible share option: '+label);
  }
  await modal.locator('button[type="submit"]').click();
+ // Regression: share action must remain present after switching any transport,
+ // including transit and mix (previously deliberately hidden).
+ for(const [transport,travelmode] of [['walking','walking'],['bike','bicycling'],['transit','transit'],['mix','walking']]){
+  await page.locator('#builder-transport').selectOption(transport);
+  const trigger=page.locator('#main .detail-actions .route-share-trigger[data-route-share="maps"]');
+  await trigger.waitFor({state:'visible',timeout:10000});
+  const visuals=await trigger.evaluate(el=>({
+   label:el.textContent.trim(),background:getComputedStyle(el).backgroundColor,
+   border:getComputedStyle(el).borderColor,hasIcon:!!el.querySelector('.i'),
+   height:el.getBoundingClientRect().height
+  }));
+  assert.equal(visuals.label,'Udostępnij trasę');
+  assert.equal(visuals.background,'rgb(232, 241, 251)','CityRoute blue-soft, not gray');
+  assert.ok(visuals.hasIcon,'local Lucide send icon accompanies CTA');
+  assert.ok(visuals.height>=44,'share CTA is accessible on mobile');
+  await trigger.click();
+  const sharing=page.locator('dialog.route-share-dialog');
+  await sharing.waitFor({state:'visible'});
+  const link=await sharing.locator('input[type="url"]').inputValue();
+  const parsed=new URL(link);
+  assert.equal(parsed.searchParams.get('travelmode'),travelmode);
+  assert.equal(parsed.hostname,'www.google.com');
+  await sharing.locator('button[type="submit"]').click();
+ }
+ // Published editorial cards must expose their genuine CityRoute /r/ links.
+ await page.evaluate(()=>{location.hash='#route/old-warsaw';});
+ const editorial=page.locator('#main .detail-actions .route-share-trigger[data-route-share="editorial"]');
+ await editorial.waitFor({state:'visible',timeout:12000});
+ assert.ok(await editorial.locator('.i').count()>0,'editorial share uses a Lucide icon');
+ await editorial.click();
+ const publicModal=page.locator('dialog.route-share-dialog');
+ await publicModal.waitFor({state:'visible'});
+ assert.match(await publicModal.locator('input[type="url"]').inputValue(),/\/r\/editorial\/warsaw\/old-warsaw$/);
+ await publicModal.locator('button[type="submit"]').click();
 
  await page.goto(ROOT+'/#profile',{waitUntil:'domcontentloaded'});
  const details=page.locator('.profile-integrations');
@@ -100,7 +134,7 @@ try{
  const bounds=await page.evaluate(()=>({scrollWidth:document.documentElement.scrollWidth,width:innerWidth}));
  assert.ok(bounds.scrollWidth<=bounds.width+1,'375px profile has no horizontal overflow: '+JSON.stringify(bounds));
  assert.deepEqual(errors,[],'no uncaught browser errors: '+errors.join('; '));
- console.log('PASS integrations browser: 375px GPX, CityRoute share modal, exact Commons fallback, provider-status, Takeout CSV');
+ console.log('PASS integrations browser: 375px GPX, all four transport share CTAs, published /r/ link, Commons fallback and Takeout CSV');
 }finally{
  if(browser)await browser.close();
  if(server)server.kill('SIGTERM');

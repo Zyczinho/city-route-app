@@ -18,7 +18,7 @@ import {MAX_PLACE_PHOTOS,photoFileProblem,photoCropDefaults,sanitizePhotoCrop,cr
 import {readAcceptedPhoto} from './place-photo-proposal.js';
 import {downloadRouteGpx} from './route-export.js';
 import {parseGoogleSaved,planGoogleSavedImport} from './google-saved-import.js';
-import {paginatePlaces,paginationWindow} from './places-pagination.js';
+import {paginatePlaces,paginationWindow,compareRecommendedPlaces} from './places-pagination.js';
 const $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const key='city-route-v1';let storageOK=true,state;
 try{state=JSON.parse(localStorage.getItem(key)||'null');}catch{storageOK=false;}
@@ -299,8 +299,8 @@ function placesView(){
  let list=cat==='sidequests'?[...quests]:cat==='mine'?myPlaces():[...new Map([...catalog(),...myPlaces().filter(savedPlace)].map(p=>[String(p.id),p])).values()].filter(p=>cat==='all'?catalog().some(x=>x.id===p.id):cat==='saved'?savedPlace(p):p.cats?.[0]===cat);
  list=list.filter(p=>matches(placeHay(p),query)&&(cat!=='jedzenie'||cuisine==='all'||(p.cuisine||[]).includes(cuisine)));
  const c=p=>combinedRating(p.ratings);
- if(sort==='default')list.sort((a,b)=>(b.kind==='user'?1:0)-(a.kind==='user'?1:0)||(b.top?1:0)-(a.top?1:0)||String(b.createdAt||'').localeCompare(String(a.createdAt||'')));if(sort==='near'&&here)list.sort((a,b)=>distance(here,a)-distance(here,b));
- if(sort==='rating')list.sort((a,b)=>smoothedRating(b.ratings)-smoothedRating(a.ratings));if(sort==='count')list.sort((a,b)=>c(b).total-c(a).total);
+ if(sort==='default')list.sort(compareRecommendedPlaces);if(sort==='near'&&here)list.sort((a,b)=>distance(here,a)-distance(here,b));
+ if(sort==='rating')list.sort((a,b)=>Number((b.ratings||[]).some(r=>Number.isFinite(r.value)&&r.reviewCount>0))-Number((a.ratings||[]).some(r=>Number.isFinite(r.value)&&r.reviewCount>0))||smoothedRating(b.ratings)-smoothedRating(a.ratings));if(sort==='count')list.sort((a,b)=>c(b).total-c(a).total);
  renderedPlaceList=[...list];
  const paged=paginatePlaces(list,placesPage);placesPage=paged.page;
  const cuisines=[...new Set(places.flatMap(p=>p.cuisine||[]))].sort((a,b)=>a.localeCompare(b,'pl'));

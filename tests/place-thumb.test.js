@@ -60,6 +60,9 @@ test('Worker exposes /api/place-thumb as a redirect with a tile-friendly 404',as
  const worker=await readFile(new URL('../worker.js',import.meta.url),'utf8');
  assert.match(worker,/pathname==='\/api\/place-thumb'/);
  assert.match(worker,/status:302,headers:\{location:uri,'cache-control':'private, max-age=3600'/);
- assert.match(worker,/if\(!googleAllowed\(env\)\)return notFound\(/,'the daily cap still applies');
+ assert.match(worker,/if\(!thumbAllowed\(env\)\)return notFound\(/,'thumbnails have their own daily cap');
+ assert.match(worker,/Number\(env\.GOOGLE_THUMBS_DAILY_CAP\)\|\|3000/);
+ assert.match(worker,/\['quota','unavailable'\]\.includes\(status\)\?60:600/,'a cap answer is retried after a minute');
+ assert.match(worker,/maxWidthPx:url\.searchParams\.get\('w'\)==='800'\?800:320/,'card photos are 800 px, list photos 320 px');
  assert.match(worker,/\|\|await peekGooglePlaceId\(name,lat,lng,caches\.default\)/,'cards reuse a confirmed place_id');
 });

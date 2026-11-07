@@ -39,6 +39,7 @@ test('catalogue rows use the cheap thumbnail path; only community places use the
  assert.match(app,/loading="\$\{eager\?'eager':'lazy'\}" decoding="async" referrerpolicy="no-referrer" data-thumb-for=/,'list rows are lazy, so only rows near the screen are requested');
  assert.match(app,/document\.addEventListener\('error',e=>\{[^]*?img\.outerHTML=catTile\(p,img\.dataset\.thumbCls\|\|'',''\);[^]*?\},true\);/,'a missing photo falls back to the category tile with the same class');
  assert.match(app,/if\(!img\.isConnected\|\|!img\.parentNode\)return;/,'a 404 for an image removed by a re-render is ignored');
+ assert.match(app,/t\.tagName==='IMG'&&!t\.dataset\.failed&&!t\.dataset\.thumbFor&&t\.isConnected&&t\.parentNode\)/,'the generic fallback leaves Google thumbnails and detached images alone');
  assert.match(app,/\|\|p\.kind==='sidequest'\)return null;/,'side quests have no venue photo');
  assert.doesNotMatch(app,/p\.kind==='user'\|\|p\.kind==='sidequest'\)return null;/,'own places also get a photo');
  assert.match(app,/<div class="sheet-media">\$\{photo\(p,'sheet-photo',true,800\)\}/,'the place card falls back to an 800 px photo');

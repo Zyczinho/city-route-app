@@ -36,9 +36,15 @@ test('catalogue rows use the cheap thumbnail path; only community places use the
  assert.match(app,/const needsProvider=p=>!!p&&\(p\.origin==='community'\|\|p\.kind==='user'\)&&!providerOverlay\.has\(p\.id\)/);
  assert.match(app,/<div class="thumb">\$\{photo\(p,'',false,true\)\}/,'place list rows ask for a thumbnail');
  assert.match(app,/'\/api\/place-thumb\?'\+new URLSearchParams\(/);
- assert.match(app,/loading="lazy" decoding="async" referrerpolicy="no-referrer" data-thumb-for=/,'browser lazy loading limits requests to rows near the screen');
- assert.match(app,/document\.addEventListener\('error',e=>\{[^]*?img\.outerHTML=catTile\(p,'',''\);[^]*?\},true\);/,'a missing photo falls back to the category tile');
- assert.match(app,/p\.kind==='user'\|\|p\.kind==='sidequest'\)return null;/,'own places never go to the thumbnail path');
+ assert.match(app,/loading="\$\{eager\?'eager':'lazy'\}" decoding="async" referrerpolicy="no-referrer" data-thumb-for=/,'list rows are lazy, so only rows near the screen are requested');
+ assert.match(app,/function handlePhotoError\(img\)\{/,'there is a single shared image-error handler');
+ assert.match(app,/if\(img\.dataset\.thumbFor\)\{/,'Google thumbnails get the category fallback');
+ assert.match(app,/img\.outerHTML=catTile\(p,esc\(img\.dataset\.thumbCls\|\|''\),''\);/,'Google tile preserves the thumbnail class');
+ assert.match(app,/img\.dataset\.failed==='1'\|\|!img\.isConnected\|\|!img\.parentNode/,'already-handled or detached images are ignored');
+ assert.equal((app.match(/document\.addEventListener\('error'/g)||[]).length,1,'never attach competing image-error handlers');
+ assert.match(app,/\|\|p\.kind==='sidequest'\)return null;/,'side quests have no venue photo');
+ assert.doesNotMatch(app,/p\.kind==='user'\|\|p\.kind==='sidequest'\)return null;/,'own places also get a photo');
+ assert.match(app,/<div class="sheet-media">\$\{photo\(p,'sheet-photo',true,800\)\}/,'the place card falls back to an 800 px photo');
  assert.match(app,/while\(enrichActive<3&&enrichQueue\.length\)/);
  assert.match(app,/providerObserver\?\.disconnect\(\);providerObserver=null;enrichQueue\.length=0;/,'a list change drops unseen work');
  assert.match(app,/if\(row\)row\.outerHTML=placeRow\(all\[p\.id\]\);else render\(\);/);

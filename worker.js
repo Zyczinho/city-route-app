@@ -10,6 +10,7 @@
 //   PLACE_GEOCODER_URL     optional Photon-compatible geocoder base URL; defaults to https://photon.komoot.io for MVP fallback
 //   GOOGLE_PLACES_AUTOCOMPLETE  set to "on" to use Google Autocomplete for type-ahead (paid per session; off = OSM Photon only)
 //   GOOGLE_PLACES_DAILY_CAP     optional soft cap of Google calls per Worker instance per day (default 300); the hard cap belongs in Google Cloud quotas
+//   GOOGLE_THUMBS_DAILY_CAP     optional separate soft cap for list thumbnails (/api/place-thumb) per instance per day (default 3000)
 import {resolveMaps} from './location.js';
 import {routeShareResponse} from './share-preview.js';
 import {createRestRpcClient} from './catalogue-client.js';
@@ -60,6 +61,15 @@ function googleAllowed(env){
  const cap=Math.max(1,Math.min(5000,Number(env.GOOGLE_PLACES_DAILY_CAP)||300));if(googleCalls>=cap)return false;
  googleCalls++;return true;
 }
+// List thumbnails have their own counter: each costs one Place Photo call ($7/1000), so they must not use up the
+// pool for rating lookups on cards. GOOGLE_THUMBS_DAILY_CAP (default 3000, max 20000) per instance per day.
+let thumbDay='',thumbCalls=0;
+function thumbAllowed(env){
+ if(!env.GOOGLE_PLACES_API_KEY||env.GOOGLE_PLACES_BETA_ENABLED!=='on')return false;
+ const day=new Date().toISOString().slice(0,10);if(day!==thumbDay){thumbDay=day;thumbCalls=0;}
+ const cap=Math.max(1,Math.min(20000,Number(env.GOOGLE_THUMBS_DAILY_CAP)||3000));if(thumbCalls>=cap)return false;
+ thumbCalls++;return true;
+}
 const sessionOf=url=>String(url.searchParams.get('session')||'').replace(/[^A-Za-z0-9_-]/g,'').slice(0,64);
 
 let taDay='',taCalls=0;
@@ -87,13 +97,14 @@ async function placeThumb(url,env,ctx){
  const cityName=String(url.searchParams.get('cityName')||'Warszawa').replace(/\s+/g,' ').trim().slice(0,60);
  const center={lat:Number(url.searchParams.get('centerLat')),lng:Number(url.searchParams.get('centerLng'))};
  const radiusKm=Math.min(50,Number(url.searchParams.get('r'))||40);
- const notFound=status=>new Response(null,{status:404,headers:{'cache-control':'private, max-age=600','x-thumb-status':status}});
+ // A cap or provider hiccup is retried after a minute; a real "no match / no photo" answer is kept for ten.
+ const notFound=status=>new Response(null,{status:404,headers:{'cache-control':`private, max-age=${['quota','unavailable'].includes(status)?60:600}`,'x-thumb-status':status}});
  if(name.length<2||![lat,lng,center.lat,center.lng].every(Number.isFinite)||kmBetween({lat,lng},center)>radiusKm)return notFound('invalid');
- if(!googleAllowed(env))return notFound(env.GOOGLE_PLACES_API_KEY?'quota':'no-key');
+ if(!thumbAllowed(env))return notFound(env.GOOGLE_PLACES_API_KEY?'quota':'no-key');
  try{
   const key=env.GOOGLE_PLACES_API_KEY;
   const id=String(url.searchParams.get('googleId')||'')||await cachedGooglePlaceId({name,lat,lng,cityName,googleKey:key},{cache:caches.default,ctx});
-  const uri=id&&await googlePhotoUri(id,{googleKey:key});
+  const uri=id&&await googlePhotoUri(id,{googleKey:key,maxWidthPx:url.searchParams.get('w')==='800'?800:320});
   if(!uri)return notFound(id?'no-photo':'no-match');
   return new Response(null,{status:302,headers:{location:uri,'cache-control':'private, max-age=3600','referrer-policy':'no-referrer'}});
  }catch{return notFound('unavailable');}

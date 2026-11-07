@@ -28,6 +28,20 @@
     "status": "next"
   },
   {
+    "id": "lisbon",
+    "slug": "lisbon",
+    "name": "Lizbona",
+    "country": "Portugalia",
+    "countryCode": "PT",
+    "locale": "pt-PT",
+    "currency": "EUR",
+    "timezone": "Europe/Lisbon",
+    "center": {"lat": 38.7223, "lng": -9.1393},
+    "defaultZoom": 12,
+    "radiusKm": 25,
+    "status": "next"
+  },
+  {
     "id": "gdansk",
     "slug": "gdansk",
     "name": "Gdańsk",

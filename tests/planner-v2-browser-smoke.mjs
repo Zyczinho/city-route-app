@@ -14,6 +14,7 @@ async function runPlannerBrowserSmoke(){
   browser=await chromium.launch({headless:true,args:['--no-sandbox']});
   const ctx=await browser.newContext({viewport:{width:375,height:812},deviceScaleFactor:1,isMobile:true,hasTouch:true});
   await ctx.route(/supabase\.co/,route=>route.abort());
+  await ctx.addInitScript(()=>localStorage.setItem('city-route-first-launch-v1','1'));
   const page=await ctx.newPage();
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.goto(BASE+'/#plan',{waitUntil:'domcontentloaded'});

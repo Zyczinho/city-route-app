@@ -33,7 +33,8 @@ state.cityId=state.cityId||DEFAULT_CITY_ID;state.basketsByCity=state.basketsByCi
 let cities=[],taxonomy=null,activeCity=null,places=[],quests=[],routes=[],all={},cat='all',rcat='all',query='',cuisine='all',sort='default',pending=null,generated=null,generatedOptions=[],generatedIndex=0,generationPrefs=null,generationHistory=[],editing=false,keepQuery=false,here=null,draft=null,bookTab=null,speaking=false,evScope='global',evWhen='week',evKind='all';const evCache={};
 // On the Places tab, only a conscious category selection reveals map pins.
 // The catalogue list can still be browsed and searched without crowding the map.
-let mapCategorySelected=false,placesPage=1;
+let mapCategorySelected=false;
+let placesPage=1;
 let mapView=null,renderedPlaceList=[],builderDraft=null,nearbyAfterId=null,nearbyRadiusM=500,addNewPlaceAfterId=null,justSavedPlaceId=null;
 const providerOverlay=new Map(),providerLoading=new Set();let providerObserver=null;
 const persist=()=>{try{if(state?.cityId){state.basketsByCity=state.basketsByCity||{};state.basketsByCity[state.cityId]=[...(state.basket||[])];if(builderDraft?.cityId===state.cityId){const {name,transport,revision,updatedAt}=serializeDraft(builderDraft);state.builderMetaByCity=state.builderMetaByCity||{};state.builderMetaByCity[state.cityId]={cityId:state.cityId,name,transport,revision,updatedAt};}}localStorage.setItem(key,JSON.stringify(state));}catch{storageOK=false;$('#connection').textContent='Zapis lokalny niedostępny. Wyeksportuj dane przed zamknięciem karty.';}};
@@ -276,7 +277,7 @@ function placesPager(paged){
  const buttons=paginationWindow(paged.page,paged.pages).map(n=>n==='…'?'<span class="places-page-dots" aria-hidden="true">…</span>':
   '<button type="button" class="places-page-number'+(n===paged.page?' current':'')+'" data-action="places-page" data-value="'+n+'" aria-label="Strona '+n+'"'+(n===paged.page?' aria-current="page"':'')+'>'+n+'</button>').join('');
  return '<nav class="places-pager" aria-label="Strony katalogu miejsc">'+
-  '<button type="button" class="places-page-arrow" data-action="places-page" data-value="'+(paged.page-1)+'" aria-label="Poprzednia strona"'+(paged.hasPrev?'':' disabled')+'>'+ic('chevron-left')+'<span>Poprzednia</span></button>'+
+  '<button type="button" class="places-page-arrow" data-action="places-page" data-value="'+(paged.page-1)+'" aria-label="Poprzednia strona"'+(paged.hasPrev?'':' disabled')+'>'+ic('arrow-left')+'<span>Poprzednia</span></button>'+
   '<span class="places-pager-progress" aria-live="polite">Strona '+paged.page+' z '+paged.pages+'</span>'+
   '<div class="places-page-numbers">'+buttons+'</div>'+
   '<button type="button" class="places-page-arrow" data-action="places-page" data-value="'+(paged.page+1)+'" aria-label="Następna strona"'+(paged.hasNext?'':' disabled')+'><span>Następna</span>'+ic('chevron-right')+'</button>'+

@@ -119,6 +119,8 @@ const CAT_TILE={bar:['wine','night'],pub:['beer','night'],cocktail_bar:['martini
  viewpoint:['binoculars','nature'],park:['trees','nature'],garden:['trees','nature'],walk:['trees','nature'],waterfront:['waves','nature'],beach:['waves','nature'],
  neighborhood:['signpost','city'],hidden_gem:['signpost','city'],hotel:['bed-double','stay'],hostel:['bed-double','stay'],guesthouse:['bed-double','stay'],apartment:['bed-double','stay'],sport:['trophy','city']};
 const LEGACY_TILE={zabytki:'landmark',muzea:'museum',zielen:'park',widoki:'viewpoint',okolice:'neighborhood',jedzenie:'restaurant',nocne:'bar',noclegi:'hotel',aktywnosci:'sport'};
+const commonsAttrs=p=>p?.id&&p?.name&&Number.isFinite(Number(p.lat))&&Number.isFinite(Number(p.lng))?
+ ` data-commons-photo="${esc(p.id)}" data-commons-name="${esc(p.name)}" data-commons-lat="${Number(p.lat)}" data-commons-lng="${Number(p.lng)}"`:'';
 function catTile(p,cls,geo){const [icon,mood]=CAT_TILE[p?.categoryId]||CAT_TILE[LEGACY_TILE[p?.cats?.[0]]]||['map-pin','city'];return `<div class="ph ph-cat ph-${mood} ${cls}"${geo} aria-label="Brak fotografii lokalu">${ic(icon,'ph-cat-ghost')}${ic(icon,'ph-cat-glyph')}</div>`;}
 // Places without their own photo (catalogue and the user's own places) load a Google photo through /api/place-thumb
 // (one paid Place Photo call; the place lookup is free or cached by the Worker): 320 px in list rows, 800 px in the
@@ -138,14 +140,14 @@ function handlePhotoError(img){
  img.dataset.failed='1';
  if(img.dataset.thumbFor){
   const p=all[img.dataset.thumbFor];
-  img.outerHTML=catTile(p,esc(img.dataset.thumbCls||''),'');
+  img.outerHTML=catTile(p,esc(img.dataset.thumbCls||''),commonsAttrs(p));
  }else{
   img.outerHTML=`<div class="ph ${esc(img.className)}">${ic('camera')}</div>`;
  }
  return true;
 }
 document.addEventListener('error',e=>handlePhotoError(e.target),true);
-function photo(p,cls='',eager=false,listThumb=false){const image=p?.image||approvedPhoto(p)?.src||providerOverlay.get(p?.id)?.image?.src;const thumb=!image&&listThumb&&thumbUrl(p,listThumb===800?800:320);if(thumb)return `<img class="${cls}" src="${esc(thumb)}" alt="${esc(p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer" data-thumb-for="${esc(p.id)}" data-thumb-cls="${esc(cls)}">`;if(!image){const geo=p?.id&&p?.name&&Number.isFinite(p?.lat)&&Number.isFinite(p?.lng)?` data-commons-photo="${esc(p.id)}" data-commons-name="${esc(p.name)}" data-commons-lat="${p.lat}" data-commons-lng="${p.lng}"`:'';return catTile(p,cls,geo);} const src=/^(https?:|data:image\/|\/api\/place-photo\?)/.test(image)?image:`./assets/images/${image}`;return `<img class="${cls}" src="${esc(src)}" alt="${esc(p.imageCaption||p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer">`;}
+function photo(p,cls='',eager=false,listThumb=false){const image=p?.image||approvedPhoto(p)?.src||providerOverlay.get(p?.id)?.image?.src;const thumb=!image&&listThumb&&thumbUrl(p,listThumb===800?800:320);if(thumb)return `<img class="${cls}" src="${esc(thumb)}" alt="${esc(p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer" data-thumb-for="${esc(p.id)}" data-thumb-cls="${esc(cls)}">`;if(!image){return catTile(p,cls,commonsAttrs(p));} const src=/^(https?:|data:image\/|\/api\/place-photo\?)/.test(image)?image:`./assets/images/${image}`;return `<img class="${cls}" src="${esc(src)}" alt="${esc(p.imageCaption||p.name)}" loading="${eager?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer">`;}
 function credit(p){const c=p?.imageCredit||(!p?.image?(approvedPhoto(p)?.credit||providerOverlay.get(p?.id)?.image?.credit):null);if(!c)return '';const lic=c.licenseUrl?`<a href="${esc(c.licenseUrl)}" target="_blank" rel="noopener noreferrer">${esc(c.license)}</a>`:esc(c.license);return `<p class="credit">${ic('camera')}<span>${p.imageCaption?esc(p.imageCaption)+'. ':''}Zdjęcie: ${esc(c.author)} · ${lic} · <a href="${esc(c.source)}" target="_blank" rel="noopener noreferrer">${esc(c.via)}</a></span></p>`;}
 const rating=(p,s)=>providerRatings(p).find(r=>r.source===s);
 const cityRouteBadge=p=>`<span class="cr-score" data-cityroute-ref="${esc(p.id)}" title="Średnia społeczności City Route — niezależna od ocen Google i Tripadvisor">${ic("star")} City Route · Brak ocen</span>`;

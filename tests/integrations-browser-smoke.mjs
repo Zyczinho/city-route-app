@@ -24,6 +24,8 @@ try{
  await context.route(/commons\.wikimedia\.org/,route=>route.abort());
 
  await context.addInitScript(({a,b})=>{
+  // Seed once: re-seeding during reload would destroy the archived route under test.
+  if(localStorage.getItem('city-route-v1'))return;
   localStorage.setItem('city-route-first-launch-v1','1');
   localStorage.setItem('city-route-v1',JSON.stringify({version:1,tester:{id:'integration-browser',nickname:'Tester'},
    basket:[a,b],basketsByCity:{warsaw:[a,b]},events:[],session:null,cityId:'warsaw',

@@ -6,6 +6,7 @@ on:
       - work/lisbon-osm-148
     paths:
       - scripts/import-lisbon-osm.mjs
+      - tests/lisbon-osm.test.js
       - .github/workflows/lisbon-osm-import.yml
   workflow_dispatch:
 

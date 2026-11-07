@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {routeShareUrl} from '../share-links.js';
+import {routeShareUrl,sharedMapsRouteUrl} from '../share-links.js';
 import {parseRouteSharePath,escapeShareHtml,safeShareImage,sharePreviewHtml,routeShareResponse} from '../share-preview.js';
 
 const UID='123e4567-e89b-12d3-a456-426614174000';
@@ -82,4 +82,21 @@ test('HTML escapes hostile route strings and rejects unlicensed image proxies',(
  assert.equal(safeShareImage('javascript:alert(1)',ORIGIN),null);
  assert.equal(safeShareImage('route-old-warsaw.jpg',ORIGIN),ORIGIN+'/assets/images/route-old-warsaw.jpg');
  assert.equal(escapeShareHtml('a&b'),'a&amp;b');
+});
+
+test('private route share only accepts legitimate Google Maps directions links',()=>{
+ const good='https://www.google.com/maps/dir/?api=1&destination=52.2297,21.0122&waypoints=52.24,21.02';
+ assert.equal(sharedMapsRouteUrl(good),good);
+ assert.equal(sharedMapsRouteUrl('https://evil.example/maps/dir/?api=1&destination=52.2,21.0'),null);
+ assert.equal(sharedMapsRouteUrl('javascript:alert(1)'),null);
+ assert.equal(sharedMapsRouteUrl('https://www.google.com/maps/@52.2,21.0,15z'),null);
+});
+test('all requested social channels are visible in share chooser, without private City Route link fiction',async()=>{
+ const fs=await import('node:fs/promises');
+ const text=await fs.readFile(new URL('../share-links.js',import.meta.url),'utf8');
+ const app=await fs.readFile(new URL('../app.js',import.meta.url),'utf8');
+ for(const word of ['WhatsApp','Instagram','Messenger','Udostępnij przez aplikację'])assert.match(text,new RegExp(word));
+ assert.match(app,/data-route-share=\\"maps\\"/);
+ assert.match(app,/data-route-share=\\"editorial\\"/);
+ assert.match(app,/data-action=\\"export-gpx\\"/);
 });

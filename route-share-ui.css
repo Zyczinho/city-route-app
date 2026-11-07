@@ -38,3 +38,28 @@
  .route-share-head h2{font-size:20px}
  .route-share-dialog .route-share-action{min-height:48px;padding:8px 7px;font-size:13px}
 }
+
+/* Route share is a permanent, discoverable CityRoute action in each route state. */
+.route-share-trigger,
+.detail-actions .route-share-trigger,
+.social-detail-actions .route-share-trigger,
+.social-card-actions .route-share-trigger {
+ display:inline-flex;align-items:center;justify-content:center;gap:9px;
+ min-height:48px;padding:11px 16px;border:1.5px solid var(--blue);border-radius:14px;
+ background:var(--blue-soft);color:var(--blue);font-size:14px;font-weight:800;
+ text-align:center;text-decoration:none;cursor:pointer;
+}
+.route-share-trigger .i{width:19px;height:19px;flex:none;color:currentColor}
+.route-share-trigger:hover,
+.detail-actions .route-share-trigger:hover,
+.social-detail-actions .route-share-trigger:hover,
+.social-card-actions .route-share-trigger:hover{background:var(--blue);color:#fff}
+.route-share-trigger:focus-visible{outline:3px solid #86c6ff;outline-offset:3px}
+.finished-share .route-share-trigger{width:100%;margin:10px 0 6px;background:var(--blue);color:#fff}
+.finished-share .route-share-trigger:hover{background:#0757a5}
+@media(max-width:390px){
+ .route-share-trigger,.detail-actions .route-share-trigger,
+ .social-detail-actions .route-share-trigger,.social-card-actions .route-share-trigger{
+  min-width:0;width:100%;min-height:48px;white-space:normal;font-size:13px;
+ }
+}

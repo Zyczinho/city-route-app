@@ -18,6 +18,9 @@ on:
       - 'service-worker.js'
       - 'tests/p0-browser-smoke.mjs'
       - 'tests/integrations-browser-smoke.mjs'
+      - 'tests/places-pagination-browser-smoke.mjs'
+      - 'places-pagination.js'
+      - 'places-pagination.css'
       - 'share-links.js'
       - 'google-saved-import.js'
       - 'route-export.js'
@@ -40,6 +43,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: node tests/p0-browser-smoke.mjs
       - run: node tests/integrations-browser-smoke.mjs
+      - run: node tests/places-pagination-browser-smoke.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

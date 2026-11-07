@@ -39,7 +39,7 @@ test('catalogue rows use the cheap thumbnail path; only community places use the
  assert.match(app,/loading="\$\{eager\?'eager':'lazy'\}" decoding="async" referrerpolicy="no-referrer" data-thumb-for=/,'list rows are lazy, so only rows near the screen are requested');
  assert.match(app,/function handlePhotoError\(img\)\{/,'there is a single shared image-error handler');
  assert.match(app,/if\(img\.dataset\.thumbFor\)\{/,'Google thumbnails get the category fallback');
- assert.match(app,/img\.outerHTML=catTile\(p,esc\(img\.dataset\.thumbCls\|\|''\),''\);/,'Google tile preserves the thumbnail class');
+ assert.match(app,/img\.outerHTML=catTile\(p,esc\(img\.dataset\.thumbCls\|\|''\),commonsAttrs\(p\)\);/,'Google 404 restores licensed Commons fallback along with tile and class');
  assert.match(app,/img\.dataset\.failed==='1'\|\|!img\.isConnected\|\|!img\.parentNode/,'already-handled or detached images are ignored');
  assert.equal((app.match(/document\.addEventListener\('error'/g)||[]).length,1,'never attach competing image-error handlers');
  assert.match(app,/\|\|p\.kind==='sidequest'\)return null;/,'side quests have no venue photo');

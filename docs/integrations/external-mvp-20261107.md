@@ -13,8 +13,8 @@ Status: PR #151 DRAFT; do not merge until mobile QA, independent code review and
 - A planned route must NOT be uploaded as a completed workout. Full Strava OAuth, actual GPS activity history, bi-directional route sync and uploads are separate gated work requiring client registration, secrets in backend, minimal scopes, revocation, rate limits, permission and privacy review.
 
 ## Google Saved import
-- Profile → Integracje i import → select a single extracted Google Takeout Saved CSV (not ZIP), or point GeoJSON/JSON. Max 2 MB/2000 records; parsing happens locally.
-- CSV supports title, item_content_url/url, note and optionally latitude/longitude. It tolerates an optional description line and quoted multiline cells.
+- Profile → Integracje i import → select a single extracted Google Takeout Saved CSV (not ZIP), or Google My Maps KML point file (extract from KMZ first), or point GeoJSON/JSON. Max 2 MB/2000 records; parsing happens locally.
+- KML supports Google My Maps Point Placemarks with name, description, coordinates (lines and polygons are ignored). CSV supports title, item_content_url/url, note and optionally latitude/longitude. It tolerates an optional description line and quoted multiline cells.
 - Title matching uses the selected-city catalogue; a coordinate narrows matches to 250 meters. Coordinates are accepted only when explicitly present in the file or Google Maps place URL; /@viewport is not a place location.
 - Known catalogue matches are bookmarked and use existing account saved-place sync. Unknown points with valid coordinates inside selected city become private local u- places. These do NOT yet sync across devices. Unmatched names and opaque links are skipped and counted in confirmation.
 - Roll back local state on storage failure; no auto-publication, scraping, reviews or arbitrary photo copying.

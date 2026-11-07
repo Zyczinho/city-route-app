@@ -31,7 +31,22 @@ export function parseCsv(text){
 export function parseGoogleSaved(text,filename='export.csv'){
  if(typeof text!=='string'||text.length>2_000_000)throw Error('Maksymalny rozmiar pliku to 2 MB.');
  let data=[];
- if(/\.(?:geojson|json)$/i.test(filename)){
+ if(/\.kml$/i.test(filename)){
+  // Google My Maps KML: extract placemark points only; never invent coordinates for lines or polygons.
+  const get=(body,tag)=>{const re=new RegExp('<(?:[A-Za-z_]+:)?'+tag+'\\b[^>]*>([\\s\\S]*?)<\\/(?:[A-Za-z_]+:)?'+tag+'>','i');return body.match(re)?.[1]||'';};
+  const plain=raw=>String(raw).replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g,'$1')
+   .replace(/<[^>]+>/g,'').replace(/&(?:amp|lt|gt|quot|apos|#(?:x[0-9a-f]+|[0-9]+));/gi,entity=>{
+    const named={'&amp;':'&','&lt;':'<','&gt;':'>','&quot;':'"','&apos;':"'"};
+    const lower=entity.toLowerCase();if(named[lower])return named[lower];
+    const cp=lower.startsWith('&#x')?parseInt(lower.slice(3,-1),16):parseInt(lower.slice(2,-1),10);
+    return Number.isInteger(cp)&&cp>0&&cp<=0x10ffff?String.fromCodePoint(cp):'';
+   }).trim();
+  data=[...text.matchAll(/<(?:[A-Za-z_]+:)?Placemark\b[^>]*>([\s\S]*?)<\/(?:[A-Za-z_]+:)?Placemark>/gi)]
+   .map(m=>{const body=m[1],point=get(body,'Point'),coords=get(point,'coordinates').trim().split(/[\s,]+/);
+    return {name:plain(get(body,'name')).slice(0,160),note:plain(get(body,'description')).slice(0,500),
+     url:'',lat:point?number(coords[1]):NaN,lng:point?number(coords[0]):NaN};
+   }).filter(e=>valid(e.lat,e.lng));
+ }else if(/\.(?:geojson|json)$/i.test(filename)){
   const parsed=JSON.parse(text);
   const entries=parsed?.type==='FeatureCollection'?parsed.features:Array.isArray(parsed)?parsed:[];
   data=entries.filter(x=>x&&typeof x==='object').map(x=>{
@@ -50,7 +65,7 @@ export function parseGoogleSaved(text,filename='export.csv'){
    url:col(r,'item_content_url','url','link'),
    lat:number(col(r,'latitude','lat')),lng:number(col(r,'longitude','lng','lon'))
   }));
- }else throw Error('Obsługujemy CSV z Google Takeout oraz GeoJSON/JSON z punktami.');
+ }else throw Error('Obsługujemy Saved CSV, GeoJSON/JSON oraz KML z Google My Maps.');
  if(data.length>2000)throw Error('Za dużo miejsc. Podziel eksport na pliki do 2000 miejsc.');
  return data.map(v=>{const inferred=!valid(v.lat,v.lng)?coordinatesFromGoogleUrl(v.url):null;
   return {name:String(v.name||'').trim().slice(0,160),note:String(v.note||'').slice(0,500),url:/^https:\/\//.test(v.url)?v.url.slice(0,900):'',

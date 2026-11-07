@@ -6,7 +6,7 @@ The source of truth is the actual snapshot in `data/cities/lisbon/places.json`; 
 
 ## Reproducible import
 
-On the dedicated `work/lisbon-osm-148` branch, GitHub Actions runs the importer once on the workflow push, then `node scripts/generate-city-import.mjs lisbon 021`, then `npm test` and `npm run build`. The workflow commits the dataset and SQL to **that branch only**; never deploys or invokes hosted Supabase. If external Overpass services are unavailable, the job fails without creating fake records. The branch can be retried after external service recovery.
+On the dedicated `work/lisbon-osm-148` branch, GitHub Actions runs the importer once on the workflow push, then `node scripts/generate-city-import.mjs lisbon 021 --additive`, then `npm test` and `npm run build`. The workflow commits the dataset and SQL to **that branch only**; never deploys or invokes hosted Supabase. If external Overpass services are unavailable, the job fails without creating fake records. The branch can be retried after external service recovery.
 
 The importer limits the output to 100–200 real named POIs within Lisbon's radius. Selection uses category quotas, existing OSM metadata (website/Wikidata/opening hours), stable OSM IDs, proximity and duplicate-name checks. It is *not* a popularity or quality ranking. A site could be closed or relocated; a locally verified pilot should check the prominent places before promotion.
 

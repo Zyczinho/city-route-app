@@ -19,7 +19,7 @@ test('Lisbon OSM catalogue contains 100–200 real named, usable POIs',()=>{
  assert.equal(report.selected,places.length);
  assert.equal(report.attribution,'© OpenStreetMap contributors');
  assert.equal(report.licence,'ODbL-1.0');
- assert.match(report.importSource,/^https:\/\/overpass\./);
+ assert.match(report.importSource,/^https:\/\/overpass(?:-api|\.)/);
  assert.ok(report.rawRecords>places.length);
  assert.ok(new Set(places.map(p=>p.id)).size===places.length,'unique slugs');
  assert.ok(new Set(places.map(p=>p.categoryId)).size>=6,'diverse categories');

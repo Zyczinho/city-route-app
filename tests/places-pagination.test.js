@@ -56,7 +56,7 @@ test('Places app only renders paged cards but keeps full filter result for exist
   assert.ok(build.includes(path),path+' missing from dist build');
   assert.ok(sw.includes(path),path+' missing from PWA');
  }
- assert.match(html,/places-pagination\.css\?v=1/);
+ assert.match(html,/places-pagination\.css\?v=2/);
 });
 
 test('recommended order highlights own, editorial and verified photographed places before OSM without scores',()=>{

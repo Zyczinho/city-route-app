@@ -19,7 +19,7 @@ try{
  await mkdir('p0-smoke-artifacts',{recursive:true});
  browser=await chromium.launch({headless:true,args:['--no-sandbox']});
  const context=await browser.newContext({viewport:{width:375,height:812},deviceScaleFactor:1,isMobile:true,hasTouch:true});
- await context.route(/supabase\\.co/,route=>route.abort());
+ await context.route(/supabase\.co/,route=>route.abort());
  await context.addInitScript(()=>{
   Object.defineProperty(navigator,'share',{configurable:true,value:undefined});
   const own={id:'u-share-private',cityId:'warsaw',name:'Mój tajny punkt',kind:'user',visibility:'private',

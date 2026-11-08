@@ -15,7 +15,8 @@ test('Service worker supports authenticated Web Push and routes only within City
  const [sw,client,center,html,build]=await Promise.all(['service-worker.js','web-push-client.js','activity-notifications.js','index.html','scripts/build.mjs'].map(read));
  for(const token of ["self.addEventListener('push'","self.registration.showNotification","notificationclick","#routes/community/notifications"])assert.ok(sw.includes(token),token);
  for(const token of ['pushManager.subscribe','applicationServerKey','get_push_vapid_public_key','push_subscriptions','requestPermission'])assert.ok(client.includes(token),token);
- assert.ok(center.includes('data-enable-web-push'));
+ assert.ok(center.includes('webPushControls()'));
+ assert.ok(client.includes('data-enable-web-push'));
  assert.ok(html.includes('web-push-client.js'));
  assert.ok(build.includes("'web-push-client.js'"));
 });

@@ -299,6 +299,48 @@ function openPlace(id){const p=all[id];if(!p)return;const sharePayload=publicPla
  <form id="place-review-form" class="my-review" data-id="${p.id}"><label>Twoja ocena<select name="rating">${[5,4,3,2,1].map(n=>`<option value="${n}" ${state.placeReviews[p.id]===n?'selected':''}>Ocena ${n}/5</option>`).join('')}</select></label><button>${state.placeReviews[p.id]?'Zmień':'Zapisz'}</button><p class="fine">Twoja ocena zostaje na tym urządzeniu i nie zmienia wyniku z platform. Oceny społeczności włączymy, gdy będzie ich dość.</p></form>${credit(p)}</div>`;
  if(!d.open)d.showModal();d.scrollTop=0;}
 
+
+// A shared private-place link opens a preview; it never publishes or saves on its own.
+function openSharedPlacePreview(snapshot,token){
+ const d=$('#place-dialog');
+ d.dataset.placeId='shared-preview';
+ delete d.dataset.gallerySubmissionId;
+ const p={id:'shared-preview',name:snapshot.name,area:'Miejsce udostępnione',cats:[snapshot.category],lat:snapshot.lat,lng:snapshot.lng,kind:'shared',ratings:[]};
+ d.innerHTML='<div class="sheet-media">'+photo(p,'sheet-photo',true,800)+
+  '<form method="dialog"><button class="close" aria-label="Zamknij">'+ic('x')+'</button></form></div>'+
+  '<div class="sheet-body"><p class="kicker">Miejsce przesłane w City Route</p><h2 id="sheet-title">'+esc(snapshot.name)+'</h2>'+
+  '<p class="note shared-place-note">Miejsce udostępnione prywatnym linkiem, nieopublikowane w katalogu. Zapisz u siebie, aby dodać je do trasy.</p>'+
+  '<div class="sheet-actions"><button type="button" class="wide place-share-cta" data-action="import-shared-place" data-value="'+esc(token)+'">'+ic('bookmark')+'Zapisz u siebie</button>'+
+  '<a class="button wide" href="'+esc(mapsUrl(p))+'" target="_blank" rel="noopener noreferrer">'+ic('navigation')+'Pokaż w Google Maps</a></div></div>';
+ if(!d.open)d.showModal();
+ d.scrollTop=0;
+}
+function importSharedPlace(token){
+ const snapshot=decodePlaceSnapshot(token);
+ if(!snapshot||snapshot.cityId!==city().id)return toast('Nieprawidłowy link do miejsca.');
+ let p=myPlaces().find(place=>place.name===snapshot.name&&
+   Math.abs(Number(place.lat)-snapshot.lat)<0.000001&&Math.abs(Number(place.lng)-snapshot.lng)<0.000001);
+ const existed=!!p;
+ if(!p){
+  let id='u-'+uuid().slice(0,8);
+  while(all[id])id='u-'+uuid().slice(0,8);
+  p={id,cityId:city().id,kind:'user',visibility:'private',name:snapshot.name,
+   cats:[snapshot.category],categoryId:taxonomy?.legacyAliases?.[snapshot.category]||snapshot.category,
+   area:'Zapisane z linku',description:'Miejsce udostępnione w City Route.',
+   lat:snapshot.lat,lng:snapshot.lng,minutes:20,cost:0,
+   tags:USER_TAGS[snapshot.category]||['hidden'],tourist:'local',foodStyle:'none',
+   partner:false,ratings:[],image:null,images:[],createdAt:now()};
+  state.userPlaces.unshift(p);
+  all[id]=p;
+ }
+ state.savedPlacesByCity[city().id]=[...new Set([...savedIds(),p.id])];
+ persist();
+ history.replaceState(null,'',location.pathname+'#places');
+ render();
+ openPlace(p.id);
+ toast(existed?'Miejsce jest już zapisane.':'Zapisano miejsce prywatnie. Możesz dodać je do trasy.');
+}
+
 // Events: global ones from ticket platforms, community ones later from verified users
 const EV_WHEN=[['today','Dziś',1],['weekend','Weekend',7],['week','7 dni',7],['month','30 dni',30]];
 const EV_KIND=[['all','Wszystko'],['koncerty','Koncerty'],['teatr','Teatr'],['sport','Sport'],['kino','Kino'],['inne','Inne']];
@@ -475,9 +517,16 @@ function render(){const cityHost=document.querySelector('.city-host');if(cityHos
  else if(tab==='route'){const r=findRoute(id);html=r?detailView(r):`<div class="empty"><p>Ta trasa nie jest już dostępna.</p><a class="button" href="#routes">Wszystkie trasy</a></div>`;}
  else if(tab==='sources')html=sourcesView();else if(tab==='about')html=aboutView();else if(tab==='add-place')html=addPlaceView();else if(tab==='social-saved-places')html=savedPlacesView();
  mapView?.destroy();mapView=null;$('#main').innerHTML=html;if(tab==='profile')window.dispatchEvent(new Event('cityroute:profile-rendered'));document.body.classList.toggle('is-live',isLive());if(tab==='places'){mountPlacesMap();observeApprovedPlaceEnrichment();
-   if(id){const placeId=sharedPlaceId(id),place=placeId?all[placeId]:null;
-    if(publicPlace(place))openPlace(placeId);
-    else $('#main').insertAdjacentHTML('afterbegin','<p class="note" role="status">To miejsce jest niedostępne w publicznym katalogu City Route.</p>');
+   if(id){
+    if(id.startsWith('s-')){
+     const snapshot=decodePlaceSnapshot(id.slice(2));
+     if(snapshot&&snapshot.cityId===city().id)openSharedPlacePreview(snapshot,id.slice(2));
+     else $('#main').insertAdjacentHTML('afterbegin','<p class="note" role="status">Ten link do miejsca jest nieprawidłowy lub dotyczy innego miasta.</p>');
+    }else{
+     const placeId=sharedPlaceId(id),place=placeId?all[placeId]:null;
+     if(publicPlace(place))openPlace(placeId);
+     else $('#main').insertAdjacentHTML('afterbegin','<p class="note" role="status">To miejsce jest niedostępne w publicznym katalogu City Route.</p>');
+    }
    }
   }}
 function start(r){const stops=r.stops.filter(id=>all[id]);if(!stops.length)return toast('Najpierw dodaj co najmniej jedno miejsce.');state.session={id:uuid(),name:r.name,routeId:r.id,stops,index:0,results:[],finished:false,transport:r.transport||'walking',startedAt:new Date().toISOString()};log('route_start',{route_id:r.id,session_id:state.session.id,stops:stops.length});location.hash='my-route';render();}
@@ -488,6 +537,7 @@ document.addEventListener('click',e=>{
  const b=e.target.closest('[data-action]');if(!b)return;const {action,id,value}=b.dataset;
  if(isLive()&&['add','remove','up','down','optimize','save-route','clear-builder','delete-place'].includes(action))return toast('Najpierw zakończ aktywną trasę.');
  if(action==='place')return openPlace(id);
+ if(action==='import-shared-place')return importSharedPlace(value);
  if(action==='view-own-photo'){const photo=all[id]?.images?.[Number(value)];const image=d?.querySelector('.sheet-media img.sheet-photo');if(/^data:image\/jpeg;base64,/.test(photo||'')&&image)image.src=photo;return;}
  if(action==='edit-place-photo'||action==='remove-place-photo'||action==='cover-place-photo'){
   const photos=Array.isArray(draft?.photos)?draft.photos:[],photoId=b.dataset.photoId;

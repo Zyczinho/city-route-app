@@ -344,3 +344,9 @@ img.avatar{object-fit:cover;display:block}.avatar.sm{width:36px;height:36px;font
 .place .side .save-place:focus-visible{outline:3px solid #9fd1fc;outline-offset:2px}
 @media(max-width:759px){.place .side .save-place{min-width:82px;min-height:42px;padding:5px 7px;font-size:10px}}
 @media(max-width:359px){.place .side .save-place{min-width:70px;padding:5px}.place .side .save-place .i{width:14px;height:14px}}
+
+/* City Route share CTA: brand blue, white Lucide icon, 48px touch target. */
+.route-share-cta{background:var(--blue);border-color:var(--blue);color:#fff;min-height:48px}
+.route-share-cta:hover{background:#084f98;border-color:#084f98}
+.route-share-cta:disabled{background:var(--blue-soft);border-color:var(--line);color:var(--muted)}
+.live>.route-share-cta,.finished-share>.route-share-cta{width:100%}

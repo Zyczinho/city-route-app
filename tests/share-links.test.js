@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {routeShareUrl} from '../share-links.js';
+import {routeShareUrl,sharedMapsRouteUrl} from '../share-links.js';
 import {parseRouteSharePath,escapeShareHtml,safeShareImage,sharePreviewHtml,routeShareResponse} from '../share-preview.js';
 
 const UID='123e4567-e89b-12d3-a456-426614174000';
@@ -82,4 +82,20 @@ test('HTML escapes hostile route strings and rejects unlicensed image proxies',(
  assert.equal(safeShareImage('javascript:alert(1)',ORIGIN),null);
  assert.equal(safeShareImage('route-old-warsaw.jpg',ORIGIN),ORIGIN+'/assets/images/route-old-warsaw.jpg');
  assert.equal(escapeShareHtml('a&b'),'a&amp;b');
+});
+
+test('only a verified HTTPS Google Maps itinerary may be shared from a private route',()=>{
+ const valid='https://www.google.com/maps/dir/?api=1&destination=52.2297,21.0122&waypoints=52.24,21.02';
+ assert.equal(sharedMapsRouteUrl(valid),valid);
+ for(const bad of ['javascript:alert(1)','https://google.com.evil.net/maps/dir/?api=1&destination=52.2,21.0','http://google.com/maps/dir/?api=1&destination=52.2,21.0','https://google.com/maps/@52.2,21.0,14z','https://google.com/maps/dir/?api=1'])assert.equal(sharedMapsRouteUrl(bad),null);
+ assert.equal(routeShareUrl('community','mine-local',null,ORIGIN),null);
+});
+test('generated, saved, live, finished and basket share controls are present',async()=>{
+ const fs=await import('node:fs/promises');
+ const app=await fs.readFile(new URL('../app.js',import.meta.url),'utf8');
+ for(const token of ['function privateRouteShareButton','data-route-share="maps"','data-route-share="editorial"','privateRouteShareButton(ps,r.transport,r.name,r.stops.length)','privateRouteShareButton(ps,transport,builderDraft?.name','privateRouteShareButton(items(s.stops),s.transport,s.name,s.stops.length)','ps.length===expectedStops'])assert.ok(app.includes(token),token);
+ const html=await fs.readFile(new URL('../index.html',import.meta.url),'utf8');
+ const sw=await fs.readFile(new URL('../service-worker.js',import.meta.url),'utf8');
+ assert.ok(html.includes('share-links.js?v=2'));
+ assert.ok(sw.includes('share-links.js?v=2'));
 });

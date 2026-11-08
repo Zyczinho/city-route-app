@@ -346,7 +346,8 @@ img.avatar{object-fit:cover;display:block}.avatar.sm{width:36px;height:36px;font
 @media(max-width:359px){.place .side .save-place{min-width:70px;padding:5px}.place .side .save-place .i{width:14px;height:14px}}
 
 /* City Route share CTA: brand blue, white Lucide icon, 48px touch target. */
-.route-share-cta{background:var(--blue);border-color:var(--blue);color:#fff;min-height:48px}
-.route-share-cta:hover{background:#084f98;border-color:#084f98}
-.route-share-cta:disabled{background:var(--blue-soft);border-color:var(--line);color:var(--muted)}
+.route-share-cta{background:#6D28D9;border-color:#6D28D9;color:#fff;min-height:48px}
+.route-share-cta:hover{background:#5B21B6;border-color:#5B21B6}
+.route-share-cta:disabled{background:#F2EBFF;border-color:#DED0FA;color:#65557B}
+.route-share-cta:focus-visible{outline-color:#A78BFA}
 .live>.route-share-cta,.finished-share>.route-share-cta{width:100%}

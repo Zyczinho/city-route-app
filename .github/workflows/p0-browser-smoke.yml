@@ -18,6 +18,9 @@ on:
       - 'service-worker.js'
       - 'tests/p0-browser-smoke.mjs'
       - 'tests/place-share-browser-smoke.mjs'
+      - 'tests/dm-notifications-browser-smoke.mjs'
+      - 'dm-notifications.js'
+      - 'direct-messages-ui.js'
       - 'share-links.js'
       - '.github/workflows/p0-browser-smoke.yml'
 
@@ -38,6 +41,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: node tests/p0-browser-smoke.mjs
       - run: node tests/place-share-browser-smoke.mjs
+      - run: node tests/dm-notifications-browser-smoke.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

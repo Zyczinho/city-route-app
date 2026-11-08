@@ -81,3 +81,25 @@
 .dm-send,.friend-dm-cta{background:#6D28D9;border-color:#6D28D9;color:#fff}
 .dm-send:hover,.friend-dm-cta:hover{background:#5B21B6;border-color:#5B21B6;color:#fff}
 .friend-actions .friend-dm-cta{min-height:38px;padding:7px 10px;font-size:12px}
+
+/* Cross-device unread messages and privacy-safe active-app alerts. City Route community purple. */
+.dm-badge-anchor{position:relative!important}
+.dm-unread-badge,.dm-tab-unread-badge,.dm-chat-unread-badge{
+ display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;
+ border-radius:20px;background:#6D28D9;color:#fff;font-size:11px;font-weight:800;line-height:1;white-space:nowrap
+}
+.dm-unread-badge{position:absolute;top:0;right:1px;z-index:1;box-shadow:0 0 0 2px #fff}
+.dm-tab-unread-badge{position:absolute;top:0;right:2px;z-index:1}
+.dm-chat-unread-badge{flex:none;margin-left:auto}
+.dm-chat-link{position:relative}
+.dm-permission-cta{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.dm-permission-cta small,.dm-permission-ok{color:var(--muted,#667085);font-size:12px;max-width:680px}
+.dm-enable-notifications{background:#6D28D9;border:1px solid #6D28D9;color:#fff;min-height:42px}
+.dm-enable-notifications:hover{background:#5B21B6;border-color:#5B21B6;color:#fff}
+.dm-message-notice{position:fixed;z-index:1200;right:16px;bottom:calc(86px + env(safe-area-inset-bottom,0px));
+ display:flex;align-items:center;gap:12px;max-width:min(430px,calc(100vw - 32px));padding:13px 15px;border-radius:16px;
+ background:#4C1D95;color:#fff;box-shadow:0 14px 32px rgba(26,13,57,.28);font-size:14px;font-weight:650}
+.dm-message-notice a{color:#fff;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.dm-message-notice button{background:transparent;color:#fff;border:0;padding:4px;font-size:22px;line-height:1;min-width:28px;min-height:30px}
+@media(max-width:480px){.dm-message-notice{left:12px;right:12px;bottom:calc(94px + env(safe-area-inset-bottom,0px));
+ flex-wrap:wrap;justify-content:space-between}}

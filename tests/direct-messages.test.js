@@ -37,9 +37,10 @@ test('Postgres RLS restricts reads to participants and inserts to accepted frien
 });
 test('Profile and Community provide the same purple DM CTA and a working conversation form',async()=>{
  const load=path=>readFile(new URL('../'+path,import.meta.url),'utf8');
- const [social,community,friends,hub,index,sw,build]=await Promise.all(['social-routes-enhancements.js','community-enhancements.js','friends.js','community-hub.js','index.html','service-worker.js','scripts/build.mjs'].map(load));
+ const [social,community,dmUi,friends,hub,index,sw,build]=await Promise.all(['social-routes-enhancements.js','community-enhancements.js','direct-messages-ui.js','friends.js','community-hub.js','index.html','service-worker.js','scripts/build.mjs'].map(load));
  for(const marker of ['data-author-dm','Wyślij wiadomość','directChatHref'])assert.ok(social.includes(marker),marker);
- for(const marker of ["view:'dm'","renderDM(", "data-community-form=\"direct-message\"","direct_messages","sendDirectMessage(", "Ostatnie rozmowy"])assert.ok(community.includes(marker),marker);
+ for(const marker of ["view:'dm'","renderDirectThread(", "sendDirectMessage(form)","renderPrivateInbox("])assert.ok(community.includes(marker),marker);
+ for(const marker of ['data-community-form="direct-message"','direct_messages','Ostatnie rozmowy','Rozmowa prywatna'])assert.ok(dmUi.includes(marker),marker);
  assert.ok(friends.includes('Wyślij wiadomość'));
  assert.ok(hub.includes("/dm/"));
  assert.ok(index.includes('community-enhancements.js?v=22'));

@@ -41,9 +41,21 @@ export function createDirectMessagesClient(supabase){
     .select('last_read_message_id').eq('reader_id',me).eq('peer_id',peer).maybeSingle();
    if(readError)throw readError;
    if(id<=(Number(data?.last_read_message_id)||0))return;
-   const {error}=await supabase.from('direct_message_reads')
-    .upsert({reader_id:me,peer_id:peer,last_read_message_id:id},{onConflict:'reader_id,peer_id'});
-   if(error)throw error;
+   // Keep database grants least-privileged: insert new receipt, update only its cursor.
+   if(data){
+    const {error}=await supabase.from('direct_message_reads')
+     .update({last_read_message_id:id}).eq('reader_id',me).eq('peer_id',peer);
+    if(error)throw error;
+   }else{
+    const {error}=await supabase.from('direct_message_reads')
+     .insert({reader_id:me,peer_id:peer,last_read_message_id:id});
+    if(error?.code==='23505'){
+     // Another device created the same receipt concurrently.
+     const {error:retryError}=await supabase.from('direct_message_reads')
+      .update({last_read_message_id:id}).eq('reader_id',me).eq('peer_id',peer);
+     if(retryError)throw retryError;
+    }else if(error)throw error;
+   }
   },
   async send(me,peer,raw){
    const pair=directPair(me,peer);

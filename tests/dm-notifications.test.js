@@ -35,11 +35,33 @@ test('Read receipts use participant-only RLS with no anonymous access or privile
 test('Unread badge and Notification opt-in are wired without background-push promises',async()=>{
  const file=path=>readFile(new URL('../'+path,import.meta.url),'utf8');
  const [runtime,ui,hub,html,worker,build]=await Promise.all(['dm-notifications.js','direct-messages-ui.js','community-hub.js','index.html','service-worker.js','scripts/build.mjs'].map(file));
- for(const t of ['postgres_changes','direct_messages','showNotification','requestPermission','data-enable-dm-notifications','data-dm-unread','aria-live','dm-notification','refreshUnread'])assert.ok(runtime.includes(t),t);
+ for(const t of ['postgres_changes','direct_messages','showNotification','requestPermission','data-enable-dm-notifications','dm-unread-badge','aria-live','dm-notification','refreshUnread'])assert.ok(runtime.includes(t),t);
  for(const t of ['markDirectThreadRead','unreadForPeer','data-dm-peer'])assert.ok(ui.includes(t),t);
  assert.ok(hub.includes('Czaty'));
  assert.ok(html.includes('dm-notifications.js'));
  assert.ok(worker.includes('dm-notifications.js'));
  assert.ok(build.includes("'dm-notifications.js'"));
  assert.ok(worker.includes("notificationclick"));
+});
+
+test('Read receipts insert or update only cursor, never broader identity columns',async()=>{
+ const {createDirectMessagesClient}=await import('../direct-messages-client.js');
+ const me='aaaaaaaa-0000-4000-8000-000000000001',peer='bbbbbbbb-0000-4000-8000-000000000002';
+ const records=[];
+ let existing=null;
+ const table={
+  select(){return this;},eq(){return this;},
+  maybeSingle(){return Promise.resolve({data:existing,error:null});},
+  insert(row){records.push(['insert',row]);return Promise.resolve({error:null});},
+  update(row){records.push(['update',row]);return this;},
+  then(resolve){return Promise.resolve({error:null}).then(resolve);}
+ };
+ const api=createDirectMessagesClient({from(name){assert.equal(name,'direct_message_reads');return table;}});
+ await api.markRead(me,peer,9);
+ assert.deepEqual(records.at(-1),['insert',{reader_id:me,peer_id:peer,last_read_message_id:9}]);
+ existing={last_read_message_id:9};
+ await api.markRead(me,peer,8);
+ assert.equal(records.length,1,'older cursor must not regress');
+ await api.markRead(me,peer,12);
+ assert.deepEqual(records.at(-1),['update',{last_read_message_id:12}]);
 });

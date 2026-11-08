@@ -24,7 +24,7 @@ test('invalid tokens, unsupported origins and out-of-range coordinates cannot cr
  for(const token of ['','x','../../private','<img>','A'.repeat(800),'____'])assert.equal(decodePlaceSnapshot(token),null);
  for(const [lat,lng] of [[91,0],[0,181],[NaN,1],[1,Infinity]])assert.equal(encodePlaceSnapshot({...place,lat,lng},'warsaw'),null);
  assert.equal(encodePlaceSnapshot({...place,lat:null},'warsaw'),null);
- assert.equal(encodePlaceSnapshot({...place,name:'<script>\n'},'warsaw'),null);
+ assert.equal(encodePlaceSnapshot({...place,name:'<script>\nunsafe'},'warsaw'),null);
  const token=encodePlaceSnapshot(place,'warsaw');
  for(const bad of ['javascript:alert(1)','https://city-route.example.evil.com/path','https://city-route.example/evil'])assert.equal(placeSnapshotUrl(token,bad),null);
  assert.equal(placeSnapshotUrl('bad',base),null);

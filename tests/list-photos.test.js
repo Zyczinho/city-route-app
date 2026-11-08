@@ -33,6 +33,7 @@ test('tile is an honest placeholder, not a photo',()=>{
 });
 
 test('catalogue rows use the cheap thumbnail path; only community places use the full lookup from lists',()=>{
+ assert.match(app,/globalThis\.__cityRouteGoogleThumbs===false/,'Google endpoint must be skipped when provider disabled');
  assert.match(app,/const needsProvider=p=>!!p&&\(p\.origin==='community'\|\|p\.kind==='user'\)&&!providerOverlay\.has\(p\.id\)/);
  assert.match(app,/<div class="thumb">\$\{photo\(p,'',false,true\)\}/,'place list rows ask for a thumbnail');
  assert.match(app,/'\/api\/place-thumb\?'\+new URLSearchParams\(/);

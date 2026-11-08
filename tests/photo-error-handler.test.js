@@ -35,6 +35,7 @@ test('Google thumbnail uses category tile, preserves card class and only updates
  assert.equal(img.dataset.failed,'1');
  assert.equal(ctx.handlePhotoError(img),false);
  assert.equal(calls.length,1);
+ assert.match(app,/img\.outerHTML=catTile\(p,esc\(img\.dataset\.thumbCls\|\|''\),geo\)/,'Google errors must retry Commons');
 });
 test('ordinary broken image retains neutral camera fallback',()=>{
  const img=new FakeImage();

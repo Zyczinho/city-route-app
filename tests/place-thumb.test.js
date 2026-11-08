@@ -66,3 +66,14 @@ test('Worker exposes /api/place-thumb as a redirect with a tile-friendly 404',as
  assert.match(worker,/maxWidthPx:url\.searchParams\.get\('w'\)==='800'\?800:320/,'card photos are 800 px, list photos 320 px');
  assert.match(worker,/\|\|await peekGooglePlaceId\(name,lat,lng,caches\.default\)/,'cards reuse a confirmed place_id');
 });
+
+test('Worker declares Google availability without leaking keys and client avoids doomed 404 thumbnails',async()=>{
+ const worker=await readFile(new URL('../worker.js',import.meta.url),'utf8');
+ assert.match(worker,/pathname==='\/api\/photo-capabilities'/);
+ assert.match(worker,/googleThumbnails:!!env\.GOOGLE_PLACES_API_KEY&&env\.GOOGLE_PLACES_BETA_ENABLED==='on'/);
+ assert.match(worker,/commons:true/);
+ const html=await readFile(new URL('../index.html',import.meta.url),'utf8');
+ const runtime=await readFile(new URL('../photo-provider-status.js',import.meta.url),'utf8');
+ assert.ok(html.includes('photo-provider-status.js?v=1'));
+ for(const required of ['/api/photo-capabilities','sessionStorage','MutationObserver','img[data-thumb-for]',"dispatchEvent(new Event('error'))"])assert.ok(runtime.includes(required),required);
+});

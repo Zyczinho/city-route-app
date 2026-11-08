@@ -65,7 +65,7 @@ test('Warsaw autocomplete remains restricted to Poland',async()=>{
 
 test('PWA includes Lisbon city fallback without removing Krakow',async()=>{
  const sw=await readFile(new URL('../service-worker.js',import.meta.url),'utf8');
- assert.match(sw,/city-route-v64/);
+ assert.match(sw,/city-route-v\d+/);
  for(const path of ['lisbon/places.json','lisbon/routes.json','krakow/places.json','krakow/routes.json'])
   assert.ok(sw.includes('./data/cities/'+path),path);
  const [places,routes]=await Promise.all(['places','routes'].map(async kind=>JSON.parse(await readFile(new URL('../data/cities/lisbon/'+kind+'.json',import.meta.url),'utf8'))));

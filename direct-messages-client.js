@@ -21,10 +21,29 @@ export function createDirectMessagesClient(supabase){
   async recent(me,limit=200){
    if(!validDirectUserId(me))throw Error('invalid-user');
    const {data,error}=await supabase.from('direct_messages')
-    .select('user_low,user_high,sender_id,body,created_at')
+    .select('id,user_low,user_high,sender_id,body,created_at')
     .or('user_low.eq.'+me+',user_high.eq.'+me)
     .order('created_at',{ascending:false}).limit(Math.min(Math.max(limit,1),200));
    if(error)throw error;return data||[];
+  },
+  async readReceipts(me){
+   if(!validDirectUserId(me))throw Error('invalid-user');
+   const {data,error}=await supabase.from('direct_message_reads')
+    .select('reader_id,peer_id,last_read_message_id').eq('reader_id',me);
+   if(error)throw error;
+   return data||[];
+  },
+  async markRead(me,peer,messageId){
+   const pair=directPair(me,peer),id=Number(messageId);
+   if(!pair||!Number.isSafeInteger(id)||id<1)throw Error('invalid-read-cursor');
+   // Do not regress another device's newer cursor.
+   const {data,error:readError}=await supabase.from('direct_message_reads')
+    .select('last_read_message_id').eq('reader_id',me).eq('peer_id',peer).maybeSingle();
+   if(readError)throw readError;
+   if(id<=(Number(data?.last_read_message_id)||0))return;
+   const {error}=await supabase.from('direct_message_reads')
+    .upsert({reader_id:me,peer_id:peer,last_read_message_id:id},{onConflict:'reader_id,peer_id'});
+   if(error)throw error;
   },
   async send(me,peer,raw){
    const pair=directPair(me,peer);

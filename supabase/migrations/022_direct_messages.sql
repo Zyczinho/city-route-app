@@ -1,6 +1,6 @@
 -- 022: Private direct messages between accepted City Route friends.
 -- Keep public.messages (group chat) untouched; participant-only history, accepted-friend-only inserts.
--- No service role key, user metadata or SECURITY DEFINER authorization.
+-- No privileged auth bypass, service secret or user-controlled authorization metadata.
 create table if not exists public.direct_messages (
  id bigint generated always as identity primary key,
  user_low uuid not null references auth.users(id) on delete cascade,

@@ -1,0 +1,38 @@
+// 022: deterministic participant pair + validated route for friend-only City Route DMs.
+const UUID=/^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i;
+export const validDirectUserId=id=>typeof id==='string'&&UUID.test(id);
+export function directPair(a,b){
+ if(!validDirectUserId(a)||!validDirectUserId(b)||a.toLowerCase()===b.toLowerCase())return null;
+ const [user_low,user_high]=[a.toLowerCase(),b.toLowerCase()].sort();
+ return {user_low,user_high};
+}
+export const directChatHref=peer=>validDirectUserId(peer)?'#routes/community/dm/'+peer.toLowerCase():null;
+export function createDirectMessagesClient(supabase){
+ return {
+  async thread(me,peer,limit=100){
+   const pair=directPair(me,peer);if(!pair)throw Error('invalid-peer');
+   const {data,error}=await supabase.from('direct_messages')
+    .select('id,user_low,user_high,sender_id,body,created_at')
+    .eq('user_low',pair.user_low).eq('user_high',pair.user_high)
+    .order('created_at',{ascending:false}).limit(Math.min(Math.max(limit,1),100));
+   if(error)throw error;
+   return (data||[]).reverse();
+  },
+  async recent(me,limit=200){
+   if(!validDirectUserId(me))throw Error('invalid-user');
+   const {data,error}=await supabase.from('direct_messages')
+    .select('user_low,user_high,sender_id,body,created_at')
+    .or('user_low.eq.'+me+',user_high.eq.'+me)
+    .order('created_at',{ascending:false}).limit(Math.min(Math.max(limit,1),200));
+   if(error)throw error;return data||[];
+  },
+  async send(me,peer,raw){
+   const pair=directPair(me,peer);
+   const body=String(raw??'').trim();
+   if(!pair||!body||body.length>2000)throw Error('invalid-message');
+   const {error}=await supabase.from('direct_messages')
+    .insert({...pair,sender_id:me.toLowerCase(),body});
+   if(error)throw error;
+  }
+ };
+}

@@ -80,6 +80,8 @@ async function showForegroundDeviceNotification(peer){
  try{
   if('serviceWorker' in navigator){
    const registration=await navigator.serviceWorker.ready;
+   // Installed apps subscribed to server Web Push will get one OS alert from the push event.
+   if(await registration.pushManager?.getSubscription())return;
    if(registration?.showNotification){await registration.showNotification('City Route · Nowa wiadomość',options);return;}
   }
   const notification=new Notification('City Route · Nowa wiadomość',options);

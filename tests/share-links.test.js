@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {routeShareUrl,sharedMapsRouteUrl} from '../share-links.js';
+import {routeShareUrl,sharedMapsRouteUrl,placeShareUrl} from '../share-links.js';
 import {parseRouteSharePath,escapeShareHtml,safeShareImage,sharePreviewHtml,routeShareResponse} from '../share-preview.js';
 
 const UID='123e4567-e89b-12d3-a456-426614174000';
@@ -96,6 +96,21 @@ test('generated, saved, live, finished and basket share controls are present',as
  for(const token of ['function privateRouteShareButton','data-route-share="maps"','data-route-share="editorial"','privateRouteShareButton(ps,r.transport,r.name,r.stops.length)','privateRouteShareButton(ps,transport,builderDraft?.name','privateRouteShareButton(items(s.stops),s.transport,s.name,s.stops.length)','ps.length===expectedStops'])assert.ok(app.includes(token),token);
  const html=await fs.readFile(new URL('../index.html',import.meta.url),'utf8');
  const sw=await fs.readFile(new URL('../service-worker.js',import.meta.url),'utf8');
- assert.ok(html.includes('share-links.js?v=2'));
- assert.ok(sw.includes('share-links.js?v=2'));
+ assert.ok(html.includes('share-links.js?v=3'));
+ assert.ok(sw.includes('share-links.js?v=3'));
+});
+test('public City Route place links open the exact place in the selected city, not Google Maps',()=>{
+ const url=placeShareUrl('osm-node-10253764125','lisbon',ORIGIN);
+ assert.equal(url,ORIGIN+'/?shareCity=lisbon#places/osm-node-10253764125');
+ assert.equal(placeShareUrl('old-town','warsaw',ORIGIN),ORIGIN+'/?shareCity=warsaw#places/old-town');
+ for(const id of ['u-private/other','../private','<script>','', 'x'.repeat(200)])assert.equal(placeShareUrl(id,'warsaw',ORIGIN),null,id);
+ for(const city of ['../warsaw','<img>',''])assert.equal(placeShareUrl('old-town',city,ORIGIN),null,city);
+ assert.equal(placeShareUrl('old-town','warsaw','javascript:evil'),null);
+});
+test('place share button, deep links, private guards and purple community rating wired',async()=>{
+ const {readFile}=await import('node:fs/promises');
+ const app=await readFile(new URL('../app.js',import.meta.url),'utf8');
+ const css=await readFile(new URL('../styles.css',import.meta.url),'utf8');
+ for(const s of ['data-place-share=','publicPlace(p)','function sharedPlaceId(raw)','if(publicPlace(place))openPlace(placeId)','route|community-route|places','To miejsce jest niedostępne w publicznym katalogu'])assert.ok(app.includes(s),s);
+ for(const s of ['--cr-community:#6D28D9','.place-share-cta','.cr-score{color:var(--cr-community)','.my-review button{background:var(--cr-community)'])assert.ok(css.includes(s),s);
 });

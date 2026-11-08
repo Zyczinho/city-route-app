@@ -1,4 +1,5 @@
-// SHARE-LINKS-116: stable HTTPS route paths; device-only drafts are not shareable.
+import {decodePlaceSnapshot,placeSnapshotUrl} from './place-share-model.js';
+// SHARE-LINKS-116: stable HTTPS route paths; private place links carry only a minimal location snapshot.
 export function routeShareUrl(kind,id,city,origin){
  const uuid=/^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i;
  const slug=/^[a-z0-9][a-z0-9_-]{0,119}$/i;
@@ -23,11 +24,11 @@ export function placeShareUrl(id,city,origin){
  if(!/^[a-z0-9][a-z0-9_.:-]{0,159}$/i.test(String(id))||!/^[a-z0-9][a-z0-9_-]{0,79}$/i.test(String(city)))return null;
  return origin.replace(/\/+$/,'')+'/?shareCity='+encodeURIComponent(city)+'#places/'+encodeURIComponent(id);
 }
-function shareFallback(url,title,external=false,place=false){
+function shareFallback(url,title,external=false,place=false,privatePlace=false){
  const dlg=document.createElement("dialog");dlg.className="social-dialog route-share-dialog";
  const form=document.createElement("form");form.method="dialog";
  const heading=document.createElement("h2");heading.textContent=place?"Udostępnij miejsce":external?"Udostępnij plan":"Udostępnij trasę";
- const note=document.createElement("p");note.textContent=place?title+" · Miejsce w City Route":external?title+" · Plan Google Maps":title;
+ const note=document.createElement("p");note.textContent=privatePlace?title+" · Udostępnisz nazwę i pinezkę. Notatki, zdjęcia i oceny pozostaną prywatne.":place?title+" · Miejsce w City Route":external?title+" · Plan Google Maps":title;
  const field=document.createElement("input");field.type="url";field.readOnly=true;field.value=url;field.setAttribute("aria-label",place?"Link do miejsca":"Link do trasy");
  const actions=document.createElement("div");actions.className="route-share-choices";
  const copy=document.createElement("button");copy.type="button";copy.textContent="Kopiuj link";
@@ -53,13 +54,14 @@ async function useRouteShare(button){
 
 async function usePlaceShare(button){
  const id=button.dataset.placeShare,city=button.dataset.placeCity,title=String(button.dataset.placeTitle||'Miejsce City Route').slice(0,140);
- const url=placeShareUrl(id,city,location.origin);
- if(!url){alert('Udostępniać można tylko miejsca dostępne w publicznym katalogu City Route.');return;}
+ const token=button.dataset.placePayload||'',privatePlace=!!token,snapshot=privatePlace?decodePlaceSnapshot(token):null;
+ const url=privatePlace&&snapshot?.cityId===city?placeSnapshotUrl(token,location.origin):privatePlace?null:placeShareUrl(id,city,location.origin);
+ if(!url){alert('Nie można udostępnić miejsca bez nazwy i poprawnej lokalizacji.');return;}
  if(typeof navigator.share==='function'){
-  try{await navigator.share({title,text:'Odkryj miejsce w City Route',url});return;}
+  try{await navigator.share({title,text:privatePlace?'Zobacz nazwę i lokalizację miejsca w City Route':'Odkryj miejsce w City Route',url});return;}
   catch(error){if(error?.name==='AbortError')return;}
  }
- shareFallback(url,title,false,true);
+ shareFallback(url,title,false,true,privatePlace);
 }
 function installRouteShare(){
  if(typeof document==="undefined")return;

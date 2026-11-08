@@ -17,15 +17,21 @@ export function sharedMapsRouteUrl(raw){
  }catch{return null;}
 }
 
-function shareFallback(url,title,external=false){
+// Public City Route place deep links use the verified catalogue ID and city. Never share local-only places.
+export function placeShareUrl(id,city,origin){
+ if(typeof origin!=='string'||!/^https?:\/\/[a-z0-9.-]+(?::\d+)?\/?$/i.test(origin))return null;
+ if(!/^[a-z0-9][a-z0-9_.:-]{0,159}$/i.test(String(id))||!/^[a-z0-9][a-z0-9_-]{0,79}$/i.test(String(city)))return null;
+ return origin.replace(/\/+$/,'')+'/?shareCity='+encodeURIComponent(city)+'#places/'+encodeURIComponent(id);
+}
+function shareFallback(url,title,external=false,place=false){
  const dlg=document.createElement("dialog");dlg.className="social-dialog route-share-dialog";
  const form=document.createElement("form");form.method="dialog";
- const heading=document.createElement("h2");heading.textContent=external?"Udostępnij plan":"Udostępnij trasę";
- const note=document.createElement("p");note.textContent=external?title+" · Plan Google Maps":title;
- const field=document.createElement("input");field.type="url";field.readOnly=true;field.value=url;field.setAttribute("aria-label","Link do trasy");
+ const heading=document.createElement("h2");heading.textContent=place?"Udostępnij miejsce":external?"Udostępnij plan":"Udostępnij trasę";
+ const note=document.createElement("p");note.textContent=place?title+" · Miejsce w City Route":external?title+" · Plan Google Maps":title;
+ const field=document.createElement("input");field.type="url";field.readOnly=true;field.value=url;field.setAttribute("aria-label",place?"Link do miejsca":"Link do trasy");
  const actions=document.createElement("div");actions.className="route-share-choices";
  const copy=document.createElement("button");copy.type="button";copy.textContent="Kopiuj link";
- const whats=document.createElement("a");whats.className="button primary";whats.href="https://wa.me/?text="+encodeURIComponent("Sprawdź "+(external?"plan ":"trasę ")+title+(external?" w Google Maps":" w City Route")+": "+url);whats.target="_blank";whats.rel="noopener noreferrer";whats.textContent="WhatsApp";
+ const whats=document.createElement("a");whats.className="button primary";whats.href="https://wa.me/?text="+encodeURIComponent("Sprawdź "+(place?"miejsce ":external?"plan ":"trasę ")+title+(external?" w Google Maps":" w City Route")+": "+url);whats.target="_blank";whats.rel="noopener noreferrer";whats.textContent="WhatsApp";
  const close=document.createElement("button");close.type="submit";close.textContent="Zamknij";
  const status=document.createElement("p");status.setAttribute("role","status");status.className="fine";
  copy.addEventListener("click",async()=>{try{
@@ -45,9 +51,20 @@ async function useRouteShare(button){
  shareFallback(url,title,external);
 }
 
+async function usePlaceShare(button){
+ const id=button.dataset.placeShare,city=button.dataset.placeCity,title=String(button.dataset.placeTitle||'Miejsce City Route').slice(0,140);
+ const url=placeShareUrl(id,city,location.origin);
+ if(!url){alert('Udostępniać można tylko miejsca dostępne w publicznym katalogu City Route.');return;}
+ if(typeof navigator.share==='function'){
+  try{await navigator.share({title,text:'Odkryj miejsce w City Route',url});return;}
+  catch(error){if(error?.name==='AbortError')return;}
+ }
+ shareFallback(url,title,false,true);
+}
 function installRouteShare(){
  if(typeof document==="undefined")return;
  document.addEventListener("click",event=>{
+  const place=event.target.closest?.("[data-place-share]");if(place){event.preventDefault();event.stopPropagation();void usePlaceShare(place);return;}
   const button=event.target.closest?.("[data-route-share]");if(!button)return;
   event.preventDefault();event.stopPropagation();void useRouteShare(button);
  },true);

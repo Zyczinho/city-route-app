@@ -2,6 +2,8 @@
 import {supabase} from './supabase-client.js';
 import {createFriendsClient} from './friends-client.js';
 import {createDirectMessagesClient,directPair,directChatHref} from './direct-messages-client.js';
+import {markDirectThreadRead,unreadForPeer,dmNotificationControls} from './dm-notifications.js';
+import {highestMessageId} from './dm-notifications-model.js';
 const friends=createFriendsClient(supabase),api=createDirectMessagesClient(supabase);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmtDate=value=>new Intl.DateTimeFormat('pl-PL',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(value));
@@ -27,9 +29,9 @@ export async function renderPrivateInbox(session){
  const cards=ordered.map(friend=>{
   const msg=latest.get(friend.user_id),url=directChatHref(friend.user_id);
   if(!url)return '';
-  return `<a class="community-chat-link dm-chat-link" href="${url}"><span class="community-chat-icon">${esc(String(friend.nickname||'O').slice(0,1).toUpperCase())}</span><span class="community-chat-copy"><strong>@${esc(friend.nickname||'Odkrywca')}</strong><small>${msg?esc(msg.body):'Napisz pierwszą wiadomość'}</small></span>${msg?`<time>${esc(fmtDate(msg.created_at))}</time>`:''}</a>`;
+  return `<a class="community-chat-link dm-chat-link" data-dm-peer="${esc(friend.user_id)}" href="${url}"><span class="community-chat-icon">${esc(String(friend.nickname||'O').slice(0,1).toUpperCase())}</span><span class="community-chat-copy"><strong>@${esc(friend.nickname||'Odkrywca')}</strong><small>${msg?esc(msg.body):'Napisz pierwszą wiadomość'}</small></span>${msg?`<time>${esc(fmtDate(msg.created_at))}</time>`:''}${unreadForPeer(friend.user_id)>0?`<span class="dm-chat-unread-badge" aria-label="${unreadForPeer(friend.user_id)} nieprzeczytanych">${unreadForPeer(friend.user_id)>99?'99+':unreadForPeer(friend.user_id)}</span>`:''}</a>`;
  }).join('');
- return `<h2 class="dm-section-title">Ostatnie rozmowy · Prywatne</h2><div class="community-chat-index">${cards||'<p class="community-empty-inline">Dodaj znajomego, aby rozpocząć rozmowę.</p>'}</div>${note}`;
+ return `<h2 class="dm-section-title">Ostatnie rozmowy · Prywatne</h2>${dmNotificationControls()}<div class="community-chat-index">${cards||'<p class="community-empty-inline">Dodaj znajomego, aby rozpocząć rozmowę.</p>'}</div>${note}`;
 }
 export async function renderDirectThread({peerId,session,shell}){
  stopDirectThread();
@@ -54,6 +56,7 @@ export async function renderDirectThread({peerId,session,shell}){
   shell('@'+friend.nickname,`<div class="dm-peer-head"><span>Rozmowa prywatna · tylko Wy dwoje</span><a href="#social-profile/${esc(peerId)}">Profil odkrywcy</a></div><section class="chat-panel dm-panel"><div class="chat-list" data-chat-list aria-label="Wiadomości prywatne">${cards||'<p class="community-empty-inline">Nie macie jeszcze wiadomości. Napisz pierwszą!</p>'}</div><form class="chat-form dm-form" data-community-form="direct-message" data-peer="${esc(peerId)}"><label class="sr-only" for="direct-message-body">Wiadomość do @${esc(friend.nickname)}</label><textarea id="direct-message-body" name="body" required maxlength="2000" rows="2" placeholder="Napisz wiadomość…"></textarea><button type="submit" class="dm-send">Wyślij</button></form></section><p class="community-status" role="status" data-community-status></p>`);
   const list=document.querySelector('[data-chat-list]');if(list)list.scrollTop=list.scrollHeight;
   lastArgs={peerId,session,shell};
+  if(document.visibilityState==='visible')void markDirectThreadRead(me,peerId,highestMessageId(messages));
   channel=supabase.channel('city-route-dm-'+pair.user_low+'-'+pair.user_high)
    .on('postgres_changes',{event:'INSERT',schema:'public',table:'direct_messages',filter:'user_low=eq.'+pair.user_low},event=>{
     if(event.new?.user_high!==pair.user_high||location.hash!==expected)return;

@@ -361,3 +361,7 @@ img.avatar{object-fit:cover;display:block}.avatar.sm{width:36px;height:36px;font
 .my-review button:hover{background:var(--cr-community-hover);border-color:var(--cr-community-hover)}
 .my-review select{accent-color:var(--cr-community)}
 .place-share-cta{width:100%}
+
+/* One community color for both the City Route sharing dialog and place share CTA. */
+.route-share-dialog .route-share-choices button,.route-share-dialog .route-share-choices .primary{background:var(--cr-community);border-color:var(--cr-community);color:#fff}
+.route-share-dialog .route-share-choices button:hover,.route-share-dialog .route-share-choices .primary:hover{background:var(--cr-community-hover);border-color:var(--cr-community-hover)}

@@ -4,6 +4,7 @@ import {avatarUrl} from './profile-avatar-model.js';
 import {SUPABASE_URL} from './supabase-config.js';
 import {createSocialRoutesClient} from './social-routes-client.js';
 import {createFriendsClient,normalizeFriendsError} from './friends-client.js';
+import {directChatHref} from './direct-messages-client.js';
 import {createFollowsClient} from './follows-client.js';
 
 const api=createSocialRoutesClient({client:supabase});
@@ -139,7 +140,7 @@ async function renderCommunityRoute(id){
 // One-way following remains distinct; a friend request needs mutual acceptance.
 function authorRelationship(userId){
  if(!session||session.user.id===userId)return session?'':'<a class="button" href="#profile">Zaloguj się, aby obserwować lub dodać do znajomych</a>';
- return '<div class="social-author-relationship" data-author-relationship="'+esc(userId)+'"><button type="button" data-author-follow="'+esc(userId)+'" aria-pressed="false" disabled>Obserwuj</button><span class="social-followers" data-author-followers hidden></span><span class="fine" role="status" data-author-follow-status></span><button type="button" data-author-friend="'+esc(userId)+'" data-mode="request">Dodaj do znajomych</button><span class="fine" role="status" data-author-friend-status></span></div>';
+ return '<div class="social-author-relationship" data-author-relationship="'+esc(userId)+'"><button type="button" data-author-follow="'+esc(userId)+'" aria-pressed="false" disabled>Obserwuj</button><span class="social-followers" data-author-followers hidden></span><span class="fine" role="status" data-author-follow-status></span><button type="button" data-author-friend="'+esc(userId)+'" data-mode="request">Dodaj do znajomych</button><span class="fine" role="status" data-author-friend-status></span><a class="button author-dm-cta" data-author-dm="'+esc(userId)+'" href="'+esc(directChatHref(userId)||'#routes/community/chats')+'" hidden>Wyślij wiadomość</a></div>';
 }
 async function syncAuthorRelationship(userId){
  if(!session||session.user.id===userId)return;
@@ -155,6 +156,7 @@ async function syncAuthorRelationship(userId){
    else if(friend?.friend_status==='pending'&&friend.requested_by_me){button.textContent='Zaproszenie wysłane';button.disabled=true;button.dataset.mode='pending';}
    else if(friend?.friend_status==='pending'){button.textContent='Akceptuj zaproszenie';button.dataset.mode='accept';}
    else{button.textContent='Dodaj do znajomych';button.dataset.mode='request';}
+   const dm=area.querySelector('[data-author-dm]');if(dm)dm.hidden=friend?.friend_status!=='accepted';
    if(status)status.textContent='';
   }
  }catch(error){for(const area of areas){const note=area.querySelector('[data-author-friend-status]');if(note)note.textContent='Nie można sprawdzić zaproszeń ('+normalizeFriendsError(error).code+').';}}

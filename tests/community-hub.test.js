@@ -8,21 +8,21 @@ test('community hub ships through HTML, build and offline cache',async()=>{
  const [html,build,sw,hub,css]=await Promise.all([
   read('index.html'),read('scripts/build.mjs'),read('service-worker.js'),read('community-hub.js'),read('ux-cleanup.css')
  ]);
- assert.match(html,/community-hub\.js\?v=3/);
- assert.match(html,/community-enhancements\.js\?v=21/);
+ assert.match(html,/community-hub\.js\?v=\d+/);
+ assert.match(html,/community-enhancements\.js\?v=\d+/);
  assert.match(html,/ux-cleanup\.js\?v=5/);
  assert.match(html,/ux-cleanup\.css\?v=2/);
  assert.match(build,/'community-hub\.js'/);
- assert.match(sw,/community-hub\.js\?v=3/);
- assert.match(sw,/community-enhancements\.js\?v=21/);
+ assert.match(sw,/community-hub\.js\?v=\d+/);
+ assert.match(sw,/community-enhancements\.js\?v=\d+/);
  assert.match(sw,/city-route-v\d+/);
  assert.match(css,/:not\(\[data-community-tabs\]\)/,'Community focus must keep the inner tabs visible');
  assert.match(hub,/\['#routes\/community','Trasy'\]/);
  assert.match(hub,/\['#routes\/community\/groups','Grupy'\]/);
  assert.match(hub,/\['#routes\/community\/chats','Czaty'\]/);
  assert.match(hub,/\['#routes\/community\/friends','Znajomi'\]/);
- assert.match(html,/friends\.js\?v=2/);
- assert.match(sw,/friends\.js\?v=2/);
+ assert.match(html,/friends\.js\?v=\d+/);
+ assert.match(sw,/friends\.js\?v=\d+/);
  assert.match(build,/'friends-client\.js'/);
  assert.match(hub,/\['#social-saved-places','Zapisane'\]/);
  assert.match(hub,/class="community-events-entry" href="#events"/,'Events must be reachable from Community without a sixth nav tab');

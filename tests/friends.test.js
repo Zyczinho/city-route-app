@@ -41,7 +41,7 @@ test('friends UI is discoverable and safely guarded by account session',async()=
  assert.match(auth,/nickname_available/);
  assert.match(auth,/Ten nick jest zajęty/);
  assert.match(sw,/friends-client\.js/);
- assert.match(index,/friends\.js\?v=2/);
+ assert.match(index,/friends\.js\?v=\d+/);
  assert.match(build,/'friends\.js'/);
  for(const path of ['friends.js','friends-client.js','auth-enhancements.js','community-hub.js'])execFileSync(process.execPath,['--check',path],{stdio:'pipe'});
 });

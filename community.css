@@ -69,3 +69,15 @@
 /* PROFILE-AVATAR + friend profile links (founder report 2026-11-05). */
 .friend-profile-link{color:inherit;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
 .friend-profile-link:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:8px}
+
+/* Direct messages: City Route purple, visually separate from group chat. */
+.dm-section-title{font-size:17px;margin:12px 0 0}
+.dm-chat-link .community-chat-icon{background:#F2EBFF;color:#6D28D9}
+.dm-chat-link:hover{border-color:#6D28D9}
+.dm-peer-head{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;font-size:13px;color:var(--muted)}
+.dm-peer-head a{color:#6D28D9;font-weight:700}
+.dm-panel{max-width:760px}
+.dm-message.own{background:#F2EBFF;color:#442080}
+.dm-send,.friend-dm-cta{background:#6D28D9;border-color:#6D28D9;color:#fff}
+.dm-send:hover,.friend-dm-cta:hover{background:#5B21B6;border-color:#5B21B6;color:#fff}
+.friend-actions .friend-dm-cta{min-height:38px;padding:7px 10px;font-size:12px}

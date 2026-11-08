@@ -127,6 +127,7 @@ function catTile(p,cls,geo){const [icon,mood]=CAT_TILE[p?.categoryId]||CAT_TILE[
 // place card. Browser lazy loading means only rows near the screen are requested. A 404 swaps the image for the
 // category tile (see the error listener below).
 function thumbUrl(p,w=320){
+ if(globalThis.__cityRouteGoogleThumbs===false)return null;
  if(!p?.name||!Number.isFinite(Number(p.lat))||!Number.isFinite(Number(p.lng))||p.kind==='sidequest')return null;
  const c=cities.find(x=>x.id===p.cityId)||city();
  return '/api/place-thumb?'+new URLSearchParams({name:String(p.name),lat:String(p.lat),lng:String(p.lng),cityName:c.name||'Warszawa',
@@ -140,7 +141,10 @@ function handlePhotoError(img){
  img.dataset.failed='1';
  if(img.dataset.thumbFor){
   const p=all[img.dataset.thumbFor];
-  img.outerHTML=catTile(p,esc(img.dataset.thumbCls||''),'');
+  const geo=p?.id&&p?.name&&Number.isFinite(Number(p.lat))&&Number.isFinite(Number(p.lng))
+   ?' data-commons-photo="'+esc(p.id)+'" data-commons-name="'+esc(p.name)+'" data-commons-lat="'+Number(p.lat)+'" data-commons-lng="'+Number(p.lng)+'"':'';
+  // A missing Google thumbnail is not proof that no Commons photo exists.
+  img.outerHTML=catTile(p,esc(img.dataset.thumbCls||''),geo);
  }else{
   img.outerHTML=`<div class="ph ${esc(img.className)}">${ic('camera')}</div>`;
  }

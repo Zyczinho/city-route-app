@@ -183,6 +183,12 @@ export default {
    if(request.method!=='GET')return json({status:'method-not-allowed'},405);
    return placeEnrichment(url,env,ctx);
   }
+  if(pathname==='/api/photo-capabilities'){
+   if(request.method!=='GET')return json({status:'method-not-allowed'},405);
+   // Public capability flag only; never expose credentials or quota counters.
+   return new Response(JSON.stringify({googleThumbnails:!!env.GOOGLE_PLACES_API_KEY&&env.GOOGLE_PLACES_BETA_ENABLED==='on',commons:true}),{
+    headers:{'content-type':'application/json; charset=utf-8','cache-control':'public, max-age=120','x-content-type-options':'nosniff'}});
+  }
   if(pathname==='/api/place-thumb'){
    if(request.method!=='GET')return json({status:'method-not-allowed'},405);
    return placeThumb(url,env,ctx);

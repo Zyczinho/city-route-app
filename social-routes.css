@@ -60,3 +60,8 @@
 
 /* PROFILE-AVATAR: account photo on public profiles. */
 .social-profile-avatar{display:block;width:72px;height:72px;border-radius:50%;object-fit:cover;background:var(--line-2);margin:12px 0 4px}
+
+/* Mutual friends can send a direct message from the profile; following alone cannot. */
+.social-author-relationship .author-dm-cta{background:#6D28D9;border:1px solid #6D28D9;color:#fff;min-height:44px;font-weight:750}
+.social-author-relationship .author-dm-cta:hover{background:#5B21B6;border-color:#5B21B6}
+.social-author-relationship .author-dm-cta[hidden]{display:none}

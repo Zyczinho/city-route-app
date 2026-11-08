@@ -236,6 +236,7 @@ try{
  const detailPage=await detailCtx.newPage();
  await detailPage.goto(BASE+'/#community-route/'+testRouteId,{waitUntil:'domcontentloaded'});
  await detailPage.locator('[data-social-route-root="'+testRouteId+'"] .social-stops li').first().waitFor({timeout:20000});
+ await detailPage.waitForFunction(()=>document.querySelectorAll('.social-stops li').length===2,{timeout:8000});
  assert.equal(await detailPage.locator('.social-stops li').count(),2,'detail shows published route stops');
  assert.equal(await detailPage.locator('.social-detail h1').textContent(),'Kraków — test trasy');
  assert.equal(await detailPage.locator('.social-detail .back').textContent(),'Społeczność');

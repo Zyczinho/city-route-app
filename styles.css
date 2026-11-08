@@ -365,3 +365,6 @@ img.avatar{object-fit:cover;display:block}.avatar.sm{width:36px;height:36px;font
 /* One community color for both the City Route sharing dialog and place share CTA. */
 .route-share-dialog .route-share-choices button,.route-share-dialog .route-share-choices .primary{background:var(--cr-community);border-color:var(--cr-community);color:#fff}
 .route-share-dialog .route-share-choices button:hover,.route-share-dialog .route-share-choices .primary:hover{background:var(--cr-community-hover);border-color:var(--cr-community-hover)}
+
+/* Private City Route place link: temporary preview, never automatic catalogue publication. */
+.shared-place-note{background:#F2EBFF;border:1px solid #DED0FA;color:#442080;border-radius:12px;padding:12px;line-height:1.5}

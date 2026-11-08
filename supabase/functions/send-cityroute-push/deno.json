@@ -1,1 +1,3 @@
-{"compilerOptions":{"lib":["deno.window","dom"],"strict":true}}\n
+{
+  "compilerOptions": { "strict": false }
+}

@@ -1,5 +1,6 @@
 import { supabase } from './supabase-client.js';
 import {renderPrivateInbox,renderDirectThread,sendDirectMessage,stopDirectThread} from './direct-messages-ui.js';
+import {renderActivityCenter} from './activity-notifications.js';
 
 let session=null;
 let channel=null;
@@ -17,6 +18,7 @@ const communityPath=()=>{
   if(parts[0]!=='routes'||parts[1]!=='community')return null;
   if(parts[2]==='groups')return {view:'groups',id:null};
   if(parts[2]==='chats')return {view:'chats',id:null};
+  if(parts[2]==='notifications')return {view:'notifications',id:null};
   if(parts[2]==='dm')return {view:'dm',id:parts[3]||null};
   if(parts[2]==='group'||parts[2]==='chat')return {view:'group',id:parts[3]||null,origin:parts[2]};
   return null;
@@ -168,7 +170,8 @@ async function routeRender(){
     const path=communityPath();
     if(path?.view!=='dm')stopDirectThread();
     if(path){
-      if(path.view==='chats')await renderChats();
+      if(path.view==='notifications')await renderActivityCenter({session,shell});
+      else if(path.view==='chats')await renderChats();
       else if(path.view==='dm'&&path.id)await renderDirectThread({peerId:path.id,session,shell});
       else if(path.view==='group'&&path.id)await renderGroup(path.id);
       else await renderGroups();

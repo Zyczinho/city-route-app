@@ -14,6 +14,7 @@ const communityView=()=>{
  if(hash==='#social-saved-places')return 'saved-places';
  if(hash.startsWith('#profile/community'))return 'groups';
  if(hash.startsWith('#routes/community')){
+  if(hash.startsWith('#routes/community/notifications'))return 'notifications';
   if(hash.startsWith('#routes/community/chats')||hash.startsWith('#routes/community/chat/')||hash.startsWith('#routes/community/dm/'))return 'chats';
   if(hash.startsWith('#routes/community/friends'))return 'friends';
   if(hash.startsWith('#routes/community/groups')||hash.startsWith('#routes/community/group/'))return 'groups';

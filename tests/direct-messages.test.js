@@ -43,7 +43,7 @@ test('Profile and Community provide the same purple DM CTA and a working convers
  for(const marker of ['data-community-form="direct-message"','direct_messages','Ostatnie rozmowy','Rozmowa prywatna'])assert.ok(dmUi.includes(marker),marker);
  assert.ok(friends.includes('Wyślij wiadomość'));
  assert.ok(hub.includes("/dm/"));
- assert.ok(index.includes('community-enhancements.js?v=22'));
+ assert.match(index,/community-enhancements\.js\?v=\d+/);
  assert.ok(sw.includes('direct-messages-client.js'));
  assert.ok(build.includes('direct-messages-client.js'));
  for(const f of ['community-enhancements.js','social-routes-enhancements.js','direct-messages-client.js','friends.js'])execFileSync(process.execPath,['--check',f],{stdio:'pipe'});

@@ -33,10 +33,12 @@ export async function findGooglePlaceId({name,lat,lng,cityName='Warszawa',google
 export async function cachedGooglePlaceId(params,{cache,ctx}){
  const key=new Request(placeIdCacheKey(params.name,params.lat,params.lng));
  const hit=cache&&await cache.match(key);
- if(hit){const v=await hit.json().catch(()=>null);return v?.id&&ID_RE.test(v.id)?v.id:null;}
+ if(hit){const v=await hit.json().catch(()=>null);if(v?.id&&ID_RE.test(v.id))return v.id;
+  // Old v1 cached transient failures for a week. Retry once, then cache a short-lived v2 miss.
+  if(v?.version===2&&v.id===null)return null;}
  const id=await findGooglePlaceId(params);
  if(cache){
-  const res=new Response(JSON.stringify({id}),{headers:{'content-type':'application/json','cache-control':`public, max-age=${id?2592000:604800}`}});
+  const res=new Response(JSON.stringify({id,version:2}),{headers:{'content-type':'application/json','cache-control':`public, max-age=${id?2592000:300}`}});
   const put=cache.put(key,res);ctx?.waitUntil?ctx.waitUntil(put):await put;
  }
  return id;

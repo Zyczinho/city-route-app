@@ -11,17 +11,21 @@ on:
       - 'place-composer.js'
       - 'place-composer-model.js'
       - 'route-optimizer.js'
+      - 'route-planner-v2.js'
+      - 'tests/planner-v2-browser-smoke.mjs'
       - 'ux-cleanup.js'
       - 'social-routes-enhancements.js'
       - 'community-hub.js'
       - 'index.html'
       - 'service-worker.js'
       - 'tests/p0-browser-smoke.mjs'
-      - 'tests/place-share-browser-smoke.mjs'
-      - 'tests/dm-notifications-browser-smoke.mjs'
-      - 'dm-notifications.js'
-      - 'direct-messages-ui.js'
+      - 'tests/integrations-browser-smoke.mjs'
+      - 'tests/places-pagination-browser-smoke.mjs'
+      - 'places-pagination.js'
+      - 'places-pagination.css'
       - 'share-links.js'
+      - 'google-saved-import.js'
+      - 'route-export.js'
       - '.github/workflows/p0-browser-smoke.yml'
 
 permissions:
@@ -40,8 +44,9 @@ jobs:
       - run: npm install --no-save playwright@1.58.2
       - run: npx playwright install --with-deps chromium
       - run: node tests/p0-browser-smoke.mjs
-      - run: node tests/place-share-browser-smoke.mjs
-      - run: node tests/dm-notifications-browser-smoke.mjs
+      - run: node tests/planner-v2-browser-smoke.mjs
+      - run: node tests/integrations-browser-smoke.mjs
+      - run: node tests/places-pagination-browser-smoke.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

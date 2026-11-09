@@ -61,8 +61,8 @@ function cleanPlanner(){
  if(head){
   head.classList.add('ux-plan-head');
   const kicker=head.querySelector('.kicker');if(kicker)kicker.hidden=true;
-  const h=head.querySelector('h1');if(h)h.textContent='Odkrywaj miasto po swojemu.';
-  const lead=head.querySelector('.lead');if(lead)lead.textContent='Znajduj wyjątkowe miejsca, układaj własne trasy i odkrywaj polecenia innych. Wybierz czas i zobacz pierwszą propozycję.';
+  const h=head.querySelector('h1');if(h)h.textContent='Twój plan na miasto.';
+  const lead=head.querySelector('.lead');if(lead)lead.textContent='Wybierz, co lubisz i ile masz czasu. City Route przygotuje propozycje trasy.';
  }
 
  const ready=head?.querySelector('a.inline')||null;
@@ -75,7 +75,7 @@ function cleanPlanner(){
  const whenDetails=disclosure('Kiedy chcesz zwiedzać?','data-ux-when-summary','ux-disclosure ux-when');
  if(when)whenDetails.body.append(when);
 
- const climate=disclosure('Klimat trasy','data-ux-interest-summary','ux-disclosure ux-climate');
+ const climate=disclosure('Co Cię interesuje?','data-ux-interest-summary','ux-disclosure ux-climate');climate.details.open=true;
  interests.classList.add('ux-interest-field');climate.body.append(interests);
 
  const advanced=disclosure('Więcej ustawień','data-ux-advanced-summary','ux-disclosure ux-advanced');
@@ -88,10 +88,10 @@ function cleanPlanner(){
  alternatives.setAttribute('aria-label','Inne sposoby odkrywania miasta');
  if(ready){ready.textContent='Gotowe trasy';alternatives.append(ready);}
  if(manual){manual.href='#places';manual.textContent='Odkrywaj miejsca';manual.className='ux-text-link';alternatives.append(manual);}
- const social=document.createElement('a');social.href='#routes/community';social.className='ux-text-link';social.textContent='Trasy innych';
+ const social=document.createElement('a');social.href='#routes/community';social.className='ux-text-link';social.textContent='Społeczność';
  alternatives.append(social);
 
- form.replaceChildren(primary,submit,alternatives,whenDetails.details,climate.details,advanced.details);
+ form.replaceChildren(climate.details,primary,submit,alternatives,whenDetails.details,advanced.details);
  updatePlannerSummaries(form);
 }
 

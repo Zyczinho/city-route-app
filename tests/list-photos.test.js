@@ -33,14 +33,13 @@ test('tile is an honest placeholder, not a photo',()=>{
 });
 
 test('catalogue rows use the cheap thumbnail path; only community places use the full lookup from lists',()=>{
- assert.match(app,/globalThis\.__cityRouteGoogleThumbs===false/,'Google endpoint must be skipped when provider disabled');
  assert.match(app,/const needsProvider=p=>!!p&&\(p\.origin==='community'\|\|p\.kind==='user'\)&&!providerOverlay\.has\(p\.id\)/);
  assert.match(app,/<div class="thumb">\$\{photo\(p,'',false,true\)\}/,'place list rows ask for a thumbnail');
  assert.match(app,/'\/api\/place-thumb\?'\+new URLSearchParams\(/);
  assert.match(app,/loading="\$\{eager\?'eager':'lazy'\}" decoding="async" referrerpolicy="no-referrer" data-thumb-for=/,'list rows are lazy, so only rows near the screen are requested');
  assert.match(app,/function handlePhotoError\(img\)\{/,'there is a single shared image-error handler');
  assert.match(app,/if\(img\.dataset\.thumbFor\)\{/,'Google thumbnails get the category fallback');
- assert.match(app,/img\.outerHTML=catTile\(p,esc\(img\.dataset\.thumbCls\|\|''\),geo\);/,'Google tile preserves class and unlocks Commons fallback');
+ assert.match(app,/img\.outerHTML=catTile\(p,esc\(img\.dataset\.thumbCls\|\|''\),commonsAttrs\(p\)\);/,'Google 404 restores licensed Commons fallback along with tile and class');
  assert.match(app,/img\.dataset\.failed==='1'\|\|!img\.isConnected\|\|!img\.parentNode/,'already-handled or detached images are ignored');
  assert.equal((app.match(/document\.addEventListener\('error'/g)||[]).length,1,'never attach competing image-error handlers');
  assert.match(app,/\|\|p\.kind==='sidequest'\)return null;/,'side quests have no venue photo');

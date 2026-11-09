@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {titleMatch,wikiSearchUrl,pickWikiPages,commonsInfoUrl,googleCandidate,findPlacePhotoCandidates,acceptedPhotoRecord,readAcceptedPhoto,acceptedGooglePlaceId,googleCandidateFromEnrichment,enrichmentUrl} from '../place-photo-proposal.js';
+import {titleMatch,wikiSearchUrl,pickWikiPages,commonsInfoUrl,googleCandidate,findPlacePhotoCandidates,acceptedPhotoRecord,readAcceptedPhoto,acceptedGooglePlaceId,googleCandidateFromEnrichment,enrichmentUrl,autoPhotoCandidateIndex} from '../place-photo-proposal.js';
 import {licensedCommonsImage} from '../commons-photo-source.js';
 const read=n=>readFileSync(new URL('../'+n,import.meta.url),'utf8');
 
@@ -90,9 +90,27 @@ test('Google photo is a preview only; only Wikimedia proposals are stored on the
  assert.equal(readAcceptedPhoto('{broken'),null);
 });
 
+test('verified Wikipedia/Google photos are defaulted, but nearby Commons guesses require explicit choice',()=>{
+ const licensed={kind:'wikipedia',src:'https://thumb.wikimedia.org/a.jpg',author:'T',license:'CC BY 4.0',
+  licenseUrl:'https://creativecommons.org/licenses/by/4.0',source:'https://commons.wikimedia.org/wiki/File:a.jpg',via:'Wikimedia Commons'};
+ const nearby={...licensed,kind:'commons'};
+ const google={kind:'google',src:'/api/place-photo?id=ChIJabcdefghijk',via:'Google Maps',googlePlaceId:'ChIJabcdefghijk'};
+ assert.equal(autoPhotoCandidateIndex([nearby,licensed]),1);
+ assert.equal(autoPhotoCandidateIndex([google]),0);
+ assert.equal(autoPhotoCandidateIndex([nearby]),-1,'nearby Commons is not necessarily this venue');
+ assert.equal(autoPhotoCandidateIndex([{...licensed,src:'https://evil.example/a.jpg'}]),-1);
+ assert.equal(autoPhotoCandidateIndex([{...google,googlePlaceId:'bad id'}]),-1);
+ assert.equal(autoPhotoCandidateIndex([]),-1);
+ assert.equal(autoPhotoCandidateIndex(null),-1);
+});
+
 test('composer proposes automatically and the user decides; app.js stores it only without own photos',()=>{
  const composer=read('place-composer.js'),app=read('app.js'),sw=read('service-worker.js'),build=read('scripts/build.mjs');
  assert.match(composer,/proposePhoto\(form,selection\)/,'proposal starts right after a venue is chosen');
+ assert.match(composer,/const autoIndex=autoPhotoCandidateIndex\(result\.candidates\)/,'only verified candidates become automatic defaults');
+ assert.match(composer,/accepted:autoIndex>=0,autoSelected:autoIndex>=0/);
+ assert.match(composer,/Zdjęcie wybrane automatycznie/);
+ assert.match(composer,/proposal\.accepted=false;proposal\.autoSelected=false;proposal\.skipped=true/,'Skip always cancels the auto choice');
  for(const action of ['accept','next','skip','own'])assert.match(composer,new RegExp(`data-pc-photo="${action}"`));
  assert.match(composer,/Nie mamy pewnego zdjęcia tego miejsca/);
  assert.match(app,/const proposed=!localImages\.length&&!draft\.image\?readAcceptedPhoto\(f\.dataset\.pcPhoto\):null/);

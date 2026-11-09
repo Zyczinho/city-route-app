@@ -124,6 +124,16 @@ export async function findPlacePhotoCandidates(selection,{city='',cityInfo=null,
  return {status:list.length?'ok':failures&&failures===attempts?'error':'none',candidates:list};
 }
 
+// Prefill only a photo with a verifiable source and identity, never a generic nearby Commons match.
+// Google results have an exact Place ID (or the Worker checked name + coordinates); Wikipedia
+// candidates passed both article identity/geolocation and the Commons free-licence gate.
+// Users can still replace or skip the preselection before saving.
+export function autoPhotoCandidateIndex(candidates=[]){
+ if(!Array.isArray(candidates))return -1;
+ return candidates.findIndex(c=>c?.kind==='wikipedia'&&!!acceptedPhotoRecord(c)||
+  c?.kind==='google'&&!!acceptedGooglePlaceId(c));
+}
+
 // app.js reads the accepted proposal from the form; anything malformed or off-allow-list is ignored.
 export function readAcceptedPhoto(json){
  let value;try{value=JSON.parse(String(json||'null'));}catch{return null;}

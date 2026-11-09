@@ -11,19 +11,22 @@ const [places,cities,taxonomy,report,sql]=await Promise.all([
  readFile('supabase/migrations/021_add_lisbon_osm_places.sql','utf8')
 ]);
 const city=cities.find(c=>c.id==='lisbon');
+// The original OSM import remains immutable in provenance; additional curated landmarks are editorial records.
+const osmPlaces=places.filter(p=>p.metadata?.source?.provider==='openstreetmap');
+const editorialPlaces=places.filter(p=>p.metadata?.source?.provider==='editorial');
 const categories=new Set(taxonomy.groups.flatMap(g=>g.types.map(t=>t.id)));
 const fold=v=>String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
 
 test('Lisbon OSM catalogue contains 100–200 real named, usable POIs',()=>{
  assert.ok(places.length>=100&&places.length<=200,'expected real 100–200 POIs; got '+places.length);
- assert.equal(report.selected,places.length);
+ assert.equal(report.selected,osmPlaces.length);
  assert.equal(report.attribution,'© OpenStreetMap contributors');
  assert.equal(report.licence,'ODbL-1.0');
  assert.match(report.importSource,/^https:\/\/overpass(?:-api|\.)/);
  assert.ok(report.rawRecords>places.length);
  assert.ok(new Set(places.map(p=>p.id)).size===places.length,'unique slugs');
  assert.ok(new Set(places.map(p=>p.categoryId)).size>=6,'diverse categories');
- for(const p of places){
+ for(const p of osmPlaces){
   assert.match(p.id,/^osm-(node|way|relation)-[0-9]+$/);
   assert.ok(p.name.length>=3);
   assert.ok(categories.has(p.categoryId),p.categoryId);
@@ -39,16 +42,32 @@ test('Lisbon OSM catalogue contains 100–200 real named, usable POIs',()=>{
 });
 
 test('Lisbon import has no duplicate geometry or near-identical neighboring names',()=>{
- for(let i=0;i<places.length;i++)for(let j=i+1;j<places.length;j++){
-  const a=places[i],b=places[j],d=distance(a,b);
+ for(let i=0;i<osmPlaces.length;i++)for(let j=i+1;j<osmPlaces.length;j++){
+  const a=osmPlaces[i],b=osmPlaces[j],d=distance(a,b);
   assert.ok(d>=0.03,a.name+' / '+b.name+' same geometry');
   assert.ok(d>=0.25||fold(a.name)!==fold(b.name),a.name+' nearby duplicate name');
  }
 });
 
+test('Lisbon editorial additions have independent, explicit provenance',()=>{
+ assert.equal(editorialPlaces.length,4);
+ assert.equal(osmPlaces.length,188);
+ const ids=new Set(places.map(p=>p.id));
+ assert.equal(ids.size,places.length);
+ for(const p of editorialPlaces){
+  assert.match(p.id,/^editorial-lisbon-/);
+  assert.match(p.metadata.source.url,/^https:\/\//);
+  assert.ok(categories.has(p.categoryId));
+  assert.ok(distance(p,city.center)<city.radiusKm);
+  assert.ok(p.description.length>=50);
+  assert.deepEqual(p.ratings,[]);
+  assert.equal(p.metadata.editorial.fieldTested,false);
+ }
+});
+
 test('Lisbon generated import SQL is aligned and city isolated',()=>{
  assert.ok(sql.includes("where slug='lisbon'"));
- assert.equal((sql.match(/-- place: /g)||[]).length,places.length);
+ assert.equal((sql.match(/-- place: /g)||[]).length,osmPlaces.length);
  assert.doesNotMatch(sql,/where slug='warsaw'|where slug='krakow'/);
  assert.doesNotMatch(sql,/update public\.cities|delete from public\.cities/i);
  assert.doesNotMatch(sql,/delete from public\.routes/i);

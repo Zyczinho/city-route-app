@@ -69,6 +69,7 @@ test('PWA includes Lisbon city fallback without removing Krakow',async()=>{
  for(const path of ['lisbon/places.json','lisbon/routes.json','krakow/places.json','krakow/routes.json'])
   assert.ok(sw.includes('./data/cities/'+path),path);
  const [places,routes]=await Promise.all(['places','routes'].map(async kind=>JSON.parse(await readFile(new URL('../data/cities/lisbon/'+kind+'.json',import.meta.url),'utf8'))));
- assert.equal(places.length,188);
- assert.deepEqual(routes,[]);
+ assert.equal(places.length,192);
+ assert.equal(routes.length,3);
+ for(const r of routes)for(const stop of r.stops)assert.ok(places.some(p=>p.id===stop),r.id+' missing '+stop);
 });

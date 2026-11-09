@@ -16,11 +16,14 @@ export function licensedPhotoCredit(place){
     !CC_LICENSE.test(String(c.license||'')))return null;
  const author=String(c.author||'').trim();
  if(!author||author.length>120||String(c.license).length>50)return null;
+ const match=/^CC\\s*BY(-SA)?\\s*([1-4](?:\\.\\d)?)(?:\\s+([a-z]{2}))?$/i.exec(String(c.license||''));
+ const canonical=match?'https://creativecommons.org/licenses/by'+(match[1]?'-sa':'')+'/'+match[2]+'/'+(match[3]?match[3]+'/':''):'';
  const licenseUrl=c.licenseUrl==null?'':String(c.licenseUrl);
+ const linkedLicense=licenseUrl||canonical;
  // CC BY and CC BY-SA require an attribution link. No arbitrary hosts are accepted.
- if(/^CC\s*BY/i.test(c.license)&&!CC_URL.test(licenseUrl))return null;
+ if(/^CC\s*BY/i.test(c.license)&&!CC_URL.test(linkedLicense))return null;
  if(licenseUrl&&!CC_URL.test(licenseUrl))return null;
- return {via:'Wikimedia Commons',source:c.source,author,license:c.license,licenseUrl:licenseUrl||null};
+ return {via:'Wikimedia Commons',source:c.source,author,license:c.license,licenseUrl:linkedLicense||null};
 }
 
 export function shouldBankCommunityPhoto(place){

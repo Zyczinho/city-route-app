@@ -55,9 +55,9 @@ export function boundsOf(places){
   return [[Math.min(...ps.map(p=>+p.lat)),Math.min(...ps.map(p=>+p.lng))],[Math.max(...ps.map(p=>+p.lat)),Math.max(...ps.map(p=>+p.lng))]];
 }
 
-export function cardHtml(p,{inRoute=false}={}){
-  return `<div class="cr-map-card-head"><p class="kicker">${esc([p.area,p.distanceM!=null?fmtDistance(p.distanceM):''].filter(Boolean).join(' · '))}</p>`+
-    `<h3 id="cr-map-card-title">${esc(p.name)}</h3>`+
+export function cardHtml(p,{inRoute=false,photoHtml=''}={}){
+  return `<div class="cr-map-card-head${photoHtml?' has-photo':''}">${photoHtml?`<span class="cr-map-card-photo">${photoHtml}</span>`:''}<div class="cr-map-card-copy"><p class="kicker">${esc([p.area,p.distanceM!=null?fmtDistance(p.distanceM):''].filter(Boolean).join(' · '))}</p>`+
+    `<h3 id="cr-map-card-title">${esc(p.name)}</h3></div>`+
     `<button type="button" class="cr-map-card-close" data-map-action="close" aria-label="Zamknij">${iconMarkup('x')}</button></div>`+
     (p.description?`<p class="cr-map-card-text">${esc(p.description)}</p>`:'')+
     `<div class="cr-map-card-actions"><button type="button" class="primary" data-map-action="add" data-id="${esc(p.id)}"${inRoute?' disabled':''}>${inRoute?'W trasie':'Dodaj do trasy'}</button>`+
@@ -163,7 +163,8 @@ export function createMapView(opts){
 
   function showCard(p){
     if(!p){card.hidden=true;return;}
-    card.innerHTML=cardHtml(p,{inRoute:!!isInRoute(p)});card.hidden=false;
+    const photoHtml=opts.renderPhoto?.(p)||'';
+    card.innerHTML=cardHtml(p,{inRoute:!!isInRoute(p),photoHtml});card.hidden=false;
     card.querySelector?.('[data-map-action="add"]')?.focus?.();
   }
   function select(id,{silent=false}={}){
@@ -195,6 +196,12 @@ export function createMapView(opts){
     else if(a==='toggle'&&map)setMode(mode==='list'?'map':'list');
   }
   function onKey(e){if(e.key==='Escape'&&!card.hidden){select(null);canvas.focus?.();}}
+  function onPhotoError(e){
+    if(!e.target?.classList?.contains('cr-map-card-photo-image'))return;
+    card.querySelector('.cr-map-card-photo')?.remove();
+    card.querySelector('.cr-map-card-head')?.classList.remove('has-photo');
+  }
+  container.addEventListener('error',onPhotoError,true);
   container.addEventListener('click',onClick);container.addEventListener('keydown',onKey);
 
   const api={
@@ -218,7 +225,7 @@ export function createMapView(opts){
       announce(routeStops.length?`Trasa: ${routeStops.length} ${routeStops.length===1?'przystanek':routeStops.length<5?'przystanki':'przystanków'}`:'Trasa wyczyszczona');
     },
     get routeStops(){return routeStops;},
-    destroy(){destroyed=true;resizer?.disconnect();container.removeEventListener('click',onClick);container.removeEventListener('keydown',onKey);map?.remove();container.replaceChildren?.();}
+    destroy(){destroyed=true;resizer?.disconnect();container.removeEventListener('error',onPhotoError,true);container.removeEventListener('click',onClick);container.removeEventListener('keydown',onKey);map?.remove();container.replaceChildren?.();}
   };
 
   setMode('list');render();

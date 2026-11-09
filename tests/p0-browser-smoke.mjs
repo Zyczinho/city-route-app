@@ -97,18 +97,19 @@ try{
  assert.ok(mapLayout.overflow<=mapLayout.viewport+1,'map toolbar does not create horizontal overflow');
  // Use the actual production card markup, including Close, at every supported phone width.
  const originalViewport=page.viewportSize();
- for(const width of [320,375,390]){
+ for(const width of [320,375,390])for(const hasPhoto of [false,true]){
   await page.setViewportSize({width,height:812});
-  const popup=await page.locator('#places-map .cr-map-card').evaluate(async card=>{
+  const popup=await page.locator('#places-map .cr-map-card').evaluate(async (card,hasPhoto)=>{
    const {cardHtml}=await import('/map-view.js');
    card.hidden=false;
    card.style.animation='none';
-   card.innerHTML=cardHtml({id:'qa-map-card',name:'Przykładowe miejsce z bardzo długą nazwą',area:'Lizbona',description:'Opis miejsca'});
+   card.innerHTML=cardHtml({id:'qa-map-card',name:'Przykładowe miejsce z bardzo długą nazwą',area:'Lizbona',description:'Opis miejsca'},{photoHtml:hasPhoto?'<img class="cr-map-card-photo-image" src="/assets/images/place-boulevards.jpg" alt="Zdjęcie testowe">':''});
+   if(hasPhoto)await card.querySelector('img').decode();
    const rect=el=>{const r=el.getBoundingClientRect();return {left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height};};
    const controls=['add','details','close'].map(action=>({action,...rect(card.querySelector('[data-map-action="'+action+'"]'))}));
    const box=rect(card),map=rect(card.closest('.cr-map'));
-   return {popupHeight:box.height,mapHeight:map.height,top:box.top-map.top,bottom:box.bottom-map.top,box,controls,overflow:card.scrollWidth>card.clientWidth};
-  });
+   return {popupHeight:box.height,mapHeight:map.height,top:box.top-map.top,bottom:box.bottom-map.top,box,controls,overflow:card.scrollWidth>card.clientWidth,photo:card.querySelector('.cr-map-card-photo')?rect(card.querySelector('.cr-map-card-photo')):null};
+  },hasPhoto);
   assert.ok(popup.popupHeight<=130&&popup.bottom<popup.mapHeight-25,
    'map card preserves visible map and attribution: '+JSON.stringify({width,...popup}));
   assert.equal(popup.overflow,false,'map card must fit '+width+'px');
@@ -121,8 +122,15 @@ try{
    assert.ok(a.right<=b.left||b.right<=a.left||a.bottom<=b.top||b.bottom<=a.top,
     'map actions cannot overlap: '+JSON.stringify({width,a,b}));
   }
-  console.log('MAP_CARD_QA '+JSON.stringify({width,...popup}));
-  await page.screenshot({path:'p0-smoke-artifacts/map-card-'+width+'.png',fullPage:true});
+  assert.equal(!!popup.photo,hasPhoto,'thumbnail appears only when a photo exists');
+  if(hasPhoto)assert.ok(popup.photo.width===48&&popup.photo.height===48,'compact 48px thumbnail');
+  console.log('MAP_CARD_QA '+JSON.stringify({width,hasPhoto,...popup}));
+  await page.screenshot({path:'p0-smoke-artifacts/map-card-'+width+'-'+hasPhoto+'.png',fullPage:true});
+  if(hasPhoto){
+   await page.locator('#places-map .cr-map-card img').evaluate(img=>img.dispatchEvent(new Event('error')));
+   assert.equal(await page.locator('#places-map .cr-map-card-photo').count(),0,'failed photo collapses without broken icon');
+   assert.equal(await page.locator('#places-map .cr-map-card-head.has-photo').count(),0,'failed photo releases its grid column');
+  }
   await page.locator('#places-map .cr-map-card').evaluate(card=>{card.hidden=true;card.style.animation='';});
  }
  await page.setViewportSize(originalViewport);

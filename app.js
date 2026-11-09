@@ -384,6 +384,7 @@ async function mountPlacesMap(){
  view=createMapView({
   container:host,places:base,city:city(),filter:{showPlaces:mapCategorySelected},
   onAddToRoute:p=>{if(isLive())return toast('Najpierw zakończ aktywną trasę.');if(!state.basket.includes(p.id)){const r=applyBuilder(addStop(builderDraft,p,{now:now()}),{eventType:'builder_add',eventData:{place_id:p.id,source:'map'}});if(r?.changed){log('add_to_route',{place_id:p.id,source:'map'});nav();toast(`Dodano jako ${builderDraft.stops.length}. przystanek`);}}},
+  renderPhoto:p=>{const markup=photo(all[p.id]||p,'cr-map-card-photo-image',true,true);return markup.startsWith('<img ')?markup:'';},
   onDetails:p=>openPlace(p.id),
   onNearbyChange:syncNearby,
   isInRoute:p=>state.basket.includes(p.id)

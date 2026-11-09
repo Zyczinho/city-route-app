@@ -128,7 +128,7 @@ try{
  await saveModal.locator('#route-save-name').fill('Wieczorna Warszawa');
  await saveModal.locator('button[type="submit"]').click();
  await page.goto(ROOT+'/#social-saved',{waitUntil:'domcontentloaded'});
- assert.ok(await page.locator('[data-social-saved-root]').getByText('Wieczorna Warszawa').count()>0,'renamed route appears in unified Profile archive');
+ await page.locator('[data-social-saved-root]').getByText('Wieczorna Warszawa').waitFor({state:'visible',timeout:12000}); // async account/local archive render
  await page.locator('[data-social-saved-root] a[href="#route/'+savedId+'"]').click();
  await page.locator('button[data-action="archive-route"]').click();
  await page.goto(ROOT+'/#social-saved',{waitUntil:'domcontentloaded'});

@@ -74,7 +74,7 @@ try{
  }
 
 
- // MAP-SCROLL-037: protect mobile vertical scrolling with a short inset map and an explicit gesture toggle.
+ // MOBILE-MAP-174: free one-finger map panning, 20px page-scroll side gutters, no mode toggle.
  try{
   await page.locator('#places-map.cr-map').waitFor({state:'attached',timeout:12000});
  }catch(error){
@@ -87,12 +87,12 @@ try{
    touchAction:getComputedStyle(canvas).touchAction,scrollMode:el.classList.contains('is-scroll-mode'),
    panToggle:button?.getAttribute('aria-pressed'),overflow:document.documentElement.scrollWidth};
  });
- assert.ok(mapLayout.left>=16&&mapLayout.right<=mapLayout.viewport-16,'map leaves a finger-scroll corridor at both edges: '+JSON.stringify(mapLayout));
+ assert.ok(mapLayout.left>=20&&mapLayout.right<=mapLayout.viewport-20,'map leaves a finger-scroll corridor at both edges: '+JSON.stringify(mapLayout));
  assert.ok(mapLayout.height>=330&&mapLayout.height<=460,'mobile map does not occupy most of the page: '+JSON.stringify(mapLayout));
  console.log('MAP_SCROLL_QA '+JSON.stringify(mapLayout));
- assert.equal(mapLayout.scrollMode,true,'narrow map defaults to page scroll');
- assert.equal(mapLayout.touchAction,'pan-y','map canvas must allow vertical page touch scrolling');
- assert.equal(mapLayout.panToggle,'false','user must explicitly enable map panning');
+ assert.equal(mapLayout.scrollMode,false,'map must be draggable from the first touch');
+ assert.equal(mapLayout.touchAction,'none','Leaflet owns touch panning on the map; side gutters scroll the page');
+ assert.equal(mapLayout.panToggle,undefined,'gesture toggle is no longer shown');
  assert.ok(mapLayout.overflow<=mapLayout.viewport+1,'map toolbar does not create horizontal overflow');
  const popup=await page.locator('#places-map .cr-map-card').evaluate(card=>{
   card.hidden=false;

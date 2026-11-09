@@ -50,6 +50,7 @@ async function runPlannerBrowserSmoke(){
   await page.locator('input[name="transport"][value="transit"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
   await page.locator('#build-form button.primary.big').click();
   await page.waitForURL(/#route\/generated$/,{timeout:30000});
+  await page.locator('.variant-d-more > summary').click();
   await page.locator('summary').filter({hasText:'Komunikacja miejska — sprawdź odcinki'}).waitFor({timeout:10000});
   const routes=await page.locator('details[aria-label="Komunikacja miejska etapami"] a[href*="travelmode=transit"]').count();
   assert.ok(routes>=1,'transit navigation has independently routable A→B legs');

@@ -124,14 +124,15 @@ try{
    await Promise.all(buttons.flatMap(n=>n.getAnimations().map(a=>a.finished)));
    const more=el.querySelector('details'),edit=el.querySelector('[data-action="save-route"]');
    return {labels:buttons.map(n=>n.textContent.trim()),colors:buttons.map(n=>getComputedStyle(n).backgroundColor),
-    moreOpen:more.open,editVisible:!!edit.getClientRects().length,
+    moreOpen:more.open,editInsideMore:edit.closest('details')===more,
     next:el.nextElementSibling?.textContent.trim(),overflow:document.documentElement.scrollWidth>innerWidth};
   });
   assert.deepEqual(parity.labels,manualActions,'editorial and manual action order match at '+width);
   assert.deepEqual(parity.colors,manualStyle.colors,'editorial colors match manual Start/Save/Share');
   assert.deepEqual(parity.colors.slice(1),['rgb(10, 102, 194)','rgb(109, 40, 217)'],'Save blue / Share purple');
   assert.equal(parity.moreOpen,false);
-  assert.equal(parity.editVisible,false,'editorial editing is collapsed initially');
+  assert.equal(parity.editInsideMore,true,'editorial editing is inside More options');
+  assert.equal(await page.locator('[data-action="save-route"]').isVisible(),false,'editorial editing is collapsed initially');
   assert.equal(parity.next,'Dodaj kolejny przystanek');
   assert.equal(parity.overflow,false,'editorial view fits '+width+'px');
   await page.screenshot({path:'p0-smoke-artifacts/editorial-actions-'+width+'.png',fullPage:true});

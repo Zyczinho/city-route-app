@@ -34,7 +34,8 @@ test('deep links to guide, booking, events, community and active route remain in
 test('one profile collections entry does not confuse own, social-saved and favorite places',()=>{
  assert.match(app,/class="variant-d-collections-entry" href="#collections"/);
  assert.match(app,/function collectionsView\(\)/);
- assert.match(app,/Trasy społeczności, które chcesz zachować/);
+ assert.match(app,/Moje, redakcji i społeczności/);
+ assert.doesNotMatch(app,/Zapisane trasy innych/);
  assert.match(app,/function savedPlacesView\(\)/);
  assert.match(app,/data-profile-followers/);
  assert.match(app,/data-profile-friends/);

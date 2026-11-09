@@ -32,7 +32,7 @@ try{
    // Every visible rating chip must own its whole pointer area, not a shifted/overlapping invisible input.
    for(const value of ['none','1','2','3','4','5']){
     const radio=page.locator('#place-form input[name=rating][value="'+value+'"]');
-    const choice=page.locator('#place-form .choice label').filter({has:radio});
+    const choice=page.locator('#place-form .choice label').filter({has:page.locator('input[name="rating"][value="'+value+'"]')});
     await choice.scrollIntoViewIfNeeded();
     const hit=await choice.evaluate(el=>{
      const r=el.getBoundingClientRect(),input=el.querySelector('input');
@@ -54,7 +54,7 @@ try{
    assert.equal(upload,true,engine+' '+width+' upload input contained in its visible label');
    await page.locator('#place-form input[type=file]').setInputFiles({name:'qa.png',mimeType:'image/png',buffer:Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Y9Z4ZkAAAAASUVORK5CYII=','base64')});
    await page.locator('.place-photo-editor').waitFor();
-   const last=page.locator('#place-form .choice label').filter({has:page.locator('input[name=rating][value="5"]')});
+   const last=page.locator('#place-form .choice label').filter({has:page.locator('input[name="rating"][value="5"]')});
    await last.click();assert.equal(await page.locator('#place-form input[name=rating][value="5"]').isChecked(),true);
    const submit=page.locator('#place-form button.primary.big');await submit.scrollIntoViewIfNeeded();
    assert.equal(await submit.evaluate(el=>{const r=el.getBoundingClientRect();return el.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2));}),true,engine+' '+width+' submit center receives pointer');

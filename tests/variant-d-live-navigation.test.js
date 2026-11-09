@@ -29,7 +29,7 @@ test('deep links to guide, booking, events, community and active route remain in
  assert.match(app,/href="#about"/);
  assert.match(app,/href="#social-saved"/);
  assert.match(app,/href="#collections\/places"/);
- assert.match(nav,/location\.hash\.startsWith\('#routes\/community'\)/);
+ assert.match(nav,/hash\.startsWith\('#routes\/community'\)/);
 });
 test('one profile collections entry does not confuse own, social-saved and favorite places',()=>{
  assert.match(app,/class="variant-d-collections-entry" href="#collections"/);

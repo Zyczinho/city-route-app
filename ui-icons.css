@@ -58,3 +58,33 @@ a.inline,.planner-head-compact a.inline{display:inline-flex;align-items:center}
 .ph-nature{--ph-a:#effaf3;--ph-b:#bfe8cf;--ph-hi:#ffffffe0;--ph-ink:#15803d;--ph-glow:#22c55e55;--ph-line:#15803d1f;--ph-dot:#15803d1c}
 .ph-stay{--ph-a:#f4f6f9;--ph-b:#d6dee8;--ph-hi:#ffffffe0;--ph-ink:#334155;--ph-glow:#64748b44;--ph-line:#3341551f;--ph-dot:#3341551a}
 .ph-city{--ph-a:#f7f4ee;--ph-b:#e3dacb;--ph-hi:#ffffffe0;--ph-ink:#57534e;--ph-glow:#a8a29e55;--ph-line:#57534e1f;--ph-dot:#57534e1a}
+
+/* PHOTO-FIRST-MVP #178 — The very last fallback is a REAL, local, rights-cleared
+   *illustrative* photograph, never a false claim that this is the venue.
+   Pexels License / CC0 artwork already shipped in assets/images; see
+   assets/images/SOURCES.md and data/places.json. Exact-place images, authorised
+   Wikimedia and provider images keep their priority and cover this fallback.
+   The caption is mandatory until the photo is replaced by an exact match. */
+.ph.ph-cat,.thumb .ph.ph-cat,.sheet-media .ph.ph-cat,.cover .ph.ph-cat,.media .ph.ph-cat{
+  --cr-illustration:url(./assets/images/place-31495562.jpg);
+  background:#e7e7e7;
+}
+.ph.ph-cat.ph-food{--cr-illustration:url(./assets/images/place-koszyki.jpg)}
+.ph.ph-cat.ph-night{--cr-illustration:url(./assets/images/place-17131946.jpg)}
+.ph.ph-cat.ph-culture{--cr-illustration:url(./assets/images/place-35839613.jpg)}
+.ph.ph-cat.ph-nature{--cr-illustration:url(./assets/images/place-12028385.jpg)}
+.ph.ph-cat.ph-stay{--cr-illustration:url(./assets/images/place-17131946.jpg)}
+.ph.ph-cat.ph-city{--cr-illustration:url(./assets/images/place-31495562.jpg)}
+.ph.ph-cat::before{
+  content:"";position:absolute;inset:0;z-index:-2;
+  background:linear-gradient(180deg,transparent 58%,rgba(0,0,0,.52)),var(--cr-illustration) center/cover no-repeat;
+  transform:none;
+}
+.ph.ph-cat::after{
+  content:"Zdjęcie ilustracyjne";position:absolute;left:8px;right:auto;top:auto;bottom:7px;
+  z-index:2;display:block;padding:3px 6px;border-radius:5px;
+  color:#fff;background:rgba(0,0,0,.52);font-size:10px;font-weight:600;
+  letter-spacing:0;line-height:1.3;white-space:nowrap;
+  -webkit-mask:none;mask:none;box-shadow:none;
+}
+.ph.ph-cat .ph-cat-glyph,.ph.ph-cat .ph-cat-ghost{display:none}

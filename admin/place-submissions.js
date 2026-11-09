@@ -10,7 +10,7 @@ const mapLink=r=>'https://www.google.com/maps?q='+encodeURIComponent(r.lat+','+r
 const photoUrl=path=>path&&/^[0-9a-f-]{36}\/[0-9a-f-]{36}\.jpg$/.test(path)?SUPABASE_URL+'/storage/v1/object/public/'+BUCKET+'/'+path:null;
 function render(){
  $('#admin').innerHTML='<section class="page-head"><h1>Zgłoszenia miejsc</h1><p class="lead">Propozycje są prywatne do chwili zatwierdzenia. Odmów albo połącz duplikaty z istniejącymi miejscami.</p><p><a href="./index.html">Panel próśb</a></p></section>'+
- '<div class="admin-filters"><label>Miasto <select data-filter="city">'+[['warsaw','Warszawa'],['krakow','Kraków']].map(([v,t])=>'<option value="'+v+'" '+(v===city?'selected':'')+'>'+t+'</option>').join('')+'</select></label><label>Status <select data-filter="status">'+[['pending','Czekające'],['approved','Zatwierdzone'],['rejected','Odrzucone'],['merged','Połączone'],['all','Wszystkie']].map(([v,t])=>'<option value="'+v+'" '+(v===filter?'selected':'')+'>'+t+'</option>').join('')+'</select></label></div>'+
+ '<div class="admin-filters"><label>Miasto <select data-filter="city">'+[['warsaw','Warszawa'],['krakow','Kraków'],['lisbon','Lizbona']].map(([v,t])=>'<option value="'+v+'" '+(v===city?'selected':'')+'>'+t+'</option>').join('')+'</select></label><label>Status <select data-filter="status">'+[['pending','Czekające'],['approved','Zatwierdzone'],['rejected','Odrzucone'],['merged','Połączone'],['all','Wszystkie']].map(([v,t])=>'<option value="'+v+'" '+(v===filter?'selected':'')+'>'+t+'</option>').join('')+'</select></label></div>'+
  '<p class="fine">'+rows.length+' wyników</p><div class="admin-list">'+(rows.length?rows.map(renderRow).join(''):'<p class="note">Brak zgłoszeń dla tych filtrów.</p>')+'</div>';
 }
 function renderRow(r){

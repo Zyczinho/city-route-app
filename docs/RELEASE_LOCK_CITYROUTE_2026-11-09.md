@@ -1,56 +1,52 @@
-# City Route — release freeze and next-conversation handoff (2026-11-09)
+# City Route — verified production baseline + next-chat handoff
 
-**Authoritative:** latest GitHub `main`, open PR state, CI, deployed Cloudflare version and hosted Supabase. Do not treat this document or prior conversations as a substitute for live verification. This document records the Product Owner's instruction: **finish and integrate existing work before starting new features**.
+**As of 2026-11-09 — LIVE RELEASE DELIVERED.** Recheck GitHub `main` and deployment before subsequent modifications. This document is the canonical *handoff*, not a replacement for live source, permissions or build verification.
 
-## One release candidate
+## Definitive deployed baseline
 
-**PR #184:** https://github.com/Zyczinho/city-route-app/pull/184  
-**Branch:** `work/cityroute-release-clean-20261109` based on the actual current main. It is the **single release train**. Original implementation branches must not be separately merged until #184 has been reviewed and successfully released. Preview-only PR #177 / #180 and redundant #182 are not release paths.
+- One release: [PR #184](https://github.com/Zyczinho/city-route-app/pull/184), squash-merged to `main` at **`52fabc07e44a1124dfdd5d5770e762b8b7c57a1a`**.
+- Exact-head CI including `npm test` and `npm run build`: SUCCESS on release candidate SHA `8d3d813` and on merged `main`.
+- Release candidate P0 browser smoke (375px, planner/sharing/map/pagination/PWA): SUCCESS. Worker build and no-paid-provider diagnostics: SUCCESS.
+- GitHub **Production rollout verification** workflow run **#42633744254**: SUCCESS, including "Verify production app.js has exact SHA-256 of this Git commit" and "Verify app shell and other critical public modules". This proves matching served code/assets, not every optional provider or real-device behavior.
+- One previous competing release draft #182 was closed, not merged. Other overlapping source PRs #125/#143/#151/#154/#164/#166/#171/#173/#175/#177/#180/#181 were closed SUPERSEDED after production verification; their changes were integrated into #184.
+- [PR #179](https://github.com/Zyczinho/city-route-app/pull/179) illustrative generic-photo fallback CLOSED WITHOUT MERGE because it cannot satisfy exact real-photo requirements.
+- **No destructive data cleanup**, paid API activation, production Google/Tripadvisor credentials change, or Web Push release in this integration.
 
-Integrated on the release candidate, each previously passing independently:
-- #151 + #154: GPX, approved sharing paths, Google Saved/Takeout CSV import, 30 Places per page, route sharing in all states.
-- #143: Planner V2 and transit leg workaround.
-- #173: five navigation destinations **Start / Trasy / Miejsca / Społeczność / Profil**, contextual Moja trasa bar and Profile collections.
-- #166: safe automatic default photo proposal in Add Place.
-- #171: Lucide tabs in Community (retains `send` in icon allowlist).
-- #164: iPhone native-sized touch targets.
-- #175: one-finger map interaction with 20px page-scroll gutters; old tests reconciled.
-- #181: three **editorial, desk-researched** Lisbon routes: nightlife, first-time classics, food/viewpoints; 23 route-stops, 4 editorial essential places, 19 enriched existing stops and 3 credited Commons covers.
-- #125: event/Ticketmaster placeholder text fixed.
-- Founder-purple (`--cr-community`) **Share** controls; blue remains for Save.
-- Forward-only, idempotent data seed: `supabase/migrations/027_seed_lisbon_editorial_routes.sql`. Read-only/rollback dry-run on hosted City Route Supabase resulted in **3** Lisbon public editorial routes and **192** places **inside the test transaction**, with a verification query confirming hosted data stayed at **0** Lisbon editorial routes afterward. It has **not** yet been applied.
+## What is actually delivered in the live code
 
-## Exclusions / not resolved by this release
+1. Five navigation destinations: Start / Trasy / Miejsca / Społeczność / Profil, plus contextual Moja trasa bar, Profile collections and preserved route history (#173).
+2. Planner V2, estimates and transit-leg workaround (#143).
+3. Place catalogue pagination 30/page, GPX export, Google Saved/Takeout import, route-share across route states and channel modal (#151/#154); founder-purple share controls, blue save controls.
+4. Safe automatic Add Place photo proposal/default selection, with licensing safeguards (#166); this is **not** bulk real-photo catalogue coverage.
+5. Consistent Lucide community-tab icons (#171); improved iPhone touch dimensions (#164); single-finger map panning with 20px outside scroll gutters (#175).
+6. Event/Ticketmaster placeholder-copy fix (#125).
+7. Three **editorial, desk-researched** Lisbon routes and 23 curated route stops (#181), with distinct credited Wikimedia Commons route hero photos; not user-authored or field-tested. Four editorial landmarks + 19 enriched OSM records.
 
-- #163 real Web Push on a closed iPhone: backend portions previously staged, **real VAPID/HMAC and delivery not verified**. Do not merge with #184.
-- #179 illustrative photo fallback: draft; cannot substitute for correct real venue photography. Issue #176 still owns real place-photo coverage, real descriptions and provider ratings.
-- #172 planner hard category exclusions are not included; depend on stable Planner V2.
-- #115 new Start screen showing personalized community/editorial route cards is a **future P0**; five-tab navigation alone does **not** implement the full redesigned Start.
-- Social routes require real community authors. The three Lisbon routes must be clearly labeled *City Route editorial*, never as user-tested or community-created.
-- Real iPhone Safari/PWA smoke remains separate from Chromium automation; do not call it completed without evidence.
-- Real hosted Google/Tripadvisor ratings and photographs require rights, source checks and credentials; no paid API is switched on.
+## Hosted Lisbon data — applied and confirmed
 
-## Release gate / the only authorized workstream
+**Project:** Supabase `City Route App` / ID `ycfhpvtsnsmzdmpvliif`.
 
-1. On the exact head of #184: `npm test`, `npm run build`, P0 browser/mobile smoke, Cloudflare Worker diagnostic and no-paid-provider diagnostic **all green**. Resolve real blockers, do not weaken important checks.
-2. Independent review security + state restoration: login, DMs, sharing of public/private places, archived routes, provider flags, Save purple/blue distinction, cache/route resume.
-3. Confirm preview on 320/375/390 px and real iPhone Safari or record untested risk honestly.
-4. Merge #184 (one merge, not child PRs) to `main` with SHA guard. Verify Cloudflare production deploy SHA, PWA assets and smoke.
-5. Apply migration 027 **only after** PR is approved/merged and source review; verify 3 editorial Lisbon routes, 192 places, exact 6/9/8 stop counts and public RPC visibility. **No cleanup or deletion of user data.**
-6. Close overlapping source PRs as `SUPERSEDED` with the released PR link **only after** production verification. Do not close still-unreleased #163/other genuinely independent work as 'done'.
-7. Update this document to show release SHA, production deploy result, hosted seed result and open blockers.
+- SQL file in main: `supabase/migrations/027_seed_lisbon_editorial_routes.sql`.
+- **APPLIED ONCE to hosted Supabase via SQL execution after PR #184 merge**; SQL is idempotent and additive.
+- Verified post-write counts: Lisbon **192** published places, **3** published editorial routes; Warsaw **308 / 12**, Kraków **208 / 16**, unchanged.
+- Route stop counts `6 / 9 / 8`; public `catalogue_routes('lisbon')` returns all three with correct names/IDs.
+- **Important migration ledger distinction:** the standalone data seed was run by SQL, *not* via Supabase migration-tracking endpoint. As of 2026-11-09 `list_migrations` still ends at 026; do not infer seed is missing from that. Check actual rows first. Do not blindly reapply to rewrite future curated metadata.
+- **Collision discovered:** open draft [PR #183](https://github.com/Zyczinho/city-route-app/pull/183) also defines a DIFFERENT `027_accepted_commons_photo_bank.sql`. It MUST be renamed to a later, unique forward migration number, based on newest `main`, and independently security-reviewed. Blocking comment was posted; **never apply its current 027**.
 
-## Freeze policy for following agent and chats
+## Not done (DO NOT call shipped)
 
-- Start by reading `AGENTS.md`, `DECISIONS.md`, this handoff, `AGENT_COORDINATION.md` and current PR/CI/production evidence.
-- **One runtime writer:** release integrator owns `app.js`, `index.html`, `scripts/build.mjs`, `service-worker.js`, `share-links.js`, `styles.css` until release is complete.
-- No new UX redesign, monetization, social expansion or external integration branch until #184 release is resolved. Restrict parallel effort to review/QA and licensed place-photo/content curation in isolated files.
-- Do not assume 'CI green' means deployed, and do not assume 'merged SQL' means applied to hosted Supabase.
-- Next conversational goal: **stabilize and verify the release**, then choose exactly one new P0 issue.
+1. [Issue #115](https://github.com/Zyczinho/city-route-app/issues/115): complete redesigned Start screen with three engaging route cards, personalized filters, and one-click start. Five-tab nav is not the full new Start.
+2. [Issue #176](https://github.com/Zyczinho/city-route-app/issues/176): accurate real photos for each actual venue, honest provider ratings/attribution, reliable coverage on Lisbon/Kraków. Route hero images exist; individual place photos are not systematically filled.
+3. [PR #183](https://github.com/Zyczinho/city-route-app/pull/183): real community CC Wikimedia photo banking; DRAFT, unmerged, migration prefix collision, RLS/security + moderation + real device QA pending.
+4. [PR #163](https://github.com/Zyczinho/city-route-app/pull/163): closed-iPhone Web Push; DRAFT, unmerged, VAPID/HMAC and installed-PWA real delivery unverified. Backend pieces 025/026 already exist, but this does not prove notifications arrive.
+5. [Issue #172](https://github.com/Zyczinho/city-route-app/issues/172): hard negative filters in Planner V2 not integrated.
+6. Genuine community-created routes and verified field testing of Lisbon editorial routes: outstanding.
+7. **Real iPhone 13 Pro Safari/PWA user journey and 2-account privacy/moderation smoke:** not executed in this release conversation. Automated browser tests passed, which is not a substitute.
 
-## Concrete baseline prior to merge
+## Freeze, ownership and next-step protocol
 
-As checked during consolidation:
-- Current `main` source commit before this release: `225e55f03d58be503d59f1e1860de4a5e73828da`.
-- Hosted City Route Supabase before 027: Lisbon 188 public places and 0 public routes, Warsaw 308 public places/12 editorial routes, Kraków 208 places/16 routes.
-- Browser preview/Cloudflare deployment of #184 must be rechecked after its final commit. Never claim live rollout from a branch preview alone.
+- **Production is the baseline**. All agents start from latest `origin/main`, never from the old integrated #177/#180 branches or independently merging old feature PRs.
+- Founder asked to finish, test and reduce backlog before starting further speculative work. Until new explicit prioritization, at most **one implementation branch** changing shared runtime modules (`app.js`, `index.html`, `scripts/build.mjs`, `service-worker.js`, `share-links.js`, `styles.css`). Other work may be QA/review/documentation or isolated lawful photo curation.
+- Work in an issue-scoped branch, one writer per shared file, green CI/smoke, explicit reviewer and rollback, then PR→main→production SHA/source/behavior verification. No speculative bulk merges.
+- Next chat **FIRST** inspect live `main`, all open PRs, this file, `AGENT_COORDINATION.md` and real deployment. Have tester check iPhone 13 Pro after a fresh PWA load: city selector Lisbon, three editorial routes, route start/save/resume, purple share, Places 30/page, photo proposal, map scroll. File precise issues for failures.
+- Then pick **one** outstanding P0: I recommend the real venue photo-first coverage #176 versus new Start route cards #115, based on founder product priorities. Resolve PR #183 migration naming separately before any photo-bank release.

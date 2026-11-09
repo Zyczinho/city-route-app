@@ -1,8 +1,12 @@
 # Agent Coordination — canonical control plane
 
+## P0.1 map card photo thumbnail
+
+IN_PROGRESS — ChatGPT — `fix/map-card-photo-thumbnail`; founder accepted PR #190 map controls on iPhone and requested a small real place photo in this same panel. Scope: reuse existing photo renderer, compact thumbnail, image failure fallback, mobile geometry tests, cache. No photo import/provider changes. Last update: 2026-11-09.
+
 ## P0.1 Test 3 — map card action overlap
 
-REVIEW — ChatGPT — PR #190 MERGED to main (`4ee78895c382e09152cd9680d380d3430770c959`), PWA v77. Close has a dedicated header cell, compact intrinsic action widths and 44px tap targets. Local map tests 9/9 PASS; exact-head CI 42656919839 SUCCESS and mobile browser smoke 42656915933 SUCCESS (real card geometry/screenshots at 320/375/390); independent final review PASS. Founder confirmed trash, Places list/pagination, detail opening and map interaction. Missing descriptions and Google/Tripadvisor coverage remain OPEN under #176. Next: production asset parity and founder iPhone visual confirmation, then Test 4/5. No parallel runtime branch. Last update: 2026-11-09.
+REVIEW — ChatGPT — PR #190 MERGED to main (`4ee78895c382e09152cd9680d380d3430770c959`), PWA v77. Close has a dedicated header cell, compact intrinsic action widths and 44px tap targets. Local map tests 9/9 PASS; exact-head CI 42656919839 SUCCESS and mobile browser smoke 42656915933 SUCCESS (real card geometry/screenshots at 320/375/390); independent final review PASS. Founder confirmed trash, Places list/pagination, detail opening and map interaction. Missing descriptions and Google/Tripadvisor coverage remain OPEN under #176. Production assets verified directly; founder iPhone visual confirmation PASS. Next: requested map thumbnail, then Test 4/5. No parallel runtime branch. Last update: 2026-11-09.
 
 
 ## Verified production release baseline — 2026-11-09

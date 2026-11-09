@@ -35,6 +35,8 @@ try{
  page.on('pageerror',err=>errors.push(err.message));
  page.on('dialog',dialog=>dialog.accept());
  await page.goto(ROOT+'/#my-route',{waitUntil:'domcontentloaded'});
+ const manualActions=await page.locator('.variant-d-route-actions').evaluate(el=>[...el.children].filter(n=>n.matches('button,a')).map(n=>n.textContent.trim()));
+ assert.deepEqual(manualActions,['Rozpocznij trasę','Zapisz trasę','Udostępnij trasę'],'manual action order');
  const publish=page.locator('.variant-d-extra-actions [data-social-publish-button]');
  await publish.waitFor({state:'attached',timeout:15000});
  assert.equal(await publish.isVisible(),false,'Publish stays inside collapsed More options');
@@ -108,6 +110,32 @@ try{
  const editorial=page.locator('#main .detail-actions .route-share-trigger[data-route-share="editorial"]');
  await editorial.waitFor({state:'visible',timeout:12000});
  assert.ok(await editorial.locator('.i').count()>0,'editorial share uses a Lucide icon');
+ for(const width of [320,375,390]){
+  await page.setViewportSize({width,height:812});
+  const parity=await page.locator('#main .variant-d-route-actions').evaluate(el=>{
+   const buttons=[...el.children].filter(n=>n.matches('button,a'));
+   const more=el.querySelector('details'),edit=el.querySelector('[data-action="save-route"]');
+   return {labels:buttons.map(n=>n.textContent.trim()),colors:buttons.map(n=>getComputedStyle(n).backgroundColor),
+    moreOpen:more.open,editVisible:!!edit.getClientRects().length,
+    next:el.nextElementSibling?.textContent.trim(),overflow:document.documentElement.scrollWidth>innerWidth};
+  });
+  assert.deepEqual(parity.labels,manualActions,'editorial and manual action order match at '+width);
+  assert.deepEqual(parity.colors,['rgb(14, 26, 38)','rgb(10, 102, 194)','rgb(109, 40, 217)'],'shared Start/Save/Share colors');
+  assert.equal(parity.moreOpen,false);
+  assert.equal(parity.editVisible,false,'editorial editing is collapsed initially');
+  assert.equal(parity.next,'Dodaj kolejny przystanek');
+  assert.equal(parity.overflow,false,'editorial view fits '+width+'px');
+  await page.screenshot({path:'p0-smoke-artifacts/editorial-actions-'+width+'.png',fullPage:true});
+ }
+ await page.setViewportSize({width:375,height:812});
+ await page.locator('#main .variant-d-more > summary').click();
+ assert.equal(await page.locator('[data-action="save-route"]').isVisible(),true,'editorial editing remains available');
+ const editorialExport=page.locator('[data-action="export-gpx"]');
+ const editorialDownload=page.waitForEvent('download');
+ await editorialExport.click();
+ assert.match((await editorialDownload).suggestedFilename(),/^cityroute-.*\.gpx$/);
+ await page.locator('#main .variant-d-more > summary').click();
+
  await editorial.click();
  const publicModal=page.locator('dialog.route-share-dialog');
  await publicModal.waitFor({state:'visible'});
@@ -153,18 +181,21 @@ try{
  const savedId=await page.evaluate(()=>JSON.parse(localStorage.getItem('city-route-v1')).myRoutes.find(r=>r.name==='Moje ulubione zakątki').id);
  await page.goto(ROOT+'/#social-saved',{waitUntil:'domcontentloaded'});
  await page.locator('[data-social-saved-root] a[href="#route/'+savedId+'"]').click();
+ await page.locator('#main .variant-d-more > summary').click();
  await page.locator('button[data-action="rename-route"]').click();
  await saveModal.locator('#route-save-name').fill('Wieczorna Warszawa');
  await saveModal.locator('button[type="submit"]').click();
  await page.goto(ROOT+'/#social-saved',{waitUntil:'domcontentloaded'});
  await page.locator('[data-social-saved-root]').getByText('Wieczorna Warszawa').waitFor({state:'visible',timeout:12000}); // async account/local archive render
  await page.locator('[data-social-saved-root] a[href="#route/'+savedId+'"]').click();
+ await page.locator('#main .variant-d-more > summary').click();
  await page.locator('button[data-action="archive-route"]').click();
  await page.goto(ROOT+'/#social-saved',{waitUntil:'domcontentloaded'});
  const arch=page.locator('[data-social-saved-root] article.card').filter({hasText:'Wieczorna Warszawa'});
  await arch.waitFor({state:'visible',timeout:12000});
  assert.match(await arch.textContent(),/Archiwum/,'archived route is accessible in the same saved list');
  await arch.locator('a[href="#route/'+savedId+'"]').click();
+ await page.locator('#main .variant-d-more > summary').click();
  await page.locator('button[data-action="unarchive-route"]').click();
  await page.reload({waitUntil:'domcontentloaded'});
  const stored=await page.evaluate(id=>JSON.parse(localStorage.getItem('city-route-v1')).myRoutes.find(r=>r.id===id),savedId);
@@ -172,6 +203,20 @@ try{
  assert.equal(stored.description,'Spacer na spokojny wieczór');
  assert.equal(stored.archivedAt,null,'restored route remains in saved collection after reload');
  assert.equal(stored.stops.length,2,'archived route preserves the two ordered stops');
+
+ // Adding a stop to an editorial route edits a private builder copy, never the source.
+ const editorialSource=JSON.parse(await readFile('data/routes.json','utf8')).find(r=>r.id==='old-warsaw');
+ await page.goto(ROOT+'/#route/old-warsaw',{waitUntil:'domcontentloaded'});
+ await page.locator('[data-action="add-route-stop"][data-id="old-warsaw"]').click();
+ await page.waitForFunction(()=>location.hash==='#places');
+ const copied=await page.evaluate(()=>JSON.parse(localStorage.getItem('city-route-v1')));
+ assert.deepEqual(copied.basket,editorialSource.stops,'add next stop starts from exactly the viewed route');
+ assert.equal(copied.builderMetaByCity.warsaw.name,editorialSource.name);
+ // The named route created earlier retains its independent stop list.
+ assert.equal(copied.myRoutes.find(r=>r.id===savedId).stops.length,2);
+ await page.goto(ROOT+'/#route/old-warsaw',{waitUntil:'domcontentloaded'});
+ await page.locator('.stops li').first().waitFor({state:'visible',timeout:12000});
+ assert.equal(await page.locator('.stops li').count(),editorialSource.stops.length,'original editorial route remains unchanged');
 
  await page.goto(ROOT+'/#profile',{waitUntil:'domcontentloaded'});
  const details=page.locator('.profile-integrations');

@@ -3,6 +3,9 @@ name: Production rollout verification
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - '**/*.md'
+      - 'docs/**'
   workflow_dispatch:
 
 # If main moves while Cloudflare deploys, verify the newest commit rather than
@@ -43,3 +46,5 @@ jobs:
           grep -Fq "optimizeRoutePlaces" /tmp/city-route-optimizer.js
           grep -Fq "onQuery" /tmp/city-route-place-composer.js
           echo "PASS: production app.js SHA-256 and critical public assets verified."
+      - name: Run regression tests on main (consolidated CI)
+        run: npm test

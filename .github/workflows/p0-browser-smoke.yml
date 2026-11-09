@@ -2,6 +2,7 @@ name: P0 browser smoke
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - 'app.js'
       - 'styles.css'
@@ -28,11 +29,18 @@ on:
       - 'route-export.js'
       - '.github/workflows/p0-browser-smoke.yml'
 
+# Cancel outdated smoke runs when a PR receives newer commits.
+concurrency:
+  group: cityroute-browser-smoke-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
 jobs:
   mobile-smoke:
+    # Draft PRs use fast CI; full browser QA starts when ready for review.
+    if: ${{ !github.event.pull_request.draft }}
     runs-on: ubuntu-24.04
     timeout-minutes: 12
     steps:

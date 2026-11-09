@@ -35,7 +35,11 @@ try{
  page.on('pageerror',err=>errors.push(err.message));
  page.on('dialog',dialog=>dialog.accept());
  await page.goto(ROOT+'/#my-route',{waitUntil:'domcontentloaded'});
+ const publish=page.locator('.variant-d-extra-actions [data-social-publish-button]');
+ await publish.waitFor({state:'attached',timeout:15000});
+ assert.equal(await publish.isVisible(),false,'Publish stays inside collapsed More options');
  await page.locator('.variant-d-more > summary').click();
+ assert.equal(await publish.isVisible(),true,'Publish remains available inside More options');
  const exportBtn=page.locator('button[data-action="export-gpx"][data-id="basket"]');
  await exportBtn.waitFor({state:'visible',timeout:30000});
  const downloadPromise=page.waitForEvent('download',{timeout:12000});
@@ -67,6 +71,13 @@ try{
  for(const label of ['WhatsApp','Instagram','Messenger','Kopiuj link']){
   assert.ok(await modal.getByText(label,{exact:false}).count()>0,'visible share option: '+label);
  }
+ const brands=await modal.evaluate(el=>Object.fromEntries(['whatsapp','messenger','instagram','copy'].map(name=>{const s=getComputedStyle(el.querySelector('.route-share-'+name));return [name,{background:s.backgroundColor,image:s.backgroundImage,color:s.color}];})));
+ assert.equal(brands.whatsapp.background,'rgb(18, 140, 74)');
+ assert.equal(brands.messenger.background,'rgb(8, 102, 255)');
+ assert.match(brands.instagram.image,/linear-gradient/);
+ assert.equal(brands.copy.background,'rgb(109, 40, 217)');
+ assert.equal(await modal.locator('.route-share-native').count(),0,'native route share is deferred');
+ await page.screenshot({path:'p0-smoke-artifacts/share-destination-colors.png',fullPage:true});
  await modal.locator('button[type="submit"]').click();
  // Regression: share action must remain present after switching any transport,
  // including transit and mix (previously deliberately hidden).
@@ -199,6 +210,21 @@ try{
  assert.ok(await importedRow.locator('[data-commons-name]').count()>0,'failed Google thumbnail preserves exact Commons fallback metadata');
  const bounds=await page.evaluate(()=>({scrollWidth:document.documentElement.scrollWidth,width:innerWidth}));
  assert.ok(bounds.scrollWidth<=bounds.width+1,'375px profile has no horizontal overflow: '+JSON.stringify(bounds));
+ // A newly added stop uses the single contextual route bar, without a duplicate toast.
+ const add=page.locator('.place-list button[data-action="add"]').first();
+ await add.waitFor({state:'visible',timeout:12000});
+ const addId=await add.getAttribute('data-id');
+ await add.click();
+ await page.waitForFunction(id=>JSON.parse(localStorage.getItem('city-route-v1')).basket.includes(id),addId);
+ const routeBar=page.locator('#active-route-bar');
+ await routeBar.waitFor({state:'visible',timeout:12000});
+ const routeColor=await routeBar.evaluate(el=>getComputedStyle(el).backgroundColor);
+ const startColor=await page.evaluate(()=>getComputedStyle(document.documentElement).getPropertyValue('--ink').trim());
+ assert.equal(routeColor,'rgb(14, 26, 38)','My Route matches the dark Start action');
+ assert.equal(startColor,'#0e1a26');
+ assert.equal(await page.locator('#toast.show').count(),0,'no redundant added-stop toast');
+ assert.equal(await page.locator('[data-toast-my-route]').count(),0,'no duplicate See route link');
+ await page.screenshot({path:'p0-smoke-artifacts/dark-contextual-route-bar.png',fullPage:true});
  assert.deepEqual(errors,[],'no uncaught browser errors: '+errors.join('; '));
  console.log('PASS integrations browser: GPX, share across transport, named save/rename/archive/restore, ratings template, disabled thumbnail and Takeout CSV');
 }finally{

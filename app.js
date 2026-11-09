@@ -383,7 +383,7 @@ async function mountPlacesMap(){
  };
  view=createMapView({
   container:host,places:base,city:city(),filter:{showPlaces:mapCategorySelected},
-  onAddToRoute:p=>{if(isLive())return toast('Najpierw zakończ aktywną trasę.');if(!state.basket.includes(p.id)){const r=applyBuilder(addStop(builderDraft,p,{now:now()}),{eventType:'builder_add',eventData:{place_id:p.id,source:'map'}});if(r?.changed){log('add_to_route',{place_id:p.id,source:'map'});nav();toast(`Dodano jako ${builderDraft.stops.length}. przystanek`);}}},
+  onAddToRoute:p=>{if(isLive())return toast('Najpierw zakończ aktywną trasę.');if(!state.basket.includes(p.id)){const r=applyBuilder(addStop(builderDraft,p,{now:now()}),{eventType:'builder_add',eventData:{place_id:p.id,source:'map'}});if(r?.changed){log('add_to_route',{place_id:p.id,source:'map'});nav();}}},
   renderPhoto:p=>{const markup=photo(all[p.id]||p,'cr-map-card-photo-image',true,true);return markup.startsWith('<img ')?markup:'';},
   onDetails:p=>openPlace(p.id),
   onNearbyChange:syncNearby,
@@ -744,7 +744,7 @@ document.addEventListener('click',e=>{
  if(action==='search-places'){cat='all';placesPage=1;mapCategorySelected=true;keepQuery=true;location.hash='places';}
  if(action==='show-all-search'){cat='all';placesPage=1;mapCategorySelected=true;cuisine='all';render();return;}
  if(action==='suggest-add-place'){const name=query.trim().slice(0,60);if(name.length<2)return;draft={name,cat:'okolice',vis:'private',rating:'none',photos:[],imageRights:false};query='';location.hash='#add-place';return;}
- if(action==='add'&&!state.basket.includes(id)){const r=applyBuilder(addStop(builderDraft,all[id],{now:now()}),{eventType:'builder_add',eventData:{place_id:id,source:b.dataset.source||'ui'}});if(r?.changed){log('add_to_route',{place_id:id,source:b.dataset.source||'ui'});render();if(d.open)openPlace(id);toast(`Dodano jako ${builderDraft.stops.length}. przystanek`);}}
+ if(action==='add'&&!state.basket.includes(id)){const r=applyBuilder(addStop(builderDraft,all[id],{now:now()}),{eventType:'builder_add',eventData:{place_id:id,source:b.dataset.source||'ui'}});if(r?.changed){log('add_to_route',{place_id:id,source:b.dataset.source||'ui'});render();if(d.open)openPlace(id);}}
  if(action==='remove'){const r=applyBuilder(removeStop(builderDraft,id,{now:now()}),{eventType:'builder_remove',eventData:{place_id:id}});if(r?.changed){render();if(d?.open)openPlace(id);toast('Usunięto przystanek z Mojej trasy.');}}
  if(action==='up'||action==='down'){const r=applyBuilder(moveStopBy(builderDraft,id,action==='up'?-1:1,{now:now()}),{eventType:'builder_move',eventData:{place_id:id,method:'buttons'}});if(r?.changed)render();}
  if(action==='optimize'){

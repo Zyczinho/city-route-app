@@ -126,3 +126,14 @@
  border-color:var(--cr-community-hover,#5B21B6);
 }
 .route-share-dialog .route-share-status{color:var(--cr-community,#6D28D9)}
+
+/* Founder Test 4: destination brands; City Route-owned Copy stays purple. */
+.route-share-dialog .route-share-choices .route-share-whatsapp{background:#128c4a;border-color:#128c4a;color:#fff}
+.route-share-dialog .route-share-choices .route-share-whatsapp:hover{background:#0d743d;border-color:#0d743d}
+.route-share-dialog .route-share-choices .route-share-messenger{background:#0866ff;border-color:#0866ff;color:#fff}
+.route-share-dialog .route-share-choices .route-share-messenger:hover{background:#0754d1;border-color:#0754d1}
+.route-share-dialog .route-share-choices .route-share-instagram{background:linear-gradient(35deg,#f9ce34,#ee2a7b,#6228d7);border-color:#c42c86;color:#fff;text-shadow:0 1px 2px #0008}
+.route-share-dialog .route-share-choices .route-share-instagram:hover{filter:brightness(.92)}
+.route-share-dialog .route-share-choices .route-share-copy{background:var(--cr-community);border-color:var(--cr-community);color:#fff}
+.route-share-dialog .route-share-choices .route-share-copy:hover{background:var(--cr-community-hover);border-color:var(--cr-community-hover)}
+.route-share-dialog .route-share-choices .route-share-action .i{color:currentColor}

@@ -95,7 +95,8 @@ test('all requested social channels are visible in share chooser, without privat
  const fs=await import('node:fs/promises');
  const text=await fs.readFile(new URL('../share-links.js',import.meta.url),'utf8');
  const app=await fs.readFile(new URL('../app.js',import.meta.url),'utf8');
- for(const word of ['WhatsApp','Instagram','Messenger','Udostępnij przez aplikację'])assert.match(text,new RegExp(word));
+ for(const word of ['WhatsApp','Instagram','Messenger','Kopiuj link'])assert.match(text,new RegExp(word));
+ assert.doesNotMatch(text,/Udostępnij przez aplikację/,'native route option deferred after iPhone feedback');
  assert.match(app,/data-route-share="maps"/);
  assert.match(app,/data-route-share="editorial"/);
  assert.match(app,/data-action="export-gpx"/);

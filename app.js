@@ -640,7 +640,7 @@ function savedRoutesView(){
  // account service augments this existing view; it may never gate local data.
  const selectedCity=city().id;
  const local=combineSavedRoutes({localRoutes:state.myRoutes,cityId:selectedCity});
- const cards=local.map(r=>`<article class="card"><h3>${esc(r.name)}</h3><p class="muted">${r.kind==='editorial-local'?'Redakcja City Route · to urządzenie':'Moja trasa · to urządzenie'}${r.archived?' · Archiwum':''}</p><a class="button" href="${esc(r.href)}">Otwórz</a></article>`).join('');
+ const cards=local.map(r=>`<article class="card saved-route-card"><h3>${esc(r.name)}</h3><p class="muted">${r.kind==='editorial-local'?'Redakcja City Route · to urządzenie':'Moja trasa · to urządzenie'}${r.archived?' · Archiwum':''}</p><div class="saved-route-actions"><a class="button" href="${esc(r.href)}">Otwórz</a><button type="button" class="saved-route-trash" data-action="remove-saved-local" data-id="${esc(r.id)}" aria-label="Usuń ${esc(r.name)} z zapisanych tras" title="Usuń z zapisanych tras">${ic('trash-2')}</button></div></article>`).join('');
  return `<section data-social-saved-root data-saved-city="${esc(selectedCity)}"><a class="back" href="#collections">${ic('arrow-left')} Moje kolekcje</a><p class="kicker">Profil · ${esc(city().name)}</p><h1>Zapisane trasy</h1><p class="fine">Twoje, redakcyjne i społecznościowe trasy w jednym miejscu. Zapisy z tego urządzenia są dostępne również bez internetu.</p><div class="cards" data-saved-routes-cards>${cards||'<div class="empty"><p>Nie masz jeszcze tras zapisanych na tym urządzeniu. Trasy zapisane na koncie zostaną dołączone po zalogowaniu.</p></div>'}</div><p class="fine" data-saved-remote-status aria-live="polite">Sprawdzam trasy zapisane na koncie…</p></section>`;
 }
 
@@ -768,6 +768,16 @@ document.addEventListener('click',e=>{
   if(state.myRoutes.some(r=>r.cityId===city().id&&r.sourceRouteId===id)){location.hash='social-saved';return;}
   saveRoute({...original,sourceRouteId:id,sourceKind:'editorial'});
   persist();render();toast(storageOK?'Zapisano w Profilu → Zapisane trasy.':'Zapis lokalny niedostępny. Wyeksportuj dane.');
+  return;
+ }
+ if(action==='remove-saved-local'){
+  if(route()[0]!=='social-saved')return;
+  const saved=state.myRoutes.find(r=>r.id===id&&r.cityId===city().id);
+  if(!saved)return toast('Nie znaleziono zapisanej trasy.');
+  const message=saved.sourceKind==='editorial'?'Usunąć zapisaną kopię trasy z tego urządzenia? Oryginał redakcji pozostanie dostępny.':'Usunąć własną trasę z tego urządzenia? Nie będzie można jej przywrócić.';
+  if(!confirm(message))return;
+  state.myRoutes=state.myRoutes.filter(r=>r!==saved);
+  persist();render();toast(storageOK?'Usunięto trasę z zapisanych.':'Nie udało się utrwalić usunięcia na urządzeniu.');
   return;
  }
  if(action==='save-route'){const r=findRoute(id);loadRouteIntoBuilder(r);location.hash='my-route';toast('Trasa jest w Mojej trasie. Zmieniaj ją dowolnie.');}

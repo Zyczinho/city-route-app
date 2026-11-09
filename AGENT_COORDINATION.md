@@ -2,7 +2,7 @@
 
 ## P0.1 map card photo thumbnail
 
-IN_PROGRESS — ChatGPT — `fix/map-card-photo-thumbnail`; founder accepted PR #190 map controls on iPhone and requested a small real place photo in this same panel. Scope: reuse existing photo renderer, compact thumbnail, image failure fallback, mobile geometry tests, cache. No photo import/provider changes. Last update: 2026-11-09.
+REVIEW — ChatGPT — PR #191 MERGED as `a9d1ed888182756e3111923915660f56259a4b2d`; 48px optional photo uses existing place renderer, failed images collapse. PWA v78. Exact-head CI 42658322451 SUCCESS, mobile smoke 42658322363 SUCCESS (photo/no-photo/error at 320/375/390), provider diagnostic 42658322521 SUCCESS; independent review PASS. Founder accepted preceding map controls #190. Next: production asset parity then real iPhone photo-panel acceptance; continue Test 4/5. Missing descriptions/provider ratings remain #176. Last update: 2026-11-09.
 
 ## P0.1 Test 3 — map card action overlap
 

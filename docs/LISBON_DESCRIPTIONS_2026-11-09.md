@@ -43,7 +43,7 @@
 ## Deployment and recovery
 
 1. JSON fallback and source manifest go through PR/tests/build/review.
-2. Run `scripts/staged-lisbon-descriptions-20261109.sql` against City Route only after code review. It must match exactly24 Lisbon legacy IDs with blank or identical descriptions; any mismatch rolls back the statement. It updates description/editorial metadata only, preserving original OSM source, other metadata, coordinates, categories, ratings, images, visibility and user data.
+2. Run `scripts/staged-lisbon-descriptions-20261109.sql` against City Route only after code review. It must match exactly24 Lisbon legacy IDs with blank or identical descriptions; any mismatch or concurrently changed editorial provenance rolls back the statement. Both preflight and UPDATE accept editorial metadata only when absent/empty or containing the complete identical patch; extra nonconflicting keys survive. It updates description/editorial metadata only, preserving original OSM source, other metadata, coordinates, categories, ratings, images, visibility and user data.
 3. Query `catalogue_places('lisbon')` and verify all24 exact descriptions + sources and first30 description coverage30/30. Check live REST/visible detail, reload and JSON fallback.
 4. Recovery: revert JSON commit; hosted correction must be bounded to these same24 legacy IDs and only run where current description/editorial metadata still match this patch. Prior descriptions were empty and all24 prior editorial objects were absent. Do not restore blindly over subsequent edits.
 

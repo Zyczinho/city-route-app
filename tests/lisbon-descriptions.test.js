@@ -2,10 +2,14 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {placeFromCatalogue} from '../catalogue-client.js';
+import {compareRecommendedPlaces} from '../places-pagination.js';
 const read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
 const patches=JSON.parse(read('scripts/data/lisbon-first30-descriptions-20261109.json'));
 const fallback=JSON.parse(read('data/cities/lisbon/places.json'));
 test('Lisbon description patch has exactly24 known places and matching offline content',()=>{
+ const first30=fallback.filter(p=>p.kind!=='hotel'&&!['hotel','hostel','apartment','guesthouse'].includes(p.categoryId)).sort(compareRecommendedPlaces).slice(0,30);
+ assert.equal(first30.length,30);
+ assert.equal(first30.filter(p=>p.description?.length>=30).length,30,'all first30 cards have description or explicit warning');
  assert.equal(patches.length,24);assert.equal(new Set(patches.map(x=>x.id)).size,24);
  for(const x of patches){
   const matches=fallback.filter(p=>p.id===x.id);
@@ -33,6 +37,7 @@ test('questionable and closed venues have visible warnings instead of invented r
 test('hosted content script matches manifest and cannot overwrite unrelated content',()=>{
  const sql=read('scripts/staged-lisbon-descriptions-20261109.sql');
  assert.ok(sql.includes(JSON.stringify(patches)),'SQL payload equals reviewed manifest');
+ assert.equal((sql.match(/p.metadata->'editorial' @> u.editorial/g)||[]).length,2,'both preflight and UPDATE guard conflicting editorial changes');
  assert.match(sql,/if matched<>24/);assert.match(sql,/if changed<>24/);
  assert.match(sql,/c.slug='lisbon'/);
  assert.match(sql,/coalesce\(p.description,''\)='' or p.description=u.description/);

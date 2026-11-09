@@ -2,7 +2,7 @@
 
 ## P0 #176 — persistent licensed Lisbon covers
 
-REVIEW — ChatGPT — `content/lisbon-permanent-commons-covers`; eight visually checked CC-licensed exact-entity JPEGs vendored with source/author/license/hash, JSON fallback and offline precache v83. Actual coverage8/30, remaining22 unresolved (including4 flagged venues untouched); no claim of 30/30. Bounded hosted DML/rollback staged, NOT APPLIED pending review, green full CI/mobile and deployed asset checks. Targeted unit26/26PASS; mobile adds decoding8, visible credits320/375/390 and offline detail reload. No schema/paid APIs/user changes. Last update2026-11-09.
+REVIEW — ChatGPT — `content/lisbon-permanent-commons-covers`; eight visually checked CC-licensed exact-entity JPEGs vendored with source/author/license/hash, JSON fallback and offline precache v83. Actual coverage8/30, remaining22 unresolved (including4 flagged venues untouched); no claim of 30/30. Bounded hosted DML/rollback staged, NOT APPLIED pending full CI and deployed asset checks. Independent final review PASS a3e932a; PostgreSQL conflict fixtures9/9PASS including nested credit/provenance protection. Exact-head mobile42673458445 attempt2 SUCCESS (8decodes,3width credits,offline reload). Full CI ubuntu-latest repeatedly fails BEFORE job creation with GitHub internal-server annotations; pin same supported ubuntu-24.04 runner as passing mobile, commands unchanged. Targeted unit26/26PASS; mobile adds decoding8, visible credits320/375/390 and offline detail reload. No schema/paid APIs/user changes. Last update2026-11-09.
 
 
 ## P0 #176 — first30 Lisbon sourced descriptions

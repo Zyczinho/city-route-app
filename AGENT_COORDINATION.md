@@ -1,5 +1,10 @@
 # Agent Coordination — canonical control plane
 
+## Route action UX parity — editorial and own routes
+
+IN_PROGRESS — ChatGPT — `fix/unified-route-detail-actions`; founder requests same order/layout/colors in editorial detail and manual builder: Start / Save / Share / collapsed More / Add next stop. Existing detail actions move under More; preserve editorial source, actual share URL and saved-route behavior. Add next stop must copy the viewed route into personal builder before opening Places. Scope app + browser acceptance + cache; no backend/catalogue changes. Last update: 2026-11-09.
+
+
 ## P0.1 Test 4 — sharing / action clarity
 
 REVIEW — ChatGPT — PR #192 MERGED `1c8705d1e468d7e0a03d7d4f3f7e96c7bc1c0333`; removed added-stop toast/See route duplication, dark My Route, branded destinations/purple Copy, native route share deferred, Publish inside More. Save blue/Add stop white retained. Final-head CI 42661087411 SUCCESS, mobile smoke 42661087611 SUCCESS, provider diagnostics 42661087549 SUCCESS; independent review PASS. Main CI 42661415370 and production rollout 42661415357 SUCCESS. Live cache `city-route-v79-308bddc58e`. Await founder iPhone visual acceptance; private-tab recipient opening still not explicitly confirmed, then Test 5/5. #176 content remains open. Last update: 2026-11-09.

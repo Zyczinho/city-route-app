@@ -67,9 +67,9 @@ test('success message is shown once across login redirect/scope reload and not o
 test('release ships all gallery code/css and refreshed modules offline',()=>{
  const html=read('index.html'),sw=read('service-worker.js'),build=read('scripts/build.mjs');
  for(const file of ['place-photo-gallery.css','place-photo-model.js']){assert.ok(sw.includes(file),file+' missing from cache');assert.ok(build.includes(file),file+' missing from build');}
- assert.ok(html.includes('place-photo-gallery.css?v=2'));
+ assert.ok(html.includes('place-photo-gallery.css?v=3'));
  assert.match(html,/auth-enhancements\.js\?v=23/);
- assert.match(html,/place-composer\.js\?v=5/);
+ assert.match(html,/place-composer\.js\?v=6/);
  assert.match(sw,/city-route-v\d+/);
  for(const file of ['app.js','auth-enhancements.js','place-composer.js','place-photo-model.js'])execFileSync(process.execPath,['--check',file],{stdio:'pipe'});
 });

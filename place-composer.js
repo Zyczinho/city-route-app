@@ -4,7 +4,7 @@
 import {iconMarkup} from './ui-icons.js';
 import {MIN_QUERY,SUGGEST_DELAY_MS,classifyInput,formatCoords,normalizeQuery,keepsSelection,cityCheck,activeCity,cityParams,catalogueMatches,findDuplicate,categoryFromTypes,SOURCE_LABEL,latestOnly,sessionToken} from './place-composer-model.js';
 import {loadLeaflet} from './map-view.js';
-import {findPlacePhotoCandidates,acceptedPhotoRecord,acceptedGooglePlaceId} from './place-photo-proposal.js';
+import {findPlacePhotoCandidates,acceptedPhotoRecord,acceptedGooglePlaceId,autoPhotoCandidateIndex} from './place-photo-proposal.js';
 
 const STATE_KEY='city-route-v1';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -181,13 +181,14 @@ async function proposePhoto(form,sel){
  if(proposal?.key===key)return renderProposal(form);
  clearProposal(form);
  const controller=new AbortController();proposalController=controller;
- proposal={key,status:'loading',candidates:[],index:0,accepted:false,skipped:false};renderProposal(form);
+ proposal={key,status:'loading',candidates:[],index:0,accepted:false,autoSelected:false,skipped:false};renderProposal(form);
  const city=await currentCity();
  let result;
  try{result=await findPlacePhotoCandidates(sel,{city:city?.name||'',cityInfo:city,signal:controller.signal});}
  catch{if(controller.signal.aborted)return;result={status:'error',candidates:[]};}
  if(proposalController!==controller||proposal?.key!==key)return;
- proposal={...proposal,status:result.status,candidates:result.candidates};
+ const autoIndex=autoPhotoCandidateIndex(result.candidates);
+ proposal={...proposal,status:result.status,candidates:result.candidates,index:Math.max(0,autoIndex),accepted:autoIndex>=0,autoSelected:autoIndex>=0};
  renderProposal(formOf()||form);
 }
 
@@ -210,7 +211,7 @@ function renderProposal(form){
  const c=currentCandidate(),many=proposal.candidates.length>1,name=$('input[name="name"]',form)?.value.trim()||'to miejsce';
  slot.innerHTML=`<figure class="pc-photo${proposal.accepted?' is-accepted':''}">
   <img src="${esc(c.src)}" alt="Zdjęcie: ${esc(name)}" decoding="async" referrerpolicy="no-referrer">
-  <figcaption><strong>${proposal.accepted?icon('check')+'Zdjęcie wybrane':'Proponowane zdjęcie'}</strong><span>${creditLine(c)}</span>${many?`<span class="pc-photo-count">${proposal.index+1} z ${proposal.candidates.length}</span>`:''}</figcaption>
+  <figcaption><strong>${proposal.accepted?icon('check')+(proposal.autoSelected?'Zdjęcie wybrane automatycznie':'Zdjęcie wybrane'):'Proponowane zdjęcie'}</strong><span>${creditLine(c)}</span>${many?`<span class="pc-photo-count">${proposal.index+1} z ${proposal.candidates.length}</span>`:''}</figcaption>
  </figure>
  <div class="pc-photo-actions">${proposal.accepted
   ?`${many?'<button type="button" data-pc-photo="next">'+icon('shuffle')+'Inne</button>':''}<button type="button" data-pc-photo="skip">${icon('x')}Usuń</button>`
@@ -218,7 +219,7 @@ function renderProposal(form){
  ${proposal.accepted?'<p class="fine pc-photo-note">Jeśli dodasz własne zdjęcia, okładką będzie Twoje.</p>':''}`;
  slot.querySelector('img')?.addEventListener('error',()=>{
   if(!proposal||currentCandidate()!==c)return;
-  proposal.candidates=proposal.candidates.filter(x=>x!==c);proposal.index=0;proposal.accepted=false;
+  proposal.candidates=proposal.candidates.filter(x=>x!==c);proposal.index=0;proposal.accepted=false;proposal.autoSelected=false;
   if(!proposal.candidates.length)proposal.status='none';
   renderProposal(formOf()||form);
  },{once:true});
@@ -227,9 +228,9 @@ function renderProposal(form){
 function onProposalAction(form,action){
  if(!proposal)return;
  if(action==='own'){$('input[name="photo"]',form)?.click();return;}
- if(action==='accept'){proposal.accepted=true;proposal.skipped=false;}
- if(action==='next'&&proposal.candidates.length>1){proposal.index=(proposal.index+1)%proposal.candidates.length;proposal.accepted=false;}
- if(action==='skip'){proposal.accepted=false;proposal.skipped=true;}
+ if(action==='accept'){proposal.accepted=true;proposal.autoSelected=false;proposal.skipped=false;}
+ if(action==='next'&&proposal.candidates.length>1){proposal.index=(proposal.index+1)%proposal.candidates.length;proposal.accepted=false;proposal.autoSelected=false;}
+ if(action==='skip'){proposal.accepted=false;proposal.autoSelected=false;proposal.skipped=true;}
  if(action==='undo')proposal.skipped=false;
  renderProposal(form);
 }

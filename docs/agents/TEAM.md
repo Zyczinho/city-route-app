@@ -1,6 +1,6 @@
 # City Route agent team (v1)
 
-Eight role-based agents develop City Route in parallel. Every role works the same way in Claude Code (subagents in `.claude/agents/`) and in ChatGPT/Codex (read the same role file named below). Roles are about **what an agent owns**, not which model runs it.
+Nine role-based agents develop City Route in parallel. Every role works the same way in Claude Code (subagents in `.claude/agents/`) and in ChatGPT/Codex (read the same role file named below). Roles are about **what an agent owns**, not which model runs it.
 
 `AGENTS.md` (risk levels, anti-loop, merge gates) still applies to every role. This file adds who does what.
 
@@ -16,6 +16,7 @@ Eight role-based agents develop City Route in parallel. Every role works the sam
 | Role | File | Writes code? | Main output |
 |---|---|---|---|
 | Coordinator | `.claude/agents/coordinator.md` | No | Prioritised, assigned issues; ownership conflicts resolved |
+| Incident Debugger | `.claude/agents/incident-debugger.md` | Diagnostics + smallest verified fix | P0 reproducible failure, causal event trace, exact-case regression, evidence-backed fix |
 | Auditor | `.claude/agents/auditor.md` | No | Audit findings as GitHub Issues, per persona |
 | UX Editor | `.claude/agents/ux-editor.md` | Yes | UI/UX PRs that close audit and user-feedback issues |
 | API Integrator | `.claude/agents/api-integrator.md` | Yes | Integration cards, then integration PRs (maps, photos, Strava, events) |
@@ -23,6 +24,10 @@ Eight role-based agents develop City Route in parallel. Every role works the sam
 | Place Curator | `.claude/agents/place-curator.md` | Data | Catalogue PRs: places with coordinates, category, licensed photo, provenance |
 | QA / Release | `.claude/agents/qa-release.md` | Tests | Test/smoke fixes, mobile checks, production verification after merge |
 | Reviewer | `.claude/agents/reviewer.md` | No | One consolidated PR review (BLOCKER / NON-BLOCKER / INFO) |
+
+## Incident override
+
+The Incident Debugger takes **exclusive ownership of a core-flow regression** whenever a founder reports a freeze, a green CI contradicts reality, or two fix attempts have failed. The Coordinator freezes overlapping UI/data work for that affected flow. The Debugger uses [the incident protocol](../qa/DEBUGGING_PROTOCOL.md), updates one canonical Issue, and requests QA/Release validation. Other agents do not launch alternative patches in parallel. The Product Owner is only needed for genuine RED-risk decisions or real-device acceptance.
 
 ## Flow
 
@@ -50,6 +55,7 @@ Real users + Auditor ──► Issues ──► Coordinator (priority, owner, la
 | `data/`, `assets/images/`, `scripts/*import*`, `scripts/*curation*`, `DATA_SOURCES.md` | Place Curator | Never fabricate ratings, coordinates or photos |
 | `docs/sources/` | Source Scout | No scraping; licence and terms first |
 | `tests/`, `.github/workflows/`, `scripts/build.mjs`, `scripts/cache-version.mjs` | QA / Release | Owns flaky-test fixes and release checks |
+| Incident reproducer + one narrow cross-file P0 fix | Incident Debugger (temporary lease from owners) | Coordinator records ownership; QA reviews test; no concurrent writers |
 | `auditors/`, `docs/personas/` | Auditor (personas changed only with Jakub's approval) | |
 | `AGENT_COORDINATION.md`, `docs/agents/` | Coordinator | |
 | `app.js` and shared runtime modules | Shared | Smallest possible diff; Coordinator assigns one writer at a time |

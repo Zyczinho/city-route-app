@@ -1,0 +1,54 @@
+name: P0 regression / incident
+description: Core flow fails or passes CI but fails for a real user. Activates Incident Debugger and the anti-loop protocol.
+title: "[P0 Incident] "
+labels: ["agent:qa-release"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use docs/qa/DEBUGGING_PROTOCOL.md. One incident owner, one canonical issue.
+        Two unsuccessful fixes trigger investigation-only mode; no third speculative patch.
+  - type: textarea
+    id: symptom
+    attributes:
+      label: Exact failed sequence
+      description: Last working action, next action, and what stopped responding.
+      placeholder: "Lizbona → Estádio da Luz → accept Commons photo → tap 5/5 → radio remains unchecked; Save does nothing."
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Environment and differentiators
+      description: City, device/browser/PWA, logged in, production revision, provider, photo source, existing user state (without private data).
+    validations:
+      required: true
+  - type: textarea
+    id: contrast
+    attributes:
+      label: Working control / A-B difference
+      description: A similar case that works and the one variable that differs.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Before-fix evidence
+      description: Failing test/run link, event defaultPrevented, stack or network trace. Never paste secrets or personal data.
+    validations:
+      required: true
+  - type: textarea
+    id: attempts
+    attributes:
+      label: Attempts, hypothesis and outcome
+      description: List each PR, what it predicted, and whether the founder's exact issue remained.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Release and acceptance checklist
+      options:
+        - label: Root cause demonstrated in code and failing test
+        - label: Identical test red before / green after the minimal fix
+        - label: Exact-head CI / mobile QA passed
+        - label: Deployed production assets verified
+        - label: Founder confirmed on the original environment (only then close)

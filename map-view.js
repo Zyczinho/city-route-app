@@ -111,7 +111,6 @@ export function createMapView(opts){
   const {container,onSelect,onAddToRoute,onDetails,onViewportChange,onNearbyChange,isInRoute=()=>false}=opts;
   const doc=opts.doc||globalThis.document;
   const coarsePointer=opts.coarsePointer??Boolean((globalThis.window?.innerWidth||Infinity)<760||globalThis.window?.matchMedia?.('(pointer: coarse)')?.matches||(globalThis.window?.navigator?.maxTouchPoints||0)>0);
-  let mapInteractionEnabled=!coarsePointer;
   let places=opts.places||[],city=opts.city,filter=opts.filter||{},selectedId=null,nearbyOn=false,nearbyCenter=null;
   let L=null,map=null,layer=null,circle=null,resizer=null,markers=new Map(),mode='loading',tileErrors=0,destroyed=false;
   let routeStops=[],routeSource=new Map(),routeLayer=null,stopMarkers=new Map();
@@ -120,10 +119,9 @@ export function createMapView(opts){
   container.classList.add('cr-map');
   const toolbar=el('div','cr-map-toolbar',{role:'toolbar','aria-label':'Mapa'});
   const nearbyBtn=el('button','cr-map-nearby',{type:'button','aria-pressed':'false','data-map-action':'nearby'});nearbyBtn.textContent=`W pobliżu · ${NEARBY_RADIUS_M} m`;
-  const interactionBtn=el('button','cr-map-interaction',{type:'button','data-map-action':'interaction','aria-pressed':'false'});interactionBtn.textContent='Przesuwaj mapę';interactionBtn.hidden=!coarsePointer;
   const viewBtn=el('button','cr-map-toggle',{type:'button','data-map-action':'toggle'});viewBtn.textContent='Lista';
   const status=el('p','sr-only',{role:'status','aria-live':'polite'});
-  toolbar.append(nearbyBtn,interactionBtn,viewBtn);
+  toolbar.append(nearbyBtn,viewBtn);
   const canvas=el('div','cr-map-canvas',{'aria-label':`Mapa miejsc${city?.name?': '+city.name:''}`});
   const list=el('div','cr-map-fallback');list.hidden=true;
   const card=el('div','cr-map-card',{role:'dialog','aria-modal':'false','aria-labelledby':'cr-map-card-title'});card.hidden=true;
@@ -177,24 +175,11 @@ export function createMapView(opts){
     if(!silent)onSelect?.(p||null);
     return p||null;
   }
-  // Touch devices scroll the page by default; map panning is an explicit, reversible choice.
-  function setMapInteraction(enabled){
-    if(!coarsePointer)return;
-    mapInteractionEnabled=!!enabled;
-    container.classList.toggle('is-scroll-mode',!mapInteractionEnabled);
-    interactionBtn.setAttribute('aria-pressed',String(mapInteractionEnabled));
-    interactionBtn.textContent=mapInteractionEnabled?'Przewijaj stronę':'Przesuwaj mapę';
-    if(map){
-      const action=mapInteractionEnabled?'enable':'disable';
-      map.dragging?.[action]?.();
-      map.touchZoom?.[action]?.();
-    }
-  }
+  // Touch maps are draggable immediately; page scrolling stays available in side gutters.
   function setMode(next){
     mode=next;const list_=next==='list';
     list.hidden=!list_;canvas.hidden=list_;viewBtn.textContent=list_?'Mapa':'Lista';viewBtn.disabled=!map;
     container.dataset.mapMode=next;
-    interactionBtn.hidden=!coarsePointer||list_;
     if(!list_)map?.invalidateSize?.();// Leaflet measures its container; it was hidden until now
   }
   function center(){if(map){const c=map.getCenter();return {lat:c.lat,lng:c.lng};}return city?.center||null;}
@@ -207,7 +192,6 @@ export function createMapView(opts){
     else if(a==='add'){const p=byId(id);if(p){onAddToRoute?.(p);showCard(p);announce(`${p.name} dodane do trasy`);}}
     else if(a==='details'){const p=byId(id);if(p)onDetails?.(p);}
     else if(a==='nearby')api.setNearby(nearbyOn?null:center());
-    else if(a==='interaction'&&map)setMapInteraction(!mapInteractionEnabled);
     else if(a==='toggle'&&map)setMode(mode==='list'?'map':'list');
   }
   function onKey(e){if(e.key==='Escape'&&!card.hidden){select(null);canvas.focus?.();}}
@@ -237,12 +221,11 @@ export function createMapView(opts){
     destroy(){destroyed=true;resizer?.disconnect();container.removeEventListener('click',onClick);container.removeEventListener('keydown',onKey);map?.remove();container.replaceChildren?.();}
   };
 
-  setMode('list');setMapInteraction(false);render();
+  setMode('list');render();
   api.ready=(opts.leaflet||loadLeaflet)().then(lib=>{
     if(destroyed)return mode;
     L=lib;const c=city?.center||{lat:52.2297,lng:21.0122};
-    map=L.map(canvas,{zoomControl:true,keyboard:true,dragging:!coarsePointer,touchZoom:!coarsePointer,scrollWheelZoom:!coarsePointer}).setView([c.lat,c.lng],city?.defaultZoom||13);
-    if(coarsePointer)setMapInteraction(false);
+    map=L.map(canvas,{zoomControl:true,keyboard:true,dragging:true,touchZoom:true,scrollWheelZoom:!coarsePointer}).setView([c.lat,c.lng],city?.defaultZoom||13);
     L.tileLayer(TILES,{maxZoom:19,attribution:ATTRIBUTION}).on('tileerror',()=>{if(++tileErrors===TILE_ERRORS_BEFORE_FALLBACK){setMode('list');announce('Mapa jest niedostępna, pokazujemy listę miejsc.');}}).addTo(map);
     layer=L.layerGroup().addTo(map);routeLayer=L.layerGroup().addTo(map);
     map.on('moveend',()=>onViewportChange?.({center:center(),zoom:map.getZoom(),bounds:map.getBounds?.()}));

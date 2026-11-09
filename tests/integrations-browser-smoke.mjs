@@ -35,7 +35,12 @@ try{
  page.on('pageerror',err=>errors.push(err.message));
  page.on('dialog',dialog=>dialog.accept());
  await page.goto(ROOT+'/#my-route',{waitUntil:'domcontentloaded'});
- const manualActions=await page.locator('.variant-d-route-actions').evaluate(el=>[...el.children].filter(n=>n.matches('button,a')).map(n=>n.textContent.trim()));
+ const manualStyle=await page.locator('.variant-d-route-actions').evaluate(async el=>{
+  const buttons=[...el.children].filter(n=>n.matches('button,a'));
+  await Promise.all(buttons.flatMap(n=>n.getAnimations().map(a=>a.finished)));
+  return {labels:buttons.map(n=>n.textContent.trim()),colors:buttons.map(n=>getComputedStyle(n).backgroundColor)};
+ });
+ const manualActions=manualStyle.labels;
  assert.deepEqual(manualActions,['Rozpocznij trasę','Zapisz trasę','Udostępnij trasę'],'manual action order');
  const publish=page.locator('.variant-d-extra-actions [data-social-publish-button]');
  await publish.waitFor({state:'attached',timeout:15000});
@@ -112,15 +117,17 @@ try{
  assert.ok(await editorial.locator('.i').count()>0,'editorial share uses a Lucide icon');
  for(const width of [320,375,390]){
   await page.setViewportSize({width,height:812});
-  const parity=await page.locator('#main .variant-d-route-actions').evaluate(el=>{
+  const parity=await page.locator('#main .variant-d-route-actions').evaluate(async el=>{
    const buttons=[...el.children].filter(n=>n.matches('button,a'));
+   await Promise.all(buttons.flatMap(n=>n.getAnimations().map(a=>a.finished)));
    const more=el.querySelector('details'),edit=el.querySelector('[data-action="save-route"]');
    return {labels:buttons.map(n=>n.textContent.trim()),colors:buttons.map(n=>getComputedStyle(n).backgroundColor),
     moreOpen:more.open,editVisible:!!edit.getClientRects().length,
     next:el.nextElementSibling?.textContent.trim(),overflow:document.documentElement.scrollWidth>innerWidth};
   });
   assert.deepEqual(parity.labels,manualActions,'editorial and manual action order match at '+width);
-  assert.deepEqual(parity.colors,['rgb(14, 26, 38)','rgb(10, 102, 194)','rgb(109, 40, 217)'],'shared Start/Save/Share colors');
+  assert.deepEqual(parity.colors,manualStyle.colors,'editorial colors match manual Start/Save/Share');
+  assert.deepEqual(parity.colors.slice(1),['rgb(10, 102, 194)','rgb(109, 40, 217)'],'Save blue / Share purple');
   assert.equal(parity.moreOpen,false);
   assert.equal(parity.editVisible,false,'editorial editing is collapsed initially');
   assert.equal(parity.next,'Dodaj kolejny przystanek');

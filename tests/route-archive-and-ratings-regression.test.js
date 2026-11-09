@@ -27,7 +27,8 @@ test('named routes have reversible archive and are not deleted on catalogue refr
  assert.match(app,/archivedAt:null/);
  assert.match(app,/action==='archive-route'\|\|action==='unarchive-route'/);
  assert.match(app,/Moje trasy/);
- assert.match(app,/Archiwum tras/);
+ assert.match(app,/Archiwizuj trasę/);
+ assert.match(app,/sourceRouteId/,'editorial source remains attached to saved copy');
  assert.match(app,/state\.myRoutes=state\.myRoutes\.filter\(r=>r&&typeof r\.id==='string'&&Array\.isArray\(r\.stops\)\)/);
  assert.doesNotMatch(app,/state\.myRoutes=state\.myRoutes\.filter\(r=>r\.cityId!==activeCity\.id\|\|r\.stops\.every/);
 });

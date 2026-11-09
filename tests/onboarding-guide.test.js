@@ -49,16 +49,16 @@ test('guide search filters content without affecting the app hash router',()=>{
  assert.equal(g1.hidden,false);
  assert.equal(counter.hidden,true);
 });
-test('guide assets are present in build and offline cache; navbar has exactly six destinations',()=>{
+test('guide assets are present in build and offline cache; navbar has exactly five destinations with guide in Profile',()=>{
  const nav=readFileSync('nav-enhancements.js','utf8');
  const app=readFileSync('app.js','utf8');
  const index=readFileSync('index.html','utf8');
  const build=readFileSync('scripts/build.mjs','utf8');
  const sw=readFileSync('service-worker.js','utf8');
  const css=readFileSync('onboarding-guide.css','utf8');
- assert.match(nav,/desiredNav=\['#plan','#routes','#my-route','#routes\/community','#places','#about'\]/);
- assert.match(app,/\['about','library','Poradnik'\]/);
- assert.match(app,/about:'about'/);
+ assert.match(nav,/desiredNav=\['#plan','#routes','#places','#routes\/community','#profile'\]/);
+ assert.match(app,/\['profile','user-round','Profil'\]/);
+ assert.match(app,/about:'profile'/);
  assert.match(app,/function aboutView\(\)\{return guideView\(\);\}/);
  for(const name of ['onboarding-guide.js','onboarding-content.js','onboarding-guide.css']){
   assert.ok(build.includes(name),'missing from production build: '+name);
@@ -67,7 +67,7 @@ test('guide assets are present in build and offline cache; navbar has exactly si
  assert.match(index,/onboarding-guide\.css\?v=2/);
  assert.match(index,/nav-enhancements\.js\?v=4/);
  assert.match(sw,/city-route-v\d+/);
- assert.match(css,/#navigation\{grid-template-columns:repeat\(6,minmax\(0,1fr\)\)/);
+ assert.match(css,/#navigation\{grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);
  assert.match(css,/guide-group\[hidden\].*display:none/);
  for(const p of ['onboarding-guide.js','onboarding-content.js','app.js','nav-enhancements.js'])
   execFileSync(process.execPath,['--check',p],{stdio:'pipe'});

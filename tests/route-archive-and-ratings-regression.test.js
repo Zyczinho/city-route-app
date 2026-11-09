@@ -26,7 +26,7 @@ test('named routes have reversible archive and are not deleted on catalogue refr
  assert.match(app,/function saveRoute\(r\)/);
  assert.match(app,/archivedAt:null/);
  assert.match(app,/action==='archive-route'\|\|action==='unarchive-route'/);
- assert.match(app,/Moje zapisane trasy/);
+ assert.match(app,/Moje trasy/);
  assert.match(app,/Archiwum tras/);
  assert.match(app,/state\.myRoutes=state\.myRoutes\.filter\(r=>r&&typeof r\.id==='string'&&Array\.isArray\(r\.stops\)\)/);
  assert.doesNotMatch(app,/state\.myRoutes=state\.myRoutes\.filter\(r=>r\.cityId!==activeCity\.id\|\|r\.stops\.every/);

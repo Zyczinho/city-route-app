@@ -11,6 +11,8 @@ on:
       - 'place-composer.js'
       - 'place-composer-model.js'
       - 'route-optimizer.js'
+      - 'route-planner-v2.js'
+      - 'tests/planner-v2-browser-smoke.mjs'
       - 'ux-cleanup.js'
       - 'social-routes-enhancements.js'
       - 'community-hub.js'

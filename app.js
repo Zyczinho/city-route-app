@@ -218,16 +218,15 @@ function routeCard(r,big=false,covers=routeCoverAssignments()){const ps=items(r.
  return `<a class="route-card ${big?'big':''}" href="#route/${r.id}" data-action="route-view" data-id="${r.id}"><div class="media">${photo(cover,'',big)}<span class="pill">${ic('clock')}${minutes(s.minutes)}</span></div><div class="body">${(r.cats||[]).length?`<p class="kicker">${r.cats.map(c=>catName(c,ROUTE_CATS)).join(' · ')}</p>`:''}<h3>${esc(r.name)}</h3><p class="desc">${esc(r.description)}</p><p class="path">${ps.map(p=>esc(p.name)).join(ic('chevron-right','path-sep'))}</p><div class="meta"><span>${stopsLabel(ps.length)}</span><span>~${dec(s.km)} km</span><span>${cost(s.cost)}</span></div></div></a>`;}
 function routesView(){
  const hay=r=>`${r.name} ${r.description} ${items(r.stops).map(p=>p.name+' '+p.area).join(' ')} ${(r.cats||[]).map(c=>catName(c,ROUTE_CATS)).join(' ')}`;
- const list=routes.filter(r=>(rcat==='all'||r.cats.includes(rcat))&&matches(hay(r),query)),mine=forCity(state.myRoutes,city().id).filter(r=>matches(hay(r),query));
+ const list=routes.filter(r=>(rcat==='all'||r.cats.includes(rcat))&&matches(hay(r),query));
  const covers=routeCoverAssignments();
  const placeHits=query?catalog().filter(p=>matches(placeHay(p),query)).length:0;
  return `<section class="page-head"><p class="kicker">Trasy · ${esc(city().name)}</p><h1>Wybierz gotową trasę.</h1><p class="lead">${resident()?'Znasz miasto? Wybierz trasę przez miejsca, które zwykle mijasz.':`Gotowe spacery po ${esc(city().name)}. Wybierz, ruszaj, a aplikacja poprowadzi Cię przystanek po przystanku.`} <a class="inline" href="#about">Jak to działa?</a></p></section>${liveBanner()}${searchBox('Szukaj trasy, miejsca albo klimatu')}${chips(ROUTE_CATS,rcat,'rcat')}
  ${placeHits?`<button class="hint" data-action="search-places">${ic('map-pin')}<span>${placeHits} ${plural(placeHits,'miejsce pasuje','miejsca pasują','miejsc pasuje')} do „${esc(query)}” — pokaż w Miejscach</span>${ic('chevron-right')}</button>`:''}
  <div class="section-head"><h2>Polecane trasy</h2><span>${list.length} · redakcja City Route</span></div>
  ${list.length?`<div class="route-grid">${list.map((r,i)=>routeCard(r,i===0&&!query&&rcat==='all',covers)).join('')}</div>`:`<div class="empty"><p>Nie mamy trasy pasującej do „${esc(query)}”.</p><a class="button primary" href="#plan">${ic('wand-sparkles')}Ułóż własną trasę</a></div>`}
- <div class="section-head"><h2>Trasy społeczności</h2><span>${mine.length?'Twoje: '+mine.length:'wkrótce'}</span></div>
- ${mine.length?`<div class="route-grid">${mine.map(r=>routeCard(r,false,covers)).join('')}</div>`:''}
- <div class="community-note">${ic('users')}<div><strong>Społeczność dopiero startuje.</strong><p>Odkrywaj trasy innych lub opublikuj własną.</p></div></div>`;}
+ <div class="section-head"><h2>Trasy od użytkowników</h2></div>
+  <div class="community-note">${ic('users')}<div><strong>Odkrywaj trasy stworzone przez ludzi.</strong><p>Publiczne trasy autorów znajdziesz w Społeczności. Swoje trasy masz w Profilu → Moje kolekcje.</p><a class="inline" href="#routes/community">Zobacz trasy społeczności${ic('chevron-right','link-arrow')}</a></div></div>`;}
 
 // Places tab
 const exploreSwitch=on=>`<div class="segmented two" role="group" aria-label="Odkrywaj"><a href="#places" class="${on==='places'?'selected':''}" ${on==='places'?'aria-current="page"':''}>${ic('map-pin')}Miejsca</a><a href="#events" class="${on==='events'?'selected':''}" ${on==='events'?'aria-current="page"':''}>${ic('ticket-percent')}Wydarzenia</a></div>`;

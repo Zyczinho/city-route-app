@@ -115,7 +115,7 @@ begin
    v.city_id,v_slug,v.name,v.category_id,v.location,v.description,20,0,'local',
    case when v.category_id in ('restaurant','cafe','breakfast','street_food','food_hall','bakery','dessert') then 'quick' else 'none' end,
    'public','published',v.submitted_by,
-   jsonb_build_object('caption',case when v.image_path is null then '' when v.licensed_photo_credit is not null then 'Zdjęcie Wikimedia Commons' else 'Zdjęcie autora rekomendacji' end,'credit',v.licensed_photo_credit),
+   jsonb_build_object('caption',case when v.image_path is null then '' when v.licensed_photo_credit is not null then 'Zdjęcie Wikimedia Commons (zmniejszone i przekonwertowane do JPEG)' else 'Zdjęcie autora rekomendacji' end,'credit',v.licensed_photo_credit),
    jsonb_build_object('origin','community','kind','place','communityImagePath',coalesce(v.image_path,''),'communitySubmissionId',v.id::text)
  ) returning id into v_place;
  update public.place_submissions set status='approved',resolved_place_id=v_place,reviewed_at=now() where id=v.id;

@@ -9,7 +9,7 @@ const active=()=>location.hash===HASH;
 
 function actionButtons(item){
  const attrs=`data-id="${esc(item.user_id)}"`;
- if(item.friend_status==='accepted')return `<button type="button" data-friend-action="remove" ${attrs}>Usuń ze znajomych</button>`;
+ if(item.friend_status==='accepted')return `<a class="button friend-dm-cta" href="#routes/community/dm/${esc(item.user_id)}">Wyślij wiadomość</a><button type="button" data-friend-action="remove" ${attrs}>Usuń ze znajomych</button>`;
  if(item.friend_status==='pending')return item.requested_by_me?'<span class="friend-pending">Zaproszenie wysłane</span>':`<button type="button" class="primary" data-friend-action="accept" ${attrs}>Akceptuj</button><button type="button" data-friend-action="decline" ${attrs}>Odrzuć</button>`;
  return `<button type="button" class="primary" data-friend-action="request" ${attrs}>Dodaj do znajomych</button>`;
 }

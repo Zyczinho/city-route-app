@@ -26,7 +26,8 @@ test('mobile-native: tap and list behavior preserve scroll and titles', () => {
   const map = read('map.css');
   const index = read('index.html');
   assert.match(css, /touch-action:\s*manipulation/);
-  assert.match(map, /\.cr-map\.is-scroll-mode \.leaflet-container\{touch-action:pan-y!important\}/);
+   assert.doesNotMatch(map, /\.cr-map\.is-scroll-mode/);
+   assert.match(map, /\.places-map-shell\{margin:12px 20px 20px\}/);
   assert.match(css, /\.place-list \.place > \.info h3\s*\{\s*padding-right:\s*0;/);
   assert.match(css, /\.place-list \.place > \.side \.save-place\s*\{[^}]*min-height:\s*44px;/);
   const mapIndex = index.indexOf('map.css');

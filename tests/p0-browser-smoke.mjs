@@ -291,6 +291,47 @@ try{
  }
  await detailCtx.close();
 
+ // LISBON-176: exact local covers, visible attribution and offline reload at mobile widths.
+ const lisbonPhotos=JSON.parse(await readFile('scripts/data/lisbon-first30-photos-20261109.json','utf8'));
+ for(const width of [320,375,390]){
+  const photoCtx=await browser.newContext({viewport:{width,height:812},isMobile:true,hasTouch:true});
+  await photoCtx.route('**/*',route=>new URL(route.request().url()).origin===BASE?route.continue():route.abort());
+  await photoCtx.addInitScript(()=>localStorage.setItem('city-route-v1',JSON.stringify({
+   version:1,tester:{id:'lisbon-photo-smoke',nickname:'Test'},basket:[],basketsByCity:{lisbon:[]},
+   events:[],session:null,cityId:'lisbon',userPlaces:[],placeReviews:{}
+  })));
+  const photoPage=await photoCtx.newPage();
+  await photoPage.goto(BASE+'/#places/osm-node-489736332',{waitUntil:'domcontentloaded'});
+  await photoPage.locator('#place-dialog[open] .sheet-photo').waitFor({timeout:20000});
+  assert.equal(await photoPage.locator('#sheet-title').textContent(),'A Brasileira');
+  const decoded=await photoPage.evaluate(async photos=>Promise.all(photos.map(async p=>{
+   const img=new Image();img.src='/assets/images/'+p.image;await img.decode();
+   return {id:p.id,width:img.naturalWidth,height:img.naturalHeight};
+  })),lisbonPhotos);
+  for(const img of decoded){assert.equal(img.width,960);assert.ok(img.height>=400);}
+  const photo=photoPage.locator('#place-dialog .sheet-photo'),credit=photoPage.locator('#place-dialog .credit');
+  assert.match(await photo.getAttribute('src'),/lisbon-a-brasileira-commons\.jpg$/);
+  assert.match(await credit.textContent(),/VDT2021.*CC BY-SA 4.0.*Wikimedia Commons/);
+  assert.match(await credit.locator('a').first().getAttribute('href'),/creativecommons.org\/licenses\/by-sa\/4.0/);
+  await credit.scrollIntoViewIfNeeded();
+  const layout=await credit.evaluate(el=>({width:el.scrollWidth,client:el.clientWidth,shown:getComputedStyle(el).display!=='none'}));
+  assert.equal(layout.shown,true);assert.ok(layout.width<=layout.client+1,'credit wraps on mobile');
+  await photoPage.screenshot({path:'p0-smoke-artifacts/lisbon-credit-'+width+'.png',fullPage:true});
+  if(width===375){
+   await photoPage.evaluate(()=>navigator.serviceWorker.ready);
+   await photoPage.waitForFunction(async photos=>{
+    const cache=await caches.open((await caches.keys()).find(k=>k.startsWith('city-route-v83-'))||'missing');
+    return (await Promise.all(photos.map(p=>cache.match('./assets/images/'+p.image)))).every(Boolean);
+   },lisbonPhotos,{timeout:30000});
+   await photoCtx.setOffline(true);await photoPage.reload({waitUntil:'domcontentloaded'});
+   await photoPage.locator('#place-dialog[open] .sheet-photo').waitFor({timeout:20000});
+   assert.equal(await photoPage.locator('#place-dialog .sheet-photo').evaluate(async img=>{await img.decode();return img.naturalWidth;}),960);
+   assert.match(await photoPage.locator('#place-dialog .credit').textContent(),/VDT2021/);
+   console.log('LISBON_PHOTO_OFFLINE_PASS eight precached covers; A Brasileira reload with attribution');
+  }
+  await photoCtx.close();
+ }
+
  // COMMUNITY-HUB-023: four accessible community subviews are reachable without altering bottom tabs.
  await page.locator('#navigation a[href="#routes/community"]').click();
  await page.locator('[data-community-tabs] .community-hub-links').waitFor({timeout:12000});
@@ -614,3 +655,4 @@ try{
  if(browser)await browser.close();
  if(server){server.kill('SIGTERM');}
 }
+

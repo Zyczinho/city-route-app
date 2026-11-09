@@ -88,3 +88,18 @@ a.inline,.planner-head-compact a.inline{display:inline-flex;align-items:center}
   -webkit-mask:none;mask:none;box-shadow:none;
 }
 .ph.ph-cat .ph-cat-glyph,.ph.ph-cat .ph-cat-ghost{display:none}
+
+/* An exact/curated <img> can also fail after a CDN 404 or an offline refresh.
+   The existing error handler swaps it for a plain .ph (not .ph-cat).
+   Backstop that path as well so an image failure never restores a camera icon. */
+:is(.thumb,.sheet-media,.cover,.media)>.ph:not(.ph-cat){
+  position:relative;overflow:hidden;
+  background:linear-gradient(180deg,transparent 58%,rgba(0,0,0,.52)),
+             url(./assets/images/place-31495562.jpg) center/cover no-repeat;
+}
+:is(.thumb,.sheet-media,.cover,.media)>.ph:not(.ph-cat)::after{
+  content:"Zdjęcie ilustracyjne";position:absolute;left:8px;bottom:7px;
+  padding:3px 6px;border-radius:5px;color:#fff;background:rgba(0,0,0,.52);
+  font:600 10px/1.3 system-ui,sans-serif;
+}
+:is(.thumb,.sheet-media,.cover,.media)>.ph:not(.ph-cat)>.i{display:none}

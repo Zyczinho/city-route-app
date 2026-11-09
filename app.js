@@ -21,6 +21,7 @@ import {readAcceptedPhoto} from './place-photo-proposal.js';
 import {downloadRouteGpx} from './route-export.js';
 import {parseGoogleSaved,planGoogleSavedImport} from './google-saved-import.js';
 import {paginatePlaces,paginationWindow,compareRecommendedPlaces} from './places-pagination.js';
+import {combineSavedRoutes} from './social-routes-client.js';
 const $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const key='city-route-v1';let storageOK=true,state;
 try{state=JSON.parse(localStorage.getItem(key)||'null');}catch{storageOK=false;}
@@ -634,6 +635,15 @@ function profileView(){const name=friendlyNickname(state.tester.nickname)?state.
  <details class="profile-disclosure profile-statistics"><summary><span>Twoje statystyki</span>${ic('chevron-down')}</summary><div class="stats">${stats().map(([v,l])=>l==='Dodane miejsca'?`<button type="button" data-action="show-my-places" class="stat-link" aria-label="Zobacz swoje dodane miejsca"><strong>${v}</strong><span>${l} ${ic('chevron-right')}</span></button>`:`<div><strong>${v}</strong><span>${l}</span></div>`).join('')}</div></details>
  <details class="profile-disclosure profile-integrations"><summary><span>Integracje i import</span>${ic("chevron-down")}</summary><div class="profile-more-content"><p><strong>Strava</strong>: w widoku trasy pobierz GPX, następnie w Stravie przejdź do „Moje trasy”, wybierz utworzenie trasy i import pliku. GPX zawiera punkty do zaplanowania, nie przebytą aktywność ani geometrię ulic.</p><label class="file">Import miejsc Google Maps (.csv / .kml / .geojson)<input type="file" accept=".csv,.kml,.json,.geojson,text/csv,application/json,application/vnd.google-earth.kml+xml" data-action="google-saved-import"></label><p class="fine">Google Takeout → „Zapisane” → pobierz archiwum i wybierz pojedynczy plik CSV. Import działa w aktualnie wybranym mieście i pomija miejsca bez rozpoznanych współrzędnych lub dopasowania. Miejsca katalogowe synchronizują się z kontem, ale nowe prywatne miejsca pozostają na tym urządzeniu. Plik nie jest wysyłany na serwer.</p><a class="button" href="https://takeout.google.com/" target="_blank" rel="noopener noreferrer">${ic("arrow-down")}Eksport z Google Takeout</a></div></details> <details class="profile-disclosure profile-more"><summary><span>Więcej</span>${ic('chevron-down')}</summary><div class="profile-more-content"><div class="menu"><a href="#about">${ic('compass')}<span>Poradnik City Route<small>Wszystkie funkcje krok po kroku</small></span>${ic('chevron-right')}</a><a href="#sources">${ic('info')}<span>Skąd są dane<small>Oceny, zdjęcia i ich ograniczenia</small></span>${ic('chevron-right')}</a><button data-action="export">${ic('arrow-down')}<span>Pobierz swoje dane (.json)<small>${state.events.length} zapisanych zdarzeń</small></span></button><button data-action="reset" class="danger">${ic('x')}<span>Usuń dane z tego urządzenia</span></button></div></div></details>`;}
 
+function savedRoutesView(){
+ // The core router always renders device-saved routes synchronously. The
+ // account service augments this existing view; it may never gate local data.
+ const selectedCity=city().id;
+ const local=combineSavedRoutes({localRoutes:state.myRoutes,cityId:selectedCity});
+ const cards=local.map(r=>`<article class="card"><h3>${esc(r.name)}</h3><p class="muted">${r.kind==='editorial-local'?'Redakcja City Route · to urządzenie':'Moja trasa · to urządzenie'}${r.archived?' · Archiwum':''}</p><a class="button" href="${esc(r.href)}">Otwórz</a></article>`).join('');
+ return `<section data-social-saved-root data-saved-city="${esc(selectedCity)}"><a class="back" href="#collections">${ic('arrow-left')} Moje kolekcje</a><p class="kicker">Profil · ${esc(city().name)}</p><h1>Zapisane trasy</h1><p class="fine">Twoje, redakcyjne i społecznościowe trasy w jednym miejscu. Zapisy z tego urządzenia są dostępne również bez internetu.</p><div class="cards" data-saved-routes-cards>${cards||'<div class="empty"><p>Nie masz jeszcze tras zapisanych na tym urządzeniu. Trasy zapisane na koncie zostaną dołączone po zalogowaniu.</p></div>'}</div><p class="fine" data-saved-remote-status aria-live="polite">Sprawdzam trasy zapisane na koncie…</p></section>`;
+}
+
 function collectionsView(){
  const draft=state.basket.length,localRoutes=forCity(state.myRoutes,city().id).length;
  return `<section class="page-head"><a class="back" href="#profile">${ic('arrow-left')}Profil</a><p class="kicker">Profil · ${esc(city().name)}</p><h1>Moje kolekcje</h1><p class="lead">Wszystkie zapisane trasy w jednym miejscu — Twoje, redakcyjne i społecznościowe.</p></section>
@@ -660,7 +670,7 @@ function render(){const cityHost=document.querySelector('.city-host');if(cityHos
  nav();let html='';
  if(tab==='routes')html=routesView();else if(tab==='places')html=placesView();else if(tab==='plan')html=planView();else if(tab==='my-route')html=myRouteView();else if(tab==='profile')html=profileView();else if(tab==='book')html=bookView();else if(tab==='events')html=eventsView();
  else if(tab==='route'){const r=findRoute(id);html=r?detailView(r):`<div class="empty"><p>Ta trasa nie jest już dostępna.</p><a class="button" href="#routes">Wszystkie trasy</a></div>`;}
- else if(tab==='collections')html=id==='places'?savedPlacesView():collectionsView();else if(tab==='sources')html=sourcesView();else if(tab==='about')html=aboutView();else if(tab==='add-place')html=addPlaceView();else if(tab==='social-saved-places')html=savedPlacesView();
+ else if(tab==='collections')html=id==='places'?savedPlacesView():collectionsView();else if(tab==='social-saved')html=savedRoutesView();else if(tab==='sources')html=sourcesView();else if(tab==='about')html=aboutView();else if(tab==='add-place')html=addPlaceView();else if(tab==='social-saved-places')html=savedPlacesView();
  mapView?.destroy();mapView=null;$('#main').innerHTML=html;if(tab==='profile')window.dispatchEvent(new Event('cityroute:profile-rendered'));document.body.classList.toggle('is-live',isLive());if(tab==='places'){mountPlacesMap();observeApprovedPlaceEnrichment();void showProviderHealth();
   if(id){
    if(id.startsWith('s-')){

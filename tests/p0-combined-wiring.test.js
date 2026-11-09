@@ -7,7 +7,7 @@ test('integrated P0 route optimizer and composer modules ship together',async()=
  for(const name of ['route-optimizer.js','place-composer.js','place-composer-model.js','place-composer.css'])assert.ok(build.includes(name),'missing from build: '+name);
  const composerCss=html.match(/place-composer\.css\?v=\d+/)?.[0];
  assert.ok(composerCss,'missing versioned composer stylesheet in HTML');
- for(const name of ['route-optimizer.js','place-composer.js?v=6','place-composer-model.js',composerCss,'enhancements.js?v=23'])assert.ok(sw.includes(name),'missing from PWA precache: '+name);
+ for(const name of ['route-optimizer.js','place-composer.js?v=7','place-composer-model.js',composerCss,'enhancements.js?v=23'])assert.ok(sw.includes(name),'missing from PWA precache: '+name);
  assert.match(sw,/city-route-v\d+/);
  assert.match(app,/import \{optimizeRoutePlaces\}/);
  assert.match(app,/data-action="nearby-stop"/);
@@ -15,7 +15,7 @@ test('integrated P0 route optimizer and composer modules ship together',async()=
  assert.match(app,/name="rating"/);
  assert.match(app,/state\.placeReviews\[p\.id\]=Number\(draft\.rating\)/);
  assert.match(app,/data-action="add-another-place"/);
- assert.match(html,/place-composer\.js\?v=6/);
+ assert.match(html,/place-composer\.js\?v=7/);
  assert.match(composer,/resetSelection\(form\)/);
  assert.match(css,/\.stops li\[data-stop\]\{flex-wrap:wrap/);
  assert.match(css,/\.stops li\[data-stop\] \.tools\{flex:1 0 100%/);

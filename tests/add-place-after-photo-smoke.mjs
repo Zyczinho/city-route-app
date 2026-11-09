@@ -53,17 +53,20 @@ try{
        await page.locator('#place-form label.file').click();
        await (await filePicker).setFiles({name:'stadium-photo.jpg',mimeType:'image/jpeg',buffer:jpeg});
        await page.locator('.place-photo-editor img').first().waitFor({timeout:12000});
-       const galleryAfterUpload=await page.locator('#place-form').evaluate(form=>{
-        const upload=form.querySelector('label.file'),gallery=form.querySelector('.place-photo-editor');
-        return upload?.nextElementSibling===gallery;
+       const controlsBeforeEditor=await page.locator('#place-form').evaluate(form=>{
+        const rating=form.querySelector('input[name="rating"]')?.closest('fieldset');
+        const save=form.querySelector('button.primary.big');
+        const gallery=form.querySelector('.place-photo-editor');
+        return !!(rating&&save&&gallery&&(rating.compareDocumentPosition(gallery)&Node.DOCUMENT_POSITION_FOLLOWING)&&(save.compareDocumentPosition(gallery)&Node.DOCUMENT_POSITION_FOLLOWING));
        });
-       assert.equal(galleryAfterUpload,true,'photo editor must follow file chooser, not rating controls');
+       assert.equal(controlsBeforeEditor,true,'photo editor must not push rating and save below mobile navigation');
       }
       for(const value of ['1','3','5']){
        const radio=page.locator('#place-form input[name="rating"][value="'+value+'"]');
        const label=page.locator('#place-form .choice label').filter({has:page.locator('input[name="rating"][value="'+value+'"]')});
        await label.scrollIntoViewIfNeeded();
-       await label.evaluate(el=>el.scrollIntoView({block:'center'}));
+       // Do not force-center in the test: it previously masked navigation intercepting taps.
+       await page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
        const hit=await label.evaluate(el=>{
         const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,
           found=document.elementFromPoint(x,y);

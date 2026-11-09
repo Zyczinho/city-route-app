@@ -39,7 +39,11 @@ test('editorial detail has a dedicated save action, not the old edit-as-my-route
  assert.match(app,/function editorialSaveButton/);
  assert.match(app,/Zapisane trasy<\/strong>/);
  assert.doesNotMatch(app,/Zapisane trasy innych/);
+ assert.match(app,/else if\(tab==='social-saved'\)html=savedRoutesView\(\)/,'core router must own a nonblank local archive');
+ assert.match(app,/data-saved-routes-cards/);
  assert.match(ui,/combineSavedRoutes\(\{localRoutes,remoteRoutes:saved,cityId:activeCity\}\)/);
  assert.match(ui,/Trasy zapisane na koncie zobaczysz po zalogowaniu/);
  assert.match(hub,/if\(hash==='#social-saved'\)return null/,'personal route archive must remain under Profile navigation');
+ assert.doesNotMatch(ui,/root\.innerHTML='<p class="loading" data-social-saved-loading>/,'server cannot blank the core archive');
+ assert.match(ui,/root\.dataset\.savedAccount===viewer/,'auth rerender must be idempotent');
 });

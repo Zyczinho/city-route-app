@@ -235,26 +235,41 @@ async function renderProfile(id){
 }
 
 async function renderSaved(){
- const root=main();if(!root||root.querySelector('[data-social-saved-root]'))return;
- root.innerHTML='<p class="loading" data-social-saved-loading>Wczytuję zapisane trasy…</p>';
- const activeCity=cityId(),localRoutes=readState().myRoutes||[];
- let saved=[],cloudError=false;
- if(session){
-  try{const allSaved=await api.loadSavedRoutes();saved=allSaved.filter(x=>x.cityId===activeCity);}
-  catch(error){cloudError=true;console.warn('Saved routes account',error);}
+ // app.js owns the always-visible local archive. A slow/failed Supabase RPC
+ // must never replace its HTML with a blank screen or spinner.
+ const root=main()?.querySelector('[data-social-saved-root]');
+ if(!root||location.hash!=='#social-saved')return;
+ const activeCity=root.dataset.savedCity||cityId(),viewer=session?.user?.id||'guest';
+ if(root.dataset.savedAccount===viewer)return;
+ root.dataset.savedAccount=viewer;
+ const status=root.querySelector('[data-saved-remote-status]');
+ if(!session){
+  if(status)status.textContent='Trasy zapisane na koncie zobaczysz po zalogowaniu. Lokalne zapisy pozostają na tym urządzeniu.';
+  return;
  }
- // An in-flight request must never replace a different page after navigation.
- if(location.hash!=='#social-saved'||cityId()!==activeCity)return;
+ if(status)status.textContent='Wczytuję trasy zapisane na koncie…';
+ let saved;
+ try{
+  const allSaved=await api.loadSavedRoutes();
+  saved=allSaved.filter(x=>x.cityId===activeCity);
+ }catch(error){
+  if(root.isConnected&&root.dataset.savedAccount===viewer&&status)status.textContent='Nie udało się wczytać tras z konta. Twoje lokalne trasy pozostają dostępne.';
+  console.warn('Saved routes account',error);return;
+ }
+ // A late response from another account/city/tab cannot overwrite the local view.
+ if(!root.isConnected||location.hash!=='#social-saved'||cityId()!==activeCity||root.dataset.savedAccount!==viewer)return;
+ const localRoutes=readState().myRoutes||[];
  const merged=combineSavedRoutes({localRoutes,remoteRoutes:saved,cityId:activeCity});
- const cards=merged.map(x=>{
-  const label=x.kind==='mine'?'Moja trasa · to urządzenie':
-   x.kind==='editorial-local'?'Redakcja City Route · to urządzenie':
-   x.kind==='community'?'Społeczność · konto':'Redakcja City Route · konto';
-  return '<article class="card"><h3>'+esc(x.name)+'</h3><p class="muted">'+label+(x.archived?' · Archiwum':'')+'</p><a class="button" href="'+esc(x.href)+'">Otwórz</a></article>';
- }).join('');
- root.innerHTML='<section data-social-saved-root><a class="back" href="#collections">'+iconMarkup('arrow-left')+' Moje kolekcje</a><p class="kicker">Profil · '+esc(activeCity)+'</p><h1>Zapisane trasy</h1><p class="fine">Twoje własne, archiwalne, redakcyjne i społecznościowe trasy w jednym miejscu. Zmienisz miasto w selektorze powyżej.</p>'+
- (session?(cloudError?'<p class="note" role="status">Nie udało się pobrać zapisów konta. Twoje trasy z tego urządzenia pozostają dostępne.</p>':''):'<p class="fine">Trasy zapisane na koncie zobaczysz po zalogowaniu. Lokalne zapisy są tylko na tym urządzeniu.</p>')+
- '<div class="cards">'+(cards||'<div class="empty"><p>Nie masz jeszcze zapisanych tras w tym mieście.</p><a class="button" href="#routes">Przeglądaj trasy</a></div>')+'</div></section>';
+ const cards=root.querySelector('[data-saved-routes-cards]');
+ if(cards){
+  cards.innerHTML=merged.map(x=>{
+   const label=x.kind==='mine'?'Moja trasa · to urządzenie':
+    x.kind==='editorial-local'?'Redakcja City Route · to urządzenie':
+    x.kind==='community'?'Społeczność · konto':'Redakcja City Route · konto';
+   return '<article class="card"><h3>'+esc(x.name)+'</h3><p class="muted">'+label+(x.archived?' · Archiwum':'')+'</p><a class="button" href="'+esc(x.href)+'">Otwórz</a></article>';
+  }).join('')||'<div class="empty"><p>Nie masz jeszcze zapisanych tras w tym mieście.</p><a class="button" href="#routes">Przeglądaj trasy</a></div>';
+ }
+ if(status)status.textContent='Trasy zapisane na koncie wczytane.';
 }
 
 function injectMyRoute(){

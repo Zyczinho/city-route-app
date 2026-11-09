@@ -30,3 +30,7 @@ Rejected misleading candidates include `Tasca do Chico (55243057868).jpg` (descr
 5. Recovery: run `scripts/rollback-lisbon-photos-20261109.sql` only if the exact owned image fields still match; then revert the PR. Rollback aborts atomically if any image metadata changed.
 
 No schema/RLS changes, provider key activation, user-photo edits, generated images, or copying of Google/social image bytes. Assets total about1.7MB and are precached; the mobile gate checks decoding8 files, visible source/license at320/375/390 and an offline detail reload. Real iPhone acceptance remains separate.
+
+## Verified release
+
+PR196 merged157a8f1deda597a022b6175682c5f20437e39914. Exact-head CI42674967137 (483 tests/build) and mobile42674967275 SUCCESS. Independent content/SQL review PASS; actual PostgreSQL9/9 conflict fixtures PASS. Main CI42675243547 and production rollout42675244023 SUCCESS. All8 live JPEG hashes match manifest; PWA `city-route-v83-03d9ba0a09` precaches8. Reviewed bounded hosted DML APPLIED8/8. All192 unrelated-field hashes unchanged; all184 non-target image fields unchanged; descriptions remain47/192. Production reload shows8 local covers and A Brasileira detail displays VDT2021 / CC BY-SA4.0 / source link. First30 permanent coverage8/30; remaining22 unresolved, including4 flags untouched. Real iPhone acceptance remains separate.

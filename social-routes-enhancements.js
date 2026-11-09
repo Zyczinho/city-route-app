@@ -2,7 +2,7 @@ import {supabase} from './supabase-client.js';
 import {iconMarkup} from './ui-icons.js';
 import {avatarUrl} from './profile-avatar-model.js';
 import {SUPABASE_URL} from './supabase-config.js';
-import {createSocialRoutesClient} from './social-routes-client.js';
+import {createSocialRoutesClient,combineSavedRoutes} from './social-routes-client.js';
 import {createFriendsClient,normalizeFriendsError} from './friends-client.js';
 import {createFollowsClient} from './follows-client.js';
 import {directChatHref} from './direct-messages-client.js';
@@ -235,14 +235,26 @@ async function renderProfile(id){
 }
 
 async function renderSaved(){
- if(authRequired())return;
- const root=main();if(!root)return;
- if(root.querySelector('[data-social-saved-root]'))return;
- markRoutesNav();root.innerHTML='<p class="loading" data-social-saved-loading>Wczytuję zapisane trasy…</p>';
- try{
-  const activeCity=cityId(),allSaved=await api.loadSavedRoutes(),saved=allSaved.filter(x=>x.cityId===activeCity);
-  root.innerHTML=`<section data-social-saved-root><a class="back" href="#routes">${iconMarkup("arrow-left")} Trasy</a><p class="kicker">Twoje konto</p><h1>Zapisane trasy</h1><p class="fine">Pokazujemy zapisane trasy dla aktywnego miasta. Przełącz miasto, aby zobaczyć pozostałe.</p><div class="cards">${saved.map(x=>`<article class="card"><h3>${esc(x.name)}</h3><p class="muted">${esc(x.cityId)} · ${x.type==='community'?'Społeczność':'City Route'}</p><a class="button" href="${x.type==='community'?`#community-route/${x.routeId}`:`#route/${x.id}`}">Otwórz</a></article>`).join('')||'<div class="empty"><p>Nie masz jeszcze zapisanych tras w tym mieście.</p></div>'}</div></section>`;
- }catch(error){root.innerHTML='<div class="empty" data-social-saved-root><p>Nie udało się wczytać zapisanych tras.</p></div>';console.warn(error);}
+ const root=main();if(!root||root.querySelector('[data-social-saved-root]'))return;
+ root.innerHTML='<p class="loading" data-social-saved-loading>Wczytuję zapisane trasy…</p>';
+ const activeCity=cityId(),localRoutes=readState().myRoutes||[];
+ let saved=[],cloudError=false;
+ if(session){
+  try{const allSaved=await api.loadSavedRoutes();saved=allSaved.filter(x=>x.cityId===activeCity);}
+  catch(error){cloudError=true;console.warn('Saved routes account',error);}
+ }
+ // An in-flight request must never replace a different page after navigation.
+ if(location.hash!=='#social-saved'||cityId()!==activeCity)return;
+ const merged=combineSavedRoutes({localRoutes,remoteRoutes:saved,cityId:activeCity});
+ const cards=merged.map(x=>{
+  const label=x.kind==='mine'?'Moja trasa · to urządzenie':
+   x.kind==='editorial-local'?'Redakcja City Route · to urządzenie':
+   x.kind==='community'?'Społeczność · konto':'Redakcja City Route · konto';
+  return '<article class="card"><h3>'+esc(x.name)+'</h3><p class="muted">'+label+(x.archived?' · Archiwum':'')+'</p><a class="button" href="'+esc(x.href)+'">Otwórz</a></article>';
+ }).join('');
+ root.innerHTML='<section data-social-saved-root><a class="back" href="#collections">'+iconMarkup('arrow-left')+' Moje kolekcje</a><p class="kicker">Profil · '+esc(activeCity)+'</p><h1>Zapisane trasy</h1><p class="fine">Twoje własne, archiwalne, redakcyjne i społecznościowe trasy w jednym miejscu. Zmienisz miasto w selektorze powyżej.</p>'+
+ (session?(cloudError?'<p class="note" role="status">Nie udało się pobrać zapisów konta. Twoje trasy z tego urządzenia pozostają dostępne.</p>':''):'<p class="fine">Trasy zapisane na koncie zobaczysz po zalogowaniu. Lokalne zapisy są tylko na tym urządzeniu.</p>')+
+ '<div class="cards">'+(cards||'<div class="empty"><p>Nie masz jeszcze zapisanych tras w tym mieście.</p><a class="button" href="#routes">Przeglądaj trasy</a></div>')+'</div></section>';
 }
 
 function injectMyRoute(){

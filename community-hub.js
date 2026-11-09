@@ -19,7 +19,7 @@ const tabIcons=Object.freeze({
 });
 const communityView=()=>{
  const hash=location.hash;
- if(hash==='#social-saved')return 'saved';
+ if(hash==='#social-saved')return null; // The personal route archive belongs under Profil.
  if(hash==='#social-saved-places')return 'saved-places';
  if(hash.startsWith('#profile/community'))return 'groups';
  if(hash.startsWith('#routes/community')){

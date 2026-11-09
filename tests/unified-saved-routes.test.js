@@ -1,0 +1,45 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {combineSavedRoutes} from '../social-routes-client.js';
+
+test('the profile archive combines own, archived, editorial and community saves in one city',()=>{
+ const local=[
+  {id:'mine-1',cityId:'lisbon',name:'Mój spacer',stops:['a'],createdAt:'2026-11-08T10:00:00Z',archivedAt:'2026-11-09T10:00:00Z'},
+  {id:'mine-2',cityId:'lisbon',name:'Lizbona pierwszy raz',stops:['b'],sourceRouteId:'lisbon-classics',sourceKind:'editorial',createdAt:'2026-11-09T11:00:00Z'},
+  {id:'mine-3',cityId:'warsaw',name:'Warszawa',stops:['c']}
+ ];
+ const cloud=[
+  {id:'lisbon-classics',routeId:'uuid-ed',cityId:'lisbon',name:'Lizbona pierwszy raz',type:'editorial',savedAt:'2026-11-09T12:00:00Z'},
+  {id:'uuid-comm',routeId:'uuid-comm',cityId:'lisbon',name:'Trasa znajomego',type:'community',savedAt:'2026-11-09T13:00:00Z'},
+  {id:'warsaw-other',routeId:'uuid-waw',cityId:'warsaw',name:'Inne miasto',type:'editorial'}
+ ];
+ const saved=combineSavedRoutes({localRoutes:local,remoteRoutes:cloud,cityId:'lisbon'});
+ assert.equal(saved.length,3,'the same editorial source must not appear twice');
+ assert.deepEqual(saved.map(x=>x.kind),['community','editorial-local','mine']);
+ assert.equal(saved[2].archived,true,'archived own routes remain accessible');
+ assert.equal(saved[1].sourceRouteId,'lisbon-classics','source attribution preserved');
+ assert.equal(saved[1].href,'#route/mine-2');
+ assert.equal(saved[0].href,'#community-route/uuid-comm');
+ assert.ok(saved.every(x=>x.cityId==='lisbon'));
+});
+
+test('guests retain their local saved routes without an account or network',()=>{
+ const result=combineSavedRoutes({cityId:'lisbon',localRoutes:[{id:'mine-offline',cityId:'lisbon',stops:['one'],name:'Offline'}]});
+ assert.equal(result.length,1);
+ assert.equal(result[0].kind,'mine');
+ assert.equal(result[0].href,'#route/mine-offline');
+ assert.deepEqual(combineSavedRoutes({cityId:'lisbon',localRoutes:null,remoteRoutes:null}),[]);
+});
+
+test('editorial detail has a dedicated save action, not the old edit-as-my-route action',async()=>{
+ const [app,ui,hub]=await Promise.all(['app.js','social-routes-enhancements.js','community-hub.js'].map(p=>readFile(new URL('../'+p,import.meta.url),'utf8')));
+ assert.match(app,/data-action="save-editorial"/);
+ assert.match(app,/sourceRouteId:id,sourceKind:'editorial'/);
+ assert.match(app,/function editorialSaveButton/);
+ assert.match(app,/Zapisane trasy<\/strong>/);
+ assert.doesNotMatch(app,/Zapisane trasy innych/);
+ assert.match(ui,/combineSavedRoutes\(\{localRoutes,remoteRoutes:saved,cityId:activeCity\}\)/);
+ assert.match(ui,/Trasy zapisane na koncie zobaczysz po zalogowaniu/);
+ assert.match(hub,/if\(hash==='#social-saved'\)return null/,'personal route archive must remain under Profile navigation');
+});

@@ -89,6 +89,26 @@ export function validatePublish({draft,description='',tags=[],visibility='public
   return null;
 }
 
+
+/** A single profile archive without exposing private routes to the community. */
+export function combineSavedRoutes({localRoutes=[],remoteRoutes=[],cityId}={}){
+ const city=String(cityId||'');
+ const local=(Array.isArray(localRoutes)?localRoutes:[]).filter(r=>r&&r.cityId===city&&typeof r.id==='string'&&Array.isArray(r.stops)).map(r=>({
+  id:r.id,name:String(r.name||'Moja trasa'),cityId:city,kind:r.sourceKind==='editorial'?'editorial-local':'mine',
+  sourceRouteId:r.sourceRouteId?String(r.sourceRouteId):null,
+  savedAt:r.createdAt||'',archived:!!r.archivedAt,href:'#route/'+encodeURIComponent(r.id),local:true
+ }));
+ const localEditorial=new Set(local.filter(r=>r.sourceRouteId).map(r=>r.sourceRouteId));
+ const remote=(Array.isArray(remoteRoutes)?remoteRoutes:[]).filter(r=>
+  r&&r.cityId===city&&r.id&&r.type&&!(r.type==='editorial'&&localEditorial.has(String(r.id)))
+ ).map(r=>({
+  id:String(r.routeId||r.id),name:String(r.name||'Zapisana trasa'),cityId:city,
+  kind:r.type==='community'?'community':'editorial',savedAt:r.savedAt||'',archived:false,local:false,
+  href:r.type==='community'?'#community-route/'+encodeURIComponent(String(r.routeId)):'#route/'+encodeURIComponent(String(r.id))
+ }));
+ return [...local,...remote].sort((a,b)=>String(b.savedAt).localeCompare(String(a.savedAt)));
+}
+
 export function createSocialRoutesClient({client}={}){
   if(typeof client?.rpc!=='function')throw new Error('social-routes-client-missing');
   const call=async(name,args)=>{

@@ -102,6 +102,11 @@ try{
  await publicModal.waitFor({state:'visible'});
  assert.match(await publicModal.locator('input[type="url"]').inputValue(),/\/r\/editorial\/warsaw\/old-warsaw$/);
  await publicModal.locator('button[type="submit"]').click();
+ // Editorial routes can be saved without entering edit mode or signing in.
+ await page.locator('button[data-action="save-editorial"][data-id="old-warsaw"]').click();
+ await page.waitForFunction(()=>JSON.parse(localStorage.getItem('city-route-v1')||'{}').myRoutes?.some(r=>r.sourceRouteId==='old-warsaw'),{timeout:12000});
+ await page.goto(ROOT+'/#social-saved',{waitUntil:'domcontentloaded'});
+ await page.locator('[data-social-saved-root] article.card').filter({hasText:'Redakcja City Route'}).first().waitFor({state:'visible',timeout:12000});
 
  // Named saved-route archive: no login required for local, device-scoped archive.
  await page.goto(ROOT+'/#my-route',{waitUntil:'domcontentloaded'});
@@ -117,22 +122,21 @@ try{
   return saved.some(r=>r.name==='Moje ulubione zakątki');
  },{timeout:12000});
  const savedId=await page.evaluate(()=>JSON.parse(localStorage.getItem('city-route-v1')).myRoutes.find(r=>r.name==='Moje ulubione zakątki').id);
- await page.goto(ROOT+'/#collections',{waitUntil:'domcontentloaded'});
- await page.locator('.variant-d-owned-list a[href="#route/'+savedId+'"]').click();
+ await page.goto(ROOT+'/#social-saved',{waitUntil:'domcontentloaded'});
+ await page.locator('[data-social-saved-root] a[href="#route/'+savedId+'"]').click();
  await page.locator('button[data-action="rename-route"]').click();
  await saveModal.locator('#route-save-name').fill('Wieczorna Warszawa');
  await saveModal.locator('button[type="submit"]').click();
- await page.goto(ROOT+'/#collections',{waitUntil:'domcontentloaded'});
- assert.ok(await page.locator('#main').getByText('Wieczorna Warszawa').count()>0,'renamed route appears in Profile collections');
- await page.goto(ROOT+'/#collections',{waitUntil:'domcontentloaded'});
- await page.locator('.variant-d-owned-list a[href="#route/'+savedId+'"]').click();
+ await page.goto(ROOT+'/#social-saved',{waitUntil:'domcontentloaded'});
+ await page.locator('[data-social-saved-root]').getByText('Wieczorna Warszawa').waitFor({state:'visible',timeout:12000}); // async account/local archive render
+ await page.locator('[data-social-saved-root] a[href="#route/'+savedId+'"]').click();
  await page.locator('button[data-action="archive-route"]').click();
- await page.goto(ROOT+'/#collections',{waitUntil:'domcontentloaded'});
- const arch=page.locator('.route-archive');
- await arch.waitFor({state:'attached'});
- await arch.locator('summary').click();
- assert.ok(await arch.getByText('Wieczorna Warszawa').count()>0,'archived route is accessible');
- await arch.locator('button[data-action="unarchive-route"]').click();
+ await page.goto(ROOT+'/#social-saved',{waitUntil:'domcontentloaded'});
+ const arch=page.locator('[data-social-saved-root] article.card').filter({hasText:'Wieczorna Warszawa'});
+ await arch.waitFor({state:'visible',timeout:12000});
+ assert.match(await arch.textContent(),/Archiwum/,'archived route is accessible in the same saved list');
+ await arch.locator('a[href="#route/'+savedId+'"]').click();
+ await page.locator('button[data-action="unarchive-route"]').click();
  await page.reload({waitUntil:'domcontentloaded'});
  const stored=await page.evaluate(id=>JSON.parse(localStorage.getItem('city-route-v1')).myRoutes.find(r=>r.id===id),savedId);
  assert.equal(stored.name,'Wieczorna Warszawa');

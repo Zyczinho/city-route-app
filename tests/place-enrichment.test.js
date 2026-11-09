@@ -111,3 +111,17 @@ test('short OSM name matches the longer Google name only when the venues are wit
  assert.equal(isSamePlace({...base,candidateLat:52.22200,candidateLng:21.01870}),false,'~210 m away is another venue');
  assert.equal(isSamePlace({...base,candidateName:'Charlie Burger',candidateLat:52.22015,candidateLng:21.01870}),false);
 });
+
+test('country-scoped provider search follows Lisbon, with legacy Poland default',async()=>{
+ for(const countryCode of ['PT',undefined]){
+  const calls=[];
+  await enrichPlace({...point,city:{name:'Lizbona',countryCode},googleKey:'g',terraKey:'t',fetcher:async(url,opts)=>{
+   calls.push({url,opts});
+   return reply(url.includes('places.googleapis.com')?{places:[]}:{data:[]});
+  }});
+  const googleCall=calls.find(x=>x.url.includes('places.googleapis.com'));
+  const terraCall=calls.find(x=>x.url.includes('/locations/search'));
+  assert.equal(JSON.parse(googleCall.opts.body).regionCode,countryCode||'PL');
+  assert.equal(new URL(terraCall.url).searchParams.get('country_code'),countryCode||'PL');
+ }
+});

@@ -149,7 +149,7 @@ async function enrichPlaceOnDemand(p){
  const c=cities.find(x=>x.id===p.cityId)||city(),qs=new URLSearchParams({
   name:String(p.name),lat:String(p.lat),lng:String(p.lng),city:c.id,cityName:c.name||'Warszawa',
   centerLat:String(c.center?.lat||52.2297),centerLng:String(c.center?.lng||21.0122),
-  r:String(c.radiusKm||40),googleId:p.googlePlaceId||''
+  r:String(c.radiusKm||40),country:c.countryCode||'PL',googleId:p.googlePlaceId||''
  });
  try{
   const r=await fetch('/api/place-enrichment?'+qs.toString(),{cache:'no-store'}),data=await r.json();
@@ -158,7 +158,7 @@ async function enrichPlaceOnDemand(p){
   providerOverlay.set(p.id,{status:data.status,providerStatus:data.providerStatus||null,ratings:Array.isArray(data.ratings)?data.ratings:[],reviews:Array.isArray(data.reviews)?data.reviews:[],image:data.image||null});
   // A visible list row is swapped in place: re-rendering the whole screen per photo would rebuild the map and jump the scroll.
   const row=document.querySelector(`.place-list article.place[data-place-id="${CSS.escape(String(p.id))}"]`);
-  if(row)row.outerHTML=placeRow(all[p.id]);else render();
+  if(row)row.outerHTML=placeRow(all[p.id]);
   if($('#place-dialog')?.open&&$('#place-dialog').dataset.placeId===p.id)openPlace(p.id);
  }catch{
    // A failed provider request must not leave a forever-loading rating label.
@@ -423,7 +423,7 @@ function observeApprovedPlaceEnrichment(){
  for(const row of rows)if(needsProvider(all[row.dataset.placeId]))io.observe(row);
  providerObserver=io;
 }
-function openPlace(id){const p=all[id];if(!p)return;const sharePayload=publicPlace(p)?null:encodePlaceSnapshot(p,city().id);if(!providerOverlay.has(p.id)&&(p.kind==='user'||(!p.image&&!providerRatings(p).length)))void enrichPlaceOnDemand(p);const d=$('#place-dialog');const freshlySaved=id===justSavedPlaceId||(d.open&&d.dataset.placeId===id&&!!d.querySelector('[data-action="add-another-place"]'));if(id===justSavedPlaceId)justSavedPlaceId=null;const anchor=p.kind==='sidequest'?all[p.placeId]:null;d.dataset.placeId=id;if(/^[0-9a-f-]{36}$/.test(p.communitySubmissionId||''))d.dataset.gallerySubmissionId=p.communitySubmissionId;else delete d.dataset.gallerySubmissionId;
+function openPlace(id){const p=all[id];if(!p)return;const sharePayload=publicPlace(p)?null:encodePlaceSnapshot(p,city().id);if(p.kind!=='sidequest'&&!providerOverlay.has(p.id)&&(p.kind==='user'||!providerRatings(p).some(r=>r.source==='google'&&Number.isFinite(r.value)&&r.value>=1&&r.value<=5&&r.reviewCount>0)))void enrichPlaceOnDemand(p);const d=$('#place-dialog');const freshlySaved=id===justSavedPlaceId||(d.open&&d.dataset.placeId===id&&!!d.querySelector('[data-action="add-another-place"]'));if(id===justSavedPlaceId)justSavedPlaceId=null;const anchor=p.kind==='sidequest'?all[p.placeId]:null;d.dataset.placeId=id;if(/^[0-9a-f-]{36}$/.test(p.communitySubmissionId||''))d.dataset.gallerySubmissionId=p.communitySubmissionId;else delete d.dataset.gallerySubmissionId;
  d.innerHTML=`<div class="sheet-media">${photo(p,'sheet-photo',true,800)}<form method="dialog"><button class="close" aria-label="Zamknij">${ic('x')}</button></form></div><div class="sheet-body"><p class="kicker">${esc(p.area)}${p.kind==='sidequest'?' · Side quest':(p.cats||[]).map(c=>' · '+esc(catName(c))).join('')}</p><h2 id="sheet-title">${esc(p.name)}</h2><p>${esc(p.description)}</p>${p.address?`<p class="muted">${ic('map-pin')}${esc(p.address)}</p>`:''}
  ${p.outside?`<p class="note">Na trasie to krótki postój przy budynku (ok. ${p.minutes} min). Zwiedzanie wnętrz jest osobne, zwykle płatne i trwa dłużej.</p>`:''}
  ${anchor?`<button class="row-link" data-action="place" data-id="${anchor.id}">${ic('map-pin')}<span>Zadanie przy: <strong>${esc(anchor.name)}</strong></span>${ic('chevron-right')}</button>`:p.kind==='user'?`<div class="note vis"><strong>${isPublic(p)?'Zaproponowane społeczności':'Prywatne'}</strong><p>${isPublic(p)?(SUBMISSION_NOTE[p.submissionStatus]||'Miejsce zapisane lokalnie. Możesz wysłać propozycję do moderacji.'):VIS_NOTE.private}</p>${isPublic(p)&&(!['pending','submitting','approved','merged','rejected'].includes(p.submissionStatus)||(p.submissionStatus==='pending'&&p.galleryUploadError))?`<button class="sm" data-community-submit="${esc(p.id)}">${p.submissionStatus==='pending'?'Ponów przesyłanie zdjęć':'Wyślij do społeczności'}</button>`:''}<button class="sm" data-action="toggle-visibility" data-id="${p.id}" ${['pending','submitting','approved','merged'].includes(p.submissionStatus)?'disabled title="Zgłoszone miejsca można wycofać tylko przez moderację"':''}>${isPublic(p)?'Zmień tylko lokalny widok':'Zaproponuj społeczności'}</button></div>`:breakdown(p)}${p.kind==='user'?breakdown(p):''}

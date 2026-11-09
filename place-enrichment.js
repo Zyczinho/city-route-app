@@ -4,6 +4,7 @@ import {kmBetween} from './geocode.js';
 import {lookupContent,contentPhoto,contentReviews} from './tripadvisor-content.js';
 import {bestGooglePhoto} from './photo-quality.js';
 
+const countryOf=city=>/^[A-Z]{2}$/.test(String(city?.countryCode||'').toUpperCase())?String(city.countryCode).toUpperCase():'PL';
 const GOOGLE_MASK='id,displayName,location,rating,userRatingCount,photos,googleMapsUri';
 const GOOGLE_SEARCH_MASK=GOOGLE_MASK.split(',').map(x=>'places.'+x).join(',');
 const safeUrl=value=>{try{const u=new URL(value);return u.protocol==='https:'?u.href:null;}catch{return null;}};
@@ -33,7 +34,7 @@ async function googleLookup({name,lat,lng,googlePlaceId,key,fetcher,city,include
  }else{
   url='https://places.googleapis.com/v1/places:searchText';
   opts={method:'POST',headers:{'content-type':'application/json','x-goog-api-key':key,'x-goog-fieldmask':GOOGLE_SEARCH_MASK+(includeReviews?',places.reviews':'')},body:JSON.stringify({
-   textQuery:name+', '+String(city?.name||'Warszawa'),languageCode:'pl',regionCode:'PL',
+   textQuery:name+', '+String(city?.name||'Warszawa'),languageCode:'pl',regionCode:countryOf(city),
    locationBias:{circle:{center:{latitude:lat,longitude:lng},radius:500}}
   })};
  }
@@ -46,7 +47,7 @@ const terraName=x=>Array.isArray(x?.names)?(x.names.find(y=>y.primary)?.value||x
 async function terraLookup({name,lat,lng,key,fetcher,city}){
  if(!key)return null;
  const url=new URL('https://terra.tripadvisor.com/api/locations/search');
- url.searchParams.set('version','1');url.searchParams.set('query',name);url.searchParams.set('size','5');url.searchParams.set('country_code','PL');
+ url.searchParams.set('version','1');url.searchParams.set('query',name);url.searchParams.set('size','5');url.searchParams.set('country_code',countryOf(city));
  if(city?.name)url.searchParams.set('geo_name',city.name);
  let r;try{r=await fetcher(url.href,{headers:{'x-api-key':key,'accept':'application/json'},signal:AbortSignal.timeout(7000)});}catch{return null;}
  if(!r.ok)return null;

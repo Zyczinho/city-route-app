@@ -281,6 +281,53 @@ try{
  assert.equal(await page.locator('#toast.show').count(),0,'no redundant added-stop toast');
  assert.equal(await page.locator('[data-toast-my-route]').count(),0,'no duplicate See route link');
  await page.screenshot({path:'p0-smoke-artifacts/dark-contextual-route-bar.png',fullPage:true});
+
+ // An ordinary catalogue place with a licensed cover must still fetch missing ratings.
+ const ratingCtx=await browser.newContext({viewport:{width:375,height:812},isMobile:true,hasTouch:true});
+ await ratingCtx.addInitScript(()=>{
+  localStorage.setItem('city-route-first-launch-v1','1');
+  localStorage.setItem('city-route-v1',JSON.stringify({version:1,tester:{id:'rating-qa',nickname:'QA'},cityId:'lisbon',basket:[],basketsByCity:{},events:[],session:null,userPlaces:[],myRoutes:[],savedPlacesByCity:{}}));
+ });
+ const ratedPlace={id:'qa-lisbon-with-cover',name:'Local com foto',lat:38.70844,lng:-9.13682,category_id:'landmark',
+  area:'Baixa',description:'Opis testowy katalogu.',image_url:'place-boulevards.jpg',image_meta:{},metadata:{},ratings:[],tags:[],minutes:20};
+ await ratingCtx.route(/supabase\.co/,route=>{
+  const path=new URL(route.request().url()).pathname;
+  if(path.endsWith('/rpc/catalogue_places'))return route.fulfill({json:[ratedPlace]});
+  if(path.endsWith('/rpc/catalogue_routes'))return route.fulfill({json:[{id:'qa-lisbon-route',name:'Trasa testowa',description:'',transport:'walking',stops:[ratedPlace.id],tags:[],metadata:{}}]});
+  return route.abort();
+ });
+ const enrichmentCalls=[];
+ const providerStatus={google:{photos:'ready',ratings:'ready'},tripadvisor:{content:'no-key',terra:'no-key'}};
+ await ratingCtx.route(/\/api\/provider-status/,route=>route.fulfill({json:{status:'ok',providers:providerStatus}}));
+ await ratingCtx.route(/\/api\/place-enrichment/,route=>{
+  enrichmentCalls.push(new URL(route.request().url()));
+  return route.fulfill({json:{status:'ok',providerStatus,ratings:[{source:'google',value:4.7,max:5,reviewCount:31,url:'https://maps.google.com/?cid=qa',listing:ratedPlace.name}],reviews:[],image:null}});
+ });
+ await ratingCtx.route(/commons\.wikimedia\.org/,route=>route.abort());
+ const ratingPage=await ratingCtx.newPage(),ratingErrors=[];
+ ratingPage.on('pageerror',e=>ratingErrors.push(e.message));
+ await ratingPage.goto(ROOT+'/#route/qa-lisbon-route',{waitUntil:'domcontentloaded'});
+ await ratingPage.locator('.stops .stop-main').waitFor({state:'visible',timeout:15000});
+ assert.equal(enrichmentCalls.length,0,'ordinary catalogue ratings are not fetched in background');
+ await ratingPage.evaluate(()=>{window.__qaStop=document.querySelector('.stops li');});
+ await ratingPage.locator('.stops .stop-main').click();
+ await ratingPage.locator('#place-dialog .breakdown a[data-source="google"]').waitFor({state:'visible',timeout:15000});
+ assert.equal(enrichmentCalls.length,1,'existing cover does not suppress missing Google ratings');
+ assert.equal(enrichmentCalls[0].searchParams.get('country'),'PT','active country reaches Worker');
+ assert.equal(await ratingPage.evaluate(()=>window.__qaStop===document.querySelector('.stops li')),true,'provider response preserves route DOM');
+ assert.match(await ratingPage.locator('#place-dialog .breakdown').textContent(),/31 opinii/);
+ await ratingPage.locator('#place-dialog .close').click();
+ await ratingPage.locator('.stops .stop-main').click();
+ await ratingPage.locator('#place-dialog .breakdown a[data-source="google"]').waitFor({state:'visible'});
+ assert.equal(enrichmentCalls.length,1,'reopening reuses session metadata');
+ await ratingPage.reload({waitUntil:'domcontentloaded'});
+ await ratingPage.locator('.stops .stop-main').click();
+ await ratingPage.locator('#place-dialog .breakdown a[data-source="google"]').waitFor({state:'visible'});
+ assert.equal(enrichmentCalls.length,2,'refresh can fetch fresh provider data on demand');
+ assert.equal(await ratingPage.evaluate(()=>JSON.parse(localStorage.getItem('city-route-v1')).userPlaces.length),0,'provider data is not persisted as user places');
+ assert.deepEqual(ratingErrors,[]);
+ await ratingPage.screenshot({path:'p0-smoke-artifacts/catalogue-cover-missing-ratings.png',fullPage:true});
+ await ratingCtx.close();
  assert.deepEqual(errors,[],'no uncaught browser errors: '+errors.join('; '));
  console.log('PASS integrations browser: GPX, share across transport, named save/rename/archive/restore, ratings template, disabled thumbnail and Takeout CSV');
 }finally{

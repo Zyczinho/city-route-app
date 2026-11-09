@@ -105,8 +105,15 @@ try{
  // Editorial routes can be saved without entering edit mode or signing in.
  await page.locator('button[data-action="save-editorial"][data-id="old-warsaw"]').click();
  await page.waitForFunction(()=>JSON.parse(localStorage.getItem('city-route-v1')||'{}').myRoutes?.some(r=>r.sourceRouteId==='old-warsaw'),{timeout:12000});
- await page.goto(ROOT+'/#social-saved',{waitUntil:'domcontentloaded'});
- await page.locator('[data-social-saved-root] article.card').filter({hasText:'Redakcja City Route'}).first().waitFor({state:'visible',timeout:12000});
+ // Reproduce the founder journey through Profile, not a synthetic direct hash.
+ await page.locator('#navigation a[href="#profile"]').click();
+ await page.locator('a.variant-d-collections-entry[href="#collections"]').click();
+ await page.locator('.variant-d-collection-links a[href="#social-saved"]').click();
+ const archive=page.locator('[data-social-saved-root]');
+ await archive.locator('article.card').filter({hasText:'Redakcja City Route'}).first().waitFor({state:'visible',timeout:12000});
+ assert.ok(await archive.locator('[data-saved-routes-cards] article.card').count()>=1,'local archive must render even with Supabase unavailable');
+ await page.reload({waitUntil:'domcontentloaded'});
+ await archive.locator('article.card').filter({hasText:'Redakcja City Route'}).first().waitFor({state:'visible',timeout:12000});
 
  // Named saved-route archive: no login required for local, device-scoped archive.
  await page.goto(ROOT+'/#my-route',{waitUntil:'domcontentloaded'});

@@ -21,6 +21,7 @@ test('the profile archive combines own, archived, editorial and community saves 
  assert.equal(saved[1].sourceRouteId,'lisbon-classics','source attribution preserved');
  assert.equal(saved[1].href,'#route/mine-2');
  assert.equal(saved[0].href,'#community-route/uuid-comm');
+ assert.equal(saved[0].sourceRef,'uuid-comm','community unsave RPC requires UUID');
  assert.ok(saved.every(x=>x.cityId==='lisbon'));
 });
 
@@ -46,4 +47,9 @@ test('editorial detail has a dedicated save action, not the old edit-as-my-route
  assert.match(hub,/if\(hash==='#social-saved'\)return null/,'personal route archive must remain under Profile navigation');
  assert.doesNotMatch(ui,/root\.innerHTML='<p class="loading" data-social-saved-loading>/,'server cannot blank the core archive');
  assert.match(ui,/root\.dataset\.savedAccount===viewer/,'auth rerender must be idempotent');
+ assert.match(app,/data-action="remove-saved-local"/,'device saves must be removable directly from the list');
+ assert.match(app,/state\.myRoutes=state\.myRoutes\.filter\(r=>r!==saved\)/,'remove only the current city/device snapshot');
+ assert.match(ui,/data-saved-unsave/,'cloud saves need a separate unsave action');
+ assert.match(ui,/await api\.unsaveRoute\(ref,selectedCity\)/,'account bookmark must be removed via unsave_route RPC');
+ assert.doesNotMatch(ui,/data-saved-unsave[^\n]+deleteOwnedRoute/,'never delete published route during unsave');
 });

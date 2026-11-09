@@ -51,7 +51,7 @@ export async function verifyProductionApp({
 
 // Smoke an exact Lisbon release, not only app.js (which may remain unchanged).
 export async function verifyReleaseAssets({productionOrigin,commitSha='unknown',maxAttempts=20,intervalMs=6000,fetchImpl=globalThis.fetch,sleepImpl=sleep,log=console.log}={}){
- const paths=['data/cities.json','data/cities/lisbon/places.json','data/cities/lisbon/routes.json','service-worker.js','place-composer-model.js'];
+ const paths=['index.html','place-composer.css','data/cities.json','data/cities/lisbon/places.json','data/cities/lisbon/routes.json','service-worker.js','place-composer-model.js'];
  const expected=await Promise.all(paths.map(async path=>({path,hash:sha256Hex(await readFile('dist/'+path))})));
  if(!productionOrigin||!String(productionOrigin).startsWith('https://'))throw new Error('HTTPS production origin required');
  let failures=[];
@@ -66,7 +66,7 @@ export async function verifyReleaseAssets({productionOrigin,commitSha='unknown',
    }catch(e){return item.path+': '+(e.message||String(e));}
   }));
   failures=checks.filter(Boolean);
-  if(!failures.length){log('PASS: Lisbon city configuration, 188 OSM places, route fallback, PWA and city-aware client all match production.');return {matched:true,files:paths,attempt};}
+  if(!failures.length){log('PASS: production shell, composer CSS, city catalogue, service worker and city-aware client all match the Git build.');return {matched:true,files:paths,attempt};}
   log('Lisbon asset verification '+attempt+'/'+maxAttempts+': '+failures.join('; '));
   if(attempt<maxAttempts)await sleepImpl(intervalMs);
  }

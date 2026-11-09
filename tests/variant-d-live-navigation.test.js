@@ -34,6 +34,11 @@ test('deep links to guide, booking, events, community and active route remain in
 test('one profile collections entry does not confuse own, social-saved and favorite places',()=>{
  assert.match(app,/class="variant-d-collections-entry" href="#collections"/);
  assert.match(app,/function collectionsView\(\)/);
+ const collections=app.split('function collectionsView(){')[1].split('// ONBOARDING-MENU-050:')[0];
+ assert.deepEqual([...collections.matchAll(/<a href="([^"]+)"/g)].map(x=>x[1]),
+  ['#profile','#collections/places','#social-saved'],
+  'collections keep only Saved Places and Saved Routes plus the back link');
+ assert.doesNotMatch(collections,/Aktualna trasa|Zapisane trasy innych|href="#my-route"/);
  assert.match(app,/Moje, redakcji i społeczności/);
  assert.doesNotMatch(app,/Zapisane trasy innych/);
  assert.match(app,/function savedPlacesView\(\)/);

@@ -59,3 +59,20 @@ test('groups and chat share the existing member-authorized Supabase flow',async(
 test('community hub modules are syntactically valid',()=>{
  for(const path of ['community-enhancements.js','community-hub.js','ux-cleanup.js'])execFileSync(process.execPath,['--check',path],{stdio:'pipe'});
 });
+
+test('Community five-tab icons are accessible, consistent and offline-ready',async()=>{
+ const [hub,css,sw,icons]=await Promise.all([
+  read('community-hub.js'),read('community.css'),read('service-worker.js'),read('ui-icons.js')
+ ]);
+ for(const [label,icon] of [['Trasy','route'],['Grupy','users'],['Czaty','message-circle'],['Znajomi','user-round'],['Zapisane','bookmark']]){
+  assert.match(hub,new RegExp("'"+label+"'"),'tab keeps text label: '+label);
+  assert.ok(hub.includes(":'"+icon+"'"),'tab icon should be Lucide: '+icon);
+ }
+ assert.match(hub,/iconMarkup\(tabIcons\[href\],'community-tab-icon'\)/);
+ assert.match(hub,/<span>'+label+'<\/span>/,'tab text remains visible for assistive tech');
+ assert.match(css,/\.community-hub-links>a\{display:flex;flex-direction:column;[^\n]*min-height:56px/);
+ assert.match(css,/\.community-hub-links>a \.community-tab-icon\{width:19px;height:19px/);
+ assert.match(css,/@media\(max-width:359px\)\{\.community-hub-links>a\{min-height:52px/);
+ assert.match(sw,/assets\/icons\/ui\/message-circle\.svg/,'offline PWA caches the chat icon');
+ assert.match(icons,/'message-circle'/,'trusted icon allowlist includes the chat icon');
+});

@@ -72,7 +72,7 @@ test('only moderator-approved public places show banked image, attribution survi
  assert.match(sql,/storage\.objects where bucket_id='city-route-place-photos'/);
  assert.match(sql,/where id=p_submission_id and submitted_by=v_user and status='pending'/);
  assert.match(sql,/if not public\.is_app_admin\(\)/);
- assert.match(sql,/when v\.licensed_photo_credit is not null then 'Zdjęcie Wikimedia Commons'/);
+ assert.match(sql,/when v\.licensed_photo_credit is not null then 'Zdjęcie Wikimedia Commons \(zmniejszone i przekonwertowane do JPEG\)'/);
  assert.match(sql,/'credit',v\.licensed_photo_credit/);
  const runtime=read('place-contributions.js');
  assert.match(runtime,/if\(!place\|\|place\.visibility!=='public'\)return/);

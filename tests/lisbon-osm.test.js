@@ -41,7 +41,7 @@ test('Lisbon OSM catalogue contains 100–200 real named, usable POIs',()=>{
    const reviewed=licensedPhotos.find(x=>x.id===p.id&&x.image===p.image);
    assert.ok(reviewed,'an imported POI cover must appear in the reviewed photo manifest');
    assert.deepEqual(p.imageCredit,reviewed.credit,'licensed photo retains exact visible attribution');
-   assert.match(p.imageCredit.license,/^CC BY(-SA)? [234]\\.0$/);
+   assert.match(p.imageCredit.license,/^CC BY(-SA)? [234][.]0$/);
    assert.equal(new URL(p.imageCredit.source).hostname,'commons.wikimedia.org');
    assert.equal(new URL(p.imageCredit.licenseUrl).hostname,'creativecommons.org');
   }

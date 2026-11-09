@@ -20,6 +20,7 @@ on:
       - 'index.html'
       - 'service-worker.js'
       - 'tests/add-place-pointer-smoke.mjs'
+      - 'tests/add-place-after-photo-smoke.mjs'
       - 'tests/p0-browser-smoke.mjs'
       - 'tests/integrations-browser-smoke.mjs'
       - 'tests/places-pagination-browser-smoke.mjs'
@@ -53,6 +54,7 @@ jobs:
       - run: npm install --no-save playwright@1.58.2
       - run: npx playwright install --with-deps chromium webkit
       - run: node tests/add-place-pointer-smoke.mjs
+      - run: node tests/add-place-after-photo-smoke.mjs
       - run: node tests/p0-browser-smoke.mjs
       - run: node tests/planner-v2-browser-smoke.mjs
       - run: node tests/integrations-browser-smoke.mjs

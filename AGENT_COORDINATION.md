@@ -2,7 +2,7 @@
 
 ## P0.1 Test 3 — map card action overlap
 
-IN_PROGRESS — ChatGPT — `fix/map-card-compact-actions`; scope: map card markup/CSS, mobile override, PWA cache and browser QA. Founder confirmed saved-route trash and Places pagination on iPhone. Place details open; some descriptions and Google/Tripadvisor ratings remain absent (P0 #176, not accepted). Map interaction works; Close overlaps Details. Next: compact actions, reserve a dedicated header cell for Close, verify mobile geometry and CI before merge. No parallel runtime branch. Last update: 2026-11-09.
+REVIEW — ChatGPT — PR #190 MERGED to main (`4ee78895c382e09152cd9680d380d3430770c959`), PWA v77. Close has a dedicated header cell, compact intrinsic action widths and 44px tap targets. Local map tests 9/9 PASS; exact-head CI 42656919839 SUCCESS and mobile browser smoke 42656915933 SUCCESS (real card geometry/screenshots at 320/375/390); independent final review PASS. Founder confirmed trash, Places list/pagination, detail opening and map interaction. Missing descriptions and Google/Tripadvisor coverage remain OPEN under #176. Next: production asset parity and founder iPhone visual confirmation, then Test 4/5. No parallel runtime branch. Last update: 2026-11-09.
 
 
 ## Verified production release baseline — 2026-11-09

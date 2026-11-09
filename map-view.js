@@ -57,11 +57,11 @@ export function boundsOf(places){
 
 export function cardHtml(p,{inRoute=false}={}){
   return `<div class="cr-map-card-head"><p class="kicker">${esc([p.area,p.distanceM!=null?fmtDistance(p.distanceM):''].filter(Boolean).join(' · '))}</p>`+
-    `<h3 id="cr-map-card-title">${esc(p.name)}</h3></div>`+
+    `<h3 id="cr-map-card-title">${esc(p.name)}</h3>`+
+    `<button type="button" class="cr-map-card-close" data-map-action="close" aria-label="Zamknij">${iconMarkup('x')}</button></div>`+
     (p.description?`<p class="cr-map-card-text">${esc(p.description)}</p>`:'')+
     `<div class="cr-map-card-actions"><button type="button" class="primary" data-map-action="add" data-id="${esc(p.id)}"${inRoute?' disabled':''}>${inRoute?'W trasie':'Dodaj do trasy'}</button>`+
-    `<button type="button" data-map-action="details" data-id="${esc(p.id)}">Szczegóły</button>`+
-    `<button type="button" class="cr-map-card-close" data-map-action="close" aria-label="Zamknij">${iconMarkup('x')}</button></div>`;
+    `<button type="button" data-map-action="details" data-id="${esc(p.id)}">Szczegóły</button></div>`;
 }
 
 export function listHtml(places,selectedId=null){

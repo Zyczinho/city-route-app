@@ -18,7 +18,7 @@ test('mobile-native: map sheet controls have 44px touch targets', () => {
   assert.match(css, /\.cr-map-toolbar button\s*\{\s*min-height:\s*44px;/);
   assert.match(css, /\.cr-map-card-actions button\s*\{\s*min-height:\s*44px;/);
   assert.match(css, /\.cr-map-card-close\s*\{[^}]*min-width:\s*44px;[^}]*min-height:\s*44px !important;/);
-  assert.match(css, /\.cr-map-card-head h3\s*\{\s*padding-right:\s*52px;/);
+  assert.match(css, /\.cr-map-card-head h3\s*\{\s*padding-right:\s*0;/);
   assert.match(css, /\.search \.clear, \.sheet \.close\s*\{\s*min-width:\s*44px;\s*min-height:\s*44px;/);
 });
 

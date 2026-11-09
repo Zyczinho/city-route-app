@@ -65,7 +65,7 @@
   /* Dynamic visual viewport accounts for the iOS Safari address bar. */
   .sheet { max-height: 92vh; max-height: 92dvh; }
 
-  /* The map preview previously shrank actions to 32px and Close to 28px. */
+  /* Map card controls retain 44px touch targets; Close owns a header grid cell. */
   .cr-map-toolbar button { min-height: 44px; }
   .cr-map-card-actions button { min-height: 44px; }
   .cr-map-card-close {
@@ -74,7 +74,7 @@
     height: 44px;
     min-height: 44px !important;
   }
-  .cr-map-card-head h3 { padding-right: 52px; }
+  .cr-map-card-head h3 { padding-right: 0; }
 
   /* Actions already have their own row on phones. Give the title its width. */
   .place-list .place > .info h3 { padding-right: 0; overflow-wrap: anywhere; }

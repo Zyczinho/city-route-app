@@ -95,15 +95,37 @@ try{
  assert.notEqual(mapLayout.touchAction,'pan-y','Map must not force the old page-scroll touch mode; runtime may be a map or accessible fallback');
  assert.equal(mapLayout.panToggle,undefined,'gesture toggle is no longer shown');
  assert.ok(mapLayout.overflow<=mapLayout.viewport+1,'map toolbar does not create horizontal overflow');
- const popup=await page.locator('#places-map .cr-map-card').evaluate(card=>{
-  card.hidden=false;
-  card.innerHTML='<div class="cr-map-card-head"><h3>Przykładowe miejsce</h3></div><div class="cr-map-card-actions"><button>Do trasy</button><button>Szczegóły</button></div>';
-  const box=card.getBoundingClientRect(),map=card.closest('.cr-map').getBoundingClientRect();
-  const result={popupHeight:box.height,mapHeight:map.height,top:box.top-map.top,bottom:box.bottom-map.top};
-  card.hidden=true;return result;
- });
- assert.ok(popup.popupHeight<=130&&popup.bottom<popup.mapHeight-25,
-  'map place popup should remain a short card, preserving visible map and attribution: '+JSON.stringify(popup));
+ // Use the actual production card markup, including Close, at every supported phone width.
+ const originalViewport=page.viewportSize();
+ for(const width of [320,375,390]){
+  await page.setViewportSize({width,height:812});
+  const popup=await page.locator('#places-map .cr-map-card').evaluate(async card=>{
+   const {cardHtml}=await import('/map-view.js');
+   card.hidden=false;
+   card.style.animation='none';
+   card.innerHTML=cardHtml({id:'qa-map-card',name:'Przykładowe miejsce z bardzo długą nazwą',area:'Lizbona',description:'Opis miejsca'});
+   const rect=el=>{const r=el.getBoundingClientRect();return {left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height};};
+   const controls=['add','details','close'].map(action=>({action,...rect(card.querySelector('[data-map-action="'+action+'"]'))}));
+   const box=rect(card),map=rect(card.closest('.cr-map'));
+   return {popupHeight:box.height,mapHeight:map.height,top:box.top-map.top,bottom:box.bottom-map.top,box,controls,overflow:card.scrollWidth>card.clientWidth};
+  });
+  assert.ok(popup.popupHeight<=130&&popup.bottom<popup.mapHeight-25,
+   'map card preserves visible map and attribution: '+JSON.stringify({width,...popup}));
+  assert.equal(popup.overflow,false,'map card must fit '+width+'px');
+  for(const control of popup.controls){
+   assert.ok(control.width>=44&&control.height>=44,'44px touch target: '+JSON.stringify(control));
+   assert.ok(control.left>=popup.box.left&&control.right<=popup.box.right&&control.bottom<=popup.box.bottom,'control stays inside card');
+  }
+  for(let i=0;i<popup.controls.length;i++)for(let j=i+1;j<popup.controls.length;j++){
+   const a=popup.controls[i],b=popup.controls[j];
+   assert.ok(a.right<=b.left||b.right<=a.left||a.bottom<=b.top||b.bottom<=a.top,
+    'map actions cannot overlap: '+JSON.stringify({width,a,b}));
+  }
+  console.log('MAP_CARD_QA '+JSON.stringify({width,...popup}));
+  await page.screenshot({path:'p0-smoke-artifacts/map-card-'+width+'.png',fullPage:true});
+  await page.locator('#places-map .cr-map-card').evaluate(card=>{card.hidden=true;card.style.animation='';});
+ }
+ await page.setViewportSize(originalViewport);
  await page.screenshot({path:'p0-smoke-artifacts/places-mobile-scroll.png',fullPage:true});
 
  // PLACES-UX-038: own creations remain discoverable after unbookmarking.

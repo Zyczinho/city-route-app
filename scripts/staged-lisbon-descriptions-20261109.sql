@@ -12,7 +12,7 @@ begin
  join public.places p on p.legacy_id=u.id
  join public.cities c on c.id=p.city_id and c.slug='lisbon'
  where (coalesce(p.description,'')='' or p.description=u.description)
- and (p.metadata->'editorial' is null or p.metadata->'editorial'='{}'::jsonb or p.metadata->'editorial' @> u.editorial);
+ and (p.metadata->'editorial' is null or p.metadata->'editorial'='{}'::jsonb or ((p.metadata->'editorial')||u.editorial)=(p.metadata->'editorial'));
  if matched<>24 then raise exception 'Expected exactly 24 unchanged Lisbon targets; found %',matched; end if;
  with input as (
   select * from jsonb_to_recordset(payload) as u(id text,description text,editorial jsonb)
@@ -24,7 +24,7 @@ begin
  from input u,public.cities c
  where p.legacy_id=u.id and p.city_id=c.id and c.slug='lisbon'
  and (coalesce(p.description,'')='' or p.description=u.description)
- and (p.metadata->'editorial' is null or p.metadata->'editorial'='{}'::jsonb or p.metadata->'editorial' @> u.editorial);
+ and (p.metadata->'editorial' is null or p.metadata->'editorial'='{}'::jsonb or ((p.metadata->'editorial')||u.editorial)=(p.metadata->'editorial'));
  get diagnostics changed=row_count;
  if changed<>24 then raise exception 'Expected exactly 24 updates; got %',changed; end if;
 end;

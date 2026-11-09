@@ -37,7 +37,7 @@ test('questionable and closed venues have visible warnings instead of invented r
 test('hosted content script matches manifest and cannot overwrite unrelated content',()=>{
  const sql=read('scripts/staged-lisbon-descriptions-20261109.sql');
  assert.ok(sql.includes(JSON.stringify(patches)),'SQL payload equals reviewed manifest');
- assert.equal((sql.match(/p.metadata->'editorial' @> u.editorial/g)||[]).length,2,'both preflight and UPDATE guard conflicting editorial changes');
+ assert.equal((sql.match(/\(\(p.metadata->'editorial'\)\|\|u.editorial\)=\(p.metadata->'editorial'\)/g)||[]).length,2,'both preflight and UPDATE guard conflicting editorial changes');
  assert.match(sql,/if matched<>24/);assert.match(sql,/if changed<>24/);
  assert.match(sql,/c.slug='lisbon'/);
  assert.match(sql,/coalesce\(p.description,''\)='' or p.description=u.description/);

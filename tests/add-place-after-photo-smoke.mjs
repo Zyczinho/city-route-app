@@ -54,7 +54,7 @@ try{
       }
       for(const value of ['1','3','5']){
        const radio=page.locator('#place-form input[name="rating"][value="'+value+'"]');
-       const label=page.locator('#place-form .choice label').filter({has:radio});
+       const label=page.locator('#place-form .choice label').filter({has:page.locator('input[name="rating"][value="'+value+'"]')});
        await label.scrollIntoViewIfNeeded();
        const hit=await label.evaluate(el=>{
         const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,

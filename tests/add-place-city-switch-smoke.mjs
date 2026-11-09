@@ -14,6 +14,12 @@ try{
     const ctx=await browser.newContext({viewport:{width:375,height:790},isMobile:true,hasTouch:true,serviceWorkers:'block'});
     await ctx.route('**/*',route=>{
      const u=new URL(route.request().url());
+     if(u.hostname==='nominatim.openstreetmap.org'){
+      const code=u.searchParams.get('countrycodes'),wanted=city.id==='lisbon'?'pt':'pl';
+      console.log('GEOCODE_CITY',city.id,code,u.searchParams.get('q'));
+      return route.fulfill({status:200,contentType:'application/json',headers:{'access-control-allow-origin':'*'},
+       body:JSON.stringify(code===wanted?[{lat:String(city.lat),lon:String(city.lng),name:city.title,display_name:city.title}]:[])});
+     }
      if(u.origin!==BASE)return route.abort();
      if(u.pathname==='/api/place-suggest')return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({status:'ok',suggestions:[{provider:'google',name:city.title,address:city.title,placeId:'ChIJCitySwitchTest987654',location:{lat:city.lat,lng:city.lng},photo:{available:true,authorName:'QA'}}]})});
      if(u.pathname==='/api/place-photo')return route.fulfill({status:200,contentType:'image/jpeg',body:image});
@@ -46,6 +52,25 @@ try{
      await button.click();await page.locator('#place-dialog[open]').waitFor({timeout:15000});
      const result=await page.evaluate(()=>{const s=JSON.parse(localStorage.getItem('city-route-v1')),p=s.userPlaces[0];return{city:s.cityId,placeCity:p?.cityId,rating:s.placeReviews[p?.id],name:p?.name}});
      assert.equal(result.placeCity,city.id);assert.equal(result.rating,5);assert.deepEqual(errors,[]);
+     // This is the city-specific path missed by earlier tests: handwritten venue address plus photo.
+     await page.evaluate(()=>{location.hash='#add-place'});
+     await page.locator('#place-form').waitFor();
+     const manual=city.id==='lisbon'?'Rua Augusta 100':'Marszałkowska 1';
+     await page.locator('#pc-q').fill(manual);
+     await page.locator('#place-form input[name="name"]').fill(city.title+' address');
+     await page.locator('#place-form input[name="photo"]').setInputFiles({name:'venue.jpg',mimeType:'image/jpeg',buffer:image});
+     await page.locator('.place-photo-editor img').first().waitFor();
+     const four=page.locator('#place-form .choice label').filter({has:page.locator('input[name="rating"][value="4"]')});
+     await four.click();
+     const save=page.locator('#place-form button.primary.big');
+     await save.click();
+     await page.locator('#place-dialog[open]').waitFor({timeout:20000});
+     const manualResult=await page.evaluate(()=>{
+      const s=JSON.parse(localStorage.getItem('city-route-v1')),p=s.userPlaces[0];
+      return{city:s.cityId,placeCity:p?.cityId,rating:s.placeReviews[p?.id],photos:p?.images?.length};
+     });
+     assert.equal(manualResult.placeCity,city.id);assert.equal(manualResult.rating,4);assert.equal(manualResult.photos,1);
+     console.log('CITY_MANUAL_ADDRESS_PASS',name,city.id,JSON.stringify(manualResult));
      console.log('CITY_SWITCH_PASS',name,city.id,JSON.stringify({ratingHit,saveHit,result}));
     }catch(e){
      console.log('CITY_SWITCH_FAIL',name,city.id,String(e),JSON.stringify(errors));

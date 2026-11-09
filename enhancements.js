@@ -8,7 +8,7 @@ const nameInput=()=>document.querySelector('#place-form input[name="name"]');
 const isMaps=v=>/^https:\/\/(?:www\.)?(?:google\.[^/]+\/maps|maps\.google\.[^/]+|maps\.app\.goo\.gl|goo\.gl\/maps)/i.test(String(v||'').trim());
 const isCoords=v=>/^\s*[-+]?\d{1,2}(?:[.,]\d+)?\s*[,;]\s*[-+]?\d{1,3}(?:[.,]\d+)?\s*$/.test(String(v||''));
 const isAddress=v=>{const s=String(v||'').trim();return s.length>=3&&!/^https?:\/\//i.test(s)&&!isCoords(s);};
-const WARSAW={id:'warsaw',name:'Warszawa',center:{lat:52.2297,lng:21.0122},radiusKm:40};
+const WARSAW={id:'warsaw',name:'Warszawa',country:'Polska',countryCode:'PL',locale:'pl-PL',center:{lat:52.2297,lng:21.0122},radiusKm:40};
 const GEOCODE_CACHE='city-route-geocode-cache-v2';
 let citiesPromise=null;
 
@@ -19,9 +19,9 @@ async function activeCity(){
  let id=document.querySelector('#city-select')?.value;
  if(!id){try{id=JSON.parse(localStorage.getItem('city-route-v1')||'null')?.cityId;}catch{}}
  const c=list.find(x=>x.id===(id||'warsaw'));
- return c?.center?{id:c.id,name:c.name,center:{lat:Number(c.center.lat),lng:Number(c.center.lng)},radiusKm:Number(c.radiusKm)||40}:WARSAW;
+ return c?.center?{id:c.id,name:c.name,country:c.country,countryCode:c.countryCode||'PL',locale:c.locale||'pl-PL',center:{lat:Number(c.center.lat),lng:Number(c.center.lng)},radiusKm:Number(c.radiusKm)||40}:WARSAW;
 }
-const cityQuery=city=>new URLSearchParams({city:city.id,name:city.name,lat:String(city.center.lat),lng:String(city.center.lng),r:String(city.radiusKm)}).toString();
+const cityQuery=city=>new URLSearchParams({city:city.id,name:city.name,country:city.countryCode||'PL',lat:String(city.center.lat),lng:String(city.center.lng),r:String(city.radiusKm)}).toString();
 
 function decorateWhereInput(){
  const input=mapsInput(),label=input?.closest('label');if(!input||!label||label.dataset.addressReady==='1')return;
@@ -78,7 +78,12 @@ async function throttleDirectSearch(){
 }
 
 const fold=s=>String(s||'').toLowerCase().replace(/ł/g,'l').normalize('NFD').replace(/[̀-ͯ]/g,'');
-function queryWithCity(query,city){return fold(query).includes(fold(city.name))?query:`${query}, ${city.name}, Polska`;}
+function queryWithCity(query,city){
+ const localName=city.id==='lisbon'?'Lisboa':city.name;
+ const country=city.countryCode==='PT'?'Portugal':(city.country||'Polska');
+ const hasName=[localName,city.name].some(name=>name&&fold(query).includes(fold(name)));
+ return hasName?query:[query,localName,country].filter(Boolean).join(', ');
+}
 function viewbox(city){
  const dLat=city.radiusKm/111,dLng=city.radiusKm/(111*Math.cos(city.center.lat*Math.PI/180)),c=city.center;
  return [c.lng-dLng,c.lat+dLat,c.lng+dLng,c.lat-dLat].map(n=>n.toFixed(2)).join(',');
@@ -91,9 +96,9 @@ async function nominatimOnce(query,city){
  u.searchParams.set('q',queryWithCity(query,city));
  u.searchParams.set('format','jsonv2');
  u.searchParams.set('limit','5');
- u.searchParams.set('countrycodes','pl');
+ u.searchParams.set('countrycodes',String(city.countryCode||'PL').toLowerCase());
  u.searchParams.set('addressdetails','1');
- u.searchParams.set('accept-language','pl');
+ u.searchParams.set('accept-language',String(city.locale||'pl-PL').split('-')[0]);
  u.searchParams.set('viewbox',viewbox(city));
  const r=await fetch(u.href,{headers:{accept:'application/json'}});
  if(!r.ok)throw new Error('geocoder-http-'+r.status);

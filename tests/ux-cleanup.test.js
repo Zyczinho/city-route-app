@@ -10,11 +10,11 @@ test('UX cleanup makes the planner progressively disclose complexity without cha
  const [app,ux]=await Promise.all([read('app.js'),read('ux-cleanup.js')]);
  for(const name of ['time','transport','food','start','budget','tourist','offers'])assert.match(app,new RegExp(`radio\\('${name}'`));
  assert.match(app,/name="interests"/);
- assert.match(ux,/Odkrywaj miasto po swojemu/);
- assert.match(ux,/disclosure\('Klimat trasy'/);
+ assert.match(ux,/Twój plan na miasto/);
+  assert.match(ux,/disclosure\('Co Cię interesuje\?'/);
  assert.match(ux,/disclosure\('Więcej ustawień'/);
  assert.match(ux,/submit\.textContent='Ułóż mi trasę'/);
- assert.match(ux,/form\.replaceChildren\(primary,submit,alternatives,whenDetails\.details,climate\.details,advanced\.details\)/);
+  assert.match(ux,/form\.replaceChildren\(climate\.details,primary,submit,alternatives,whenDetails\.details,advanced\.details\)/);
  assert.match(ux,/whenDetails=disclosure\('Kiedy chcesz zwiedzać\?'/);
  assert.match(ux,/manual\.href='#places'/);
  assert.match(ux,/social\.href='#routes\/community'/);

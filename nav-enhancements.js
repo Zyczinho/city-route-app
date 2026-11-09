@@ -2,7 +2,6 @@
 // GitHub issue #146 / founder-approved navigation direction 2026-11-09.
 const nav=document.querySelector('#navigation');
 const headerRight=document.querySelector('.top .right');
-const toast=document.querySelector('#toast');
 const desiredNav=['#plan','#routes','#places','#routes/community','#profile'];
 let navSyncing=false;
 
@@ -91,16 +90,8 @@ function enforceBottomNav(){
  }finally{navSyncing=false;}
 }
 
-function makeAddToastActionable(){
- if(!toast||toast.querySelector('[data-toast-my-route]'))return;
- if(!/^Dodano jako \d+\. przystanek/.test(toast.textContent||''))return;
- const a=document.createElement('a');a.href='#my-route';a.dataset.toastMyRoute='';
- a.textContent='Zobacz trasę';toast.append(' · ',a);
-}
-
 function syncNavigation(){enforceBottomNav();syncActive();syncRouteBar();}
-syncNavigation();makeAddToastActionable();
+syncNavigation();
 window.addEventListener('cityroute:route-nav',syncNavigation);
 window.addEventListener('hashchange',()=>{syncNavigation();setTimeout(syncNavigation,120);});
 if(nav)new MutationObserver(enforceBottomNav).observe(nav,{childList:true});
-if(toast)new MutationObserver(makeAddToastActionable).observe(toast,{childList:true,characterData:true,subtree:true});

@@ -277,7 +277,7 @@ async function renderSaved(){
 
 function injectMyRoute(){
  if(location.hash.split('/')[0]!=='#my-route')return;const root=main();if(!root||root.querySelector('[data-social-publish-button]'))return;
- const actions=root.querySelector('.detail-actions');if(!actions)return;
+ const actions=root.querySelector('.variant-d-extra-actions');if(!actions)return;
  const draft=currentDraft();if(draft.stops.length<2)return;
  const b=document.createElement('button');b.dataset.socialPublishButton='1';b.dataset.socialAction='publish';b.className='social-publish';b.textContent=session?'Opublikuj trasę':'Zaloguj się i opublikuj';actions.append(b);
 }

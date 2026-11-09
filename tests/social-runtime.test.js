@@ -47,7 +47,7 @@ test('Bottom navigation has five intent tabs and a separate contextual My Route 
  assert.match(nav,/Społeczność/);
  assert.match(nav,/users\.svg/);
  assert.match(nav,/dataset\.headerBook/);
- assert.match(nav,/Zobacz trasę/);
+ assert.doesNotMatch(nav,/data-toast-my-route|Zobacz trasę/,'single contextual route bar replaces duplicate toast link');
  assert.match(nav,/variant-d-active-route/);
  const guideCss=await read('onboarding-guide.css');
  assert.match(guideCss,/#navigation\{grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);

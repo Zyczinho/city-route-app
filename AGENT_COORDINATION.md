@@ -1,5 +1,10 @@
 # Agent Coordination — canonical control plane
 
+## P0.1 Test 4 — sharing / action clarity
+
+IN_PROGRESS — ChatGPT — `fix/route-actions-share-colors`; founder accepts map thumbnail as MVP (UX polish deferred), confirms share and route start work. Requested: remove redundant added-stop toast / Zobacz trasę, dark contextual My Route matching Start, brand-colored share destinations with purple Copy, remove route native-share option for now, publish under existing More options; keep Save blue and Add stop white. Scope: app/nav/share/social injection/CSS/cache + relevant mobile regression. No new chat integration or link semantics. Last update: 2026-11-09.
+
+
 ## P0.1 map card photo thumbnail
 
 REVIEW — ChatGPT — PR #191 MERGED as `a9d1ed888182756e3111923915660f56259a4b2d`; 48px optional photo uses existing place renderer, failed images collapse. PWA v78. Exact-head CI 42658322451 SUCCESS, mobile smoke 42658322363 SUCCESS (photo/no-photo/error at 320/375/390), provider diagnostic 42658322521 SUCCESS; independent review PASS. Founder accepted preceding map controls #190. Next: production asset parity then real iPhone photo-panel acceptance; continue Test 4/5. Missing descriptions/provider ratings remain #176. Last update: 2026-11-09.

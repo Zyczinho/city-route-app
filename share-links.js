@@ -60,12 +60,6 @@ function shareFallback(url,title,external=false,place=false,privatePlace=false){
   }
  };
  copy.addEventListener('click',()=>{void copyLink();});
- const native=button('Udostępnij przez aplikację','navigation','route-share-native');
- native.hidden=typeof navigator.share!=='function';
- native.addEventListener('click',async()=>{
-  try{await navigator.share({title,text:place?'Odkryj miejsce w City Route':external?'Plan przystanków w Google Maps':'Odkryj trasę w City Route',url});dlg.close();}
-  catch(error){if(error?.name!=='AbortError')status.textContent='Wybierz komunikator albo skopiuj link.';}
- });
  const whats=document.createElement('a');whats.className='route-share-action route-share-whatsapp';whats.target='_blank';whats.rel='noopener noreferrer';
  whats.href='https://wa.me/?text='+encodeURIComponent('Sprawdź '+(place?'miejsce ':external?'plan ':'trasę ')+title+(external?' w Google Maps':' w City Route')+': '+url);
  whats.innerHTML=iconMarkup('message-circle')+'<span>WhatsApp</span>';
@@ -79,11 +73,11 @@ function shareFallback(url,title,external=false,place=false,privatePlace=false){
    raw.open=true;field.focus();field.select();status.textContent='Wklej link w rozmowie w '+label+'.';
   });return a;
  };
- const messenger=externalAction('Messenger','send','https://www.messenger.com/');
- const instagram=externalAction('Instagram','camera','https://www.instagram.com/direct/inbox/');
+ const messenger=externalAction('Messenger','send','https://www.messenger.com/');messenger.classList.add('route-share-messenger');
+ const instagram=externalAction('Instagram','camera','https://www.instagram.com/direct/inbox/');instagram.classList.add('route-share-instagram');
  const close=document.createElement('button');close.type='submit';close.className='route-share-close';
  close.innerHTML=iconMarkup('x')+'<span>Zamknij</span>';
- actions.append(native,whats,messenger,instagram,copy);
+ actions.append(whats,messenger,instagram,copy);
  form.append(head,preview,actions,status,raw,close);dlg.append(form);
  dlg.addEventListener('close',()=>dlg.remove(),{once:true});document.body.append(dlg);dlg.showModal();
 }
@@ -92,7 +86,7 @@ async function useRouteShare(button){
  const kind=button.dataset.routeShare,id=button.dataset.routeRef,city=button.dataset.routeCity;
  const title=String(button.dataset.routeTitle||"Trasa City Route").slice(0,140),url=kind==="maps"?sharedMapsRouteUrl(button.dataset.routeUrl):routeShareUrl(kind,id,city,location.origin);
  if(!url){alert("Najpierw opublikuj trasę, aby udostępnić ją innym.");return;}
- // Always show explicit sharing destinations. The system sheet is still available inside the dialog.
+ // Show explicit destinations; native route sharing is deferred pending iPhone UX validation.
  shareFallback(url,title,kind==="maps");
 }
 

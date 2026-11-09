@@ -29,13 +29,29 @@ try{
    await page.locator('#pc-q').fill('38.720123, -9.140123');
    await page.locator('#place-form input[name=name]').fill('QA pointer '+engine+' '+width);
    await page.waitForFunction(()=>document.querySelector('#place-form input[name=where]')?.value.includes('38.720123'),{timeout:8000});
-   const rating=page.locator('#place-form input[name=rating][value="4"]');
-   const label=page.locator('#place-form .choice label').filter({has:rating});
-   await label.scrollIntoViewIfNeeded();
-   const hit=await label.evaluate(el=>{const r=el.getBoundingClientRect();return el.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2));});
-   assert.equal(hit,true,engine+' '+width+' rating visual center must receive pointer');
-   await label.click();assert.equal(await rating.isChecked(),true);
+   // Every visible rating chip must own its whole pointer area, not a shifted/overlapping invisible input.
+   for(const value of ['none','1','2','3','4','5']){
+    const radio=page.locator('#place-form input[name=rating][value="'+value+'"]');
+    const choice=page.locator('#place-form .choice label').filter({has:radio});
+    await choice.scrollIntoViewIfNeeded();
+    const hit=await choice.evaluate(el=>{
+     const r=el.getBoundingClientRect(),input=el.querySelector('input');
+     const ir=input.getBoundingClientRect();
+     const inside=ir.left>=r.left-.5&&ir.right<=r.right+.5&&ir.top>=r.top-.5&&ir.bottom<=r.bottom+.5;
+     const points=[.18,.5,.82].map(p=>el.contains(document.elementFromPoint(r.left+r.width*p,r.top+r.height/2)));
+     return {inside,points};
+    });
+    assert.equal(hit.inside,true,engine+' '+width+' '+value+' radio remains inside visual label');
+    assert.ok(hit.points.every(Boolean),engine+' '+width+' '+value+' rating chip hit targets');
+    await choice.click();
+    assert.equal(await radio.isChecked(),true,engine+' '+width+' '+value+' should be selectable by pointer');
+   }
    // Upload triggers app re-render; pointer targets must survive the restored draft.
+   const upload=await page.locator('#place-form label.file').evaluate(el=>{
+    const r=el.getBoundingClientRect(),i=el.querySelector('input[type=file]').getBoundingClientRect();
+    return i.left>=r.left-.5&&i.right<=r.right+.5&&i.top>=r.top-.5&&i.bottom<=r.bottom+.5;
+   });
+   assert.equal(upload,true,engine+' '+width+' upload input contained in its visible label');
    await page.locator('#place-form input[type=file]').setInputFiles({name:'qa.png',mimeType:'image/png',buffer:Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Y9Z4ZkAAAAASUVORK5CYII=','base64')});
    await page.locator('.place-photo-editor').waitFor();
    const last=page.locator('#place-form .choice label').filter({has:page.locator('input[name=rating][value="5"]')});

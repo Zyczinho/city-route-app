@@ -63,7 +63,7 @@ test('PWA includes icon renderer, CSS, missing SVGs and correct module version b
  assert.match(sw,/ui-icons\.css\?v=3/);
  for(const path of ['ui-icons.css','ui-icons.js']){assert.ok(build.includes(path));assert.ok(sw.includes(path));}
  for(const name of ['chevron-down','minus','heart','grip-vertical'])assert.ok(sw.includes('assets/icons/ui/'+name+'.svg'),'missing offline icon '+name);
- for(const [file,v] of [['photo-fallback.js','2'],['place-composer.js','7'],['social-routes-enhancements.js','12'],['place-reviews.js','3'],['requests-enhancements.js','4'],['enhancements.js','25'],['ux-cleanup.js','5'],['community-enhancements.js','23'],['first-launch.js','2']]){
+ for(const [file,v] of [['photo-fallback.js','2'],['place-composer.js','8'],['social-routes-enhancements.js','12'],['place-reviews.js','3'],['requests-enhancements.js','4'],['enhancements.js','25'],['ux-cleanup.js','5'],['community-enhancements.js','23'],['first-launch.js','2']]){
   assert.ok(html.includes(file+'?v='+v),'new JS not versioned in HTML: '+file);
   assert.ok(sw.includes(file+'?v='+v),'new JS not cached: '+file);
  }

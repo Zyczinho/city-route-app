@@ -34,7 +34,7 @@ try{
     });
     const page=await ctx.newPage();page.setDefaultTimeout(10000);
     const errors=[];page.on('pageerror',e=>errors.push(e.message));
-    for(const method of ['google-proposal','jpeg-upload']){
+    for(const method of ['google-proposal','jpeg-upload','commons-record']){
      try{
       await page.goto(BASE+'/#add-place',{waitUntil:'domcontentloaded'});
       await page.locator('#pc-q').waitFor();
@@ -45,6 +45,18 @@ try{
        await page.locator('#place-form .pc-photo.is-accepted img').waitFor({timeout:12000});
        await page.locator('#place-form .pc-photo img').evaluate(el=>el.decode());
        assert.ok((await page.locator('#place-form').getAttribute('data-pc-google-place-id'))?.includes('LuzPhotoTest'));
+      }else if(method==='commons-record'){
+       await page.locator('#pc-q').fill('38.720123, -9.140123');
+       await page.locator('#place-form input[name="name"]').fill('QA Wikimedia stadium '+engine+' '+width);
+       await page.waitForFunction(()=>document.querySelector('#place-form input[name="where"]')?.value.includes('38.720123'));
+       await page.locator('#place-form').evaluate(form=>{
+        // Exact collision of accepted Commons metadata on the FORM and photo action on BUTTONS.
+        form.dataset.pcPhoto=JSON.stringify({
+         image:'https://upload.wikimedia.org/wikipedia/commons/1/11/S7000272_2.JPG',
+         imageCredit:{via:'Wikimedia Commons',source:'https://commons.wikimedia.org/wiki/File:S7000272_2.JPG',author:'Trickstar',license:'CC BY-SA 3.0'}
+        });
+       });
+       assert.ok(await page.locator('#place-form').getAttribute('data-pc-photo'));
       }else{
        await page.locator('#pc-q').fill('38.720123, -9.140123');
        await page.locator('#place-form input[name="name"]').fill('QA realistic JPG '+engine+' '+width);
@@ -88,7 +100,7 @@ try{
        return {name:p?.name,rating:s.placeReviews?.[p?.id],photos:p?.images?.length,googlePlaceId:p?.googlePlaceId};
       });
       assert.equal(saved.rating,5);if(method==='jpeg-upload')assert.equal(saved.photos,1);
-      else assert.equal(saved.googlePlaceId,fakePlace.placeId);
+      if(method==='google-proposal')assert.equal(saved.googlePlaceId,fakePlace.placeId);
       assert.deepEqual(errors,[]);
       console.log('PHOTO_REGRESSION_PASS',engine,width,method,JSON.stringify(saved));
      }catch(error){

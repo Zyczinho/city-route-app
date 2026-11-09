@@ -174,7 +174,7 @@ test('Google photos are never copied into the user photo upload',async()=>{
 
 test('composer ships, loads after app.js and leaves app.js the only writer of places',async()=>{
  const [html,build,composer]=await Promise.all([read('index.html'),read('scripts/build.mjs'),read('place-composer.js')]);
- assert.match(html,/place-composer\.js\?v=7/);
+ assert.match(html,/place-composer\.js\?v=8/);
  assert.match(html,/place-composer\.css\?v=\d+/);
  assert.ok(html.indexOf('./app.js')<html.indexOf('place-composer.js'));
  for(const f of ['place-composer.js','place-composer-model.js','place-composer.css'])assert.ok(build.includes(`'${f}'`),`${f} must ship in dist`);

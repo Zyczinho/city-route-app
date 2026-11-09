@@ -16,7 +16,7 @@ export function licensedPhotoCredit(place){
     !CC_LICENSE.test(String(c.license||'')))return null;
  const author=String(c.author||'').trim();
  if(!author||author.length>120||String(c.license).length>50)return null;
- const match=/^CC\\s*BY(-SA)?\\s*([1-4](?:\\.\\d)?)(?:\\s+([a-z]{2}))?$/i.exec(String(c.license||''));
+ const match=/^CC\s*BY(-SA)?\s*([1-4](?:\.\d)?)(?:\s+([a-z]{2}))?$/i.exec(String(c.license||''));
  const canonical=match?'https://creativecommons.org/licenses/by'+(match[1]?'-sa':'')+'/'+match[2]+'/'+(match[3]?match[3]+'/':''):'';
  const licenseUrl=c.licenseUrl==null?'':String(c.licenseUrl);
  const linkedLicense=licenseUrl||canonical;

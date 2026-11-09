@@ -368,3 +368,50 @@ img.avatar{object-fit:cover;display:block}.avatar.sm{width:36px;height:36px;font
 
 /* Private City Route place link: temporary preview, never automatic catalogue publication. */
 .shared-place-note{background:#F2EBFF;border:1px solid #DED0FA;color:#442080;border-radius:12px;padding:12px;line-height:1.5}
+
+
+/* VARIANT-D-IA — five destinations, contextual My Route and one collections hub. */
+#navigation{grid-template-columns:repeat(5,minmax(0,1fr))}
+#navigation a[href="#plan"].active:after{background:var(--blue)}
+.variant-d-active-route{
+ position:fixed;z-index:29;left:50%;bottom:calc(81px + env(safe-area-inset-bottom));transform:translateX(-50%);
+ width:min(610px,calc(100vw - 24px));min-height:48px;box-sizing:border-box;
+ display:flex;gap:10px;align-items:center;justify-content:center;
+ background:#0d6cbe;color:#fff;border:1px solid #075eaa;border-radius:14px;
+ box-shadow:0 8px 24px #123d7044;padding:10px 15px;font-size:14px;font-weight:760;text-decoration:none;
+}
+.variant-d-active-route[hidden]{display:none!important}
+.variant-d-active-route .variant-d-route-label{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.variant-d-active-route .i{flex:none;width:19px;height:19px}
+.variant-d-active-route .i:last-child{margin-left:auto}
+.variant-d-active-route:focus-visible{outline:3px solid #8dccff;outline-offset:2px}
+body.has-variant-d-route-bar #toast{bottom:calc(142px + env(safe-area-inset-bottom))}
+body.has-variant-d-route-bar main{padding-bottom:190px}
+.variant-d-route-actions .variant-d-more{grid-column:1/-1;min-width:0;border:1px solid var(--line);border-radius:13px;background:#f9fbff;overflow:hidden}
+.variant-d-route-actions .variant-d-more summary{display:flex;align-items:center;gap:9px;min-height:48px;padding:12px 15px;color:var(--ink);font-weight:720;cursor:pointer;list-style:none}
+.variant-d-route-actions .variant-d-more summary::-webkit-details-marker{display:none}
+.variant-d-route-actions .variant-d-more summary .i{width:17px;height:17px}
+.variant-d-route-actions .variant-d-more[open] summary{border-bottom:1px solid var(--line)}
+.variant-d-extra-actions{display:grid;gap:9px;padding:12px}
+.variant-d-extra-actions button,.variant-d-extra-actions .button{width:100%;min-height:44px;box-sizing:border-box}
+.variant-d-collections-entry,.variant-d-collection-links>a,.variant-d-owned-list>a{
+ display:flex;align-items:center;gap:13px;padding:14px 16px;border:1px solid var(--line);
+ background:#fff;border-radius:14px;min-height:58px;text-decoration:none;color:var(--ink);box-sizing:border-box;
+}
+.variant-d-collections-entry{margin:16px 0}
+.variant-d-collections-entry>.i,.variant-d-collection-links>a>.i,.variant-d-owned-list>a>.i{width:20px;height:20px;flex:none;color:var(--blue)}
+.variant-d-collections-entry>span,.variant-d-collection-links>a>span,.variant-d-owned-list>a>span{flex:1;min-width:0}
+.variant-d-collections-entry strong,.variant-d-collection-links strong,.variant-d-owned-list strong{display:block;font-size:15px;line-height:1.35}
+.variant-d-collections-entry small,.variant-d-collection-links small,.variant-d-owned-list small{display:block;margin-top:3px;font-size:12px;color:var(--muted);font-weight:450}
+.variant-d-collection-links,.variant-d-owned-list{display:grid;gap:9px}
+.variant-d-owned-routes{margin-top:26px}
+@media(min-width:700px){
+ .variant-d-active-route{bottom:104px;width:440px}
+ .variant-d-extra-actions{grid-template-columns:repeat(2,minmax(0,1fr))}
+ body.has-variant-d-route-bar #toast{bottom:168px}
+}
+@media(max-width:359px){
+ .variant-d-active-route{width:calc(100vw - 16px);font-size:13px}
+ #navigation a>span:not(.i){font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){.variant-d-active-route{scroll-behavior:auto}}

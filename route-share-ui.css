@@ -94,3 +94,35 @@
  .route-save-dialog form{padding:16px}
  .route-save-buttons button{width:100%}
 }
+
+/* Integration regression guard: City Route-owned sharing is purple; ordinary SAVE stays blue. */
+.route-share-trigger,
+.detail-actions .route-share-trigger,
+.social-detail-actions .route-share-trigger,
+.social-card-actions .route-share-trigger,
+.finished-share .route-share-trigger{
+ border-color:var(--cr-community,#6D28D9);
+ background:var(--cr-community,#6D28D9);
+ color:#fff;
+}
+.route-share-trigger:hover,
+.detail-actions .route-share-trigger:hover,
+.social-detail-actions .route-share-trigger:hover,
+.social-card-actions .route-share-trigger:hover,
+.finished-share .route-share-trigger:hover{
+ border-color:var(--cr-community-hover,#5B21B6);
+ background:var(--cr-community-hover,#5B21B6);
+ color:#fff;
+}
+.route-share-trigger:focus-visible{outline-color:#A78BFA}
+.route-share-dialog .route-share-native,
+.route-share-dialog .route-share-emblem{
+ background:var(--cr-community,#6D28D9);
+ border-color:var(--cr-community,#6D28D9);
+ color:#fff;
+}
+.route-share-dialog .route-share-native:hover{
+ background:var(--cr-community-hover,#5B21B6);
+ border-color:var(--cr-community-hover,#5B21B6);
+}
+.route-share-dialog .route-share-status{color:var(--cr-community,#6D28D9)}

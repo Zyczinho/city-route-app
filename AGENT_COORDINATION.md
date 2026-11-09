@@ -1,10 +1,12 @@
 # Agent Coordination — canonical control plane
 
-## Founder release freeze — 2026-11-09
+## Verified production release baseline — 2026-11-09
 
-**PR #184 is the one active release train.** Read [docs/RELEASE_LOCK_CITYROUTE_2026-11-09.md](docs/RELEASE_LOCK_CITYROUTE_2026-11-09.md) before continuing. Founder wants existing fixes **finished, merged and verified** before more feature development. Stop parallel writers on `app.js`, navigation, sharing, planner, PWA cache, build and their tests. Do not separately merge implementation PRs #151/#154/#143/#173/#166/#171/#164/#175/#181/#125 while #184 consolidates them. Draft preview #177/#180 and older duplicate #182 are not release branches. Web Push #163 and illustrative fallback #179 remain outside the release until independently validated.
+**PRODUCTION RELEASED:** PR #184 squash-merged as `52fabc07e44a1124dfdd5d5770e762b8b7c57a1a` into `main`. Production rollout verification GitHub workflow #42633744254 **SUCCESS** on exact release SHA; PR main CI **SUCCESS**. Details and next-chat start point: [docs/RELEASE_LOCK_CITYROUTE_2026-11-09.md](docs/RELEASE_LOCK_CITYROUTE_2026-11-09.md).
 
-**Release gate:** exact-head CI + browser smoke + Worker diagnostics, independent review, production deploy verification, then separate verified hosted editorial seed 027 for three Lisbon routes. CI is not production; an applied migration is not proven until SQL checks. The three Lisbon routes are `editorial`, not actual community submissions. Unresolved first-class real venue photos and real iPhone acceptance must remain accurately flagged.
+**DATA:** hosted Supabase City Route App has three genuine `editorial` (NOT community-authored) Lisbon routes with 6/9/8 stops, 192 published Lisbon places. Data SQL `supabase/migrations/027_seed_lisbon_editorial_routes.sql` applied directly and verified by `catalogue_routes('lisbon')`; SQL data seed is **not** entered in Supabase migration ledger. All overlapping source PRs replaced by #184 were closed as superseded, with no need to merge their branches again. Duplicate preliminary #182 also closed.
+
+**FREEZE / HANDOFF:** only `origin/main` is baseline. Keep one runtime owner, no new broad functionality/parallel UX branches until real iPhone acceptance and P0 photo-first issues are triaged. Keep #163 Web Push **draft**, #183 Commons photo bank **draft** (and BLOCKED: its conflicting `027_accepted_commons_photo_bank.sql` needs a new unique forward migration number), and #115 Start route cards / #176 exact venue photography unresolved. #179 generic illustrative photo fallbacks were closed without integration; do not relabel them as the exact venue photos required by founder. Ensure all PRs pass relevant code/privacy/device review and production verification before completion claims.
 
 ---
 

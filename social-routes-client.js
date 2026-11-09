@@ -104,6 +104,7 @@ export function combineSavedRoutes({localRoutes=[],remoteRoutes=[],cityId}={}){
  ).map(r=>({
   id:String(r.routeId||r.id),name:String(r.name||'Zapisana trasa'),cityId:city,
   kind:r.type==='community'?'community':'editorial',savedAt:r.savedAt||'',archived:false,local:false,
+  sourceRef:r.type==='community'?String(r.routeId):String(r.id),
   href:r.type==='community'?'#community-route/'+encodeURIComponent(String(r.routeId)):'#route/'+encodeURIComponent(String(r.id))
  }));
  return [...local,...remote].sort((a,b)=>String(b.savedAt).localeCompare(String(a.savedAt)));

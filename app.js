@@ -214,6 +214,7 @@ function catTile(p,cls,geo){const [icon,mood]=CAT_TILE[p?.categoryId]||CAT_TILE[
 // category tile (see the error listener below).
 function thumbUrl(p,w=320){
  if(!p?.name||!Number.isFinite(Number(p.lat))||!Number.isFinite(Number(p.lng))||p.kind==='sidequest')return null;
+ if(globalThis.__cityRouteGoogleThumbs===false)return null;
  const c=cities.find(x=>x.id===p.cityId)||city();
  return '/api/place-thumb?'+new URLSearchParams({name:String(p.name),lat:String(p.lat),lng:String(p.lng),cityName:c.name||'Warszawa',
   centerLat:String(c.center?.lat||52.2297),centerLng:String(c.center?.lng||21.0122),r:String(c.radiusKm||40),w:String(w===800?800:320),googleId:p.googlePlaceId||''}).toString();

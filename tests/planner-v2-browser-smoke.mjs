@@ -37,7 +37,12 @@ async function runPlannerBrowserSmoke(){
   await page.locator('button[data-action="refresh-generated"]').click();
   assert.ok(await page.locator('.generated-option').count()>=1,'reroll should provide at least one new route');
   await page.locator('button[data-action="save-generated"]').click();
-  await page.waitForURL(/#route\/mine-/,{timeout:10000});
+  // Integrated #154 intentionally asks for a route name before persisting it.
+  await page.locator('#route-save-dialog[open]').waitFor({timeout:10000});
+  await page.locator('#route-save-form .route-save-submit').click();
+  await page.waitForURL(/#routes$/,{timeout:10000});
+  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('city-route-v1')||'{}').myRoutes||[]);
+  assert.ok(saved.some(route=>route.id.startsWith('mine-')&&route.stops.length>=2),'named generated route was really persisted');
   await page.goto(BASE+'/#plan',{waitUntil:'domcontentloaded'});
   await page.locator('#build-form').waitFor({timeout:10000});
   await page.locator('input[name="start"][value="any"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});

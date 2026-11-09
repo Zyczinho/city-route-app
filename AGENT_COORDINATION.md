@@ -1,5 +1,10 @@
 # Agent Coordination — canonical control plane
 
+## P0.1 Test 3 — map card action overlap
+
+IN_PROGRESS — ChatGPT — `fix/map-card-compact-actions`; scope: map card markup/CSS, mobile override, PWA cache and browser QA. Founder confirmed saved-route trash and Places pagination on iPhone. Place details open; some descriptions and Google/Tripadvisor ratings remain absent (P0 #176, not accepted). Map interaction works; Close overlaps Details. Next: compact actions, reserve a dedicated header cell for Close, verify mobile geometry and CI before merge. No parallel runtime branch. Last update: 2026-11-09.
+
+
 ## Verified production release baseline — 2026-11-09
 
 **PRODUCTION RELEASED:** PR #184 squash-merged as `52fabc07e44a1124dfdd5d5770e762b8b7c57a1a` into `main`. Production rollout verification GitHub workflow #42633744254 **SUCCESS** on exact release SHA; PR main CI **SUCCESS**. Details and next-chat start point: [docs/RELEASE_LOCK_CITYROUTE_2026-11-09.md](docs/RELEASE_LOCK_CITYROUTE_2026-11-09.md).

@@ -1,3 +1,7 @@
+## DONE — P0 #200 Add Place Commons click cancellation; incident protocol owner
+
+[DONE] INC-200 — Incident Debugger / QA — founder confirmed Add Place in Lisbon now works after PR #205 (`985137b`). Root cause: accepted Commons metadata on `form[data-pc-photo]` made the delegated click handler treat all form clicks as photo actions and call `preventDefault()`. Exact real-provider production test failed before fix and passed after. Separate #203 corrected Lisbon address geocoding. Durable postmortem: `docs/qa/INCIDENT_2026-11-09_LISBON_ADD_PLACE.md`. New stop rule: `docs/qa/DEBUGGING_PROTOCOL.md`. Further #176 photo catalog work is unblocked; PRs #163 and #183 remain separate drafts. Last update 2026-11-09.
+
 # Agent Coordination — canonical control plane
 
 ## Add Place rating / submit pointer regression

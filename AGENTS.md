@@ -52,6 +52,17 @@ Agent-to-agent discussion must converge, not continue indefinitely.
 
 Maximum autonomous review exchange for one PR: **2 review cycles**.
 
+## P0 incident response — two-attempt circuit breaker
+
+For any founder-reported regression blocking a core action, **follow [the Debugging Protocol](docs/qa/DEBUGGING_PROTOCOL.md) and assign the Incident Debugger** before starting broad fixes. This is a runtime bug loop (distinct from the two-cycle agent review rule above).
+
+- **First attempt**: reproduce the exact reported sequence, with matching city, provider, chosen photo, session state and device/browser before changing application code. Record the result (including inability to reproduce) in one GitHub issue. A passing mocked smoke is not evidence that the real founder bug is fixed.
+- **Maximum two failed fix attempts** for the same symptom. If the founder still reports failure, **STOP speculative fixes, merges and unrelated work**. Switch to read-only evidence capture (real provider/browser, event propagation, handler stack, form data, console and city A/B) until a concrete mechanism is demonstrated. Do not create a third UI/CSS patch without new root-cause evidence.
+- **Red → Green on the exact same reproduction**: show failure on the unfixed production/head, identify the causal handler or data path, apply the smallest reversible fix, rerun the unchanged test. Keep one canonical issue, one active incident owner and one incident PR.
+- **Release is not acceptance**: CI, deployment parity and isolated browser smoke are separate from actual founder-session verification. Only close the issue after founder confirms the original sequence works.
+- **Preserve users**: never delete localStorage, PWA drafts, browser state, Supabase data, or make paid requests merely to unblock debugging. Collect no tokens, personally identifying data or private photos in issue logs. For PWA stale assets, verify hashes before asking for refresh.
+- **Budget**: avoid repeated full Actions/workflows and paid API retries. Prefer a single focused failing test, then unit/build/full checks once at the final head. Use independent review for uncertain diagnosis, not parallel speculative implementations.
+
 ## Risk levels and autonomy
 
 ### GREEN — agent may decide and execute

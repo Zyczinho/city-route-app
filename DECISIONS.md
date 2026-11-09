@@ -61,3 +61,9 @@ When multiple agents work concurrently, each feature/file area has one active ow
 Status: accepted.
 
 Every editorial route must have its own first-class hero image rather than deriving the route cover from the first stop with an image. Hero images must be unique across routes within the catalogue: two routes may share stops, but they must never render the same hero asset/URL. Route-image validation must fail on duplicate hero images. Image selection should prefer high-quality, attractive, legally usable sources and preserve source/credit/licence metadata where applicable. POI images may still be reused inside place detail views; the uniqueness rule applies to route hero images.
+
+## ADR-011 — Evidence-first P0 incident circuit breaker
+
+Status: accepted 2026-11-09 at Product Owner request after issue #200.
+
+When a real user reports the same core-flow failure after **two attempted fixes**, the Coordinator freezes speculative implementation and invokes the single Incident Debugger. The agent must preserve the exact failure as a regression, identify a falsifiable causal mechanism and verify failure-before/success-after on the same real data path before merging. CI green, production parity and real-user acceptance are different gates. The canonical procedure is `docs/qa/DEBUGGING_PROTOCOL.md`. Documentation and test evidence live in GitHub; chat history is not the persistent source of truth.

@@ -35,6 +35,7 @@ try{
  page.on('pageerror',err=>errors.push(err.message));
  page.on('dialog',dialog=>dialog.accept());
  await page.goto(ROOT+'/#my-route',{waitUntil:'domcontentloaded'});
+ await page.locator('.variant-d-more > summary').click();
  const exportBtn=page.locator('button[data-action="export-gpx"][data-id="basket"]');
  await exportBtn.waitFor({state:'visible',timeout:30000});
  const downloadPromise=page.waitForEvent('download',{timeout:12000});
@@ -57,7 +58,7 @@ try{
   rawHidden:!el.querySelector('.route-share-raw').open,
   title:el.querySelector('.route-share-preview span:not(.i)')?.textContent
  }));
- assert.equal(modalStyle.blue,'rgb(10, 102, 194)','modal follows CityRoute blue brand');
+ assert.equal(modalStyle.blue,'rgb(109, 40, 217)','modal uses founder-approved purple for community sharing');
  assert.equal(modalStyle.grid,'grid','sharing options use a mobile responsive grid');
  assert.ok(modalStyle.icons>=4,'all destinations have local Lucide icons');
  assert.ok(modalStyle.rawHidden,'long technical URL stays collapsed by default');
@@ -79,7 +80,7 @@ try{
    height:el.getBoundingClientRect().height
   }));
   assert.equal(visuals.label,'Udostępnij trasę');
-  assert.equal(visuals.background,'rgb(232, 241, 251)','CityRoute blue-soft, not gray');
+  assert.equal(visuals.background,'rgb(109, 40, 217)','CityRoute share trigger retains purple across transport modes');
   assert.ok(visuals.hasIcon,'local Lucide send icon accompanies CTA');
   assert.ok(visuals.height>=44,'share CTA is accessible on mobile');
   await trigger.click();
@@ -116,13 +117,16 @@ try{
   return saved.some(r=>r.name==='Moje ulubione zakątki');
  },{timeout:12000});
  const savedId=await page.evaluate(()=>JSON.parse(localStorage.getItem('city-route-v1')).myRoutes.find(r=>r.name==='Moje ulubione zakątki').id);
- await page.locator('a.route-card[href="#route/'+savedId+'"]').click();
+ await page.goto(ROOT+'/#collections',{waitUntil:'domcontentloaded'});
+ await page.locator('.variant-d-owned-list a[href="#route/'+savedId+'"]').click();
  await page.locator('button[data-action="rename-route"]').click();
  await saveModal.locator('#route-save-name').fill('Wieczorna Warszawa');
  await saveModal.locator('button[type="submit"]').click();
  assert.ok(await page.locator('#main').getByText('Wieczorna Warszawa').count()>0,'renamed route is visible in saved routes');
- await page.locator('a.route-card[href="#route/'+savedId+'"]').click();
+ await page.goto(ROOT+'/#collections',{waitUntil:'domcontentloaded'});
+ await page.locator('.variant-d-owned-list a[href="#route/'+savedId+'"]').click();
  await page.locator('button[data-action="archive-route"]').click();
+ await page.goto(ROOT+'/#collections',{waitUntil:'domcontentloaded'});
  const arch=page.locator('.route-archive');
  await arch.waitFor({state:'attached'});
  await arch.locator('summary').click();

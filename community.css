@@ -69,3 +69,60 @@
 /* PROFILE-AVATAR + friend profile links (founder report 2026-11-05). */
 .friend-profile-link{color:inherit;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
 .friend-profile-link:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:8px}
+
+/* Direct messages: City Route purple, visually separate from group chat. */
+.dm-section-title{font-size:17px;margin:12px 0 0}
+.dm-chat-link .community-chat-icon{background:#F2EBFF;color:#6D28D9}
+.dm-chat-link:hover{border-color:#6D28D9}
+.dm-peer-head{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;font-size:13px;color:var(--muted)}
+.dm-peer-head a{color:#6D28D9;font-weight:700}
+.dm-panel{max-width:760px}
+.dm-message.own{background:#F2EBFF;color:#442080}
+.dm-send,.friend-dm-cta{background:#6D28D9;border-color:#6D28D9;color:#fff}
+.dm-send:hover,.friend-dm-cta:hover{background:#5B21B6;border-color:#5B21B6;color:#fff}
+.friend-actions .friend-dm-cta{min-height:38px;padding:7px 10px;font-size:12px}
+
+/* Cross-device unread messages and privacy-safe active-app alerts. City Route community purple. */
+.dm-badge-anchor{position:relative!important}
+.dm-unread-badge,.dm-tab-unread-badge,.dm-chat-unread-badge{
+ display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;
+ border-radius:20px;background:#6D28D9;color:#fff;font-size:11px;font-weight:800;line-height:1;white-space:nowrap
+}
+.dm-unread-badge{position:absolute;top:0;right:1px;z-index:1;box-shadow:0 0 0 2px #fff}
+.dm-tab-unread-badge{position:absolute;top:0;right:2px;z-index:1}
+.dm-chat-unread-badge{flex:none;margin-left:auto}
+.dm-chat-link{position:relative}
+.dm-permission-cta{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.dm-permission-cta small,.dm-permission-ok{color:var(--muted,#667085);font-size:12px;max-width:680px}
+.dm-enable-notifications{background:#6D28D9;border:1px solid #6D28D9;color:#fff;min-height:42px}
+.dm-enable-notifications:hover{background:#5B21B6;border-color:#5B21B6;color:#fff}
+.dm-message-notice{position:fixed;z-index:1200;right:16px;bottom:calc(86px + env(safe-area-inset-bottom,0px));
+ display:flex;align-items:center;gap:12px;max-width:min(430px,calc(100vw - 32px));padding:13px 15px;border-radius:16px;
+ background:#4C1D95;color:#fff;box-shadow:0 14px 32px rgba(26,13,57,.28);font-size:14px;font-weight:650}
+.dm-message-notice a{color:#fff;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.dm-message-notice button{background:transparent;color:#fff;border:0;padding:4px;font-size:22px;line-height:1;min-width:28px;min-height:30px}
+@media(max-width:480px){.dm-message-notice{left:12px;right:12px;bottom:calc(94px + env(safe-area-inset-bottom,0px));
+ flex-wrap:wrap;justify-content:space-between}}
+
+/* Persistent City Route notifications: shared purple for social actions. */
+.activity-bell{display:inline-flex;align-items:center;justify-content:center;width:40px;height:42px;position:relative;color:#6D28D9;text-decoration:none;border-radius:12px}
+.activity-bell .i{height:22px;width:22px;filter:invert(21%) sepia(93%) saturate(3218%) hue-rotate(260deg) brightness(93%)}
+.activity-bell:hover,.activity-bell:focus-visible{background:#F2EBFF;outline-color:#6D28D9}
+.activity-count{position:absolute;top:-2px;right:-6px;min-width:17px;height:17px;border-radius:20px;display:grid;place-items:center;padding:0 4px;background:#6D28D9;color:white;font-size:10px;font-weight:800;border:2px solid white}
+.activity-count[hidden]{display:none}
+.activity-controls{display:grid;gap:12px;max-width:790px}
+.activity-filter{display:flex;gap:8px;flex-wrap:wrap}
+.activity-filter button{background:#F2EBFF;color:#6D28D9;border:1px solid #DED0FA;min-height:40px;padding:8px 15px}
+.activity-filter button[aria-pressed="true"]{background:#6D28D9;border-color:#6D28D9;color:#fff}
+.activity-list{display:grid;gap:9px;max-width:790px}
+.activity-entry{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--line);background:var(--surface);border-radius:15px;text-decoration:none;color:var(--ink);min-width:0}
+.activity-entry.unread{border-color:#DED0FA;background:#FCFAFF}
+.activity-entry:hover{border-color:#6D28D9}
+.activity-icon{width:40px;height:40px;flex:none;border-radius:12px;display:grid;place-items:center;background:#F2EBFF;color:#6D28D9}
+.activity-icon .i{width:20px;height:20px}
+.activity-copy{flex:1;min-width:0;display:grid;gap:4px}.activity-copy strong{font-size:15px}.activity-copy small{font-size:12px;color:var(--muted)}
+.activity-entry time{flex:none;font-size:11px;color:var(--muted);white-space:nowrap}
+.activity-dot{width:9px;height:9px;flex:none;border-radius:50%;background:#6D28D9}
+.activity-alert{position:fixed;z-index:1200;right:14px;bottom:calc(95px + env(safe-area-inset-bottom,0px));max-width:calc(100vw - 28px);display:flex;gap:11px;align-items:center;padding:14px;background:#4C1D95;border-radius:14px;color:#fff;box-shadow:0 12px 30px rgba(42,13,81,.28)}
+.activity-alert a{color:#fff;text-decoration:underline}.activity-alert button{color:#fff;background:transparent;border:0;font-size:21px}
+@media(max-width:420px){.activity-entry{gap:8px;padding:10px}.activity-entry time{font-size:10px}.activity-bell{width:36px}}

@@ -2,7 +2,7 @@
 
 ## P0 #176 — catalogue audit and on-demand ratings
 
-IN_PROGRESS — ChatGPT — `fix/place-rating-enrichment-country`; hosted read-only audit: Lisbon192, permanent covers0, descriptions23. First30 actual default list (hotels excluded): descriptions6, permanent covers0, stored Google/TA ratings0. Google ready; both Tripadvisor keys absent. Scope: remove image-dependent rating gate when opening catalog cards, pass active country (PT for Lisbon) to existing provider adapters, preserve per-session dedupe and on-demand-only cost controls; record audit with evidence. No paid provider activation, DB write, mass enrichment or speculative description/photo fill. #176 remains OPEN. Last update: 2026-11-09.
+REVIEW — ChatGPT — PR #194 MERGED `5d7b982585a6d36911a04a03fdd232f46fb30d37`. Missing Google scores fetch on detail opening independently of existing image; active country passed to Google/Terra; provider completion preserves underlying page DOM. PWA v81. Unit enrichment11/11 PASS; exact-head CI42667517646, mobile42667517421, provider42667517491 SUCCESS; independent review PASS. Main CI42667803777 and rollout42667803747 SUCCESS. Live cache `city-route-v81-e7392a0e30`; real Lisbon Arco da Rua Augusta enrichment returned ok with Google score/count and image; Tripadvisor Content/Terra no-key. Audit docs/LISBON_PLACES_176_AUDIT_2026-11-09.md: first30 descriptions6,storedcovers0,storedproviderrows0; fullcity192/descriptions23. No DB write, paid activation or automatic bulk enrichment. Next P0 #176:24 sourced descriptions +30 exact licensed permanent covers, source-record validation and real-device repeated-refresh coverage; #176 remains OPEN. Last update: 2026-11-09.
 
 
 ## Route action UX parity — editorial and own routes

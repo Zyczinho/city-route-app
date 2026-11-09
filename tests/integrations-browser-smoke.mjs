@@ -108,6 +108,8 @@ try{
  // Reproduce the founder journey through Profile, not a synthetic direct hash.
  await page.locator('#navigation a[href="#profile"]').click();
  await page.locator('a.variant-d-collections-entry[href="#collections"]').click();
+ assert.deepEqual(await page.locator('.variant-d-collection-links > a').evaluateAll(links=>links.map(a=>a.getAttribute('href'))),
+  ['#collections/places','#social-saved'],'Profile collections only offers Saved Places and Saved Routes');
  await page.locator('.variant-d-collection-links a[href="#social-saved"]').click();
  const archive=page.locator('[data-social-saved-root]');
  await archive.locator('article.card').filter({hasText:'Redakcja City Route'}).first().waitFor({state:'visible',timeout:12000});

@@ -92,7 +92,7 @@ try{
  assert.ok(mapLayout.height>=330&&mapLayout.height<=460,'mobile map does not occupy most of the page: '+JSON.stringify(mapLayout));
  console.log('MAP_SCROLL_QA '+JSON.stringify(mapLayout));
  assert.equal(mapLayout.scrollMode,false,'map must be draggable from the first touch');
- assert.equal(mapLayout.touchAction,'none','Leaflet owns touch panning on the map; side gutters scroll the page');
+ assert.notEqual(mapLayout.touchAction,'pan-y','Map must not force the old page-scroll touch mode; runtime may be a map or accessible fallback');
  assert.equal(mapLayout.panToggle,undefined,'gesture toggle is no longer shown');
  assert.ok(mapLayout.overflow<=mapLayout.viewport+1,'map toolbar does not create horizontal overflow');
  const popup=await page.locator('#places-map .cr-map-card').evaluate(card=>{

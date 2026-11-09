@@ -70,6 +70,23 @@ function thumbAllowed(env){
  const cap=Math.max(1,Math.min(20000,Number(env.GOOGLE_THUMBS_DAILY_CAP)||3000));if(thumbCalls>=cap)return false;
  thumbCalls++;return true;
 }
+// A safe, zero-cost capability snapshot for UI and QA: never returns secrets,
+// and never consumes a paid provider quota counter.
+function providerAccess(env){
+ const configured=!!env.GOOGLE_PLACES_API_KEY,enabled=env.GOOGLE_PLACES_BETA_ENABLED==='on';
+ const cap=Math.max(1,Math.min(5000,Number(env.GOOGLE_PLACES_DAILY_CAP)||300));
+ const tcap=Math.max(1,Math.min(20000,Number(env.GOOGLE_THUMBS_DAILY_CAP)||3000));
+ const day=new Date().toISOString().slice(0,10);
+ const state=(hasKey,isOn,used,max)=>!hasKey?'no-key':!isOn?'disabled':used>=max?'quota':'ready';
+ return {google:{
+  ratings:state(configured,enabled,googleDay===day?googleCalls:0,cap),
+  photos:state(configured,enabled,thumbDay===day?thumbCalls:0,tcap)
+ },tripadvisor:{
+  content:state(!!env.TRIPADVISOR_CONTENT_API_KEY,env.TRIPADVISOR_CONTENT_BETA_ENABLED==='on',
+    contentDay===day?contentCalls:0,Math.max(1,Math.min(50,Number(env.TRIPADVISOR_CONTENT_DAILY_CAP)||50))),
+  terra:state(!!env.TRIPADVISOR_TERRA_API_KEY,true,taDay===day?taCalls:0,Number(env.TRIPADVISOR_TERRA_DAILY_CAP)||80)
+ }};
+}
 const sessionOf=url=>String(url.searchParams.get('session')||'').replace(/[^A-Za-z0-9_-]/g,'').slice(0,64);
 
 let taDay='',taCalls=0;
@@ -98,9 +115,11 @@ async function placeThumb(url,env,ctx){
  const center={lat:Number(url.searchParams.get('centerLat')),lng:Number(url.searchParams.get('centerLng'))};
  const radiusKm=Math.min(50,Number(url.searchParams.get('r'))||40);
  // A cap or provider hiccup is retried after a minute; a real "no match / no photo" answer is kept for ten.
- const notFound=status=>new Response(null,{status:404,headers:{'cache-control':`private, max-age=${['quota','unavailable'].includes(status)?60:600}`,'x-thumb-status':status}});
+ const notFound=status=>new Response(null,{status:404,headers:{'cache-control':`private, max-age=${['quota','unavailable','disabled','no-key'].includes(status)?60:600}`,'x-thumb-status':status}});
  if(name.length<2||![lat,lng,center.lat,center.lng].every(Number.isFinite)||kmBetween({lat,lng},center)>radiusKm)return notFound('invalid');
- if(!thumbAllowed(env))return notFound(env.GOOGLE_PLACES_API_KEY?'quota':'no-key');
+ const photoAvailability=providerAccess(env).google.photos;
+  if(photoAvailability!=='ready')return notFound(photoAvailability);
+  if(!thumbAllowed(env))return notFound('quota');
  try{
   const key=env.GOOGLE_PLACES_API_KEY;
   const id=String(url.searchParams.get('googleId')||'')||await cachedGooglePlaceId({name,lat,lng,cityName,googleKey:key},{cache:caches.default,ctx});
@@ -132,7 +151,7 @@ async function placeEnrichment(url,env,ctx){
   // Remember the place_id a card lookup confirmed, so list thumbnails skip their own confirmation call.
   const found=String(result?.image?.src||'').match(/\/api\/place-photo\?id=([A-Za-z0-9_-]{10,300})/)?.[1];
   if(found&&found!==googlePlaceId)ctx?.waitUntil?.(caches.default.put(new Request(placeIdCacheKey(name,lat,lng)),new Response(JSON.stringify({id:found}),{headers:{'content-type':'application/json','cache-control':'public, max-age=2592000'}})));
-  return json(result,200);
+  return json({...result,providerStatus:providerAccess(env)},200);
  }catch{return json({status:'unavailable',ratings:[]},502);}
 }
 
@@ -167,7 +186,11 @@ export default {
    if(request.method!=='GET')return json({status:'method-not-allowed'},405);
    try{const result=await resolveMaps(url.searchParams.get('url'));return json(result,result.status==='ok'?200:422);}catch{return json({status:'unavailable'},502);}
   }
-  if(pathname==='/api/place-search'){
+  if(pathname==='/api/provider-status'){
+    if(request.method!=='GET')return json({status:'method-not-allowed'},405);
+    return json({status:'ok',providers:providerAccess(env)});
+   }
+   if(pathname==='/api/place-search'){
    if(request.method!=='GET')return json({status:'method-not-allowed'},405);
    return placeSearch(url,env,ctx);
   }

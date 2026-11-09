@@ -1,5 +1,13 @@
 # Agent Coordination — canonical control plane
 
+## Founder release freeze — 2026-11-09
+
+**PR #184 is the one active release train.** Read [docs/RELEASE_LOCK_CITYROUTE_2026-11-09.md](docs/RELEASE_LOCK_CITYROUTE_2026-11-09.md) before continuing. Founder wants existing fixes **finished, merged and verified** before more feature development. Stop parallel writers on `app.js`, navigation, sharing, planner, PWA cache, build and their tests. Do not separately merge implementation PRs #151/#154/#143/#173/#166/#171/#164/#175/#181/#125 while #184 consolidates them. Draft preview #177/#180 and older duplicate #182 are not release branches. Web Push #163 and illustrative fallback #179 remain outside the release until independently validated.
+
+**Release gate:** exact-head CI + browser smoke + Worker diagnostics, independent review, production deploy verification, then separate verified hosted editorial seed 027 for three Lisbon routes. CI is not production; an applied migration is not proven until SQL checks. The three Lisbon routes are `editorial`, not actual community submissions. Unresolved first-class real venue photos and real iPhone acceptance must remain accurately flagged.
+
+---
+
 ## Founder priority lock — 2026-11-05
 
 **P0 #1 Photos:** actual automatic photo proposal IN Add Place when the user chooses a venue, not merely preview inside autocomplete or fallback on catalogue cards. Acceptance: image proposed automatically from authorized exact place source; preview shows name, credit/licence and Choose/Replace/Skip; persists on newly created place; no API key => honest no-photo; real device and 10-place city sample, measure genuine source coverage. **P0 #2 Icons:** complete Lucide unification, all real screens, no emoji/text glyph substitutes, screenshots at 320/375/390px and iPhone 13 Pro. These are the founder's explicit highest priorities, repeated on 2026-11-04 and 2026-11-05. Technical infrastructure and gallery PRs are necessary dependencies only, not acceptance. STOP diverting to social/account/events/monetization until both deliver a visible, verified outcome. No claiming DONE on design docs, unit tests, or mere feature flags.

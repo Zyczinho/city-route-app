@@ -57,13 +57,12 @@
 @media(prefers-reduced-motion:reduce){.cr-map-card{animation:none}.cr-pin.is-selected{transform:none}}
 
 /* Keep a clear finger-scroll corridor around the map on narrow screens. */
-.places-map-shell{margin:12px 16px 20px}
+/* Room for vertical page scrolling outside a freely draggable map on touch screens. */
+.places-map-shell{margin:12px 20px 20px}
 @media(max-width:759px){
   .cr-map{min-height:0;height:clamp(330px,53svh,460px)}
   .cr-map-toolbar{flex-wrap:wrap}
   .cr-map-toolbar button{flex:1 1 auto;min-width:0;padding:8px 10px;font-size:13px}
 }
-/* Leaflet normally captures one-finger gestures; let page pan-y win until the user opts into map interaction. */
-.cr-map.is-scroll-mode .cr-map-canvas,
-.cr-map.is-scroll-mode .leaflet-container{touch-action:pan-y!important}
+/* Leaflet captures one-finger drag inside the map; the 20px horizontal gutters allow page scrolling. */
 @media(min-width:760px){.places-map-shell{margin:12px 0 18px}}

@@ -49,6 +49,7 @@ try{
  assert.deepEqual(layout.buttons.map(b=>b.action),['up','down','nearby-stop','remove']);
  assert.ok(layout.buttons.every(b=>b.left>=0&&b.right<=layout.innerWidth+1&&b.width>=32),'All four stop buttons remain within 375px viewport');
  await page.screenshot({path:'p0-smoke-artifacts/my-route-before.png',fullPage:true});
+ await page.locator('.variant-d-more > summary').click();
  await page.locator('button[data-action="optimize"]').click();
  const optimizedIds=await page.locator('.stops li[data-stop]').evaluateAll(ls=>ls.map(l=>l.dataset.stop));
  assert.deepEqual(new Set(optimizedIds),new Set(seed));
@@ -61,11 +62,11 @@ try{
  assert.equal(order.length,11);
  assert.equal(order.indexOf(target),order.indexOf(anchor)+1,'nearby place must insert directly after selected stop');
  await page.screenshot({path:'p0-smoke-artifacts/my-route-after.png',fullPage:true});
- // Check all six real bottom-nav destinations; leave Places last for the following map check.
- await page.waitForFunction(()=>document.querySelectorAll('#navigation a').length===6,{timeout:10000}).catch(()=>{});
+ // Check all five intention-based bottom-nav destinations; preserve My Route through the route bar.
+ await page.waitForFunction(()=>document.querySelectorAll('#navigation a').length===5,{timeout:10000}).catch(()=>{});
  const tabs=await page.locator('#navigation a').evaluateAll(nodes=>nodes.map(a=>a.getAttribute('href')));
- assert.equal(tabs.length,6,'bottom navigation must have six tabs including Poradnik');
- for(const tab of ['#plan','#routes','#my-route','#routes/community','#about','#places']){
+ assert.equal(tabs.length,5,'bottom navigation has five tabs and Poradnik in Profile');
+ for(const tab of ['#plan','#routes','#routes/community','#profile','#places']){
   assert.ok(tabs.includes(tab),'missing navigation tab '+tab);
   await page.locator('#navigation a[href="'+tab+'"]').click();
   assert.equal(new URL(page.url()).hash,tab,'tab click changes hash');
@@ -74,7 +75,7 @@ try{
  }
 
 
- // MAP-SCROLL-037: protect mobile vertical scrolling with a short inset map and an explicit gesture toggle.
+ // MOBILE-MAP-174: free one-finger map panning, 20px page-scroll side gutters, no mode toggle.
  try{
   await page.locator('#places-map.cr-map').waitFor({state:'attached',timeout:12000});
  }catch(error){
@@ -87,12 +88,12 @@ try{
    touchAction:getComputedStyle(canvas).touchAction,scrollMode:el.classList.contains('is-scroll-mode'),
    panToggle:button?.getAttribute('aria-pressed'),overflow:document.documentElement.scrollWidth};
  });
- assert.ok(mapLayout.left>=16&&mapLayout.right<=mapLayout.viewport-16,'map leaves a finger-scroll corridor at both edges: '+JSON.stringify(mapLayout));
+ assert.ok(mapLayout.left>=20&&mapLayout.right<=mapLayout.viewport-20,'map leaves a finger-scroll corridor at both edges: '+JSON.stringify(mapLayout));
  assert.ok(mapLayout.height>=330&&mapLayout.height<=460,'mobile map does not occupy most of the page: '+JSON.stringify(mapLayout));
  console.log('MAP_SCROLL_QA '+JSON.stringify(mapLayout));
- assert.equal(mapLayout.scrollMode,true,'narrow map defaults to page scroll');
- assert.equal(mapLayout.touchAction,'pan-y','map canvas must allow vertical page touch scrolling');
- assert.equal(mapLayout.panToggle,'false','user must explicitly enable map panning');
+ assert.equal(mapLayout.scrollMode,false,'map must be draggable from the first touch');
+ assert.notEqual(mapLayout.touchAction,'pan-y','Map must not force the old page-scroll touch mode; runtime may be a map or accessible fallback');
+ assert.equal(mapLayout.panToggle,undefined,'gesture toggle is no longer shown');
  assert.ok(mapLayout.overflow<=mapLayout.viewport+1,'map toolbar does not create horizontal overflow');
  const popup=await page.locator('#places-map .cr-map-card').evaluate(card=>{
   card.hidden=false;
@@ -316,7 +317,7 @@ try{
      return r.width>0&&r.height>0&&cs.display!=='none'&&cs.position!=='fixed'&&r.right>window.screen.width+1;
    }).slice(0,18).map(e=>{const r=e.getBoundingClientRect();return {tag:e.tagName,cls:String(e.className||'').slice(0,65),id:e.id,left:Math.round(r.left),right:Math.round(r.right),scrollWidth:e.scrollWidth,clientWidth:e.clientWidth};})};
  });
- assert.ok(bottom.tabCount===6&&bottom.scrollWidth<=bottom.screenWidth+1&&bottom.innerWidth<=bottom.screenWidth+1&&bottom.right<=bottom.screenWidth+1&&bottom.avatarRight<=bottom.screenWidth+1,
+ assert.ok(bottom.tabCount===5&&bottom.scrollWidth<=bottom.screenWidth+1&&bottom.innerWidth<=bottom.screenWidth+1&&bottom.right<=bottom.screenWidth+1&&bottom.avatarRight<=bottom.screenWidth+1,
   '320px bottom navigation must never widen screen to 324px: '+JSON.stringify(bottom));
  assert.ok(compactNav.navScrollWidth<=compactNav.navClientWidth+1&&compactNav.scrollWidth<=compactNav.viewport+1&&compactNav.links.every(link=>link.left>=compactNav.left-1&&link.right<=compactNav.right+1),
   'Community 320px grid must not overflow: '+JSON.stringify(compactNav));
@@ -331,7 +332,7 @@ try{
  await page.locator('#main a.start-here[href="#about"]').click();
  await page.locator('#main .start-guide-menu').waitFor({timeout:10000});
  assert.equal(new URL(page.url()).hash,'#about');
- assert.equal(await page.locator('#navigation a[href="#about"]').getAttribute('aria-current'),'page','Poradnik should be active in main bottom menu');
+ assert.equal(await page.locator('#navigation a[href="#profile"]').getAttribute('aria-current'),'page','Profil is active when viewing the Guide');
  assert.equal(await page.locator('#main .guide-feature').count(),34,'every important feature should have a standalone explanation');
  assert.equal(await page.locator('#main .guide-group').count(),6,'guide groups should cover each core area');
  await page.locator('#main #guide-search').fill('znajomego');
@@ -342,7 +343,7 @@ try{
  await page.locator('#main #guide-search').fill('');
  await page.setViewportSize({width:320,height:700});
  const guideNav320=await page.locator('#navigation').evaluate(nav=>({n:nav.querySelectorAll('a').length,right:nav.getBoundingClientRect().right,scroll:document.documentElement.scrollWidth,w:innerWidth}));
- assert.ok(guideNav320.n===6&&guideNav320.right<=guideNav320.w+1&&guideNav320.scroll<=guideNav320.w+1,'320px six-tab guide nav must fit: '+JSON.stringify(guideNav320));
+ assert.ok(guideNav320.n===5&&guideNav320.right<=guideNav320.w+1&&guideNav320.scroll<=guideNav320.w+1,'320px five-tab guide nav must fit: '+JSON.stringify(guideNav320));
  await page.screenshot({path:'p0-smoke-artifacts/onboarding-guide-320.png',fullPage:true});
  await page.setViewportSize({width:375,height:812});
  
@@ -356,7 +357,7 @@ try{
  await page.locator('#navigation a[href="#plan"]').click();
  await page.setViewportSize({width:390,height:844});
  await page.locator('#main .ux-plan-head h1').waitFor();
- assert.match(await page.locator('#main .ux-plan-head h1').textContent(),/Odkrywaj miasto po swojemu/);
+ assert.match(await page.locator('#main .ux-plan-head h1').textContent(),/Twój plan na miasto/);
  assert.equal(await page.locator('#build-form .ux-time input[name="time"]:checked').inputValue(),'120','2h must remain one-tap default');
  assert.equal(await page.locator('#build-form button.ux-submit').textContent(),'Ułóż mi trasę');
  const fastPlanOrder=await page.locator('#build-form').evaluate(form=>{
@@ -366,10 +367,9 @@ try{
  assert.ok(fastPlanOrder.submit<fastPlanOrder.when,'quick generation must come before date and advanced options: '+JSON.stringify(fastPlanOrder));
  const shortcutHrefs=await page.locator('#build-form .ux-plan-alternatives a').evaluateAll(els=>els.map(a=>a.getAttribute('href')));
  assert.ok(shortcutHrefs.includes('#places')&&shortcutHrefs.includes('#routes/community'),'manual discovery and community are visible');
- const myRouteInactive=await page.locator('#navigation a[href="#my-route"]').evaluate(a=>({active:a.classList.contains('active'),shadow:getComputedStyle(a).boxShadow}));
- assert.equal(myRouteInactive.active,false);
- assert.equal(myRouteInactive.shadow,'none','My Route must not look selected while user is on Plan');
- await page.locator('#build-form .ux-when > summary').click();
+ assert.equal(await page.locator('#navigation a[href="#my-route"]').count(),0,'My Route is not a bottom tab');
+  assert.ok(await page.locator('#active-route-bar').isVisible(),'existing 11-stop basket has a contextual bar');
+  await page.locator('#build-form .ux-when > summary').click();
  const iphoneDateLayout=await page.locator('#build-form .planner-when-fields').evaluate(box=>{
   const date=box.querySelector('input[type="date"]').getBoundingClientRect(),time=box.querySelector('input[type="time"]').getBoundingClientRect();
   return {firstRight:date.right,secondLeft:time.left,firstBottom:date.bottom,secondTop:time.top,containerRight:box.getBoundingClientRect().right,scrollWidth:document.documentElement.scrollWidth,width:innerWidth};
@@ -405,12 +405,12 @@ try{
  const routeLayout=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,inner:innerWidth}));
  assert.ok(routeLayout.scroll<=routeLayout.inner+1,'variants fit a 375px viewport: '+JSON.stringify(routeLayout));
  await page.screenshot({path:'p0-smoke-artifacts/generated-route-options.png',fullPage:true});
- await page.locator('#navigation a[href="#my-route"]').click();
+ await page.locator('#active-route-bar').click();
  await page.locator('.stops li[data-stop]').first().waitFor({timeout:10000});
  assert.equal(await page.locator('.stops li[data-stop]').count(),11,'generating options never overwrites the manual route basket');
  // LIVE-ROUTE-025: rating is asked only after arrival and may be skipped, then the
  // completed route is publishable verbatim without changing the manual builder.
- await page.locator('#navigation a[href="#my-route"]').click();
+ assert.equal(new URL(page.url()).hash,'#my-route','contextual bar opened My Route');
  await page.locator('button[data-action="start"][data-id="basket"]').click();
  await page.locator('button[data-action="done"]').click();
  await page.locator('.stop-rating').waitFor({timeout:10000});

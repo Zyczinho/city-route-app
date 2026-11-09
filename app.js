@@ -594,9 +594,10 @@ function generatedTimingView(ps){
  ${timeline.unknownCount?`<p class="fine">Uwaga: ${timeline.unknownCount} ${timeline.unknownCount===1?'miejsce wymaga':'miejsca wymagają'} sprawdzenia godzin otwarcia.</p>`:''}
  <p class="fine">Plan jest podglądem na wybrany dzień; po zapisaniu samej trasy jej harmonogram nie jest jeszcze synchronizowany między urządzeniami.</p></section>`;
 }
-function detailView(r){const ps=items(r.stops),own=state.myRoutes.some(x=>x.id===r.id),cover=routeCoverAssignments().get(r.id)||null;
+function editorialSaveButton(r,saved){return '<button type="button" class="route-save-trigger'+(saved?' on':'')+'" data-action="save-editorial" data-id="'+esc(r.id)+'" aria-pressed="'+String(!!saved)+'">'+ic(saved?'check':'bookmark')+(saved?'Zapisano w profilu':'Zapisz trasę')+'</button>';}
+function detailView(r){const ps=items(r.stops),own=state.myRoutes.some(x=>x.id===r.id),cover=routeCoverAssignments().get(r.id)||null,editorialSaved=state.myRoutes.some(x=>x.cityId===city().id&&x.sourceRouteId===r.id);
  return `<section class="detail"><a class="back" href="${r.id==='generated'?'#plan':'#routes'}">${ic('arrow-left')}${r.id==='generated'?'Ułóż trasę':'Trasy'}</a>${r.id==='generated'?generatedPicker():''}<div class="cover">${photo(cover,'',true)}</div>${credit(cover)}<p class="kicker">${r.id==='generated'?'Ułożona dla Ciebie':own?'Twoja trasa':'Redakcja City Route'}${(r.cats||[]).map(c=>' · '+catName(c,ROUTE_CATS)).join('')}</p><h1>${esc(r.name)}</h1><p class="lead">${esc(r.description)}</p>${meta(ps,r.transport,r.id==='generated'?r.plannerV2?.totalMinutes:null)}${r.id==='generated'&&r.plannerV2?`<p class="fine">Planner V2 · ${minutes(r.plannerV2.totalMinutes)} łącznie z przerwami i przemieszczaniem · czas orientacyjny</p>`:''}
- <div class="detail-actions"><button class="primary big" data-action="start" data-id="${r.id}">${ic('play')}Rozpocznij trasę</button>${r.id==='generated'?`<button data-action="save-generated">${ic('bookmark')}Zapisz trasę</button>`:''}<button data-action="save-route" data-id="${r.id}">${ic('pencil')}Edytuj jako Moją trasę</button>${wholeRoute(ps,r.transport)}<button type="button" data-action="export-gpx" data-id="${esc(r.id)}">${ic("arrow-down")}Pobierz GPX · Strava</button>${shareRouteButton(ps,r.transport,r.name,own||r.id==='generated'?{kind:'maps'}:{kind:'editorial',id:r.id})}${own?`<button type="button" data-action="rename-route" data-id="${esc(r.id)}">${ic('pencil')}Zmień nazwę</button><button type="button" data-action="${r.archivedAt?'unarchive-route':'archive-route'}" data-id="${esc(r.id)}">${ic('bookmark')}${r.archivedAt?'Przywróć z archiwum':'Archiwizuj trasę'}</button><button class="danger" data-action="delete-route" data-id="${r.id}">${ic('trash-2')}Usuń tę trasę</button>`:''}</div>${own&&ps.length!==r.stops.length?'<p class="note">Niektórych przystanków nie ma już w katalogu. Zapisana trasa pozostaje zachowana.</p>':''}<h2>Przystanki</h2>${stopList(ps)}${r.id==='generated'?generatedTimingView(ps):''}${estimation}</section>`;}
+ <div class="detail-actions"><button class="primary big" data-action="start" data-id="${r.id}">${ic('play')}Rozpocznij trasę</button>${!own&&r.id!=='generated'?editorialSaveButton(r,editorialSaved):''}${r.id==='generated'?`<button data-action="save-generated">${ic('bookmark')}Zapisz trasę</button>`:''}<button data-action="save-route" data-id="${r.id}">${ic('pencil')}Edytuj jako Moją trasę</button>${wholeRoute(ps,r.transport)}<button type="button" data-action="export-gpx" data-id="${esc(r.id)}">${ic("arrow-down")}Pobierz GPX · Strava</button>${shareRouteButton(ps,r.transport,r.name,own||r.id==='generated'?{kind:'maps'}:{kind:'editorial',id:r.id})}${own?`<button type="button" data-action="rename-route" data-id="${esc(r.id)}">${ic('pencil')}Zmień nazwę</button><button type="button" data-action="${r.archivedAt?'unarchive-route':'archive-route'}" data-id="${esc(r.id)}">${ic('bookmark')}${r.archivedAt?'Przywróć z archiwum':'Archiwizuj trasę'}</button><button class="danger" data-action="delete-route" data-id="${r.id}">${ic('trash-2')}Usuń tę trasę</button>`:''}</div>${own&&ps.length!==r.stops.length?'<p class="note">Niektórych przystanków nie ma już w katalogu. Zapisana trasa pozostaje zachowana.</p>':''}<h2>Przystanki</h2>${stopList(ps)}${r.id==='generated'?generatedTimingView(ps):''}${estimation}</section>`;}
 
 // My route tab
 function liveView(){const s=state.session,p=all[s.stops[s.index]],next=items(s.stops.slice(s.index+1));
@@ -634,19 +635,13 @@ function profileView(){const name=friendlyNickname(state.tester.nickname)?state.
  <details class="profile-disclosure profile-integrations"><summary><span>Integracje i import</span>${ic("chevron-down")}</summary><div class="profile-more-content"><p><strong>Strava</strong>: w widoku trasy pobierz GPX, następnie w Stravie przejdź do „Moje trasy”, wybierz utworzenie trasy i import pliku. GPX zawiera punkty do zaplanowania, nie przebytą aktywność ani geometrię ulic.</p><label class="file">Import miejsc Google Maps (.csv / .kml / .geojson)<input type="file" accept=".csv,.kml,.json,.geojson,text/csv,application/json,application/vnd.google-earth.kml+xml" data-action="google-saved-import"></label><p class="fine">Google Takeout → „Zapisane” → pobierz archiwum i wybierz pojedynczy plik CSV. Import działa w aktualnie wybranym mieście i pomija miejsca bez rozpoznanych współrzędnych lub dopasowania. Miejsca katalogowe synchronizują się z kontem, ale nowe prywatne miejsca pozostają na tym urządzeniu. Plik nie jest wysyłany na serwer.</p><a class="button" href="https://takeout.google.com/" target="_blank" rel="noopener noreferrer">${ic("arrow-down")}Eksport z Google Takeout</a></div></details> <details class="profile-disclosure profile-more"><summary><span>Więcej</span>${ic('chevron-down')}</summary><div class="profile-more-content"><div class="menu"><a href="#about">${ic('compass')}<span>Poradnik City Route<small>Wszystkie funkcje krok po kroku</small></span>${ic('chevron-right')}</a><a href="#sources">${ic('info')}<span>Skąd są dane<small>Oceny, zdjęcia i ich ograniczenia</small></span>${ic('chevron-right')}</a><button data-action="export">${ic('arrow-down')}<span>Pobierz swoje dane (.json)<small>${state.events.length} zapisanych zdarzeń</small></span></button><button data-action="reset" class="danger">${ic('x')}<span>Usuń dane z tego urządzenia</span></button></div></div></details>`;}
 
 function collectionsView(){
- const myCityRoutes=forCity(state.myRoutes,city().id);
- const mine=myCityRoutes.filter(r=>!r.archivedAt),archived=myCityRoutes.filter(r=>!!r.archivedAt),covers=routeCoverAssignments();
- const draft=state.basket.length;
- return `<section class="page-head"><a class="back" href="#profile">${ic('arrow-left')}Profil</a><p class="kicker">Profil · ${esc(city().name)}</p><h1>Moje kolekcje</h1><p class="lead">Własne trasy, zapisane propozycje innych oraz ulubione miejsca — każde w swoim miejscu.</p></section>
- <div class="variant-d-collection-links">
-  <a href="#my-route">${ic('navigation')}<span><strong>Aktualna trasa</strong><small>${draft?stopsLabel(draft):'Jeszcze nie masz przystanków'}</small></span>${ic('chevron-right')}</a>
-  <a href="#social-saved">${ic('bookmark')}<span><strong>Zapisane trasy innych</strong><small>Trasy społeczności, które chcesz zachować</small></span>${ic('chevron-right')}</a>
-  <a href="#collections/places">${ic('map-pin')}<span><strong>Zapisane miejsca</strong><small>${savedIds().length} w tym mieście</small></span>${ic('chevron-right')}</a>
- </div>
- <section class="variant-d-owned-routes"><div class="section-head"><h2>Moje trasy</h2><span>${mine.length}</span></div>
- ${mine.length?`<div class="variant-d-owned-list">${mine.map(r=>`<a href="#route/${esc(r.id)}">${ic('route')}<span><strong>${esc(r.name)}</strong><small>${stopsLabel(r.stops.length)}</small></span>${ic('chevron-right')}</a>`).join('')}</div>`:'<p class="fine">Nie masz jeszcze własnych zapisanych tras. Utwórz plan na Starcie lub wybierz gotową trasę w Trasach.</p>'}
-${archived.length?`<details class="route-archive"><summary>${ic('bookmark')} Archiwum tras (${archived.length}) ${ic('chevron-down')}</summary><p class="fine">Zarchiwizowane trasy są zachowane na tym urządzeniu i możesz je przywrócić.</p><div class="route-grid">${archived.map(r=>`<div class="archive-route-entry">${routeCard(r,false,covers)}<button type="button" data-action="unarchive-route" data-id="${esc(r.id)}">${ic('arrow-left')}Przywróć do Moich tras</button></div>`).join('')}</div></details>`:''}
- </section>`;
+ const draft=state.basket.length,localRoutes=forCity(state.myRoutes,city().id).length;
+ return `<section class="page-head"><a class="back" href="#profile">${ic('arrow-left')}Profil</a><p class="kicker">Profil · ${esc(city().name)}</p><h1>Moje kolekcje</h1><p class="lead">Wszystkie zapisane trasy w jednym miejscu — Twoje, redakcyjne i społecznościowe.</p></section>
+  <div class="variant-d-collection-links">
+   <a href="#my-route">${ic('navigation')}<span><strong>Aktualna trasa</strong><small>${draft?stopsLabel(draft):'Jeszcze nie masz przystanków'}</small></span>${ic('chevron-right')}</a>
+   <a href="#social-saved">${ic('bookmark')}<span><strong>Zapisane trasy</strong><small>Moje, redakcji i społeczności${localRoutes?' · '+localRoutes+' na tym urządzeniu':''}</small></span>${ic('chevron-right')}</a>
+   <a href="#collections/places">${ic('map-pin')}<span><strong>Zapisane miejsca</strong><small>${savedIds().length} w tym mieście</small></span>${ic('chevron-right')}</a>
+  </div>`;
 }
 
 // ONBOARDING-MENU-050: complete, searchable, permanently available guide.
@@ -680,7 +675,7 @@ function render(){const cityHost=document.querySelector('.city-host');if(cityHos
   }
  }}
 function start(r){const stops=r.stops.filter(id=>all[id]);if(!stops.length)return toast('Najpierw dodaj co najmniej jedno miejsce.');state.session={id:uuid(),name:r.name,routeId:r.id,stops,index:0,results:[],finished:false,transport:r.transport||'walking',startedAt:new Date().toISOString()};log('route_start',{route_id:r.id,session_id:state.session.id,stops:stops.length});location.hash='my-route';render();}
-function saveRoute(r){const saved={id:'mine-'+uuid().slice(0,8),cityId:city().id,name:r.name,description:r.description,stops:r.stops.slice(),cats:[],transport:r.transport||'walking',createdAt:new Date().toISOString(),archivedAt:null};state.myRoutes.unshift(saved);log('route_save',{route_id:saved.id,stops:saved.stops.length});return saved;}
+function saveRoute(r){const saved={id:'mine-'+uuid().slice(0,8),cityId:city().id,name:r.name,description:r.description,stops:r.stops.slice(),cats:[],transport:r.transport||'walking',sourceRouteId:r.sourceRouteId||null,sourceKind:r.sourceKind||null,createdAt:new Date().toISOString(),archivedAt:null};state.myRoutes.unshift(saved);log('route_save',{route_id:saved.id,stops:saved.stops.length});return saved;}
 
 function openSaveRouteDialog(source,routeId=''){
  const dialog=$('#route-save-dialog');if(!dialog)return;
@@ -758,6 +753,14 @@ document.addEventListener('click',e=>{
    else toast(added?.error==='duplicate'?'To miejsce jest już na trasie.':added?.error==='limit'?'Trasa ma już 20 przystanków. Usuń jeden, aby dodać kolejny.':'Nie można dodać miejsca do trasy.');
  }
  if(action==='nearby-custom'){addNewPlaceAfterId=b.dataset.after||null;nearbyAfterId=null;}
+ if(action==='save-editorial'){
+  const original=routes.find(r=>r.id===id);
+  if(!original)return toast('Nie znaleziono tej trasy.');
+  if(state.myRoutes.some(r=>r.cityId===city().id&&r.sourceRouteId===id)){location.hash='social-saved';return;}
+  saveRoute({...original,sourceRouteId:id,sourceKind:'editorial'});
+  persist();render();toast(storageOK?'Zapisano w Profilu → Zapisane trasy.':'Zapis lokalny niedostępny. Wyeksportuj dane.');
+  return;
+ }
  if(action==='save-route'){const r=findRoute(id);loadRouteIntoBuilder(r);location.hash='my-route';toast('Trasa jest w Mojej trasie. Zmieniaj ją dowolnie.');}
  if(action==='delete-route'&&confirm('Usunąć tę trasę?')){state.myRoutes=state.myRoutes.filter(r=>r.id!==id);persist();location.hash='routes';toast('Trasa usunięta.');}
  if(action==='delete-place'&&confirm('Usunąć to miejsce?')){applyBuilder(removeStop(builderDraft,id,{now:now()}),{eventType:'builder_remove',eventData:{place_id:id,reason:'place_deleted'}});state.userPlaces=state.userPlaces.filter(p=>p.id!==id);state.savedPlacesByCity[city().id]=savedIds().filter(x=>x!==id);providerOverlay.delete(id);delete all[id];// Do not destroy a user's archived/saved route because one personal place was deleted.

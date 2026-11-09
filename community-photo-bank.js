@@ -43,8 +43,10 @@ export async function commonsPhotoJpeg(place,{fetcher=fetch,makeBitmap=globalThi
  if(!IMAGE_TYPES.has(blob.type)||blob.size>MAX_IMPORT_BYTES||blob.size===0)throw Error('commons-invalid-image');
  let img=null,objectUrl=null;
  try{
-  if(typeof makeBitmap==='function')img=await makeBitmap(blob);
-  else{
+  if(typeof makeBitmap==='function'){
+   try{img=await makeBitmap(blob);}catch{/* iOS WebKit: use HTMLImageElement below. */}
+  }
+  if(!img){
    objectUrl=URL.createObjectURL(blob);
    img=await new Promise((resolve,reject)=>{
     const picture=new Image();

@@ -211,6 +211,7 @@ try{
  const bounds=await page.evaluate(()=>({scrollWidth:document.documentElement.scrollWidth,width:innerWidth}));
  assert.ok(bounds.scrollWidth<=bounds.width+1,'375px profile has no horizontal overflow: '+JSON.stringify(bounds));
  // A newly added stop uses the single contextual route bar, without a duplicate toast.
+ await page.locator('#toast').waitFor({state:'hidden',timeout:5000});
  const add=page.locator('.place-list button[data-action="add"]').first();
  await add.waitFor({state:'visible',timeout:12000});
  const addId=await add.getAttribute('data-id');

@@ -1,31 +1,31 @@
-/* One City Route share surface. Uses global blue/white tokens and the audited Lucide icon renderer. */
+/* One City Route share surface: community sharing uses the founder-approved purple, while saves remain blue. */
 .route-share-dialog{width:min(520px,calc(100vw - 24px));max-height:min(88dvh,750px);overflow:auto;border:1px solid var(--line);border-radius:24px;box-shadow:0 24px 80px #0e1a263d;background:var(--surface);color:var(--ink)}
 .route-share-dialog::backdrop{background:#0e1a2690;backdrop-filter:blur(3px)}
 .route-share-dialog form{padding:24px;gap:16px}
 .route-share-head{display:flex;align-items:center;gap:12px;min-width:0}
-.route-share-emblem{display:grid;place-items:center;flex:none;width:48px;height:48px;border-radius:16px;background:var(--blue);color:#fff}
+.route-share-emblem{display:grid;place-items:center;flex:none;width:48px;height:48px;border-radius:16px;background:var(--cr-community);color:#fff}
 .route-share-emblem .i{width:24px;height:24px}
 .route-share-head>div{min-width:0}
 .route-share-head h2{font-size:23px;line-height:1.2;margin-bottom:4px}
 .route-share-head p{font-size:13px;line-height:1.45;color:var(--muted)}
-.route-share-preview{display:flex;gap:12px;align-items:center;padding:14px;background:var(--blue-soft);border:1px solid #c8dff7;border-radius:16px;min-width:0}
-.route-share-preview-icon{display:grid;place-items:center;flex:none;width:42px;height:42px;background:#fff;color:var(--blue);border-radius:12px}
+.route-share-preview{display:flex;gap:12px;align-items:center;padding:14px;background:var(--cr-community-soft);border:1px solid var(--cr-community-border);border-radius:16px;min-width:0}
+.route-share-preview-icon{display:grid;place-items:center;flex:none;width:42px;height:42px;background:#fff;color:var(--cr-community);border-radius:12px}
 .route-share-preview-icon .i{width:22px;height:22px}
 .route-share-preview>div{display:grid;gap:1px;min-width:0}
-.route-share-preview strong{font-size:13px;color:var(--blue)}
+.route-share-preview strong{font-size:13px;color:var(--cr-community)}
 .route-share-preview span:not(.i){font-size:15px;font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .route-share-preview small{font-size:11px;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted)}
 .route-share-dialog .route-share-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .route-share-dialog .route-share-action{display:flex;flex:initial;gap:8px;min-height:52px;min-width:0;width:100%;align-items:center;justify-content:center;white-space:normal;padding:10px 12px;border-radius:14px;background:#fff;border:1px solid var(--line);color:var(--ink);font-size:14px;font-weight:700;text-align:center;text-decoration:none}
-.route-share-dialog .route-share-action .i{width:20px;height:20px;flex:none;color:var(--blue)}
-.route-share-dialog .route-share-action:hover{background:var(--blue-soft);border-color:#bdd8f1}
-.route-share-dialog .route-share-native{grid-column:1/-1;background:var(--blue);border-color:var(--blue);color:#fff}
+.route-share-dialog .route-share-action .i{width:20px;height:20px;flex:none;color:var(--cr-community)}
+.route-share-dialog .route-share-action:hover{background:var(--cr-community-soft);border-color:var(--cr-community-border)}
+.route-share-dialog .route-share-native{grid-column:1/-1;background:var(--cr-community);border-color:var(--cr-community);color:#fff}
 .route-share-dialog .route-share-native .i{color:#fff}
-.route-share-dialog .route-share-native:hover{background:#0757a5;border-color:#0757a5}
-.route-share-dialog .route-share-whatsapp{background:var(--blue-soft);border-color:#c3def8}
+.route-share-dialog .route-share-native:hover{background:var(--cr-community-hover);border-color:var(--cr-community-hover)}
+.route-share-dialog .route-share-whatsapp{background:var(--cr-community-soft);border-color:var(--cr-community-border)}
 .route-share-dialog .route-share-copy{background:var(--cyan-soft);border-color:#b9e9f3;color:#00657e}
 .route-share-dialog .route-share-copy .i{color:#006d85}
-.route-share-dialog .route-share-status{margin:0;min-height:18px;color:var(--blue);font-size:12px;font-weight:600}
+.route-share-dialog .route-share-status{margin:0;min-height:18px;color:var(--cr-community);font-size:12px;font-weight:600}
 .route-share-raw{min-width:0;margin:0}
 .route-share-raw summary{font-size:12px;color:var(--muted);cursor:pointer;list-style:disclosure-closed}
 .route-share-raw[open] summary{margin-bottom:8px}
@@ -45,18 +45,18 @@
 .social-detail-actions .route-share-trigger,
 .social-card-actions .route-share-trigger {
  display:inline-flex;align-items:center;justify-content:center;gap:9px;
- min-height:48px;padding:11px 16px;border:1.5px solid var(--blue);border-radius:14px;
- background:var(--blue-soft);color:var(--blue);font-size:14px;font-weight:800;
+ min-height:48px;padding:11px 16px;border:1.5px solid var(--cr-community);border-radius:14px;
+ background:var(--cr-community-soft);color:var(--cr-community);font-size:14px;font-weight:800;
  text-align:center;text-decoration:none;cursor:pointer;
 }
 .route-share-trigger .i{width:19px;height:19px;flex:none;color:currentColor}
 .route-share-trigger:hover,
 .detail-actions .route-share-trigger:hover,
 .social-detail-actions .route-share-trigger:hover,
-.social-card-actions .route-share-trigger:hover{background:var(--blue);color:#fff}
-.route-share-trigger:focus-visible{outline:3px solid #86c6ff;outline-offset:3px}
-.finished-share .route-share-trigger{width:100%;margin:10px 0 6px;background:var(--blue);color:#fff}
-.finished-share .route-share-trigger:hover{background:#0757a5}
+.social-card-actions .route-share-trigger:hover{background:var(--cr-community);color:#fff}
+.route-share-trigger:focus-visible{outline:3px solid #A78BFA;outline-offset:3px}
+.finished-share .route-share-trigger{width:100%;margin:10px 0 6px;background:var(--cr-community);color:#fff}
+.finished-share .route-share-trigger:hover{background:var(--cr-community-hover)}
 @media(max-width:390px){
  .route-share-trigger,.detail-actions .route-share-trigger,
  .social-detail-actions .route-share-trigger,.social-card-actions .route-share-trigger{

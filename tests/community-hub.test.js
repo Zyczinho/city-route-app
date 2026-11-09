@@ -69,7 +69,7 @@ test('Community five-tab icons are accessible, consistent and offline-ready',asy
   assert.ok(hub.includes(":'"+icon+"'"),'tab icon should be Lucide: '+icon);
  }
  assert.match(hub,/iconMarkup\(tabIcons\[href\],'community-tab-icon'\)/);
- assert.match(hub,/<span>'+label+'<\/span>/,'tab text remains visible for assistive tech');
+ assert.ok(hub.includes("+'<span>'+label+'</span></a>'"),'tab text remains visible for assistive tech');
  assert.match(css,/\.community-hub-links>a\{display:flex;flex-direction:column;[^\n]*min-height:56px/);
  assert.match(css,/\.community-hub-links>a \.community-tab-icon\{width:19px;height:19px/);
  assert.match(css,/@media\(max-width:359px\)\{\.community-hub-links>a\{min-height:52px/);

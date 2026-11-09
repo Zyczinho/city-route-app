@@ -116,7 +116,15 @@ try{
  await archive.locator('article.card').filter({hasText:'Redakcja City Route'}).first().waitFor({state:'visible',timeout:12000});
  assert.ok(await archive.locator('[data-saved-routes-cards] article.card').count()>=1,'local archive must render even with Supabase unavailable');
  await page.reload({waitUntil:'domcontentloaded'});
- await archive.locator('article.card').filter({hasText:'Redakcja City Route'}).first().waitFor({state:'visible',timeout:12000});
+ const editorialSaved=archive.locator('article.card').filter({hasText:'Redakcja City Route'}).first();
+ await editorialSaved.waitFor({state:'visible',timeout:12000});
+ // Trash is a separate action; removing this copy preserves the original editorial route.
+ await editorialSaved.locator('button[data-action="remove-saved-local"]').click();
+ await page.waitForFunction(()=>!(JSON.parse(localStorage.getItem('city-route-v1')||'{}').myRoutes||[]).some(r=>r.sourceRouteId==='old-warsaw'),{timeout:12000});
+ await page.reload({waitUntil:'domcontentloaded'});
+ assert.equal(await archive.locator('button[data-action="remove-saved-local"]').count(),0,'deleted editorial copy does not return after reload');
+ await page.goto(ROOT+'/#route/old-warsaw',{waitUntil:'domcontentloaded'});
+ await page.locator('button[data-action="save-editorial"][data-id="old-warsaw"]').waitFor({state:'visible',timeout:12000});
 
  // Named saved-route archive: no login required for local, device-scoped archive.
  await page.goto(ROOT+'/#my-route',{waitUntil:'domcontentloaded'});

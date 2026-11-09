@@ -266,7 +266,10 @@ async function renderSaved(){
    const label=x.kind==='mine'?'Moja trasa · to urządzenie':
     x.kind==='editorial-local'?'Redakcja City Route · to urządzenie':
     x.kind==='community'?'Społeczność · konto':'Redakcja City Route · konto';
-   return '<article class="card"><h3>'+esc(x.name)+'</h3><p class="muted">'+label+(x.archived?' · Archiwum':'')+'</p><a class="button" href="'+esc(x.href)+'">Otwórz</a></article>';
+   const trash=x.local?
+    '<button type="button" class="saved-route-trash" data-action="remove-saved-local" data-id="'+esc(x.id)+'" aria-label="Usuń '+esc(x.name)+' z zapisanych tras" title="Usuń z zapisanych tras">'+iconMarkup('trash-2')+'</button>':
+    '<button type="button" class="saved-route-trash" data-saved-unsave="'+esc(x.sourceRef)+'" data-saved-unsave-city="'+esc(activeCity)+'" aria-label="Usuń '+esc(x.name)+' z zapisanych tras" title="Usuń z zapisanych tras">'+iconMarkup('trash-2')+'</button>';
+   return '<article class="card saved-route-card"><h3>'+esc(x.name)+'</h3><p class="muted">'+label+(x.archived?' · Archiwum':'')+'</p><div class="saved-route-actions"><a class="button" href="'+esc(x.href)+'">Otwórz</a>'+trash+'</div></article>';
   }).join('')||'<div class="empty"><p>Nie masz jeszcze zapisanych tras w tym mieście.</p><a class="button" href="#routes">Przeglądaj trasy</a></div>';
  }
  if(status)status.textContent='Trasy zapisane na koncie wczytane.';
@@ -344,6 +347,32 @@ document.addEventListener('cityroute:publish-completed',event=>{
  if(!Array.isArray(d.stops)||d.stops.length<2||d.cityId!==current)return;
  publishDialog({cityId:d.cityId,name:String(d.name||'Ukończona trasa').slice(0,80),transport:d.transport||'walking',stops:d.stops.filter(id=>typeof id==='string')});
 });
+document.addEventListener('click',async e=>{
+ const button=e.target.closest?.('[data-saved-unsave]');
+ if(!button)return;
+ e.preventDefault();
+ if(button.disabled||!session)return;
+ const root=button.closest('[data-social-saved-root]'),card=button.closest('.saved-route-card');
+ const ref=button.dataset.savedUnsave,selectedCity=button.dataset.savedUnsaveCity;
+ if(!root||!card||!ref||selectedCity!==cityId()||location.hash!=='#social-saved')return;
+ if(!confirm('Usunąć tę trasę z zapisanych? Oryginalna trasa autora lub redakcji pozostanie dostępna.'))return;
+ button.disabled=true;
+ try{
+  // unsave_route removes ONLY the account bookmark; never deletes a published route.
+  await api.unsaveRoute(ref,selectedCity);
+  if(!root.isConnected||cityId()!==selectedCity||location.hash!=='#social-saved')return;
+  card.remove();
+  const container=root.querySelector('[data-saved-routes-cards]');
+  if(container&&!container.querySelector('.saved-route-card'))container.innerHTML='<div class="empty"><p>Nie masz jeszcze zapisanych tras w tym mieście.</p><a class="button" href="#routes">Przeglądaj trasy</a></div>';
+  const status=root.querySelector('[data-saved-remote-status]');if(status)status.textContent='Usunięto trasę z zapisanych.';
+  if(marks.has(ref))marks.set(ref,{...marks.get(ref),saved:false});
+  log('community_route_unsave',{route_id:ref,source:'profile_saved_routes'});
+ }catch(error){
+  const status=root?.querySelector('[data-saved-remote-status]');
+  if(status)status.textContent='Nie udało się usunąć zapisu z konta. Spróbuj ponownie.';
+  console.warn('Unsave saved route',error);
+ }finally{if(button.isConnected)button.disabled=false;}
+},true);
 document.addEventListener('click',e=>{const el=e.target.closest?.('[data-social-action]');if(el){e.preventDefault();handleAction(el).catch(console.error);}},true);
 document.addEventListener('change',e=>{if(e.target.matches?.('[data-social-sort]')){sort=e.target.value;const host=document.querySelector('[data-social-feed]');if(host)host.remove();const note=document.querySelector('.community-note');if(note)note.hidden=false;queueRender();}});
 document.addEventListener('submit',async e=>{

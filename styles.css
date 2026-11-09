@@ -415,3 +415,12 @@ body.has-variant-d-route-bar main{padding-bottom:190px}
  #navigation a>span:not(.i){font-size:9px}
 }
 @media(prefers-reduced-motion:reduce){.variant-d-active-route{scroll-behavior:auto}}
+
+/* P0.1: one-tap removal in the unified Saved Routes list, 44px touch target. */
+.saved-route-card{min-width:0}
+.saved-route-card h3{overflow-wrap:anywhere}
+.saved-route-actions{display:flex;align-items:center;gap:10px;margin-top:12px}
+.saved-route-actions>a{flex:1;min-width:0}
+.saved-route-trash{display:inline-flex;align-items:center;justify-content:center;flex:0 0 44px;width:44px;height:44px;min-height:44px;padding:0;border:1px solid #f3cbd0;background:#fff7f8;border-radius:12px;color:var(--live)}
+.saved-route-trash:hover{background:var(--live-soft);border-color:#e6a3aa}
+.saved-route-trash .i{width:19px;height:19px}

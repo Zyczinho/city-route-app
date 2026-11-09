@@ -4,7 +4,7 @@ import {createPlaceContributionsClient,BUCKET,contributionError,galleryPhotoPubl
 const api=createPlaceContributionsClient({client:supabase});
 const $=s=>document.querySelector(s),safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const names={pending:'Czekają',approved:'Zatwierdzone',rejected:'Odrzucone',merged:'Połączone'};
-let city='warsaw',filter='pending',rows=[],gallery=[];
+let city='warsaw',filter='pending',rows=[],gallery=[],photoCredits={};
 const status=s=>{$('#admin-status').textContent=s;};
 const mapLink=r=>'https://www.google.com/maps?q='+encodeURIComponent(r.lat+','+r.lng);
 const photoUrl=path=>path&&/^[0-9a-f-]{36}\/[0-9a-f-]{36}\.jpg$/.test(path)?SUPABASE_URL+'/storage/v1/object/public/'+BUCKET+'/'+path:null;
@@ -15,6 +15,8 @@ function render(){
 }
 function renderRow(r){
  const image=photoUrl(r.image_path);
+ const credit=photoCredits[r.id];
+ const creditLabel=credit?'<p class="fine">Wikimedia Commons · Autor: '+safe(credit.author||'')+' · '+safe(credit.license||'')+' · <a href="'+safe(credit.source||'')+'" target="_blank" rel="noopener noreferrer">Źródło i licencja zdjęcia</a></p>':'';
  const extra=gallery.filter(g=>g.submission_id===r.id).sort((a,b)=>a.position-b.position);
  const photos=extra.length?'<section class="admin-gallery" aria-label="Dodatkowe zdjęcia"><span class="admin-gallery-label">Pozostałe zdjęcia · '+extra.length+'</span><div class="admin-gallery-list">'+extra.map(g=>{
   const src=galleryPhotoPublicUrl(SUPABASE_URL,g.image_path),rejected=g.moderation_status==='rejected';
@@ -25,7 +27,7 @@ function renderRow(r){
   '<h3>'+safe(r.name)+'</h3><p class="fine">'+safe(r.category_id)+' · '+safe(names[r.status]||r.status)+' · '+safe(new Date(r.created_at).toLocaleDateString('pl-PL'))+'</p>'+
   '<p>'+safe(r.description||'Bez opisu')+'</p><p><a href="'+safe(mapLink(r))+'" target="_blank" rel="noopener noreferrer">Otwórz współrzędne na mapie</a></p>'+
   (r.source_url?'<p><a href="'+safe(r.source_url)+'" target="_blank" rel="noopener noreferrer nofollow">Link źródłowy</a></p>':'')+
-  (image?'<img src="'+safe(image)+'" alt="Zdjęcie główne zgłoszone przez autora" loading="lazy" style="width:180px;max-height:140px;object-fit:cover;border-radius:12px">':'')+photos+
+  (image?'<img src="'+safe(image)+'" alt="Zdjęcie główne zgłoszenia" loading="lazy" style="width:180px;max-height:140px;object-fit:cover;border-radius:12px">':'')+creditLabel+photos+
   (r.resolved_place_id?'<p class="fine">ID w katalogu: '+safe(r.resolved_place_id)+'</p>':'')+'</div>'+
   (r.status==='pending'?'<form class="admin-actions" data-review="'+safe(r.id)+'"><label>Decyzja<select name="action"><option value="approve">Zatwierdź</option><option value="merge">Połącz z istniejącym</option><option value="reject">Odrzuć</option></select></label>'+
   '<label>ID istniejącego miejsca (tylko dla połączenia)<input name="existing" placeholder="np. old-town"></label><button type="submit">Wykonaj</button></form>':'')+
@@ -35,6 +37,8 @@ async function load(){
  const main=$('#admin');if(!main)return;
  try{
   rows=await api.reviewQueue(city,filter);
+  try{const {data,error}=await supabase.rpc('admin_place_submission_photo_credits',{p_city_slug:city,p_status:filter});photoCredits=!error&&data&&typeof data==='object'?data:{};}
+  catch{photoCredits={};}
   try{gallery=await api.reviewGallery(city,filter);}
   catch{gallery=[];status('Galeria oczekuje na aktywację migracji SQL.');}
   render();if(gallery.length)status('Wczytano '+rows.length+' zgłoszeń i '+gallery.length+' zdjęć dodatkowych.');

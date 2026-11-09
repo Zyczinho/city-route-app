@@ -2,6 +2,7 @@
 // No private location leaves this device unless the user selected "Zaproponuj społeczności".
 import {supabase} from './supabase-client.js';
 import {createPlaceContributionsClient,contributionError} from './place-contributions-client.js';
+import {shouldBankCommunityPhoto,commonsPhotoJpeg} from './community-photo-bank.js';
 
 const KEY='city-route-v1',api=createPlaceContributionsClient({client:supabase}),inFlight=new Set();
 const $=s=>document.querySelector(s);
@@ -48,6 +49,21 @@ async function submitLocal(placeId,{silent=false}={}){
   if(place.image?.startsWith('data:')&&place.imageRightsConfirmed&&!coverReady){
    try{await api.uploadOwnPhoto(session.user.id,submissionId,place.image,true);patch(placeId,{photoUploaded:true});coverReady=true;}
    catch(error){photoWarning=' Nie udało się przesłać zdjęcia głównego.';console.warn('City Route cover contribution:',contributionError(error).code);}
+  }
+  // Community-only path: an accepted freely licensed Wikimedia photo becomes
+  // a persistent copy in the EXISTING Supabase photo bank after the same
+  // owner-scoped upload checks and place moderation. Private places never reach
+  // submitLocal, so their image remains on the device.
+  if(!coverReady&&shouldBankCommunityPhoto(place)){
+   try{
+    const jpeg=await commonsPhotoJpeg(place);
+    await api.uploadLicensedCommonsPhoto(session.user.id,submissionId,jpeg,place);
+    patch(placeId,{photoUploaded:true,photoBankSource:'Wikimedia Commons'});
+    coverReady=true;
+   }catch(error){
+    photoWarning+=' Nie udało się zapisać zdjęcia Wikimedia w banku. Możesz ponowić zgłoszenie.';
+    console.warn('City Route licensed photo bank:',contributionError(error).code);
+   }
   }
   if(coverReady&&place.imageRightsConfirmed&&Array.isArray(place.images)&&place.images.length>1){
    const result=await api.uploadGalleryPhotos(session.user.id,submissionId,place.images,true,place.galleryUploadedPositions||[]);

@@ -161,7 +161,8 @@ test('Worker Google soft cap defaults to the documented 300 per instance, not 25
 
 test('Add Place never widens the phone layout: file input stays inside its label, photo buttons wrap',()=>{
  const gallery=read('place-photo-gallery.css'),composer=read('place-composer.css');
- assert.match(gallery,/#place-form label\.file\{position:relative;overflow:hidden\}/);
- assert.match(gallery,/#place-form \.file input\[type=file\]\{position:absolute;inset:0;width:100%;height:100%/);
+ assert.match(gallery,/#place-form label\.file\{position:relative;overflow:hidden;cursor:pointer\}/);
+ assert.match(gallery,/#place-form \.file input\[type=file\]\{\s*position:absolute;inset:auto;left:0;top:0;width:1px;height:1px/);
+ assert.match(gallery,/clip-path:inset\(50%\);pointer-events:none/);
  assert.match(composer,/\.pc-photo-actions button\{flex:1 1 130px;min-width:0;/);
 });

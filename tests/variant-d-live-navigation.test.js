@@ -43,7 +43,7 @@ test('route has exactly 3 visible actions, others remain in disclosure, with no 
  assert.match(app,/variant-d-route-actions/);
  assert.match(app,/data-action="start" data-id="basket"/);
  assert.match(app,/data-action="save-basket"/);
- assert.match(app,/privateRouteShareButton\(ps,transport,builderDraft/);
+ assert.match(app,/shareRouteButton\(ps,transport,builderDraft/);
  assert.match(app,/class="variant-d-more"/);
  assert.match(app,/data-action="optimize"/);
  assert.match(app,/data-action="clear-builder"/);

@@ -47,6 +47,7 @@ test('catalogue rows use the cheap thumbnail path; only community places use the
  assert.match(app,/<div class="sheet-media">\$\{photo\(p,'sheet-photo',true,800\)\}/,'the place card falls back to an 800 px photo');
  assert.match(app,/while\(enrichActive<3&&enrichQueue\.length\)/);
  assert.match(app,/providerObserver\?\.disconnect\(\);providerObserver=null;enrichQueue\.length=0;/,'a list change drops unseen work');
- assert.match(app,/if\(row\)row\.outerHTML=placeRow\(all\[p\.id\]\);else render\(\);/);
+ assert.match(app,/if\(row\)row\.outerHTML=placeRow\(all\[p\.id\]\);/);
+ assert.doesNotMatch(app,/if\(row\)row\.outerHTML=placeRow\(all\[p\.id\]\);else render\(\);/,'provider update must not rebuild an unrelated route page');
  assert.doesNotMatch(app,/THUMBS|ph-letter|ph-nightlife/);
 });

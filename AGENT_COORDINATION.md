@@ -1,5 +1,10 @@
 # Agent Coordination — canonical control plane
 
+## P0 #176 — catalogue audit and on-demand ratings
+
+IN_PROGRESS — ChatGPT — `fix/place-rating-enrichment-country`; hosted read-only audit: Lisbon192, permanent covers0, descriptions23. First30 actual default list (hotels excluded): descriptions6, permanent covers0, stored Google/TA ratings0. Google ready; both Tripadvisor keys absent. Scope: remove image-dependent rating gate when opening catalog cards, pass active country (PT for Lisbon) to existing provider adapters, preserve per-session dedupe and on-demand-only cost controls; record audit with evidence. No paid provider activation, DB write, mass enrichment or speculative description/photo fill. #176 remains OPEN. Last update: 2026-11-09.
+
+
 ## Route action UX parity — editorial and own routes
 
 REVIEW — ChatGPT — PR #193 MERGED `2e4bf9aa608b0ea37d61b18cd359cd56069391b0`. Editorial/generated/saved detail now matches manual builder: Start / blue Save / purple Share / collapsed More / white Add next stop. Extra actions remain inside More; already-saved state preserved. Add next stop copies viewed route to private builder without mutating source or other saved routes. PWA v80. Final-head CI42665408491, provider42665408590, mobile42665409521 SUCCESS; independent review PASS. Mobile tests include 320/375/390 parity, native disclosure visibility, GPX, rename/archive/restore, exact route copy. Main CI42665756793 and rollout42665756852 SUCCESS; live cache `city-route-v80-a6bfb025c5`, app.js exact source parity confirmed. Await founder iPhone visual acceptance. No parallel runtime branch. #176 and historical private-place visibility remain open. Last update: 2026-11-09.

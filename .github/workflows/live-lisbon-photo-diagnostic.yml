@@ -1,0 +1,30 @@
+name: Live Lisbon Photo Provider Diagnostic (single venue)
+on:
+  pull_request:
+    paths:
+      - 'tests/add-place-live-lisbon-photo.mjs'
+      - '.github/workflows/live-lisbon-photo-diagnostic.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: live-lisbon-provider-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  lisbon-photo:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save playwright@1.58.2
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/add-place-live-lisbon-photo.mjs
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: lisbon-real-provider-photo
+          path: p0-smoke-artifacts/
+          if-no-files-found: ignore

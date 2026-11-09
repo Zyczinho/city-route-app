@@ -122,7 +122,8 @@ try{
  await page.locator('button[data-action="rename-route"]').click();
  await saveModal.locator('#route-save-name').fill('Wieczorna Warszawa');
  await saveModal.locator('button[type="submit"]').click();
- assert.ok(await page.locator('#main').getByText('Wieczorna Warszawa').count()>0,'renamed route is visible in saved routes');
+ await page.goto(ROOT+'/#collections',{waitUntil:'domcontentloaded'});
+ assert.ok(await page.locator('#main').getByText('Wieczorna Warszawa').count()>0,'renamed route appears in Profile collections');
  await page.goto(ROOT+'/#collections',{waitUntil:'domcontentloaded'});
  await page.locator('.variant-d-owned-list a[href="#route/'+savedId+'"]').click();
  await page.locator('button[data-action="archive-route"]').click();

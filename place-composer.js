@@ -394,7 +394,9 @@ document.addEventListener('click',e=>{
  const form=e.target.closest?.('#place-form');if(!form)return;
  const opt=e.target.closest('[data-pc-index]');if(opt){e.preventDefault();return pick(form,options[Number(opt.dataset.pcIndex)]);}
  if(e.target.closest('[data-pc="adjust"]')&&selection?.location)showMap(form,selection.location);
- const photoAction=e.target.closest('[data-pc-photo]');if(photoAction){e.preventDefault();onProposalAction(form,photoAction.dataset.pcPhoto);}
+ // The form itself uses data-pc-photo for the accepted Commons photo RECORD.
+ // Only buttons use it as an action; matching the form canceled every radio / submit click.
+ const photoAction=e.target.closest('button[data-pc-photo]');if(photoAction){e.preventDefault();onProposalAction(form,photoAction.dataset.pcPhoto);}
 });
 
 const observer=new MutationObserver(decorate);

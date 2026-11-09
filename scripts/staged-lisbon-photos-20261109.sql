@@ -12,7 +12,7 @@ begin
  join public.places p on p.legacy_id=u.id
  join public.cities c on c.id=p.city_id and c.slug='lisbon'
  where ((p.image_url is not distinct from u.before_image_url and coalesce(p.image_meta,'{}'::jsonb)=u.before_image_meta)
- or (p.image_url=u.image_url and coalesce(p.image_meta,'{}'::jsonb) @> u.image_meta));
+ or (p.image_url=u.image_url and (coalesce(p.image_meta,'{}'::jsonb)||u.image_meta)=coalesce(p.image_meta,'{}'::jsonb)));
  if matched<>8 then raise exception 'Expected exactly 8 unchanged Lisbon photo targets; found %',matched; end if;
  with input as (select * from jsonb_to_recordset(payload) as u(id text,image_url text,image_meta jsonb,before_image_url text,before_image_meta jsonb))
  update public.places p
@@ -20,7 +20,7 @@ begin
  from input u,public.cities c
  where p.legacy_id=u.id and p.city_id=c.id and c.slug='lisbon'
  and ((p.image_url is not distinct from u.before_image_url and coalesce(p.image_meta,'{}'::jsonb)=u.before_image_meta)
- or (p.image_url=u.image_url and coalesce(p.image_meta,'{}'::jsonb) @> u.image_meta));
+ or (p.image_url=u.image_url and (coalesce(p.image_meta,'{}'::jsonb)||u.image_meta)=coalesce(p.image_meta,'{}'::jsonb)));
  get diagnostics changed=row_count;
  if changed<>8 then raise exception 'Expected exactly 8 updates; got %',changed; end if;
 end;

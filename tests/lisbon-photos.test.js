@@ -44,11 +44,15 @@ test('photo DML rejects conflicting images and metadata, bounds both writes and 
  assert.equal(payload.length,8);assert.equal(new Set(payload.map(p=>p.id)).size,8);
  assert.equal((sql.match(/coalesce\(p.image_meta,'\{\}'::jsonb\)=u.before_image_meta/g)||[]).length,2);
  assert.equal((sql.match(/p.image_url is not distinct from u.before_image_url/g)||[]).length,2);
- assert.equal((sql.match(/@> u.image_meta/g)||[]).length,2);
+ assert.equal((sql.match(/\(coalesce\(p.image_meta,'\{\}'::jsonb\)\|\|u.image_meta\)=coalesce\(p.image_meta,'\{\}'::jsonb\)/g)||[]).length,2);
  assert.match(sql,/if matched<>8/);assert.match(sql,/if changed<>8/);assert.match(sql,/c.slug='lisbon'/);
  assert.doesNotMatch(sql,/delete from|alter table|truncate|description\s*=|metadata\s*=|ratings\s*=/i);
  const rollback=read('scripts/rollback-lisbon-photos-20261109.sql').toString();
  assert.match(rollback,/p.image_url=u.image_url and p.image_meta=\(u.before_image_meta\|\|u.image_meta\)/);
  assert.match(rollback,/if changed<>8/);assert.match(rollback,/c.slug='lisbon'/);
  assert.deepEqual(JSON.parse(rollback.split('$lisbon_photos$')[1]),payload);
+ const guards=read('scripts/verify-lisbon-photo-guards-20261109.sql').toString();
+ assert.match(guards,/nested-author-url/);assert.match(guards,/nested-provenance/);
+ assert.ok(guards.includes("(coalesce(p.image_meta,'{}'::jsonb)||u.image_meta)=coalesce(p.image_meta,'{}'::jsonb)"));
+ assert.doesNotMatch(guards,/\b(update|delete|insert|alter|truncate)\b/i);
 });

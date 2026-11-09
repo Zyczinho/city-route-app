@@ -49,6 +49,7 @@ try{
  assert.deepEqual(layout.buttons.map(b=>b.action),['up','down','nearby-stop','remove']);
  assert.ok(layout.buttons.every(b=>b.left>=0&&b.right<=layout.innerWidth+1&&b.width>=32),'All four stop buttons remain within 375px viewport');
  await page.screenshot({path:'p0-smoke-artifacts/my-route-before.png',fullPage:true});
+ await page.locator('.variant-d-more > summary').click();
  await page.locator('button[data-action="optimize"]').click();
  const optimizedIds=await page.locator('.stops li[data-stop]').evaluateAll(ls=>ls.map(l=>l.dataset.stop));
  assert.deepEqual(new Set(optimizedIds),new Set(seed));
@@ -61,11 +62,11 @@ try{
  assert.equal(order.length,11);
  assert.equal(order.indexOf(target),order.indexOf(anchor)+1,'nearby place must insert directly after selected stop');
  await page.screenshot({path:'p0-smoke-artifacts/my-route-after.png',fullPage:true});
- // Check all six real bottom-nav destinations; leave Places last for the following map check.
- await page.waitForFunction(()=>document.querySelectorAll('#navigation a').length===6,{timeout:10000}).catch(()=>{});
+ // Check all five intention-based bottom-nav destinations; preserve My Route through the route bar.
+ await page.waitForFunction(()=>document.querySelectorAll('#navigation a').length===5,{timeout:10000}).catch(()=>{});
  const tabs=await page.locator('#navigation a').evaluateAll(nodes=>nodes.map(a=>a.getAttribute('href')));
- assert.equal(tabs.length,6,'bottom navigation must have six tabs including Poradnik');
- for(const tab of ['#plan','#routes','#my-route','#routes/community','#about','#places']){
+ assert.equal(tabs.length,5,'bottom navigation has five tabs and Poradnik in Profile');
+ for(const tab of ['#plan','#routes','#routes/community','#profile','#places']){
   assert.ok(tabs.includes(tab),'missing navigation tab '+tab);
   await page.locator('#navigation a[href="'+tab+'"]').click();
   assert.equal(new URL(page.url()).hash,tab,'tab click changes hash');

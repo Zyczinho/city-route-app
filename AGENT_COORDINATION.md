@@ -1,5 +1,10 @@
 # Agent Coordination — canonical control plane
 
+## Add Place rating / submit pointer regression
+
+IN_PROGRESS / CI BLOCKED — ChatGPT — PR #197 (`fix/add-place-pointer-targets`); scoped radio/file input hit boxes to their own labels, extended real-pointer smoke with upload/rerender, bumped composer CSS v4 and PWA v84. Isolated CSS/DOM Chromium test PASS at 320/375/390/1220 (five radios, upload bounds, submit, no overflow), not full-app acceptance. GitHub Actions CI/P0 smoke job initialization FAIL before any steps, including retry #2; no valid browser/production verification yet. Keep PR DRAFT/unmerged, request independent reviewer after Actions resumes; no DB/schema/user data/paid-provider changes. Last update 2026-11-09.
+
+
 ## P0 #176 — persistent licensed Lisbon covers
 
 DONE — ChatGPT — PR #196 MERGED `157a8f1deda597a022b6175682c5f20437e39914`;8 visually verified exact-entity CC covers vendored with visible author/license/source, hashes and JSON/hosted parity. Actual audited first30 permanent coverage8/30; remaining22 unresolved (includes4 flagged venues untouched). Independent content/SQL final review PASS; actual PostgreSQL9/9 guard fixtures PASS. Final-head CI42674967137 SUCCESS (483 tests+build), mobile42674967275 SUCCESS (8decodes,linked credits320/375/390,offline detail reload). Main CI42675243547 and production rollout42675244023 SUCCESS. Live8 JPEG SHA256 hashes match reviewed manifest; cache `city-route-v83-03d9ba0a09` precaches8. Bounded hosted DML APPLIED8/8; all192 unrelated-field hashes and all184 untargeted image fields unchanged; descriptions47/192 retained. Production browser after reload shows8 local covers; A Brasileira detail retains description and visible VDT2021/CC BY-SA4.0/Commons links. Not a real iPhone acceptance claim. No schema/paid-provider/user-data changes. #176 stays OPEN; next exact licensed covers for remaining22 + flagged-record handling and broader city/device acceptance. Last update2026-11-09.

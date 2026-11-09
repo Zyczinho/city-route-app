@@ -34,8 +34,8 @@ test('mobile CSS guards iPhone native date/time width and route nav active statu
  const css=read('mobile-first30.css');
  assert.match(css,/\.planner-when-fields\{grid-template-columns:minmax\(0,1fr\)/);
  assert.match(css,/input::-webkit-date-and-time-value/);
- assert.match(css,/#navigation a\[href="#my-route"\]:not\(\.active\)/);
- assert.match(css,/#navigation a\[href="#my-route"\]\.active/);
+ assert.match(read('styles.css'),/\.variant-d-active-route/);
+ assert.match(read('nav-enhancements.js'),/href='#my-route'/);
  assert.match(css,/\.ux-submit\{width:100%/);
  const sw=read('service-worker.js'),index=read('index.html'),build=read('scripts/build.mjs');
  assert.match(sw,/city-route-v66/);

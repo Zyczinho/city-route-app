@@ -2,7 +2,7 @@
 
 ## Route action UX parity — editorial and own routes
 
-IN_PROGRESS — ChatGPT — `fix/unified-route-detail-actions`; founder requests same order/layout/colors in editorial detail and manual builder: Start / Save / Share / collapsed More / Add next stop. Existing detail actions move under More; preserve editorial source, actual share URL and saved-route behavior. Add next stop must copy the viewed route into personal builder before opening Places. Scope app + browser acceptance + cache; no backend/catalogue changes. Last update: 2026-11-09.
+REVIEW — ChatGPT — PR #193 MERGED `2e4bf9aa608b0ea37d61b18cd359cd56069391b0`. Editorial/generated/saved detail now matches manual builder: Start / blue Save / purple Share / collapsed More / white Add next stop. Extra actions remain inside More; already-saved state preserved. Add next stop copies viewed route to private builder without mutating source or other saved routes. PWA v80. Final-head CI42665408491, provider42665408590, mobile42665409521 SUCCESS; independent review PASS. Mobile tests include 320/375/390 parity, native disclosure visibility, GPX, rename/archive/restore, exact route copy. Main CI42665756793 and rollout42665756852 SUCCESS; live cache `city-route-v80-a6bfb025c5`, app.js exact source parity confirmed. Await founder iPhone visual acceptance. No parallel runtime branch. #176 and historical private-place visibility remain open. Last update: 2026-11-09.
 
 
 ## P0.1 Test 4 — sharing / action clarity

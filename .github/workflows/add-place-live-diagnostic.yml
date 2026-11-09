@@ -15,6 +15,28 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  live-assets:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - name: Verify deployed HTML/CSS/SW without npm dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="https://city-route-app.jakublojek.workers.dev"
+          curl -fsSL --max-time 20 -H 'Cache-Control: no-cache' "$BASE/index.html?qa=${GITHUB_SHA}" -o /tmp/city-html
+          curl -fsSL --max-time 20 -H 'Cache-Control: no-cache' "$BASE/place-composer.css?v=4&qa=${GITHUB_SHA}" -o /tmp/city-css
+          curl -fsSL --max-time 20 -H 'Cache-Control: no-cache' "$BASE/service-worker.js?qa=${GITHUB_SHA}" -o /tmp/city-sw
+          echo "DEPLOYED: html CSS references"
+          grep -o 'place-composer.css?v=[0-9]*' /tmp/city-html | head -5 || true
+          echo "DEPLOYED: CSS pointer target"
+          grep -o '#place-form .choice input\[type="radio"\]' /tmp/city-css | head -1 || true
+          echo "DEPLOYED: service worker version"
+          head -c 140 /tmp/city-sw; echo
+          grep -Fq 'place-composer.css?v=4' /tmp/city-html
+          grep -Fq '#place-form .choice input[type="radio"]' /tmp/city-css
+          grep -Fq 'city-route-v84' /tmp/city-sw
+          echo "LIVE_ASSETS_PASS"
   live-form:
     runs-on: ubuntu-24.04
     timeout-minutes: 12

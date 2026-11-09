@@ -35,12 +35,31 @@ try{
   if(!photo.photo)throw new Error('NO_LIVE_PHOTO_PREVIEW');
   await page.locator('.pc-photo img').first().evaluate(el=>el.decode()).catch(()=>{});
   if(!photo.accepted&&await page.locator('[data-pc-photo="accept"]').count())await page.locator('[data-pc-photo="accept"]').click();
+  // Capture the real event sequence to identify which handler cancels or replaces a click.
+  await page.evaluate(()=>{
+   const audit=[];window.__ratingAudit=audit;
+   const target=e=>e.target instanceof Element&&e.target.closest('#place-form .choice');
+   for(const type of ['pointerdown','pointerup','click','input','change']){
+    document.addEventListener(type,e=>{if(target(e))audit.push({stage:'capture',type,checked:document.querySelector('#place-form input[name="rating"][value="5"]')?.checked,defaultPrevented:e.defaultPrevented,target:e.target.tagName});},true);
+    document.addEventListener(type,e=>{if(target(e))audit.push({stage:'bubble',type,checked:document.querySelector('#place-form input[name="rating"][value="5"]')?.checked,defaultPrevented:e.defaultPrevented,target:e.target.tagName});},false);
+   }
+   const original=Event.prototype.preventDefault;
+   Event.prototype.preventDefault=function(...args){
+    if(this.type==='click'&&target(this))audit.push({stage:'preventDefault',type:this.type,stack:new Error().stack.slice(0,350)});
+    return original.apply(this,args);
+   };
+   const form=document.querySelector('#place-form');
+   new MutationObserver(records=>{if(records.some(r=>r.type==='childList'&&r.addedNodes.length))audit.push({stage:'mutation',connected:form.isConnected,selected:document.querySelector('#place-form input[name="rating"]:checked')?.value});}).observe(document.querySelector('#main'),{subtree:true,childList:true});
+  });
   const rating=page.locator('#place-form .choice label').filter({has:page.locator('input[name="rating"][value="5"]')});
   await rating.scrollIntoViewIfNeeded();
   const hit=await rating.evaluate(el=>{const b=el.getBoundingClientRect(),h=document.elementFromPoint(b.left+b.width/2,b.top+b.height/2);return {hitOK:el.contains(h),hit:h?.outerHTML.slice(0,200),rect:b.toJSON()}});
   console.log('LIVE_LISBON_RATING_HIT',JSON.stringify(hit));
   assert.ok(hit.hitOK,'rating covered by '+hit.hit);
   await rating.click({timeout:10000});
+  await page.waitForTimeout(60);
+  const ratingAudit=await page.evaluate(()=>({events:window.__ratingAudit?.slice(-65),checked:document.querySelector('#place-form input[name="rating"]:checked')?.value,radios:[...document.querySelectorAll('#place-form input[name="rating"]')].map(x=>({value:x.value,checked:x.checked,connected:x.isConnected}))}));
+  console.log('LIVE_LISBON_RATING_AUDIT',JSON.stringify(ratingAudit));
   assert.equal(await page.locator('#place-form input[name="rating"][value="5"]').isChecked(),true);
   const button=page.locator('#place-form button.primary.big');
   await button.scrollIntoViewIfNeeded();

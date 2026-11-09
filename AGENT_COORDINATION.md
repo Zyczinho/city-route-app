@@ -2,7 +2,7 @@
 
 ## Add Place rating / submit pointer regression
 
-IN_PROGRESS — ChatGPT — `fix/add-place-pointer-targets`; founder reports rating and submit unclickable on desktop/iPhone, apparent shifted hit boxes. Own form CSS/tests/cache only; reproduce real pointer paths (no forced radio checks) on Chromium/WebKit, scrolled form with photo/map and route bar. Fresh Chromium initial hit tests pass; CUA diagnostic timeout did not establish a JS loop. Independent reviewer assigned; no DB/schema/paid-provider changes. Last update2026-11-09.
+IN_PROGRESS / CI BLOCKED — ChatGPT — PR #197 (`fix/add-place-pointer-targets`); scoped radio/file input hit boxes to their own labels, extended real-pointer smoke with upload/rerender, bumped composer CSS v4 and PWA v84. Isolated CSS/DOM Chromium test PASS at 320/375/390/1220 (five radios, upload bounds, submit, no overflow), not full-app acceptance. GitHub Actions CI/P0 smoke job initialization FAIL before any steps, including retry #2; no valid browser/production verification yet. Keep PR DRAFT/unmerged, request independent reviewer after Actions resumes; no DB/schema/user data/paid-provider changes. Last update 2026-11-09.
 
 
 ## P0 #176 — persistent licensed Lisbon covers

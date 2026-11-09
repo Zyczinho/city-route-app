@@ -53,11 +53,17 @@ try{
        await page.locator('#place-form label.file').click();
        await (await filePicker).setFiles({name:'stadium-photo.jpg',mimeType:'image/jpeg',buffer:jpeg});
        await page.locator('.place-photo-editor img').first().waitFor({timeout:12000});
+       const galleryAfterUpload=await page.locator('#place-form').evaluate(form=>{
+        const upload=form.querySelector('label.file'),gallery=form.querySelector('.place-photo-editor');
+        return upload?.nextElementSibling===gallery;
+       });
+       assert.equal(galleryAfterUpload,true,'photo editor must follow file chooser, not rating controls');
       }
       for(const value of ['1','3','5']){
        const radio=page.locator('#place-form input[name="rating"][value="'+value+'"]');
        const label=page.locator('#place-form .choice label').filter({has:page.locator('input[name="rating"][value="'+value+'"]')});
        await label.scrollIntoViewIfNeeded();
+       await label.evaluate(el=>el.scrollIntoView({block:'center'}));
        const hit=await label.evaluate(el=>{
         const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,
           found=document.elementFromPoint(x,y);

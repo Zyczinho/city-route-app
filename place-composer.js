@@ -338,9 +338,9 @@ function decorate(){
  form.insertAdjacentHTML('afterbegin',MARKUP);
  // Order for one-handed use: search, name, where, category, note, photo, visibility.
  const nameLabel=$('input[name="name"]',form)?.closest('label'),whereSet=$('input[name="where"]',form)?.closest('fieldset'),cat=$('select[name="cat"]',form)?.closest('label')||$('input[name="cat"]',form)?.closest('fieldset');
- const note=$('textarea[name="note"]',form)?.closest('label'),photo=$('input[name="photo"]',form)?.closest('label'),vis=$('input[name="vis"]',form)?.closest('fieldset');
+ const note=$('textarea[name="note"]',form)?.closest('label'),photo=$('input[name="photo"]',form)?.closest('label'),gallery=$('.place-photo-editor',form),vis=$('input[name="vis"]',form)?.closest('fieldset');
  const root=$('.pc',form);let after=root;
- for(const el of [nameLabel,whereSet,cat,note,photo,vis])if(el){after.after(el);after=el;}
+ for(const el of [nameLabel,whereSet,cat,note,photo,gallery,vis])if(el){after.after(el);after=el;}
  // The raw `where` field stays in the form as the value app.js saves; the search box above replaces it visually.
  if(whereSet){const legend=$('legend',whereSet),raw=$('input[name="where"]',whereSet)?.closest('label');if(legend)legend.textContent='Albo: jestem na miejscu';if(raw&&!raw.querySelector('input').value)raw.hidden=true;}
  relabel(form);

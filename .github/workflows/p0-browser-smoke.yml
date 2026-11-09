@@ -10,6 +10,7 @@ on:
       - 'map-view.js'
       - 'tests/map-view.test.js'
       - 'place-composer.js'
+      - 'place-photo-gallery.css'
       - 'place-composer-model.js'
       - 'route-optimizer.js'
       - 'route-planner-v2.js'

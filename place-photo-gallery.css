@@ -1,6 +1,11 @@
 /* BETA-GALLERY-058 — compact, touch-friendly, non-destructive photo editor. */
 /* The invisible file input must stay inside its label: absolutely positioned against a static label it took the
    whole page width, widened the layout viewport to ~406 px on a 375 px phone and shifted taps on iPhone. */
+/* Allow scroll/focus targets to clear the persistent bottom navigation. */
+html{scroll-padding-bottom:calc(112px + env(safe-area-inset-bottom))}
+#place-form .choice label,#place-form button.primary.big{
+ scroll-margin-bottom:calc(112px + env(safe-area-inset-bottom));
+}
 #place-form label.file{position:relative;overflow:hidden;cursor:pointer}
 /* The label opens the native picker itself. Do not stretch an invisible input over
    a photo editor: iOS WebKit can retain that full-size touch layer after rerender. */

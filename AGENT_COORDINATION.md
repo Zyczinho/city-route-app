@@ -2,7 +2,7 @@
 
 ## Add Place rating / submit pointer regression
 
-IN_PROGRESS / CI BLOCKED — ChatGPT — PR #197 (`fix/add-place-pointer-targets`); scoped radio/file input hit boxes to their own labels, extended real-pointer smoke with upload/rerender, bumped composer CSS v4 and PWA v84. Isolated CSS/DOM Chromium test PASS at 320/375/390/1220 (five radios, upload bounds, submit, no overflow), not full-app acceptance. GitHub Actions CI/P0 smoke job initialization FAIL before any steps, including retry #2; no valid browser/production verification yet. Keep PR DRAFT/unmerged, request independent reviewer after Actions resumes; no DB/schema/user data/paid-provider changes. Last update 2026-11-09.
+DONE — ChatGPT — PR #197 MERGED as `2ee38353fa8fd6eb50bc4710a0e921ff3da639a1` after PR #198 CI optimization `b773c09e4dee6c7cdebf7549053323a39dd3d906`. Scoped rating radio/file input hit targets; composer CSS v4 and PWA v84; corrected stale CSS-version unit tests and relative Playwright locators. Exact-head CI 42691336342 SUCCESS; P0 browser 42691380625 SUCCESS, pointer/save/photo/rating PASS in Chromium 375/1220 and WebKit 375/1220 (four private places saved to isolated test localStorage). Main production rollout 42691843180 SUCCESS with exact app.js SHA check. No DB/schema/user data/paid-provider changes. Actual iPhone Safari/PWA manual acceptance remains open; do not claim device-tested. Last update 2026-11-09.
 
 
 ## P0 #176 — persistent licensed Lisbon covers

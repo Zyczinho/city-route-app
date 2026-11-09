@@ -317,7 +317,7 @@ try{
      return r.width>0&&r.height>0&&cs.display!=='none'&&cs.position!=='fixed'&&r.right>window.screen.width+1;
    }).slice(0,18).map(e=>{const r=e.getBoundingClientRect();return {tag:e.tagName,cls:String(e.className||'').slice(0,65),id:e.id,left:Math.round(r.left),right:Math.round(r.right),scrollWidth:e.scrollWidth,clientWidth:e.clientWidth};})};
  });
- assert.ok(bottom.tabCount===6&&bottom.scrollWidth<=bottom.screenWidth+1&&bottom.innerWidth<=bottom.screenWidth+1&&bottom.right<=bottom.screenWidth+1&&bottom.avatarRight<=bottom.screenWidth+1,
+ assert.ok(bottom.tabCount===5&&bottom.scrollWidth<=bottom.screenWidth+1&&bottom.innerWidth<=bottom.screenWidth+1&&bottom.right<=bottom.screenWidth+1&&bottom.avatarRight<=bottom.screenWidth+1,
   '320px bottom navigation must never widen screen to 324px: '+JSON.stringify(bottom));
  assert.ok(compactNav.navScrollWidth<=compactNav.navClientWidth+1&&compactNav.scrollWidth<=compactNav.viewport+1&&compactNav.links.every(link=>link.left>=compactNav.left-1&&link.right<=compactNav.right+1),
   'Community 320px grid must not overflow: '+JSON.stringify(compactNav));

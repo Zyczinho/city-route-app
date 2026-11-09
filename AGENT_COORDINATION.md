@@ -1,5 +1,10 @@
 # Agent Coordination — canonical control plane
 
+## P0 #176 — persistent licensed Lisbon covers
+
+IN_PROGRESS — ChatGPT — `content/lisbon-permanent-commons-covers`; inspect first30 exact-place Commons candidates, verify identity/license/author, vendor reusable JPEG assets in GitHub and attach provenance in JSON/hosted catalogue using bounded reviewed DML. Skip identity-unverified/historical/temporarily-closed records; never copy Google/social/official-site photos without reuse rights. Retain current Google path where no exact licensed candidate exists. Record actual coverage, do not claim all30 complete. No paid services/keys, user-data edits or new schema. Last update2026-11-09.
+
+
 ## P0 #176 — first30 Lisbon sourced descriptions
 
 REVIEW — ChatGPT — PR #195 MERGED `cf9cfdb3a6c18fee4570464aa135dded3d268776`;24 blank Lisbon descriptions filled with per-place sources (20normal,4 explicit closure/historical/identity warnings). JSON fallback and source manifest agree; PWA v82. Exact-head CI42669952063 and mobile42669952100 SUCCESS; SQL/content review PASS; actual PostgreSQL read-only guard cases4/4PASS. Bounded hosted DML APPLIED after merge:24/24 exact descriptions+sources verified, first30 descriptions30/30, wholecity47/192 (was23); all unrelated catalogue fields/records unchanged against baseline. Main CI42670290601 and rollout42670290364 SUCCESS; live cache `city-route-v82-1e6c5d90d6`. Actual browser A Brasileira had no description before; after reload exact new text visible with Google score/photo. Not a real iPhone acceptance claim. No records hidden/deleted;4 flagged entries remain unresolved as operational/identity issues. Next #176: permanent exact licensed covers and flagged-record handling; #176 stays OPEN. Last update2026-11-09.

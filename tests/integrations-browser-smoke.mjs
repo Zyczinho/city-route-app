@@ -35,6 +35,7 @@ try{
  page.on('pageerror',err=>errors.push(err.message));
  page.on('dialog',dialog=>dialog.accept());
  await page.goto(ROOT+'/#my-route',{waitUntil:'domcontentloaded'});
+ await page.mouse.move(0,0);
  const manualStyle=await page.locator('.variant-d-route-actions').evaluate(async el=>{
   const buttons=[...el.children].filter(n=>n.matches('button,a'));
   await Promise.all(buttons.flatMap(n=>n.getAnimations().map(a=>a.finished)));
@@ -117,6 +118,7 @@ try{
  assert.ok(await editorial.locator('.i').count()>0,'editorial share uses a Lucide icon');
  for(const width of [320,375,390]){
   await page.setViewportSize({width,height:812});
+  await page.mouse.move(0,0);
   const parity=await page.locator('#main .variant-d-route-actions').evaluate(async el=>{
    const buttons=[...el.children].filter(n=>n.matches('button,a'));
    await Promise.all(buttons.flatMap(n=>n.getAnimations().map(a=>a.finished)));

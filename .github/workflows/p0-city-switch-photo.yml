@@ -1,0 +1,31 @@
+name: Compare Lisbon and Warsaw Add Place
+on:
+  pull_request:
+    paths:
+      - 'tests/add-place-city-switch-smoke.mjs'
+      - '.github/workflows/p0-city-switch-photo.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: city-switch-photo-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  compare-cities:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm run build
+      - run: npm install --no-save playwright@1.58.2
+      - run: npx playwright install --with-deps chromium webkit
+      - run: node tests/add-place-city-switch-smoke.mjs
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: city-switch-photo-screenshots
+          path: p0-smoke-artifacts/
+          if-no-files-found: ignore

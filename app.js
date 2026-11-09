@@ -903,7 +903,13 @@ document.addEventListener('change',async e=>{
    try{const source=await shrink(file,1200);if(source.length>580000){toast('Zdjęcie jest za duże po kompresji.');continue;}added.push({id:uuid(),source,crop:photoCropDefaults()});}
    catch{toast('Nie udało się wczytać zdjęcia.');}}
   draft.photos=[...old,...added];draft.editPhotoId=added[0]?.id||draft.editPhotoId||draft.photos[0]?.id||null;draft.imageRights=false;
-  if(selected.length>available)toast('Maksymalnie 5 zdjęć — pominięto nadmiar.');render();}
+  if(selected.length>available)toast('Maksymalnie 5 zdjęć — pominięto nadmiar.');
+  render();
+  // Photo selection replaces the entire form; put rating in the unobscured mobile viewport.
+  if(added.length)requestAnimationFrame(()=>requestAnimationFrame(()=>{
+   const rating=$('#place-form input[name="rating"]')?.closest('fieldset');
+   if(rating&&route()[0]==='add-place')rating.scrollIntoView({block:'center',behavior:'auto'});
+  }));}
 });
 document.addEventListener('submit',async e=>{const f=e.target,data=new FormData(f);
  if(f.id==='route-save-form'){
@@ -931,14 +937,14 @@ document.addEventListener('submit',async e=>{const f=e.target,data=new FormData(
  if(f.id==='place-form'){e.preventDefault();if(f.dataset.saving)return;keepDraft();
   if(draft.sourcePageUrl&&!parsePhotoSourceUrl(draft.sourcePageUrl))return toast('Link do źródła musi być poprawnym publicznym adresem HTTPS (strona, Instagram lub Facebook).');
   const submitted=draft;let loc=parseLocation(draft.where)||(Number.isFinite(draft.lat)?{lat:draft.lat,lng:draft.lng}:null);
-  if(!loc&&/^https:\/\//i.test(draft.where||'')){f.dataset.saving='1';f.querySelector('button.primary').disabled=true;toast('Odczytuję link Google Maps…');try{const r=await fetch('/api/location?url='+encodeURIComponent(draft.where));const v=await r.json();if(r.ok&&v.location)loc=v.location;}catch{}finally{delete f.dataset.saving;f.querySelector('button.primary').disabled=false;}if(draft!==submitted||route()[0]!=='add-place')return;}
+  if(!loc&&/^https:\/\//i.test(draft.where||'')){f.dataset.saving='1';f.querySelector('button.primary.big').disabled=true;toast('Odczytuję link Google Maps…');try{const r=await fetch('/api/location?url='+encodeURIComponent(draft.where));const v=await r.json();if(r.ok&&v.location)loc=v.location;}catch{}finally{delete f.dataset.saving;f.querySelector('button.primary.big').disabled=false;}if(draft!==submitted||route()[0]!=='add-place')return;}
   if(!loc)return toast(draft.where?'Nie udało się odczytać miejsca. Wklej współrzędne, np. 52.2395, 21.0458, albo użyj przycisku lokalizacji. Twój formularz został zachowany.':'Ustaw lokalizację albo wklej link z Google Maps.');
   if(!isInsideCity(loc,city()))return toast(`To miejsce jest dalej niż ${city().radiusKm} km od ${city().name}.`);
   let localImages=[];
-  if(draft.photos?.length){f.dataset.saving='1';f.querySelector('button.primary').disabled=true;
+  if(draft.photos?.length){f.dataset.saving='1';f.querySelector('button.primary.big').disabled=true;
    try{localImages=await Promise.all(draft.photos.slice(0,MAX_PLACE_PHOTOS).map(p=>cropPlacePhoto(p.source,p.crop)));}
    catch{toast('Nie można przygotować kadru zdjęcia. Spróbuj ponownie.');return;}
-   finally{delete f.dataset.saving;f.querySelector('button.primary').disabled=false;}}
+   finally{delete f.dataset.saving;f.querySelector('button.primary.big').disabled=false;}}
   // P0 #1: a photo the user accepted from the automatic proposal; the user's own photos always win.
   const proposed=!localImages.length&&!draft.image?readAcceptedPhoto(f.dataset.pcPhoto):null;
   const c=draft.cat||'okolice',group=userGroup(c),p={id:'u-'+uuid().slice(0,8),cityId:city().id,categoryId:taxonomy?.legacyAliases?.[c]||c,kind:'user',visibility:draft.vis==='public'?'public':'private',name:String(draft.name).trim(),cats:[group],area:'Twoje miejsce',description:String(draft.note||'').trim()||'Twoje miejsce.',lat:+loc.lat.toFixed(6),lng:+loc.lng.toFixed(6),minutes:c==='jedzenie'?45:20,cost:0,tags:USER_TAGS[group]||['hidden'],tourist:'local',foodStyle:c==='jedzenie'?'quick':'none',partner:false,ratings:[],googlePlaceId:f.dataset.pcGooglePlaceId||null,image:localImages[0]||draft.image||proposed?.image||null,imageCredit:proposed?.imageCredit||null,images:localImages,imageRightsConfirmed:draft.vis==='public'&&localImages.length>0&&!!draft.imageRights,photoSourcePage:parsePhotoSourceUrl(draft.sourcePageUrl),photoSourceKind:draft.sourcePageUrl?photoSourceKind(draft.sourcePageUrl):null,sourceUrl:/^https?:\/\//i.test(draft.where||'')?String(draft.where).slice(0,500):null,submissionStatus:draft.vis==='public'?'not_submitted':null,verification:{editorial:false,community:false},createdAt:new Date().toISOString()};

@@ -36,8 +36,8 @@ test('one profile collections entry does not confuse own, social-saved and favor
  assert.match(app,/function collectionsView\(\)/);
  const collections=app.split('function collectionsView(){')[1].split('// ONBOARDING-MENU-050:')[0];
  assert.deepEqual([...collections.matchAll(/<a href="([^"]+)"/g)].map(x=>x[1]),
-  ['#profile','#collections/places','#social-saved'],
-  'collections keep only Saved Places and Saved Routes plus the back link');
+  ['#collections/places','#social-saved'],
+  'collections tiles keep only Saved Places and Saved Routes');
  assert.doesNotMatch(collections,/Aktualna trasa|Zapisane trasy innych|href="#my-route"/);
  assert.match(app,/Moje, redakcji i społeczności/);
  assert.doesNotMatch(app,/Zapisane trasy innych/);

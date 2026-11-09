@@ -1,4 +1,6 @@
 import { supabase } from './supabase-client.js';
+import {renderPrivateInbox,renderDirectThread,sendDirectMessage,stopDirectThread} from './direct-messages-ui.js';
+import {renderActivityCenter} from './activity-notifications.js';
 
 let session=null;
 let channel=null;
@@ -16,13 +18,15 @@ const communityPath=()=>{
   if(parts[0]!=='routes'||parts[1]!=='community')return null;
   if(parts[2]==='groups')return {view:'groups',id:null};
   if(parts[2]==='chats')return {view:'chats',id:null};
+  if(parts[2]==='notifications')return {view:'notifications',id:null};
+  if(parts[2]==='dm')return {view:'dm',id:parts[3]||null};
   if(parts[2]==='group'||parts[2]==='chat')return {view:'group',id:parts[3]||null,origin:parts[2]};
   return null;
 };
 const communityRoute=()=>!!communityPath();
 const groupId=()=>communityPath()?.id||'';
 const groupHref=(id,kind='group')=>`#routes/community/${kind}/${encodeURIComponent(id)}`;
-const groupBack=()=>communityPath()?.view==='group'?(communityPath()?.origin==='chat'?'#routes/community/chats':'#routes/community/groups'):'#routes/community';
+const groupBack=()=>communityPath()?.view==='dm'?'#routes/community/chats':communityPath()?.view==='group'?(communityPath()?.origin==='chat'?'#routes/community/chats':'#routes/community/groups'):'#routes/community';
 const main=()=>document.querySelector('#main');
 
 function stopRealtime(){
@@ -125,7 +129,7 @@ async function renderGroup(id){
   }).subscribe();
 }
 
-// The Chats tab indexes the user's group conversations; no separate message backend.
+// The Chats tab now combines separate private friend conversations and the original group chat.
 async function renderChats(){
   stopRealtime();
   const initialHash=location.hash;
@@ -138,8 +142,10 @@ async function renderChats(){
   if(location.hash!==initialHash)return;
   if(memberError){shell('Czaty',`<p class="community-status error">${esc(memberError.message)}</p>`);return;}
   const ids=[...new Set((mine||[]).map(x=>x.group_id))];
+  const privateInbox=await renderPrivateInbox(session);
+  if(location.hash!==initialHash)return;
   if(!ids.length){
-    shell('Czaty','<div class="community-empty"><h2>Jeszcze nie masz rozmów</h2><p>Dołącz do grupy odkrywców, aby zobaczyć jej czat tutaj.</p><a class="button primary" href="#routes/community/groups">Przeglądaj grupy</a></div>');
+    shell('Czaty',`<p class="lead">Rozmawiaj prywatnie ze znajomymi oraz w grupach.</p>${privateInbox}<h2 class="dm-section-title">Czaty grupowe</h2><p class="community-empty-inline">Nie należysz jeszcze do żadnej grupy.</p><a class="button" href="#routes/community/groups">Przeglądaj grupy</a>`);
     return;
   }
   const [{data:groups,error:groupError},{data:messages,error:messagesError}]=await Promise.all([
@@ -154,7 +160,7 @@ async function renderChats(){
     const last=latest.get(group.id);
     return `<a class="community-chat-link" href="${groupHref(group.id,'chat')}"><span class="community-chat-icon" aria-hidden="true">#</span><span class="community-chat-copy"><strong>${esc(group.name)}</strong><small>${last?esc(last.body):'Brak wiadomości. Rozpocznij rozmowę.'}</small></span>${last?`<time>${esc(fmtDate(last.created_at))}</time>`:''}</a>`;
   }).join('');
-  shell('Czaty',`<p class="lead">Rozmowy z grup, do których należysz. Wybierz grupę, aby pisać.</p><div class="community-chat-index">${cards||'<p class="community-empty-inline">Brak dostępnych rozmów.</p>'}</div><a class="button" href="#routes/community/groups">Zobacz grupy</a>`);
+  shell('Czaty',`<p class="lead">Rozmawiaj prywatnie ze znajomymi oraz w grupach odkrywców.</p>${privateInbox}<h2 class="dm-section-title">Czaty grupowe</h2><div class="community-chat-index">${cards||'<p class="community-empty-inline">Brak dostępnych rozmów grupowych.</p>'}</div><a class="button" href="#routes/community/groups">Zobacz grupy</a>`);
 }
 
 async function routeRender(){
@@ -162,8 +168,11 @@ async function routeRender(){
   rendering=true;
   try{
     const path=communityPath();
+    if(path?.view!=='dm')stopDirectThread();
     if(path){
-      if(path.view==='chats')await renderChats();
+      if(path.view==='notifications')await renderActivityCenter({session,shell});
+      else if(path.view==='chats')await renderChats();
+      else if(path.view==='dm'&&path.id)await renderDirectThread({peerId:path.id,session,shell});
       else if(path.view==='group'&&path.id)await renderGroup(path.id);
       else await renderGroups();
     }else{
@@ -229,6 +238,7 @@ document.addEventListener('submit',e=>{
   e.preventDefault();e.stopImmediatePropagation();
   if(form.dataset.communityForm==='create')createGroup(form);
   if(form.dataset.communityForm==='message')sendMessage(form);
+  if(form.dataset.communityForm==='direct-message')void sendDirectMessage(form);
 },true);
 
 document.addEventListener('click',e=>{

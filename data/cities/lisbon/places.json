@@ -6,7 +6,7 @@
     "lng": -9.1242107,
     "categoryId": "bar",
     "area": "",
-    "description": "",
+    "description": "Wpis importowano jako bar, ale powiązany profil Amazonas promuje obecnie targi i wydarzenia. Tożsamość i działanie lokalu pod tą pinezką wymagają potwierdzenia przed zaplanowaniem wizyty.",
     "minutes": 60,
     "cost": 0,
     "tourist": "balanced",
@@ -32,7 +32,16 @@
         "website": "https://linktr.ee/amz.amazonas"
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://linktr.ee/amz.amazonas"
+        ],
+        "visitStatus": "identity-unverified"
+      }
     },
     "website": "https://linktr.ee/amz.amazonas"
   },
@@ -43,7 +52,7 @@
     "lng": -9.1487405,
     "categoryId": "bar",
     "area": "",
-    "description": "",
+    "description": "Niewielki bar koktajlowy przy Rua de Santa Catarina, niedaleko punktu widokowego o tej samej nazwie. To propozycja na wieczorny przystanek po spacerze po wzgórzu; sprawdź bieżące godziny lokalu.",
     "minutes": 60,
     "cost": 0,
     "tourist": "balanced",
@@ -69,7 +78,16 @@
         "website": "https://www.instagram.com/barnacolina/"
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://www.nit.pt/comida/cafes-e-bares/entre-o-xadrez-e-cocktails-o-novo-bar-de-lisboa-e-um-ponto-de-encontro-na-colina"
+        ],
+        "visitStatus": "listed"
+      }
     },
     "website": "https://www.instagram.com/barnacolina/"
   },
@@ -542,7 +560,7 @@
     "lng": -9.1420119,
     "categoryId": "cafe",
     "area": "",
-    "description": "",
+    "description": "Historyczna kawiarnia w Chiado związana z lizbońskim życiem literackim i Fernandem Pessoą. Przed lokalem stoi pomnik poety, więc można połączyć przerwę na kawę z krótkim przystankiem na literackim szlaku.",
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
@@ -569,7 +587,16 @@
         "website": null
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://www.visitlisboa.com/pt-pt/lisbon-stories/4-route-pessoa/pois"
+        ],
+        "visitStatus": "listed"
+      }
     }
   },
   {
@@ -579,7 +606,7 @@
     "lng": -9.154145,
     "categoryId": "cafe",
     "area": "",
-    "description": "",
+    "description": "Rodzinna palarnia kawy w Madragoa, znana z tradycyjnego palenia ziaren nad ogniem opalanym drewnem. To przystanek dla osób zainteresowanych lokalną kawą i jej produkcją, a nie typowa atrakcja muzealna.",
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
@@ -606,7 +633,17 @@
         "website": "https://flordaselva.com/"
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://pt.linkedin.com/company/a-flor-da-selva",
+          "https://flordaselva.com/home--pt.html"
+        ],
+        "visitStatus": "listed"
+      }
     },
     "website": "https://flordaselva.com/"
   },
@@ -617,7 +654,7 @@
     "lng": -9.138647,
     "categoryId": "cafe",
     "area": "",
-    "description": "",
+    "description": "Kawiarnia specialty coffee i niewielkich posiłków przy Avenida de Roma. To propozycja na kawę oraz kanapkę podczas spaceru po tej mniej turystycznej części miasta.",
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
@@ -644,7 +681,17 @@
         "website": "https://a20.choiceqr.com/"
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://a20.choiceqr.com/",
+          "https://thirddesk.co/portugal/lisbon/a20-specialty-coffee-food"
+        ],
+        "visitStatus": "listed"
+      }
     },
     "website": "https://a20.choiceqr.com/"
   },
@@ -655,7 +702,7 @@
     "lng": -9.1412119,
     "categoryId": "cafe",
     "area": "",
-    "description": "",
+    "description": "Lokal kawiarniany przy Rua de Dona Estefânia, poza głównymi trasami po Baixie i Alfamie. Można rozważyć go jako przystanek na napój podczas odkrywania okolicy; przed wizytą sprawdź aktualne godziny.",
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
@@ -682,7 +729,17 @@
         "website": "http://www.artealcafe.pt/"
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://www.tripadvisor.pt/Restaurant_Review-g189158-d9563827-Reviews-Al_Cafe-Lisbon_Lisbon_District_Central_Portugal.html",
+          "https://www.openstreetmap.org/node/3724793425"
+        ],
+        "visitStatus": "listed"
+      }
     },
     "website": "http://www.artealcafe.pt/"
   },
@@ -693,7 +750,7 @@
     "lng": -9.1542828,
     "categoryId": "cafe",
     "area": "",
-    "description": "",
+    "description": "Kawiarnia brunchowa przy Largo do Rato z kawą specialty, matchą oraz daniami śniadaniowymi. Pasuje do porannej przerwy lub późniejszego śniadania przed spacerem w stronę Príncipe Real.",
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
@@ -720,7 +777,16 @@
         "website": "https://albabistrolisbon.com/"
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://albalisbon.com/"
+        ],
+        "visitStatus": "listed"
+      }
     },
     "website": "https://albabistrolisbon.com/"
   },
@@ -731,7 +797,7 @@
     "lng": -9.1621907,
     "categoryId": "cafe",
     "area": "",
-    "description": "",
+    "description": "Miejsce w Estreli łączące kawiarnię, jedzenie i działania lokalnych artystów z muzyką oraz wydarzeniami. Można zaplanować tu przerwę lub wieczorne wyjście, dobierając wizytę do aktualnego programu Baiwho.",
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
@@ -758,7 +824,17 @@
         "website": "https://www.instagram.com/baiwholisboa/"
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://linktr.ee/baiwholisboa",
+          "https://www.timeout.pt/lisboa/pt/coisas-para-fazer/baiwho-lisboa"
+        ],
+        "visitStatus": "listed"
+      }
     },
     "website": "https://www.instagram.com/baiwholisboa/"
   },
@@ -1414,7 +1490,7 @@
     "lng": -9.1554158,
     "categoryId": "club",
     "area": "",
-    "description": "",
+    "description": "Klub w Santos kojarzony z muzyką i tańcami latynoskimi oraz afrykańskimi. To opcja dla osób szukających parkietu zamiast spokojnego baru; aktualną imprezę i warunki wejścia potwierdź przed wyjściem.",
     "minutes": 90,
     "cost": 0,
     "tourist": "balanced",
@@ -1441,7 +1517,17 @@
         "website": "https://www.facebook.com/BarrioLatinoPT/"
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://www.allaboutportugal.pt/pt/lisboa/bares/barrio-latino-cafe",
+          "https://www.cmjornal.pt/memoria-cm/lisbon-cool/drink/detalhe/learn-to-dance-at-barrio-latino"
+        ],
+        "visitStatus": "listed"
+      }
     },
     "website": "https://www.facebook.com/BarrioLatinoPT/"
   },
@@ -2027,7 +2113,7 @@
     "lng": -9.1300114,
     "categoryId": "gallery",
     "area": "",
-    "description": "",
+    "description": "Galeria przy Rua da Graça organizująca wystawy czasowe. Można zajrzeć tu podczas spaceru po Graça, żeby uzupełnić punkty widokowe o kontakt ze sztuką; wcześniej sprawdź aktualny program galerii.",
     "minutes": 40,
     "cost": 0,
     "tourist": "balanced",
@@ -2054,7 +2140,17 @@
         "website": null
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://artegraca.pt/",
+          "https://www.imagolisboa.pt/en-exposicao-gag.html"
+        ],
+        "visitStatus": "listed"
+      }
     }
   },
   {
@@ -2064,7 +2160,7 @@
     "lng": -9.1504609,
     "categoryId": "gallery",
     "area": "",
-    "description": "",
+    "description": "Dawna przestrzeń Atelier RE.AL przy Rua do Poço dos Negros była związana z tańcem współczesnym i działalnością João Fiadeiro. Jej działalność zakończyła się w 2019 roku — to punkt historii lokalnej sceny artystycznej, nie potwierdzona czynna galeria.",
     "minutes": 40,
     "cost": 0,
     "tourist": "balanced",
@@ -2091,7 +2187,17 @@
         "website": "https://re-al.org/"
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://www.ccb.pt/evento/joao-fiadeiro-introspectiva/",
+          "https://www.rtp.pt/noticias/cultura/projeto-de-danca-real-chega-hoje-ao-fim-com-atuacao-de-joao-fiadeiro-e-joana-gama_n1163189"
+        ],
+        "visitStatus": "historical"
+      }
     },
     "website": "https://re-al.org/"
   },
@@ -3033,7 +3139,7 @@
     "lng": -9.1573829,
     "categoryId": "landmark",
     "area": "",
-    "description": "",
+    "description": "Kamienny łuk dawnego Aqueduto das Águas Livres, odtworzony na Praça de Espanha z elementów przeniesionych z São Bento. To krótki przystanek na obejrzenie fragmentu historii miejskiej infrastruktury wodnej.",
     "minutes": 20,
     "cost": 0,
     "tourist": "balanced",
@@ -3060,7 +3166,16 @@
         "website": "http://www.cm-lisboa.pt/equipamentos/equipamento/info/arco-das-portas-de-s-bento"
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://arquivomunicipal3.cm-lisboa.pt/x-arqweb/Result.aspx?id=3619671&type=PCD"
+        ],
+        "visitStatus": "listed"
+      }
     },
     "website": "http://www.cm-lisboa.pt/equipamentos/equipamento/info/arco-das-portas-de-s-bento"
   },
@@ -3617,7 +3732,7 @@
     "lng": -9.1663029,
     "categoryId": "museum",
     "area": "",
-    "description": "",
+    "description": "Zabytkowy akwedukt będący częścią dawnego systemu zaopatrzenia Lizbony w wodę. Spacer jego monumentalnymi arkadami nad doliną Alcântary pozwala obejrzeć miasto z innej perspektywy; wejście sprawdź w Museu da Água.",
     "minutes": 70,
     "cost": 0,
     "tourist": "balanced",
@@ -3644,7 +3759,16 @@
         "website": "https://www.epal.pt/EPAL/menu/museu-da-%C3%A1gua/exposi%C3%A7%C3%A3o-permanente-patrim%C3%B3nio-associado/aqueduto-das-%C3%A1guas-livres"
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://www.epal.pt/EPAL/menu/museu-da-%C3%A1gua/exposi%C3%A7%C3%A3o-permanente-patrim%C3%B3nio-associado/aqueduto-das-%C3%A1guas-livres"
+        ],
+        "visitStatus": "listed"
+      }
     },
     "website": "https://www.epal.pt/EPAL/menu/museu-da-%C3%A1gua/exposi%C3%A7%C3%A3o-permanente-patrim%C3%B3nio-associado/aqueduto-das-%C3%A1guas-livres"
   },
@@ -5028,7 +5152,7 @@
     "lng": -9.1605532,
     "categoryId": "religious_site",
     "area": "",
-    "description": "",
+    "description": "XVIII-wieczna bazylika z charakterystyczną białą kopułą i bogato dekorowanym wnętrzem, położona naprzeciw Jardim da Estrela. Można połączyć obejrzenie kościoła z odpoczynkiem w sąsiednim ogrodzie.",
     "minutes": 20,
     "cost": 0,
     "tourist": "balanced",
@@ -5055,7 +5179,16 @@
         "website": null
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://www.visitlisboa.com/en/places/basilica-da-estrela"
+        ],
+        "visitStatus": "listed"
+      }
     }
   },
   {
@@ -5293,7 +5426,7 @@
     "lng": -9.2020205,
     "categoryId": "restaurant",
     "area": "",
-    "description": "",
+    "description": "Lokal sieci 100 Montaditos serwującej małe kanapki na ciepło, tapas i przekąski. To propozycja na nieskomplikowany posiłek lub kilka małych porcji do podziału podczas zwiedzania.",
     "minutes": 60,
     "cost": 0,
     "tourist": "balanced",
@@ -5319,7 +5452,16 @@
         "website": "https://portugal.100montaditos.com"
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://portugal.100montaditos.com/pt"
+        ],
+        "visitStatus": "listed"
+      }
     },
     "website": "https://portugal.100montaditos.com"
   },
@@ -5330,7 +5472,7 @@
     "lng": -9.1761191,
     "categoryId": "restaurant",
     "area": "",
-    "description": "",
+    "description": "Restauracja sieci 100 Montaditos z menu małych kanapek, tapas i napojów. Można potraktować ją jako przystanek na szybki posiłek, zamiast planować dłuższą kolację.",
     "minutes": 60,
     "cost": 0,
     "tourist": "balanced",
@@ -5356,7 +5498,16 @@
         "website": "https://portugal.100montaditos.com/"
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://portugal.100montaditos.com/pt"
+        ],
+        "visitStatus": "listed"
+      }
     },
     "website": "https://portugal.100montaditos.com/"
   },
@@ -5367,7 +5518,7 @@
     "lng": -9.1405396,
     "categoryId": "restaurant",
     "area": "",
-    "description": "",
+    "description": "Restauracja kuchni irańskiej przy Rua João Villaret, w okolicy Avenida de Roma. To propozycja na poznanie perskich dań i grillowanych mięs poza ścisłym centrum turystycznym.",
     "minutes": 60,
     "cost": 0,
     "tourist": "balanced",
@@ -5393,7 +5544,17 @@
         "website": "https://1001-nights-iranian-restaurant.negocio.site"
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://www.tripadvisor.com/Restaurant_Review-g189158-d12446407-Reviews-1001_Nights_Iranian_Restaurant-Lisbon_Lisbon_District_Central_Portugal.html",
+          "https://www.openstreetmap.org/node/8321839453"
+        ],
+        "visitStatus": "listed"
+      }
     },
     "website": "https://1001-nights-iranian-restaurant.negocio.site"
   },
@@ -5446,7 +5607,7 @@
     "lng": -9.1063923,
     "categoryId": "restaurant",
     "area": "",
-    "description": "",
+    "description": "Restauracja w dawnych stajniach pałacu w Beato, specjalizująca się w portugalskich daniach z dorsza. Warto uwzględnić ją przy poznawaniu wschodniej Lizbony, jeśli chcesz spróbować różnych odsłon bacalhau.",
     "minutes": 60,
     "cost": 0,
     "tourist": "balanced",
@@ -5472,7 +5633,16 @@
         "website": "https://www.acasadobacalhau.com/"
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://www.casadobacalhau.pt/"
+        ],
+        "visitStatus": "listed"
+      }
     },
     "website": "https://www.acasadobacalhau.com/"
   },
@@ -5483,7 +5653,7 @@
     "lng": -9.1768534,
     "categoryId": "restaurant",
     "area": "",
-    "description": "",
+    "description": "Ten wpis wymaga weryfikacji: przypisana strona A Cigarrinha dotyczy mundurków szkolnych, a nie potwierdzonej restauracji. Na razie nie traktuj tej pinezki jako sprawdzonego miejsca na posiłek.",
     "minutes": 60,
     "cost": 0,
     "tourist": "balanced",
@@ -5509,7 +5679,16 @@
         "website": "https://www.fardascigarrinha.pt/"
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://www.fardascigarrinha.pt/"
+        ],
+        "visitStatus": "identity-unverified"
+      }
     },
     "website": "https://www.fardascigarrinha.pt/"
   },
@@ -5520,7 +5699,7 @@
     "lng": -9.1340124,
     "categoryId": "restaurant",
     "area": "",
-    "description": "",
+    "description": "Portugalska restauracja w Baixie, blisko Praça do Comércio, specjalizująca się między innymi w daniach z grilla. Pozwala połączyć spacer po historycznym centrum z posiłkiem opartym na lokalnej kuchni.",
     "minutes": 60,
     "cost": 0,
     "tourist": "balanced",
@@ -5546,7 +5725,16 @@
         "website": "https://agaucha.pt/"
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://www.agaucha.pt/"
+        ],
+        "visitStatus": "listed"
+      }
     },
     "website": "https://agaucha.pt/"
   },
@@ -5557,7 +5745,7 @@
     "lng": -9.1877489,
     "categoryId": "restaurant",
     "area": "",
-    "description": "",
+    "description": "Restauracja kuchni portugalskiej w Carnide, z daniami takimi jak ośmiornica à lagareiro i mięso podawane na gorącym kamieniu. To opcja na pełny obiad lub kolację poza centrum; sprawdź dostępność przed dojazdem.",
     "minutes": 60,
     "cost": 0,
     "tourist": "balanced",
@@ -5583,7 +5771,16 @@
         "website": "http://4sq.com/bygLqc"
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://www.adegadasgravatas.com/"
+        ],
+        "visitStatus": "listed"
+      }
     },
     "website": "http://4sq.com/bygLqc"
   },
@@ -5594,7 +5791,7 @@
     "lng": -9.141111,
     "categoryId": "restaurant",
     "area": "",
-    "description": "",
+    "description": "ALMA to restauracja autorskiej kuchni portugalskiej w Chiado, związana z Henrique Sá Pessoą. Oficjalna strona informuje o czasowym zamknięciu — potwierdź ponowne otwarcie przed planowaniem wizyty.",
     "minutes": 60,
     "cost": 0,
     "tourist": "balanced",
@@ -5620,7 +5817,16 @@
         "website": "https://www.almalisboa.pt/"
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://www.almalisboa.pt/"
+        ],
+        "visitStatus": "temporarily-closed"
+      }
     },
     "website": "https://www.almalisboa.pt/"
   },
@@ -5631,7 +5837,7 @@
     "lng": -9.1414882,
     "categoryId": "restaurant",
     "area": "",
-    "description": "",
+    "description": "Restauracja José Avilleza w Chiado prezentująca współczesne interpretacje kuchni portugalskiej. To propozycja na zaplanowane doświadczenie gastronomiczne z menu degustacyjnym lub à la carte, a nie szybki posiłek w trakcie spaceru.",
     "minutes": 60,
     "cost": 0,
     "tourist": "balanced",
@@ -5657,7 +5863,16 @@
         "website": "https://www.belcanto.pt/"
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://www.belcanto.pt/"
+        ],
+        "visitStatus": "listed"
+      }
     },
     "website": "https://www.belcanto.pt/"
   },
@@ -6630,7 +6845,7 @@
     "lng": -9.0913444,
     "categoryId": "viewpoint",
     "area": "",
-    "description": "",
+    "description": "Bar i punkt widokowy w Torre Vasco da Gama, z panoramą 360 stopni na Parque das Nações i Tag. To propozycja na widoki połączone z koktajlem; zasady wejścia sprawdź u operatora wieży.",
     "minutes": 15,
     "cost": 0,
     "tourist": "balanced",
@@ -6657,7 +6872,16 @@
         "website": "https://www.vascodagamatower.com/spots/babylon-360/"
       },
       "costUnknown": true,
-      "sourceSnapshot": "2026-11-07T18:23:21Z"
+      "sourceSnapshot": "2026-11-07T18:23:21Z",
+      "editorial": {
+        "status": "desk-researched",
+        "reviewedAt": "2026-11-09",
+        "fieldTested": false,
+        "descriptionSources": [
+          "https://www.vascodagamatower.com/spots/babylon-360/"
+        ],
+        "visitStatus": "listed"
+      }
     },
     "website": "https://www.vascodagamatower.com/spots/babylon-360/"
   },

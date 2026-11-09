@@ -64,5 +64,5 @@
   .cr-map-toolbar{flex-wrap:wrap}
   .cr-map-toolbar button{flex:1 1 auto;min-width:0;padding:8px 10px;font-size:13px}
 }
-/* Leaflet normally captures one-finger gestures; let page pan-y win until the user opts into map interaction. */
+/* Leaflet captures one-finger drag inside the map; the 20px horizontal gutters allow page scrolling. */
 @media(min-width:760px){.places-map-shell{margin:12px 0 18px}}

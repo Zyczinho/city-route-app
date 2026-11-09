@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {combineSavedRoutes} from '../social-routes-client.js';
+import {combineSavedRoutes,createSocialRoutesClient} from '../social-routes-client.js';
 
 test('the profile archive combines own, archived, editorial and community saves in one city',()=>{
  const local=[
@@ -52,4 +52,17 @@ test('editorial detail has a dedicated save action, not the old edit-as-my-route
  assert.match(ui,/data-saved-unsave/,'cloud saves need a separate unsave action');
  assert.match(ui,/await api\.unsaveRoute\(ref,selectedCity\)/,'account bookmark must be removed via unsave_route RPC');
  assert.doesNotMatch(ui,/data-saved-unsave[^\n]+deleteOwnedRoute/,'never delete published route during unsave');
+});
+
+test('remote trash uses unsave_route for both community UUID and editorial slug, never source deletion',async()=>{
+ const calls=[];
+ const api=createSocialRoutesClient({client:{rpc:async(name,args)=>{calls.push({name,args});return {data:'ok'};}}});
+ await api.unsaveRoute('uuid-comm','lisbon');
+ await api.unsaveRoute('lisbon-classics','lisbon');
+ assert.deepEqual(calls,[
+  {name:'unsave_route',args:{p_city_slug:'lisbon',p_ref:'uuid-comm'}},
+  {name:'unsave_route',args:{p_city_slug:'lisbon',p_ref:'lisbon-classics'}}
+ ]);
+ const remote=combineSavedRoutes({cityId:'lisbon',remoteRoutes:[{id:'lisbon-classics',routeId:'uuid-ed',cityId:'lisbon',type:'editorial',name:'Classics'}]});
+ assert.equal(remote[0].sourceRef,'lisbon-classics','remote editorial unsave must use public slug rather than database UUID');
 });

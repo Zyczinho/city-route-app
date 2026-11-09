@@ -645,12 +645,11 @@ function savedRoutesView(){
 }
 
 function collectionsView(){
- const draft=state.basket.length,localRoutes=forCity(state.myRoutes,city().id).length;
- return `<section class="page-head"><a class="back" href="#profile">${ic('arrow-left')}Profil</a><p class="kicker">Profil · ${esc(city().name)}</p><h1>Moje kolekcje</h1><p class="lead">Wszystkie zapisane trasy w jednym miejscu — Twoje, redakcyjne i społecznościowe.</p></section>
+ const localRoutes=forCity(state.myRoutes,city().id).length;
+ return `<section class="page-head"><a class="back" href="#profile">${ic('arrow-left')}Profil</a><p class="kicker">Profil · ${esc(city().name)}</p><h1>Moje kolekcje</h1><p class="lead">Twoje zapisane miejsca i trasy w jednym miejscu.</p></section>
   <div class="variant-d-collection-links">
-   <a href="#my-route">${ic('navigation')}<span><strong>Aktualna trasa</strong><small>${draft?stopsLabel(draft):'Jeszcze nie masz przystanków'}</small></span>${ic('chevron-right')}</a>
-   <a href="#social-saved">${ic('bookmark')}<span><strong>Zapisane trasy</strong><small>Moje, redakcji i społeczności${localRoutes?' · '+localRoutes+' na tym urządzeniu':''}</small></span>${ic('chevron-right')}</a>
    <a href="#collections/places">${ic('map-pin')}<span><strong>Zapisane miejsca</strong><small>${savedIds().length} w tym mieście</small></span>${ic('chevron-right')}</a>
+   <a href="#social-saved">${ic('bookmark')}<span><strong>Zapisane trasy</strong><small>Moje, redakcji i społeczności${localRoutes?' · '+localRoutes+' na tym urządzeniu':''}</small></span>${ic('chevron-right')}</a>
   </div>`;
 }
 

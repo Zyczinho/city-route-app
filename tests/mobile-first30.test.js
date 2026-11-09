@@ -18,11 +18,11 @@ test('one-tap route starts at a future Warsaw-local time, with DST and next-day 
 test('iPhone 13 Pro: quick Plan is purpose-first, while all legacy settings survive',()=>{
  const app=read('app.js'),ux=read('ux-cleanup.js');
  assert.match(app,/Odkrywaj miasto po swojemu/);
- assert.match(ux,/Odkrywaj miasto po swojemu/);
+ assert.match(ux,/Twój plan na miasto/);
  assert.match(ux,/primary\.append\(time\)/);
  assert.match(ux,/whenDetails=disclosure\('Kiedy chcesz zwiedzać\?'/);
  assert.match(ux,/submit\.textContent='Ułóż mi trasę'/);
- assert.match(ux,/form\.replaceChildren\(primary,submit,alternatives,whenDetails\.details,climate\.details,advanced\.details\)/);
+ assert.match(ux,/form\.replaceChildren\(climate\.details,primary,submit,alternatives,whenDetails\.details,advanced\.details\)/);
  assert.match(ux,/manual\.href='#places'/);
  assert.match(ux,/social\.href='#routes\/community'/);
  assert.match(app,/radio\('time'/);

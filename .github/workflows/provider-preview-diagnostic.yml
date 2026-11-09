@@ -2,6 +2,7 @@ name: Provider preview diagnostics (no paid API calls)
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - 'worker.js'
       - 'app.js'
@@ -10,11 +11,16 @@ on:
       - 'scripts/check-preview-provider-status.mjs'
       - '.github/workflows/provider-preview-diagnostic.yml'
 
+concurrency:
+  group: cityroute-provider-preview-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
 jobs:
   preview-health:
+    if: ${{ !github.event.pull_request.draft }}
     runs-on: ubuntu-24.04
     timeout-minutes: 4
     steps:

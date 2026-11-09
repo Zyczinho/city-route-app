@@ -4,6 +4,15 @@ GitHub `Zyczinho/city-route-app` is the sole source of truth. Start every task b
 
 For normal parallel work use `ECONOMY_MODE.md`: keep context narrow, avoid duplicate research/status ping-pong, run targeted tests while developing and full test/build before PR, checkpoint only at logical boundaries or before a likely session/credit interruption, and automatically continue only through bounded READY work.
 
+## GitHub Actions minute budget
+
+- Treat GitHub Actions minutes as a shared, finite account budget. Run focused tests locally while iterating; run `npm test` and `npm run build` before pushing a reviewable head.
+- For multi-commit implementations, open a **draft PR** and batch coherent fixes instead of repeatedly pushing speculative single-line patches. CI remains active on drafts; expensive browser/Worker/provider checks start when the PR is marked ready for review.
+- Do not mark a draft PR ready until targeted tests, full tests and build pass locally. Do not repeatedly rerun successful checks. A failed check requires a diagnosed fix before retrying.
+- Do not bypass required security, SQL, browser or release checks to save minutes. The production verification job now includes main-branch unit tests and asset verification; separate main-push CI was removed to avoid duplicate runners.
+- If the monthly Actions limit is exhausted, record the checks as **blocked by budget** rather than reporting them as passing. Do not merge a P0 without required verification; escalate release blockage to Jakub.
+- See `docs/CI_ACTIONS_AUDIT_2026-11-09.md` for the inventory, baseline and rollback.
+
 ## Agent team (v1)
 
 Work is split across eight role-based agents (Coordinator, Auditor, UX Editor, API Integrator, Source Scout, Place Curator, QA / Release, Reviewer). Read [docs/agents/TEAM.md](docs/agents/TEAM.md) for roles, file ownership and flow, then your role file in `.claude/agents/<role>.md` and your notes in `docs/agents/<role>/NOTES.md`. ChatGPT/Codex agents follow the same role files. Work items live in GitHub Issues labelled `agent:<role>`.

@@ -24,6 +24,7 @@ test('PHOTO FIRST #178: every fallback class has a real bundled photograph, not 
  assert.match(app,/return catTile\(p,cls,geo\)/,'no-photo path must still call shared tile');
  assert.match(app,/img\.outerHTML=catTile\(p/,'provider photo errors must fall back to a photographic tile');
  assert.match(css,/\.ph\.ph-cat::before\{/);
+ assert.match(css,/:is\(\.thumb,\.sheet-media,\.cover,\.media\)>\.ph:not\(\.ph-cat\)\{/,'broken exact photo also gets photographic fallback');
 });
 
 test('PHOTO FIRST #178: fallback is visibly identified as illustrative and never impersonates a venue',()=>{

@@ -11,6 +11,7 @@ const [places,cities,taxonomy,report,sql]=await Promise.all([
  readFile('supabase/migrations/021_add_lisbon_osm_places.sql','utf8')
 ]);
 const city=cities.find(c=>c.id==='lisbon');
+const licensedPhotos=await json('scripts/data/lisbon-first30-photos-20261109.json');
 // The original OSM import remains immutable in provenance; additional curated landmarks are editorial records.
 const osmPlaces=places.filter(p=>p.metadata?.source?.provider==='openstreetmap');
 const editorialPlaces=places.filter(p=>p.metadata?.source?.provider==='editorial');
@@ -36,7 +37,14 @@ test('Lisbon OSM catalogue contains 100–200 real named, usable POIs',()=>{
   assert.match(p.metadata.source.url,/^https:\/\/www\.openstreetmap\.org\/(node|way|relation)\/\d+$/);
   assert.equal(p.metadata.costUnknown,true);
   assert.deepEqual(p.ratings,[]);
-  assert.ok(!p.image,'only licensed real photos can be added later');
+  if(p.image){
+   const reviewed=licensedPhotos.find(x=>x.id===p.id&&x.image===p.image);
+   assert.ok(reviewed,'an imported POI cover must appear in the reviewed photo manifest');
+   assert.deepEqual(p.imageCredit,reviewed.credit,'licensed photo retains exact visible attribution');
+   assert.match(p.imageCredit.license,/^CC BY(-SA)? [234][.]0$/);
+   assert.equal(new URL(p.imageCredit.source).hostname,'commons.wikimedia.org');
+   assert.equal(new URL(p.imageCredit.licenseUrl).hostname,'creativecommons.org');
+  }
   assert.equal(p.partner,false);
  }
 });

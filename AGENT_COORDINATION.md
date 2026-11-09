@@ -1,5 +1,10 @@
 # Agent Coordination — canonical control plane
 
+## P0 #176 — persistent licensed Lisbon covers
+
+REVIEW — ChatGPT — PR #196;8 exact licensed local JPEGs (8/30), source/author/license/hash, JSON parity and v83 offline precache. Content/SQL independent final PASS a3e932a; targeted26/26 and PostgreSQL9/9 guard fixtures PASS. Mobile42673458445/2 and42674244381 SUCCESS (8decodes,credits320/375/390,offline reload). GitHub scheduling recovered on42674574963: full tests482/483; only failure was old `assert !p.image` OSM-import contract. Updated that assertion to require exact reviewed manifest+source/license/attribution for added covers; import geometry/ratings/source checks unchanged. CI runner restored to original ubuntu-latest. Final-head full CI/mobile pending; NOT MERGED/DEPLOYED; hosted DML NOT APPLIED. After green checks: merge, verify8 deployed hashes, apply reviewed bounded DML and confirm192-row parity. Remaining22 covers+4 flagged venues and #176 broader acceptance stay OPEN. Last update2026-11-09.
+
+
 ## P0 #176 — first30 Lisbon sourced descriptions
 
 REVIEW — ChatGPT — PR #195 MERGED `cf9cfdb3a6c18fee4570464aa135dded3d268776`;24 blank Lisbon descriptions filled with per-place sources (20normal,4 explicit closure/historical/identity warnings). JSON fallback and source manifest agree; PWA v82. Exact-head CI42669952063 and mobile42669952100 SUCCESS; SQL/content review PASS; actual PostgreSQL read-only guard cases4/4PASS. Bounded hosted DML APPLIED after merge:24/24 exact descriptions+sources verified, first30 descriptions30/30, wholecity47/192 (was23); all unrelated catalogue fields/records unchanged against baseline. Main CI42670290601 and rollout42670290364 SUCCESS; live cache `city-route-v82-1e6c5d90d6`. Actual browser A Brasileira had no description before; after reload exact new text visible with Google score/photo. Not a real iPhone acceptance claim. No records hidden/deleted;4 flagged entries remain unresolved as operational/identity issues. Next #176: permanent exact licensed covers and flagged-record handling; #176 stays OPEN. Last update2026-11-09.

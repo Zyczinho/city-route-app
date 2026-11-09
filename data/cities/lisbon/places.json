@@ -597,6 +597,15 @@
         ],
         "visitStatus": "listed"
       }
+    },
+    "image": "lisbon-a-brasileira-commons.jpg",
+    "imageCaption": "A Brasileira — wejście do kawiarni w Chiado · miniatura Wikimedia, bez edycji",
+    "imageCredit": {
+      "author": "VDT2021",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:A_BRASILEIRA_DO_CHIADO.jpg",
+      "via": "Wikimedia Commons"
     }
   },
   {
@@ -3177,7 +3186,16 @@
         "visitStatus": "listed"
       }
     },
-    "website": "http://www.cm-lisboa.pt/equipamentos/equipamento/info/arco-das-portas-de-s-bento"
+    "website": "http://www.cm-lisboa.pt/equipamentos/equipamento/info/arco-das-portas-de-s-bento",
+    "image": "lisbon-arco-sao-bento-commons.jpg",
+    "imageCaption": "Arco de São Bento — detal kamiennego łuku · miniatura Wikimedia, bez edycji",
+    "imageCredit": {
+      "author": "Jules Verne Times Two / julesvernex2.com",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Arco_de_S%C3%A3o_Bento,_Pra%C3%A7a_de_Espanha,_Lisbon,_Portugal_julesvernex2.jpg",
+      "via": "Wikimedia Commons"
+    }
   },
   {
     "id": "osm-way-1382432568",
@@ -3770,7 +3788,16 @@
         "visitStatus": "listed"
       }
     },
-    "website": "https://www.epal.pt/EPAL/menu/museu-da-%C3%A1gua/exposi%C3%A7%C3%A3o-permanente-patrim%C3%B3nio-associado/aqueduto-das-%C3%A1guas-livres"
+    "website": "https://www.epal.pt/EPAL/menu/museu-da-%C3%A1gua/exposi%C3%A7%C3%A3o-permanente-patrim%C3%B3nio-associado/aqueduto-das-%C3%A1guas-livres",
+    "image": "lisbon-aqueduto-commons.jpg",
+    "imageCaption": "Aqueduto das Águas Livres — arkady w dolinie Alcântara · miniatura Wikimedia, bez edycji",
+    "imageCredit": {
+      "author": "Portuguese_eyes / Vitor Oliveira",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Aqueduto_das_%C3%81guas_Livres_-_Lisboa_-_Portugal.jpg",
+      "via": "Wikimedia Commons"
+    }
   },
   {
     "id": "osm-node-5088757633",
@@ -5189,6 +5216,15 @@
         ],
         "visitStatus": "listed"
       }
+    },
+    "image": "lisbon-estrela-commons.jpg",
+    "imageCaption": "Basílica da Estrela — fasada i kopuła · miniatura Wikimedia, bez edycji",
+    "imageCredit": {
+      "author": "Joaomartinho63",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Bas%C3%ADlica_da_Estrela.jpg",
+      "via": "Wikimedia Commons"
     }
   },
   {
@@ -7396,7 +7432,16 @@
         "entryPaid": true
       }
     },
-    "website": "https://mosteirojeronimos.torrebelem.gov.pt/"
+    "website": "https://mosteirojeronimos.torrebelem.gov.pt/",
+    "image": "lisbon-jeronimos-commons.jpg",
+    "imageCaption": "Mosteiro dos Jerónimos — wnętrze kościoła · miniatura Wikimedia, bez edycji",
+    "imageCredit": {
+      "author": "Diego Delso",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Monasterio_de_los_Jer%C3%B3nimos,_Lisboa,_Portugal,_2022-07-24,_DD_38-40_HDR.jpg",
+      "via": "Wikimedia Commons"
+    }
   },
   {
     "id": "editorial-lisbon-praca-comercio",
@@ -7428,6 +7473,15 @@
         "reviewedAt": "2026-11-09",
         "fieldTested": false
       }
+    },
+    "image": "lisbon-praca-comercio-commons.jpg",
+    "imageCaption": "Praça do Comércio — widok od Tagu · miniatura Wikimedia, bez edycji",
+    "imageCredit": {
+      "author": "Jakub Hałun",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:View_of_Pra%C3%A7a_do_Com%C3%A9rcio_from_the_Tagus_River_in_Lisbon,_20250604_2038_9656.jpg",
+      "via": "Wikimedia Commons"
     }
   },
   {
@@ -7460,6 +7514,15 @@
         "reviewedAt": "2026-11-09",
         "fieldTested": false
       }
+    },
+    "image": "lisbon-arco-rua-augusta-commons.jpg",
+    "imageCaption": "Arco da Rua Augusta — widok od Praça do Comércio · miniatura Wikimedia, bez edycji",
+    "imageCredit": {
+      "author": "Diego Delso",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Arco_Triunfal_da_Rua_Augusta,_Plaza_del_Comercio,_Lisboa,_Portugal,_2012-05-12,_DD_02.JPG",
+      "via": "Wikimedia Commons"
     }
   },
   {
@@ -7492,6 +7555,15 @@
         "reviewedAt": "2026-11-09",
         "fieldTested": false
       }
+    },
+    "image": "lisbon-se-commons.jpg",
+    "imageCaption": "Sé de Lisboa — fasada · miniatura Wikimedia, bez edycji",
+    "imageCredit": {
+      "author": "Alvesgaspar",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Lisboa_May_2013-1.jpg",
+      "via": "Wikimedia Commons"
     }
   }
 ]

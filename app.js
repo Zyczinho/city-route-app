@@ -265,7 +265,7 @@ function placesSearchBox(){
 function searchBox(ph){return `<label class="search">${ic('search')}<span class="sr-only">${ph}</span><input id="search" type="search" enterkeyhint="search" autocomplete="off" placeholder="${ph}" value="${esc(query)}">${query?`<button class="clear" data-action="clear-search" aria-label="Wyczyść wyszukiwanie">${ic('x')}</button>`:''}</label>`;}
 function chips(list,current,action,icons=false){list=list.filter(([id])=>!(action==='cat'&&id==='noclegi'&&resident()));return `<div class="chips" role="group">${list.map(([id,label,icon])=>`<button data-action="${action}" data-value="${id}" aria-pressed="${current===id}" class="chip ${current===id?'selected':''}">${icons&&icon?ic(icon):''}${label}</button>`).join('')}</div>`;}
 const cost=n=>n?`~${n} zł`:'Bezpłatnie';
-function meta(ps,transport){const s=summary(ps,transport);return `<div class="meta"><span>${ic('clock')}${minutes(s.minutes)}</span><span>${ic('route')}~${dec(s.km)} km</span><span>${stopsLabel(ps.length)}</span><span>${cost(s.cost)}</span></div>`;}
+function meta(ps,transport,totalMinutes=null){const s=summary(ps,transport);return `<div class="meta"><span>${ic('clock')}${minutes(totalMinutes??s.minutes)}</span><span>${ic('route')}~${dec(s.km)} km</span><span>${stopsLabel(ps.length)}</span><span>${cost(s.cost)}</span></div>`;}
 const findRoute=id=>routes.find(r=>r.id===id)||state.myRoutes.find(r=>r.id===id)||(generated?.id===id?generated:null);
 const coverRoutes=()=>[...routes,...forCity(state.myRoutes,city().id),...(generated?[generated]:[])];
 const routeCoverAssignments=()=>assignRouteCovers(coverRoutes(),id=>all[id]);
@@ -281,7 +281,15 @@ function shareRouteButton(ps,transport,title,{kind='maps',id=''}={}){
  const url=routeMapsUrl(ps,transport);
  return '<button type="button" class="route-share-trigger" data-route-share="maps" data-route-url="'+esc(url)+'" data-route-title="'+esc(title)+'">'+label+'</button>';
 }
-const wholeRoute=(ps,t)=>ps.length>1?`<a class="button wide" href="${routeMapsUrl(ps,t)}" target="_blank" rel="noopener noreferrer" data-action="whole-route">${ic('map')}Cała trasa w Google Maps${ps.length>10?' (pierwsze 10 przystanków)':''}</a>`:'';
+function transitLegLinks(ps){
+ if(ps.length<2)return '';
+ return `<details class="more" aria-label="Komunikacja miejska etapami"><summary>Komunikacja miejska — sprawdź odcinki</summary><p class="fine">Google Maps nie obsługuje wielopunktowej trasy komunikacją jako jednego linku. Sprawdź każdy przejazd osobno.</p>${ps.slice(1).map((p,i)=>`<a class="button wide" href="https://www.google.com/maps/dir/?api=1&origin=${ps[i].lat},${ps[i].lng}&destination=${p.lat},${p.lng}&travelmode=transit" target="_blank" rel="noopener noreferrer" data-action="whole-route">${ic('navigation')}${esc(ps[i].name)} → ${esc(p.name)}</a>`).join('')}</details>`;
+}
+function wholeRoute(ps,t){
+ if(ps.length<2)return '';
+ if(t==='transit')return transitLegLinks(ps);
+ return `<a class="button wide" href="${routeMapsUrl(ps,t)}" target="_blank" rel="noopener noreferrer" data-action="whole-route">${ic('map')}Cała trasa w Google Maps${ps.length>10?' (pierwsze 10 przystanków)':''}</a>`;
+}
 const liveBanner=()=>isLive()?`<a class="live-banner" href="#my-route"><span class="pulse" aria-hidden="true"></span><span><strong>Trasa w toku</strong>${esc(state.session.name)} · przystanek ${state.session.index+1} z ${state.session.stops.length}</span>${ic('chevron-right')}</a>`:'';
 
 // Routes tab
@@ -534,7 +542,7 @@ function generatedTimingView(ps){
  <p class="fine">Plan jest podglądem na wybrany dzień; po zapisaniu samej trasy jej harmonogram nie jest jeszcze synchronizowany między urządzeniami.</p></section>`;
 }
 function detailView(r){const ps=items(r.stops),own=state.myRoutes.some(x=>x.id===r.id),cover=routeCoverAssignments().get(r.id)||null;
- return `<section class="detail"><a class="back" href="${r.id==='generated'?'#plan':'#routes'}">${ic('arrow-left')}${r.id==='generated'?'Ułóż trasę':'Trasy'}</a>${r.id==='generated'?generatedPicker():''}<div class="cover">${photo(cover,'',true)}</div>${credit(cover)}<p class="kicker">${r.id==='generated'?'Ułożona dla Ciebie':own?'Twoja trasa':'Redakcja City Route'}${(r.cats||[]).map(c=>' · '+catName(c,ROUTE_CATS)).join('')}</p><h1>${esc(r.name)}</h1><p class="lead">${esc(r.description)}</p>${meta(ps,r.transport)}
+ return `<section class="detail"><a class="back" href="${r.id==='generated'?'#plan':'#routes'}">${ic('arrow-left')}${r.id==='generated'?'Ułóż trasę':'Trasy'}</a>${r.id==='generated'?generatedPicker():''}<div class="cover">${photo(cover,'',true)}</div>${credit(cover)}<p class="kicker">${r.id==='generated'?'Ułożona dla Ciebie':own?'Twoja trasa':'Redakcja City Route'}${(r.cats||[]).map(c=>' · '+catName(c,ROUTE_CATS)).join('')}</p><h1>${esc(r.name)}</h1><p class="lead">${esc(r.description)}</p>${meta(ps,r.transport,r.id==='generated'?r.plannerV2?.totalMinutes:null)}${r.id==='generated'&&r.plannerV2?`<p class="fine">Planner V2 · ${minutes(r.plannerV2.totalMinutes)} łącznie z przerwami i przemieszczaniem · czas orientacyjny</p>`:''}
  <div class="detail-actions"><button class="primary big" data-action="start" data-id="${r.id}">${ic('play')}Rozpocznij trasę</button>${r.id==='generated'?`<button data-action="save-generated">${ic('bookmark')}Zapisz trasę</button>`:''}<button data-action="save-route" data-id="${r.id}">${ic('pencil')}Edytuj jako Moją trasę</button>${wholeRoute(ps,r.transport)}<button type="button" data-action="export-gpx" data-id="${esc(r.id)}">${ic("arrow-down")}Pobierz GPX · Strava</button>${shareRouteButton(ps,r.transport,r.name,own||r.id==='generated'?{kind:'maps'}:{kind:'editorial',id:r.id})}${own?`<button type="button" data-action="rename-route" data-id="${esc(r.id)}">${ic('pencil')}Zmień nazwę</button><button type="button" data-action="${r.archivedAt?'unarchive-route':'archive-route'}" data-id="${esc(r.id)}">${ic('bookmark')}${r.archivedAt?'Przywróć z archiwum':'Archiwizuj trasę'}</button><button class="danger" data-action="delete-route" data-id="${r.id}">${ic('trash-2')}Usuń tę trasę</button>`:''}</div>${own&&ps.length!==r.stops.length?'<p class="note">Niektórych przystanków nie ma już w katalogu. Zapisana trasa pozostaje zachowana.</p>':''}<h2>Przystanki</h2>${stopList(ps)}${r.id==='generated'?generatedTimingView(ps):''}${estimation}</section>`;}
 
 // My route tab

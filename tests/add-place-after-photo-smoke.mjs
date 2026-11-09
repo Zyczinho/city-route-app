@@ -49,7 +49,9 @@ try{
        await page.locator('#pc-q').fill('38.720123, -9.140123');
        await page.locator('#place-form input[name="name"]').fill('QA realistic JPG '+engine+' '+width);
        await page.waitForFunction(()=>document.querySelector('#place-form input[name="where"]')?.value.includes('38.720123'));
-       await page.locator('#place-form input[type="file"]').setInputFiles({name:'stadium-photo.jpg',mimeType:'image/jpeg',buffer:jpeg});
+       const filePicker=page.waitForEvent('filechooser');
+       await page.locator('#place-form label.file').click();
+       await (await filePicker).setFiles({name:'stadium-photo.jpg',mimeType:'image/jpeg',buffer:jpeg});
        await page.locator('.place-photo-editor img').first().waitFor({timeout:12000});
       }
       for(const value of ['1','3','5']){

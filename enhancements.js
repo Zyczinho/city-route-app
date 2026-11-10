@@ -252,47 +252,225 @@ observer.observe(document.querySelector('#main')||document.documentElement,{subt
 decorateWhereInput();
 simplifyPlanner();
 
-// CITYROUTE-START-ORIGIN: user-confirmed city-scoped lookup; no automatic paid search on typing.
+// START-ORIGIN-AUTOCOMPLETE: suggestions are explicit coordinates in the selected city.
+// Debounced requests use only free OSM/Photon. No Google autocomplete billing is triggered.
+const originCache=new Map(),originEntries=new WeakMap();
+let originTimer=null,originController=null,originRequest=0,originActiveIndex=-1;
 
+const originNormalise=s=>String(s||'').replace(/\s+/g,' ').trim();
+const originFold=s=>originNormalise(s).toLocaleLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+const originInput=form=>form?.querySelector('#planner-origin-input');
+const originList=form=>form?.querySelector('#planner-origin-options');
+const originStatus=form=>form?.querySelector('.planner-origin-status');
+const originIsCustom=form=>!!form?.querySelector('input[name="start"][value="custom"]:checked');
+const originValid=(p,city)=>p&&Number.isFinite(Number(p.lat))&&Number.isFinite(Number(p.lng))&&
+ kmFromCenter(city,Number(p.lat),Number(p.lng))<=city.radiusKm;
+function originCancel(){
+ originRequest++;
+ clearTimeout(originTimer);originTimer=null;
+ if(originController){originController.abort();originController=null;}
+}
+function originHideOptions(form){
+ const list=originList(form),input=originInput(form);
+ if(list){list.hidden=true;list.replaceChildren();}
+ if(input){input.setAttribute('aria-expanded','false');input.removeAttribute('aria-activedescendant');}
+ originActiveIndex=-1;originEntries.delete(form);
+}
+function originMessage(form,message){
+ const node=originStatus(form);if(node)node.textContent=message;
+}
+function originReset(form,message='Wpisz co najmniej 3 znaki i wybierz miejsce z listy poniżej.'){
+ if(!form)return;
+ for(const key of ['originLat','originLng','originQuery','originCity','originConfirmed'])delete form.dataset[key];
+ const chosen=form.querySelector('.planner-origin-selected');if(chosen)chosen.hidden=true;
+ originHideOptions(form);originMessage(form,message);
+}
 function syncPlannerOrigin(form){
  const box=form?.querySelector('.planner-origin-fields');
  if(!box)return;
- const custom=!!form.querySelector('input[name="start"][value="custom"]:checked');
+ const custom=originIsCustom(form);
  box.hidden=!custom;
- const input=box.querySelector('#planner-origin-input');
- if(input)input.disabled=!custom;
+ const input=originInput(form);if(input)input.disabled=!custom;
+ if(!custom){originCancel();originReset(form);}
 }
-function invalidatePlannerOrigin(form,message='Wybierz punkt startowy i zatwierdź wynik przed ułożeniem trasy.'){
- if(!form)return;
- for(const key of ['originLat','originLng','originQuery','originCity','originConfirmed'])delete form.dataset[key];
- const status=form.querySelector('.planner-origin-status');
- if(status)status.textContent=message;
+async function originLocalCatalogue(city){
+ if(!originCache.has(city.id)){
+  const paths=city.id==='warsaw'?['./data/places.json','./data/cities/warsaw/places.json']:
+   ['./data/cities/'+city.id+'/places.json'];
+  const loading=Promise.all(paths.map(path=>fetch(path).then(r=>r.ok?r.json():[]).catch(()=>[])))
+   .then(parts=>parts.flat().filter(p=>originValid(p,city)))
+   .catch(()=>[]);
+  originCache.set(city.id,loading);
+ }
+ return originCache.get(city.id);
+}
+async function originLocalSuggestions(query,city){
+ const catalogue=await originLocalCatalogue(city),needle=originFold(query);
+ return catalogue.filter(p=>originFold(p.name).includes(needle)||originFold(p.area).includes(needle))
+  .sort((a,b)=>Number(originFold(a.name).startsWith(needle))-Number(originFold(b.name).startsWith(needle))||
+    String(a.name).localeCompare(String(b.name))).reverse().slice(0,7)
+  .map(p=>({name:String(p.name),address:[p.area,city.name].filter(Boolean).join(', '),
+    lat:Number(p.lat),lng:Number(p.lng),source:'city-catalogue'}));
+}
+async function originRemoteSuggestions(query,city,signal){
+ // The Worker uses its cached Photon lookup, with Google forcibly disabled by source=osm.
+ const api='/api/place-suggest?source=osm&q='+encodeURIComponent(query)+'&'+cityQuery(city);
+ try{
+  const response=await fetch(api,{signal,headers:{accept:'application/json'}});
+  if(response.ok&&(response.headers.get('content-type')||'').includes('application/json')){
+   const data=await response.json();
+   if(data.status==='ok'||data.status==='not-found')return (data.suggestions||[]).map(p=>({
+    name:String(p.name||p.address||''),address:String(p.address||''),lat:Number(p.location?.lat),lng:Number(p.location?.lng),source:'photon-osm'
+   })).filter(p=>originValid(p,city));
+  }
+ }catch(error){if(signal.aborted)throw error;}
+ // Some static deployments do not expose Worker routes. Fallback is public Photon,
+ // never an unthrottled autocomplete request to Nominatim or Google Places.
+ await throttleDirectSearch();
+ if(signal.aborted)return [];
+ const endpoint=new URL('https://photon.komoot.io/api/');
+ const lat=city.center.lat,lng=city.center.lng,dl=city.radiusKm/111,
+  dn=city.radiusKm/(111*Math.cos(lat*Math.PI/180));
+ endpoint.searchParams.set('q',query);
+ endpoint.searchParams.set('lat',String(lat));endpoint.searchParams.set('lon',String(lng));
+ endpoint.searchParams.set('bbox',[lng-dn,lat-dl,lng+dn,lat+dl].map(x=>x.toFixed(5)).join(','));
+ endpoint.searchParams.set('limit','8');endpoint.searchParams.set('lang','default');
+ const r=await fetch(endpoint.href,{signal,headers:{accept:'application/json'}});
+ if(!r.ok)throw Error('photon-'+r.status);
+ const data=await r.json();
+ return (Array.isArray(data.features)?data.features:[]).map(feature=>{
+  const p=feature.properties||{},coords=feature.geometry?.coordinates||[],
+   street=[p.street,p.housenumber].filter(Boolean).join(' '),
+   name=p.name||street||p.city||'';
+  return {name:String(name),address:[street!==name?street:'',p.district||p.locality||'',p.city||city.name].filter(Boolean).join(', '),
+   lat:Number(coords[1]),lng:Number(coords[0]),source:'photon-osm'};
+ }).filter(p=>p.name&&originValid(p,city));
+}
+function originMergeResults(first,second,city){
+ const seen=new Set(),output=[];
+ for(const entry of [...first,...second]){
+  if(!originValid(entry,city))continue;
+  const key=originFold(entry.name)+'|'+Number(entry.lat).toFixed(3)+'|'+Number(entry.lng).toFixed(3);
+  if(seen.has(key))continue;
+  seen.add(key);output.push(entry);
+  if(output.length>=6)break;
+ }
+ return output;
+}
+function originRenderOptions(form,results){
+ if(!form?.isConnected)return;
+ const list=originList(form),input=originInput(form);
+ if(!list||!input)return;
+ originEntries.set(form,results);originActiveIndex=-1;
+ list.replaceChildren();
+ results.forEach((place,index)=>{
+  const button=document.createElement('button');button.type='button';button.className='planner-origin-option';
+  button.setAttribute('role','option');button.id='planner-origin-option-'+index;
+  button.dataset.originIndex=String(index);button.setAttribute('aria-selected','false');
+  const icon=document.createElement('span');icon.className='planner-origin-option-pin';icon.setAttribute('aria-hidden','true');icon.textContent='⌖';
+  const copy=document.createElement('span');copy.className='planner-origin-option-copy';
+  const title=document.createElement('strong');title.textContent=place.name;
+  const sub=document.createElement('small');sub.textContent=place.address||'W wybranym mieście';
+  copy.append(title,sub);button.append(icon,copy);list.append(button);
+ });
+ list.hidden=!results.length;input.setAttribute('aria-expanded',String(!!results.length));
+ input.removeAttribute('aria-activedescendant');
+}
+function originMoveFocus(form,delta){
+ const entries=originEntries.get(form)||[],input=originInput(form);
+ if(!entries.length||originList(form)?.hidden)return;
+ originActiveIndex=(originActiveIndex+delta+entries.length)%entries.length;
+ for(const button of originList(form).querySelectorAll('[data-origin-index]')){
+  const active=Number(button.dataset.originIndex)===originActiveIndex;
+  button.setAttribute('aria-selected',String(active));
+  if(active){input.setAttribute('aria-activedescendant',button.id);button.scrollIntoView({block:'nearest'});}
+ }
+}
+function originChoose(form,index){
+ const place=(originEntries.get(form)||[])[index],input=originInput(form);
+ if(!place||!input||!originIsCustom(form))return;
+ originCancel();
+ input.value=place.name;
+ Object.assign(form.dataset,{
+  originLat:String(place.lat),originLng:String(place.lng),originQuery:originNormalise(input.value),
+  originCity:form.querySelector('#city-select')?.value||document.querySelector('#city-select')?.value||'',
+  originConfirmed:'1'
+ });
+ const selected=form.querySelector('.planner-origin-selected');
+ if(selected){
+  selected.querySelector('.planner-origin-selected-name').textContent=place.name;
+  selected.querySelector('.planner-origin-selected-address').textContent=place.address;
+  selected.hidden=false;
+ }
+ originHideOptions(form);
+ originMessage(form,'Punkt startowy wybrany. Możesz ułożyć trasę albo zmienić miejsce.');
+}
+async function originSearch(form,query,token,controller){
+ const input=originInput(form);
+ if(!form.isConnected||!input)return;
+ const city=await activeCity();
+ if(token!==originRequest||!form.isConnected)return;
+ const stillCurrent=()=>token===originRequest&&form.isConnected&&originIsCustom(form)&&
+   originNormalise(input.value)===query&&(document.querySelector('#city-select')?.value||city.id)===city.id;
+ const localPromise=originLocalSuggestions(query,city);
+ const remotePromise=originRemoteSuggestions(query,city,controller.signal);
+ let local=[];
+ try{local=await localPromise;}catch{}
+ if(!stillCurrent())return;
+ originRenderOptions(form,originMergeResults(local,[],city));
+ if(local.length)originMessage(form,'Wybierz miejsce z podpowiedzi lub wpisz dokładniejszą nazwę.');
+ try{
+  const remote=await remotePromise;
+  if(!stillCurrent())return;
+  const merged=originMergeResults(local,remote,city);
+  originRenderOptions(form,merged);
+  originMessage(form,merged.length?'Wybierz konkretny punkt z listy poniżej.':
+   'Nie znaleziono miejsca. Doprecyzuj nazwę lub adres, np. ulica i numer.');
+ }catch{
+  if(!stillCurrent())return;
+  originMessage(form,local.length?'Wybierz jedno z miejsc z katalogu miasta.':
+   'Nie udało się pobrać podpowiedzi. Sprawdź połączenie lub wpisz pełniejszy adres.');
+ }
 }
 document.addEventListener('change',e=>{
  if(e.target?.name==='start'&&e.target.closest('#build-form'))syncPlannerOrigin(e.target.closest('#build-form'));
 });
 document.addEventListener('input',e=>{
- if(e.target?.id==='planner-origin-input')invalidatePlannerOrigin(e.target.closest('#build-form'));
+ if(e.target?.id!=='planner-origin-input')return;
+ const form=e.target.closest('#build-form');
+ originCancel();originReset(form);
+ const query=originNormalise(e.target.value);
+ if(!originIsCustom(form)||query.length<3)return;
+ originMessage(form,'Szukamy miejsc pasujących do adresu…');
+ const token=originRequest,controller=new AbortController();originController=controller;
+ originTimer=setTimeout(()=>{void originSearch(form,query,token,controller);},500);
 });
-document.addEventListener('click',async e=>{
- const button=e.target.closest?.('[data-action="planner-origin-search"]');
- if(!button)return;
- const form=button.closest('#build-form'),input=form?.querySelector('#planner-origin-input');
- if(!form||!input||!form.querySelector('input[name="start"][value="custom"]:checked'))return;
- const query=input.value.replace(/\s+/g,' ').trim();
- if(query.length<3)return invalidatePlannerOrigin(form,'Podaj nazwę lub adres składający się z co najmniej 3 znaków.');
- const city=await activeCity(),status=form.querySelector('.planner-origin-status');
- invalidatePlannerOrigin(form,'Szukam punktu w '+city.name+'…');
- button.disabled=true;
- try{
-  const result=await searchAddress(query,city);
-  const lat=Number(result?.location?.lat),lng=Number(result?.location?.lng);
-  if(!Number.isFinite(lat)||!Number.isFinite(lng)||kmFromCenter(city,lat,lng)>city.radiusKm)
-   throw Error('outside-city');
-  if(!form.isConnected||input.value.replace(/\s+/g,' ').trim()!==query||(await activeCity()).id!==city.id)return;
-  Object.assign(form.dataset,{originLat:String(lat),originLng:String(lng),originQuery:query,originCity:city.id,originConfirmed:'1'});
-  if(status)status.textContent='Potwierdzono: '+(result.name||result.address||query)+' · '+(result.address||city.name);
- }catch{
-  invalidatePlannerOrigin(form,'Nie znaleziono punktu w '+city.name+'. Wpisz dokładniejszy adres.');
- }finally{button.disabled=false;}
+document.addEventListener('keydown',e=>{
+ if(e.target?.id!=='planner-origin-input')return;
+ const form=e.target.closest('#build-form'),options=originEntries.get(form)||[];
+ if(e.key==='ArrowDown'||e.key==='ArrowUp'){
+  if(!options.length)return;
+  e.preventDefault();originMoveFocus(form,e.key==='ArrowDown'?1:-1);
+ }
+ if(e.key==='Escape'){e.preventDefault();originHideOptions(form);}
+ if(e.key==='Enter'){
+  e.preventDefault();
+  if(options.length)originChoose(form,originActiveIndex>=0?originActiveIndex:0);
+  else originMessage(form,'Wybierz punkt z listy podpowiedzi, aby zatwierdzić dokładną lokalizację.');
+ }
+});
+document.addEventListener('click',e=>{
+ const choice=e.target.closest?.('[data-origin-index]');
+ if(choice){
+  const form=choice.closest('#build-form');originChoose(form,Number(choice.dataset.originIndex));return;
+ }
+ const change=e.target.closest?.('[data-origin-change]');
+ if(change){
+  const form=change.closest('#build-form'),input=originInput(form);
+  originCancel();originReset(form);
+  if(input){input.focus();input.select();}
+  return;
+ }
+ const form=document.querySelector('#build-form'),box=form?.querySelector('.planner-origin-fields');
+ if(box&&!box.contains(e.target))originHideOptions(form);
 });

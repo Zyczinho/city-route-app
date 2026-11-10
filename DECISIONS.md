@@ -79,3 +79,9 @@ Hard constraints remove a place before the search: city, explicit exclusions ("C
 Status: accepted 2026-11-10; the founder asked to implement the planner audit recommendations.
 
 Start asks only what changes the plan. Selected interests are the plan: with any specific interest the planner uses only those categories (plus the requested break venue), and with "Wszystko po trochu" it mixes freely. When the selection cannot fill the time, the route is shorter and offers "Uzupełnij po drodze" instead of silently adding unrelated stops. Viewing mode is decided by the planner (inside when open, facade only for buildings worth seeing). The coffee break is automatic for daytime plans of 4 h or more and can be switched off. Interest chips are derived from the active city's catalogue (minimum five places). This supersedes the soft "Lubię" wording in issue #172 for Start; exclusions remain hard.
+
+## ADR-014 — One route engine (Planner V2) for every transport
+
+Status: accepted 2026-11-10 (planner audit P2).
+
+Start and the variant reroll use `route-planner-v2.js` for walking, bike and transit, so one set of rules (hours, break slot, exclusions, interests) applies everywhere. Without a supplied leg matrix, transit legs are a labelled door-to-door estimate (10 min access and wait plus 18 km/h ride, walking when quicker), never presented as a timetable. A supplied matrix always wins. The legacy V1 generator in `core.js` is unreachable from the UI and remains only until its regression tests are migrated.

@@ -69,13 +69,18 @@ test('a pause is accounted for when visiting two demanding attractions',()=>{
   assert.equal(two.breakdown.rests,12);
   assert.equal(two.totalMinutes,Object.values(two.breakdown).reduce((a,b)=>a+b,0));
 });
-test('transit without an actual leg matrix is never fabricated; directed matrix is supported',()=>{
+test('transit without a leg matrix is a labelled estimate, never a timetable; directed matrix is supported',()=>{
   const a=p('a','landmark',{lat:52.229,lng:21.014,minutes:20});
   const b=p('b','park',{lat:52.228,lng:21.016,minutes:20});
+  const far=p('far','park',{lat:52.262,lng:21.060,minutes:20});
   const config=prefs({transport:'transit',time:150});
-  const missing=planRoutesV2([a,b],config);
-  assert.equal(missing.routes.length,0);
-  assert.equal(missing.reason,'transit-matrix-required');
+  const estimated=planRoutesV2([a,b,far],config);
+  assert.ok(estimated.routes.length>0,'transit is planned by the same engine (planner audit P2)');
+  for(const route of estimated.routes){
+    assert.equal(route.timingQuality,'approximate');
+    assert.ok(route.rows.every(row=>['straight-line-estimate','transit-estimate'].includes(row.travelSource)));
+  }
+  assert.ok(estimated.routes.some(r=>r.rows.some(row=>row.travelSource==='transit-estimate')),'a long hop rides instead of walking');
   const matrix={
     'test-origin>a':{minutes:13,source:'transit-feed'},
     'test-origin>b':{minutes:19,source:'transit-feed'},

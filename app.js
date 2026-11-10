@@ -1,7 +1,7 @@
-import {summary,optimize,generate,generateAlternatives,advance,mapsUrl,routeMapsUrl,parseLocation,distance,combinedRating,smoothedRating,matches} from './core.js';
+import {summary,optimize,advance,mapsUrl,routeMapsUrl,parseLocation,distance,combinedRating,smoothedRating,matches} from './core.js';
 import {ROUTE_INTERESTS,ROUTE_EXCLUSIONS,normalizeRouteInterests,normalizeRouteExclusions,normalizeRoutePreciseTypes,routeInterestMatch} from './route-preferences.js';
 import {iconMarkup} from './ui-icons.js';
-import {localDate,validDate,scheduleRoute,feasibleFor,clockLabel} from './opening-hours.js';
+import {localDate,validDate,scheduleRoute,clockLabel} from './opening-hours.js';
 import {guideView} from './onboarding-guide.js';
 import {encodePlaceSnapshot,decodePlaceSnapshot} from './place-share-model.js';
 import {suggestVisitStart} from './planner-defaults.js';
@@ -598,7 +598,7 @@ function generatedV2TimelineView(plan){
  const clock=clockLabel;
  const parts=plan.breakdown;
  return `<section class="detail route-timeline" aria-label="Orientacyjny plan dnia V2"><h2>Plan na ${esc(day)} · od ${esc(generationPrefs.startTime)}</h2><p><strong>Łącznie około ${minutes(plan.totalMinutes)}</strong> · przejścia ${minutes(parts.travel)}, zwiedzanie i posiłki ${minutes(parts.visits)}, odpoczynek ${minutes(parts.rests)}, oczekiwanie ${minutes(parts.wait)}.</p>
- <p class="fine">Czasy przemieszczania są orientacyjne (odległość w linii prostej × 1,3, bez rzeczywistej sieci ulic). Korki, przejścia, przesiadki i kolejki mogą wydłużyć trasę. Nie gwarantujemy dokładnego czasu dotarcia.</p>
+ <p class="fine">Czasy przemieszczania są orientacyjne (odległość w linii prostej × 1,3, bez rzeczywistej sieci ulic). Korki, przejścia, przesiadki i kolejki mogą wydłużyć trasę. Nie gwarantujemy dokładnego czasu dotarcia.</p>${generationPrefs.transport==='transit'?'<p class="fine">Komunikacja: czas orientacyjny, bez rozkładów jazdy (dojście i czekanie ok. 10 min, przejazd ok. 18 km/h). Krótkie odcinki liczymy pieszo. Każdy odcinek sprawdź w mapach.</p>':''}
  <ol class="timeline-list">${plan.rows.map(row=>`<li><strong>${clock(row.visitStartMinute)}–${clock(row.departureMinute)}</strong><span>${esc(row.name)}${row.role==='break'?` <em class="route-break-label">· ${generationPrefs.food==='sit'?'przerwa na posiłek':'przerwa na kawę'}</em>`:''}<small>Przejście ok. ${row.travelMinutes} min · pobyt ${row.visitMinutes} min${row.restMinutes?' · odpoczynek '+row.restMinutes+' min':''}${row.waitMinutes?' · oczekiwanie '+row.waitMinutes+' min':''}${rowHoursNote(row)}</small></span></li>`).join('')}</ol>
  ${planNotes(plan)}
  ${plan.unpricedStops?`<p class="fine">Uwaga: ${plan.unpricedStops} ${plan.unpricedStops===1?'przystanek ma':'przystanki mają'} nieznane koszty. Przed wizytą sprawdź ceny biletów, napojów i posiłków w konkretnym miejscu.</p>`:''}
@@ -835,7 +835,7 @@ document.addEventListener('click',e=>{
   if(!generationPrefs||!generatedOptions.length)return toast('Najpierw ułóż trasę.');
   const wantSidequests=generationPrefs.interests.includes('sidequests');
   const candidates=[...places,...forCity(state.userPlaces,city().id),...(wantSidequests?quests:[])];
-  const fresh=generated?.plannerV2?planRoutesV2(candidates,generationPrefs,{count:3,candidateLimit:72,beamWidth:32,maxExpansions:12000,history:generationHistory}).routes:generateAlternatives(candidates,generationPrefs,{history:generationHistory,count:3});
+  const fresh=planRoutesV2(candidates,generationPrefs,{count:3,candidateLimit:72,beamWidth:32,maxExpansions:12000,history:generationHistory}).routes;
   if(!fresh.length)return toast('Nie znaleziono innych sensownych wariantów. Zmień ustawienia.');
   setGeneratedOptions(fresh);
   log('build_variant_refresh',{count:fresh.length,stops:generated.stops.length});
@@ -1088,23 +1088,15 @@ function plan(prefs,start){
  const chosenPrefs={...prefs,start:start||undefined,cityId:city().id};
  const wantSidequests=chosenPrefs.interests.includes('sidequests');
  const candidates=[...places,...forCity(state.userPlaces,city().id),...(wantSidequests?quests:[])];
- const isV2=prefs.transport!=='transit'&&new URLSearchParams(location.search).get('planner')!=='v1';
+ // One engine (planner audit P2): walking, bike and transit all use Planner V2; transit legs are a labelled estimate.
  let choices=[];
- if(isV2){
-  try{
-   const result=planRoutesV2(candidates,chosenPrefs,{count:3,candidateLimit:72,beamWidth:32,maxExpansions:12000});
-   choices=result.routes;
-   if(!choices.length)return planNoResults(prefs,result);
-  }catch(error){console.error('planner-v2',error);return toast('Nie udało się ułożyć trasy V2. Spróbuj ponownie.');}
- }else{
-  chosenPrefs.timeFeasible=stops=>feasibleFor(stops,{cityId:city().id,date:chosenPrefs.visitDate,
-   startTime:chosenPrefs.startTime,mode:chosenPrefs.visitMode,transport:chosenPrefs.transport,
-   origin:chosenPrefs.start,maxMinutes:Number(chosenPrefs.time)});
-  choices=generateAlternatives(candidates,chosenPrefs,{count:3});
-  if(!choices.length)return planNoResults(prefs);
- }
+ try{
+  const result=planRoutesV2(candidates,chosenPrefs,{count:3,candidateLimit:72,beamWidth:32,maxExpansions:12000});
+  choices=result.routes;
+  if(!choices.length)return planNoResults(prefs,result);
+ }catch(error){console.error('planner-v2',error);return toast('Nie udało się ułożyć trasy. Spróbuj ponownie.');}
  generationPrefs=chosenPrefs;generationHistory=[];setGeneratedOptions(choices);
- log('build_generate',{preferences:{...chosenPrefs,timeFeasible:undefined},stops:generated?.stops.length||0,variants:choices.length,engine:isV2?'v2':'v1'});
+ log('build_generate',{preferences:chosenPrefs,stops:generated?.stops.length||0,variants:choices.length,engine:'v2'});
  if(location.hash==='#route/generated')render();else location.hash='route/generated';
 }
 // Planner repairs: one tap re-plans the same request with a later start or with complementary stops.

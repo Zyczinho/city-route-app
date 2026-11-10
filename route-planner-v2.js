@@ -125,12 +125,21 @@ function matrixEntry(matrix,from,to){
   if(entry&&Number.isFinite(entry.minutes)&&entry.minutes>=0)return {minutes:entry.minutes,source:entry.source||'provided-matrix'};
   return null;
 }
+// Public transit without a supplied matrix: an explicit, labelled approximation, not a timetable.
+// Door to door = walking to/from stops and waiting (TRANSIT_OVERHEAD) + ride at an urban average speed;
+// a short hop is simply walked when that is quicker.
+const TRANSIT_OVERHEAD_MINUTES=10,TRANSIT_RIDE_KMH=18;
 function legEstimate(from,to,mode,matrix){
   if(!from)return {minutes:0,source:'start-unspecified'};
   const entry=matrixEntry(matrix,from,to);
   if(entry)return entry;
-  if(!(mode in SPEED))return null; // Never invent a public-transit timetable.
-  return {minutes:Math.ceil(distance(from,to)*1.3/SPEED[mode]*60),source:'straight-line-estimate'};
+  const km=distance(from,to)*1.3;
+  if(mode==='transit'){
+    const walk=km/SPEED.walking*60,ride=TRANSIT_OVERHEAD_MINUTES+km/TRANSIT_RIDE_KMH*60;
+    return walk<=ride?{minutes:Math.ceil(walk),source:'straight-line-estimate'}:{minutes:Math.ceil(ride),source:'transit-estimate'};
+  }
+  if(!(mode in SPEED))return null;
+  return {minutes:Math.ceil(km/SPEED[mode]*60),source:'straight-line-estimate'};
 }
 // The requested break must interrupt sightseeing at a sensible time, never open or close the route.
 function breakWindowOk(ctx,visitStart){
@@ -193,7 +202,7 @@ function stepState(state,item,ctx){
     breakIndex:role==='break'?state.stops.length:state.breakIndex,
     themeFood:state.themeFood+(role==='theme-food'?1:0),
     unknownCount:state.unknownCount+(unverified?1:0),
-    estimatedLegs:state.estimatedLegs+(leg.source==='straight-line-estimate'?1:0),
+    estimatedLegs:state.estimatedLegs+(['straight-line-estimate','transit-estimate'].includes(leg.source)?1:0),
     groups:{...state.groups,[groupOf(p)]:repeated+1}
   };
 }
@@ -307,8 +316,7 @@ export function planRoutesV2(places,prefs={},opts={}){
   const relaxations=breakDropped?['break-dropped']:[];
   let reason=null;
   if(!picked.length){
-    if(mode==='transit'&&!ctx.matrix)reason='transit-matrix-required';
-    else if(!candidateData.eligibleCount)reason='no-candidates';
+    if(!candidateData.eligibleCount)reason='no-candidates';
     else if(coverage.length&&coverage.every(c=>c.total>0&&c.open===0))reason='interests-closed';
     else reason='no-feasible-route';
   }

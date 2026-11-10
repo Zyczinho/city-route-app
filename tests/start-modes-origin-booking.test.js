@@ -8,10 +8,11 @@ import {planRoutesV2} from '../route-planner-v2.js';
 const read=path=>readFileSync(new URL('../'+path,import.meta.url),'utf8');
 const p=(id,categoryId,more={})=>({id,name:id,kind:'place',cityId:'warsaw',categoryId,
  lat:52.23,lng:21.01,minutes:25,cost:0,foodStyle:'none',tags:[],cats:[],ratings:[],...more});
-test('three meaningful visit modes and exact start are wired into Start',()=>{
+test('viewing mode is automatic (Start V3) and exact start is wired into Start',()=>{
  const app=read('app.js'),enh=read('enhancements.js'),style=read('ux-cleanup.css');
- assert.match(app,/Jak chcesz oglądać atrakcje\?/);
- for(const id of ['inside','outside','mix'])assert.ok(app.includes("['"+id+"'"),id);
+ assert.doesNotMatch(app,/Jak chcesz oglądać atrakcje\?/,'the planner decides inside vs facade itself');
+ assert.match(app,/prefs\.visitMode='mix'/);
+ assert.match(app,/if\(prefs\.visitMode==='outside'\)prefs\.avoid=normalizeRouteExclusions\(\[\.\.\.prefs\.avoid,'museums'\]\)/,'legacy outside-only maps to the museum exclusion');
  assert.match(app,/name="originAddress"/);
  assert.match(app,/id="planner-origin-options"/);
  assert.match(app,/role="combobox"/);

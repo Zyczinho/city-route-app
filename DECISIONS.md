@@ -73,3 +73,9 @@ When a real user reports the same core-flow failure after **two attempted fixes*
 Status: accepted 2026-11-10 (planner reliability audit).
 
 Hard constraints remove a place before the search: city, explicit exclusions ("Czego nie chcesz" always wins), a known closure at the visit time, the total time budget, reach for the chosen transport, and stays (hotels never become stops). Everything else is a preference that ranks places or shapes the plan. A requested break is a slot, not a filter: when no suitable venue fits, the route is returned without it and says so. Opening hours: editorial pilot first, then OpenStreetMap `opening_hours`; when a place has no readable hours, food and nightlife use typical category hours flagged as unverified, and other places are not limited. An unreadable value is never treated as closed. When no route exists, the planner returns a reason (`no-candidates`, `interests-closed` with the earliest opening, `no-feasible-route`) so the UI can explain it instead of a generic message.
+
+## ADR-013 — Start V3: chosen categories mean "only these"
+
+Status: accepted 2026-11-10; the founder asked to implement the planner audit recommendations.
+
+Start asks only what changes the plan. Selected interests are the plan: with any specific interest the planner uses only those categories (plus the requested break venue), and with "Wszystko po trochu" it mixes freely. When the selection cannot fill the time, the route is shorter and offers "Uzupełnij po drodze" instead of silently adding unrelated stops. Viewing mode is decided by the planner (inside when open, facade only for buildings worth seeing). The coffee break is automatic for daytime plans of 4 h or more and can be switched off. Interest chips are derived from the active city's catalogue (minimum five places). This supersedes the soft "Lubię" wording in issue #172 for Start; exclusions remain hard.

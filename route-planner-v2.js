@@ -14,6 +14,9 @@ const MINUTES_BY_CAT={museum:75,gallery:50,park:30,landmark:20,viewpoint:20,rest
 const MAX_WAIT_MINUTES=45;
 // Food stops allowed when the user picked the food theme (the requested break is extra).
 const MAX_THEME_FOOD=4;
+// Evening plans may continue after midnight (clubs open at 23:00 or 00:00); never past 06:00.
+const LATEST_END_MINUTE=30*60;
+const LATEST_START_MINUTE=23*60+30;
 const clamp=(v,min,max)=>Math.min(max,Math.max(min,v));
 const hasCoords=p=>p&&Number.isFinite(Number(p.lat))&&Number.isFinite(Number(p.lng))
   &&Number(p.lat)>=-90&&Number(p.lat)<=90&&Number(p.lng)>=-180&&Number(p.lng)<=180;
@@ -58,7 +61,9 @@ function rejectionOf(p,prefs,interests){
   if(STAY.has(p.categoryId)||p.kind==='hotel')return 'stay';
   if(prefs.cityId&&p.cityId&&p.cityId!==prefs.cityId)return 'other-city';
   if(isExcludedRoutePlace(p,prefs.avoid))return 'excluded';
-  if(!routeAllowedByFocus(p,prefs))return 'not-selected';
+  // The requested break is its own slot, so a café may join a route made "only" of bars.
+  const breakVenue=foodPlace(p)&&!!prefs.food&&prefs.food!=='none'&&routeBreakSuitable(p,prefs.food);
+  if(!breakVenue&&!routeAllowedByFocus(p,prefs))return 'not-selected';
   if(!routeBudgetEligible(p,prefs)||Number.isNaN(budgetLimit(prefs)))return 'budget';
   if(Array.isArray(prefs.allowedAreas)&&prefs.allowedAreas.length&&!prefs.allowedAreas.includes(p.area))return 'area';
   if(Number(prefs.maxRadiusKm)>0&&hasCoords(prefs.start)&&distance(p,prefs.start)>Number(prefs.maxRadiusKm))return 'too-far';
@@ -168,7 +173,7 @@ function stepState(state,item,ctx){
     else if(mayTheme)role='theme-food';
     else return null;
   }
-  if(done-ctx.start>ctx.maxMinutes||done>1440)return null;
+  if(done-ctx.start>ctx.maxMinutes||done>ctx.latestEnd)return null;
   const nextCost=state.cost+(routeKnownCost(p)??0);
   if(nextCost>ctx.maxCost)return null;
   const repeated=state.groups[groupOf(p)]||0;
@@ -234,7 +239,7 @@ function suggestStart(timed,ctx){
   if(!withHours)return null;
   const need=Math.min(3,withHours),span=Math.min(ctx.maxMinutes,120);
   const enough=t=>timed.filter(iv=>iv.some(([o,c])=>o<=t&&t+span<=c)).length>=need;
-  const latest=ctx.latestEnd-span;
+  const latest=Math.min(LATEST_START_MINUTE,ctx.latestEnd-span);
   for(let t=Math.ceil((ctx.start+1)/30)*30;t<=latest;t+=30)if(enough(t))return t;
   for(let t=6*60;t<ctx.start;t+=30)if(enough(t))return t;
   return null;
@@ -254,7 +259,7 @@ export function planRoutesV2(places,prefs={},opts={}){
   const mode=prefs.transport||'walking';
   const ctx={
     origin:candidateData.origin,matrix:opts.matrix||null,transport:mode,
-    cityId:prefs.cityId||'warsaw',date,start,maxMinutes,latestEnd:1440,
+    cityId:prefs.cityId||'warsaw',date,start,maxMinutes,latestEnd:LATEST_END_MINUTE,
     maxCost:budgetLimit(prefs),visitMode:prefs.visitMode||'inside',food:prefs.food||'none',
     mealRequired:!!prefs.food&&prefs.food!=='none',
     foodTheme:foodThemeOf(candidateData.interests),

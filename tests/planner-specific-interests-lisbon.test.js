@@ -12,7 +12,7 @@ const config=(extra={})=>({cityId:'lisbon',visitDate:'2026-11-16',startTime:'19:
 const opts={count:3,candidateLimit:72,beamWidth:32,maxExpansions:10000};
 
 test('Start options match the fine-grained POI category vocabulary without saved/mine filtering',()=>{
- const expected=['mix','zabytki','muzea','zielen','widoki','woda','ulice','okolice','jedzenie','bary','kluby','aktywnosci','sidequests'];
+ const expected=['mix','zabytki','swiatynie','muzea','zielen','ogrody','widoki','woda','ulice','okolice','jedzenie','bary','kluby','aktywnosci','sidequests'];
  assert.deepEqual(ROUTE_INTERESTS.map(x=>x.id),expected);
 });
 
@@ -78,13 +78,27 @@ test('Lisbon 0 cost is unknown, not a verified free entry or free restaurant mea
  assert.equal(routeBudgetEligible({...bar,cost:40},config({budget:'custom',budgetAmount:25})),false);
 });
 
-test('new filter choices and date placement are visible in Start without a duplicate builder',()=>{
+test('Start V3 asks only what changes the plan; date and time stay visible',()=>{
  const app=readFileSync(new URL('../app.js',import.meta.url),'utf8'),ux=readFileSync(new URL('../ux-cleanup.js',import.meta.url),'utf8');
- assert.match(app,/name="preciseTypes"/);
- assert.match(app,/radio\('focus'/);
- assert.doesNotMatch(app,/radio\('budget'/);
- assert.doesNotMatch(app,/name="budgetAmount"/);
+ for(const removed of [/name="preciseTypes"/,/radio\('focus'/,/radio\('visitMode'/,/radio\('tourist'/,/radio\('offers'/,/Mieszany \(szacunkowo\)/,/radio\('budget'/,/name="budgetAmount"/])
+  assert.doesNotMatch(app,removed);
+ assert.match(app,/name="coffee" value="yes" checked/);
  assert.match(app,/Kawa lub lokalna przekąska/);
+ assert.match(app,/prefs\.focus=prefs\.interests\.includes\('mix'\)\?'prefer':'only'/,'chosen categories mean only these');
+ assert.match(app,/prefs\.coffee=data\.get\('coffee'\)==='yes'\?'yes':'no'/);
+ assert.match(app,/return prefs\.coffee==='yes'&&Number\(prefs\.time\)>=240&&h\*60\+m<17\*60\?'quick':'none'/,'automatic coffee only for daytime plans of 4 h or more');
+ assert.match(app,/if\(prefs\.coffee\)prefs\.food=autoBreak\(prefs\)/);
  assert.match(app,/route-plan-feedback/);
- assert.match(ux,/form\.replaceChildren\(climate\.details,primary,\.\.\.\(feedback\?\[feedback\]:\[\]\),submit,alternatives,advanced\.details,whenDetails\.details\)/);
+ assert.match(ux,/primary\.append\(when\)/);
+ assert.match(ux,/form\.replaceChildren\(climate\.details,primary,\.\.\.\(feedback\?\[feedback\]:\[\]\),submit,alternatives,advanced\.details\)/);
+});
+
+test('temples and gardens are ordinary interests, and gardens no longer require a subtype toggle',()=>{
+ const garden=lisbon.find(p=>p.categoryId==='garden'),temple=lisbon.find(p=>p.categoryId==='religious_site');
+ assert.ok(routeInterestMatch(garden,'ogrody')&&routeInterestMatch(garden,'zielen'));
+ assert.ok(routeInterestMatch(temple,'swiatynie')&&routeInterestMatch(temple,'zabytki'));
+ assert.ok(!routeInterestMatch(lisbon.find(p=>p.categoryId==='park'),'ogrody'));
+ const res=planRoutesV2(lisbon,config({interests:['ogrody'],time:120,startTime:'11:00'}),opts);
+ assert.ok(res.routes.length>0);
+ assert.ok(res.routes.every(r=>r.stops.every(p=>p.categoryId==='garden')));
 });

@@ -112,3 +112,6 @@
 #build-form .planner-focus .fine{line-height:1.45}
 #build-form .route-precise-types .fine{margin-top:8px}
 #build-form .route-plan-feedback:not(:empty){padding:12px;border:1px solid #e9c7a2;border-radius:12px;color:var(--ink);background:#fff6eb;font-size:13px;line-height:1.5}
+/* Start V3 (planner audit 2026-11-10): date and start time sit visibly under the duration; repairs are touch-sized. */
+.ux-planner-primary .ux-when-inline{margin-top:14px!important}
+.planner-repair{min-height:44px;display:inline-flex;align-items:center;padding:0 2px;font-weight:650;font-size:inherit}

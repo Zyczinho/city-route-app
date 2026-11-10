@@ -29,14 +29,14 @@ export const GUIDE_GROUPS = [
       [
         "Uwzględnij godziny otwarcia",
         "Ułóż trasę → Data i godzina",
-        "Unikaj przyjazdu do zamkniętego muzeum.",
+        "Unikaj przyjazdu do zamkniętego miejsca.",
         [
           "Wybierz datę i godzinę rozpoczęcia.",
-          "Określ, czy chcesz wejść do muzeów czy oglądać je z zewnątrz.",
+          "Gdy wybrane miejsca są wtedy zamknięte, dostaniesz propozycję innej godziny.",
           "Po wygenerowaniu przejrzyj harmonogram i ostrzeżenia."
         ],
         "#plan",
-        "Godziny są zweryfikowane tylko dla wybranych atrakcji. Nieznane godziny nie oznaczają otwartego miejsca."
+        "Godziny pochodzą z OpenStreetMap. Gdy ich brak, zakładamy typowe godziny i oznaczamy je do sprawdzenia."
       ],
       [
         "Dopasuj czas, transport i budżet",

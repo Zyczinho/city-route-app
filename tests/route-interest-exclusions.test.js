@@ -29,7 +29,7 @@ const config=(extra={})=>({cityId:'warsaw',visitDate:'2026-11-07',startTime:'10:
  time:360,transport:'walking',interests:['mix'],avoid:[],food:'none',
  budget:'premium',offers:'no',tourist:'balanced',visitMode:'inside',...extra});
 test('every UI interest is a recognized planner theme, with descriptions',()=>{
- assert.deepEqual(ROUTE_INTERESTS.map(x=>x.id),['mix','zabytki','muzea','zielen','widoki','woda','ulice','okolice','jedzenie','bary','kluby','aktywnosci','sidequests']);
+ assert.deepEqual(ROUTE_INTERESTS.map(x=>x.id),['mix','zabytki','swiatynie','muzea','zielen','ogrody','widoki','woda','ulice','okolice','jedzenie','bary','kluby','aktywnosci','sidequests']);
  assert.ok(ROUTE_INTERESTS.every(x=>x.description&&x.label));
  assert.equal(ROUTE_EXCLUSIONS.length,6);
  assert.deepEqual(normalizeRouteInterests(['mix','nature','nature','unknown']),['nature']);

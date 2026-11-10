@@ -16,7 +16,9 @@ test('UX cleanup makes the planner progressively disclose complexity without cha
  assert.match(ux,/submit\.textContent='Ułóż mi trasę'/);
   assert.match(ux,/form\.replaceChildren\(climate\.details,primary,submit,alternatives,whenDetails\.details,advanced\.details\)/);
  assert.match(ux,/whenDetails=disclosure\('Kiedy chcesz zwiedzać\?'/);
- assert.match(ux,/manual\.href='#places'/);
+ assert.match(ux,/manual\.href='#my-route'/);
+ assert.match(ux,/form\.before\(choice\)/);
+ assert.match(ux,/placesLink\.href='#places'/);
  assert.match(ux,/social\.href='#routes\/community'/);
  assert.doesNotMatch(ux,/—/,'planner cleanup copy must avoid long AI-style dashes');
 });

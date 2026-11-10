@@ -53,3 +53,15 @@
 .planner-when{min-width:0}.planner-when-fields{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:10px;margin-top:8px}.planner-when-fields label{min-width:0;display:grid;gap:5px;color:var(--ink,#152438);font-weight:650;font-size:12px}.planner-when-fields input{display:block;box-sizing:border-box;width:100%;min-width:0;min-height:44px;background:var(--surface,#fff);border:1px solid var(--line,#dce2e9);border-radius:10px;color:var(--ink,#152438);font:inherit;font-size:14px;padding:8px}
 .route-timeline{margin:20px 0}.route-timeline h2{font-size:18px}.timeline-list{list-style:none;padding:0;display:grid;gap:9px;margin:12px 0}.timeline-list li{display:grid;grid-template-columns:100px minmax(0,1fr);gap:8px;padding:11px;border-radius:12px;border:1px solid var(--line,#dce2e9);background:var(--surface,#fff)}.timeline-list li>strong{font-size:13px;color:var(--blue,#0877b7);font-variant-numeric:tabular-nums}.timeline-list li span{font-weight:700;font-size:13px;min-width:0}.timeline-list li small{display:block;font-size:12px;color:var(--muted,#687385);font-weight:450;margin-top:4px}.timeline-list a{font-weight:750;text-decoration:underline}
 @media(max-width:370px){.planner-when-fields{grid-template-columns:1fr}.timeline-list li{grid-template-columns:80px minmax(0,1fr)}}
+
+
+/* START-MANUAL-ENTRY-2026: make the existing manual builder discoverable without duplicating it. */
+.ux-plan-manual-entry{box-sizing:border-box;max-width:620px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 13px;margin:0 0 12px;background:#fff;border:1px solid var(--line);border-radius:14px}
+.ux-plan-manual-copy{display:grid;gap:2px;min-width:0}
+.ux-plan-manual-copy strong{font-size:13px;font-weight:760;line-height:1.35}
+.ux-plan-manual-copy small{font-size:11px;color:var(--muted);line-height:1.35}
+.ux-plan-manual-link{display:inline-flex;align-items:center;justify-content:center;gap:6px;flex-shrink:0;min-height:44px;padding:8px 11px;background:var(--blue-soft);color:var(--blue);font-size:13px;font-weight:750;text-decoration:none;border:1px solid #c9ddf3;border-radius:11px}
+.ux-plan-manual-link:hover{background:#d9e9fc}
+.ux-plan-manual-link:focus-visible{outline:3px solid #8ac5fa;outline-offset:2px}
+.ux-plan-manual-link .i{width:16px;height:16px}
+@media(max-width:520px){.ux-plan-manual-entry{padding:10px 11px;gap:8px}.ux-plan-manual-copy strong{font-size:12px}.ux-plan-manual-copy small{font-size:10px}.ux-plan-manual-link{font-size:12px;padding:7px 9px}}

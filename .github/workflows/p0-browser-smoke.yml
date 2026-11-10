@@ -14,6 +14,9 @@ on:
       - 'place-composer-model.js'
       - 'route-optimizer.js'
       - 'route-planner-v2.js'
+      - 'route-preferences.js'
+      - 'core.js'
+      - 'route-diversity.js'
       - 'tests/planner-v2-browser-smoke.mjs'
       - 'ux-cleanup.js'
       - 'social-routes-enhancements.js'
@@ -45,15 +48,25 @@ jobs:
     # Draft PRs use fast CI; full browser QA starts when ready for review.
     if: ${{ !github.event.pull_request.draft }}
     runs-on: ubuntu-24.04
-    timeout-minutes: 12
+    # The official Playwright image already bundles Chromium, WebKit and all Linux libraries.
+    # Ubuntu apt installation in "playwright install --with-deps" intermittently hung for
+    # the entire run; avoid it, not the browser tests themselves.
+    container:
+      image: mcr.microsoft.com/playwright:v1.58.2
+    timeout-minutes: 18
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - run: npm run build
       - run: npm install --no-save playwright@1.58.2
-      - run: npx playwright install --with-deps chromium webkit
+      - name: Verify pinned browser availability
+        run: |
+          node -e "const { chromium, webkit } = require('playwright');const fs=require('fs');for(const b of [chromium,webkit]){const path=b.executablePath();if(!fs.existsSync(path))throw Error('Missing '+b.name()+' executable: '+path);console.log(b.name()+': '+path)}"
       - run: node tests/add-place-pointer-smoke.mjs
       - run: node tests/add-place-after-photo-smoke.mjs
       - run: node tests/p0-browser-smoke.mjs

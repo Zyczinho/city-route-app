@@ -91,8 +91,25 @@ async function runPlannerBrowserSmoke(){
   await page.locator('#build-form button.primary.big').click();
   await page.waitForURL(/#route\/generated$/,{timeout:30000});
   assert.ok(await page.locator('.generated-option').count()>=1,'confirmed address reaches the generator');
+  // Strict thematic intent must remain accessible; unsupported global price budgets are absent.
+  await page.goto(BASE+'/#plan',{waitUntil:'domcontentloaded'});
+  await page.locator('#build-form').waitFor({timeout:15000});
+  await page.locator('input[name="focus"][value="only"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
+  await page.locator('#build-form button.primary.big').click();
+  assert.match(await page.locator('.route-plan-feedback').innerText(),/zaznacz kategorię/,'only-mix is an actionable error, not a fake route');
+  await page.locator('input[name="interests"][value="bary"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
+  assert.equal(await page.locator('input[name="interests"][value="mix"]').isChecked(),false);
+  const only=page.locator('input[name="focus"][value="only"]');
+  assert.equal(await only.isChecked(),true);
+  await page.locator('input[name="preciseTypes"][value="garden"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
+  assert.equal(await only.isChecked(),true,'exact garden forces hard category mode');
+  await page.locator('input[name="focus"][value="prefer"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
+  assert.equal(await page.locator('input[name="preciseTypes"][value="garden"]').isChecked(),false,'switch to soft preferences clears exact type');
+  assert.equal(await page.locator('input[name="budget"]').count(),0,'no unsupported global budget on Start');
+  assert.equal(await page.locator('input[name="food"][value="quick"]').count(),1,'local snack stop remains optional');
+  assert.equal(await page.locator('input[name="food"][value="sit"]').count(),0,'paid restaurant meal is not mandatory in MVP');
   assert.deepEqual(errors,[],'no browser uncaught errors');
-  console.log('PLANNER_V2_BROWSER_QA '+JSON.stringify({alternatives:true,fullBudget:true,reroll:true,saved:true,transitLegs:routes,mobile375:true}));
+  console.log('PLANNER_V2_BROWSER_QA '+JSON.stringify({alternatives:true,budgetRemoved:true,reroll:true,saved:true,transitLegs:routes,mobile375:true}));
  }finally{
   await browser?.close();server.kill('SIGTERM');
  }

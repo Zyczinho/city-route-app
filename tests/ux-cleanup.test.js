@@ -8,19 +8,19 @@ const read=p=>readFile(p,'utf8');
 
 test('UX cleanup makes the planner progressively disclose complexity without changing field names',async()=>{
  const [app,ux]=await Promise.all([read('app.js'),read('ux-cleanup.js')]);
- for(const name of ['time','transport','food','start','budget','tourist','offers'])assert.match(app,new RegExp(`radio\\('${name}'`));
+ for(const name of ['time','transport','food','start','tourist','offers'])assert.match(app,new RegExp(`radio\\('${name}'`));
  assert.match(app,/name="interests"/);
  assert.match(ux,/Twój plan na miasto/);
   assert.match(ux,/disclosure\('Co Cię interesuje\?'/);
  assert.match(ux,/disclosure\('Więcej ustawień'/);
  assert.match(ux,/submit\.textContent='Ułóż mi trasę'/);
-  assert.match(ux,/form\.replaceChildren\(climate\.details,primary,submit,alternatives,whenDetails\.details,advanced\.details\)/);
+  assert.match(ux,/form\.replaceChildren\(climate\.details,primary,\.\.\.\(feedback\?\[feedback\]:\[\]\),submit,alternatives,advanced\.details,whenDetails\.details\)/);
  assert.match(ux,/whenDetails=disclosure\('Kiedy chcesz zwiedzać\?'/);
  assert.match(ux,/manual\.href='#my-route'/);
  assert.match(ux,/form\.before\(choice\)/);
  assert.match(ux,/placesLink\.href='#places'/);
  assert.match(ux,/avoid=field\('avoid'\)/);
- assert.match(ux,/\[visitMode,transport,food,start,budget,tourist,avoid,offers\]/);
+ assert.match(ux,/\[visitMode,transport,food,start,budget,tourist,avoid,preciseTypes,offers\]/);
  assert.match(ux,/social\.href='#routes\/community'/);
  assert.doesNotMatch(ux,/—/,'planner cleanup copy must avoid long AI-style dashes');
 });

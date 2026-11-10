@@ -112,7 +112,7 @@ export function mergeSaved({local={},remote=[],pending=[],initialized=false,user
  for(const c of new Set([...Object.keys(local||{}).filter(validCity),...sets.keys()])){
   const account=sets.get(c)||new Set(),here=Array.isArray(local?.[c])?local[c].map(String):[];
   // Do not silently discard a device-only private place if its payload is not yet on the server.
-  const kept=here.filter(id=>!syncableRef(id)||account.has(id)||(isPrivateRef(id)&&privateMap.has(key(c,id))&&!removedHere.has(key(c,id))));
+  const kept=here.filter(id=>!syncableRef(id)||account.has(id)||(!initialized&&isPrivateRef(id)&&privateMap.has(key(c,id))&&!removedHere.has(key(c,id))));
   byCity[c]=[...new Set([...kept,...account].filter(id=>!removedHere.has(key(c,id))))];
  }
  const mergedPlaces=[...userPlaces],seen=new Set(userPlaces.map(p=>key(p.cityId,p.id)));

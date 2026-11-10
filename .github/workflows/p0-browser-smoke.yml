@@ -65,7 +65,8 @@ jobs:
       - run: npm run build
       - run: npm install --no-save playwright@1.58.2
       - name: Verify pinned browser availability
-        run: node -e "const { chromium, webkit } = require('playwright');const fs=require('fs');for(const b of [chromium,webkit]){const path=b.executablePath();if(!fs.existsSync(path))throw Error('Missing '+b.name()+' executable: '+path);console.log(b.name()+': '+path)}"
+        run: |
+          node -e "const { chromium, webkit } = require('playwright');const fs=require('fs');for(const b of [chromium,webkit]){const path=b.executablePath();if(!fs.existsSync(path))throw Error('Missing '+b.name()+' executable: '+path);console.log(b.name()+': '+path)}"
       - run: node tests/add-place-pointer-smoke.mjs
       - run: node tests/add-place-after-photo-smoke.mjs
       - run: node tests/p0-browser-smoke.mjs

@@ -173,7 +173,7 @@ async function placeEnrichment(url,env,ctx){
 async function placeSuggest(url,env,ctx){
  const q=String(url.searchParams.get('q')||'').replace(/\s+/g,' ').trim();
  if(q.length<3||q.length>120)return json({status:'invalid-query',suggestions:[]},422);
- const city=cityFromParams(url.searchParams),useGoogle=env.GOOGLE_PLACES_AUTOCOMPLETE==='on'&&googleAllowed(env);
+ const city=cityFromParams(url.searchParams),useGoogle=url.searchParams.get('source')!=='osm'&&env.GOOGLE_PLACES_AUTOCOMPLETE==='on'&&googleAllowed(env);
  // OSM results may be cached; Google predictions are never cached (Places terms).
  const cache=caches.default,cacheKey=new Request(`https://city-route-cache/place-suggest-v1?c=${city.center.lat},${city.center.lng},${city.radiusKm}&q=${encodeURIComponent(q.toLowerCase())}`);
  if(!useGoogle){const hit=await cache.match(cacheKey);if(hit)return hit;}

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {syncableRef,compactPending,mergeSaved,recoverSyncQueue,savedSyncUnavailable} from '../saved-places-model.js';
+import {syncableRef,isPrivateRef,placeSnapshot,mergeLocalSources,compactPending,mergeSaved,recoverSyncQueue,savedSyncUnavailable} from '../saved-places-model.js';
 const read=n=>readFileSync(new URL('../'+n,import.meta.url),'utf8');
 const row=(c,p)=>({city_slug:c,place_ref:p});
 
@@ -35,13 +35,43 @@ test('offline changes are queued and the latest change per place wins',()=>{
  assert.deepEqual(r.byCity,{warsaw:['koszyki']});
 });
 
-test('private places made on one device stay local and are never sent',()=>{
- assert.equal(syncableRef('u-1a2b3c4d'),false);
- assert.equal(syncableRef('barbican'),true);
- assert.equal(syncableRef('bad ref with spaces'),false);
- const r=mergeSaved({local:{warsaw:['u-1a2b3c4d','barbican']},remote:[],initialized:false});
- assert.deepEqual(r.toInsert,[row('warsaw','barbican')]);
- assert.deepEqual(r.byCity,{warsaw:['u-1a2b3c4d','barbican']});
+test('private places are exported as owner-only display snapshots without device photos',()=>{
+ const device={id:'u-1a2b3c4d',cityId:'warsaw',name:'Moja kawiarnia',area:'Saska Kępa',
+  lat:52.2,lng:21.1,cats:['jedzenie'],image:'data:image/jpeg;base64,VERY_BIG',
+  images:['data:image/png;base64,PRIVATE','https://example.org/photo.jpg']};
+ const snap=placeSnapshot(device);
+ assert.equal(syncableRef(device.id),true);
+ assert.equal(isPrivateRef(device.id),true);
+ assert.equal(snap.image,null);
+ assert.deepEqual(snap.images,['https://example.org/photo.jpg']);
+ const first=mergeSaved({local:{warsaw:[device.id,'barbican']},remote:[],userPlaces:[device],initialized:false});
+ assert.equal(first.toInsert.length,2);
+ assert.deepEqual(first.toInsert.find(r=>r.place_ref===device.id)?.place_snapshot,snap);
+ const second=mergeSaved({local:{warsaw:['azia']},remote:first.toInsert,userPlaces:[],initialized:false});
+ assert.deepEqual(new Set(second.byCity.warsaw),new Set(['azia',device.id,'barbican']));
+ assert.equal(second.userPlaces.length,1);
+ assert.equal(second.userPlaces[0].name,device.name);
+ assert.deepEqual(second.toInsert,[row('warsaw','azia')]);
+});
+
+test('one-time recovery combines saved places and private snapshots from two local account copies',()=>{
+ const a={savedPlacesByCity:{warsaw:['azie','u-abc']},userPlaces:[{id:'u-abc',cityId:'warsaw',name:'Kino'}]};
+ const b={savedPlacesByCity:{warsaw:['barbican','azie'],lisbon:['alfama']},userPlaces:[]};
+ const merged=mergeLocalSources(a,b);
+ assert.deepEqual(merged.savedPlacesByCity,{warsaw:['azie','u-abc','barbican'],lisbon:['alfama']});
+ assert.equal(merged.userPlaces.length,1);
+ const out=mergeSaved({local:merged.savedPlacesByCity,remote:[],userPlaces:merged.userPlaces,initialized:false});
+ assert.deepEqual(new Set(out.byCity.warsaw),new Set(['azie','u-abc','barbican']));
+ assert.equal(out.toInsert.length,4);
+});
+
+test('private place removal propagates as an explicit deletion, not re-import',()=>{
+ const place={id:'u-abc',cityId:'warsaw',name:'Stary punkt'};
+ const previous=[{...row('warsaw','u-abc'),place_snapshot:placeSnapshot(place)}];
+ const result=mergeSaved({local:{warsaw:[]},remote:previous,userPlaces:[place],
+  pending:[{c:'warsaw',p:'u-abc',s:false,t:100}],initialized:false});
+ assert.deepEqual(result.toDelete,[row('warsaw','u-abc')]);
+ assert.deepEqual(result.byCity.warsaw,[]);
 });
 
 test('missing migration keeps local-only behaviour; schema matches the client rules',()=>{
@@ -104,10 +134,26 @@ test('an explicit offline unsave wins during first account recovery',()=>{
 
 test('runtime confirms server writes, guards account scope, and exposes status and retry',()=>{
  const src=read('saved-places-sync.js'),app=read('app.js');
- for(const token of ['city-route-saved-sync-v2:','city-route-saved-sync-v1:','city-route-saved-before-v2:','BACKUP_PREFIX','sameAccount(userId)','confirmedRefs','cityroute:saved-sync-status','cityroute:saved-sync-request','visibilitychange','setInterval']){
+ for(const token of ['city-route-saved-sync-v3:','city-route-saved-sync-v2:','city-route-saved-before-v3:','BACKUP_PREFIX','sameAccount(userId)','confirmedRefs','cityroute:saved-sync-status','cityroute:saved-sync-request','visibilitychange','setInterval']){
   assert.ok(src.includes(token),'missing durability/sync behavior: '+token);
  }
  assert.match(app,/data-saved-sync-status/);
  assert.match(app,/retry-saved-sync/);
  assert.doesNotMatch(src,/setItem\(DATA_KEY/,'the synchronizer must not overwrite app state behind app.js');
+});
+
+
+test('V3 covers private create/delete events and guest import without automatic data leakage',()=>{
+ const app=read('app.js'),runtime=read('saved-places-sync.js'),sql=read('supabase/migrations/029_saved_places_private_snapshots.sql');
+ assert.match(app,/data-action="merge-guest-saved"/);
+ assert.match(app,/cityroute:saved-import-guest/);
+ assert.match(app,/userPlaces:next.userPlaces|userPlaces=|userPlaces\}/);
+ assert.match(app,/state\.userPlaces\.push\(p\)/);
+ assert.match(runtime,/scopedKey\('guest'\)/);
+ assert.match(runtime,/guestImport/);
+ assert.match(runtime,/place_snapshot/);
+ assert.match(sql,/add column if not exists place_snapshot jsonb/i);
+ assert.match(sql,/user_saved_places_snapshot_check/);
+ assert.match(sql,/octet_length\(place_snapshot::text\)<=16384/);
+ assert.match(read('service-worker.js'),/saved-places-sync\.js\?v=3/);
 });

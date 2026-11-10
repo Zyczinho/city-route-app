@@ -19,6 +19,8 @@ test('UX cleanup makes the planner progressively disclose complexity without cha
  assert.match(ux,/manual\.href='#my-route'/);
  assert.match(ux,/form\.before\(choice\)/);
  assert.match(ux,/placesLink\.href='#places'/);
+ assert.match(ux,/avoid=field\('avoid'\)/);
+ assert.match(ux,/\[visitMode,transport,food,start,budget,tourist,avoid,offers\]/);
  assert.match(ux,/social\.href='#routes\/community'/);
  assert.doesNotMatch(ux,/—/,'planner cleanup copy must avoid long AI-style dashes');
 });

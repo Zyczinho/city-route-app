@@ -124,15 +124,29 @@ export function applyPhotoLibrary(places=[],library=null){
  });
 }
 
-export async function loadCatalogueWithFallback({client,city,fallback,photoLibrary=null}){
+// GOOGLE-PLACE-IDS-176: permanently stored Google place ids (data/google-place-ids/<city>.json). With an id the Worker
+// skips its name/position lookup for thumbnails and asks Place Details instead of Text Search for ratings.
+// Entries are confirmed matches from the Worker cache or manual curator fixes; both are bound to id + name.
+const GOOGLE_PLACE_ID=/^[A-Za-z0-9_-]{10,300}$/;
+export function applyGooglePlaceIds(places=[],file=null){
+ const ids=file?.places&&typeof file.places==='object'?file.places:null;
+ if(!ids)return places;
+ return places.map(p=>{
+  const entry=p&&!p.googlePlaceId&&Object.hasOwn(ids,p.id)?ids[p.id]:null;
+  if(!entry||!GOOGLE_PLACE_ID.test(String(entry.googlePlaceId||''))||fold(entry.name||'')!==fold(p.name||''))return p;
+  return {...p,googlePlaceId:entry.googlePlaceId};
+ });
+}
+
+export async function loadCatalogueWithFallback({client,city,fallback,photoLibrary=null,placeIds=null}){
  try{
   const result=await loadSupabaseCatalogue(client,city);
   const curated=typeof fallback==='function'?null:fallback;
-  return {...result,places:applyPhotoLibrary(mergeCuratedPhotos(result.places,curated?.places||[]),photoLibrary)};
+  return {...result,places:applyGooglePlaceIds(applyPhotoLibrary(mergeCuratedPhotos(result.places,curated?.places||[]),photoLibrary),placeIds)};
  }
  catch(error){
   const value=typeof fallback==='function'?await fallback(error):fallback;
   if(!value)throw error;
-  return {source:'json',places:applyPhotoLibrary(value.places||[],photoLibrary),routes:value.routes||[],error};
+  return {source:'json',places:applyGooglePlaceIds(applyPhotoLibrary(value.places||[],photoLibrary),placeIds),routes:value.routes||[],error};
  }
 }

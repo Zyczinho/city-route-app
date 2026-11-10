@@ -133,6 +133,16 @@ async function peekGooglePlaceId(name,lat,lng,cache){
  if(!name||![lat,lng].every(Number.isFinite))return '';
  try{const hit=await cache.match(new Request(placeIdCacheKey(name,lat,lng)));const v=hit&&await hit.json();return typeof v?.id==='string'?v.id:'';}catch{return '';}
 }
+// /api/place-id: the Google place_id this Worker has already confirmed for a catalogue place, read from its cache only.
+// Never calls Google, so it costs nothing; scripts/collect-google-place-ids.mjs uses it to store ids permanently
+// (Google allows keeping place_id indefinitely, unlike photos or ratings).
+async function placeIdFromCache(url){
+ const name=String(url.searchParams.get('name')||'').replace(/\s+/g,' ').trim().slice(0,120);
+ const lat=Number(url.searchParams.get('lat')),lng=Number(url.searchParams.get('lng'));
+ if(name.length<2||![lat,lng].every(Number.isFinite)||Math.abs(lat)>90||Math.abs(lng)>180)return json({status:'invalid',id:null},422);
+ const id=await peekGooglePlaceId(name,lat,lng,caches.default);
+ return json({status:id?'ok':'unknown',id:/^[A-Za-z0-9_-]{10,300}$/.test(id)?id:null});
+}
 async function placeEnrichment(url,env,ctx){
  const name=String(url.searchParams.get('name')||'').replace(/\s+/g,' ').trim().slice(0,120);
  const lat=Number(url.searchParams.get('lat')),lng=Number(url.searchParams.get('lng'));
@@ -216,6 +226,10 @@ export default {
   if(pathname==='/api/place-thumb'){
    if(request.method!=='GET')return json({status:'method-not-allowed'},405);
    return placeThumb(url,env,ctx);
+  }
+  if(pathname==='/api/place-id'){
+   if(request.method!=='GET')return json({status:'method-not-allowed'},405);
+   return placeIdFromCache(url);
   }
   if(pathname==='/api/place-details'){
    if(request.method!=='GET')return json({status:'method-not-allowed'},405);

@@ -48,3 +48,21 @@ requested without `languageCode`, which answers in English, and always sent `reg
 ## Rebuild
 
 `node scripts/build-photo-library.mjs --city <id>` (free APIs only; run one city at a time, Commons rate-limits bursts).
+
+## Stored Google place ids (follow-up)
+
+Measured after #211 on production (same 30-per-city sample): 86 of 90 cover-less places show a photo. The four
+misses (Chaton, Hopito, Dwa Koła, Soczyście Warszawa) are venues Google's same-place check rejects.
+
+`data/google-place-ids/<city>.json` keeps confirmed Google place ids permanently (Google allows storing `place_id`,
+not photos or ratings). The app attaches them as `googlePlaceId`, which it already sends to `/api/place-thumb` and
+`/api/place-enrichment`: thumbnails skip the name/position lookup and card ratings use Place Details by id instead
+of Text Search.
+
+- `scripts/collect-google-place-ids.mjs` fills the files from `GET /api/place-id`, which only reads ids the Worker
+  has already confirmed in its cache. It never calls Google, so collecting costs nothing. The cache is per
+  Cloudflare location and grows with real browsing, so later runs find more.
+- **Manual fixes:** for a venue Google's check rejects, a curator finds the id with Google's Place ID Finder and adds
+  `{"name": "<exact catalogue name>", "googlePlaceId": "…", "source": "manual"}`. The script never touches these.
+- The files ship empty in this change; they are filled after the Worker endpoint is deployed.
+- No database write: ids live in the repo like the photo library and can move to `places.metadata` later.

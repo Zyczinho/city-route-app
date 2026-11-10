@@ -1,6 +1,10 @@
+## OPEN — P0 #176 stored Google place ids
+
+[OPEN] GPID-176 — Claude — PR `claude/google-place-ids` — review requested (YELLOW: Worker endpoint, precache). Adds zero-cost `GET /api/place-id` (Worker cache read only), `data/google-place-ids/<city>.json` (empty until collected after deploy), `scripts/collect-google-place-ids.mjs` and manual curator fixes for venues Google's check rejects. No DB write, no paid call. Details: `docs/PHOTO_LIBRARY_176_2026-11-10.md`. Last update 2026-11-10.
+
 ## OPEN — P0 #176 permanent photo library + Google match language
 
-[OPEN] PHOTO-LIB-176 — Claude — draft PR `claude/photos-always-visible` — ChatGPT review requested (YELLOW: runtime, service-worker precache, Worker). Adds `data/photo-library/<city>.json` (228 exact Wikidata P18 → Commons covers with credit; permanent covers 58 → 286 of 708), applies it in `catalogue-client.js`/`app.js` with fallback to the existing Google thumbnail and tile, and sends city language/country to `/api/place-thumb` (production sample: 29% `no-match`, incl. major landmarks, because Place Details answered in English). No DB write, no paid activation, no new storage. Touches `app.js` photo helpers only; overlaps by file with drafts #207/#208. Language-fix hit rate unmeasured until production deploy. Details: `docs/PHOTO_LIBRARY_176_2026-11-10.md`. Last update 2026-11-10.
+[DONE] PHOTO-LIB-176 — Claude — PR #211 MERGED `1e694f1`; production sample 64/90 → 86/90 cover-less places with a photo. Earlier text: — ChatGPT review requested (YELLOW: runtime, service-worker precache, Worker). Adds `data/photo-library/<city>.json` (228 exact Wikidata P18 → Commons covers with credit; permanent covers 58 → 286 of 708), applies it in `catalogue-client.js`/`app.js` with fallback to the existing Google thumbnail and tile, and sends city language/country to `/api/place-thumb` (production sample: 29% `no-match`, incl. major landmarks, because Place Details answered in English). No DB write, no paid activation, no new storage. Touches `app.js` photo helpers only; overlaps by file with drafts #207/#208. Language-fix hit rate unmeasured until production deploy. Details: `docs/PHOTO_LIBRARY_176_2026-11-10.md`. Last update 2026-11-10.
 
 ## DONE — P0 #200 Add Place Commons click cancellation; incident protocol owner
 

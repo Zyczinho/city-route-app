@@ -1,5 +1,5 @@
 import {summary,optimize,generate,generateAlternatives,advance,mapsUrl,routeMapsUrl,parseLocation,distance,combinedRating,smoothedRating,matches} from './core.js';
-import {ROUTE_INTERESTS,ROUTE_EXCLUSIONS,normalizeRouteInterests,normalizeRouteExclusions} from './route-preferences.js';
+import {ROUTE_INTERESTS,ROUTE_EXCLUSIONS,ROUTE_PRECISE_TYPES,normalizeRouteInterests,normalizeRouteExclusions,normalizeRoutePreciseTypes} from './route-preferences.js';
 import {iconMarkup} from './ui-icons.js';
 import {localDate,validDate,scheduleRoute,feasibleFor} from './opening-hours.js';
 import {guideView} from './onboarding-guide.js';
@@ -566,14 +566,15 @@ const radio=(name,opts,val)=>`<div class="choice" role="radiogroup">${opts.map((
 function planView(){const timeZone=city().timezone||'Europe/Warsaw',today=localDate(timeZone),suggested=suggestVisitStart({timeZone}),date=generationPrefs?.visitDate&&generationPrefs.visitDate>=today?generationPrefs.visitDate:suggested.date,time=generationPrefs?.visitDate&&generationPrefs.visitDate>=today?(generationPrefs?.startTime||suggested.time):suggested.time,mode=generationPrefs?.visitMode||'mix';return `<section class="page-head"><p class="kicker">TWÓJ CZAS · TWOJE MIEJSCA</p><h1>Odkrywaj miasto po swojemu.</h1><a class="inline" href="#routes">Wolisz gotowy pomysł? Zobacz trasy${ic('chevron-right','link-arrow')}</a></section><a class="start-here" href="#about" aria-label="Zacznij tutaj — poznaj funkcje City Route"><span class="start-here-icon">${ic('compass')}</span><span class="start-here-copy"><strong>Nowy tutaj? Poznaj City Route</strong></span>${ic('chevron-right')}</a>${liveBanner()}
  <a class="button wide" href="#my-route">${ic("pencil")}Ułożę trasę samodzielnie — dodaję i przesuwam miejsca</a><form id="build-form" class="planner"><fieldset><legend>Ile masz czasu?</legend>${radio('time',[['60','1 h'],['120','2 h'],['240','4 h'],['360','Pół dnia · 6 h'],['480','Cały dzień · 8 h']],'120')}</fieldset>
  <fieldset class="planner-when"><legend>Kiedy chcesz zwiedzać?</legend><div class="planner-when-fields"><label>Data<input type="date" name="visitDate" required min="${today}" value="${esc(date)}"></label><label>Start<input type="time" name="startTime" required min="06:00" max="22:00" value="${esc(time)}"></label></div><p class="fine">Godziny sprawdzamy dla wybranych muzeów. Pozostałe wymagają potwierdzenia.</p></fieldset>
- <fieldset><legend>Jak chcesz oglądać atrakcje?</legend>${radio('visitMode',[['mix','Miks — wewnątrz i z zewnątrz'],['inside','Wewnątrz, jeśli dostępne'],['outside','Tylko z zewnątrz']],mode)}<p class="fine">Dla niektórych obiektów wejście wymaga biletu. Niepotwierdzone godziny oznaczamy w planie.</p></fieldset>
- <fieldset><legend>Na co masz ochotę?</legend><div class="choice">${ROUTE_INTERESTS.map(({id,label})=>`<label><input type="checkbox" name="interests" value="${id}" ${id==='mix'?'checked':''}><span>${label}</span></label>`).join('')}</div><details class="route-interest-help"><summary>Co oznaczają kategorie?</summary><dl>${ROUTE_INTERESTS.map(({label,description})=>`<div><dt>${label}</dt><dd>${description}</dd></div>`).join('')}</dl></details></fieldset>
- <fieldset><legend>Jak się poruszasz?</legend>${radio('transport',[['walking','Pieszo'],['bike','Rower'],['transit','Komunikacja'],['mix','Różnie']],'walking')}</fieldset>
+ <fieldset><legend>Jak chcesz oglądać atrakcje?</legend>${radio('visitMode',[['mix','Miks — wewnątrz i z zewnątrz'],['inside','Wewnątrz, jeśli dostępne'],['outside','Tylko z zewnątrz']],mode)}<p class="fine">Dotyczy atrakcji do zwiedzania, nie barów, klubów czy restauracji. Tam planujemy wizytę, nie oglądanie fasady.</p></fieldset>
+ <fieldset><legend>Na co masz ochotę?</legend><div class="choice">${ROUTE_INTERESTS.map(({id,label})=>`<label><input type="checkbox" name="interests" value="${id}" ${id==='mix'?'checked':''}><span>${label}</span></label>`).join('')}</div><div class="planner-focus"><strong>Jak ściśle dobrać miejsca?</strong>${radio('focus',[['prefer','Głównie wybrane'],['only','Tylko wybrane']],'prefer')}<p class="fine">„Głównie” dopuszcza inne przystanki. „Tylko” nie doda żadnego miejsca spoza zaznaczonych kategorii.</p></div><details class="route-interest-help"><summary>Co oznaczają kategorie?</summary><dl>${ROUTE_INTERESTS.map(({label,description})=>`<div><dt>${label}</dt><dd>${description}</dd></div>`).join('')}</dl></details></fieldset>
+ <fieldset><legend>Jak się poruszasz?</legend>${radio('transport',[['walking','Pieszo'],['bike','Rower'],['transit','Komunikacja'],['mix','Mieszany (szacunkowo)']],'walking')}</fieldset>
  <fieldset><legend>Kawa albo jedzenie po drodze?</legend>${radio('food',[['none','Nie'],['quick','Kawa lub przekąska'],['sit','Restauracja']],'none')}</fieldset>
  <fieldset class="planner-start"><legend>Skąd ruszasz?</legend>${radio('start',[['here','Stąd, gdzie jestem'],['any','Obojętnie'],['custom','Wpiszę dokładne miejsce']],'here')}<div class="planner-origin-fields" hidden><label for="planner-origin-input">Adres lub nazwa miejsca<input id="planner-origin-input" name="originAddress" type="text" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="planner-origin-options" aria-expanded="false" aria-label="Wyszukaj punkt startowy" maxlength="220" placeholder="Np. Praça do Comércio, Lisboa" disabled></label><div id="planner-origin-options" class="planner-origin-options" role="listbox" aria-label="Proponowane miejsca startu" hidden></div><div class="planner-origin-selected" hidden><span class="planner-origin-selected-check" aria-hidden="true">${ic("check")}</span><span class="planner-origin-selected-copy"><strong>Wybrany punkt startowy</strong><span class="planner-origin-selected-name"></span><small class="planner-origin-selected-address"></small></span><button type="button" data-action="planner-origin-change" aria-label="Zmień wybrany punkt startowy">Zmień</button></div><p class="fine planner-origin-status" role="status" aria-live="polite">Wpisz co najmniej 3 znaki i wybierz miejsce z listy poniżej.</p></div></fieldset>
- <fieldset class="route-exclusions"><legend>Czego nie chcesz na trasie?</legend><p class="fine">Te rodzaje miejsc pominiemy całkowicie.</p><div class="choice">${ROUTE_EXCLUSIONS.map(({id,label})=>`<label><input type="checkbox" name="avoid" value="${id}"><span>${label}</span></label>`).join('')}</div></fieldset>
- <details class="more"><summary>${ic('sliders-horizontal')}Więcej ustawień</summary><fieldset><legend>Budżet</legend>${radio('budget',[['low','Do 25 zł'],['medium','Do 100 zł'],['premium','Bez limitu']],'medium')}</fieldset><fieldset><legend>Styl zwiedzania</legend>${radio('tourist',[['balanced','Pół na pół'],['must','Najważniejsze punkty'],['local','Bardziej lokalnie']],'balanced')}</fieldset><input type="hidden" name="offers" value="no"><fieldset class="planner-sponsors-disabled" disabled aria-disabled="true"><legend>Oferty partnerów <small>Wkrótce</small></legend>${radio('offers',[['no','Brak ofert'],['yes','Sponsorowane']],'no')}</fieldset><p class="fine">Trasy sponsorowane są nieaktywne do czasu uruchomienia prawdziwych partnerstw. Czas przejść i przejazdów jest orientacyjny. W trybie komunikacji miejskiej sprawdzaj poszczególne odcinki w mapach.</p></details>
- <button class="primary big">${ic('wand-sparkles')}Ułóż moją trasę</button></form>`;}
+ <fieldset class="route-exclusions"><legend>Czego nie chcesz na trasie?</legend><p class="fine">Zaznaczone typy pominiemy. Samo pozostawienie „Bary i kluby” odznaczonego nie oznacza, że je dodamy. Wybierz Bary i „Tylko wybrane”, aby otrzymać trasę barową.</p><div class="choice">${ROUTE_EXCLUSIONS.map(({id,label})=>`<label><input type="checkbox" name="avoid" value="${id}"><span>${label}</span></label>`).join('')}</div></fieldset>
+ <fieldset class="route-precise-types"><legend>Jeszcze dokładniej: świątynie lub ogrody</legend><div class="choice">${ROUTE_PRECISE_TYPES.map(({id,label})=>`<label><input type="checkbox" name="preciseTypes" value="${id}"><span>${label}</span></label>`).join('')}</div><p class="fine">Wybór dokładnego typu włącza „Tylko wybrane”. Wykluczenia mają pierwszeństwo.</p></fieldset>
+ <details class="more"><summary>${ic('sliders-horizontal')}Więcej ustawień</summary><fieldset class="planner-budget"><legend>Budżet</legend>${radio('budget',[['premium','Bez limitu'],['free','Tylko potwierdzone bezpłatne'],['custom','Własna kwota']],'premium')}<label class="planner-budget-amount">Maksymalna kwota (${esc(city().currency||'PLN')})<input name="budgetAmount" type="number" inputmode="decimal" min="0" max="100000" step="0.01" placeholder="${city().currency==='EUR'?'np. 50':'np. 250'}"></label><p class="fine">Liczymy tylko znane ceny. Brak ceny nie oznacza darmowego wstępu, posiłku ani przejazdu. Własna kwota jest orientacyjnym limitem znanych kosztów, nie gwarancją całkowitego wydatku.</p></fieldset><fieldset><legend>Styl zwiedzania</legend>${radio('tourist',[['balanced','Pół na pół'],['must','Najważniejsze punkty'],['local','Bardziej lokalnie']],'balanced')}</fieldset><input type="hidden" name="offers" value="no"><fieldset class="planner-sponsors-disabled" disabled aria-disabled="true"><legend>Oferty partnerów <small>Wkrótce</small></legend>${radio('offers',[['no','Brak ofert'],['yes','Sponsorowane']],'no')}</fieldset><p class="fine">Trasy sponsorowane są nieaktywne do czasu uruchomienia prawdziwych partnerstw. Czas przejść i przejazdów jest orientacyjny. W trybie komunikacji miejskiej sprawdzaj poszczególne odcinki w mapach.</p></details>
+ <p class="route-plan-feedback" role="status" aria-live="polite"></p><button class="primary big">${ic('wand-sparkles')}Ułóż moją trasę</button></form>`;}
 
 // Route detail
 function stopList(ps,editable=false){return `<ol class="stops">${ps.map((p,i)=>`<li ${editable?`data-stop="${p.id}"`:""}><span class="n">${i+1}</span>${editable?`<button class="drag-handle" aria-label="Przeciągnij: ${esc(p.name)}" title="Przeciągnij, aby zmienić kolejność">${ic('grip-vertical')}</button>`:""}<button class="stop-main" data-action="place" data-id="${p.id}"><span class="thumb">${photo(p)}</span><span class="txt"><strong>${esc(p.name)}</strong><small>${esc(p.area)} · ${p.minutes} min${p.cost?' · ~'+p.cost+' zł':''}</small></span></button>${editable?`<span class="tools"><button class="icon-btn" data-action="up" data-id="${p.id}" aria-label="Wyżej: ${esc(p.name)}" ${i===0?'disabled':''}>${ic('arrow-up')}</button><button class="icon-btn" data-action="down" data-id="${p.id}" aria-label="Niżej: ${esc(p.name)}" ${i===ps.length-1?'disabled':''}>${ic('arrow-down')}</button><button class="icon-btn" data-action="nearby-stop" data-id="${p.id}" aria-label="Pokaż miejsca w pobliżu: ${esc(p.name)}" aria-expanded="${nearbyAfterId===p.id?'true':'false'}">${ic('map-pin')}</button><button class="icon-btn" data-action="remove" data-id="${p.id}" aria-label="Usuń: ${esc(p.name)}">${ic('x')}</button></span>`:''}</li>`).join('')}</ol>`;}
@@ -602,6 +603,7 @@ function generatedV2TimelineView(plan){
  return `<section class="detail route-timeline" aria-label="Orientacyjny plan dnia V2"><h2>Plan na ${esc(day)} · od ${esc(generationPrefs.startTime)}</h2><p><strong>Łącznie około ${minutes(plan.totalMinutes)}</strong> · przejścia ${minutes(parts.travel)}, zwiedzanie i posiłki ${minutes(parts.visits)}, odpoczynek ${minutes(parts.rests)}, oczekiwanie ${minutes(parts.wait)}.</p>
  <p class="fine">Czasy przemieszczania są orientacyjne (odległość w linii prostej × 1,3, bez rzeczywistej sieci ulic). Korki, przejścia, przesiadki i kolejki mogą wydłużyć trasę. Nie gwarantujemy dokładnego czasu dotarcia.</p>
  <ol class="timeline-list">${plan.rows.map(row=>`<li><strong>${clock(row.visitStartMinute)}–${clock(row.departureMinute)}</strong><span>${esc(row.name)}<small>Przejście ok. ${row.travelMinutes} min · pobyt ${row.visitMinutes} min${row.restMinutes?' · przerwa '+row.restMinutes+' min':''}${row.waitMinutes?' · oczekiwanie '+row.waitMinutes+' min':''}${row.hoursStatus==='unknown'?' · godziny do sprawdzenia':''}</small></span></li>`).join('')}</ol>
+ ${plan.unpricedStops?`<p class="fine">Uwaga: ${plan.unpricedStops} ${plan.unpricedStops===1?'przystanek ma':'przystanki mają'} nieznane koszty. Rzeczywiste wydatki mogą przekroczyć ustawiony budżet.</p>`:''}
  ${plan.unknownHours?`<p class="fine">Godziny otwarcia ${plan.unknownHours} ${plan.unknownHours===1?'miejsca wymagają':'miejsc wymagają'} potwierdzenia.</p>`:''}
  <p class="fine">Plan i jego czasy to podgląd V2 dla wybranego dnia. Po zapisaniu samej trasy harmonogram nie synchronizuje się między urządzeniami.</p></section>`;
 }
@@ -833,7 +835,8 @@ document.addEventListener('click',e=>{
  }
  if(action==='refresh-generated'){
   if(!generationPrefs||!generatedOptions.length)return toast('Najpierw ułóż trasę.');
-  const candidates=[...places,...forCity(state.userPlaces,city().id)];
+  const wantSidequests=prefs.interests.includes('sidequests');
+  const candidates=[...places,...forCity(state.userPlaces,city().id),...(wantSidequests?quests:[])];
   const fresh=generated?.plannerV2?planRoutesV2(candidates,generationPrefs,{count:3,candidateLimit:72,beamWidth:32,maxExpansions:12000,history:generationHistory}).routes:generateAlternatives(candidates,generationPrefs,{history:generationHistory,count:3});
   if(!fresh.length)return toast('Nie znaleziono innych sensownych wariantów. Zmień ustawienia.');
   setGeneratedOptions(fresh);
@@ -993,7 +996,19 @@ document.addEventListener('submit',async e=>{const f=e.target,data=new FormData(
   if(!added?.changed){justSavedPlaceId=p.id;setTimeout(()=>openPlace(p.id),50);}
   toast(added?.changed?'Miejsce zapisane i wstawione do Mojej trasy.':added?.error==='limit'?'Miejsce zapisane, ale trasa ma już 20 przystanków.':'Miejsce zapisane.');}
  if(f.id==='build-form'){e.preventDefault();const prefs=Object.fromEntries(data);
-  prefs.interests=normalizeRouteInterests(data.getAll('interests'));prefs.avoid=normalizeRouteExclusions(data.getAll('avoid'));
+  prefs.interests=normalizeRouteInterests(data.getAll('interests'));prefs.avoid=normalizeRouteExclusions(data.getAll('avoid'));prefs.preciseTypes=normalizeRoutePreciseTypes(data.getAll('preciseTypes'));
+  const feedback=f.querySelector('.route-plan-feedback');if(feedback)feedback.textContent='';
+  if(prefs.focus==='only'&&prefs.interests.length===1&&prefs.interests[0]==='mix'&&!prefs.preciseTypes.length){
+   if(feedback)feedback.textContent='W trybie „Tylko wybrane” zaznacz kategorię lub dokładny typ miejsca.';return;
+  }
+  if(prefs.budget==='custom'){
+   const raw=String(data.get('budgetAmount')||'').replace(',','.').trim(),amount=Number(raw);
+   if(!raw||!Number.isFinite(amount)||amount<0||amount>100000){
+    if(feedback)feedback.textContent='Wpisz budżet od 0 do 100 000 '+(city().currency||'PLN')+'.';
+    f.querySelector('[name="budgetAmount"]')?.focus();return;
+   }
+   prefs.budgetAmount=amount;
+  }
   if(prefs.start==='custom'){
    const input=f.querySelector('#planner-origin-input');
    const lat=Number(f.dataset.originLat),lng=Number(f.dataset.originLng);
@@ -1013,9 +1028,16 @@ function setGeneratedOptions(options){
  generatedIndex=0;generated=generatedOptions[0]||null;
  generationHistory=[...generationHistory,...generatedOptions.map(r=>r.stops)].slice(-30);
 }
+function planNoResults(prefs){
+ const message=prefs.budget==='free'?'Brakuje miejsc o potwierdzonych zerowych kosztach. Spróbuj wybrać własną kwotę lub Bez limitu.'
+ :prefs.focus==='only'?'Nie ma trasy zgodnej ze wszystkimi wymaganiami. Sprawdź wykluczenia, datę lub wybierz „Głównie wybrane”.'
+ :'Nie znaleziono wykonalnej trasy. Zmień czas, datę lub kategorię.';
+ const target=document.querySelector('#build-form .route-plan-feedback');
+ if(target)target.textContent=message;else toast(message);
+}
 function plan(prefs,start){
  prefs.interests=normalizeRouteInterests(prefs.interests);
- prefs.avoid=normalizeRouteExclusions(prefs.avoid);
+ prefs.avoid=normalizeRouteExclusions(prefs.avoid);prefs.preciseTypes=normalizeRoutePreciseTypes(prefs.preciseTypes);
  if(start&&distance(start,cityPoint(city()))>Math.min(25,city().radiusKm)){toast(`Jesteś daleko od ${city().name} — układam trasę bez punktu startu.`);start=null;}
  if(!validDate(prefs.visitDate)||prefs.visitDate<localDate(city().timezone||'Europe/Warsaw')||!/^([01]\d|2[0-3]):[0-5]\d$/.test(prefs.startTime||'')){
   return toast('Wybierz poprawną datę i godzinę rozpoczęcia trasy.');
@@ -1028,14 +1050,14 @@ function plan(prefs,start){
   try{
    const result=planRoutesV2(candidates,chosenPrefs,{count:3,candidateLimit:72,beamWidth:32,maxExpansions:12000});
    choices=result.routes;
-   if(!choices.length)return toast('Nie znaleziono wykonalnej trasy. Zmień czas, start lub zakres zwiedzania.');
+   if(!choices.length)return planNoResults(prefs);
   }catch(error){console.error('planner-v2',error);return toast('Nie udało się ułożyć trasy V2. Spróbuj ponownie.');}
  }else{
   chosenPrefs.timeFeasible=stops=>feasibleFor(stops,{cityId:city().id,date:chosenPrefs.visitDate,
    startTime:chosenPrefs.startTime,mode:chosenPrefs.visitMode,transport:chosenPrefs.transport,
    origin:chosenPrefs.start,maxMinutes:Number(chosenPrefs.time)});
   choices=generateAlternatives(candidates,chosenPrefs,{count:3});
-  if(!choices.length)return toast('Nie ma wykonalnej trasy w tych godzinach. Zmień start, datę lub długość zwiedzania.');
+  if(!choices.length)return planNoResults(prefs);
  }
  generationPrefs=chosenPrefs;generationHistory=[];setGeneratedOptions(choices);
  log('build_generate',{preferences:{...chosenPrefs,timeFeasible:undefined},stops:generated?.stops.length||0,variants:choices.length,engine:isV2?'v2':'v1'});

@@ -17,7 +17,7 @@ import {createRestRpcClient} from './catalogue-client.js';
 import {SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY} from './supabase-config.js';
 import {placePreview,placePhoto} from './maps-preview.js';
 import {searchPlaceAddress,suggestPlaces,placeDetails,placePhotoById,cityFromParams} from './geocode.js';
-import {ticketmasterQuery,normalizeTicketmaster,dedupe} from './events.js';
+import {ticketmasterQuery,normalizeTicketmaster,dedupe,eventMarket} from './events.js';
 import {enrichPlace} from './place-enrichment.js';
 import {cachedGooglePlaceId,googlePhotoUri,placeIdCacheKey} from './place-thumb.js';
 import {kmBetween} from './geocode.js';
@@ -25,15 +25,18 @@ import {kmBetween} from './geocode.js';
 const json=(body,status=200,maxAge=0)=>new Response(JSON.stringify(body),{status,headers:{'content-type':'application/json; charset=utf-8','cache-control':maxAge?`public, max-age=${maxAge}`:'no-store'}});
 
 async function events(request,env,ctx){
- const days=Number(new URL(request.url).searchParams.get('days'))||7;
- if(!env.TICKETMASTER_API_KEY)return json({status:'no-key',events:[],sources:[]});
- const cache=caches.default,cacheKey=new Request(`https://city-route-cache/events?days=${days}`);
+ const params=new URL(request.url).searchParams;
+ const cityId=String(params.get('city')||'warsaw').trim().toLowerCase();
+ if(!eventMarket(cityId))return json({status:'invalid-city',events:[],sources:[]},422);
+ const days=Math.max(1,Math.min(31,Math.trunc(Number(params.get('days'))||7)));
+ if(!env.TICKETMASTER_API_KEY)return json({status:'no-key',cityId,events:[],sources:[]});
+ const cache=caches.default,cacheKey=new Request(`https://city-route-cache/events?city=${cityId}&days=${days}`);
  const hit=await cache.match(cacheKey);if(hit)return hit;
  try{
-  const r=await fetch(ticketmasterQuery(env.TICKETMASTER_API_KEY,days));
+  const r=await fetch(ticketmasterQuery(env.TICKETMASTER_API_KEY,days,new Date(),cityId));
   if(!r.ok)return json({status:'source-error',code:r.status,events:[],sources:['ticketmaster']},502);
   const list=dedupe(normalizeTicketmaster(await r.json(),{affiliate:env.TICKETMASTER_AFFILIATE}));
-  const res=json({status:'ok',updatedAt:new Date().toISOString(),events:list,sources:['ticketmaster']},200,3600);
+  const res=json({status:'ok',cityId,updatedAt:new Date().toISOString(),events:list,sources:['ticketmaster']},200,3600);
   ctx.waitUntil(cache.put(cacheKey,res.clone()));return res;
  }catch{return json({status:'source-error',events:[],sources:['ticketmaster']},502);}
 }

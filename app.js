@@ -485,7 +485,19 @@ const EV_WHEN=[['today','Dziś',1],['weekend','Weekend',7],['week','7 dni',7],['
 const EV_KIND=[['all','Wszystko'],['koncerty','Koncerty'],['teatr','Teatr'],['sport','Sport'],['kino','Kino'],['inne','Inne']];
 const dayKey=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 function weekendDays(now=new Date()){const d=new Date(now),out=[];const toFri=(5-d.getDay()+7)%7;if(d.getDay()===0||d.getDay()===6){d.setDate(d.getDate()-(d.getDay()===0?2:1));}else d.setDate(d.getDate()+toFri);for(let i=0;i<3;i++){out.push(dayKey(d));d.setDate(d.getDate()+1);}return out;}
-function loadEvents(days){if(evCache[days])return evCache[days];evCache[days]={status:'loading'};fetch(`./api/events?days=${days}`).then(r=>r.ok||r.status===502?r.json():{status:'unavailable'}).catch(()=>({status:navigator.onLine?'unavailable':'offline'})).then(d=>{evCache[days]=d;if(route()[0]==='events')render();});return evCache[days];}
+function loadEvents(days){
+ const cityId=city().id,key=cityId+':'+days;
+ if(evCache[key])return evCache[key];
+ evCache[key]={status:'loading',cityId};
+ fetch(`./api/events?city=${encodeURIComponent(cityId)}&days=${days}`)
+ .then(r=>r.ok||r.status===502?r.json():{status:'unavailable'})
+ .catch(()=>({status:navigator.onLine?'unavailable':'offline'}))
+ .then(d=>{
+  evCache[key]=d?.cityId&&d.cityId!==cityId?{status:'unavailable',cityId}:d;
+  if(route()[0]==='events'&&city().id===cityId)render();
+ });
+ return evCache[key];
+}
 const when=e=>{const d=new Date(`${e.date}T${e.time||'12:00'}`);return d.toLocaleDateString('pl-PL',{weekday:'short',day:'numeric',month:'short'})+(e.time?' · '+e.time:'');};
 function eventCard(e){return `<article class="event"><div class="media">${e.image?`<img src="${esc(e.image)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">`:`<div class="ph">${ic('ticket-percent')}</div>`}<span class="pill">${ic('clock')}${esc(when(e))}</span></div><div class="body"><p class="kicker">${esc(catName(e.kind,EV_KIND))}${e.genre?' · '+esc(e.genre):''}</p><h3>${esc(e.name)}</h3><p class="sub">${ic('map-pin')}${esc(e.venue)}${e.address?', '+esc(e.address):''}</p><div class="event-foot"><span>${e.price?`od ${fmt(Math.round(e.price.min))} ${e.price.currency==='PLN'?'zł':esc(e.price.currency)}`:'Cena u sprzedawcy'}</span>${e.officialUrl?out(e.officialUrl,'Oficjalna strona wydarzenia','event-ticket',e.id,'official',true):out(e.url,'Bilety w Ticketmaster','event-ticket',e.id,e.source,true)}</div>${e.officialUrl?`<details><summary>Wyprzedane? Sprawdź innych sprzedawców</summary>${out(e.url,'Ticketmaster','event-ticket',e.id,e.source)}<p class="fine">Dostępność sprawdzisz u sprzedawcy.</p></details>`:''}</div></article>`;}
 function globalEvents(){const days=EV_WHEN.find(w=>w[0]===evWhen)[2],d=loadEvents(days);

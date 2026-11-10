@@ -27,9 +27,9 @@ test('V2 time breakdown, rests and unknown-hours disclosure are visible to users
 
 test("Transit multi-stop Google Maps export uses valid two-point links, not transit waypoints",()=>{
  const app=source('app.js');
- assert.match(app,/function transitLegLinks\(ps\)/);
- assert.match(app,/origin=\$\{ps\[i\]\.lat\},\$\{ps\[i\]\.lng\}&destination=\$\{p\.lat\},\$\{p\.lng\}&travelmode=transit/);
- assert.match(app,/if\(t==='transit'\)return transitLegLinks\(ps\)/);
+ assert.match(app,/function transitLegLinks\(ps,origin=null\)/);
+ assert.match(app,/origin=\$\{legs\[i\]\.lat\},\$\{legs\[i\]\.lng\}&destination=\$\{p\.lat\},\$\{p\.lng\}&travelmode=transit/);
+ assert.match(app,/if\(t==='transit'\)return transitLegLinks\(ps,origin\)/);
 });
 
 test('PWA build and service worker cache include V2 engine',()=>{

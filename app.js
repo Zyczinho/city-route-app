@@ -936,6 +936,17 @@ document.addEventListener('change',async e=>{
    if(rating&&route()[0]==='add-place')rating.scrollIntoView({block:'center',behavior:'auto'});
   }));}
 });
+// Choosing an exact venue subtype is a hard-only intent, never a soft preference.
+document.addEventListener('change',e=>{
+ const form=e.target.closest?.('#build-form');if(!form)return;
+ if(e.target.name==='preciseTypes'&&e.target.checked){
+  const only=form.querySelector('input[name="focus"][value="only"]');
+  if(only){only.checked=true;only.dispatchEvent(new Event('change',{bubbles:true}));}
+ }
+ if(e.target.name==='focus'&&e.target.value==='prefer'&&e.target.checked){
+  for(const input of form.querySelectorAll('input[name="preciseTypes"]'))input.checked=false;
+ }
+});
 // "Wszystko po trochu" and specific themes are mutually exclusive.
 document.addEventListener('change',e=>{
  if(e.target.name!=='interests'||!e.target.closest('#build-form'))return;

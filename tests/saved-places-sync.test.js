@@ -89,7 +89,7 @@ test('app.js reports saves and applies the merged result; module never writes ap
  assert.match(app,/cityroute:saved-changed',\{detail:\{cityId:city\(\)\.id,placeId:id,saved:!was\}\}/);
  assert.match(app,/addEventListener\('cityroute:saved-synced'/);
  assert.doesNotMatch(runtime,/setItem\(DATA_KEY/);
- assert.match(read('index.html'),/saved-places-sync\.js\?v=2/);
+ assert.match(read('index.html'),/saved-places-sync\\.js\\?v=3/);
  assert.match(read('service-worker.js'),/saved-places-model\.js/);
  assert.match(read('scripts/build.mjs'),/'saved-places-sync\.js'/);
 });

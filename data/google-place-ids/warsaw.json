@@ -1,5 +1,1021 @@
 {
  "version": 1,
  "city": "warsaw",
- "places": {}
+ "places": {
+  "3-4-cocktail-bar": {
+   "name": "3/4 Cocktail Bar",
+   "googlePlaceId": "ChIJJyXorkfNHkcRYmw7e-40YOY",
+   "source": "confirmed"
+  },
+  "4-pokoje": {
+   "name": "4 Pokoje",
+   "googlePlaceId": "ChIJN67CLT_MHkcRW7rKEijbNvc",
+   "source": "confirmed"
+  },
+  "aioli": {
+   "name": "Aioli",
+   "googlePlaceId": "ChIJAZXvx4rMHkcRtjJj1C05Kx0",
+   "source": "confirmed"
+  },
+  "alegloria": {
+   "name": "AleGloria",
+   "googlePlaceId": "ChIJ8YlTm_DMHkcRQqI1Qz8vbSE",
+   "source": "confirmed"
+  },
+  "amanti": {
+   "name": "Amanti",
+   "googlePlaceId": "ChIJ_xd8BPDNHkcRP2-vIQcZ7k8",
+   "source": "confirmed"
+  },
+  "amcia": {
+   "name": "Amcia",
+   "googlePlaceId": "ChIJL8JXTf7LHkcRNV1p3txpJQY",
+   "source": "confirmed"
+  },
+  "art-sushi": {
+   "name": "Art Sushi",
+   "googlePlaceId": "ChIJPwwsr_LMHkcRXRcOpKbByr0",
+   "source": "confirmed"
+  },
+  "avangarda": {
+   "name": "Avangarda",
+   "googlePlaceId": "ChIJ80sE9l_MHkcR_VrIXbaMuWI",
+   "source": "confirmed"
+  },
+  "backroom-bar": {
+   "name": "BackRoom Bar",
+   "googlePlaceId": "ChIJSWdU2zTNHkcR7KK57a8xd6o",
+   "source": "confirmed"
+  },
+  "baczewskich": {
+   "name": "Baczewskich",
+   "googlePlaceId": "ChIJqS4vpdfNHkcR1UOVSox0tbs",
+   "source": "confirmed"
+  },
+  "balance": {
+   "name": "Balance",
+   "googlePlaceId": "ChIJ6zE-S3bLHkcRhPRiKQ09W9E",
+   "source": "confirmed"
+  },
+  "banjaluka": {
+   "name": "Banjaluka",
+   "googlePlaceId": "ChIJYVASOCnNHkcR1ZVMyr7T68w",
+   "source": "confirmed"
+  },
+  "bank-club": {
+   "name": "Bank Club",
+   "googlePlaceId": "ChIJGSPaD2DMHkcRIMI-EvS5TTo",
+   "source": "confirmed"
+  },
+  "bar-rascal": {
+   "name": "Bar Rascal",
+   "googlePlaceId": "ChIJn2T43uPNHkcRGhYutOa9BSQ",
+   "source": "confirmed"
+  },
+  "batida": {
+   "name": "Batida",
+   "googlePlaceId": "ChIJhVYutmDMHkcRxLt5jVj8IgU",
+   "source": "confirmed"
+  },
+  "beef-n-pepper": {
+   "name": "Beef N' Pepper",
+   "googlePlaceId": "ChIJL0QlhfLMHkcRcmw8aS7EdZ8",
+   "source": "confirmed"
+  },
+  "beer-station": {
+   "name": "Beer Station",
+   "googlePlaceId": "ChIJBW0DHQPNHkcRyhl9suGAxjk",
+   "source": "confirmed"
+  },
+  "bibenda": {
+   "name": "Bibenda",
+   "googlePlaceId": "ChIJM-LLX_HMHkcRPDiwF3WzN4Q",
+   "source": "confirmed"
+  },
+  "billboard": {
+   "name": "Billboard",
+   "googlePlaceId": "ChIJkYmmyJ3MHkcRjiuW_m9wDc4",
+   "source": "confirmed"
+  },
+  "bolek": {
+   "name": "Bolek",
+   "googlePlaceId": "ChIJc3MZPBvNHkcRi75Nb5vTuko",
+   "source": "confirmed"
+  },
+  "bordo": {
+   "name": "Bordo",
+   "googlePlaceId": "ChIJFf0OnvTMHkcRS0np7zltxVc",
+   "source": "confirmed"
+  },
+  "bubblejoy": {
+   "name": "BubbleJoy",
+   "googlePlaceId": "ChIJ104uj_TMHkcRrEPgZvY2TNY",
+   "source": "confirmed"
+  },
+  "buno-specialty-coffee": {
+   "name": "Buno Specialty Coffee",
+   "googlePlaceId": "ChIJjb8TeDLLHkcR22z0dQXELkg",
+   "source": "confirmed"
+  },
+  "cafe-central": {
+   "name": "Cafe central",
+   "googlePlaceId": "ChIJqb657e3MHkcRiLoOdhRBwas",
+   "source": "confirmed"
+  },
+  "cafe-solec": {
+   "name": "Cafe Solec",
+   "googlePlaceId": "ChIJJ-eqASxPZUEROAGfV9tn8_Q",
+   "source": "confirmed"
+  },
+  "cafe-toast": {
+   "name": "Cafe Toast",
+   "googlePlaceId": "ChIJFwfuO4rNHkcRaSk2NtJ7JEw",
+   "source": "confirmed"
+  },
+  "caffe-kafka": {
+   "name": "Caffe Kafka",
+   "googlePlaceId": "ChIJPVuIx17MHkcRLTw4MxAEGqg",
+   "source": "confirmed"
+  },
+  "cava": {
+   "name": "Cava",
+   "googlePlaceId": "ChIJed70ffbMHkcRdFegIn64gqY",
+   "source": "confirmed"
+  },
+  "centrum-pieniadza-nbp": {
+   "name": "Centrum Pieniądza NBP",
+   "googlePlaceId": "ChIJV9L_QvXMHkcR4fE_qS-WapY",
+   "source": "confirmed"
+  },
+  "ceprownia": {
+   "name": "Ceprownia",
+   "googlePlaceId": "ChIJKzZFL17MHkcRB_fpRh5rav0",
+   "source": "confirmed"
+  },
+  "ceska": {
+   "name": "Česká",
+   "googlePlaceId": "ChIJXSZwYvPMHkcRa5gUGOJTzGY",
+   "source": "confirmed"
+  },
+  "ceviche-bar": {
+   "name": "Ceviche Bar",
+   "googlePlaceId": "ChIJ0QonbInMHkcRuq63shJaXWk",
+   "source": "confirmed"
+  },
+  "charlie": {
+   "name": "Charlie",
+   "googlePlaceId": "ChIJqSV2fuXMHkcRVFxK-Kd8ksk",
+   "source": "confirmed"
+  },
+  "charlotte": {
+   "name": "Charlotte",
+   "googlePlaceId": "ChIJxSUB4mbNHkcRR71YywimVPc",
+   "source": "confirmed"
+  },
+  "chianti": {
+   "name": "Chianti",
+   "googlePlaceId": "ChIJy9mtZfbMHkcRznIttPxRt2E",
+   "source": "confirmed"
+  },
+  "chmeli-suneli": {
+   "name": "Chmeli-Suneli",
+   "googlePlaceId": "ChIJY0mqCEHNHkcRQl05GGo3uJM",
+   "source": "confirmed"
+  },
+  "cma": {
+   "name": "Ćma",
+   "googlePlaceId": "ChIJx0FpgTfNHkcRxxddxIiS9RU",
+   "source": "confirmed"
+  },
+  "coffee-karma": {
+   "name": "Coffee Karma",
+   "googlePlaceId": "ChIJX-IJVe_MHkcR914dYc5r0Do",
+   "source": "confirmed"
+  },
+  "coin-sushi": {
+   "name": "Coin Sushi",
+   "googlePlaceId": "ChIJlRsDuerNHkcRBYXCpNZHYuE",
+   "source": "confirmed"
+  },
+  "cucina-mia": {
+   "name": "Cucina Mia",
+   "googlePlaceId": "ChIJxT1vEyfNHkcRBe4uLR4k-vk",
+   "source": "confirmed"
+  },
+  "culture-cafe": {
+   "name": "Culture Cafe",
+   "googlePlaceId": "ChIJRSGFbpzLHkcRGu6vpXJ_NjQ",
+   "source": "confirmed"
+  },
+  "cybermachina": {
+   "name": "Cybermachina",
+   "googlePlaceId": "ChIJ7UVAibjNHkcRN-QmJm3cZiU",
+   "source": "confirmed"
+  },
+  "czarnomorka": {
+   "name": "Czarnomorka",
+   "googlePlaceId": "ChIJVRxxoALNHkcRMlP6a89Un74",
+   "source": "confirmed"
+  },
+  "dary-natury": {
+   "name": "Dary Natury",
+   "googlePlaceId": "ChIJLWA7tODNHkcR8q0m2BKkDwc",
+   "source": "confirmed"
+  },
+  "dom-na-chocimskiej": {
+   "name": "Dom na Chocimskiej",
+   "googlePlaceId": "ChIJ4VUvKqXNHkcRuM9EmnXK-P0",
+   "source": "confirmed"
+  },
+  "dom-whisky": {
+   "name": "Dom Whisky",
+   "googlePlaceId": "ChIJbTQqf_bMHkcRn_F3Rka5SfQ",
+   "source": "confirmed"
+  },
+  "doppio": {
+   "name": "Doppio",
+   "googlePlaceId": "ChIJ31Wg2PXMHkcRZ0GYNjSSMC0",
+   "source": "confirmed"
+  },
+  "dzik": {
+   "name": "Dzik",
+   "googlePlaceId": "ChIJE1mQZyDNHkcR-Hd6oueg8DQ",
+   "source": "confirmed"
+  },
+  "e-wedel": {
+   "name": "E. Wedel",
+   "googlePlaceId": "ChIJ--12WPTMHkcRgAvh-nOeA94",
+   "source": "confirmed"
+  },
+  "el-cafetero": {
+   "name": "El Cafetero",
+   "googlePlaceId": "ChIJix7ahIHNHkcRPMe-4fOX6cg",
+   "source": "confirmed"
+  },
+  "ermitaz": {
+   "name": "Ermitaż",
+   "googlePlaceId": "ChIJ_dzKDP3NHkcReYPuacuk-FE",
+   "source": "confirmed"
+  },
+  "fajka-bar": {
+   "name": "Fajka Bar",
+   "googlePlaceId": "ChIJL8elf_HMHkcRNvyBYjp86Fc",
+   "source": "confirmed"
+  },
+  "flaming-co": {
+   "name": "Flaming & Co.",
+   "googlePlaceId": "ChIJRYy2p1jMHkcRnsuVVcGJirw",
+   "source": "confirmed"
+  },
+  "food-hall-browary": {
+   "name": "Food Hall Browary",
+   "googlePlaceId": "ChIJZ4qwpwzNHkcRLFiSsrkbEHU",
+   "source": "confirmed"
+  },
+  "food-town": {
+   "name": "Food Town",
+   "googlePlaceId": "ChIJ6YquZXvNHkcRoNdJ_tA_m2s",
+   "source": "confirmed"
+  },
+  "fort-pilsudskiego": {
+   "name": "Fort Piłsudskiego",
+   "googlePlaceId": "ChIJD8JUkzTNHkcReMqSr03THcA",
+   "source": "confirmed"
+  },
+  "fort-sokolnickiego": {
+   "name": "Fort Sokolnickiego",
+   "googlePlaceId": "ChIJZemxNPLLHkcRiVHZslrdh_A",
+   "source": "confirmed"
+  },
+  "galeria-le-guern": {
+   "name": "Galeria Le Guern",
+   "googlePlaceId": "ChIJ__9vdPTMHkcRc4G6eqApYOE",
+   "source": "confirmed"
+  },
+  "galeria-szydlowski": {
+   "name": "Galeria Szydłowski",
+   "googlePlaceId": "ChIJF_X9c_LMHkcRv5WXzK-UpYU",
+   "source": "confirmed"
+  },
+  "gosciniec": {
+   "name": "Gościniec",
+   "googlePlaceId": "ChIJvRKLPvvNHkcRV4w2BPgnaCM",
+   "source": "confirmed"
+  },
+  "guru": {
+   "name": "Guru",
+   "googlePlaceId": "ChIJzXj7dPTMHkcR6rvaeRqJlbE",
+   "source": "confirmed"
+  },
+  "hala-gwardii": {
+   "name": "Hala Gwardii",
+   "googlePlaceId": "ChIJE6hw_InNHkcRVijDUwFOARE",
+   "source": "confirmed"
+  },
+  "happa-to-mame": {
+   "name": "Happa To Mame",
+   "googlePlaceId": "ChIJ3-o1GhvNHkcRz9bt3hynnbc",
+   "source": "confirmed"
+  },
+  "highline-warsaw": {
+   "name": "Highline Warsaw",
+   "googlePlaceId": "ChIJfwnr5tjNHkcRMS124d6f5Ag",
+   "source": "confirmed"
+  },
+  "hybrydy": {
+   "name": "Hybrydy",
+   "googlePlaceId": "ChIJs3KTvPTMHkcR2pDUYSNYzlY",
+   "source": "confirmed"
+  },
+  "indeks": {
+   "name": "Indeks",
+   "googlePlaceId": "ChIJb-hoNl7MHkcR--8y3qr_1ag",
+   "source": "confirmed"
+  },
+  "informal-kitchen": {
+   "name": "InFormal Kitchen",
+   "googlePlaceId": "ChIJ-c-5cWDMHkcRCv_vU46OhpU",
+   "source": "confirmed"
+  },
+  "instytut": {
+   "name": "Instytut",
+   "googlePlaceId": "ChIJF28TC1rNHkcRQcHRDxF0xKU",
+   "source": "confirmed"
+  },
+  "jabeerwocky": {
+   "name": "Jabeerwocky",
+   "googlePlaceId": "ChIJuym73_PMHkcRPI95bADsuQg",
+   "source": "confirmed"
+  },
+  "jas-i-malgosia": {
+   "name": "Jaś i Małgosia",
+   "googlePlaceId": "ChIJJYzZN3_MHkcR02mSpvjGK30",
+   "source": "confirmed"
+  },
+  "jeff-s": {
+   "name": "Jeff's",
+   "googlePlaceId": "ChIJnZBdVrjMHkcRhFn2EjB5A04",
+   "source": "confirmed"
+  },
+  "jinn-joy": {
+   "name": "Jinn & Joy",
+   "googlePlaceId": "ChIJTcqWLDbNHkcRP4FEZ7o0KyE",
+   "source": "confirmed"
+  },
+  "kameralna": {
+   "name": "Kameralna",
+   "googlePlaceId": "ChIJ3WwRbfbMHkcRF9D1xDZGXYE",
+   "source": "confirmed"
+  },
+  "kamienica-pod-gigantami": {
+   "name": "Kamienica Pod Gigantami",
+   "googlePlaceId": "ChIJdz5SsErNHkcRHoxd9mg2mjI",
+   "source": "confirmed"
+  },
+  "kaplica-pw-swietej-barbary": {
+   "name": "Kaplica pw. Świętej Barbary",
+   "googlePlaceId": "ChIJyx-ZPQDNHkcRYTcsO5R6hms",
+   "source": "confirmed"
+  },
+  "karma-crew-warsaw": {
+   "name": "Karma Crew Warsaw",
+   "googlePlaceId": "ChIJCyvwY4t9EAURdzq4kkyAaVQ",
+   "source": "confirmed"
+  },
+  "kawalek": {
+   "name": "Kawałek",
+   "googlePlaceId": "ChIJx-jYHYXMHkcRQGpDAbilIzI",
+   "source": "confirmed"
+  },
+  "kawalerka": {
+   "name": "Kawalerka",
+   "googlePlaceId": "ChIJg6GZpPTLHkcRisZwYKjh64I",
+   "source": "confirmed"
+  },
+  "kita-koguta": {
+   "name": "Kita Koguta",
+   "googlePlaceId": "ChIJNQMa4-_MHkcRzWQUnwm1-VQ",
+   "source": "confirmed"
+  },
+  "klub-medyka": {
+   "name": "Klub Medyka",
+   "googlePlaceId": "ChIJzXm5P5PMHkcRM493rtchgkc",
+   "source": "confirmed"
+  },
+  "klub-spatif": {
+   "name": "Klub SPATiF",
+   "googlePlaceId": "ChIJNw85gfrMHkcRlFxT3KTgurA",
+   "source": "confirmed"
+  },
+  "koktajl-mokotowa": {
+   "name": "Koktajl Mokotowa",
+   "googlePlaceId": "ChIJHZJ3ykUtGUcRkaMgj86elGY",
+   "source": "confirmed"
+  },
+  "kosciol-ewangelicko-reformowany": {
+   "name": "Kościół Ewangelicko-Reformowany",
+   "googlePlaceId": "ChIJda19fADNHkcRhNfrcWFLizI",
+   "source": "confirmed"
+  },
+  "kubek-w-kubek": {
+   "name": "Kubek w Kubek",
+   "googlePlaceId": "ChIJj6OWEtjMHkcRz93CfZXZT9o",
+   "source": "confirmed"
+  },
+  "la-bomboniera": {
+   "name": "La Bomboniera",
+   "googlePlaceId": "ChIJsWGdu33MHkcRLcYJwpOrlus",
+   "source": "confirmed"
+  },
+  "la-cantina-meyhane": {
+   "name": "La Cantina Meyhane",
+   "googlePlaceId": "ChIJgxwpY1_MHkcRFKqXgftRhPY",
+   "source": "confirmed"
+  },
+  "la-pose": {
+   "name": "La Pose",
+   "googlePlaceId": "ChIJBU9aGcbNHkcRy4KwzdHmJTQ",
+   "source": "confirmed"
+  },
+  "la-vegana": {
+   "name": "La Vegana",
+   "googlePlaceId": "ChIJubakIkrNHkcRBkiwJjZx3NE",
+   "source": "confirmed"
+  },
+  "leila-mezze-lounge": {
+   "name": "Leila Mezze & Lounge",
+   "googlePlaceId": "ChIJ9dD6HEzNHkcR6nBrT1fdKIA",
+   "source": "confirmed"
+  },
+  "level-27": {
+   "name": "Level 27",
+   "googlePlaceId": "ChIJnSSkLpHMHkcR5Jm1_x4kFns",
+   "source": "confirmed"
+  },
+  "lokanta": {
+   "name": "Lokanta",
+   "googlePlaceId": "ChIJX7tVlvLMHkcRwvUwt0bCeas",
+   "source": "confirmed"
+  },
+  "loskot-cafe": {
+   "name": "Łoskot Cafe",
+   "googlePlaceId": "ChIJJcuRMQDNHkcRb421_a497qo",
+   "source": "confirmed"
+  },
+  "luzztro": {
+   "name": "Luzztro",
+   "googlePlaceId": "ChIJ195cqffMHkcRgABdVFbnpqk",
+   "source": "confirmed"
+  },
+  "maka-i-woda-2-0": {
+   "name": "Mąka i Woda 2.0",
+   "googlePlaceId": "ChIJYzCWFfTMHkcRR_DGa_K_zjc",
+   "source": "confirmed"
+  },
+  "mala-sicilia": {
+   "name": "Mała Sicilia",
+   "googlePlaceId": "ChIJU61xM2DNHkcR2mxmhgDhFxs",
+   "source": "confirmed"
+  },
+  "manto": {
+   "name": "Manto",
+   "googlePlaceId": "ChIJPZbHWwDNHkcR2YD8gzpggkw",
+   "source": "confirmed"
+  },
+  "marcello": {
+   "name": "Marcello",
+   "googlePlaceId": "ChIJM0if86fNHkcRWfQ6d2HcInc",
+   "source": "confirmed"
+  },
+  "mezza": {
+   "name": "Mezza",
+   "googlePlaceId": "ChIJrUEyxrzNHkcRtKkSsSvP3FI",
+   "source": "confirmed"
+  },
+  "miami-wars": {
+   "name": "Miami Wars",
+   "googlePlaceId": "ChIJF8WYHpfNHkcRSPC16gWVBms",
+   "source": "confirmed"
+  },
+  "miedzy-nami": {
+   "name": "Między Nami",
+   "googlePlaceId": "ChIJb41ZEfTMHkcRlRSlacIItbk",
+   "source": "confirmed"
+  },
+  "miejsce": {
+   "name": "Miejsce",
+   "googlePlaceId": "ChIJ8YwWKhvNHkcRpyM2J1QjOB4",
+   "source": "confirmed"
+  },
+  "miejsce-projektow-zachety": {
+   "name": "Miejsce Projektów Zachęty",
+   "googlePlaceId": "ChIJg5Cg2PXMHkcRKvfkemMfe4I",
+   "source": "confirmed"
+  },
+  "mignon": {
+   "name": "Mignon",
+   "googlePlaceId": "ChIJwUcoSJ3MHkcRVv6q18g0fy4",
+   "source": "confirmed"
+  },
+  "mod-donuts": {
+   "name": "MOD Donuts",
+   "googlePlaceId": "ChIJo9INisXNHkcRN1rxW-_hR_8",
+   "source": "confirmed"
+  },
+  "moko": {
+   "name": "Moko",
+   "googlePlaceId": "ChIJJ0oW6CrNHkcRAwzXdN2l5AA",
+   "source": "confirmed"
+  },
+  "mokotowska-69": {
+   "name": "Mokotowska 69",
+   "googlePlaceId": "ChIJjS6eh_DMHkcRgtaDy8_QMe8",
+   "source": "confirmed"
+  },
+  "molly-malone-s": {
+   "name": "Molly Malone's",
+   "googlePlaceId": "ChIJf9n_bW_MHkcRJ85Psj8ohwY",
+   "source": "confirmed"
+  },
+  "muzeum-azji-i-pacyfiku": {
+   "name": "Muzeum Azji i Pacyfiku",
+   "googlePlaceId": "ChIJuww4-lXMHkcRVPTbwccLEHc",
+   "source": "confirmed"
+  },
+  "muzeum-powstania-warszawskiego": {
+   "name": "Muzeum Powstania Warszawskiego",
+   "googlePlaceId": "ChIJiaL1OYPMHkcRJcZiOrY2hqk",
+   "source": "confirmed"
+  },
+  "muzeum-wodki": {
+   "name": "Muzeum Wódki",
+   "googlePlaceId": "ChIJ48K19WPMHkcRaZQ0RMUYAkg",
+   "source": "confirmed"
+  },
+  "najmniejsza-kawiarnia-w-polsce": {
+   "name": "Najmniejsza Kawiarnia w Polsce",
+   "googlePlaceId": "ChIJx3DpVwDNHkcRbw48HvcxNu4",
+   "source": "confirmed"
+  },
+  "nicoletta": {
+   "name": "Nicoletta",
+   "googlePlaceId": "ChIJf8Jt8VvNHkcRgwUUV2UPBkk",
+   "source": "confirmed"
+  },
+  "nie-pamietam-pizza": {
+   "name": "Nie Pamiętam Pizza",
+   "googlePlaceId": "ChIJPxJlxNzNHkcR1MvXdiYdQ10",
+   "source": "confirmed"
+  },
+  "nocny-market": {
+   "name": "Nocny Market",
+   "googlePlaceId": "ChIJYSp5m5nMHkcRTlSNOa-3W54",
+   "source": "confirmed"
+  },
+  "nolita": {
+   "name": "Nolita",
+   "googlePlaceId": "ChIJc1cMce7MHkcR366VxE4OhnI",
+   "source": "confirmed"
+  },
+  "nonna": {
+   "name": "Nonna",
+   "googlePlaceId": "ChIJH1XSvPXNHkcRE9OuA40STlo",
+   "source": "confirmed"
+  },
+  "nowa-kordegarda": {
+   "name": "Nowa Kordegarda",
+   "googlePlaceId": "ChIJpWSMXB7NHkcRuMvk0zqSLeM",
+   "source": "confirmed"
+  },
+  "ogrody-ulricha": {
+   "name": "Ogrody Ulricha",
+   "googlePlaceId": "ChIJW5Wa4N7LHkcR1PpXjgPj7qw",
+   "source": "confirmed"
+  },
+  "okocim-grill-bar": {
+   "name": "Okocim Grill & Bar",
+   "googlePlaceId": "ChIJf9nja-7MHkcRO8Z8a154riA",
+   "source": "confirmed"
+  },
+  "oliva": {
+   "name": "Oliva",
+   "googlePlaceId": "ChIJCdYAWF_MHkcRpLfYYZvatfA",
+   "source": "confirmed"
+  },
+  "onda-cafe": {
+   "name": "Onda Cafe",
+   "googlePlaceId": "ChIJU8N7YpjLHkcRnyBA0MPXsYw",
+   "source": "confirmed"
+  },
+  "p-latte": {
+   "name": "P'Latte",
+   "googlePlaceId": "ChIJcS0lZ1IzGUcRAwanGlnkVGU",
+   "source": "confirmed"
+  },
+  "pacyfik": {
+   "name": "Pacyfik",
+   "googlePlaceId": "ChIJIeZXB-3MHkcRQwOOxn0Rnic",
+   "source": "confirmed"
+  },
+  "palac-krolikarnia": {
+   "name": "Pałac Królikarnia",
+   "googlePlaceId": "ChIJJyqvW80yGUcRtbik4Pc9-mE",
+   "source": "confirmed"
+  },
+  "palac-myslewicki": {
+   "name": "Pałac Myślewicki",
+   "googlePlaceId": "ChIJ7y6Mph7NHkcRd4GWMzcQc4Y",
+   "source": "confirmed"
+  },
+  "palac-pod-karczochem": {
+   "name": "Pałac Pod Karczochem",
+   "googlePlaceId": "ChIJHbuMv1fNHkcR4wqnGRY5mUA",
+   "source": "confirmed"
+  },
+  "palacyk-konopackiego": {
+   "name": "Pałacyk Konopackiego",
+   "googlePlaceId": "ChIJ2frPFDzMHkcRL3pC70MdN30",
+   "source": "confirmed"
+  },
+  "palce-lizac": {
+   "name": "Palce Lizać",
+   "googlePlaceId": "ChIJQ5a9FP3MHkcRfRPF_71S2n0",
+   "source": "confirmed"
+  },
+  "panorama-sky-bar": {
+   "name": "Panorama Sky Bar",
+   "googlePlaceId": "ChIJ2S65Zo3MHkcRr221sP2Uxag",
+   "source": "confirmed"
+  },
+  "park-agrykola": {
+   "name": "Park Agrykola",
+   "googlePlaceId": "ChIJa37gouXNHkcRgfgEtj3sgb8",
+   "source": "confirmed"
+  },
+  "park-akcji-burza": {
+   "name": "Park Akcji „Burza”",
+   "googlePlaceId": "ChIJXxsrQRTNHkcRxvKRV8QcrWQ",
+   "source": "confirmed"
+  },
+  "park-kazimierzowski": {
+   "name": "Park Kazimierzowski",
+   "googlePlaceId": "ChIJ6dN5gF7MHkcReigMnGnPHFE",
+   "source": "confirmed"
+  },
+  "park-kombatantow": {
+   "name": "Park Kombatantów",
+   "googlePlaceId": "ChIJNajlcsw0GUcRBLR_gxIRve8",
+   "source": "confirmed"
+  },
+  "park-mirowski": {
+   "name": "Park Mirowski",
+   "googlePlaceId": "ChIJSZsqOIjMHkcRRJgOnGntKoo",
+   "source": "confirmed"
+  },
+  "park-na-ksiazecem": {
+   "name": "Park na Książęcem",
+   "googlePlaceId": "ChIJCzETtfnMHkcR_Lxau1Pxdzc",
+   "source": "confirmed"
+  },
+  "park-praski": {
+   "name": "Park Praski",
+   "googlePlaceId": "ChIJJ2C9GmrMHkcReA0ODrUpYwM",
+   "source": "confirmed"
+  },
+  "park-swietokrzyski": {
+   "name": "Park Świętokrzyski",
+   "googlePlaceId": "ChIJUYt_movMHkcRDo_ofyJ1CT0",
+   "source": "confirmed"
+  },
+  "park-ulricha": {
+   "name": "Park Ulricha",
+   "googlePlaceId": "ChIJW5Wa4N7LHkcR1PpXjgPj7qw",
+   "source": "confirmed"
+  },
+  "paros": {
+   "name": "Paros",
+   "googlePlaceId": "ChIJsc9_0orMHkcRMyXWRFl_sOg",
+   "source": "confirmed"
+  },
+  "patelnia-patera": {
+   "name": "Patelnia Patera",
+   "googlePlaceId": "ChIJVTn4gGXNHkcRaMA_Iru-_yA",
+   "source": "confirmed"
+  },
+  "pianka": {
+   "name": "Pianka",
+   "googlePlaceId": "ChIJMxNFyfTMHkcRkYdmjPW0vdU",
+   "source": "confirmed"
+  },
+  "pianka-3-0": {
+   "name": "Pianka 3.0",
+   "googlePlaceId": "ChIJEZicw4_NHkcRcXI7pv3RDrI",
+   "source": "confirmed"
+  },
+  "piano-bar": {
+   "name": "Piano Bar",
+   "googlePlaceId": "ChIJp2GZITfNHkcRd4QfkgXUNCw",
+   "source": "confirmed"
+  },
+  "pinta": {
+   "name": "Pinta",
+   "googlePlaceId": "ChIJSfseGErNHkcRfg9KZ9UIGRY",
+   "source": "confirmed"
+  },
+  "port-winoland": {
+   "name": "Port Winoland",
+   "googlePlaceId": "ChIJu2sEePbNHkcRsE8E5IQOu0Q",
+   "source": "confirmed"
+  },
+  "precedens": {
+   "name": "Precedens",
+   "googlePlaceId": "ChIJL3pYifbMHkcRdfNORQ8gLZM",
+   "source": "confirmed"
+  },
+  "proces-kawki": {
+   "name": "Proces Kawki",
+   "googlePlaceId": "ChIJsflctHzNHkcRYYQAUqwf5MU",
+   "source": "confirmed"
+  },
+  "prodiz-warszawski": {
+   "name": "Prodiż Warszawski",
+   "googlePlaceId": "ChIJm2xV5O3MHkcRZUi4YZOQe1w",
+   "source": "confirmed"
+  },
+  "proxima": {
+   "name": "Proxima",
+   "googlePlaceId": "ChIJ418Ra7nMHkcRFMb-KbfC9WY",
+   "source": "confirmed"
+  },
+  "przystanek-wisla": {
+   "name": "Przystanek Wisła",
+   "googlePlaceId": "ChIJN3LlSGrMHkcRmnlNW4VAtWQ",
+   "source": "confirmed"
+  },
+  "ramona": {
+   "name": "Ramona",
+   "googlePlaceId": "ChIJicXkg_PMHkcRHl0f5Gjkf24",
+   "source": "confirmed"
+  },
+  "raster": {
+   "name": "Raster",
+   "googlePlaceId": "ChIJeUhX5fHMHkcR3qwFqLca0yY",
+   "source": "confirmed"
+  },
+  "rausz": {
+   "name": "Rausz",
+   "googlePlaceId": "ChIJ-W_O0EbNHkcRq5nsYJ-jwYU",
+   "source": "confirmed"
+  },
+  "relax": {
+   "name": "Relax",
+   "googlePlaceId": "ChIJ6YxdsPTMHkcRNOTuW6W8mLU",
+   "source": "confirmed"
+  },
+  "ritual": {
+   "name": "Ritual",
+   "googlePlaceId": "ChIJm5ejBWDMHkcRtRmIIvvgrJI",
+   "source": "confirmed"
+  },
+  "same-krafty": {
+   "name": "Same Krafty",
+   "googlePlaceId": "ChIJdSgKC2_MHkcRTJOaNhchl_o",
+   "source": "confirmed"
+  },
+  "selavi": {
+   "name": "Selavi",
+   "googlePlaceId": "ChIJXRYTO0vNHkcROqZpQpCX3-M",
+   "source": "confirmed"
+  },
+  "sen": {
+   "name": "Sen",
+   "googlePlaceId": "ChIJu--Ho5zNHkcR7HvQb0UdQ-Y",
+   "source": "confirmed"
+  },
+  "shot-gun": {
+   "name": "Shot Gun",
+   "googlePlaceId": "ChIJ9UTBiPbMHkcR_8oPuPeVQk0",
+   "source": "confirmed"
+  },
+  "singers": {
+   "name": "Singers",
+   "googlePlaceId": "ChIJVVXFX84yGUcRzmTOx4iemJY",
+   "source": "confirmed"
+  },
+  "sol-y-sombra": {
+   "name": "Sol y Sombra",
+   "googlePlaceId": "ChIJHyTxlInMHkcR9EebbAMuGBM",
+   "source": "confirmed"
+  },
+  "soul-kitchen": {
+   "name": "Soul Kitchen",
+   "googlePlaceId": "ChIJ2X3Sqe7MHkcRA8bKf48xRgU",
+   "source": "confirmed"
+  },
+  "soulmates": {
+   "name": "soulmates",
+   "googlePlaceId": "ChIJXVKlqpzNHkcRqK2VHxERweI",
+   "source": "confirmed"
+  },
+  "sour": {
+   "name": "Sour",
+   "googlePlaceId": "ChIJCyQ_ZOHNHkcRsVg_aEyB_zY",
+   "source": "confirmed"
+  },
+  "spacca-napoli": {
+   "name": "Spacca Napoli",
+   "googlePlaceId": "ChIJM-IZvYvMHkcRN9f6_dI3dgY",
+   "source": "confirmed"
+  },
+  "specjaly-regionalne": {
+   "name": "Specjały Regionalne",
+   "googlePlaceId": "ChIJG_KN3PXMHkcR0MY-dNAZ2VQ",
+   "source": "confirmed"
+  },
+  "spoko-cafe": {
+   "name": "Spoko Cafe",
+   "googlePlaceId": "ChIJ4-28MYLNHkcR8Cc03EisW5g",
+   "source": "confirmed"
+  },
+  "stara-oranzeria": {
+   "name": "Stara Oranżeria",
+   "googlePlaceId": "ChIJC6FY6OPMHkcRxf0bIZKgAUI",
+   "source": "confirmed"
+  },
+  "stodola": {
+   "name": "Stodoła",
+   "googlePlaceId": "ChIJhyJQNMPMHkcRpZEbaJUh5TY",
+   "source": "confirmed"
+  },
+  "stor": {
+   "name": "Stor",
+   "googlePlaceId": "ChIJrXO77VjMHkcRbqK4LfszRVU",
+   "source": "confirmed"
+  },
+  "swietlica-wolnosci": {
+   "name": "Świetlica Wolności",
+   "googlePlaceId": "ChIJYRAckKzNHkcRWks-MfRCZgQ",
+   "source": "confirmed"
+  },
+  "tam-i-z-powrotem": {
+   "name": "Tam i z powrotem",
+   "googlePlaceId": "ChIJjdErNtPMHkcRbDC9ymOw0ws",
+   "source": "confirmed"
+  },
+  "tawerna-korsarz": {
+   "name": "Tawerna Korsarz",
+   "googlePlaceId": "ChIJE75bj3fLHkcRafwfKhgs-Hw",
+   "source": "confirmed"
+  },
+  "teatro-cubano": {
+   "name": "Teatro Cubano",
+   "googlePlaceId": "ChIJKz43XWHMHkcRAUc8ecjbDeo",
+   "source": "confirmed"
+  },
+  "thai-me-up": {
+   "name": "Thai Me Up",
+   "googlePlaceId": "ChIJ28S2b_bMHkcRZp6qvAsZu1Q",
+   "source": "confirmed"
+  },
+  "the-botanist": {
+   "name": "The Botanist",
+   "googlePlaceId": "ChIJU_e4d4_NHkcRhY7TicRynns",
+   "source": "confirmed"
+  },
+  "the-eatery": {
+   "name": "The Eatery",
+   "googlePlaceId": "ChIJ1cYh1hXTHkcRV8jREOnktiw",
+   "source": "confirmed"
+  },
+  "the-morning-after": {
+   "name": "The Morning After",
+   "googlePlaceId": "ChIJE_dAT0LNHkcR_Ov3iV-fg2I",
+   "source": "confirmed"
+  },
+  "the-taps": {
+   "name": "The Taps",
+   "googlePlaceId": "ChIJbZkI2PTMHkcRxUKuN89vjvk",
+   "source": "confirmed"
+  },
+  "ti-amo": {
+   "name": "Ti Amo",
+   "googlePlaceId": "ChIJ4Q9-TYnMHkcRuB8A35xrz-A",
+   "source": "confirmed"
+  },
+  "trojka-kielichow": {
+   "name": "Trójka Kielichów",
+   "googlePlaceId": "ChIJBzRJT2jNHkcR93llQaYCb-8",
+   "source": "confirmed"
+  },
+  "u-krawca-cafe": {
+   "name": "U Krawca Cafe",
+   "googlePlaceId": "ChIJYVrDGLnNHkcRuHZyR-mqXIA",
+   "source": "confirmed"
+  },
+  "u-szwejka": {
+   "name": "U Szwejka",
+   "googlePlaceId": "ChIJcZnfau_MHkcRXYlfX6-PRTU",
+   "source": "confirmed"
+  },
+  "uwaga-piwo": {
+   "name": "Uwaga Piwo",
+   "googlePlaceId": "ChIJCQzCPJnNHkcRk12St0U92J0",
+   "source": "confirmed"
+  },
+  "va-bene": {
+   "name": "Va Bene",
+   "googlePlaceId": "ChIJPRf0wDrNHkcRJfE4ae16AMw",
+   "source": "confirmed"
+  },
+  "w-oparach-absurdu": {
+   "name": "W Oparach Absurdu",
+   "googlePlaceId": "ChIJx-Lsp0fMHkcRJg0-Yue04qg",
+   "source": "confirmed"
+  },
+  "w-orbicie-slonca": {
+   "name": "W Orbicie Słońca",
+   "googlePlaceId": "ChIJSxnpbWzNHkcR3bOQOhbAzXc",
+   "source": "confirmed"
+  },
+  "wanderlust-speciality-coffee": {
+   "name": "Wanderlust Speciality Coffee",
+   "googlePlaceId": "ChIJMRpv9_HNHkcRdzbAYDXx7fc",
+   "source": "confirmed"
+  },
+  "white-bear-coffee": {
+   "name": "White Bear Coffee",
+   "googlePlaceId": "ChIJD9OQQ1PNHkcRpU34muM3Ex4",
+   "source": "confirmed"
+  },
+  "why-thai": {
+   "name": "Why Thai",
+   "googlePlaceId": "ChIJE1Nm9vrMHkcRFdqcGvK81p8",
+   "source": "confirmed"
+  },
+  "wi-taj": {
+   "name": "Wi-taj",
+   "googlePlaceId": "ChIJB16Reu_MHkcRQ91wu9q11q0",
+   "source": "confirmed"
+  },
+  "wieczorny": {
+   "name": "Wieczorny",
+   "googlePlaceId": "ChIJYdYu6NvMHkcR_ydA4lJZcP0",
+   "source": "confirmed"
+  },
+  "wiesz-co-zjesz": {
+   "name": "Wiesz co zjesz",
+   "googlePlaceId": "ChIJld37Qu_MHkcRsHq-w1HQ_yg",
+   "source": "confirmed"
+  },
+  "wozownia": {
+   "name": "Wozownia",
+   "googlePlaceId": "ChIJeUlku_nNHkcRweRfzqdmuuo",
+   "source": "confirmed"
+  },
+  "wrzenie-swiata": {
+   "name": "Wrzenie Świata",
+   "googlePlaceId": "ChIJhxZh5vXMHkcRai9ClnmRx34",
+   "source": "confirmed"
+  },
+  "yache-korea": {
+   "name": "Yache Korea",
+   "googlePlaceId": "ChIJI2zUQXnNHkcRJqSyjNRqKeI",
+   "source": "confirmed"
+  },
+  "zacheta": {
+   "name": "Zachęta",
+   "googlePlaceId": "ChIJVVTZTmDMHkcRnl0OAlZ2awk",
+   "source": "confirmed"
+  },
+  "zaczek": {
+   "name": "Żaczek",
+   "googlePlaceId": "ChIJr43snoszGUcRl9F4c8eSM9Y",
+   "source": "confirmed"
+  },
+  "zagrywki": {
+   "name": "Zagrywki",
+   "googlePlaceId": "ChIJz55GNg7NHkcRGsUjpowh_Qw",
+   "source": "confirmed"
+  },
+  "zielona-ges": {
+   "name": "Zielona Gęś",
+   "googlePlaceId": "ChIJhbuNmsTMHkcRSyG6Ctc4orc",
+   "source": "confirmed"
+  },
+  "zona-krawca": {
+   "name": "Żona Krawca",
+   "googlePlaceId": "ChIJpw_vAefNHkcRE_R8eT5Z09k",
+   "source": "confirmed"
+  },
+  "zyrafa": {
+   "name": "Żyrafa",
+   "googlePlaceId": "ChIJIZaNivbMHkcRXZQFvtgBEDs",
+   "source": "confirmed"
+  },
+  "zywioly": {
+   "name": "Żywioły",
+   "googlePlaceId": "ChIJ_xZZ1fPNHkcR4UKE29pta74",
+   "source": "confirmed"
+  }
+ }
 }

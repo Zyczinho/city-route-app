@@ -3,11 +3,14 @@
 const nav=document.querySelector('#navigation');
 const headerRight=document.querySelector('.top .right');
 const desiredNav=['#plan','#routes','#places','#routes/community','#profile'];
+// Future feature: keep the reservation code, but hide its header entry during MVP.
+const BOOKING_HEADER_ENABLED=false;
 let navSyncing=false;
 
 function ensureHeaderBooking(){
  if(!headerRight)return null;
  let link=headerRight.querySelector('[data-header-book]');
+ if(!BOOKING_HEADER_ENABLED){link?.remove();return null;}
  if(!link){
   link=document.createElement('a');
   link.href='#book';link.className='header-book';link.dataset.headerBook='';

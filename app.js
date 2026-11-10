@@ -997,7 +997,7 @@ document.addEventListener('submit',async e=>{const f=e.target,data=new FormData(
   if(prefs.start==='custom'){
    const input=f.querySelector('#planner-origin-input');
    const lat=Number(f.dataset.originLat),lng=Number(f.dataset.originLng);
-   if(!input||!input.value.trim()||f.dataset.originQuery!==input.value.trim()||f.dataset.originCity!==city().id||
+   if(!input||!input.value.trim()||f.dataset.originQuery!==input.value.replace(/\s+/g,' ').trim()||f.dataset.originCity!==city().id||
       !f.dataset.originConfirmed||!Number.isFinite(lat)||!Number.isFinite(lng))
     return toast('Najpierw znajdź i potwierdź dokładne miejsce startu.');
    return plan(prefs,{lat,lng,id:'custom-origin'});

@@ -279,7 +279,7 @@ document.addEventListener('click',async e=>{
  if(!button)return;
  const form=button.closest('#build-form'),input=form?.querySelector('#planner-origin-input');
  if(!form||!input||!form.querySelector('input[name="start"][value="custom"]:checked'))return;
- const query=input.value.replace(/\\s+/g,' ').trim();
+ const query=input.value.replace(/\s+/g,' ').trim();
  if(query.length<3)return invalidatePlannerOrigin(form,'Podaj nazwę lub adres składający się z co najmniej 3 znaków.');
  const city=await activeCity(),status=form.querySelector('.planner-origin-status');
  invalidatePlannerOrigin(form,'Szukam punktu w '+city.name+'…');
@@ -289,7 +289,7 @@ document.addEventListener('click',async e=>{
   const lat=Number(result?.location?.lat),lng=Number(result?.location?.lng);
   if(!Number.isFinite(lat)||!Number.isFinite(lng)||kmFromCenter(city,lat,lng)>city.radiusKm)
    throw Error('outside-city');
-  if(!form.isConnected||input.value.replace(/\\s+/g,' ').trim()!==query||(await activeCity()).id!==city.id)return;
+  if(!form.isConnected||input.value.replace(/\s+/g,' ').trim()!==query||(await activeCity()).id!==city.id)return;
   Object.assign(form.dataset,{originLat:String(lat),originLng:String(lng),originQuery:query,originCity:city.id,originConfirmed:'1'});
   if(status)status.textContent='Potwierdzono: '+(result.name||result.address||query)+' · '+(result.address||city.name);
  }catch{

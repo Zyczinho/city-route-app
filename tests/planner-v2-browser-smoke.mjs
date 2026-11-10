@@ -61,24 +61,32 @@ async function runPlannerBrowserSmoke(){
   await page.locator('input[name="start"][value="custom"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
   const origin=page.locator('#planner-origin-input');
   await origin.waitFor({state:'visible'});
-  await origin.fill('Plac Zamkowy, Warszawa');
-  await page.locator('input[name="time"][value="240"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
-  await ctx.route('**/api/place-search?**',route=>{
+  await ctx.route('**/api/place-suggest?**',route=>{
    const u=new URL(route.request().url());
    assert.equal(u.searchParams.get('city'),'warsaw');
+   assert.equal(u.searchParams.get('source'),'osm','origin autocomplete must not incur paid Google suggestions');
    return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({
-    status:'ok',provider:'photon-osm',name:'Plac Zamkowy',address:'Warszawa',
-    location:{lat:52.2475,lng:21.0137}
+    status:'ok',provider:'photon-osm',suggestions:[{
+     id:'osm:castle',name:'Plac Zamkowy',address:'Stare Miasto, Warszawa',
+     location:{lat:52.2475,lng:21.0137}
+    }]
    })});
   });
-  await page.locator('button[data-action="planner-origin-search"]').click();
+  await origin.fill('Plac Zamkowy, Warszawa');
+  await page.locator('input[name="time"][value="240"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
+  await page.locator('.planner-origin-option').filter({hasText:'Plac Zamkowy'}).waitFor({timeout:10000});
+  await page.locator('.planner-origin-option').filter({hasText:'Plac Zamkowy'}).first().click();
   await page.waitForFunction(()=>document.querySelector('#build-form')?.dataset.originConfirmed==='1',{timeout:10000});
-  assert.match(await page.locator('.planner-origin-status').innerText(),/Potwierdzono/);
+  assert.equal(await page.locator('.planner-origin-selected').isVisible(),true);
+  assert.match(await page.locator('.planner-origin-selected').innerText(),/Wybrany punkt startowy/);
   await origin.fill('Niepotwierdzony adres');
   await page.locator('#build-form button.primary.big').click();
   assert.ok(page.url().endsWith('#plan'),'editing an origin must invalidate prior confirmation');
+  assert.match(await page.locator('.planner-origin-status').innerText(),/Wybierz punkt/);
   await origin.fill('Plac Zamkowy, Warszawa');
-  await page.locator('button[data-action="planner-origin-search"]').click();
+  await page.locator('.planner-origin-option').filter({hasText:'Plac Zamkowy'}).waitFor({timeout:10000});
+  await origin.press('ArrowDown');
+  await origin.press('Enter');
   await page.waitForFunction(()=>document.querySelector('#build-form')?.dataset.originConfirmed==='1',{timeout:10000});
   await page.locator('#build-form button.primary.big').click();
   await page.waitForURL(/#route\/generated$/,{timeout:30000});

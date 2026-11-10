@@ -13,12 +13,18 @@ test('three meaningful visit modes and exact start are wired into Start',()=>{
  assert.match(app,/Jak chcesz oglądać atrakcje\?/);
  for(const id of ['inside','outside','mix'])assert.ok(app.includes("['"+id+"'"),id);
  assert.match(app,/name="originAddress"/);
- assert.match(app,/data-action="planner-origin-search"/);
+ assert.match(app,/id="planner-origin-options"/);
+ assert.match(app,/role="combobox"/);
+ assert.match(app,/data-action="planner-origin-change"/);
  assert.match(app,/f\.dataset\.originConfirmed/);
  assert.match(app,/f\.dataset\.originCity!==city\(\)\.id/);
- assert.match(enh,/searchAddress\(query,city\)/);
- assert.match(enh,/kmFromCenter\(city,lat,lng\)>city\.radiusKm/);
+ assert.match(enh,/originRemoteSuggestions\(query,city,controller\.signal\)/);
+ assert.match(enh,/originLocalSuggestions\(query,city\)/);
+ assert.match(enh,/kmFromCenter\(city,Number\(p\.lat\),Number\(p\.lng\)\)<=city\.radiusKm/);
  assert.match(enh,/originConfirmed:'1'/);
+ assert.match(enh,/originMoveFocus\(form/);
+ assert.match(enh,/originChoose\(form/);
+ assert.match(enh,/originHideOptions\(form/);
  assert.match(style,/planner-origin-fields\[hidden\]/);
 });
 test('outdoor-only rejects indoor exhibitions unless a meaningful exterior is marked',()=>{

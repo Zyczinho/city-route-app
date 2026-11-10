@@ -344,14 +344,11 @@ try{
   {label:'Zapisane',href:'#social-saved-places'}
  ]);
  assert.ok(await page.locator('[data-community-tabs]').isVisible(),'inner community tabs must not be hidden by feed focus');
- const eventsEntry=page.locator('[data-community-tabs] .community-events-entry[href="#events"]');
- await eventsEntry.waitFor({timeout:10000});
- await eventsEntry.click();
- await page.locator('h1').getByText('Co się dzieje w Warszawie?').waitFor({timeout:10000});
- await page.locator('[data-action="ev-scope"][data-value="community"]').click();
- await page.getByText('Spacery grupowe, spotkania i wydarzenia od społeczności').waitFor({timeout:10000});
- assert.ok(await page.getByText('Obecnie nie można jeszcze utworzyć publicznego wydarzenia',{exact:false}).isVisible(),
-  'do not promise RSVP/creator actions without a live backend');
+ assert.equal(await page.locator('[data-community-tabs] .community-events-entry').count(),0,'Community does not promote paused Events');
+ await page.goto(BASE+'/#events',{waitUntil:'domcontentloaded'});
+ await page.waitForURL(/#places$/,{timeout:10000});
+ await page.goto(BASE+'/#hotels',{waitUntil:'domcontentloaded'});
+ await page.waitForURL(/#places$/,{timeout:10000});
  await page.locator('#navigation a[href="#routes/community"]').click();
  await page.locator('[data-community-tabs] .community-hub-links').waitFor({timeout:10000});
 
@@ -404,11 +401,11 @@ try{
  await page.locator('#main .start-guide-menu').waitFor({timeout:10000});
  assert.equal(new URL(page.url()).hash,'#about');
  assert.equal(await page.locator('#navigation a[href="#profile"]').getAttribute('aria-current'),'page','Profil is active when viewing the Guide');
- assert.equal(await page.locator('#main .guide-feature').count(),34,'every important feature should have a standalone explanation');
+ assert.equal(await page.locator('#main .guide-feature').count(),33,'every important feature should have a standalone explanation');
  assert.equal(await page.locator('#main .guide-group').count(),6,'guide groups should cover each core area');
  await page.locator('#main #guide-search').fill('znajomego');
  assert.ok(await page.locator('#main .guide-feature:not([hidden])').count()>=1,'search finds relevant feature');
- assert.ok(await page.locator('#main .guide-feature:not([hidden])').count()<34,'guide search filters unrelated items');
+ assert.ok(await page.locator('#main .guide-feature:not([hidden])').count()<33,'guide search filters unrelated items');
  await page.locator('#main #guide-search').fill('brak-takiej-funkcji-001');
  assert.ok(await page.locator('[data-guide-count]').textContent().then(s=>s.includes('Nie znaleziono tematu')));
  await page.locator('#main #guide-search').fill('');

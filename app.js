@@ -177,7 +177,7 @@ async function enrichPlaceOnDemand(p){
 const ROUTE_CATS=[['all','Wszystkie'],['klasyka','Na pierwszy raz'],['zielen','Zieleń'],['wisla','Nad wodą'],['jedzenie','Z jedzeniem'],['lokalnie','Lokalnie']];
 const catName=(id,list=PLACE_CATS)=>list.find(c=>c[0]===id)?.[1]||'';
 const TAB_OF={routes:'routes',route:'routes',places:'places',events:'places','add-place':'places',plan:'plan','my-route':'plan',book:'places',profile:'profile',collections:'profile',sources:'profile',about:'profile','community-route':'routes/community','social-profile':'routes/community','social-saved':'profile','social-saved-places':'profile'};
-const LEGACY={home:['plan'],explore:['routes'],best:['places'],food:['places','jedzenie'],hotels:['book'],sidequests:['places','sidequests'],build:['plan'],active:['my-route'],discounts:['profile'],friends:['profile'],community:['profile'],chat:['profile']};
+const LEGACY={home:['plan'],explore:['routes'],best:['places'],food:['places','jedzenie'],hotels:['places'],sidequests:['places','sidequests'],build:['plan'],active:['my-route'],discounts:['profile'],friends:['profile'],community:['profile'],chat:['profile']};
 const route=()=>{const [t,id]=(location.hash.slice(1)||'').split('/');return [t,id];};
 // Shared catalogue links use the existing Places tab and a place-id hash, never a private device-only item.
 const publicPlace=p=>!!p&&p.visibility!=='private'&&places.some(x=>String(x.id)===String(p.id));
@@ -331,7 +331,8 @@ function routesView(){
   <div class="community-note">${ic('users')}<div><strong>Odkrywaj trasy stworzone przez ludzi.</strong><p>Publiczne trasy autorów znajdziesz w Społeczności. Swoje trasy masz w Profilu → Moje kolekcje.</p><a class="inline" href="#routes/community">Zobacz trasy społeczności${ic('chevron-right','link-arrow')}</a></div></div>`;}
 
 // Places tab
-const exploreSwitch=on=>`<div class="segmented two" role="group" aria-label="Odkrywaj"><a href="#places" class="${on==='places'?'selected':''}" ${on==='places'?'aria-current="page"':''}>${ic('map-pin')}Miejsca</a><a href="#events" class="${on==='events'?'selected':''}" ${on==='events'?'aria-current="page"':''}>${ic('ticket-percent')}Wydarzenia</a></div>`;
+// Event catalogue stays implemented but is not exposed during the MVP.
+const exploreSwitch=()=>'';
 const placeHay=p=>`${p.name} ${p.area} ${p.description||''} ${(p.cuisine||[]).join(' ')} ${(p.cats||[]).map(c=>catName(c)).join(' ')} ${(p.ratings||[]).map(r=>r.listing).join(' ')} ${p.address||''}`;
 const away=p=>here?` · ${dec(distance(here,p))} km`:'';
 function placeRow(p){return `<article class="place" data-place-id="${esc(p.id)}"><button class="hit" data-action="place" data-id="${p.id}" aria-label="Szczegóły: ${esc(p.name)}"></button><div class="thumb">${photo(p,'',false,true)}${p.top?'<span class="must">Must-see</span>':''}</div><div class="info"><h3>${esc(p.name)}</h3><p class="sub">${esc(p.area)}${p.cuisine?' · '+esc(p.cuisine.join(', ')):p.kind==='sidequest'?'':' · '+esc(catName(p.cats?.[0]))}${p.outside?' · z zewnątrz':''}${away(p)}</p>${scoreLine(p)}</div><div class="side"><button class="icon-btn save-place ${savedPlace(p)?'on':''}" data-action="bookmark" data-id="${esc(p.id)}" aria-pressed="${savedPlace(p)}" aria-label="${savedPlace(p)?'Usuń z Zapisanych':'Zapisz miejsce'}: ${esc(p.name)}">${ic('bookmark')}<span class="bookmark-label">${savedPlace(p)?'Zapisane':'Zapisz'}</span></button>${addButton(p)}</div></article>`;}
@@ -687,6 +688,8 @@ function sourcesView(){const ps=places,withImages=ps.filter(p=>!!p.image).length
 
 // Render
 function render(){const cityHost=document.querySelector('.city-host');if(cityHost)cityHost.innerHTML=cityPicker();let [tab,id]=route();
+ // Future sections are paused in the public MVP. Old deep links safely open Places.
+ if(tab==='events'||tab==='hotels'){location.replace('#places');return;}
  if(LEGACY[tab]){const [t,c]=LEGACY[tab];if(c){cat=c;cuisine='all';}location.replace('#'+t);return;}
  if(!TAB_OF[tab]){location.replace('#'+(isLive()?'my-route':'plan'));return;}
  nav();let html='';

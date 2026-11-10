@@ -1,3 +1,4 @@
+import {isRouteFoodPlace,isExcludedRoutePlace,normalizeRouteInterests,routeInterestMatch} from './route-preferences.js';
 export const distance = (a,b) => {
  const rad=x=>x*Math.PI/180, dlat=rad(b.lat-a.lat), dlon=rad(b.lng-a.lng);
  return 6371*2*Math.asin(Math.min(1,Math.sqrt(Math.sin(dlat/2)**2+Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(dlon/2)**2)));
@@ -20,25 +21,23 @@ export function smoothedRating(ratings=[],prior=4.3,weight=200){
 // an optional start point counts the first walk; a requested food stop is guaranteed when one fits.
 export function generate(places,prefs){
  const limit=Number(prefs.time), interests=prefs.interests||['mix'], origin=prefs.start?{lat:prefs.start.lat,lng:prefs.start.lng,minutes:0,cost:0}:null;
- const isFood=p=>p.foodStyle!=='none';
+ const isFood=isRouteFoodPlace;
  // A visit without indoor entries should not silently suggest museum exhibitions as a facade stop.
  // A later place-specific exterior-attraction flag can opt exceptional architecture back in.
  const indoorExhibition=p=>['museum','gallery'].includes(p.categoryId)||Array.isArray(p.cats)&&p.cats.includes('muzea');
- const candidates=places.filter(p=>p.kind!=='hotel'&&(prefs.visitMode!=='outside'||!indoorExhibition(p))&&(prefs.food!=='none'||!isFood(p))&&(prefs.food!=='quick'||p.foodStyle!=='sit')&&(prefs.food!=='sit'||p.foodStyle!=='quick')&&(prefs.offers==='yes'||!p.partner)&&(prefs.budget!=='low'||p.cost<=25));
+ const selected=normalizeRouteInterests(interests),foodTheme=selected.includes('food');
+ const foodStyle=p=>p.foodStyle&&p.foodStyle!=='none'?p.foodStyle:(p.categoryId==='restaurant'?'sit':'quick');
+ const candidates=places.filter(p=>p.kind!=='hotel'&&!isExcludedRoutePlace(p,prefs.avoid)&&
+  (prefs.visitMode!=='outside'||!indoorExhibition(p))&&
+  (prefs.food!=='none'||foodTheme||!isFood(p))&&
+  (prefs.food!=='quick'||!isFood(p)||foodStyle(p)==='quick')&&
+  (prefs.food!=='sit'||!isFood(p)||foodStyle(p)==='sit')&&
+  (prefs.offers==='yes'||!p.partner)&&(prefs.budget!=='low'||p.cost<=25));
  const variantBias=p=>{if(!Number.isInteger(prefs.variantIndex)||prefs.variantIndex<1)return 0;let hash=2166136261;for(const ch of String(p.id))hash=Math.imul(hash^ch.charCodeAt(0),16777619);hash=Math.imul(hash^(prefs.variantIndex*2654435761),2246822519)>>>0;return (hash%1000/1000-.5)*3;};
  // Newly imported catalogue POIs often have a category but no editorial tags/ratings yet.
  // Category affinity gives them a fair chance; a missing rating is neutral, never an exclusion.
- const CATEGORY_INTERESTS={
-  sightseeing:['landmark','architecture','religious_site','neighborhood'],
-  culture:['museum','gallery','religious_site','architecture'],
-  nature:['park','garden','waterfront','beach','walk'],
-  views:['viewpoint','waterfront','architecture'],
-  food:['restaurant','cafe','breakfast','street_food','food_hall','bakery','dessert'],
-  hidden:['hidden_gem','neighborhood','workshop','experience']
- };
- const interestScore=p=>interests.includes('mix')?1:interests.reduce((sum,interest)=>sum+
-   (Array.isArray(p.tags)&&p.tags.includes(interest)?4:0)+
-   (CATEGORY_INTERESTS[interest]?.includes(p.categoryId)?3:0),0);
+ const interestScore=p=>selected.includes('mix')?1:selected.reduce((sum,id)=>sum+
+  (routeInterestMatch(p,id)?7:-2)+(Array.isArray(p.tags)&&p.tags.includes(id)?2:0),0);
  const group=p=>{
   const category=p.categoryId||'';
   if(['museum','gallery','religious_site'].includes(category))return 'culture';
@@ -50,7 +49,7 @@ export function generate(places,prefs){
  const score=p=>interestScore(p)+(prefs.tourist==='balanced'?0:prefs.tourist==='must'?(p.tourist==='must'?3:0):(p.tourist==='local'?3:0))+(smoothedRating(p.ratings)-4.3)*4+(p.top&&prefs.tourist!=='local'?1:0)-Math.max(0,Number(prefs.diversityCounts?.[p.id])||0)*(Number(prefs.diversityWeight)||0)+variantBias(p);
  const legs=ps=>summary(origin?[origin,...ps]:ps,prefs.transport).minutes;
  const timeFeasible=ps=>typeof prefs.timeFeasible!=='function'||prefs.timeFeasible(ps);
- const pool=candidates.filter(p=>!isFood(p)),food=candidates.filter(isFood);
+ const pool=foodTheme&&prefs.food==='none'?candidates:candidates.filter(p=>!isFood(p)),food=prefs.food==='none'?[]:candidates.filter(isFood);
  const result=[];let cost=0;const cap=prefs.budget==='low'?25:prefs.budget==='medium'?100:Infinity;
  const from=()=>result.at(-1)||origin;
  while(pool.length&&result.length<9){

@@ -65,3 +65,13 @@
 .ux-plan-manual-link:focus-visible{outline:3px solid #8ac5fa;outline-offset:2px}
 .ux-plan-manual-link .i{width:16px;height:16px}
 @media(max-width:520px){.ux-plan-manual-entry{padding:10px 11px;gap:8px}.ux-plan-manual-copy strong{font-size:12px}.ux-plan-manual-copy small{font-size:10px}.ux-plan-manual-link{font-size:12px;padding:7px 9px}}
+
+/* Accessible category explanations and hard-exclusion chips in advanced settings. */
+#build-form .route-interest-help{margin-top:12px;border-top:1px solid var(--line-2);font-size:12px}
+#build-form .route-interest-help>summary{cursor:pointer;display:list-item;list-style-position:inside;min-height:40px;padding:10px 1px 3px;color:var(--blue);font-weight:700}
+#build-form .route-interest-help dl{display:grid;gap:9px;margin:4px 0 0}
+#build-form .route-interest-help dt{font-weight:750}
+#build-form .route-interest-help dd{margin:1px 0 0;color:var(--muted);line-height:1.35}
+#build-form .route-exclusions .fine{margin:0 0 9px;color:var(--muted)}
+#build-form .route-exclusions .choice{flex-wrap:wrap;overflow:visible}
+#build-form .route-exclusions .choice span{min-height:40px}

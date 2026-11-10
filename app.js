@@ -1,4 +1,5 @@
 import {summary,optimize,generate,generateAlternatives,advance,mapsUrl,routeMapsUrl,parseLocation,distance,combinedRating,smoothedRating,matches} from './core.js';
+import {ROUTE_INTERESTS,ROUTE_EXCLUSIONS,normalizeRouteInterests,normalizeRouteExclusions} from './route-preferences.js';
 import {iconMarkup} from './ui-icons.js';
 import {localDate,validDate,scheduleRoute,feasibleFor} from './opening-hours.js';
 import {guideView} from './onboarding-guide.js';
@@ -553,10 +554,11 @@ function planView(){const timeZone=city().timezone||'Europe/Warsaw',today=localD
  <a class="button wide" href="#my-route">${ic("pencil")}Ułożę trasę samodzielnie — dodaję i przesuwam miejsca</a><form id="build-form" class="planner"><fieldset><legend>Ile masz czasu?</legend>${radio('time',[['60','1 h'],['120','2 h'],['240','4 h'],['360','Pół dnia · 6 h'],['480','Cały dzień · 8 h']],'120')}</fieldset>
  <fieldset class="planner-when"><legend>Kiedy chcesz zwiedzać?</legend><div class="planner-when-fields"><label>Data<input type="date" name="visitDate" required min="${today}" value="${esc(date)}"></label><label>Start<input type="time" name="startTime" required min="06:00" max="22:00" value="${esc(time)}"></label></div><p class="fine">Godziny sprawdzamy dla wybranych muzeów. Pozostałe wymagają potwierdzenia.</p></fieldset>
  <fieldset><legend>Chcesz wchodzić do muzeów?</legend>${radio('visitMode',[['inside','Tak — sprawdź godziny wejścia'],['outside','Nie — tylko oglądanie z zewnątrz']],mode)}</fieldset>
- <fieldset><legend>Na co masz ochotę?</legend><div class="choice">${[['mix','Wszystko po trochu'],['sightseeing','Klasyka'],['culture','Kultura'],['nature','Zieleń'],['views','Widoki'],['food','Jedzenie'],['hidden','Nieoczywiste']].map(([v,l])=>`<label><input type="checkbox" name="interests" value="${v}" ${v==='mix'?'checked':''}><span>${l}</span></label>`).join('')}</div></fieldset>
+ <fieldset><legend>Na co masz ochotę?</legend><div class="choice">${ROUTE_INTERESTS.map(({id,label})=>`<label><input type="checkbox" name="interests" value="${id}" ${id==='mix'?'checked':''}><span>${label}</span></label>`).join('')}</div><details class="route-interest-help"><summary>Co oznaczają kategorie?</summary><dl>${ROUTE_INTERESTS.map(({label,description})=>`<div><dt>${label}</dt><dd>${description}</dd></div>`).join('')}</dl></details></fieldset>
  <fieldset><legend>Jak się poruszasz?</legend>${radio('transport',[['walking','Pieszo'],['bike','Rower'],['transit','Komunikacja'],['mix','Różnie']],'walking')}</fieldset>
  <fieldset><legend>Kawa albo jedzenie po drodze?</legend>${radio('food',[['none','Nie'],['quick','Kawa lub przekąska'],['sit','Restauracja']],'none')}</fieldset>
  <fieldset><legend>Skąd ruszasz?</legend>${radio('start',[['here','Stąd, gdzie jestem'],['any','Obojętnie']],'here')}</fieldset>
+ <fieldset class="route-exclusions"><legend>Czego nie chcesz na trasie?</legend><p class="fine">Te rodzaje miejsc pominiemy całkowicie.</p><div class="choice">${ROUTE_EXCLUSIONS.map(({id,label})=>`<label><input type="checkbox" name="avoid" value="${id}"><span>${label}</span></label>`).join('')}</div></fieldset>
  <details class="more"><summary>${ic('sliders-horizontal')}Więcej ustawień</summary><fieldset><legend>Budżet</legend>${radio('budget',[['low','Do 25 zł'],['medium','Do 100 zł'],['premium','Bez limitu']],'medium')}</fieldset><fieldset><legend>Styl zwiedzania</legend>${radio('tourist',[['balanced','Pół na pół'],['must','Najważniejsze punkty'],['local','Bardziej lokalnie']],'balanced')}</fieldset><input type="hidden" name="offers" value="no"><fieldset class="planner-sponsors-disabled" disabled aria-disabled="true"><legend>Oferty partnerów <small>Wkrótce</small></legend>${radio('offers',[['no','Brak ofert'],['yes','Sponsorowane']],'no')}</fieldset><p class="fine">Trasy sponsorowane są nieaktywne do czasu uruchomienia prawdziwych partnerstw. Czas przejść i przejazdów jest orientacyjny. W trybie komunikacji miejskiej sprawdzaj poszczególne odcinki w mapach.</p></details>
  <button class="primary big">${ic('wand-sparkles')}Ułóż moją trasę</button></form>`;}
 
@@ -918,6 +920,18 @@ document.addEventListener('change',async e=>{
    if(rating&&route()[0]==='add-place')rating.scrollIntoView({block:'center',behavior:'auto'});
   }));}
 });
+// "Wszystko po trochu" and specific themes are mutually exclusive.
+document.addEventListener('change',e=>{
+ if(e.target.name!=='interests'||!e.target.closest('#build-form'))return;
+ const fields=[...e.target.closest('#build-form').querySelectorAll('input[name="interests"]')];
+ const mixed=fields.find(input=>input.value==='mix');
+ if(!mixed)return;
+ if(e.target.checked){
+  if(e.target===mixed)fields.filter(input=>input!==mixed).forEach(input=>{input.checked=false;});
+  else mixed.checked=false;
+ }
+ if(!fields.some(input=>input.checked))mixed.checked=true;
+});
 document.addEventListener('submit',async e=>{const f=e.target,data=new FormData(f);
  if(f.id==='route-save-form'){
    e.preventDefault();
@@ -966,7 +980,7 @@ document.addEventListener('submit',async e=>{const f=e.target,data=new FormData(
   if(!added?.changed){justSavedPlaceId=p.id;setTimeout(()=>openPlace(p.id),50);}
   toast(added?.changed?'Miejsce zapisane i wstawione do Mojej trasy.':added?.error==='limit'?'Miejsce zapisane, ale trasa ma już 20 przystanków.':'Miejsce zapisane.');}
  if(f.id==='build-form'){e.preventDefault();const prefs=Object.fromEntries(data);
-  prefs.interests=data.getAll('interests');if(prefs.start==='here'){if(!navigator.geolocation){toast('Brak lokalizacji — układam trasę bez punktu startu.');}else{toast('Sprawdzam, gdzie jesteś…');navigator.geolocation.getCurrentPosition(pos=>{here={lat:pos.coords.latitude,lng:pos.coords.longitude};plan(prefs,here);},()=>{toast('Bez lokalizacji — trasa bez punktu startu.');plan(prefs,null);},{timeout:10000});return;}}
+  prefs.interests=normalizeRouteInterests(data.getAll('interests'));prefs.avoid=normalizeRouteExclusions(data.getAll('avoid'));if(prefs.start==='here'){if(!navigator.geolocation){toast('Brak lokalizacji — układam trasę bez punktu startu.');}else{toast('Sprawdzam, gdzie jesteś…');navigator.geolocation.getCurrentPosition(pos=>{here={lat:pos.coords.latitude,lng:pos.coords.longitude};plan(prefs,here);},()=>{toast('Bez lokalizacji — trasa bez punktu startu.');plan(prefs,null);},{timeout:10000});return;}}
   plan(prefs,null);}
 });
 function setGeneratedOptions(options){
@@ -978,8 +992,8 @@ function setGeneratedOptions(options){
  generationHistory=[...generationHistory,...generatedOptions.map(r=>r.stops)].slice(-30);
 }
 function plan(prefs,start){
- if(!prefs.interests.length)prefs.interests=['mix'];
- if(prefs.interests.length>1)prefs.interests=prefs.interests.filter(x=>x!=='mix');
+ prefs.interests=normalizeRouteInterests(prefs.interests);
+ prefs.avoid=normalizeRouteExclusions(prefs.avoid);
  if(start&&distance(start,cityPoint(city()))>Math.min(25,city().radiusKm)){toast(`Jesteś daleko od ${city().name} — układam trasę bez punktu startu.`);start=null;}
  if(!validDate(prefs.visitDate)||prefs.visitDate<localDate(city().timezone||'Europe/Warsaw')||!/^([01]\d|2[0-3]):[0-5]\d$/.test(prefs.startTime||'')){
   return toast('Wybierz poprawną datę i godzinę rozpoczęcia trasy.');

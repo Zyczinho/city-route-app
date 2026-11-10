@@ -835,7 +835,7 @@ document.addEventListener('click',e=>{
  }
  if(action==='refresh-generated'){
   if(!generationPrefs||!generatedOptions.length)return toast('Najpierw ułóż trasę.');
-  const wantSidequests=prefs.interests.includes('sidequests');
+  const wantSidequests=generationPrefs.interests.includes('sidequests');
   const candidates=[...places,...forCity(state.userPlaces,city().id),...(wantSidequests?quests:[])];
   const fresh=generated?.plannerV2?planRoutesV2(candidates,generationPrefs,{count:3,candidateLimit:72,beamWidth:32,maxExpansions:12000,history:generationHistory}).routes:generateAlternatives(candidates,generationPrefs,{history:generationHistory,count:3});
   if(!fresh.length)return toast('Nie znaleziono innych sensownych wariantów. Zmień ustawienia.');
@@ -1045,7 +1045,8 @@ function plan(prefs,start){
   return toast('Wybierz poprawną datę i godzinę rozpoczęcia trasy.');
  }
  const chosenPrefs={...prefs,start:start||undefined,cityId:city().id};
- const candidates=[...places,...forCity(state.userPlaces,city().id)];
+ const wantSidequests=chosenPrefs.interests.includes('sidequests');
+ const candidates=[...places,...forCity(state.userPlaces,city().id),...(wantSidequests?quests:[])];
  const isV2=prefs.transport!=='transit'&&new URLSearchParams(location.search).get('planner')!=='v1';
  let choices=[];
  if(isV2){

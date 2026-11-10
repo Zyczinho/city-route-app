@@ -35,6 +35,12 @@ test('three editorial routes render without search and category pills',()=>{
  assert.match(html,/data-featured="true"/);
 });
 
+test('six routes still show the full list without redundant controls',()=>{
+ const html=renderRoutes(6);
+ assert.equal((html.match(/<article /g)||[]).length,6);
+ assert.doesNotMatch(html,/data-route-search|data-route-filters/);
+});
+
 test('hidden filters cannot accidentally exclude routes when old query or category remains',()=>{
  const html=renderRoutes(3,{query:'nieistniejąca',rcat:'inne'});
  assert.equal((html.match(/<article /g)||[]).length,3);
@@ -51,6 +57,6 @@ test('search and categories return automatically after catalogue exceeds six rou
 
 test('empty small catalogue displays a useful message instead of a blank search',()=>{
  const html=renderRoutes(0);
- assert.match(html,/Nie mamy jeszcze gotowych tras dla Lizbona/);
+ assert.match(html,/W tym mieście nie mamy jeszcze gotowych tras./);
  assert.doesNotMatch(html,/data-route-search|data-route-filters/);
 });

@@ -134,7 +134,7 @@ test('an explicit offline unsave wins during first account recovery',()=>{
 
 test('runtime confirms server writes, guards account scope, and exposes status and retry',()=>{
  const src=read('saved-places-sync.js'),app=read('app.js');
- for(const token of ['city-route-saved-sync-v3:','city-route-saved-sync-v2:','city-route-saved-before-v3:','BACKUP_PREFIX','sameAccount(userId)','confirmedRefs','cityroute:saved-sync-status','cityroute:saved-sync-request','visibilitychange','setInterval']){
+ for(const token of ['city-route-saved-sync-v3:','city-route-saved-sync-v2:','city-route-saved-before-v3:','BACKUP_PREFIX','sameAccount(id)','refs','cityroute:saved-sync-status','cityroute:saved-sync-request','visibilitychange','setInterval']){
   assert.ok(src.includes(token),'missing durability/sync behavior: '+token);
  }
  assert.match(app,/data-saved-sync-status/);

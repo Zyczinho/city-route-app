@@ -27,7 +27,7 @@ test('iPhone 13 Pro: quick Plan is purpose-first, while all legacy settings surv
  assert.match(ux,/placesLink\.href='#places'/);
  assert.match(ux,/social\.href='#routes\/community'/);
  assert.match(app,/radio\('time'/);
- for(const name of ['visitDate','startTime','visitMode','interests','transport','food','start','budget','tourist','offers']){
+ for(const name of ['visitDate','startTime','visitMode','interests','transport','food','start','tourist','offers']){
   assert.ok(app.includes(name),'existing feature cannot be removed: '+name);
  }
 });

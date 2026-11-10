@@ -76,9 +76,9 @@ test('new filter choices and date placement are visible in Start without a dupli
  const app=readFileSync(new URL('../app.js',import.meta.url),'utf8'),ux=readFileSync(new URL('../ux-cleanup.js',import.meta.url),'utf8');
  assert.match(app,/name="preciseTypes"/);
  assert.match(app,/radio\('focus'/);
- assert.match(app,/radio\('budget'/);
- assert.match(app,/name="budgetAmount"/);
- assert.match(app,/city\(\)\.currency/);
+ assert.doesNotMatch(app,/radio\('budget'/);
+ assert.doesNotMatch(app,/name="budgetAmount"/);
+ assert.match(app,/Kawa lub lokalna przekąska/);
  assert.match(app,/route-plan-feedback/);
  assert.match(ux,/form\.replaceChildren\(climate\.details,primary,\.\.\.\(feedback\?\[feedback\]:\[\]\),submit,alternatives,advanced\.details,whenDetails\.details\)/);
 });

@@ -80,5 +80,5 @@ test('new filter choices and date placement are visible in Start without a dupli
  assert.match(app,/name="budgetAmount"/);
  assert.match(app,/city\(\)\.currency/);
  assert.match(app,/route-plan-feedback/);
- assert.match(ux,/form\.replaceChildren\(climate\.details,primary,submit,alternatives,advanced\.details,whenDetails\.details\)/);
+ assert.match(ux,/form\.replaceChildren\(climate\.details,primary,\.\.\.\(feedback\?\[feedback\]:\[\]\),submit,alternatives,advanced\.details,whenDetails\.details\)/);
 });

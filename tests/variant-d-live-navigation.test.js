@@ -69,7 +69,7 @@ test('Places retains existing live map with deliberate filter behavior',()=>{
 });
 test('Start has preferences before generating, without falsely claiming hard exclusions are active',()=>{
  assert.match(ux,/climate\.details\.open=true/);
- assert.match(ux,/form\.replaceChildren\(climate\.details,primary,submit/);
+ assert.match(ux,/form\.replaceChildren\(climate\.details,primary,\.\.\.\(feedback\?\[feedback\]:\[\]\),submit/);
  assert.doesNotMatch(ux,/excludeCategories|negativePreferences/);
  assert.match(app,/form id="build-form"/);
 });

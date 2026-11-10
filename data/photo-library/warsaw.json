@@ -1,0 +1,1061 @@
+{
+ "version": 1,
+ "city": "warsaw",
+ "source": "wikimedia-commons",
+ "photos": {
+  "archikatedra-pw-swietego-jana-chrzciciela": {
+   "name": "Archikatedra pw. Świętego Jana Chrzciciela",
+   "lat": 52.2488813,
+   "lng": 21.0136241,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/Bazylika_archikatedralna_%C5%9Bw._Jana_Chrzciciela_w_Warszawie_2020.jpg/960px-Bazylika_archikatedralna_%C5%9Bw._Jana_Chrzciciela_w_Warszawie_2020.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/Bazylika_archikatedralna_%C5%9Bw._Jana_Chrzciciela_w_Warszawie_2020.jpg/330px-Bazylika_archikatedralna_%C5%9Bw._Jana_Chrzciciela_w_Warszawie_2020.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Bazylika_archikatedralna_%C5%9Bw._Jana_Chrzciciela_w_Warszawie_2020.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q648754",
+   "file": "File:Bazylika archikatedralna św. Jana Chrzciciela w Warszawie 2020.jpg"
+  },
+  "bialy-domek": {
+   "name": "Biały Domek",
+   "lat": 52.2152957,
+   "lng": 21.0315594,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/Bia%C5%82y_Dom_w_%C5%81azienkach_Kr%C3%B3lewskich_2023.jpg/960px-Bia%C5%82y_Dom_w_%C5%81azienkach_Kr%C3%B3lewskich_2023.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/Bia%C5%82y_Dom_w_%C5%81azienkach_Kr%C3%B3lewskich_2023.jpg/330px-Bia%C5%82y_Dom_w_%C5%81azienkach_Kr%C3%B3lewskich_2023.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Bia%C5%82y_Dom_w_%C5%81azienkach_Kr%C3%B3lewskich_2023.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q2557175",
+   "file": "File:Biały Dom w Łazienkach Królewskich 2023.jpg"
+  },
+  "biblioteka-krolewska": {
+   "name": "Biblioteka Królewska",
+   "lat": 52.2474219,
+   "lng": 21.0157693,
+   "image": "https://upload.wikimedia.org/wikipedia/commons/6/6a/4_Warszawa_05.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6a/4_Warszawa_05.jpg/330px-4_Warszawa_05.jpg",
+   "imageCredit": {
+    "author": "Marek and Ewa Wojciechowscy",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:4_Warszawa_05.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q7373926",
+   "file": "File:4 Warszawa 05.jpg"
+  },
+  "centrum-pieniadza-nbp": {
+   "name": "Centrum Pieniądza NBP",
+   "lat": 52.236194,
+   "lng": 21.0146588,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/Tree_of_Knowledge_Centrum_Pieniadza_NBP_AB.jpg/960px-Tree_of_Knowledge_Centrum_Pieniadza_NBP_AB.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/Tree_of_Knowledge_Centrum_Pieniadza_NBP_AB.jpg/330px-Tree_of_Knowledge_Centrum_Pieniadza_NBP_AB.jpg",
+   "imageCredit": {
+    "author": "Chepry 💬 ( Andrzej Barabasz ) 📷 🇵🇱",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Tree_of_Knowledge_Centrum_Pieniadza_NBP_AB.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q29158537",
+   "file": "File:Tree of Knowledge Centrum Pieniadza NBP AB.jpg"
+  },
+  "ermitaz": {
+   "name": "Ermitaż",
+   "lat": 52.2177333,
+   "lng": 21.0362876,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/62/Ermita%C5%BC_in_Warschau_DSC_1507.JPG/960px-Ermita%C5%BC_in_Warschau_DSC_1507.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/62/Ermita%C5%BC_in_Warschau_DSC_1507.JPG/330px-Ermita%C5%BC_in_Warschau_DSC_1507.JPG",
+   "imageCredit": {
+    "author": "Wistula",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Ermita%C5%BC_in_Warschau_DSC_1507.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11697078",
+   "file": "File:Ermitaż in Warschau DSC 1507.JPG"
+  },
+  "fort-pilsudskiego": {
+   "name": "Fort Piłsudskiego",
+   "lat": 52.1888196,
+   "lng": 21.0390733,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2b/Tsche9_DSC0838.JPG/960px-Tsche9_DSC0838.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2b/Tsche9_DSC0838.JPG/330px-Tsche9_DSC0838.JPG",
+   "imageCredit": {
+    "author": "Wistula",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Tsche9_DSC0838.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1438773",
+   "file": "File:Tsche9 DSC0838.JPG"
+  },
+  "fort-sokolnickiego": {
+   "name": "Fort Sokolnickiego",
+   "lat": 52.2683506,
+   "lng": 20.9896857,
+   "image": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Warszawa_fort_siergieja_001.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/Warszawa_fort_siergieja_001.jpg/330px-Warszawa_fort_siergieja_001.jpg",
+   "imageCredit": {
+    "author": "No machine-readable author provided. Klemens~commonswiki assumed (based on copyright claims).",
+    "license": "CC BY-SA 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+    "source": "https://commons.wikimedia.org/wiki/File:Warszawa_fort_siergieja_001.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q9261649",
+   "file": "File:Warszawa fort siergieja 001.jpg"
+  },
+  "gnojna-gora": {
+   "name": "Gnojna Góra",
+   "lat": 52.2499763,
+   "lng": 21.0141211,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/39/G%C3%B3ra_Gnojna_w_Warszawie_2021.jpg/960px-G%C3%B3ra_Gnojna_w_Warszawie_2021.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/39/G%C3%B3ra_Gnojna_w_Warszawie_2021.jpg/330px-G%C3%B3ra_Gnojna_w_Warszawie_2021.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:G%C3%B3ra_Gnojna_w_Warszawie_2021.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11703035",
+   "file": "File:Góra Gnojna w Warszawie 2021.jpg"
+  },
+  "gorka-kazurka": {
+   "name": "Górka Kazurka",
+   "lat": 52.1366509,
+   "lng": 21.0443194,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/Kazurka_w_Warszawie_2016_01.jpg/960px-Kazurka_w_Warszawie_2016_01.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/Kazurka_w_Warszawie_2016_01.jpg/330px-Kazurka_w_Warszawie_2016_01.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Kazurka_w_Warszawie_2016_01.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q9381092",
+   "file": "File:Kazurka w Warszawie 2016 01.jpg"
+  },
+  "hala-gwardii": {
+   "name": "Hala Gwardii",
+   "lat": 52.2391583,
+   "lng": 20.9994874,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/05/Hale_Mirowskie_%2814078010419%29.jpg/960px-Hale_Mirowskie_%2814078010419%29.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/05/Hale_Mirowskie_%2814078010419%29.jpg/330px-Hale_Mirowskie_%2814078010419%29.jpg",
+   "imageCredit": {
+    "author": "Radek Kołakowski from Warszawa, Poland",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Hale_Mirowskie_(14078010419).jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1683766",
+   "file": "File:Hale Mirowskie (14078010419).jpg"
+  },
+  "hybrydy": {
+   "name": "Hybrydy",
+   "lat": 52.2327432,
+   "lng": 21.0116281,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cd/Hybrydy_club_-_entrance.jpg/960px-Hybrydy_club_-_entrance.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cd/Hybrydy_club_-_entrance.jpg/330px-Hybrydy_club_-_entrance.jpg",
+   "imageCredit": {
+    "author": "Daniel Koć ( Kocio )",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": null,
+    "source": "https://commons.wikimedia.org/wiki/File:Hybrydy_club_-_entrance.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11740222",
+   "file": "File:Hybrydy club - entrance.jpg"
+  },
+  "jan-iii-sobieski": {
+   "name": "Jan III Sobieski",
+   "lat": 52.2174228,
+   "lng": 21.0354405,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/Pomnik_Jana_III_Sobieskiego.jpg/960px-Pomnik_Jana_III_Sobieskiego.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/Pomnik_Jana_III_Sobieskiego.jpg/330px-Pomnik_Jana_III_Sobieskiego.jpg",
+   "imageCredit": {
+    "author": "Cezary p",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pomnik_Jana_III_Sobieskiego.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1187970",
+   "file": "File:Pomnik Jana III Sobieskiego.jpg"
+  },
+  "jeff-s": {
+   "name": "Jeff's",
+   "lat": 52.2109778,
+   "lng": 20.9891137,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/Jeffs1DSC_1036.jpg/960px-Jeffs1DSC_1036.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/Jeffs1DSC_1036.jpg/330px-Jeffs1DSC_1036.jpg",
+   "imageCredit": {
+    "author": "Wistula",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Jeffs1DSC_1036.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q108366399",
+   "file": "File:Jeffs1DSC 1036.jpg"
+  },
+  "kamienica-pod-gigantami": {
+   "name": "Kamienica Pod Gigantami",
+   "lat": 52.2269855,
+   "lng": 21.023823,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bd/Kamienica_pod_Gigantami_w_Warszawie.jpg/960px-Kamienica_pod_Gigantami_w_Warszawie.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bd/Kamienica_pod_Gigantami_w_Warszawie.jpg/330px-Kamienica_pod_Gigantami_w_Warszawie.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Kamienica_pod_Gigantami_w_Warszawie.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11734224",
+   "file": "File:Kamienica pod Gigantami w Warszawie.jpg"
+  },
+  "kaplica-pw-swietej-barbary": {
+   "name": "Kaplica pw. Świętej Barbary",
+   "lat": 52.2260912,
+   "lng": 21.0078386,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2f/Ko%C5%9Bci%C3%B3%C5%82_%C5%9Bw._Barbary_w_Warszawie_01.jpg/960px-Ko%C5%9Bci%C3%B3%C5%82_%C5%9Bw._Barbary_w_Warszawie_01.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2f/Ko%C5%9Bci%C3%B3%C5%82_%C5%9Bw._Barbary_w_Warszawie_01.jpg/330px-Ko%C5%9Bci%C3%B3%C5%82_%C5%9Bw._Barbary_w_Warszawie_01.jpg",
+   "imageCredit": {
+    "author": "Аимаина хикари",
+    "license": "CC0",
+    "licenseUrl": null,
+    "source": "https://commons.wikimedia.org/wiki/File:Ko%C5%9Bci%C3%B3%C5%82_%C5%9Bw._Barbary_w_Warszawie_01.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q7587204",
+   "file": "File:Kościół św. Barbary w Warszawie 01.jpg"
+  },
+  "kolumna-zygmunta": {
+   "name": "Kolumna Zygmunta",
+   "lat": 52.2472528,
+   "lng": 21.0133781,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e3/Kolumna_Zygmunta_III_Wazy_2020.jpg/960px-Kolumna_Zygmunta_III_Wazy_2020.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e3/Kolumna_Zygmunta_III_Wazy_2020.jpg/330px-Kolumna_Zygmunta_III_Wazy_2020.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Kolumna_Zygmunta_III_Wazy_2020.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q958585",
+   "file": "File:Kolumna Zygmunta III Wazy 2020.jpg"
+  },
+  "kopa-cwila": {
+   "name": "Kopa Cwila",
+   "lat": 52.1643056,
+   "lng": 21.0222367,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/Kopa_cwila.jpg/960px-Kopa_cwila.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/Kopa_cwila.jpg/330px-Kopa_cwila.jpg",
+   "imageCredit": {
+    "author": "Panek",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kopa_cwila.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11743303",
+   "file": "File:Kopa cwila.jpg"
+  },
+  "kosciol-ewangelicko-reformowany": {
+   "name": "Kościół Ewangelicko-Reformowany",
+   "lat": 52.2440239,
+   "lng": 20.9983111,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/Ko%C5%9Bci%C3%B3%C5%82_ewangelicko-reformowany_w_Warszawie_2023.jpg/960px-Ko%C5%9Bci%C3%B3%C5%82_ewangelicko-reformowany_w_Warszawie_2023.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/Ko%C5%9Bci%C3%B3%C5%82_ewangelicko-reformowany_w_Warszawie_2023.jpg/330px-Ko%C5%9Bci%C3%B3%C5%82_ewangelicko-reformowany_w_Warszawie_2023.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Ko%C5%9Bci%C3%B3%C5%82_ewangelicko-reformowany_w_Warszawie_2023.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q17333870",
+   "file": "File:Kościół ewangelicko-reformowany w Warszawie 2023.jpg"
+  },
+  "kosciol-parafialny-pw-dzieciatka-jezus": {
+   "name": "Kościół parafialny pw. Dzieciątka Jezus",
+   "lat": 52.2251466,
+   "lng": 20.9972445,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/Ko%C5%9Bci%C3%B3%C5%82_Dzieci%C4%85tka_Jezus_w_Warszawie_w_Warszawie_2021.jpg/960px-Ko%C5%9Bci%C3%B3%C5%82_Dzieci%C4%85tka_Jezus_w_Warszawie_w_Warszawie_2021.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/Ko%C5%9Bci%C3%B3%C5%82_Dzieci%C4%85tka_Jezus_w_Warszawie_w_Warszawie_2021.jpg/330px-Ko%C5%9Bci%C3%B3%C5%82_Dzieci%C4%85tka_Jezus_w_Warszawie_w_Warszawie_2021.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Ko%C5%9Bci%C3%B3%C5%82_Dzieci%C4%85tka_Jezus_w_Warszawie_w_Warszawie_2021.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11735102",
+   "file": "File:Kościół Dzieciątka Jezus w Warszawie w Warszawie 2021.jpg"
+  },
+  "kosciol-parafialny-pw-nawiedzenia-najswietszej-maryi-panny": {
+   "name": "Kościół parafialny pw. Nawiedzenia Najświętszej Maryi Panny",
+   "lat": 52.2543067,
+   "lng": 21.0090356,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/eb/Ko%C5%9Bci%C3%B3%C5%82_Nawiedzenia_Naj%C5%9Bwi%C4%99tszej_Marii_Panny_w_Warszawie_2017.jpg/960px-Ko%C5%9Bci%C3%B3%C5%82_Nawiedzenia_Naj%C5%9Bwi%C4%99tszej_Marii_Panny_w_Warszawie_2017.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/eb/Ko%C5%9Bci%C3%B3%C5%82_Nawiedzenia_Naj%C5%9Bwi%C4%99tszej_Marii_Panny_w_Warszawie_2017.jpg/330px-Ko%C5%9Bci%C3%B3%C5%82_Nawiedzenia_Naj%C5%9Bwi%C4%99tszej_Marii_Panny_w_Warszawie_2017.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Ko%C5%9Bci%C3%B3%C5%82_Nawiedzenia_Naj%C5%9Bwi%C4%99tszej_Marii_Panny_w_Warszawie_2017.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1801296",
+   "file": "File:Kościół Nawiedzenia Najświętszej Marii Panny w Warszawie 2017.jpg"
+  },
+  "kosciol-parafialny-pw-niepokalanego-poczecia-najswietszej-maryi-panny": {
+   "name": "Kościół parafialny pw. Niepokalanego Poczęcia Najświętszej Maryi Panny",
+   "lat": 52.2194581,
+   "lng": 20.9829833,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f3/Church_of_the_Immaculate_Conception_of_St._Mary_Warsaw_2023_aerial.jpg/960px-Church_of_the_Immaculate_Conception_of_St._Mary_Warsaw_2023_aerial.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f3/Church_of_the_Immaculate_Conception_of_St._Mary_Warsaw_2023_aerial.jpg/330px-Church_of_the_Immaculate_Conception_of_St._Mary_Warsaw_2023_aerial.jpg",
+   "imageCredit": {
+    "author": "Emptywords",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Church_of_the_Immaculate_Conception_of_St._Mary_Warsaw_2023_aerial.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q5117967",
+   "file": "File:Church of the Immaculate Conception of St. Mary Warsaw 2023 aerial.jpg"
+  },
+  "kosciol-pw-swietego-jacka": {
+   "name": "Kościół pw. Świętego Jacka",
+   "lat": 52.2514014,
+   "lng": 21.0093971,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/Ko%C5%9Bci%C3%B3%C5%82_%C5%9Bw._Jacka_w_Warszawie_2020.jpg/960px-Ko%C5%9Bci%C3%B3%C5%82_%C5%9Bw._Jacka_w_Warszawie_2020.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/Ko%C5%9Bci%C3%B3%C5%82_%C5%9Bw._Jacka_w_Warszawie_2020.jpg/330px-Ko%C5%9Bci%C3%B3%C5%82_%C5%9Bw._Jacka_w_Warszawie_2020.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Ko%C5%9Bci%C3%B3%C5%82_%C5%9Bw._Jacka_w_Warszawie_2020.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q3699191",
+   "file": "File:Kościół św. Jacka w Warszawie 2020.jpg"
+  },
+  "kosciol-pw-swietej-anny": {
+   "name": "Kościół pw. Świętej Anny",
+   "lat": 52.246206,
+   "lng": 21.0143912,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/01/Ko%C5%9Bci%C3%B3%C5%82_%C5%9Bw._Anny_w_Warszawie_2020.jpg/960px-Ko%C5%9Bci%C3%B3%C5%82_%C5%9Bw._Anny_w_Warszawie_2020.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/01/Ko%C5%9Bci%C3%B3%C5%82_%C5%9Bw._Anny_w_Warszawie_2020.jpg/330px-Ko%C5%9Bci%C3%B3%C5%82_%C5%9Bw._Anny_w_Warszawie_2020.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Ko%C5%9Bci%C3%B3%C5%82_%C5%9Bw._Anny_w_Warszawie_2020.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1798910",
+   "file": "File:Kościół św. Anny w Warszawie 2020.jpg"
+  },
+  "muzeum-azji-i-pacyfiku": {
+   "name": "Muzeum Azji i Pacyfiku",
+   "lat": 52.2333984,
+   "lng": 21.0368378,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/PL_Warsaw_24_Solec_Street_Asia_and_Pacific_Museum_Entrance.JPG/960px-PL_Warsaw_24_Solec_Street_Asia_and_Pacific_Museum_Entrance.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/PL_Warsaw_24_Solec_Street_Asia_and_Pacific_Museum_Entrance.JPG/330px-PL_Warsaw_24_Solec_Street_Asia_and_Pacific_Museum_Entrance.JPG",
+   "imageCredit": {
+    "author": "Happa",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:PL_Warsaw_24_Solec_Street_Asia_and_Pacific_Museum_Entrance.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q3893223",
+   "file": "File:PL Warsaw 24 Solec Street Asia and Pacific Museum Entrance.JPG"
+  },
+  "muzeum-etnograficzne": {
+   "name": "Muzeum Etnograficzne",
+   "lat": 52.2381491,
+   "lng": 21.0121665,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Gmach_Towarzystwa_Kredytowego_Ziemskiego_w_Warszawie_2024.jpg/960px-Gmach_Towarzystwa_Kredytowego_Ziemskiego_w_Warszawie_2024.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Gmach_Towarzystwa_Kredytowego_Ziemskiego_w_Warszawie_2024.jpg/330px-Gmach_Towarzystwa_Kredytowego_Ziemskiego_w_Warszawie_2024.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Gmach_Towarzystwa_Kredytowego_Ziemskiego_w_Warszawie_2024.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q961766",
+   "file": "File:Gmach Towarzystwa Kredytowego Ziemskiego w Warszawie 2024.jpg"
+  },
+  "muzeum-harcerstwa": {
+   "name": "Muzeum Harcerstwa",
+   "lat": 52.2282068,
+   "lng": 21.0262487,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/99/Budynek_YMCA_ul._Konopnickiej_w_Warszawie_2020.jpg/960px-Budynek_YMCA_ul._Konopnickiej_w_Warszawie_2020.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/99/Budynek_YMCA_ul._Konopnickiej_w_Warszawie_2020.jpg/330px-Budynek_YMCA_ul._Konopnickiej_w_Warszawie_2020.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Budynek_YMCA_ul._Konopnickiej_w_Warszawie_2020.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q6941021",
+   "file": "File:Budynek YMCA ul. Konopnickiej w Warszawie 2020.jpg"
+  },
+  "muzeum-historii-zydow-polskich-polin": {
+   "name": "Muzeum Historii Żydów Polskich Polin",
+   "lat": 52.2493631,
+   "lng": 20.9931255,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/26/Museum_of_the_History_of_Polish_Jews_in_Warsaw_building_0011.jpg/960px-Museum_of_the_History_of_Polish_Jews_in_Warsaw_building_0011.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/26/Museum_of_the_History_of_Polish_Jews_in_Warsaw_building_0011.jpg/330px-Museum_of_the_History_of_Polish_Jews_in_Warsaw_building_0011.jpg",
+   "imageCredit": {
+    "author": "Wojciech Kryński",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Museum_of_the_History_of_Polish_Jews_in_Warsaw_building_0011.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q429069",
+   "file": "File:Museum of the History of Polish Jews in Warsaw building 0011.jpg"
+  },
+  "muzeum-karykatury": {
+   "name": "Muzeum Karykatury",
+   "lat": 52.2449812,
+   "lng": 21.0131564,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3d/Muzeum_Karykatury_im._Eryka_Lipi%C5%84skiego_2026.jpg/960px-Muzeum_Karykatury_im._Eryka_Lipi%C5%84skiego_2026.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3d/Muzeum_Karykatury_im._Eryka_Lipi%C5%84skiego_2026.jpg/330px-Muzeum_Karykatury_im._Eryka_Lipi%C5%84skiego_2026.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Muzeum_Karykatury_im._Eryka_Lipi%C5%84skiego_2026.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q6940789",
+   "file": "File:Muzeum Karykatury im. Eryka Lipińskiego 2026.jpg"
+  },
+  "muzeum-literatury": {
+   "name": "Muzeum Literatury",
+   "lat": 52.2502252,
+   "lng": 21.0123863,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9f/Rynek_Starego_Miasta_w_Warszawie_Strona_Barssa_2020a.jpg/960px-Rynek_Starego_Miasta_w_Warszawie_Strona_Barssa_2020a.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9f/Rynek_Starego_Miasta_w_Warszawie_Strona_Barssa_2020a.jpg/330px-Rynek_Starego_Miasta_w_Warszawie_Strona_Barssa_2020a.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Rynek_Starego_Miasta_w_Warszawie_Strona_Barssa_2020a.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q4679497",
+   "file": "File:Rynek Starego Miasta w Warszawie Strona Barssa 2020a.jpg"
+  },
+  "muzeum-marii-sklodowskiej-curie": {
+   "name": "Muzeum Marii Skłodowskiej-Curie",
+   "lat": 52.2515313,
+   "lng": 21.0085201,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/40/Kamienica_%C5%81yszkiewicza_w_Warszawie_2020.jpg/960px-Kamienica_%C5%81yszkiewicza_w_Warszawie_2020.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/40/Kamienica_%C5%81yszkiewicza_w_Warszawie_2020.jpg/330px-Kamienica_%C5%81yszkiewicza_w_Warszawie_2020.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Kamienica_%C5%81yszkiewicza_w_Warszawie_2020.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q3559646",
+   "file": "File:Kamienica Łyszkiewicza w Warszawie 2020.jpg"
+  },
+  "muzeum-plakatu": {
+   "name": "Muzeum Plakatu",
+   "lat": 52.1642335,
+   "lng": 21.088142,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9f/POL_Warsaw_Muzeum_Plakatu.jpg/960px-POL_Warsaw_Muzeum_Plakatu.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9f/POL_Warsaw_Muzeum_Plakatu.jpg/330px-POL_Warsaw_Muzeum_Plakatu.jpg",
+   "imageCredit": {
+    "author": "Hubert Śmietanka",
+    "license": "CC BY-SA 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+    "source": "https://commons.wikimedia.org/wiki/File:POL_Warsaw_Muzeum_Plakatu.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1127288",
+   "file": "File:POL Warsaw Muzeum Plakatu.jpg"
+  },
+  "muzeum-powstania-warszawskiego": {
+   "name": "Muzeum Powstania Warszawskiego",
+   "lat": 52.2322063,
+   "lng": 20.981487,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cd/Muzeum_Powstania_Warszawskiego_2023.jpg/960px-Muzeum_Powstania_Warszawskiego_2023.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cd/Muzeum_Powstania_Warszawskiego_2023.jpg/330px-Muzeum_Powstania_Warszawskiego_2023.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Muzeum_Powstania_Warszawskiego_2023.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q574328",
+   "file": "File:Muzeum Powstania Warszawskiego 2023.jpg"
+  },
+  "muzeum-sztuki-nowoczesnej": {
+   "name": "Muzeum Sztuki Nowoczesnej",
+   "lat": 52.233095,
+   "lng": 21.0090042,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/76/Muzeum_Sztuki_Nowoczesnej_w_Warszawie_2025.jpg/960px-Muzeum_Sztuki_Nowoczesnej_w_Warszawie_2025.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/76/Muzeum_Sztuki_Nowoczesnej_w_Warszawie_2025.jpg/330px-Muzeum_Sztuki_Nowoczesnej_w_Warszawie_2025.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Muzeum_Sztuki_Nowoczesnej_w_Warszawie_2025.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1956218",
+   "file": "File:Muzeum Sztuki Nowoczesnej w Warszawie 2025.jpg"
+  },
+  "muzeum-wodki": {
+   "name": "Muzeum Wódki",
+   "lat": 52.2434024,
+   "lng": 21.007613,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e7/Siedziba_Muzeum_W%C3%B3dki.jpg/960px-Siedziba_Muzeum_W%C3%B3dki.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e7/Siedziba_Muzeum_W%C3%B3dki.jpg/330px-Siedziba_Muzeum_W%C3%B3dki.jpg",
+   "imageCredit": {
+    "author": "Mmartosz",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Siedziba_Muzeum_W%C3%B3dki.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q62745331",
+   "file": "File:Siedziba Muzeum Wódki.jpg"
+  },
+  "muzeum-woli": {
+   "name": "Muzeum Woli",
+   "lat": 52.2278836,
+   "lng": 20.9897384,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/Muzeum_Woli_w_Warszawie_2014_03.JPG/960px-Muzeum_Woli_w_Warszawie_2014_03.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/Muzeum_Woli_w_Warszawie_2014_03.JPG/330px-Muzeum_Woli_w_Warszawie_2014_03.JPG",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Muzeum_Woli_w_Warszawie_2014_03.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1029069",
+   "file": "File:Muzeum Woli w Warszawie 2014 03.JPG"
+  },
+  "narodowe-muzeum-techniki": {
+   "name": "Narodowe Muzeum Techniki",
+   "lat": 52.2305729,
+   "lng": 21.0058739,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/Narodowe_Muzeum_Techniki_w_Warszawie_2022f.jpg/960px-Narodowe_Muzeum_Techniki_w_Warszawie_2022f.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/Narodowe_Muzeum_Techniki_w_Warszawie_2022f.jpg/330px-Narodowe_Muzeum_Techniki_w_Warszawie_2022f.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Narodowe_Muzeum_Techniki_w_Warszawie_2022f.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q6941029",
+   "file": "File:Narodowe Muzeum Techniki w Warszawie 2022f.jpg"
+  },
+  "nowa-kordegarda": {
+   "name": "Nowa Kordegarda",
+   "lat": 52.2149496,
+   "lng": 21.0341862,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/Nowa_Kordegarda_w_%C5%81azienkach_2015_01.JPG/960px-Nowa_Kordegarda_w_%C5%81azienkach_2015_01.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/Nowa_Kordegarda_w_%C5%81azienkach_2015_01.JPG/330px-Nowa_Kordegarda_w_%C5%81azienkach_2015_01.JPG",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Nowa_Kordegarda_w_%C5%81azienkach_2015_01.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11793401",
+   "file": "File:Nowa Kordegarda w Łazienkach 2015 01.JPG"
+  },
+  "ogrod-botaniczny-pan": {
+   "name": "Ogród Botaniczny PAN",
+   "lat": 52.1075537,
+   "lng": 21.096244,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/Powsin_pan_rododendrony1.jpg/960px-Powsin_pan_rododendrony1.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/Powsin_pan_rododendrony1.jpg/330px-Powsin_pan_rododendrony1.jpg",
+   "imageCredit": {
+    "author": "T.D.",
+    "license": "CC BY-SA 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+    "source": "https://commons.wikimedia.org/wiki/File:Powsin_pan_rododendrony1.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q8343771",
+   "file": "File:Powsin pan rododendrony1.jpg"
+  },
+  "ogrod-krasinskich": {
+   "name": "Ogród Krasińskich",
+   "lat": 52.2481572,
+   "lng": 21.002156,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7f/Ogr%C3%B3d_Krasi%C5%84skich-_IV_2016.jpg/960px-Ogr%C3%B3d_Krasi%C5%84skich-_IV_2016.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7f/Ogr%C3%B3d_Krasi%C5%84skich-_IV_2016.jpg/330px-Ogr%C3%B3d_Krasi%C5%84skich-_IV_2016.jpg",
+   "imageCredit": {
+    "author": "Matpol222",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Ogr%C3%B3d_Krasi%C5%84skich-_IV_2016.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11796756",
+   "file": "File:Ogród Krasińskich- IV 2016.jpg"
+  },
+  "ogrody-zamkowe": {
+   "name": "Ogrody Zamkowe",
+   "lat": 52.2483675,
+   "lng": 21.0162062,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ad/Poland-01104_-_Castle_Garden_Side_%2830397740244%29.jpg/960px-Poland-01104_-_Castle_Garden_Side_%2830397740244%29.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ad/Poland-01104_-_Castle_Garden_Side_%2830397740244%29.jpg/330px-Poland-01104_-_Castle_Garden_Side_%2830397740244%29.jpg",
+   "imageCredit": {
+    "author": "Dennis G. Jarvis",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Poland-01104_-_Castle_Garden_Side_(30397740244).jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11796723",
+   "file": "File:Poland-01104 - Castle Garden Side (30397740244).jpg"
+  },
+  "palac-krolikarnia": {
+   "name": "Pałac Królikarnia",
+   "lat": 52.1890251,
+   "lng": 21.0283703,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/61/Kr%C3%B3likarnia_w_Warszawie_2023.jpg/960px-Kr%C3%B3likarnia_w_Warszawie_2023.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/61/Kr%C3%B3likarnia_w_Warszawie_2023.jpg/330px-Kr%C3%B3likarnia_w_Warszawie_2023.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Kr%C3%B3likarnia_w_Warszawie_2023.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1163049",
+   "file": "File:Królikarnia w Warszawie 2023.jpg"
+  },
+  "palac-myslewicki": {
+   "name": "Pałac Myślewicki",
+   "lat": 52.215513,
+   "lng": 21.0382728,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/67/Pa%C5%82ac_My%C5%9Blewicki_w_Warszawie_2019.jpg/960px-Pa%C5%82ac_My%C5%9Blewicki_w_Warszawie_2019.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/67/Pa%C5%82ac_My%C5%9Blewicki_w_Warszawie_2019.jpg/330px-Pa%C5%82ac_My%C5%9Blewicki_w_Warszawie_2019.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Pa%C5%82ac_My%C5%9Blewicki_w_Warszawie_2019.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q651469",
+   "file": "File:Pałac Myślewicki w Warszawie 2019.jpg"
+  },
+  "palac-pod-karczochem": {
+   "name": "Pałac Pod Karczochem",
+   "lat": 52.2258121,
+   "lng": 21.0241368,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c2/Pa%C5%82ac_pod_Karczochem_w_Warszawie_2016.jpg/960px-Pa%C5%82ac_pod_Karczochem_w_Warszawie_2016.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c2/Pa%C5%82ac_pod_Karczochem_w_Warszawie_2016.jpg/330px-Pa%C5%82ac_pod_Karczochem_w_Warszawie_2016.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Pa%C5%82ac_pod_Karczochem_w_Warszawie_2016.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q2047298",
+   "file": "File:Pałac pod Karczochem w Warszawie 2016.jpg"
+  },
+  "palacyk-konopackiego": {
+   "name": "Pałacyk Konopackiego",
+   "lat": 52.2614604,
+   "lng": 21.0396305,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/10/Pa%C5%82acyk_Konopackiego_w_Warszawie_2021.jpg/960px-Pa%C5%82acyk_Konopackiego_w_Warszawie_2021.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/10/Pa%C5%82acyk_Konopackiego_w_Warszawie_2021.jpg/330px-Pa%C5%82acyk_Konopackiego_w_Warszawie_2021.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Pa%C5%82acyk_Konopackiego_w_Warszawie_2021.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q18424220",
+   "file": "File:Pałacyk Konopackiego w Warszawie 2021.jpg"
+  },
+  "palacyk-rembielinskiego": {
+   "name": "Pałacyk Rembielińskiego",
+   "lat": 52.2242491,
+   "lng": 21.0246693,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Aleje_Ujazdowskie_6a_w_Warszawie.jpg/960px-Aleje_Ujazdowskie_6a_w_Warszawie.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Aleje_Ujazdowskie_6a_w_Warszawie.jpg/330px-Aleje_Ujazdowskie_6a_w_Warszawie.jpg",
+   "imageCredit": {
+    "author": "Happa",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Aleje_Ujazdowskie_6a_w_Warszawie.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1820898",
+   "file": "File:Aleje Ujazdowskie 6a w Warszawie.jpg"
+  },
+  "palacyk-wielopolskich": {
+   "name": "Pałacyk Wielopolskich",
+   "lat": 52.221757,
+   "lng": 21.0237243,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d6/Pa%C5%82acyk_Wielopolskich_w_Warszawie_2020.jpg/960px-Pa%C5%82acyk_Wielopolskich_w_Warszawie_2020.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d6/Pa%C5%82acyk_Wielopolskich_w_Warszawie_2020.jpg/330px-Pa%C5%82acyk_Wielopolskich_w_Warszawie_2020.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Pa%C5%82acyk_Wielopolskich_w_Warszawie_2020.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q2047296",
+   "file": "File:Pałacyk Wielopolskich w Warszawie 2020.jpg"
+  },
+  "panstwowe-muzeum-archeologiczne": {
+   "name": "Państwowe Muzeum Archeologiczne",
+   "lat": 52.2456734,
+   "lng": 21.001423,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/Arsena%C5%82_Kr%C3%B3lewski_w_Warszawie_03.JPG/960px-Arsena%C5%82_Kr%C3%B3lewski_w_Warszawie_03.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/Arsena%C5%82_Kr%C3%B3lewski_w_Warszawie_03.JPG/330px-Arsena%C5%82_Kr%C3%B3lewski_w_Warszawie_03.JPG",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Arsena%C5%82_Kr%C3%B3lewski_w_Warszawie_03.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q637086",
+   "file": "File:Arsenał Królewski w Warszawie 03.JPG"
+  },
+  "park-agrykola": {
+   "name": "Park Agrykola",
+   "lat": 52.2194814,
+   "lng": 21.0317387,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/80/Park_Agrykola_w_Warszawie_2021.jpg/960px-Park_Agrykola_w_Warszawie_2021.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/80/Park_Agrykola_w_Warszawie_2021.jpg/330px-Park_Agrykola_w_Warszawie_2021.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Park_Agrykola_w_Warszawie_2021.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11811296",
+   "file": "File:Park Agrykola w Warszawie 2021.jpg"
+  },
+  "park-akcji-burza": {
+   "name": "Park Akcji „Burza”",
+   "lat": 52.2112839,
+   "lng": 21.0551515,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Kopiec10_DSC1543.JPG/960px-Kopiec10_DSC1543.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Kopiec10_DSC1543.JPG/330px-Kopiec10_DSC1543.JPG",
+   "imageCredit": {
+    "author": "Wistula",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kopiec10_DSC1543.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q782964",
+   "file": "File:Kopiec10 DSC1543.JPG"
+  },
+  "park-dreszera": {
+   "name": "Park Dreszera",
+   "lat": 52.1974842,
+   "lng": 21.0214111,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/Park_im._gen._Gustawa_Orlicz-Dreszera_2018.jpg/960px-Park_im._gen._Gustawa_Orlicz-Dreszera_2018.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/Park_im._gen._Gustawa_Orlicz-Dreszera_2018.jpg/330px-Park_im._gen._Gustawa_Orlicz-Dreszera_2018.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Park_im._gen._Gustawa_Orlicz-Dreszera_2018.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11811316",
+   "file": "File:Park im. gen. Gustawa Orlicz-Dreszera 2018.jpg"
+  },
+  "park-kazimierzowski": {
+   "name": "Park Kazimierzowski",
+   "lat": 52.2414076,
+   "lng": 21.0207235,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Park_Kazimierzowski_w_Warszawie_2020.jpg/960px-Park_Kazimierzowski_w_Warszawie_2020.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Park_Kazimierzowski_w_Warszawie_2020.jpg/330px-Park_Kazimierzowski_w_Warszawie_2020.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Park_Kazimierzowski_w_Warszawie_2020.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11811362",
+   "file": "File:Park Kazimierzowski w Warszawie 2020.jpg"
+  },
+  "park-kombatantow": {
+   "name": "Park Kombatantów",
+   "lat": 52.2072385,
+   "lng": 20.9127172,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/44/Park_Kombatant%C3%B3w_w_Warszawie_2019a.jpg/960px-Park_Kombatant%C3%B3w_w_Warszawie_2019a.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/44/Park_Kombatant%C3%B3w_w_Warszawie_2019a.jpg/330px-Park_Kombatant%C3%B3w_w_Warszawie_2019a.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Park_Kombatant%C3%B3w_w_Warszawie_2019a.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11811367",
+   "file": "File:Park Kombatantów w Warszawie 2019a.jpg"
+  },
+  "park-mirowski": {
+   "name": "Park Mirowski",
+   "lat": 52.2382628,
+   "lng": 20.9998817,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/Park_Mirowski_w_Warszawie_2021.jpg/960px-Park_Mirowski_w_Warszawie_2021.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/Park_Mirowski_w_Warszawie_2021.jpg/330px-Park_Mirowski_w_Warszawie_2021.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Park_Mirowski_w_Warszawie_2021.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q86672111",
+   "file": "File:Park Mirowski w Warszawie 2021.jpg"
+  },
+  "park-na-ksiazecem": {
+   "name": "Park na Książęcem",
+   "lat": 52.2317443,
+   "lng": 21.0270765,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d3/Park_Na_Ksi%C4%85%C5%BC%C4%99cem_w_Warszawie_2020.jpg/960px-Park_Na_Ksi%C4%85%C5%BC%C4%99cem_w_Warszawie_2020.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d3/Park_Na_Ksi%C4%85%C5%BC%C4%99cem_w_Warszawie_2020.jpg/330px-Park_Na_Ksi%C4%85%C5%BC%C4%99cem_w_Warszawie_2020.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Park_Na_Ksi%C4%85%C5%BC%C4%99cem_w_Warszawie_2020.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11811635",
+   "file": "File:Park Na Książęcem w Warszawie 2020.jpg"
+  },
+  "park-praski": {
+   "name": "Park Praski",
+   "lat": 52.2534847,
+   "lng": 21.0274091,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Park_Praski_w_Warszawie_2019a.jpg/960px-Park_Praski_w_Warszawie_2019a.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Park_Praski_w_Warszawie_2019a.jpg/330px-Park_Praski_w_Warszawie_2019a.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Park_Praski_w_Warszawie_2019a.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q3363890",
+   "file": "File:Park Praski w Warszawie 2019a.jpg"
+  },
+  "park-swietokrzyski": {
+   "name": "Park Świętokrzyski",
+   "lat": 52.2338253,
+   "lng": 21.0055627,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ae/Warsaw_07-13_img29_View_from_Palace_of_Culture_and_Science.jpg/960px-Warsaw_07-13_img29_View_from_Palace_of_Culture_and_Science.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ae/Warsaw_07-13_img29_View_from_Palace_of_Culture_and_Science.jpg/330px-Warsaw_07-13_img29_View_from_Palace_of_Culture_and_Science.jpg",
+   "imageCredit": {
+    "author": "A.Savin",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Warsaw_07-13_img29_View_from_Palace_of_Culture_and_Science.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11811673",
+   "file": "File:Warsaw 07-13 img29 View from Palace of Culture and Science.jpg"
+  },
+  "proxima": {
+   "name": "Proxima",
+   "lat": 52.2126016,
+   "lng": 20.9871961,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/Budynek_klubu_Proxima_w_Warszawie_2025.jpg/960px-Budynek_klubu_Proxima_w_Warszawie_2025.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/Budynek_klubu_Proxima_w_Warszawie_2025.jpg/330px-Budynek_klubu_Proxima_w_Warszawie_2025.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Budynek_klubu_Proxima_w_Warszawie_2025.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11740254",
+   "file": "File:Budynek klubu Proxima w Warszawie 2025.jpg"
+  },
+  "stara-oranzeria": {
+   "name": "Stara Oranżeria",
+   "lat": 52.2165444,
+   "lng": 21.0300605,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/Stara_Pomara%C5%84czarnia_w_%C5%81azienkach_Kr%C3%B3lewskich_2017.jpg/960px-Stara_Pomara%C5%84czarnia_w_%C5%81azienkach_Kr%C3%B3lewskich_2017.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/Stara_Pomara%C5%84czarnia_w_%C5%81azienkach_Kr%C3%B3lewskich_2017.jpg/330px-Stara_Pomara%C5%84czarnia_w_%C5%81azienkach_Kr%C3%B3lewskich_2017.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Stara_Pomara%C5%84czarnia_w_%C5%81azienkach_Kr%C3%B3lewskich_2017.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q9343795",
+   "file": "File:Stara Pomarańczarnia w Łazienkach Królewskich 2017.jpg"
+  },
+  "stodola": {
+   "name": "Stodoła",
+   "lat": 52.2115708,
+   "lng": 21.0102281,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/Klub_Stodo%C5%82a_w_Warszawie_2021.jpg/960px-Klub_Stodo%C5%82a_w_Warszawie_2021.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/Klub_Stodo%C5%82a_w_Warszawie_2021.jpg/330px-Klub_Stodo%C5%82a_w_Warszawie_2021.jpg",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Klub_Stodo%C5%82a_w_Warszawie_2021.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11740269",
+   "file": "File:Klub Stodoła w Warszawie 2021.jpg"
+  },
+  "swiatynia-sybilli": {
+   "name": "Świątynia Sybilli",
+   "lat": 52.2137138,
+   "lng": 21.0291004,
+   "image": "https://upload.wikimedia.org/wikipedia/commons/a/a5/5_Warszawa_078.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/5_Warszawa_078.jpg/330px-5_Warszawa_078.jpg",
+   "imageCredit": {
+    "author": "Marek and Ewa Wojciechowscy",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:5_Warszawa_078.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q9396536",
+   "file": "File:5 Warszawa 078.jpg"
+  },
+  "wodozbior": {
+   "name": "Wodozbiór",
+   "lat": 52.2154632,
+   "lng": 21.0297142,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/Wodozbi%C3%B3r_w_%C5%81azienkach_Kr%C3%B3lewskich.JPG/960px-Wodozbi%C3%B3r_w_%C5%81azienkach_Kr%C3%B3lewskich.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/Wodozbi%C3%B3r_w_%C5%81azienkach_Kr%C3%B3lewskich.JPG/330px-Wodozbi%C3%B3r_w_%C5%81azienkach_Kr%C3%B3lewskich.JPG",
+   "imageCredit": {
+    "author": "Adrian Grycuk",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Wodozbi%C3%B3r_w_%C5%81azienkach_Kr%C3%B3lewskich.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q9376281",
+   "file": "File:Wodozbiór w Łazienkach Królewskich.JPG"
+  },
+  "zacheta": {
+   "name": "Zachęta",
+   "lat": 52.2392891,
+   "lng": 21.0114645,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ea/Zach%C4%99ta_-_budynek_z_oddalenia.jpg/960px-Zach%C4%99ta_-_budynek_z_oddalenia.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ea/Zach%C4%99ta_-_budynek_z_oddalenia.jpg/330px-Zach%C4%99ta_-_budynek_z_oddalenia.jpg",
+   "imageCredit": {
+    "author": "rdrozd",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Zach%C4%99ta_-_budynek_z_oddalenia.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q450241",
+   "file": "File:Zachęta - budynek z oddalenia.jpg"
+  }
+ }
+}

@@ -105,6 +105,7 @@ async function runPlannerBrowserSmoke(){
   assert.equal(await only.isChecked(),true,'exact garden forces hard category mode');
   await page.locator('input[name="focus"][value="prefer"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
   assert.equal(await page.locator('input[name="preciseTypes"][value="garden"]').isChecked(),false,'switch to soft preferences clears exact type');
+  await page.locator('details.ux-advanced > summary').click();
   await page.locator('input[name="budget"][value="custom"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
   await page.locator('input[name="budgetAmount"]').fill('250');
   assert.equal(await page.locator('input[name="budgetAmount"]').inputValue(),'250');

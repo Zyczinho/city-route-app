@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {routeMapsUrl} from '../core.js';
+import {routeMapsUrl,mapsUrl} from '../core.js';
 
 const source=()=>readFileSync(new URL('../app.js',import.meta.url),'utf8');
 const route=[
@@ -41,4 +41,14 @@ test('planner preserves chosen start through generation, saved routes and sharin
  assert.match(app,/routeMapsUrl\(ps,t,origin\)/);
  assert.match(app,/routeMapsUrl\(ps,transport,origin\)/);
  assert.match(app,/function transitLegLinks\(ps,origin=null\)/);
+});
+
+
+test('first live navigation leg uses the selected start, later legs do not',()=>{
+ const first=new URL(mapsUrl(route[0],'walking',pawilony));
+ const later=new URL(mapsUrl(route[1],'walking'));
+ assert.equal(first.searchParams.get('origin'),'52.2333,21.0195');
+ assert.equal(first.searchParams.get('destination'),'52.233,21.02');
+ assert.equal(later.searchParams.has('origin'),false);
+ assert.match(source(),/mapsUrl\(p,s\.transport,s\.index===0\?s\.start:null\)/);
 });

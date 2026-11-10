@@ -113,10 +113,16 @@ export function combinedRating(ratings=[]){
  const parts=ratings.filter(s=>Number.isFinite(s.value)&&Number.isSafeInteger(s.reviewCount)&&s.reviewCount>0);
  return {value:blendedRating(parts,{weighted:true}),total:parts.reduce((n,s)=>n+s.reviewCount,0),parts};
 }
-// One Google Maps link for a whole route: start from wherever the phone is, then every stop in order.
-export function routeMapsUrl(stops,transport='walking'){
- if(!stops.length)return '';const pt=p=>`${p.lat},${p.lng}`,last=stops.at(-1),via=stops.slice(0,-1).slice(0,9);
- return `https://www.google.com/maps/dir/?api=1&destination=${pt(last)}${via.length?'&waypoints='+via.map(pt).join('%7C'):''}&travelmode=${transport==='bike'?'bicycling':transport==='transit'?'transit':'walking'}`;
+// Whole-route Google Maps handoff. A declared planner origin must be passed explicitly;
+// only routes without a chosen start should fall back to the viewer's current position.
+export function routeMapsUrl(stops,transport='walking',origin=null){
+ if(!Array.isArray(stops)||!stops.length)return '';
+ const pt=p=>`${p.lat},${p.lng}`;
+ const validOrigin=origin&&origin.lat!=null&&origin.lng!=null&&
+  Number.isFinite(Number(origin.lat))&&Math.abs(Number(origin.lat))<=90&&
+  Number.isFinite(Number(origin.lng))&&Math.abs(Number(origin.lng))<=180;
+ const last=stops.at(-1),via=stops.slice(0,-1).slice(0,9);
+ return `https://www.google.com/maps/dir/?api=1${validOrigin?'&origin='+pt(origin):''}&destination=${pt(last)}${via.length?'&waypoints='+via.map(pt).join('%7C'):''}&travelmode=${transport==='bike'?'bicycling':transport==='transit'?'transit':'walking'}`;
 }
 // Reads coordinates from a pasted Google Maps link (@lat,lng or ?q=lat,lng) or a plain "lat, lng".
 export function parseLocation(text){

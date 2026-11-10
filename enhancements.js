@@ -251,3 +251,48 @@ const observer=new MutationObserver(()=>{decorateWhereInput();simplifyPlanner();
 observer.observe(document.querySelector('#main')||document.documentElement,{subtree:true,childList:true});
 decorateWhereInput();
 simplifyPlanner();
+
+// CITYROUTE-START-ORIGIN: user-confirmed city-scoped lookup; no automatic paid search on typing.
+
+function syncPlannerOrigin(form){
+ const box=form?.querySelector('.planner-origin-fields');
+ if(!box)return;
+ const custom=!!form.querySelector('input[name="start"][value="custom"]:checked');
+ box.hidden=!custom;
+ const input=box.querySelector('#planner-origin-input');
+ if(input)input.disabled=!custom;
+}
+function invalidatePlannerOrigin(form,message='Wybierz punkt startowy i zatwierdź wynik przed ułożeniem trasy.'){
+ if(!form)return;
+ for(const key of ['originLat','originLng','originQuery','originCity','originConfirmed'])delete form.dataset[key];
+ const status=form.querySelector('.planner-origin-status');
+ if(status)status.textContent=message;
+}
+document.addEventListener('change',e=>{
+ if(e.target?.name==='start'&&e.target.closest('#build-form'))syncPlannerOrigin(e.target.closest('#build-form'));
+});
+document.addEventListener('input',e=>{
+ if(e.target?.id==='planner-origin-input')invalidatePlannerOrigin(e.target.closest('#build-form'));
+});
+document.addEventListener('click',async e=>{
+ const button=e.target.closest?.('[data-action="planner-origin-search"]');
+ if(!button)return;
+ const form=button.closest('#build-form'),input=form?.querySelector('#planner-origin-input');
+ if(!form||!input||!form.querySelector('input[name="start"][value="custom"]:checked'))return;
+ const query=input.value.replace(/\s+/g,' ').trim();
+ if(query.length<3)return invalidatePlannerOrigin(form,'Podaj nazwę lub adres składający się z co najmniej 3 znaków.');
+ const city=await activeCity(),status=form.querySelector('.planner-origin-status');
+ invalidatePlannerOrigin(form,'Szukam punktu w '+city.name+'…');
+ button.disabled=true;
+ try{
+  const result=await searchAddress(query,city);
+  const lat=Number(result?.location?.lat),lng=Number(result?.location?.lng);
+  if(!Number.isFinite(lat)||!Number.isFinite(lng)||kmFromCenter(city,lat,lng)>city.radiusKm)
+   throw Error('outside-city');
+  if(!form.isConnected||input.value.replace(/\s+/g,' ').trim()!==query||(await activeCity()).id!==city.id)return;
+  Object.assign(form.dataset,{originLat:String(lat),originLng:String(lng),originQuery:query,originCity:city.id,originConfirmed:'1'});
+  if(status)status.textContent='Potwierdzono: '+(result.name||result.address||query)+' · '+(result.address||city.name);
+ }catch{
+  invalidatePlannerOrigin(form,'Nie znaleziono punktu w '+city.name+'. Wpisz dokładniejszy adres.');
+ }finally{button.disabled=false;}
+});

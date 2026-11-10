@@ -1,4 +1,5 @@
-import {isRouteFoodPlace,isExcludedRoutePlace,normalizeRouteInterests,routeInterestMatch} from './route-preferences.js';
+import {distinctRoute} from './route-diversity.js';
+import {isRouteFoodPlace,isExcludedRoutePlace,normalizeRouteInterests,routeInterestMatch,canViewRouteExterior} from './route-preferences.js';
 export const distance = (a,b) => {
  const rad=x=>x*Math.PI/180, dlat=rad(b.lat-a.lat), dlon=rad(b.lng-a.lng);
  return 6371*2*Math.asin(Math.min(1,Math.sqrt(Math.sin(dlat/2)**2+Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(dlon/2)**2)));
@@ -28,7 +29,7 @@ export function generate(places,prefs){
  const selected=normalizeRouteInterests(interests),foodTheme=selected.includes('food');
  const foodStyle=p=>p.foodStyle&&p.foodStyle!=='none'?p.foodStyle:(p.categoryId==='restaurant'?'sit':'quick');
  const candidates=places.filter(p=>p.kind!=='hotel'&&!isExcludedRoutePlace(p,prefs.avoid)&&
-  (prefs.visitMode!=='outside'||!indoorExhibition(p))&&
+  (prefs.visitMode!=='outside'||canViewRouteExterior(p))&&
   (prefs.food!=='none'||foodTheme||!isFood(p))&&
   (prefs.food!=='quick'||!isFood(p)||foodStyle(p)==='quick')&&
   (prefs.food!=='sit'||!isFood(p)||foodStyle(p)==='sit')&&
@@ -84,12 +85,12 @@ export function generateAlternatives(places,prefs,{count=3,history=[]}={}){
  const limit=Math.max(1,Math.min(5,Math.trunc(Number(count)||3)));
  for(let attempt=0;attempt<48&&result.length<limit;attempt++){
   const freshFirst=!history.length&&!result.length&&attempt===0;
-  const variantPrefs=freshFirst?prefs:{...prefs,variantIndex:attempt+1,diversityCounts:Object.fromEntries(used),diversityWeight:3.5+(attempt%5)*.8};
+  const variantPrefs=freshFirst?prefs:{...prefs,variantIndex:attempt+1,diversityCounts:Object.fromEntries(used),diversityWeight:7+(attempt%6)*1.2};
   const candidate=generate(places,variantPrefs);
   if(!candidate.length)continue;
   const key=signature(candidate);
-  if(signatures.has(key))continue;
-  // The same points in a slightly different order are not a new suggestion.
+  if(signatures.has(key)||!distinctRoute(candidate,[...result,...history]))continue;
+  // A slightly reordered or near-identical set is not a new suggestion.
   signatures.add(key);result.push(candidate);
   for(const p of candidate)used.set(p.id,(used.get(p.id)||0)+1);
  }

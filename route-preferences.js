@@ -77,3 +77,11 @@ export function routeInterestMatch(p,id){
  return INTEREST_CATEGORIES[id].includes(t.category)||
   (LEGACY_INTEREST[id]||[]).some(cat=>t.cats.includes(cat));
 }
+
+/** Outside visits must have an actual exterior experience, not a closed museum's door. */
+export function canViewRouteExterior(p){
+ if(!p||p.interiorOnly===true||p.exteriorWorthVisiting===false)return false;
+ if(['museum','gallery'].includes(p.categoryId)||Array.isArray(p.cats)&&p.cats.includes('muzea'))
+  return p.exteriorWorthVisiting===true;
+ return true;
+}

@@ -1,8 +1,9 @@
+import {distinctRoute} from './route-diversity.js';
 // Planner V2 engine: bounded beam search over catalogue POIs, pure and deterministic.
 // Not wired to the UI yet. No provider calls or cost-bearing API usage.
 // Route timing is an estimate until a real, separately supplied leg matrix validates it.
 import {distance} from './core.js';
-import {isRouteFoodPlace,isExcludedRoutePlace,normalizeRouteInterests,routeInterestMatch} from './route-preferences.js';
+import {isRouteFoodPlace,isExcludedRoutePlace,normalizeRouteInterests,routeInterestMatch,canViewRouteExterior} from './route-preferences.js';
 import {openingFor,validDate} from './opening-hours.js';
 
 const SPEED={walking:4.5,bike:12,mix:6};
@@ -58,7 +59,7 @@ function validForPrefs(p,prefs,interests){
   if(isExcludedRoutePlace(p,prefs.avoid))return false;
   if(Array.isArray(prefs.allowedAreas)&&prefs.allowedAreas.length&&!prefs.allowedAreas.includes(p.area))return false;
   if(Number(prefs.maxRadiusKm)>0&&hasCoords(prefs.start)&&distance(p,prefs.start)>Number(prefs.maxRadiusKm))return false;
-  if(prefs.visitMode==='outside'&&museumPlace(p)&&p.exteriorWorthVisiting!==true)return false;
+  if(prefs.visitMode==='outside'&&!canViewRouteExterior(p))return false;
   if(prefs.offers!=='yes'&&p.partner)return false;
   if(Number(p.cost)>budgetLimit(prefs))return false;
   if(foodPlace(p)&&prefs.food==='none'&&!interests.includes('food'))return false;
@@ -136,7 +137,12 @@ function stepState(state,item,ctx){
   if(!leg)return null;
   const travel=Math.ceil(leg.minutes);
   let dwell=Math.max(1,minutesOf(p));
-  const hours=openingFor(p,{cityId:ctx.cityId,date:ctx.date,mode:ctx.visitMode});
+  let hours=openingFor(p,{cityId:ctx.cityId,date:ctx.date,mode:ctx.visitMode});
+  // Mixed viewing uses the outside only when a verified facade visit makes sense.
+  if(ctx.visitMode==='mix'&&hours.status==='closed'&&canViewRouteExterior(p)){
+   hours=openingFor(p,{cityId:ctx.cityId,date:ctx.date,mode:'outside'});
+   dwell=Math.min(dwell,Math.max(5,Number(p.outsideMinutes)||20));
+  }
   if(hours.status==='closed')return null;
   if(hours.status==='known')dwell=Math.max(dwell,hours.minVisit||0);
   const rest=state.stops.length&&state.activeSinceBreak+travel+dwell>ctx.restInterval?ctx.restMinutes:0;
@@ -177,20 +183,16 @@ function bestSolutions(solutions,limit,mandatoryFood,history=[]){
   const excluded=new Set(history.filter(s=>Array.isArray(s)&&s.length).map(s=>s.map(p=>typeof p==='string'?p:idOf(p)).sort().join('|')));
   const sorted=solutions.filter(s=>!mandatoryFood||s.foodCount===1&&s.stops.length>=3&&s.stops.findIndex(foodPlace)<s.stops.length-1)
     .sort((a,b)=>b.score-a.score||b.stops.length-a.stops.length||a.minutes-b.minutes||sameStopSet(a.stops).localeCompare(sameStopSet(b.stops)));
-  const chosen=[],seen=new Set();
+  const chosen=[],seen=new Set(),previous=history.filter(Array.isArray);
   for(const s of sorted){
     const signature=sameStopSet(s.stops);
     if(seen.has(signature)||excluded.has(signature))continue;
-    const overlap=chosen.length?Math.max(...chosen.map(other=>{
-      const a=new Set(other.stops.map(p=>idOf(p)));
-      const b=new Set(s.stops.map(p=>idOf(p)));
-      return [...a].filter(x=>b.has(x)).length/Math.max(a.size,b.size);
-    })):0;
-    if(overlap>.7)continue;
+    if(!distinctRoute(s.stops,[...chosen.map(x=>x.stops),...previous]))continue;
     chosen.push(s);seen.add(signature);
     if(chosen.length>=limit)break;
   }
-  if(!chosen.length&&sorted.length)chosen.push(sorted[0]);
+  // Fresh requests still return an actual plan if the catalogue cannot support several.
+  if(!chosen.length&&!previous.length&&sorted.length)chosen.push(sorted[0]);
   return chosen;
 }
 /**

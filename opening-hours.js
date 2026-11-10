@@ -91,8 +91,13 @@ export function scheduleRoute(stops,{cityId='warsaw',date,startTime='10:00',tran
     &&Number.isFinite(Number(p.lat))&&Number.isFinite(Number(p.lng))){
    t+=Math.ceil(distance(prior,p)*1.3/speed*60);
   }
-  const arrival=t,hours=openingFor(p,{cityId,date,mode});
+  const arrival=t;
+  let hours=openingFor(p,{cityId,date,mode});
   let wait=0,duration=Math.max(1,Number(p.minutes)||20);
+  if(mode==='mix'&&hours.status==='closed'&&p.exteriorWorthVisiting===true){
+   hours=openingFor(p,{cityId,date,mode:'outside'});
+   duration=Math.min(duration,Math.max(5,Number(p.outsideMinutes)||20));
+  }
   if(hours.status==='known'){
    wait=Math.max(0,hours.open-t);t+=wait;
    duration=Math.max(duration,hours.minVisit);

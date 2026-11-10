@@ -104,8 +104,8 @@ export function advance(session,status){
  const next={...session,results:[...session.results,{id:session.stops[session.index],status}],index:session.index+1};
  next.finished=next.index>=next.stops.length;return next;
 }
-export function mapsUrl(p,transport='walking'){
- return `https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}&travelmode=${transport==='bike'?'bicycling':transport==='transit'?'transit':'walking'}`;
+export function mapsUrl(p,transport='walking',origin=null){
+ return routeMapsUrl([p],transport,origin);
 }
 
 // Combined score across platforms: every review counts once, wherever it was written.

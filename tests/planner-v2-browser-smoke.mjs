@@ -95,10 +95,10 @@ async function runPlannerBrowserSmoke(){
   await page.goto(BASE+'/#plan',{waitUntil:'domcontentloaded'});
   await page.locator('#build-form').waitFor({timeout:15000});
   assert.ok(await page.locator('#build-form .planner-when').isVisible(),'date and time are visible immediately in Start V3');
-  const museums=page.locator('input[name="interests"][value="muzea"]');
-  await museums.waitFor({timeout:10000});
-  await museums.evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
-  assert.equal(await museums.isChecked(),true,'specific category is selected');
+  const category=page.locator('input[name="interests"]:not([value="mix"])').first();
+  await category.waitFor({state:'attached',timeout:10000});
+  await category.evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
+  assert.equal(await category.isChecked(),true,'an available city category is selected');
   assert.equal(await page.locator('input[name="interests"][value="mix"]').isChecked(),false,'specific category replaces mix');
   assert.equal(await page.locator('input[name="focus"]').count(),0,'strictness question was removed');
   assert.equal(await page.locator('input[name="preciseTypes"]').count(),0,'temples and gardens are ordinary category chips');

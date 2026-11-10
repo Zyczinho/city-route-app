@@ -38,6 +38,7 @@ let cities=[],taxonomy=null,activeCity=null,places=[],quests=[],routes=[],all={}
 // On the Places tab, only a conscious category selection reveals map pins.
 // The catalogue list can still be browsed and searched without crowding the map.
 let mapCategorySelected=false;
+let savedSyncStatus='checking';
 let placesPage=1;
 let mapView=null,renderedPlaceList=[],builderDraft=null,nearbyAfterId=null,nearbyRadiusM=500,addNewPlaceAfterId=null,justSavedPlaceId=null;
 const providerOverlay=new Map(),providerLoading=new Set();let providerObserver=null;
@@ -648,8 +649,17 @@ function socialUrl(kind,v){v=String(v||'').trim();if(!v)return '';
 function stats(){const n=t=>state.events.filter(e=>e.type===t).length,visited=new Set(state.events.filter(e=>e.type==='stop_complete').map(e=>e.place_id)).size;
  return [[visited,'Odwiedzone miejsca'],[Object.keys(state.placeReviews).length,'Wystawione oceny'],[n('route_complete'),'Ukończone trasy'],[state.myRoutes.length,'Utworzone trasy'],[state.userPlaces.length,'Dodane miejsca']];}
 function savedPlacesView(){
+ const syncMessage={
+  checking:'Sprawdzamy zapisy na koncie…',
+  syncing:'Synchronizujemy miejsca z Twoim kontem…',
+  synced:'Zapisane miejsca są aktualne na koncie.',
+  offline:'Jesteś offline. Zmiany wyślemy, gdy wróci internet.',
+  error:'Synchronizacja nie powiodła się. Lokalne zapisy zostały zachowane.',
+  guest:'Miejsca są zapisane tylko na tym urządzeniu. Zaloguj się, aby je synchronizować.'
+ }[savedSyncStatus]||'Sprawdzamy zapisy na koncie…';
+ const retry=['error','offline'].includes(savedSyncStatus)?'<button type="button" data-action="retry-saved-sync">Ponów synchronizację</button>':'';
  const list=[...new Map([...catalog(),...myPlaces()].filter(savedPlace).map(p=>[String(p.id),p])).values()];
- return `<section class="page-head"><a class="back" href="#collections">${ic('arrow-left')}Moje kolekcje</a><p class="kicker">Profil · Moje kolekcje</p><h1>Zapisane miejsca</h1><p class="lead">Miejsca zapisane na tym urządzeniu. Swoje dodane miejsca znajdziesz także w „Moje miejsca”.</p><a href="#places" data-action="show-my-places" class="inline">Moje dodane miejsca${ic('chevron-right','link-arrow')}</a></section><div class="place-list">${list.map(placeRow).join('')||'<div class="empty"><p>Jeszcze nic tu nie ma. Zapisz miejsce zakładką w katalogu.</p><a href="#places">Przeglądaj miejsca</a></div>'}</div>`;
+ return `<section class="page-head"><a class="back" href="#collections">${ic('arrow-left')}Moje kolekcje</a><p class="kicker">Profil · Moje kolekcje</p><h1>Zapisane miejsca</h1><p class="lead">Miejsca z katalogu synchronizują się między Twoimi urządzeniami po zalogowaniu. Prywatne miejsca pozostają na tym urządzeniu.</p><a href="#places" data-action="show-my-places" class="inline">Moje dodane miejsca${ic('chevron-right','link-arrow')}</a></section><p class="fine" data-saved-sync-status aria-live="polite">${esc(syncMessage)} ${retry}</p><div class="place-list">${list.map(placeRow).join('')||'<div class="empty"><p>Jeszcze nic tu nie ma. Zapisz miejsce zakładką w katalogu.</p><a href="#places">Przeglądaj miejsca</a></div>'}</div>`;
 }
 function profileView(){const name=friendlyNickname(state.tester.nickname)?state.tester.nickname:'Odkrywca',so=state.profile.socials,links=[['instagram','Instagram'],['tiktok','TikTok'],['web','Strona']].map(([k,l])=>[l,socialUrl(k,so[k])]).filter(x=>x[1]);
  if(editing)return `<section class="page-head"><p class="kicker">Profil</p><h1>Edytuj profil</h1></section><form id="profile-form" class="profile-form"><label>Nazwa<input name="nickname" maxlength="40" value="${esc(friendlyNickname(state.tester.nickname)?state.tester.nickname:'')}" placeholder="Odkrywca" autocomplete="nickname"></label><label class="file">${state.profile.photo?avatar('sm'):ic('image-plus')}<span>${state.profile.photo?'Zmień zdjęcie profilowe':'Dodaj zdjęcie profilowe'}</span><input type="file" accept="image/*" data-action="avatar"></label>${state.profile.photo?'<button type="button" class="text-button danger" data-action="remove-avatar">Usuń zdjęcie</button>':''}<label>Krótko o sobie<textarea name="bio" maxlength="160" rows="3" placeholder="Np. Lubię poranne spacery i dobrą kawę.">${esc(state.profile.bio)}</textarea></label><label>Instagram<input name="instagram" value="${esc(so.instagram)}" placeholder="@twojanazwa" autocomplete="off"></label><label>TikTok<input name="tiktok" value="${esc(so.tiktok)}" placeholder="@twojanazwa" autocomplete="off"></label><label>Strona lub inny link<input name="web" value="${esc(so.web)}" placeholder="twojastrona.pl" inputmode="url" autocomplete="url"></label><div class="actions"><button class="primary">Zapisz</button><button type="button" data-action="cancel-edit">Anuluj</button></div></form>`;
@@ -757,6 +767,7 @@ document.addEventListener('click',e=>{
   if(action==='cover-place-photo'){keepDraft();draft.photos=withCoverFirst(photos,photoId);draft.editPhotoId=photoId;}
   render();return;
  }
+ if(action==='retry-saved-sync'){window.dispatchEvent(new Event('cityroute:saved-sync-request'));return;}
  if(action==='show-my-places'||action==='show-saved-places'){placesPage=1;cat=action==='show-my-places'?'mine':'saved';mapCategorySelected=true;query='';if(location.hash==='#places')render();else location.hash='#places';return;}
  if(action==='jump-to-place'){cat='all';query='';placesPage=1;render();openPlace(id);return;}
  if(action==='add-another-place'){d?.close();draft=null;location.hash='add-place';return;}
@@ -1115,6 +1126,13 @@ document.addEventListener('click',e=>{
  e.preventDefault();
  if(button.dataset.action==='planner-fill')return replan({focus:'prefer'});
  if(/^([01]\d|2[0-3]):[0-5]\d$/.test(button.dataset.start||''))replan({startTime:button.dataset.start});
+});
+// Account sync status is visible in Saved Places; failures retain a manual retry.
+window.addEventListener('cityroute:saved-sync-status',e=>{
+ const next=e.detail?.status;
+ if(!['checking','syncing','synced','offline','error','guest'].includes(next)||next===savedSyncStatus)return;
+ savedSyncStatus=next;
+ if(activeCity&&(location.hash==='#collections/places'||location.hash==='#social-saved-places'))render();
 });
 // SAVED-PLACES-SYNC: saved-places-sync.js merges saves with the account; apply its result to the in-memory state.
 window.addEventListener('cityroute:saved-synced',e=>{const byCity=e.detail?.byCity;if(!byCity||typeof byCity!=='object')return;let changed=false;for(const [c,ids] of Object.entries(byCity)){if(!Array.isArray(ids))continue;const cur=state.savedPlacesByCity[c]||[];if(cur.length===ids.length&&cur.every((x,i)=>x===ids[i]))continue;state.savedPlacesByCity[c]=ids.map(String);changed=true;}if(changed){persist();render();}});

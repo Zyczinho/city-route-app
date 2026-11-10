@@ -12,7 +12,7 @@ function fakeGoogle({candidates=[{id:ID}],details={[ID]:{id:ID,displayName:{text
   const ok=body=>({ok:true,json:async()=>body});
   if(String(url).endsWith('places:searchText'))return ok({places:candidates});
   if(String(url).includes('/media?'))return ok({photoUri:'https://lh3.googleusercontent.com/places/abc=s320'});
-  const id=String(url).split('/places/')[1];
+  const id=String(url).split('/places/')[1].split('?')[0];
   if(mask==='photos')return ok({photos});
   return ok(details[id]||{});
  };

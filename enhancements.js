@@ -367,7 +367,7 @@ function originRenderOptions(form,results){
   const button=document.createElement('button');button.type='button';button.className='planner-origin-option';
   button.setAttribute('role','option');button.id='planner-origin-option-'+index;
   button.dataset.originIndex=String(index);button.setAttribute('aria-selected','false');
-  const icon=document.createElement('span');icon.className='planner-origin-option-pin';icon.setAttribute('aria-hidden','true');icon.textContent='⌖';
+  const icon=document.createElement('span');icon.className='planner-origin-option-pin';icon.setAttribute('aria-hidden','true');icon.innerHTML=iconMarkup('map-pin');
   const copy=document.createElement('span');copy.className='planner-origin-option-copy';
   const title=document.createElement('strong');title.textContent=place.name;
   const sub=document.createElement('small');sub.textContent=place.address||'W wybranym mieście';

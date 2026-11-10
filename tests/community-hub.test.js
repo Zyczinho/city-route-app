@@ -11,7 +11,7 @@ test('community hub ships through HTML, build and offline cache',async()=>{
  assert.match(html,/community-hub\.js\?v=\d+/);
  assert.match(html,/community-enhancements\.js\?v=\d+/);
  assert.match(html,/ux-cleanup\.js\?v=6/);
- assert.match(html,/ux-cleanup\.css\?v=3/);
+ assert.match(html,/ux-cleanup\.css\?v=4/);
  assert.match(build,/'community-hub\.js'/);
  assert.match(sw,/community-hub\.js\?v=\d+/);
  assert.match(sw,/community-enhancements\.js\?v=\d+/);

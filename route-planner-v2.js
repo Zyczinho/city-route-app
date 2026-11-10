@@ -2,21 +2,13 @@
 // Not wired to the UI yet. No provider calls or cost-bearing API usage.
 // Route timing is an estimate until a real, separately supplied leg matrix validates it.
 import {distance} from './core.js';
+import {isRouteFoodPlace,isExcludedRoutePlace,normalizeRouteInterests,routeInterestMatch} from './route-preferences.js';
 import {openingFor,validDate} from './opening-hours.js';
 
 const SPEED={walking:4.5,bike:12,mix:6};
 const FOOD=new Set(['restaurant','cafe','breakfast','street_food','food_hall','bakery','dessert']);
 const STAY=new Set(['hotel','hostel','guesthouse','apartment']);
 const MUSEUM=new Set(['museum','gallery']);
-const INTERESTS={
-  sightseeing:new Set(['landmark','architecture','religious_site','neighborhood','viewpoint']),
-  culture:new Set(['museum','gallery','religious_site','architecture']),
-  nature:new Set(['park','garden','waterfront','beach','walk']),
-  views:new Set(['viewpoint','waterfront','architecture']),
-  hidden:new Set(['hidden_gem','neighborhood','workshop','experience']),
-  food:FOOD,
-  nightlife:new Set(['bar','pub','cocktail_bar','wine_bar','club','live_music'])
-};
 const MINUTES_BY_CAT={museum:75,gallery:50,park:30,landmark:20,viewpoint:20,restaurant:60,cafe:35,street_food:30,club:90};
 const clamp=(v,min,max)=>Math.min(max,Math.max(min,v));
 const hasCoords=p=>p&&Number.isFinite(Number(p.lat))&&Number.isFinite(Number(p.lng))
@@ -27,7 +19,7 @@ const clockToMinutes=s=>{
   if(!/^([01]\d|2[0-3]):[0-5]\d$/.test(String(s)))return NaN;
   const [h,m]=s.split(':').map(Number);return h*60+m;
 };
-const foodPlace=p=>p.foodStyle&&p.foodStyle!=='none'||FOOD.has(p.categoryId);
+const foodPlace=isRouteFoodPlace;
 const styleOf=p=>p.foodStyle&&p.foodStyle!=='none'?p.foodStyle:FOOD.has(p.categoryId)?(p.categoryId==='restaurant'?'sit':'quick'):'none';
 const museumPlace=p=>MUSEUM.has(p.categoryId)||Array.isArray(p.cats)&&p.cats.includes('muzea');
 const nightlife=p=>['bar','pub','cocktail_bar','wine_bar','club','live_music'].includes(p.categoryId);
@@ -35,8 +27,8 @@ const groupOf=p=>{
   const c=p.categoryId||'', t=Array.isArray(p.cats)?p.cats:[];
   if(museumPlace(p))return 'museum';
   if(['restaurant','cafe','street_food','bakery','food_hall','breakfast','dessert'].includes(c)||foodPlace(p))return 'food';
-  if(INTERESTS.nature.has(c)||t.includes('zielen'))return 'nature';
-  if(INTERESTS.nightlife.has(c))return 'nightlife';
+  if(routeInterestMatch(p,'nature'))return 'nature';
+  if(nightlife(p))return 'nightlife';
   if(['landmark','architecture','religious_site','viewpoint'].includes(c)||t.includes('zabytki'))return 'sight';
   return c||t[0]||'other';
 };
@@ -47,11 +39,8 @@ function fitOf(p,interests,tourist){
   let fit=interests.includes('mix')?2:0;
   for(const interest of interests){
     if(interest==='mix')continue;
-    if(tags.includes(interest))fit+=6;
-    if(INTERESTS[interest]?.has(c))fit+=5;
-    if(interest==='sightseeing'&&cats.includes('zabytki'))fit+=4;
-    if(interest==='nature'&&cats.includes('zielen'))fit+=4;
-    if(interest==='culture'&&cats.includes('muzea'))fit+=4;
+    if(routeInterestMatch(p,interest))fit+=7;
+    if(tags.includes(interest))fit+=3;
   }
   if(tourist==='must'&&p.tourist==='must')fit+=2.5;
   if(tourist==='local'&&p.tourist==='local')fit+=2.5;
@@ -66,19 +55,20 @@ function budgetLimit(prefs){
 function validForPrefs(p,prefs,interests){
   if(!p||!p.id||!hasCoords(p)||STAY.has(p.categoryId)||p.kind==='hotel')return false;
   if(prefs.cityId&&p.cityId&&p.cityId!==prefs.cityId)return false;
+  if(isExcludedRoutePlace(p,prefs.avoid))return false;
   if(Array.isArray(prefs.allowedAreas)&&prefs.allowedAreas.length&&!prefs.allowedAreas.includes(p.area))return false;
   if(Number(prefs.maxRadiusKm)>0&&hasCoords(prefs.start)&&distance(p,prefs.start)>Number(prefs.maxRadiusKm))return false;
   if(prefs.visitMode==='outside'&&museumPlace(p)&&p.exteriorWorthVisiting!==true)return false;
   if(prefs.offers!=='yes'&&p.partner)return false;
   if(Number(p.cost)>budgetLimit(prefs))return false;
-  if(foodPlace(p)&&prefs.food==='none')return false;
+  if(foodPlace(p)&&prefs.food==='none'&&!interests.includes('food'))return false;
   if(foodPlace(p)&&prefs.food==='quick'&&styleOf(p)!=='quick')return false;
   if(foodPlace(p)&&prefs.food==='sit'&&styleOf(p)!=='sit')return false;
   if(nightlife(p)&&!interests.includes('nightlife'))return false;
   return true;
 }
 function candidatePool(raw,prefs,opts){
-  const interests=Array.isArray(prefs.interests)&&prefs.interests.length?prefs.interests:['mix'];
+  const interests=normalizeRouteInterests(prefs.interests);
   const origin=hasCoords(prefs.start)?prefs.start:(hasCoords(opts.origin)?opts.origin:null);
   const all=new Map();
   for(const p of Array.isArray(raw)?raw:[]){
@@ -139,7 +129,8 @@ function stepState(state,item,ctx){
   const p=item.p;
   if(state.ids.has(idOf(p)))return null;
   const kind=styleOf(p);
-  if(kind!=='none'&&state.foodCount>=1)return null;
+  const mealRequired=ctx.food!=='none';
+  if(kind!=='none'&&state.foodCount>=(mealRequired?1:ctx.foodTheme?4:0))return null;
   const origin=state.stops.length?state.stops.at(-1):ctx.origin;
   const leg=legEstimate(origin,p,ctx.transport,ctx.matrix);
   if(!leg)return null;
@@ -152,7 +143,7 @@ function stepState(state,item,ctx){
   const start=ctx.start+state.minutes+travel+rest;
   const waiting=hours.status==='known'?Math.max(0,hours.open-start):0;
   const visitStart=start+waiting,done=visitStart+dwell;
-  if(kind!=='none'){
+  if(kind!=='none'&&mealRequired){
     // A requested meal must come after sightseeing, not as the first stop.
     if(!state.stops.length)return null;
     const isLunch=ctx.start<15*60;
@@ -219,6 +210,7 @@ export function planRoutesV2(places,prefs={},opts={}){
     origin:candidateData.origin,matrix:opts.matrix||null,transport:mode,
     cityId:prefs.cityId||'warsaw',date,start,maxMinutes,
     maxCost:budgetLimit(prefs),visitMode:prefs.visitMode||'inside',food:prefs.food||'none',
+    foodTheme:candidateData.interests.includes('food'),
     restInterval:Math.max(60,Number(opts.restInterval)||105),
     restMinutes:Math.max(0,Number.isFinite(Number(opts.restMinutes))?Number(opts.restMinutes):10)
   };

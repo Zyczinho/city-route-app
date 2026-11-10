@@ -28,7 +28,9 @@ function updatePlannerSummaries(form){
   const transport=checkedLabel(form,'transport');
   const budget=checkedLabel(form,'budget');
   const start=checkedLabel(form,'start');
+  const avoid=checkedLabels(form,'avoid');
   const parts=[transport,budget,start==='Stąd, gdzie jestem'?'Start tutaj':start].filter(Boolean);
+  if(avoid.length)parts.push('Bez: '+shortList(avoid,''));
   advancedTarget.textContent=shortList(parts,'Domyślne');
  }
 }
@@ -49,7 +51,7 @@ function cleanPlanner(){
  const field=name=>form.querySelector(`input[name="${name}"]`)?.closest('fieldset');
  const time=field('time'),interests=field('interests'),when=field('visitDate'),visitMode=field('visitMode');
  if(!time||!interests)return;
- const transport=field('transport'),food=field('food'),start=field('start'),budget=field('budget'),tourist=field('tourist'),offers=field('offers');
+ const transport=field('transport'),food=field('food'),start=field('start'),budget=field('budget'),tourist=field('tourist'),offers=field('offers'),avoid=field('avoid');
  const note=form.querySelector('.planner-advanced-body .fine, details.more .fine');
  const submit=form.querySelector('button.primary.big');
  if(!submit)return;
@@ -95,7 +97,7 @@ function cleanPlanner(){
  interests.classList.add('ux-interest-field');climate.body.append(interests);
 
  const advanced=disclosure('Więcej ustawień','data-ux-advanced-summary','ux-disclosure ux-advanced');
- for(const fs of [visitMode,transport,food,start,budget,tourist,offers])if(fs)advanced.body.append(fs);
+ for(const fs of [visitMode,transport,food,start,budget,tourist,avoid,offers])if(fs)advanced.body.append(fs);
  if(note){note.textContent='Te ustawienia są opcjonalne.';advanced.body.append(note);}
 
  submit.textContent='Ułóż mi trasę';submit.classList.add('ux-submit');

@@ -33,12 +33,13 @@ test('route stop can be removed directly from places and dialogue',()=>{
  assert.match(app,/if\(d\?\.open\)openPlace\(id\)/);
  assert.match(app,/Usunięto przystanek z Mojej trasy/);
 });
-test('all guide groups start collapsed and inactive sponsor input stays disabled',()=>{
+test('all guide groups start collapsed and sponsored offers cannot be switched on from Start',()=>{
  const guide=read('onboarding-guide.js'),app=read('app.js');
  assert.match(guide,/'<details class="guide-group">/);
  assert.doesNotMatch(guide,/index===0\?' open'/);
- assert.match(app,/planner-sponsors-disabled" disabled/);
- assert.match(app,/name="offers" value="no"/);
+ // Start V3 removed the disabled "Wkrótce" sponsor toggle; without the field partners stay excluded.
+ assert.doesNotMatch(app,/name="offers"/);
+ assert.doesNotMatch(app,/radio\('offers'/);
  assert.doesNotMatch(app,/Pojawią się z kontami, gdy inni zaczną/);
 });
 test('shared SVG system is consistent and assets shipped in PWA',()=>{

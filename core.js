@@ -20,6 +20,8 @@ export function smoothedRating(ratings=[],prior=4.3,weight=200){
 }
 // Planner: greedy orienteering. Each pick weighs interest match, quality and must-see against the walk from the previous stop;
 // an optional start point counts the first walk; a requested food stop is guaranteed when one fits.
+// LEGACY V1 (ADR-014): Start and the variant reroll no longer call generate/generateAlternatives; every
+// transport uses route-planner-v2.js. Kept only for existing regression tests until a cleanup PR removes it.
 export function generate(places,prefs){
  const limit=Number(prefs.time), interests=prefs.interests||['mix'], origin=prefs.start?{lat:prefs.start.lat,lng:prefs.start.lng,minutes:0,cost:0}:null;
  const isFood=isRouteFoodPlace;

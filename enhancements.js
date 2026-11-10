@@ -240,7 +240,7 @@ function simplifyPlanner(){
  if(manual){manual.classList.add('planner-manual');manual.replaceChildren();const copy=document.createElement('span');copy.className='planner-manual-copy';const strong=document.createElement('strong');strong.textContent='Wolę ułożyć trasę ręcznie';const small=document.createElement('small');small.textContent='Dodawaj i przesuwaj miejsca';copy.append(strong,small);const arrow=iconNode('chevron-right');manual.append(copy,arrow);form.insertAdjacentElement('afterend',manual);}
  const primary=document.createElement('section');primary.className='planner-primary';primary.setAttribute('aria-label','Najważniejsze ustawienia trasy');form.insertBefore(primary,form.firstChild);primary.append(time,interests);
  const details=document.createElement('details');details.className='planner-advanced';const summary=document.createElement('summary');summary.innerHTML='<span><strong>Dopasuj szczegóły</strong><small data-planner-summary></small></span><span class="planner-chevron" aria-hidden="true">'+iconMarkup('chevron-down')+'</span>';const body=document.createElement('div');body.className='planner-advanced-body';details.append(summary,body);
- for(const name of ['transport','food','start']){const fs=field(name);if(fs)body.append(fs);}
+ for(const name of ['transport','coffee','start']){const fs=field(name);if(fs)body.append(fs);}
  const oldMore=form.querySelector('details.more');if(oldMore){for(const child of [...oldMore.children])if(child.tagName!=='SUMMARY')body.append(child);oldMore.remove();}
  const submit=form.querySelector('button.primary.big');form.insertBefore(details,submit||null);updatePlannerSummary(form);
 }

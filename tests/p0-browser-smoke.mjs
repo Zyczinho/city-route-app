@@ -432,21 +432,26 @@ try{
  assert.equal(await page.locator('#build-form .ux-time input[name="time"]:checked').inputValue(),'120','2h must remain one-tap default');
  assert.equal(await page.locator('#build-form button.ux-submit').textContent(),'Ułóż mi trasę');
  const fastPlanOrder=await page.locator('#build-form').evaluate(form=>{
-  const time=form.querySelector('.ux-time'),submit=form.querySelector('.ux-submit'),when=form.querySelector('.ux-when');
-  const rows=[...form.children];return {t:rows.indexOf(time?.parentElement),submit:rows.indexOf(submit),when:rows.indexOf(when)};
+  const primary=form.querySelector('.ux-planner-primary'),submit=form.querySelector('.ux-submit'),advanced=form.querySelector('.ux-advanced');
+  const rows=[...form.children];
+  return {timeVisible:!!primary?.querySelector('.ux-time'),whenVisible:!!primary?.querySelector('.planner-when'),
+   primary:rows.indexOf(primary),submit:rows.indexOf(submit),advanced:rows.indexOf(advanced)};
  });
- assert.ok(fastPlanOrder.submit<fastPlanOrder.when,'quick generation must come before date and advanced options: '+JSON.stringify(fastPlanOrder));
+ assert.ok(fastPlanOrder.timeVisible&&fastPlanOrder.whenVisible&&fastPlanOrder.primary<fastPlanOrder.submit&&fastPlanOrder.submit<fastPlanOrder.advanced,
+  'Start V3 keeps duration and visible date/time above Generate, advanced options after: '+JSON.stringify(fastPlanOrder));
  const shortcutHrefs=await page.locator('#build-form .ux-plan-alternatives a').evaluateAll(els=>els.map(a=>a.getAttribute('href')));
  assert.ok(shortcutHrefs.includes('#places')&&shortcutHrefs.includes('#routes/community'),'manual discovery and community are visible');
  assert.equal(await page.locator('#navigation a[href="#my-route"]').count(),0,'My Route is not a bottom tab');
   assert.ok(await page.locator('#active-route-bar').isVisible(),'existing 11-stop basket has a contextual bar');
-  await page.locator('#build-form .ux-when > summary').click();
+  assert.ok(await page.locator('#build-form .planner-when').isVisible(),'Start V3 date/time are visible without expanding settings');
  const iphoneDateLayout=await page.locator('#build-form .planner-when-fields').evaluate(box=>{
   const date=box.querySelector('input[type="date"]').getBoundingClientRect(),time=box.querySelector('input[type="time"]').getBoundingClientRect();
-  return {firstRight:date.right,secondLeft:time.left,firstBottom:date.bottom,secondTop:time.top,containerRight:box.getBoundingClientRect().right,scrollWidth:document.documentElement.scrollWidth,width:innerWidth};
+  const separated=date.right<=time.left+1||time.right<=date.left+1||date.bottom<=time.top+1||time.bottom<=date.top+1;
+  return {separated,dateRight:date.right,timeRight:time.right,containerRight:box.getBoundingClientRect().right,scrollWidth:document.documentElement.scrollWidth,width:innerWidth};
  });
- assert.ok(iphoneDateLayout.firstBottom<=iphoneDateLayout.secondTop+1,'iPhone date/time fields cannot overlap: '+JSON.stringify(iphoneDateLayout));
- assert.ok(iphoneDateLayout.firstRight<=iphoneDateLayout.containerRight+1&&iphoneDateLayout.scrollWidth<=iphoneDateLayout.width+1,'iPhone date input must fit card: '+JSON.stringify(iphoneDateLayout));
+ assert.ok(iphoneDateLayout.separated,'iPhone date/time fields cannot overlap: '+JSON.stringify(iphoneDateLayout));
+ assert.ok(iphoneDateLayout.dateRight<=iphoneDateLayout.containerRight+1&&iphoneDateLayout.timeRight<=iphoneDateLayout.containerRight+1&&iphoneDateLayout.scrollWidth<=iphoneDateLayout.width+1,
+  'iPhone date and time inputs must fit the visible card: '+JSON.stringify(iphoneDateLayout));
 
  const compactTime=await page.locator('#build-form .ux-time .choice span').first().evaluate(el=>el.getBoundingClientRect().width);
  assert.ok(compactTime<85,'1 h choice uses only its intrinsic width, not a full grid column: '+compactTime);

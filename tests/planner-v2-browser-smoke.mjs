@@ -91,23 +91,22 @@ async function runPlannerBrowserSmoke(){
   await page.locator('#build-form button.primary.big').click();
   await page.waitForURL(/#route\/generated$/,{timeout:30000});
   assert.ok(await page.locator('.generated-option').count()>=1,'confirmed address reaches the generator');
-  // Strict thematic intent must remain accessible; unsupported global price budgets are absent.
+  // Start V3: selecting a category is exact by default; legacy focus/precise questions are gone.
   await page.goto(BASE+'/#plan',{waitUntil:'domcontentloaded'});
   await page.locator('#build-form').waitFor({timeout:15000});
-  await page.locator('input[name="focus"][value="only"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
-  await page.locator('#build-form button.primary.big').click();
-  assert.match(await page.locator('.route-plan-feedback').innerText(),/zaznacz kategorię/,'only-mix is an actionable error, not a fake route');
-  await page.locator('input[name="interests"][value="bary"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
-  assert.equal(await page.locator('input[name="interests"][value="mix"]').isChecked(),false);
-  const only=page.locator('input[name="focus"][value="only"]');
-  assert.equal(await only.isChecked(),true);
-  await page.locator('input[name="preciseTypes"][value="garden"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
-  assert.equal(await only.isChecked(),true,'exact garden forces hard category mode');
-  await page.locator('input[name="focus"][value="prefer"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
-  assert.equal(await page.locator('input[name="preciseTypes"][value="garden"]').isChecked(),false,'switch to soft preferences clears exact type');
-  assert.equal(await page.locator('input[name="budget"]').count(),0,'no unsupported global budget on Start');
-  assert.equal(await page.locator('input[name="food"][value="quick"]').count(),1,'local snack stop remains optional');
-  assert.equal(await page.locator('input[name="food"][value="sit"]').count(),0,'paid restaurant meal is not mandatory in MVP');
+  assert.ok(await page.locator('#build-form .planner-when').isVisible(),'date and time are visible immediately in Start V3');
+  const category=page.locator('input[name="interests"]:not([value="mix"])').first();
+  await category.waitFor({state:'attached',timeout:10000});
+  await category.evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
+  assert.equal(await category.isChecked(),true,'an available city category is selected');
+  assert.equal(await page.locator('input[name="interests"][value="mix"]').isChecked(),false,'specific category replaces mix');
+  assert.equal(await page.locator('input[name="focus"]').count(),0,'strictness question was removed');
+  assert.equal(await page.locator('input[name="preciseTypes"]').count(),0,'temples and gardens are ordinary category chips');
+  assert.equal(await page.locator('input[name="budget"]').count(),0,'unsupported global budget is absent');
+  assert.equal(await page.locator('input[name="food"]').count(),0,'old food radio question was removed');
+  const coffee=page.locator('input[name="coffee"]');
+  assert.equal(await coffee.count(),1,'coffee has one simple toggle');
+  assert.equal(await coffee.isChecked(),true,'automatic coffee is enabled by default for qualifying daytime plans');
   assert.deepEqual(errors,[],'no browser uncaught errors');
   console.log('PLANNER_V2_BROWSER_QA '+JSON.stringify({alternatives:true,budgetRemoved:true,reroll:true,saved:true,transitLegs:routes,mobile375:true}));
  }finally{

@@ -3,8 +3,10 @@
 export const ROUTE_INTERESTS=Object.freeze([
  {id:'mix',label:'Wszystko po trochu',description:'Różne rodzaje miejsc w jednym planie.'},
  {id:'zabytki',label:'Zabytki',description:'Charakterystyczne budowle, zabytki i miejsca historyczne.'},
+ {id:'swiatynie',label:'Świątynie',description:'Kościoły, katedry, synagogi, meczety i świątynie.'},
  {id:'muzea',label:'Muzea',description:'Muzea, galerie i wystawy.'},
  {id:'zielen',label:'Zieleń',description:'Parki, ogrody i naturalne zakątki.'},
+ {id:'ogrody',label:'Ogrody',description:'Ogrody i ogrody botaniczne, bez wszystkich parków.'},
  {id:'widoki',label:'Widoki',description:'Punkty widokowe, panoramy i tarasy.'},
  {id:'woda',label:'Woda',description:'Nabrzeża, promenady, rzeki i plaże.'},
  {id:'ulice',label:'Ulice',description:'Ulice, pasaże i charakterystyczne miejskie spacery.'},
@@ -29,8 +31,10 @@ export const ROUTE_PRECISE_TYPES=Object.freeze([
 ]);
 const TYPES={
  zabytki:['landmark','architecture','religious_site','monument','historic_site','fortress','castle','palace'],
+ swiatynie:['religious_site','church','cathedral','mosque','synagogue','temple','chapel','monastery'],
  muzea:['museum','gallery'],
  zielen:['park','garden','botanical_garden','forest','nature_reserve'],
+ ogrody:['garden','botanical_garden'],
  widoki:['viewpoint','observation_deck','panorama','rooftop'],
  woda:['waterfront','beach','riverside','seafront','pier','promenade'],
  ulice:['street','pedestrian_street','alley','passage'],
@@ -52,7 +56,7 @@ const ALIASES={
 };
 const EXCLUDED_TYPES={
  museums:TYPES.muzea,parks:TYPES.zielen,
- religious:['religious_site','church','cathedral','mosque','synagogue','temple','chapel','monastery'],
+ religious:TYPES.swiatynie,
  viewpoints:TYPES.widoki,food:TYPES.jedzenie,
  nightlife:[...TYPES.bary,...TYPES.kluby]
 };
@@ -99,6 +103,8 @@ export function routeInterestMatch(p,id){
   // A broad legacy "nocne" only means nightlife; do not claim every club is a bar.
   return TYPES[key].includes(t.category)||(!t.category&&t.cats.includes('nocne'));
  }
+ if(key==='swiatynie'&&t.tags.includes('religious'))return true;
+ if(key==='ogrody'&&t.tags.includes('garden'))return true;
  if(key==='zielen'&&t.cats.includes('zielen'))return true;
  if(key==='widoki'&&t.cats.includes('widoki'))return true;
  if(key==='woda'&&t.cats.includes('woda'))return true;
@@ -142,6 +148,28 @@ export function canViewRouteExterior(p){
  if(TYPES.muzea.includes(t.category)||t.cats.includes('muzea'))
   return p.exteriorWorthVisiting===true;
  return true;
+}
+const FACADE_TYPES=[...TYPES.zabytki,'viewpoint','observation_deck','panorama'];
+/** A closed venue can still be a stop only when looking at it from outside is worth it (buildings, not bars or gardens). */
+export function canViewRouteFacade(p){
+ if(!p||p.interiorOnly===true||p.exteriorWorthVisiting===false)return false;
+ if(p.exteriorWorthVisiting===true)return true;
+ const t=normalized(p);
+ if(TYPES.muzea.includes(t.category)||t.cats.includes('muzea'))return false;
+ return FACADE_TYPES.includes(t.category)||EXCLUDED_TYPES.religious.includes(t.category)||(!t.category&&t.cats.includes('zabytki'));
+}
+const QUICK_BREAK=['cafe','bakery','dessert','breakfast','street_food','food_hall','market'];
+const SIT_BREAK=['restaurant','food_hall'];
+/**
+ * Whether a food place can serve the requested break: "quick" = coffee or a local snack, "sit" = a meal.
+ * The category decides first, so a café imported with a wrong sit-down label still counts as coffee.
+ */
+export function routeBreakSuitable(p,style){
+ if(!isRouteFoodPlace(p))return false;
+ const category=normalized(p).category;
+ if(style==='quick')return QUICK_BREAK.includes(category)||(p?.foodStyle==='quick'&&!SIT_BREAK.includes(category));
+ if(style==='sit')return SIT_BREAK.includes(category)||(p?.foodStyle==='sit'&&!QUICK_BREAK.includes(category));
+ return false;
 }
 
 /** Null means unverified cost. A numeric zero without explicit verification is NOT free. */

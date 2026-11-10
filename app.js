@@ -1,7 +1,7 @@
-import {summary,optimize,generate,generateAlternatives,advance,mapsUrl,routeMapsUrl,parseLocation,distance,combinedRating,smoothedRating,matches} from './core.js';
-import {ROUTE_INTERESTS,ROUTE_EXCLUSIONS,ROUTE_PRECISE_TYPES,normalizeRouteInterests,normalizeRouteExclusions,normalizeRoutePreciseTypes} from './route-preferences.js';
+import {summary,optimize,advance,mapsUrl,routeMapsUrl,parseLocation,distance,combinedRating,smoothedRating,matches} from './core.js';
+import {ROUTE_INTERESTS,ROUTE_EXCLUSIONS,normalizeRouteInterests,normalizeRouteExclusions,normalizeRoutePreciseTypes,routeInterestMatch} from './route-preferences.js';
 import {iconMarkup} from './ui-icons.js';
-import {localDate,validDate,scheduleRoute,feasibleFor} from './opening-hours.js';
+import {localDate,validDate,scheduleRoute,clockLabel} from './opening-hours.js';
 import {guideView} from './onboarding-guide.js';
 import {encodePlaceSnapshot,decodePlaceSnapshot} from './place-share-model.js';
 import {suggestVisitStart} from './planner-defaults.js';
@@ -563,17 +563,14 @@ const keepDraft=()=>{const f=$('#place-form');if(!f)return;const v=new FormData(
 
 // Plan tab
 const radio=(name,opts,val)=>`<div class="choice" role="radiogroup">${opts.map(([v,l])=>`<label><input type="radio" name="${name}" value="${v}" ${v===val?'checked':''}><span>${l}</span></label>`).join('')}</div>`;
-function planView(){const timeZone=city().timezone||'Europe/Warsaw',today=localDate(timeZone),suggested=suggestVisitStart({timeZone}),date=generationPrefs?.visitDate&&generationPrefs.visitDate>=today?generationPrefs.visitDate:suggested.date,time=generationPrefs?.visitDate&&generationPrefs.visitDate>=today?(generationPrefs?.startTime||suggested.time):suggested.time,mode=generationPrefs?.visitMode||'mix';return `<section class="page-head"><p class="kicker">TWÓJ CZAS · TWOJE MIEJSCA</p><h1>Odkrywaj miasto po swojemu.</h1><a class="inline" href="#routes">Wolisz gotowy pomysł? Zobacz trasy${ic('chevron-right','link-arrow')}</a></section><a class="start-here" href="#about" aria-label="Zacznij tutaj — poznaj funkcje City Route"><span class="start-here-icon">${ic('compass')}</span><span class="start-here-copy"><strong>Nowy tutaj? Poznaj City Route</strong></span>${ic('chevron-right')}</a>${liveBanner()}
+function planView(){const timeZone=city().timezone||'Europe/Warsaw',today=localDate(timeZone),suggested=suggestVisitStart({timeZone}),date=generationPrefs?.visitDate&&generationPrefs.visitDate>=today?generationPrefs.visitDate:suggested.date,time=generationPrefs?.visitDate&&generationPrefs.visitDate>=today?(generationPrefs?.startTime||suggested.time):suggested.time,availableInterests=availableInterestIds();return `<section class="page-head"><p class="kicker">TWÓJ CZAS · TWOJE MIEJSCA</p><h1>Odkrywaj miasto po swojemu.</h1><a class="inline" href="#routes">Wolisz gotowy pomysł? Zobacz trasy${ic('chevron-right','link-arrow')}</a></section><a class="start-here" href="#about" aria-label="Zacznij tutaj — poznaj funkcje City Route"><span class="start-here-icon">${ic('compass')}</span><span class="start-here-copy"><strong>Nowy tutaj? Poznaj City Route</strong></span>${ic('chevron-right')}</a>${liveBanner()}
  <a class="button wide" href="#my-route">${ic("pencil")}Ułożę trasę samodzielnie — dodaję i przesuwam miejsca</a><form id="build-form" class="planner"><fieldset><legend>Ile masz czasu?</legend>${radio('time',[['60','1 h'],['120','2 h'],['240','4 h'],['360','Pół dnia · 6 h'],['480','Cały dzień · 8 h']],'120')}</fieldset>
- <fieldset class="planner-when"><legend>Kiedy chcesz zwiedzać?</legend><div class="planner-when-fields"><label>Data<input type="date" name="visitDate" required min="${today}" value="${esc(date)}"></label><label>Start<input type="time" name="startTime" required min="06:00" max="22:00" value="${esc(time)}"></label></div><p class="fine">Godziny sprawdzamy dla wybranych muzeów. Pozostałe wymagają potwierdzenia.</p></fieldset>
- <fieldset><legend>Jak chcesz oglądać atrakcje?</legend>${radio('visitMode',[['mix','Miks — wewnątrz i z zewnątrz'],['inside','Wewnątrz, jeśli dostępne'],['outside','Tylko z zewnątrz']],mode)}<p class="fine">Dotyczy atrakcji do zwiedzania, nie barów, klubów czy restauracji. Tam planujemy wizytę, nie oglądanie fasady.</p></fieldset>
- <fieldset><legend>Na co masz ochotę?</legend><div class="choice">${ROUTE_INTERESTS.map(({id,label})=>`<label><input type="checkbox" name="interests" value="${id}" ${id==='mix'?'checked':''}><span>${label}</span></label>`).join('')}</div><div class="planner-focus"><strong>Jak ściśle dobrać miejsca?</strong>${radio('focus',[['prefer','Głównie wybrane'],['only','Tylko wybrane']],'prefer')}<p class="fine">„Głównie” dopuszcza inne przystanki. „Tylko” nie doda żadnego miejsca spoza zaznaczonych kategorii.</p></div><details class="route-interest-help"><summary>Co oznaczają kategorie?</summary><dl>${ROUTE_INTERESTS.map(({label,description})=>`<div><dt>${label}</dt><dd>${description}</dd></div>`).join('')}</dl></details></fieldset>
- <fieldset><legend>Jak się poruszasz?</legend>${radio('transport',[['walking','Pieszo'],['bike','Rower'],['transit','Komunikacja'],['mix','Mieszany (szacunkowo)']],'walking')}</fieldset>
- <fieldset><legend>Chcesz przerwę na coś lokalnego?</legend>${radio('food',[['none','Nie, sam zdecyduję'],['quick','Kawa lub lokalna przekąska']],'none')}<p class="fine">Dopasujemy kawiarnię albo krótką przekąskę. Pełny posiłek możesz samodzielnie dobrać w zakładce Miejsca; trasy kulinarne nadal powstają po wybraniu kategorii Jedzenie.</p></fieldset>
+ <fieldset class="planner-when"><legend>Kiedy chcesz zwiedzać?</legend><div class="planner-when-fields"><label>Data<input type="date" name="visitDate" required min="${today}" value="${esc(date)}"></label><label>Start<input type="time" name="startTime" required min="06:00" max="23:30" value="${esc(time)}"></label></div><p class="fine">Uwzględniamy godziny otwarcia z OpenStreetMap. Gdy ich brak, przyjmujemy typowe godziny i oznaczamy je do sprawdzenia.</p></fieldset>
+ <fieldset><legend>Na co masz ochotę?</legend><div class="choice">${ROUTE_INTERESTS.filter(({id})=>availableInterests.has(id)).map(({id,label})=>`<label><input type="checkbox" name="interests" value="${id}" ${id==='mix'?'checked':''}><span>${label}</span></label>`).join('')}</div><p class="fine">Ułożymy trasę tylko z zaznaczonych kategorii. „Wszystko po trochu” łączy różne miejsca.</p><details class="route-interest-help"><summary>Co oznaczają kategorie?</summary><dl>${ROUTE_INTERESTS.filter(({id})=>availableInterests.has(id)).map(({label,description})=>`<div><dt>${label}</dt><dd>${description}</dd></div>`).join('')}</dl></details></fieldset>
+ <fieldset><legend>Jak się poruszasz?</legend>${radio('transport',[['walking','Pieszo'],['bike','Rower'],['transit','Komunikacja']],'walking')}</fieldset>
+ <fieldset class="planner-break"><legend>Przerwa na coś lokalnego</legend><div class="choice"><label><input type="checkbox" name="coffee" value="yes" checked><span>Kawa lub lokalna przekąska</span></label></div><p class="fine">Dodajemy ją sami w dziennych trasach od 4 h. Odznacz, jeśli wolisz bez przerwy.</p></fieldset>
  <fieldset class="planner-start"><legend>Skąd ruszasz?</legend>${radio('start',[['here','Stąd, gdzie jestem'],['any','Obojętnie'],['custom','Wpiszę dokładne miejsce']],'here')}<div class="planner-origin-fields" hidden><label for="planner-origin-input">Adres lub nazwa miejsca<input id="planner-origin-input" name="originAddress" type="text" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="planner-origin-options" aria-expanded="false" aria-label="Wyszukaj punkt startowy" maxlength="220" placeholder="Np. Praça do Comércio, Lisboa" disabled></label><div id="planner-origin-options" class="planner-origin-options" role="listbox" aria-label="Proponowane miejsca startu" hidden></div><div class="planner-origin-selected" hidden><span class="planner-origin-selected-check" aria-hidden="true">${ic("check")}</span><span class="planner-origin-selected-copy"><strong>Wybrany punkt startowy</strong><span class="planner-origin-selected-name"></span><small class="planner-origin-selected-address"></small></span><button type="button" data-action="planner-origin-change" aria-label="Zmień wybrany punkt startowy">Zmień</button></div><p class="fine planner-origin-status" role="status" aria-live="polite">Wpisz co najmniej 3 znaki i wybierz miejsce z listy poniżej.</p></div></fieldset>
- <fieldset class="route-exclusions"><legend>Czego nie chcesz na trasie?</legend><p class="fine">Zaznaczone typy pominiemy. Samo pozostawienie „Bary i kluby” odznaczonego nie oznacza, że je dodamy. Wybierz Bary i „Tylko wybrane”, aby otrzymać trasę barową.</p><div class="choice">${ROUTE_EXCLUSIONS.map(({id,label})=>`<label><input type="checkbox" name="avoid" value="${id}"><span>${label}</span></label>`).join('')}</div></fieldset>
- <fieldset class="route-precise-types"><legend>Jeszcze dokładniej: świątynie lub ogrody</legend><div class="choice">${ROUTE_PRECISE_TYPES.map(({id,label})=>`<label><input type="checkbox" name="preciseTypes" value="${id}"><span>${label}</span></label>`).join('')}</div><p class="fine">Wybór dokładnego typu włącza „Tylko wybrane”. Wykluczenia mają pierwszeństwo.</p></fieldset>
- <details class="more"><summary>${ic('sliders-horizontal')}Więcej ustawień</summary><fieldset><legend>Styl zwiedzania</legend>${radio('tourist',[['balanced','Pół na pół'],['must','Najważniejsze punkty'],['local','Bardziej lokalnie']],'balanced')}</fieldset><input type="hidden" name="offers" value="no"><fieldset class="planner-sponsors-disabled" disabled aria-disabled="true"><legend>Oferty partnerów <small>Wkrótce</small></legend>${radio('offers',[['no','Brak ofert'],['yes','Sponsorowane']],'no')}</fieldset><p class="fine">Trasy sponsorowane są nieaktywne do czasu uruchomienia prawdziwych partnerstw. Czas przejść i przejazdów jest orientacyjny. W trybie komunikacji miejskiej sprawdzaj poszczególne odcinki w mapach.</p></details>
+ <fieldset class="route-exclusions"><legend>Czego nie chcesz na trasie?</legend><p class="fine">Zaznaczone typy pominiemy, nawet jeśli pasują do wybranych kategorii.</p><div class="choice">${ROUTE_EXCLUSIONS.map(({id,label})=>`<label><input type="checkbox" name="avoid" value="${id}"><span>${label}</span></label>`).join('')}</div></fieldset>
  <p class="route-plan-feedback" role="status" aria-live="polite"></p><button class="primary big">${ic('wand-sparkles')}Ułóż moją trasę</button></form>`;}
 
 // Route detail
@@ -598,11 +595,12 @@ function generatedPicker(){
 }
 function generatedV2TimelineView(plan){
  const day=new Intl.DateTimeFormat('pl-PL',{day:'numeric',month:'long',year:'numeric',timeZone:city().timezone||'Europe/Warsaw'}).format(new Date(generationPrefs.visitDate+'T12:00:00Z'));
- const clock=m=>`${String(Math.floor(m/60)).padStart(2,'0')}:${String(Math.floor(m%60)).padStart(2,'0')}`;
+ const clock=clockLabel;
  const parts=plan.breakdown;
  return `<section class="detail route-timeline" aria-label="Orientacyjny plan dnia V2"><h2>Plan na ${esc(day)} · od ${esc(generationPrefs.startTime)}</h2><p><strong>Łącznie około ${minutes(plan.totalMinutes)}</strong> · przejścia ${minutes(parts.travel)}, zwiedzanie i posiłki ${minutes(parts.visits)}, odpoczynek ${minutes(parts.rests)}, oczekiwanie ${minutes(parts.wait)}.</p>
- <p class="fine">Czasy przemieszczania są orientacyjne (odległość w linii prostej × 1,3, bez rzeczywistej sieci ulic). Korki, przejścia, przesiadki i kolejki mogą wydłużyć trasę. Nie gwarantujemy dokładnego czasu dotarcia.</p>
- <ol class="timeline-list">${plan.rows.map(row=>`<li><strong>${clock(row.visitStartMinute)}–${clock(row.departureMinute)}</strong><span>${esc(row.name)}<small>Przejście ok. ${row.travelMinutes} min · pobyt ${row.visitMinutes} min${row.restMinutes?' · przerwa '+row.restMinutes+' min':''}${row.waitMinutes?' · oczekiwanie '+row.waitMinutes+' min':''}${row.hoursStatus==='unknown'?' · godziny do sprawdzenia':''}</small></span></li>`).join('')}</ol>
+ <p class="fine">Czasy przemieszczania są orientacyjne (odległość w linii prostej × 1,3, bez rzeczywistej sieci ulic). Korki, przejścia, przesiadki i kolejki mogą wydłużyć trasę. Nie gwarantujemy dokładnego czasu dotarcia.</p>${generationPrefs.transport==='transit'?'<p class="fine">Komunikacja: czas orientacyjny, bez rozkładów jazdy (dojście i czekanie ok. 10 min, przejazd ok. 18 km/h). Krótkie odcinki liczymy pieszo. Każdy odcinek sprawdź w mapach.</p>':''}
+ <ol class="timeline-list">${plan.rows.map(row=>`<li><strong>${clock(row.visitStartMinute)}–${clock(row.departureMinute)}</strong><span>${esc(row.name)}${row.role==='break'?` <em class="route-break-label">· ${generationPrefs.food==='sit'?'przerwa na posiłek':'przerwa na kawę'}</em>`:''}<small>Przejście ok. ${row.travelMinutes} min · pobyt ${row.visitMinutes} min${row.restMinutes?' · odpoczynek '+row.restMinutes+' min':''}${row.waitMinutes?' · oczekiwanie '+row.waitMinutes+' min':''}${rowHoursNote(row)}</small></span></li>`).join('')}</ol>
+ ${planNotes(plan)}
  ${plan.unpricedStops?`<p class="fine">Uwaga: ${plan.unpricedStops} ${plan.unpricedStops===1?'przystanek ma':'przystanki mają'} nieznane koszty. Przed wizytą sprawdź ceny biletów, napojów i posiłków w konkretnym miejscu.</p>`:''}
  ${plan.unknownHours?`<p class="fine">Godziny otwarcia ${plan.unknownHours} ${plan.unknownHours===1?'miejsca wymagają':'miejsc wymagają'} potwierdzenia.</p>`:''}
  <p class="fine">Plan i jego czasy to podgląd V2 dla wybranego dnia. Po zapisaniu samej trasy harmonogram nie synchronizuje się między urządzeniami.</p></section>`;
@@ -837,7 +835,7 @@ document.addEventListener('click',e=>{
   if(!generationPrefs||!generatedOptions.length)return toast('Najpierw ułóż trasę.');
   const wantSidequests=generationPrefs.interests.includes('sidequests');
   const candidates=[...places,...forCity(state.userPlaces,city().id),...(wantSidequests?quests:[])];
-  const fresh=generated?.plannerV2?planRoutesV2(candidates,generationPrefs,{count:3,candidateLimit:72,beamWidth:32,maxExpansions:12000,history:generationHistory}).routes:generateAlternatives(candidates,generationPrefs,{history:generationHistory,count:3});
+  const fresh=planRoutesV2(candidates,generationPrefs,{count:3,candidateLimit:72,beamWidth:32,maxExpansions:12000,history:generationHistory}).routes;
   if(!fresh.length)return toast('Nie znaleziono innych sensownych wariantów. Zmień ustawienia.');
   setGeneratedOptions(fresh);
   log('build_variant_refresh',{count:fresh.length,stops:generated.stops.length});
@@ -936,17 +934,6 @@ document.addEventListener('change',async e=>{
    if(rating&&route()[0]==='add-place')rating.scrollIntoView({block:'center',behavior:'auto'});
   }));}
 });
-// Choosing an exact venue subtype is a hard-only intent, never a soft preference.
-document.addEventListener('change',e=>{
- const form=e.target.closest?.('#build-form');if(!form)return;
- if(e.target.name==='preciseTypes'&&e.target.checked){
-  const only=form.querySelector('input[name="focus"][value="only"]');
-  if(only){only.checked=true;only.dispatchEvent(new Event('change',{bubbles:true}));}
- }
- if(e.target.name==='focus'&&e.target.value==='prefer'&&e.target.checked){
-  for(const input of form.querySelectorAll('input[name="preciseTypes"]'))input.checked=false;
- }
-});
 // "Wszystko po trochu" and specific themes are mutually exclusive.
 document.addEventListener('change',e=>{
  if(e.target.name!=='interests'||!e.target.closest('#build-form'))return;
@@ -1007,11 +994,11 @@ document.addEventListener('submit',async e=>{const f=e.target,data=new FormData(
   if(!added?.changed){justSavedPlaceId=p.id;setTimeout(()=>openPlace(p.id),50);}
   toast(added?.changed?'Miejsce zapisane i wstawione do Mojej trasy.':added?.error==='limit'?'Miejsce zapisane, ale trasa ma już 20 przystanków.':'Miejsce zapisane.');}
  if(f.id==='build-form'){e.preventDefault();const prefs=Object.fromEntries(data);
-  prefs.interests=normalizeRouteInterests(data.getAll('interests'));prefs.avoid=normalizeRouteExclusions(data.getAll('avoid'));prefs.preciseTypes=normalizeRoutePreciseTypes(data.getAll('preciseTypes'));
+  prefs.interests=normalizeRouteInterests(data.getAll('interests'));prefs.avoid=normalizeRouteExclusions(data.getAll('avoid'));
+  // Start V3 (planner audit 2026-11-10): chosen categories mean "only these"; viewing mode and the break are automatic.
+  prefs.focus=prefs.interests.includes('mix')?'prefer':'only';prefs.preciseTypes=[];prefs.visitMode='mix';
+  prefs.coffee=data.get('coffee')==='yes'?'yes':'no';
   const feedback=f.querySelector('.route-plan-feedback');if(feedback)feedback.textContent='';
-  if(prefs.focus==='only'&&prefs.interests.length===1&&prefs.interests[0]==='mix'&&!prefs.preciseTypes.length){
-   if(feedback)feedback.textContent='W trybie „Tylko wybrane” zaznacz kategorię lub dokładny typ miejsca.';return;
-  }
   if(prefs.start==='custom'){
    const input=f.querySelector('#planner-origin-input');
    const lat=Number(f.dataset.originLat),lng=Number(f.dataset.originLng);
@@ -1031,41 +1018,101 @@ function setGeneratedOptions(options){
  generatedIndex=0;generated=generatedOptions[0]||null;
  generationHistory=[...generationHistory,...generatedOptions.map(r=>r.stops)].slice(-30);
 }
-function planNoResults(prefs){
- const message=prefs.focus==='only'?'Nie ma trasy zgodnej ze wszystkimi wymaganiami. Sprawdź wykluczenia, datę lub wybierz „Głównie wybrane”.'
- :'Nie znaleziono wykonalnej trasy. Zmień czas, datę lub kategorię.';
- const target=document.querySelector('#build-form .route-plan-feedback');
- if(target)target.textContent=message;else toast(message);
+const interestLabels=ids=>ids.map(id=>(ROUTE_INTERESTS.find(x=>x.id===id)?.label||id).toLowerCase()).join(', ');
+const earliestOpening=closed=>closed.map(c=>c.suggestedStart).filter(Boolean).sort()[0]||null;
+function rowHoursNote(row){
+ const until=Number.isFinite(row.closesMinute)?' do '+clockLabel(row.closesMinute):'';
+ if(row.hoursStatus==='known')return until?' · czynne'+until:'';
+ if(row.hoursStatus==='typical')return ' · zwykle czynne'+until+', sprawdź';
+ if(row.hoursStatus==='unknown')return ' · godziny do sprawdzenia';
+ if(row.hoursStatus==='exterior')return ' · z zewnątrz';
+ return '';
 }
+const repairButton=(action,label,start='')=>`<button type="button" class="text-button planner-repair" data-action="${action}"${start?` data-start="${esc(start)}"`:''}>${esc(label)}</button>`;
+// Planner reliability: say why a plan is limited instead of silently dropping a choice, and offer one-tap fixes.
+function planNotes(plan){
+ const notes=[];
+ if(plan.relaxations?.includes('break-dropped'))notes.push({text:`Nie znaleźliśmy ${generationPrefs?.food==='sit'?'restauracji':'kawiarni'} pasującej do trasy w tych godzinach, więc plan jest bez przerwy.`});
+ const closed=plan.closedInterests||[];
+ if(closed.length){
+  const opens=earliestOpening(closed);
+  notes.push({text:`O tej porze nie ma otwartych miejsc w ${closed.length>1?'kategoriach':'kategorii'}: ${interestLabels(closed.map(c=>c.id))}.${opens?` Najwcześniej otwierają się ok. ${opens}.`:''}`,
+   button:opens?repairButton('planner-start-at','Ułóż od '+opens,opens):''});
+ }
+ const requested=Number(generationPrefs?.time)||0;
+ if(generationPrefs?.focus==='only'&&requested&&plan.totalMinutes<requested*0.7)
+  notes.push({text:`Wybrane kategorie wypełniają ${minutes(plan.totalMinutes)} z ${minutes(requested)}. Możesz dodać inne miejsca po drodze.`,button:repairButton('planner-fill','Uzupełnij po drodze')});
+ return notes.map(note=>`<p class="fine route-plan-note">${esc(note.text)}${note.button?' '+note.button:''}</p>`).join('');
+}
+function planNoResults(prefs,result={}){
+ const closed=result.hints?.closedInterests||[];
+ const opens=earliestOpening(closed);
+ const message=result.reason==='interests-closed'&&closed.length
+  ?`O ${prefs.startTime} nie ma otwartych miejsc w ${closed.length>1?'kategoriach':'kategorii'}: ${interestLabels(closed.map(c=>c.id))}.${opens?` Najwcześniej otwierają się ok. ${opens}.`:''} Zmień godzinę startu albo kategorie.`
+  :result.reason==='no-candidates'
+  ?'Wykluczenia i wybrane kategorie nie zostawiają w tym mieście żadnego miejsca. Odznacz któreś wykluczenie albo wybierz inną kategorię.'
+  :prefs.focus==='only'?'Nie ma trasy zgodnej ze wszystkimi wymaganiami. Sprawdź wykluczenia, datę lub wybierz „Głównie wybrane”.'
+  :`W ${minutes(Number(prefs.time)||0)} od ${prefs.startTime} nie mieści się żadna trasa z tymi wyborami. Wydłuż czas, zmień start albo kategorie.`;
+ log('build_no_route',{reason:result.reason||'no-feasible-route',closed:closed.map(c=>c.id),engine:result.reason?'v2':'v1'});
+ const target=document.querySelector('#build-form .route-plan-feedback');
+ const repair=result.reason==='interests-closed'&&opens?' '+repairButton('planner-start-at','Zacznij o '+opens,opens):'';
+ if(target)target.innerHTML=esc(message)+repair;else toast(message);
+}
+// Only categories this city can actually fill are offered on Start (no "Okolice" chip that matches nothing).
+const MIN_INTEREST_PLACES=5;
+function availableInterestIds(){
+ const pool=[...places,...forCity(state.userPlaces,city().id)];
+ const all=new Set(ROUTE_INTERESTS.map(x=>x.id));
+ if(!pool.length)return all;
+ return new Set(ROUTE_INTERESTS.map(x=>x.id).filter(id=>id==='mix'||
+  (id==='sidequests'?quests.length:pool.filter(p=>routeInterestMatch(p,id)).length)>=MIN_INTEREST_PLACES));
+}
+let lastPlanRequest=null;
+const autoBreak=prefs=>{
+ const [h,m]=String(prefs.startTime||'').split(':').map(Number);
+ return prefs.coffee==='yes'&&Number(prefs.time)>=240&&h*60+m<17*60?'quick':'none';
+};
 function plan(prefs,start){
  prefs.interests=normalizeRouteInterests(prefs.interests);
  prefs.avoid=normalizeRouteExclusions(prefs.avoid);prefs.preciseTypes=normalizeRoutePreciseTypes(prefs.preciseTypes);
+ // Start V3 has no viewing-mode question: the old "outside only" choice is the explicit museum exclusion.
+ if(prefs.visitMode==='outside')prefs.avoid=normalizeRouteExclusions([...prefs.avoid,'museums']);
+ prefs.visitMode='mix';
+ // The coffee break is automatic for daytime plans of 4 h or more (recomputed when a repair moves the start).
+ if(prefs.coffee)prefs.food=autoBreak(prefs);
  if(start&&distance(start,cityPoint(city()))>Math.min(25,city().radiusKm)){toast(`Jesteś daleko od ${city().name} — układam trasę bez punktu startu.`);start=null;}
+ lastPlanRequest={prefs:{...prefs},start:start||null};
  if(!validDate(prefs.visitDate)||prefs.visitDate<localDate(city().timezone||'Europe/Warsaw')||!/^([01]\d|2[0-3]):[0-5]\d$/.test(prefs.startTime||'')){
   return toast('Wybierz poprawną datę i godzinę rozpoczęcia trasy.');
  }
  const chosenPrefs={...prefs,start:start||undefined,cityId:city().id};
  const wantSidequests=chosenPrefs.interests.includes('sidequests');
  const candidates=[...places,...forCity(state.userPlaces,city().id),...(wantSidequests?quests:[])];
- const isV2=prefs.transport!=='transit'&&new URLSearchParams(location.search).get('planner')!=='v1';
+ // One engine (planner audit P2): walking, bike and transit all use Planner V2; transit legs are a labelled estimate.
  let choices=[];
- if(isV2){
-  try{
-   const result=planRoutesV2(candidates,chosenPrefs,{count:3,candidateLimit:72,beamWidth:32,maxExpansions:12000});
-   choices=result.routes;
-   if(!choices.length)return planNoResults(prefs);
-  }catch(error){console.error('planner-v2',error);return toast('Nie udało się ułożyć trasy V2. Spróbuj ponownie.');}
- }else{
-  chosenPrefs.timeFeasible=stops=>feasibleFor(stops,{cityId:city().id,date:chosenPrefs.visitDate,
-   startTime:chosenPrefs.startTime,mode:chosenPrefs.visitMode,transport:chosenPrefs.transport,
-   origin:chosenPrefs.start,maxMinutes:Number(chosenPrefs.time)});
-  choices=generateAlternatives(candidates,chosenPrefs,{count:3});
-  if(!choices.length)return planNoResults(prefs);
- }
+ try{
+  const result=planRoutesV2(candidates,chosenPrefs,{count:3,candidateLimit:72,beamWidth:32,maxExpansions:12000});
+  choices=result.routes;
+  if(!choices.length)return planNoResults(prefs,result);
+ }catch(error){console.error('planner-v2',error);return toast('Nie udało się ułożyć trasy. Spróbuj ponownie.');}
  generationPrefs=chosenPrefs;generationHistory=[];setGeneratedOptions(choices);
- log('build_generate',{preferences:{...chosenPrefs,timeFeasible:undefined},stops:generated?.stops.length||0,variants:choices.length,engine:isV2?'v2':'v1'});
- location.hash='route/generated';
+ log('build_generate',{preferences:chosenPrefs,stops:generated?.stops.length||0,variants:choices.length,engine:'v2'});
+ if(location.hash==='#route/generated')render();else location.hash='route/generated';
 }
+// Planner repairs: one tap re-plans the same request with a later start or with complementary stops.
+function replan(changes){
+ if(!lastPlanRequest)return;
+ const input=document.querySelector('#build-form input[name="startTime"]');
+ if(input&&changes.startTime)input.value=changes.startTime;
+ log('build_repair',{changes});
+ plan({...lastPlanRequest.prefs,...changes},lastPlanRequest.start);
+}
+document.addEventListener('click',e=>{
+ const button=e.target.closest?.('[data-action="planner-start-at"],[data-action="planner-fill"]');if(!button)return;
+ e.preventDefault();
+ if(button.dataset.action==='planner-fill')return replan({focus:'prefer'});
+ if(/^([01]\d|2[0-3]):[0-5]\d$/.test(button.dataset.start||''))replan({startTime:button.dataset.start});
+});
 // SAVED-PLACES-SYNC: saved-places-sync.js merges saves with the account; apply its result to the in-memory state.
 window.addEventListener('cityroute:saved-synced',e=>{const byCity=e.detail?.byCity;if(!byCity||typeof byCity!=='object')return;let changed=false;for(const [c,ids] of Object.entries(byCity)){if(!Array.isArray(ids))continue;const cur=state.savedPlacesByCity[c]||[];if(cur.length===ids.length&&cur.every((x,i)=>x===ids[i]))continue;state.savedPlacesByCity[c]=ids.map(String);changed=true;}if(changed){persist();render();}});
 // PROFILE-AVATAR: profile-avatar.js syncs the photo with the account; apply its result to the in-memory state.

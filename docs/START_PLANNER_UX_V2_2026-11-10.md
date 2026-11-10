@@ -64,3 +64,6 @@ Użytkownik wybiera **jeden** z dwóch sposobów ułożenia trasy: generator na 
 - `app.js` kieruje transit do generatora V1, który nie korzysta z rozkładów; `core.js` używa szybkości 8 km/h jako proxy.
 - `opening-hours.js` sprawdza godziny tylko dla wybranych muzeów.
 - Powyższe etapy 2–6 są **specyfikacją**, nie ukończoną implementacją.
+
+## Aktualizacja — Start V3 (audyt planera 2026-11-10)
+Po audycie (ADR-012, ADR-013) Start pyta tylko o rzeczy, które zmieniają plan: zainteresowania, czas, datę i godzinę (widoczne od razu), a w „Więcej ustawień” o transport, start, przerwę na kawę i wykluczenia. Usunięte pytania: „Jak ściśle dobrać miejsca?”, „Jak chcesz oglądać atrakcje?”, „Styl zwiedzania”, „Jeszcze dokładniej”, zablokowane oferty partnerów i transport „Mieszany”. Wybrane kategorie znaczą „tylko te”, a gdy brakuje miejsc, trasa jest krótsza i proponuje „Uzupełnij po drodze”. Chipy pokazujemy tylko wtedy, gdy miasto ma co najmniej 5 pasujących miejsc. Godziny otwarcia pochodzą z OpenStreetMap; zamknięte kategorie dostają propozycję godziny („Zacznij o 23:00”), a trasy wieczorne mogą trwać po północy.

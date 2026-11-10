@@ -1,3 +1,7 @@
+## OPEN — planner reliability and Start V3 (audit 2026-11-10)
+
+[OPEN] PLANNER-AUDIT — Claude — branch `claude/planner-reliability-start` — review requested. YELLOW: planner runtime (OSM opening hours, soft break slot, reasons), one engine for transit, asset versions ux-cleanup v7/css v5, enhancements v28. RED part (Start V3 primary flow) was requested by the founder on 2026-11-10 ("wykonaj zalecenia" after the audit). Data: forward migration `028_lisbon_cafe_quick_food_style.sql` must be run in Supabase by the owner; the planner is already correct before it runs. Follow-ups, not in this branch: delete legacy V1 `core.js generate` with its tests; variants that differ by area or pace. Decisions: ADR-012, ADR-013, ADR-014.
+
 ## OPEN — P0 #176 stored Google place ids
 
 [OPEN] GPID-176 — Claude — PR `claude/google-place-ids` — review requested (YELLOW: Worker endpoint, precache). Adds zero-cost `GET /api/place-id` (Worker cache read only), `data/google-place-ids/<city>.json` (empty until collected after deploy), `scripts/collect-google-place-ids.mjs` and manual curator fixes for venues Google's check rejects. No DB write, no paid call. Details: `docs/PHOTO_LIBRARY_176_2026-11-10.md`. Last update 2026-11-10.

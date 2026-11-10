@@ -26,10 +26,11 @@ function updatePlannerSummaries(form){
  if(interestTarget)interestTarget.textContent=shortList(interests,'Wszystko po trochu');
  if(advancedTarget){
   const transport=checkedLabel(form,'transport');
-  const budget=checkedLabel(form,'budget');
   const start=checkedLabel(form,'start');
   const avoid=checkedLabels(form,'avoid');
-  const parts=[transport,budget,start==='Stąd, gdzie jestem'?'Start tutaj':start].filter(Boolean);
+  const coffee=form.querySelector('input[name="coffee"]');
+  const parts=[transport,start==='Stąd, gdzie jestem'?'Start tutaj':start].filter(Boolean);
+  if(coffee&&!coffee.checked)parts.push('Bez przerwy');
   if(avoid.length)parts.push('Bez: '+shortList(avoid,''));
   advancedTarget.textContent=shortList(parts,'Domyślne');
  }
@@ -49,9 +50,10 @@ function cleanPlanner(){
  const form=document.querySelector('#build-form.planner');
  if(!form||form.dataset.uxClean==='1')return;
  const field=name=>form.querySelector(`input[name="${name}"]`)?.closest('fieldset');
- const time=field('time'),interests=field('interests'),when=field('visitDate'),visitMode=field('visitMode');
+ const time=field('time'),interests=field('interests'),when=field('visitDate');
  if(!time||!interests)return;
- const transport=field('transport'),food=field('food'),start=field('start'),budget=field('budget'),tourist=field('tourist'),offers=field('offers'),avoid=field('avoid'),preciseTypes=field('preciseTypes');
+ // Start V3 (planner audit 2026-11-10): viewing mode, strictness, style and exact subtypes are no longer questions.
+ const transport=field('transport'),coffee=field('coffee'),start=field('start'),avoid=field('avoid');
  const note=form.querySelector('.planner-advanced-body .fine, details.more .fine');
  const submit=form.querySelector('button.primary.big');
  const feedback=form.querySelector('.route-plan-feedback');
@@ -90,15 +92,15 @@ function cleanPlanner(){
  }
 
  const primary=document.createElement('section');primary.className='ux-planner-primary';
+ // Date and start time decide which places are open, so they stay visible next to the duration.
  time.classList.add('ux-time');primary.append(time);
- const whenDetails=disclosure('Kiedy chcesz zwiedzać?','data-ux-when-summary','ux-disclosure ux-when');
- if(when)whenDetails.body.append(when);
+ if(when){when.classList.add('ux-when-inline');primary.append(when);}
 
  const climate=disclosure('Co Cię interesuje?','data-ux-interest-summary','ux-disclosure ux-climate');climate.details.open=true;
  interests.classList.add('ux-interest-field');climate.body.append(interests);
 
  const advanced=disclosure('Więcej ustawień','data-ux-advanced-summary','ux-disclosure ux-advanced');
- for(const fs of [visitMode,transport,food,start,budget,tourist,avoid,preciseTypes,offers])if(fs)advanced.body.append(fs);
+ for(const fs of [transport,coffee,start,avoid])if(fs)advanced.body.append(fs);
  if(note){note.textContent='Te ustawienia są opcjonalne.';advanced.body.append(note);}
 
  submit.textContent='Ułóż mi trasę';submit.classList.add('ux-submit');
@@ -112,7 +114,7 @@ function cleanPlanner(){
  const social=document.createElement('a');social.href='#routes/community';social.className='ux-text-link';social.textContent='Społeczność';
  alternatives.append(social);
 
- form.replaceChildren(climate.details,primary,...(feedback?[feedback]:[]),submit,alternatives,advanced.details,whenDetails.details);
+ form.replaceChildren(climate.details,primary,...(feedback?[feedback]:[]),submit,alternatives,advanced.details);
  updatePlannerSummaries(form);
 }
 

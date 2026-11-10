@@ -119,3 +119,14 @@ test('requested coffee and lunch are neither the first nor the last stop',()=>{
     if(b===benchmarks[9])assert.ok(entry>=11*60+30&&entry<=15*60,`lunch at ${entry} must fit 11:30–15:00`);
   }
 });
+
+test('V2 chooses three distinct sets when the catalogue supports them',()=>{
+ const venues=Array.from({length:18},(_,i)=>p('var-'+i,['landmark','park','viewpoint'][i%3],{
+  lat:52.23+(i%6)*0.0008,lng:21.013+Math.floor(i/6)*0.0008,minutes:20,tags:[]}));
+ const result=planRoutesV2(venues,prefs({time:100,food:'none',interests:['mix']}),{count:3,beamWidth:60,candidateLimit:60,maxExpansions:18000,maxStops:4});
+ assert.equal(result.routes.length,3);
+ for(let i=0;i<result.routes.length;i++)for(let j=i+1;j<result.routes.length;j++){
+  const a=result.routes[i].stopIds,b=result.routes[j].stopIds;
+  assert.ok(a.filter(id=>b.includes(id)).length/Math.min(a.length,b.length)<=0.55);
+ }
+});

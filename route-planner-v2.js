@@ -1,3 +1,4 @@
+import {distinctRoute} from './route-diversity.js';
 // Planner V2 engine: bounded beam search over catalogue POIs, pure and deterministic.
 // Not wired to the UI yet. No provider calls or cost-bearing API usage.
 // Route timing is an estimate until a real, separately supplied leg matrix validates it.
@@ -182,20 +183,16 @@ function bestSolutions(solutions,limit,mandatoryFood,history=[]){
   const excluded=new Set(history.filter(s=>Array.isArray(s)&&s.length).map(s=>s.map(p=>typeof p==='string'?p:idOf(p)).sort().join('|')));
   const sorted=solutions.filter(s=>!mandatoryFood||s.foodCount===1&&s.stops.length>=3&&s.stops.findIndex(foodPlace)<s.stops.length-1)
     .sort((a,b)=>b.score-a.score||b.stops.length-a.stops.length||a.minutes-b.minutes||sameStopSet(a.stops).localeCompare(sameStopSet(b.stops)));
-  const chosen=[],seen=new Set();
+  const chosen=[],seen=new Set(),previous=history.filter(Array.isArray);
   for(const s of sorted){
     const signature=sameStopSet(s.stops);
     if(seen.has(signature)||excluded.has(signature))continue;
-    const overlap=chosen.length?Math.max(...chosen.map(other=>{
-      const a=new Set(other.stops.map(p=>idOf(p)));
-      const b=new Set(s.stops.map(p=>idOf(p)));
-      return [...a].filter(x=>b.has(x)).length/Math.max(a.size,b.size);
-    })):0;
-    if(overlap>.7)continue;
+    if(!distinctRoute(s.stops,[...chosen.map(x=>x.stops),...previous]))continue;
     chosen.push(s);seen.add(signature);
     if(chosen.length>=limit)break;
   }
-  if(!chosen.length&&sorted.length)chosen.push(sorted[0]);
+  // Fresh requests still return an actual plan if the catalogue cannot support several.
+  if(!chosen.length&&!previous.length&&sorted.length)chosen.push(sorted[0]);
   return chosen;
 }
 /**

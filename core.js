@@ -1,3 +1,4 @@
+import {distinctRoute} from './route-diversity.js';
 import {isRouteFoodPlace,isExcludedRoutePlace,normalizeRouteInterests,routeInterestMatch,canViewRouteExterior} from './route-preferences.js';
 export const distance = (a,b) => {
  const rad=x=>x*Math.PI/180, dlat=rad(b.lat-a.lat), dlon=rad(b.lng-a.lng);
@@ -84,12 +85,12 @@ export function generateAlternatives(places,prefs,{count=3,history=[]}={}){
  const limit=Math.max(1,Math.min(5,Math.trunc(Number(count)||3)));
  for(let attempt=0;attempt<48&&result.length<limit;attempt++){
   const freshFirst=!history.length&&!result.length&&attempt===0;
-  const variantPrefs=freshFirst?prefs:{...prefs,variantIndex:attempt+1,diversityCounts:Object.fromEntries(used),diversityWeight:3.5+(attempt%5)*.8};
+  const variantPrefs=freshFirst?prefs:{...prefs,variantIndex:attempt+1,diversityCounts:Object.fromEntries(used),diversityWeight:7+(attempt%6)*1.2};
   const candidate=generate(places,variantPrefs);
   if(!candidate.length)continue;
   const key=signature(candidate);
-  if(signatures.has(key))continue;
-  // The same points in a slightly different order are not a new suggestion.
+  if(signatures.has(key)||!distinctRoute(candidate,[...result,...history]))continue;
+  // A slightly reordered or near-identical set is not a new suggestion.
   signatures.add(key);result.push(candidate);
   for(const p of candidate)used.set(p.id,(used.get(p.id)||0)+1);
  }

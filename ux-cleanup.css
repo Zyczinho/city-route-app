@@ -84,3 +84,23 @@
 #build-form .planner-origin-confirm{width:max-content;max-width:100%;min-height:44px;background:var(--blue-soft);color:var(--blue);border:1px solid #c9ddf3;border-radius:12px;padding:8px 13px;font-weight:700;cursor:pointer}
 #build-form .planner-origin-confirm:disabled{opacity:.55;cursor:progress}
 #build-form .planner-origin-status{line-height:1.4;overflow-wrap:anywhere}
+
+/* Start address: inline autocomplete, accessible keyboard and deliberate place selection. */
+#build-form .planner-origin-options{display:grid;border:1px solid var(--line);background:var(--surface);border-radius:14px;box-shadow:0 8px 24px #16263816;overflow:hidden;max-height:260px;overflow-y:auto;overscroll-behavior:contain}
+#build-form .planner-origin-options[hidden],#build-form .planner-origin-selected[hidden]{display:none!important}
+#build-form .planner-origin-option{display:flex;align-items:start;gap:10px;text-align:left;width:100%;padding:11px 13px;min-height:54px;background:transparent;border:0;border-bottom:1px solid var(--line-2);color:var(--ink);cursor:pointer;font-size:14px}
+#build-form .planner-origin-option:last-child{border-bottom:0}
+#build-form .planner-origin-option:hover,#build-form .planner-origin-option[aria-selected="true"],#build-form .planner-origin-option:focus-visible{background:var(--blue-soft,#eaf4ff);outline-offset:-3px}
+#build-form .planner-origin-option-pin{color:var(--blue,#0872c8);flex:none;padding-top:2px;font-size:17px}
+#build-form .planner-origin-option-copy{display:grid;gap:2px;min-width:0;overflow-wrap:anywhere}
+#build-form .planner-origin-option-copy strong{font-size:14px;font-weight:700}
+#build-form .planner-origin-option-copy small{font-size:12px;color:var(--muted);line-height:1.35}
+#build-form .planner-origin-selected{display:flex;gap:10px;align-items:center;border:1px solid #bbdcc9;background:#f3faf6;color:#123a2a;padding:12px;border-radius:14px;min-width:0}
+#build-form .planner-origin-selected-check{display:grid;place-items:center;background:#277c4e;color:white;border-radius:50%;width:28px;height:28px;flex:none;font-weight:800}
+#build-form .planner-origin-selected-copy{display:grid;gap:2px;min-width:0;overflow-wrap:anywhere;flex:1}
+#build-form .planner-origin-selected-copy strong{font-size:12px}
+#build-form .planner-origin-selected-name{font-size:14px;font-weight:700}
+#build-form .planner-origin-selected-address{font-size:12px;color:#3a6650}
+#build-form .planner-origin-selected button{background:transparent;border:1px solid #b2d1bf;color:#145a38;min-height:40px;padding:7px 10px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer}
+#build-form .planner-origin-status{font-size:12px;line-height:1.4}
+@media(max-width:390px){#build-form .planner-origin-selected{flex-wrap:wrap}#build-form .planner-origin-selected button{margin-left:38px}}

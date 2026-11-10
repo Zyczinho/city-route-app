@@ -141,3 +141,27 @@ export function canViewRouteExterior(p){
   return p.exteriorWorthVisiting===true;
  return true;
 }
+
+/** Null means unverified cost. A numeric zero without explicit verification is NOT free. */
+export const routeKnownCost=p=>{
+ const amount=Number(p?.cost);
+ if(!Number.isFinite(amount)||amount<0)return null;
+ return amount>0||p?.priceVerified===true||p?.costKnown===true?amount:null;
+};
+export function routeBudgetLimit(prefs={}){
+ if(prefs.budget==='premium'||!prefs.budget)return Infinity;
+ if(prefs.budget==='free')return 0;
+ if(prefs.budget==='custom'){
+  const amount=Number(prefs.budgetAmount);
+  return Number.isFinite(amount)&&amount>=0&&amount<=100000?amount:NaN;
+ }
+ if(prefs.budget==='low')return 25;
+ if(prefs.budget==='medium')return 100;
+ return Infinity;
+}
+export const routeBudgetEligible=(p,prefs)=>{
+ const limit=routeBudgetLimit(prefs),amount=routeKnownCost(p);
+ if(Number.isNaN(limit))return false;
+ if(prefs.budget==='free')return amount===0;
+ return amount===null||amount<=limit;
+};

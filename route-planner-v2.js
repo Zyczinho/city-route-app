@@ -3,7 +3,7 @@ import {distinctRoute} from './route-diversity.js';
 // Not wired to the UI yet. No provider calls or cost-bearing API usage.
 // Route timing is an estimate until a real, separately supplied leg matrix validates it.
 import {distance} from './core.js';
-import {isRouteFoodPlace,isExcludedRoutePlace,normalizeRouteInterests,routeInterestMatch,canViewRouteExterior} from './route-preferences.js';
+import {isRouteFoodPlace,isRouteNightlife,isExcludedRoutePlace,normalizeRouteInterests,routeInterestMatch,canViewRouteExterior,routeAllowedByFocus,routeBudgetLimit,routeKnownCost,routeBudgetEligible} from './route-preferences.js';
 import {openingFor,validDate} from './opening-hours.js';
 
 const SPEED={walking:4.5,bike:12,mix:6};
@@ -50,22 +50,20 @@ function fitOf(p,interests,tourist){
   // A thematic trip should not turn into eight nearby but unrelated quick stops.
   return (interests.includes('mix')?4:fit>0?6:-3)+fit;
 }
-function budgetLimit(prefs){
-  return prefs.budget==='low'?25:prefs.budget==='medium'?100:Infinity;
-}
+function budgetLimit(prefs){return routeBudgetLimit(prefs);}
 function validForPrefs(p,prefs,interests){
   if(!p||!p.id||!hasCoords(p)||STAY.has(p.categoryId)||p.kind==='hotel')return false;
   if(prefs.cityId&&p.cityId&&p.cityId!==prefs.cityId)return false;
-  if(isExcludedRoutePlace(p,prefs.avoid))return false;
+  if(isExcludedRoutePlace(p,prefs.avoid)||!routeAllowedByFocus(p,prefs)||!routeBudgetEligible(p,prefs))return false;
   if(Array.isArray(prefs.allowedAreas)&&prefs.allowedAreas.length&&!prefs.allowedAreas.includes(p.area))return false;
   if(Number(prefs.maxRadiusKm)>0&&hasCoords(prefs.start)&&distance(p,prefs.start)>Number(prefs.maxRadiusKm))return false;
   if(prefs.visitMode==='outside'&&!canViewRouteExterior(p))return false;
   if(prefs.offers!=='yes'&&p.partner)return false;
-  if(Number(p.cost)>budgetLimit(prefs))return false;
-  if(foodPlace(p)&&prefs.food==='none'&&!interests.includes('food'))return false;
+  if(Number.isNaN(budgetLimit(prefs)))return false;
+  if(foodPlace(p)&&prefs.food==='none'&&!interests.some(id=>['food','jedzenie'].includes(id)))return false;
   if(foodPlace(p)&&prefs.food==='quick'&&styleOf(p)!=='quick')return false;
   if(foodPlace(p)&&prefs.food==='sit'&&styleOf(p)!=='sit')return false;
-  if(nightlife(p)&&!interests.includes('nightlife'))return false;
+  if(nightlife(p)&&!interests.some(id=>routeInterestMatch(p,id)))return false;
   return true;
 }
 function candidatePool(raw,prefs,opts){
@@ -159,7 +157,7 @@ function stepState(state,item,ctx){
   }
   if(hours.status==='known'&&(visitStart>hours.latestEntry||done>hours.close))return null;
   if(done-ctx.start>ctx.maxMinutes||done>1440)return null;
-  const nextCost=state.cost+(Number(p.cost)||0);
+  const nextCost=state.cost+(routeKnownCost(p)??0);
   if(nextCost>ctx.maxCost)return null;
   const repeated=state.groups[groupOf(p)]||0;
   const noveltyPenalty=repeated*3;
@@ -212,7 +210,7 @@ export function planRoutesV2(places,prefs={},opts={}){
     origin:candidateData.origin,matrix:opts.matrix||null,transport:mode,
     cityId:prefs.cityId||'warsaw',date,start,maxMinutes,
     maxCost:budgetLimit(prefs),visitMode:prefs.visitMode||'inside',food:prefs.food||'none',
-    foodTheme:candidateData.interests.includes('food'),
+    foodTheme:candidateData.interests.some(id=>['food','jedzenie'].includes(id)),
     restInterval:Math.max(60,Number(opts.restInterval)||105),
     restMinutes:Math.max(0,Number.isFinite(Number(opts.restMinutes))?Number(opts.restMinutes):10)
   };
@@ -256,7 +254,7 @@ export function planRoutesV2(places,prefs={},opts={}){
     routes:picked.map((s,index)=>({
       id:`v2-${index+1}`,stops:s.stops,stopIds:s.stops.map(p=>idOf(p)),rows:s.rows,
       totalMinutes:s.minutes,breakdown:{travel:s.travel,visits:s.visit,wait:s.wait,rests:s.rest},
-      cost:s.cost,score:Number(s.score.toFixed(3)),unknownHours:s.unknownCount,estimatedLegs:s.estimatedLegs,
+      cost:s.cost,unpricedStops:s.stops.filter(p=>routeKnownCost(p)===null).length,score:Number(s.score.toFixed(3)),unknownHours:s.unknownCount,estimatedLegs:s.estimatedLegs,
       timingQuality:s.estimatedLegs>0?'approximate':(s.rows.some(r=>r.travelSource!=='start-unspecified')?'supplied-matrix':'no-travel')
     })),
     diagnostics:{

@@ -1,4 +1,4 @@
-import {isRouteFoodPlace,isExcludedRoutePlace,normalizeRouteInterests,routeInterestMatch} from './route-preferences.js';
+import {isRouteFoodPlace,isExcludedRoutePlace,normalizeRouteInterests,routeInterestMatch,canViewRouteExterior} from './route-preferences.js';
 export const distance = (a,b) => {
  const rad=x=>x*Math.PI/180, dlat=rad(b.lat-a.lat), dlon=rad(b.lng-a.lng);
  return 6371*2*Math.asin(Math.min(1,Math.sqrt(Math.sin(dlat/2)**2+Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(dlon/2)**2)));
@@ -28,7 +28,7 @@ export function generate(places,prefs){
  const selected=normalizeRouteInterests(interests),foodTheme=selected.includes('food');
  const foodStyle=p=>p.foodStyle&&p.foodStyle!=='none'?p.foodStyle:(p.categoryId==='restaurant'?'sit':'quick');
  const candidates=places.filter(p=>p.kind!=='hotel'&&!isExcludedRoutePlace(p,prefs.avoid)&&
-  (prefs.visitMode!=='outside'||!indoorExhibition(p))&&
+  (prefs.visitMode!=='outside'||canViewRouteExterior(p))&&
   (prefs.food!=='none'||foodTheme||!isFood(p))&&
   (prefs.food!=='quick'||!isFood(p)||foodStyle(p)==='quick')&&
   (prefs.food!=='sit'||!isFood(p)||foodStyle(p)==='sit')&&

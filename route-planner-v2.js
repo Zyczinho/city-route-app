@@ -2,7 +2,7 @@
 // Not wired to the UI yet. No provider calls or cost-bearing API usage.
 // Route timing is an estimate until a real, separately supplied leg matrix validates it.
 import {distance} from './core.js';
-import {isRouteFoodPlace,isExcludedRoutePlace,normalizeRouteInterests,routeInterestMatch} from './route-preferences.js';
+import {isRouteFoodPlace,isExcludedRoutePlace,normalizeRouteInterests,routeInterestMatch,canViewRouteExterior} from './route-preferences.js';
 import {openingFor,validDate} from './opening-hours.js';
 
 const SPEED={walking:4.5,bike:12,mix:6};
@@ -58,7 +58,7 @@ function validForPrefs(p,prefs,interests){
   if(isExcludedRoutePlace(p,prefs.avoid))return false;
   if(Array.isArray(prefs.allowedAreas)&&prefs.allowedAreas.length&&!prefs.allowedAreas.includes(p.area))return false;
   if(Number(prefs.maxRadiusKm)>0&&hasCoords(prefs.start)&&distance(p,prefs.start)>Number(prefs.maxRadiusKm))return false;
-  if(prefs.visitMode==='outside'&&museumPlace(p)&&p.exteriorWorthVisiting!==true)return false;
+  if(prefs.visitMode==='outside'&&!canViewRouteExterior(p))return false;
   if(prefs.offers!=='yes'&&p.partner)return false;
   if(Number(p.cost)>budgetLimit(prefs))return false;
   if(foodPlace(p)&&prefs.food==='none'&&!interests.includes('food'))return false;
@@ -136,7 +136,12 @@ function stepState(state,item,ctx){
   if(!leg)return null;
   const travel=Math.ceil(leg.minutes);
   let dwell=Math.max(1,minutesOf(p));
-  const hours=openingFor(p,{cityId:ctx.cityId,date:ctx.date,mode:ctx.visitMode});
+  let hours=openingFor(p,{cityId:ctx.cityId,date:ctx.date,mode:ctx.visitMode});
+  // Mixed viewing uses the outside only when a verified facade visit makes sense.
+  if(ctx.visitMode==='mix'&&hours.status==='closed'&&canViewRouteExterior(p)){
+   hours=openingFor(p,{cityId:ctx.cityId,date:ctx.date,mode:'outside'});
+   dwell=Math.min(dwell,Math.max(5,Number(p.outsideMinutes)||20));
+  }
   if(hours.status==='closed')return null;
   if(hours.status==='known')dwell=Math.max(dwell,hours.minVisit||0);
   const rest=state.stops.length&&state.activeSinceBreak+travel+dwell>ctx.restInterval?ctx.restMinutes:0;

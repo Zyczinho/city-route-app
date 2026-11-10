@@ -476,6 +476,7 @@ function importSharedPlace(token){
  }
  state.savedPlacesByCity[city().id]=[...new Set([...savedIds(),p.id])];
  persist();
+ window.dispatchEvent(new CustomEvent('cityroute:saved-changed',{detail:{cityId:city().id,placeId:p.id,saved:true}}));
  history.replaceState(null,'',location.pathname+'#places');
  render();
  openPlace(p.id);
@@ -658,8 +659,15 @@ function savedPlacesView(){
   guest:'Miejsca są zapisane tylko na tym urządzeniu. Zaloguj się, aby je synchronizować.'
  }[savedSyncStatus]||'Sprawdzamy zapisy na koncie…';
  const retry=['error','offline'].includes(savedSyncStatus)?'<button type="button" data-action="retry-saved-sync">Ponów synchronizację</button>':'';
+ const scope=localStorage.getItem('city-route-active-scope-v1')||'';
+ let guestSaved=false;try{const guest=JSON.parse(localStorage.getItem('city-route-local-data-v1:guest')||'null');
+  guestSaved=Object.values(guest?.savedPlacesByCity||{}).some(ids=>Array.isArray(ids)&&ids.length);
+ }catch{}
+ const guestButton=scope.startsWith('user:')&&guestSaved&&
+  localStorage.getItem('city-route-guest-saved-import-v3:'+scope.slice(5))!=='done'
+  ?'<button type="button" data-action="merge-guest-saved">Dołącz wcześniejsze zapisy z tego urządzenia</button>':'';
  const list=[...new Map([...catalog(),...myPlaces()].filter(savedPlace).map(p=>[String(p.id),p])).values()];
- return `<section class="page-head"><a class="back" href="#collections">${ic('arrow-left')}Moje kolekcje</a><p class="kicker">Profil · Moje kolekcje</p><h1>Zapisane miejsca</h1><p class="lead">Miejsca z katalogu synchronizują się między Twoimi urządzeniami po zalogowaniu. Prywatne miejsca pozostają na tym urządzeniu.</p><a href="#places" data-action="show-my-places" class="inline">Moje dodane miejsca${ic('chevron-right','link-arrow')}</a></section><p class="fine" data-saved-sync-status aria-live="polite">${esc(syncMessage)} ${retry}</p><div class="place-list">${list.map(placeRow).join('')||'<div class="empty"><p>Jeszcze nic tu nie ma. Zapisz miejsce zakładką w katalogu.</p><a href="#places">Przeglądaj miejsca</a></div>'}</div>`;
+ return `<section class="page-head"><a class="back" href="#collections">${ic('arrow-left')}Moje kolekcje</a><p class="kicker">Profil · Moje kolekcje</p><h1>Zapisane miejsca</h1><p class="lead">Miejsca z katalogu i miejsca dodane prywatnie łączą się na jednym koncie między urządzeniami. Zdjęcia zapisane tylko w pamięci telefonu mogą pozostać lokalne.</p><a href="#places" data-action="show-my-places" class="inline">Moje dodane miejsca${ic('chevron-right','link-arrow')}</a></section><p class="fine" data-saved-sync-status aria-live="polite">${esc(syncMessage)} ${retry} ${guestButton}</p><div class="place-list">${list.map(placeRow).join('')||'<div class="empty"><p>Jeszcze nic tu nie ma. Zapisz miejsce zakładką w katalogu.</p><a href="#places">Przeglądaj miejsca</a></div>'}</div>`;
 }
 function profileView(){const name=friendlyNickname(state.tester.nickname)?state.tester.nickname:'Odkrywca',so=state.profile.socials,links=[['instagram','Instagram'],['tiktok','TikTok'],['web','Strona']].map(([k,l])=>[l,socialUrl(k,so[k])]).filter(x=>x[1]);
  if(editing)return `<section class="page-head"><p class="kicker">Profil</p><h1>Edytuj profil</h1></section><form id="profile-form" class="profile-form"><label>Nazwa<input name="nickname" maxlength="40" value="${esc(friendlyNickname(state.tester.nickname)?state.tester.nickname:'')}" placeholder="Odkrywca" autocomplete="nickname"></label><label class="file">${state.profile.photo?avatar('sm'):ic('image-plus')}<span>${state.profile.photo?'Zmień zdjęcie profilowe':'Dodaj zdjęcie profilowe'}</span><input type="file" accept="image/*" data-action="avatar"></label>${state.profile.photo?'<button type="button" class="text-button danger" data-action="remove-avatar">Usuń zdjęcie</button>':''}<label>Krótko o sobie<textarea name="bio" maxlength="160" rows="3" placeholder="Np. Lubię poranne spacery i dobrą kawę.">${esc(state.profile.bio)}</textarea></label><label>Instagram<input name="instagram" value="${esc(so.instagram)}" placeholder="@twojanazwa" autocomplete="off"></label><label>TikTok<input name="tiktok" value="${esc(so.tiktok)}" placeholder="@twojanazwa" autocomplete="off"></label><label>Strona lub inny link<input name="web" value="${esc(so.web)}" placeholder="twojastrona.pl" inputmode="url" autocomplete="url"></label><div class="actions"><button class="primary">Zapisz</button><button type="button" data-action="cancel-edit">Anuluj</button></div></form>`;
@@ -773,6 +781,7 @@ document.addEventListener('click',e=>{
  if(action==='add-another-place'){d?.close();draft=null;location.hash='add-place';return;}
  if(action==='route-view')log('route_view',{route_id:id});
  if(action==='cat'){cat=value;mapCategorySelected=true;placesPage=1;cuisine='all';render();}
+ if(action==='merge-guest-saved'){window.dispatchEvent(new Event('cityroute:saved-import-guest'));toast('Dołączamy wcześniejsze zapisy do konta…');return;}
  if(action==='bookmark'){const p=all[id];if(!p)return;const ids=savedIds(),was=ids.includes(id);state.savedPlacesByCity[city().id]=was?ids.filter(x=>x!==id):[...ids,id];persist();render();window.dispatchEvent(new CustomEvent('cityroute:saved-changed',{detail:{cityId:city().id,placeId:id,saved:!was}}));if(d?.open&&d.dataset.placeId===id)openPlace(id);toast(was?'Usunięto z Zapisanych.':'Zapisano miejsce.');return;}
  if(action==='rcat'){rcat=value;render();}
  if(action==='cuisine'){cuisine=value;placesPage=1;render();}
@@ -915,7 +924,8 @@ document.addEventListener('change',async e=>{
      partner:false,ratings:[],image:null,images:[],sourceUrl:entry.url||null,
      verification:{editorial:false,community:false},createdAt:new Date().toISOString()};
     state.userPlaces.unshift(p);all[id]=p;newIds.push(id);
-    state.savedPlacesByCity[entry.cityId]=[...(state.savedPlacesByCity[entry.cityId]||[]),id];imported++;
+    state.savedPlacesByCity[entry.cityId]=[...(state.savedPlacesByCity[entry.cityId]||[]),id];
+    notices.push({cityId:entry.cityId,placeId:id});imported++;
    }
    try{localStorage.setItem(key,JSON.stringify(state));}
    catch{
@@ -998,6 +1008,7 @@ document.addEventListener('submit',async e=>{const f=e.target,data=new FormData(
   const proposed=!localImages.length&&!draft.image?readAcceptedPhoto(f.dataset.pcPhoto):null;
   const c=draft.cat||'okolice',group=userGroup(c),p={id:'u-'+uuid().slice(0,8),cityId:city().id,categoryId:taxonomy?.legacyAliases?.[c]||c,kind:'user',visibility:draft.vis==='public'?'public':'private',name:String(draft.name).trim(),cats:[group],area:'Twoje miejsce',description:String(draft.note||'').trim()||'Twoje miejsce.',lat:+loc.lat.toFixed(6),lng:+loc.lng.toFixed(6),minutes:c==='jedzenie'?45:20,cost:0,tags:USER_TAGS[group]||['hidden'],tourist:'local',foodStyle:c==='jedzenie'?'quick':'none',partner:false,ratings:[],googlePlaceId:f.dataset.pcGooglePlaceId||null,image:localImages[0]||draft.image||proposed?.image||null,imageCredit:proposed?.imageCredit||null,images:localImages,imageRightsConfirmed:draft.vis==='public'&&localImages.length>0&&!!draft.imageRights,photoSourcePage:parsePhotoSourceUrl(draft.sourcePageUrl),photoSourceKind:draft.sourcePageUrl?photoSourceKind(draft.sourcePageUrl):null,sourceUrl:/^https?:\/\//i.test(draft.where||'')?String(draft.where).slice(0,500):null,submissionStatus:draft.vis==='public'?'not_submitted':null,verification:{editorial:false,community:false},createdAt:new Date().toISOString()};
   state.userPlaces.unshift(p);all[p.id]=p;state.savedPlacesByCity[city().id]=[...new Set([...savedIds(),p.id])];if(/^[1-5]$/.test(String(draft.rating||'')))state.placeReviews[p.id]=Number(draft.rating);try{localStorage.setItem(key,JSON.stringify(state));}catch{state.userPlaces.shift();state.savedPlacesByCity[city().id]=savedIds().filter(x=>x!==p.id);delete all[p.id];delete state.placeReviews[p.id];return toast('Za mało miejsca na urządzeniu. Spróbuj bez zdjęcia.');}
+  window.dispatchEvent(new CustomEvent('cityroute:saved-changed',{detail:{cityId:city().id,placeId:p.id,saved:true}}));
   log('place_add',{place_id:p.id,cat:c,photo:!!p.image,photo_source:localImages.length?'own':proposed?proposed.imageCredit.via:p.image?'other':'none',visibility:p.visibility});
   void enrichPlaceOnDemand(p);
   if(p.visibility==='public')window.dispatchEvent(new CustomEvent('cityroute:place-created',{detail:{placeId:p.id}}));
@@ -1135,7 +1146,27 @@ window.addEventListener('cityroute:saved-sync-status',e=>{
  if(activeCity&&(location.hash==='#collections/places'||location.hash==='#social-saved-places'))render();
 });
 // SAVED-PLACES-SYNC: saved-places-sync.js merges saves with the account; apply its result to the in-memory state.
-window.addEventListener('cityroute:saved-synced',e=>{const byCity=e.detail?.byCity;if(!byCity||typeof byCity!=='object')return;let changed=false;for(const [c,ids] of Object.entries(byCity)){if(!Array.isArray(ids))continue;const cur=state.savedPlacesByCity[c]||[];if(cur.length===ids.length&&cur.every((x,i)=>x===ids[i]))continue;state.savedPlacesByCity[c]=ids.map(String);changed=true;}if(changed){persist();render();}});
+window.addEventListener('cityroute:saved-synced',e=>{
+ const {byCity,userPlaces}=e.detail||{};
+ if(!byCity||typeof byCity!=='object')return;
+ let changed=false;
+ if(Array.isArray(userPlaces)){
+  const known=new Set(state.userPlaces.map(p=>String(p.id)));
+  for(const p of userPlaces){
+   if(!p||typeof p.id!=='string'||!p.id.startsWith('u-')||known.has(p.id))continue;
+   if(!p.cityId||typeof p.name!=='string')continue;
+   state.userPlaces.push(p);known.add(p.id);changed=true;
+   if(p.cityId===city().id)all[p.id]=p;
+  }
+ }
+ for(const [c,ids] of Object.entries(byCity)){
+  if(!Array.isArray(ids))continue;
+  const cur=state.savedPlacesByCity[c]||[];
+  if(cur.length===ids.length&&cur.every((x,i)=>x===ids[i]))continue;
+  state.savedPlacesByCity[c]=ids.map(String);changed=true;
+ }
+ if(changed){persist();render();}
+});
 // PROFILE-AVATAR: profile-avatar.js syncs the photo with the account; apply its result to the in-memory state.
 window.addEventListener('cityroute:avatar-synced',e=>{const {photo,pending}=e.detail||{};const before=state.profile.photo+'|'+!!state.profile.avatarPending;if(photo)state.profile.photo=photo;if(pending)state.profile.avatarPending=true;else delete state.profile.avatarPending;if(before===state.profile.photo+'|'+!!state.profile.avatarPending)return;persist();render();});
 window.addEventListener('cityroute:submission-updated',e=>{const {placeId,patch}=e.detail||{};const place=state.userPlaces.find(x=>x.id===placeId);if(!place||!patch)return;Object.assign(place,patch);persist();const dialog=$('#place-dialog');if(dialog?.open&&dialog.querySelector('#sheet-title')?.textContent===place.name)openPlace(placeId);});

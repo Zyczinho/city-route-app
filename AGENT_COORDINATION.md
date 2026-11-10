@@ -1,3 +1,7 @@
+## REVIEW — MVP: hide Hotels and Events (2026-11-10)
+
+[REVIEW] HIDE-FUTURE-SECTIONS — ChatGPT — PR #218, branch `chatgpt/hide-hotels-events-mvp`. Founder's request: temporarily remove visible Hotels and Events sections; do not delete feature code, provider integrations, or catalogue/database records. Places no longer advertises Events; Community events shortcut is hidden; the Guide describes current table bookings only; old `#events` and `#hotels` links redirect to Places. Existing `#book` table reservations stay. PWA cache v93 and community-hub v5; mobile and source tests updated. No Supabase migrations or data write. Restore these features in a future dedicated issue after product approval. Await exact-head CI/browser smoke and production release verification before marking DONE.
+
 ## OPEN — planner reliability and Start V3 (audit 2026-11-10)
 
 [OPEN] PLANNER-AUDIT — Claude — branch `claude/planner-reliability-start` — review requested. YELLOW: planner runtime (OSM opening hours, soft break slot, reasons), one engine for transit, asset versions ux-cleanup v7/css v5, enhancements v28. RED part (Start V3 primary flow) was requested by the founder on 2026-11-10 ("wykonaj zalecenia" after the audit). Data: forward migration `028_lisbon_cafe_quick_food_style.sql` must be run in Supabase by the owner; the planner is already correct before it runs. Follow-ups, not in this branch: delete legacy V1 `core.js generate` with its tests; variants that differ by area or pace. Decisions: ADR-012, ADR-013, ADR-014.

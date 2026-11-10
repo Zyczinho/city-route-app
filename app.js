@@ -1,7 +1,7 @@
 import {summary,optimize,generate,generateAlternatives,advance,mapsUrl,routeMapsUrl,parseLocation,distance,combinedRating,smoothedRating,matches} from './core.js';
 import {ROUTE_INTERESTS,ROUTE_EXCLUSIONS,ROUTE_PRECISE_TYPES,normalizeRouteInterests,normalizeRouteExclusions,normalizeRoutePreciseTypes} from './route-preferences.js';
 import {iconMarkup} from './ui-icons.js';
-import {localDate,validDate,scheduleRoute,feasibleFor} from './opening-hours.js';
+import {localDate,validDate,scheduleRoute,feasibleFor,clockLabel} from './opening-hours.js';
 import {guideView} from './onboarding-guide.js';
 import {encodePlaceSnapshot,decodePlaceSnapshot} from './place-share-model.js';
 import {suggestVisitStart} from './planner-defaults.js';
@@ -565,7 +565,7 @@ const keepDraft=()=>{const f=$('#place-form');if(!f)return;const v=new FormData(
 const radio=(name,opts,val)=>`<div class="choice" role="radiogroup">${opts.map(([v,l])=>`<label><input type="radio" name="${name}" value="${v}" ${v===val?'checked':''}><span>${l}</span></label>`).join('')}</div>`;
 function planView(){const timeZone=city().timezone||'Europe/Warsaw',today=localDate(timeZone),suggested=suggestVisitStart({timeZone}),date=generationPrefs?.visitDate&&generationPrefs.visitDate>=today?generationPrefs.visitDate:suggested.date,time=generationPrefs?.visitDate&&generationPrefs.visitDate>=today?(generationPrefs?.startTime||suggested.time):suggested.time,mode=generationPrefs?.visitMode||'mix';return `<section class="page-head"><p class="kicker">TWÓJ CZAS · TWOJE MIEJSCA</p><h1>Odkrywaj miasto po swojemu.</h1><a class="inline" href="#routes">Wolisz gotowy pomysł? Zobacz trasy${ic('chevron-right','link-arrow')}</a></section><a class="start-here" href="#about" aria-label="Zacznij tutaj — poznaj funkcje City Route"><span class="start-here-icon">${ic('compass')}</span><span class="start-here-copy"><strong>Nowy tutaj? Poznaj City Route</strong></span>${ic('chevron-right')}</a>${liveBanner()}
  <a class="button wide" href="#my-route">${ic("pencil")}Ułożę trasę samodzielnie — dodaję i przesuwam miejsca</a><form id="build-form" class="planner"><fieldset><legend>Ile masz czasu?</legend>${radio('time',[['60','1 h'],['120','2 h'],['240','4 h'],['360','Pół dnia · 6 h'],['480','Cały dzień · 8 h']],'120')}</fieldset>
- <fieldset class="planner-when"><legend>Kiedy chcesz zwiedzać?</legend><div class="planner-when-fields"><label>Data<input type="date" name="visitDate" required min="${today}" value="${esc(date)}"></label><label>Start<input type="time" name="startTime" required min="06:00" max="22:00" value="${esc(time)}"></label></div><p class="fine">Godziny sprawdzamy dla wybranych muzeów. Pozostałe wymagają potwierdzenia.</p></fieldset>
+ <fieldset class="planner-when"><legend>Kiedy chcesz zwiedzać?</legend><div class="planner-when-fields"><label>Data<input type="date" name="visitDate" required min="${today}" value="${esc(date)}"></label><label>Start<input type="time" name="startTime" required min="06:00" max="22:00" value="${esc(time)}"></label></div><p class="fine">Uwzględniamy godziny otwarcia z OpenStreetMap. Gdy ich brak, przyjmujemy typowe godziny i oznaczamy je do sprawdzenia.</p></fieldset>
  <fieldset><legend>Jak chcesz oglądać atrakcje?</legend>${radio('visitMode',[['mix','Miks — wewnątrz i z zewnątrz'],['inside','Wewnątrz, jeśli dostępne'],['outside','Tylko z zewnątrz']],mode)}<p class="fine">Dotyczy atrakcji do zwiedzania, nie barów, klubów czy restauracji. Tam planujemy wizytę, nie oglądanie fasady.</p></fieldset>
  <fieldset><legend>Na co masz ochotę?</legend><div class="choice">${ROUTE_INTERESTS.map(({id,label})=>`<label><input type="checkbox" name="interests" value="${id}" ${id==='mix'?'checked':''}><span>${label}</span></label>`).join('')}</div><div class="planner-focus"><strong>Jak ściśle dobrać miejsca?</strong>${radio('focus',[['prefer','Głównie wybrane'],['only','Tylko wybrane']],'prefer')}<p class="fine">„Głównie” dopuszcza inne przystanki. „Tylko” nie doda żadnego miejsca spoza zaznaczonych kategorii.</p></div><details class="route-interest-help"><summary>Co oznaczają kategorie?</summary><dl>${ROUTE_INTERESTS.map(({label,description})=>`<div><dt>${label}</dt><dd>${description}</dd></div>`).join('')}</dl></details></fieldset>
  <fieldset><legend>Jak się poruszasz?</legend>${radio('transport',[['walking','Pieszo'],['bike','Rower'],['transit','Komunikacja'],['mix','Mieszany (szacunkowo)']],'walking')}</fieldset>
@@ -598,11 +598,12 @@ function generatedPicker(){
 }
 function generatedV2TimelineView(plan){
  const day=new Intl.DateTimeFormat('pl-PL',{day:'numeric',month:'long',year:'numeric',timeZone:city().timezone||'Europe/Warsaw'}).format(new Date(generationPrefs.visitDate+'T12:00:00Z'));
- const clock=m=>`${String(Math.floor(m/60)).padStart(2,'0')}:${String(Math.floor(m%60)).padStart(2,'0')}`;
+ const clock=clockLabel;
  const parts=plan.breakdown;
  return `<section class="detail route-timeline" aria-label="Orientacyjny plan dnia V2"><h2>Plan na ${esc(day)} · od ${esc(generationPrefs.startTime)}</h2><p><strong>Łącznie około ${minutes(plan.totalMinutes)}</strong> · przejścia ${minutes(parts.travel)}, zwiedzanie i posiłki ${minutes(parts.visits)}, odpoczynek ${minutes(parts.rests)}, oczekiwanie ${minutes(parts.wait)}.</p>
  <p class="fine">Czasy przemieszczania są orientacyjne (odległość w linii prostej × 1,3, bez rzeczywistej sieci ulic). Korki, przejścia, przesiadki i kolejki mogą wydłużyć trasę. Nie gwarantujemy dokładnego czasu dotarcia.</p>
- <ol class="timeline-list">${plan.rows.map(row=>`<li><strong>${clock(row.visitStartMinute)}–${clock(row.departureMinute)}</strong><span>${esc(row.name)}<small>Przejście ok. ${row.travelMinutes} min · pobyt ${row.visitMinutes} min${row.restMinutes?' · przerwa '+row.restMinutes+' min':''}${row.waitMinutes?' · oczekiwanie '+row.waitMinutes+' min':''}${row.hoursStatus==='unknown'?' · godziny do sprawdzenia':''}</small></span></li>`).join('')}</ol>
+ <ol class="timeline-list">${plan.rows.map(row=>`<li><strong>${clock(row.visitStartMinute)}–${clock(row.departureMinute)}</strong><span>${esc(row.name)}${row.role==='break'?` <em class="route-break-label">· ${generationPrefs.food==='sit'?'przerwa na posiłek':'przerwa na kawę'}</em>`:''}<small>Przejście ok. ${row.travelMinutes} min · pobyt ${row.visitMinutes} min${row.restMinutes?' · odpoczynek '+row.restMinutes+' min':''}${row.waitMinutes?' · oczekiwanie '+row.waitMinutes+' min':''}${rowHoursNote(row)}</small></span></li>`).join('')}</ol>
+ ${planNotes(plan)}
  ${plan.unpricedStops?`<p class="fine">Uwaga: ${plan.unpricedStops} ${plan.unpricedStops===1?'przystanek ma':'przystanki mają'} nieznane koszty. Przed wizytą sprawdź ceny biletów, napojów i posiłków w konkretnym miejscu.</p>`:''}
  ${plan.unknownHours?`<p class="fine">Godziny otwarcia ${plan.unknownHours} ${plan.unknownHours===1?'miejsca wymagają':'miejsc wymagają'} potwierdzenia.</p>`:''}
  <p class="fine">Plan i jego czasy to podgląd V2 dla wybranego dnia. Po zapisaniu samej trasy harmonogram nie synchronizuje się między urządzeniami.</p></section>`;
@@ -1031,9 +1032,37 @@ function setGeneratedOptions(options){
  generatedIndex=0;generated=generatedOptions[0]||null;
  generationHistory=[...generationHistory,...generatedOptions.map(r=>r.stops)].slice(-30);
 }
-function planNoResults(prefs){
- const message=prefs.focus==='only'?'Nie ma trasy zgodnej ze wszystkimi wymaganiami. Sprawdź wykluczenia, datę lub wybierz „Głównie wybrane”.'
- :'Nie znaleziono wykonalnej trasy. Zmień czas, datę lub kategorię.';
+const interestLabels=ids=>ids.map(id=>(ROUTE_INTERESTS.find(x=>x.id===id)?.label||id).toLowerCase()).join(', ');
+const earliestOpening=closed=>closed.map(c=>c.suggestedStart).filter(Boolean).sort()[0]||null;
+function rowHoursNote(row){
+ const until=Number.isFinite(row.closesMinute)?' do '+clockLabel(row.closesMinute):'';
+ if(row.hoursStatus==='known')return until?' · czynne'+until:'';
+ if(row.hoursStatus==='typical')return ' · zwykle czynne'+until+', sprawdź';
+ if(row.hoursStatus==='unknown')return ' · godziny do sprawdzenia';
+ if(row.hoursStatus==='exterior')return ' · z zewnątrz';
+ return '';
+}
+// Planner reliability: say why a plan is limited instead of silently dropping a choice.
+function planNotes(plan){
+ const notes=[];
+ if(plan.relaxations?.includes('break-dropped'))notes.push(`Nie znaleźliśmy ${generationPrefs?.food==='sit'?'restauracji':'kawiarni'} pasującej do trasy w tych godzinach, więc plan jest bez przerwy.`);
+ const closed=plan.closedInterests||[];
+ if(closed.length){
+  const opens=earliestOpening(closed);
+  notes.push(`O tej porze nie ma otwartych miejsc w ${closed.length>1?'kategoriach':'kategorii'}: ${interestLabels(closed.map(c=>c.id))}.${opens?` Najwcześniej otwierają się ok. ${opens}.`:''}`);
+ }
+ return notes.map(note=>`<p class="fine route-plan-note">${esc(note)}</p>`).join('');
+}
+function planNoResults(prefs,result={}){
+ const closed=result.hints?.closedInterests||[];
+ const opens=earliestOpening(closed);
+ const message=result.reason==='interests-closed'&&closed.length
+  ?`O ${prefs.startTime} nie ma otwartych miejsc w ${closed.length>1?'kategoriach':'kategorii'}: ${interestLabels(closed.map(c=>c.id))}.${opens?` Najwcześniej otwierają się ok. ${opens}.`:''} Zmień godzinę startu albo kategorie.`
+  :result.reason==='no-candidates'
+  ?'Wykluczenia i wybrane kategorie nie zostawiają w tym mieście żadnego miejsca. Odznacz któreś wykluczenie albo wybierz inną kategorię.'
+  :prefs.focus==='only'?'Nie ma trasy zgodnej ze wszystkimi wymaganiami. Sprawdź wykluczenia, datę lub wybierz „Głównie wybrane”.'
+  :`W ${minutes(Number(prefs.time)||0)} od ${prefs.startTime} nie mieści się żadna trasa z tymi wyborami. Wydłuż czas, zmień start albo kategorie.`;
+ log('build_no_route',{reason:result.reason||'no-feasible-route',closed:closed.map(c=>c.id),engine:result.reason?'v2':'v1'});
  const target=document.querySelector('#build-form .route-plan-feedback');
  if(target)target.textContent=message;else toast(message);
 }
@@ -1053,7 +1082,7 @@ function plan(prefs,start){
   try{
    const result=planRoutesV2(candidates,chosenPrefs,{count:3,candidateLimit:72,beamWidth:32,maxExpansions:12000});
    choices=result.routes;
-   if(!choices.length)return planNoResults(prefs);
+   if(!choices.length)return planNoResults(prefs,result);
   }catch(error){console.error('planner-v2',error);return toast('Nie udało się ułożyć trasy V2. Spróbuj ponownie.');}
  }else{
   chosenPrefs.timeFeasible=stops=>feasibleFor(stops,{cityId:city().id,date:chosenPrefs.visitDate,

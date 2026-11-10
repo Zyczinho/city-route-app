@@ -143,6 +143,28 @@ export function canViewRouteExterior(p){
   return p.exteriorWorthVisiting===true;
  return true;
 }
+const FACADE_TYPES=[...TYPES.zabytki,'viewpoint','observation_deck','panorama'];
+/** A closed venue can still be a stop only when looking at it from outside is worth it (buildings, not bars or gardens). */
+export function canViewRouteFacade(p){
+ if(!p||p.interiorOnly===true||p.exteriorWorthVisiting===false)return false;
+ if(p.exteriorWorthVisiting===true)return true;
+ const t=normalized(p);
+ if(TYPES.muzea.includes(t.category)||t.cats.includes('muzea'))return false;
+ return FACADE_TYPES.includes(t.category)||EXCLUDED_TYPES.religious.includes(t.category)||(!t.category&&t.cats.includes('zabytki'));
+}
+const QUICK_BREAK=['cafe','bakery','dessert','breakfast','street_food','food_hall','market'];
+const SIT_BREAK=['restaurant','food_hall'];
+/**
+ * Whether a food place can serve the requested break: "quick" = coffee or a local snack, "sit" = a meal.
+ * The category decides first, so a café imported with a wrong sit-down label still counts as coffee.
+ */
+export function routeBreakSuitable(p,style){
+ if(!isRouteFoodPlace(p))return false;
+ const category=normalized(p).category;
+ if(style==='quick')return QUICK_BREAK.includes(category)||(p?.foodStyle==='quick'&&!SIT_BREAK.includes(category));
+ if(style==='sit')return SIT_BREAK.includes(category)||(p?.foodStyle==='sit'&&!QUICK_BREAK.includes(category));
+ return false;
+}
 
 /** Null means unverified cost. A numeric zero without explicit verification is NOT free. */
 export const routeKnownCost=p=>{

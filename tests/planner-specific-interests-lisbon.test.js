@@ -30,9 +30,8 @@ test('Lisbon: ONLY bars returns bars, also without a forced food stop',()=>{
  assert.ok(transit.every(bar));
 });
 
-test('Lisbon: ONLY clubs, gardens, religious sites never leaks an unrelated category',()=>{
+test('Lisbon: ONLY gardens, religious sites never leaks an unrelated category',()=>{
  for(const [interests,preciseTypes,expected] of [
-  [['kluby'],[],p=>p.categoryId==='club'],
   [['zielen'],['garden'],p=>p.categoryId==='garden'],
   [['zabytki'],['religious_site'],p=>p.categoryId==='religious_site']
  ]){
@@ -41,6 +40,13 @@ test('Lisbon: ONLY clubs, gardens, religious sites never leaks an unrelated cate
   assert.ok(res.routes.length>0,'expected places for '+interests.join(',')+'/'+preciseTypes.join(','));
   assert.ok(res.routes.every(r=>r.stops.every(expected)),JSON.stringify(res.routes.map(r=>r.stopIds)));
  }
+});
+
+test('Lisbon: ONLY clubs at 14:00 explains the closure instead of leaking another category',()=>{
+ const res=planRoutesV2(lisbon,config({interests:['kluby'],time:180,startTime:'14:00'}),opts);
+ assert.equal(res.routes.length,0,'clubs are closed in the afternoon: '+JSON.stringify(res.routes.map(r=>r.stopIds)));
+ assert.equal(res.reason,'interests-closed');
+ assert.deepEqual(res.hints.closedInterests.map(c=>c.id),['kluby']);
 });
 
 test('exclusions override a positive focus (conflicting choices produce no misleading substitutes)',()=>{

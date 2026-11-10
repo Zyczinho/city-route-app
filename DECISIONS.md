@@ -67,3 +67,9 @@ Every editorial route must have its own first-class hero image rather than deriv
 Status: accepted 2026-11-09 at Product Owner request after issue #200.
 
 When a real user reports the same core-flow failure after **two attempted fixes**, the Coordinator freezes speculative implementation and invokes the single Incident Debugger. The agent must preserve the exact failure as a regression, identify a falsifiable causal mechanism and verify failure-before/success-after on the same real data path before merging. CI green, production parity and real-user acceptance are different gates. The canonical procedure is `docs/qa/DEBUGGING_PROTOCOL.md`. Documentation and test evidence live in GitHub; chat history is not the persistent source of truth.
+
+## ADR-012 — Planner: hard constraints vs preferences
+
+Status: accepted 2026-11-10 (planner reliability audit).
+
+Hard constraints remove a place before the search: city, explicit exclusions ("Czego nie chcesz" always wins), a known closure at the visit time, the total time budget, reach for the chosen transport, and stays (hotels never become stops). Everything else is a preference that ranks places or shapes the plan. A requested break is a slot, not a filter: when no suitable venue fits, the route is returned without it and says so. Opening hours: editorial pilot first, then OpenStreetMap `opening_hours`; when a place has no readable hours, food and nightlife use typical category hours flagged as unverified, and other places are not limited. An unreadable value is never treated as closed. When no route exists, the planner returns a reason (`no-candidates`, `interests-closed` with the earliest opening, `no-feasible-route`) so the UI can explain it instead of a generic message.

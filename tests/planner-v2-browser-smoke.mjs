@@ -57,6 +57,7 @@ async function runPlannerBrowserSmoke(){
   // Exact point of departure is a deliberate search + confirmation, never a silent fallback.
   await page.goto(BASE+'/#plan',{waitUntil:'domcontentloaded'});
   await page.locator('#build-form').waitFor({timeout:10000});
+  await page.locator('details.ux-advanced > summary').click();
   await page.locator('input[name="start"][value="custom"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
   const origin=page.locator('#planner-origin-input');
   await origin.waitFor({state:'visible'});

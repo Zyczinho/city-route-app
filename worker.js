@@ -114,6 +114,7 @@ async function placeThumb(url,env,ctx){
  const cityName=String(url.searchParams.get('cityName')||'Warszawa').replace(/\s+/g,' ').trim().slice(0,60);
  const center={lat:Number(url.searchParams.get('centerLat')),lng:Number(url.searchParams.get('centerLng'))};
  const radiusKm=Math.min(50,Number(url.searchParams.get('r'))||40);
+ const languageCode=String(url.searchParams.get('lang')||'pl').slice(0,2),regionCode=String(url.searchParams.get('cc')||'PL').slice(0,2);
  // A cap or provider hiccup is retried after a minute; a real "no match / no photo" answer is kept for ten.
  const notFound=status=>new Response(null,{status:404,headers:{'cache-control':`private, max-age=${['quota','unavailable','disabled','no-key'].includes(status)?60:600}`,'x-thumb-status':status}});
  if(name.length<2||![lat,lng,center.lat,center.lng].every(Number.isFinite)||kmBetween({lat,lng},center)>radiusKm)return notFound('invalid');
@@ -122,7 +123,7 @@ async function placeThumb(url,env,ctx){
   if(!thumbAllowed(env))return notFound('quota');
  try{
   const key=env.GOOGLE_PLACES_API_KEY;
-  const id=String(url.searchParams.get('googleId')||'')||await cachedGooglePlaceId({name,lat,lng,cityName,googleKey:key},{cache:caches.default,ctx});
+  const id=String(url.searchParams.get('googleId')||'')||await cachedGooglePlaceId({name,lat,lng,cityName,languageCode,regionCode,googleKey:key},{cache:caches.default,ctx});
   const uri=id&&await googlePhotoUri(id,{googleKey:key,maxWidthPx:url.searchParams.get('w')==='800'?800:320});
   if(!uri)return notFound(id?'no-photo':'no-match');
   return new Response(null,{status:302,headers:{location:uri,'cache-control':'private, max-age=3600','referrer-policy':'no-referrer'}});

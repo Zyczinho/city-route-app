@@ -1,3 +1,7 @@
+## OPEN — P0 #176 permanent photo library + Google match language
+
+[OPEN] PHOTO-LIB-176 — Claude — draft PR `claude/photos-always-visible` — ChatGPT review requested (YELLOW: runtime, service-worker precache, Worker). Adds `data/photo-library/<city>.json` (228 exact Wikidata P18 → Commons covers with credit; permanent covers 58 → 286 of 708), applies it in `catalogue-client.js`/`app.js` with fallback to the existing Google thumbnail and tile, and sends city language/country to `/api/place-thumb` (production sample: 29% `no-match`, incl. major landmarks, because Place Details answered in English). No DB write, no paid activation, no new storage. Touches `app.js` photo helpers only; overlaps by file with drafts #207/#208. Language-fix hit rate unmeasured until production deploy. Details: `docs/PHOTO_LIBRARY_176_2026-11-10.md`. Last update 2026-11-10.
+
 ## DONE — P0 #200 Add Place Commons click cancellation; incident protocol owner
 
 [DONE] INC-200 — Incident Debugger / QA — founder confirmed Add Place in Lisbon now works after PR #205 (`985137b`). Root cause: accepted Commons metadata on `form[data-pc-photo]` made the delegated click handler treat all form clicks as photo actions and call `preventDefault()`. Exact real-provider production test failed before fix and passed after. Separate #203 corrected Lisbon address geocoding. Durable postmortem: `docs/qa/INCIDENT_2026-11-09_LISBON_ADD_PLACE.md`. New stop rule: `docs/qa/DEBUGGING_PROTOCOL.md`. Further #176 photo catalog work is unblocked; PRs #163 and #183 remain separate drafts. Last update 2026-11-09.

@@ -109,15 +109,30 @@ export function mergeCuratedPhotos(livePlaces=[],curated=[]){
  });
 }
 
-export async function loadCatalogueWithFallback({client,city,fallback}){
+// PHOTO-LIBRARY-176: permanent Wikimedia Commons covers resolved offline by scripts/build-photo-library.mjs.
+// An entry is used only for the same catalogue id with the same name at the same spot, and only with a full credit.
+const WIKIMEDIA_PHOTO=/^https:\/\/(?:upload|thumb)\.wikimedia\.org\/wikipedia\/commons\//;
+export function applyPhotoLibrary(places=[],library=null){
+ const photos=library?.photos&&typeof library.photos==='object'?library.photos:null;
+ if(!photos)return places;
+ return places.map(p=>{
+  const entry=p&&!p.image&&Object.hasOwn(photos,p.id)?photos[p.id]:null,credit=entry?.imageCredit;
+  if(!entry||!WIKIMEDIA_PHOTO.test(entry.image||'')||!credit?.author||!credit?.license||!/^https:\/\/commons\.wikimedia\.org\//.test(credit.source||''))return p;
+  if(fold(entry.name||'')!==fold(p.name||'')||![entry.lat,entry.lng,p.lat,p.lng].every(v=>Number.isFinite(Number(v)))||distance(p,entry)>.18)return p;
+  return {...p,image:entry.image,imageThumb:WIKIMEDIA_PHOTO.test(entry.imageThumb||'')?entry.imageThumb:entry.image,imageCaption:'',
+   imageCredit:{author:credit.author,license:credit.license,licenseUrl:credit.licenseUrl||null,source:credit.source,via:'Wikimedia Commons'},imageFromLibrary:true};
+ });
+}
+
+export async function loadCatalogueWithFallback({client,city,fallback,photoLibrary=null}){
  try{
   const result=await loadSupabaseCatalogue(client,city);
   const curated=typeof fallback==='function'?null:fallback;
-  return {...result,places:mergeCuratedPhotos(result.places,curated?.places||[])};
+  return {...result,places:applyPhotoLibrary(mergeCuratedPhotos(result.places,curated?.places||[]),photoLibrary)};
  }
  catch(error){
   const value=typeof fallback==='function'?await fallback(error):fallback;
   if(!value)throw error;
-  return {source:'json',places:value.places||[],routes:value.routes||[],error};
+  return {source:'json',places:applyPhotoLibrary(value.places||[],photoLibrary),routes:value.routes||[],error};
  }
 }

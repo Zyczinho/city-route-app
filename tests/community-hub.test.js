@@ -25,7 +25,7 @@ test('community hub ships through HTML, build and offline cache',async()=>{
  assert.match(sw,/friends\.js\?v=\d+/);
  assert.match(build,/'friends-client\.js'/);
  assert.match(hub,/\['#social-saved-places','Zapisane'\]/);
- assert.match(hub,/class="community-events-entry" href="#events"/,'Events must be reachable from Community without a sixth nav tab');
+ assert.doesNotMatch(hub,/class="community-events-entry" href="#events"/,'Event promotion must be hidden during MVP');
  assert.doesNotMatch(hub,/\['#events','Wydarzenia'\]/,'Events shortcut should stay outside compact five-tab nav');
  const app=await read('app.js');
  assert.match(app,/Spacery grupowe, spotkania i wydarzenia od społeczności/);

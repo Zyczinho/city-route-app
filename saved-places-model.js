@@ -16,6 +16,13 @@ export function compactPending(ops=[]){
  return [...last.values()];
 }
 
+// V2 recovery: preserve unsent V1 operations, but treat the account's on-device bookmarks
+// as not yet imported once, even when V1 mistakenly marked its first sync complete.
+export function recoverSyncQueue(current,legacy){
+ if(current&&typeof current==='object')return {initialized:!!current.initialized,pending:compactPending(current.pending)};
+ return {initialized:false,pending:compactPending(legacy?.pending)};
+}
+
 // local:   {cityId:[placeId,…]} from this device
 // remote:  [{city_slug,place_ref}] from the account
 // pending: changes made here that the account has not confirmed yet

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {syncableRef,compactPending,mergeSaved,savedSyncUnavailable} from '../saved-places-model.js';
+import {syncableRef,compactPending,mergeSaved,recoverSyncQueue,savedSyncUnavailable} from '../saved-places-model.js';
 const read=n=>readFileSync(new URL('../'+n,import.meta.url),'utf8');
 const row=(c,p)=>({city_slug:c,place_ref:p});
 
@@ -59,7 +59,7 @@ test('app.js reports saves and applies the merged result; module never writes ap
  assert.match(app,/cityroute:saved-changed',\{detail:\{cityId:city\(\)\.id,placeId:id,saved:!was\}\}/);
  assert.match(app,/addEventListener\('cityroute:saved-synced'/);
  assert.doesNotMatch(runtime,/setItem\(DATA_KEY/);
- assert.match(read('index.html'),/saved-places-sync\.js\?v=1/);
+ assert.match(read('index.html'),/saved-places-sync\.js\?v=2/);
  assert.match(read('service-worker.js'),/saved-places-model\.js/);
  assert.match(read('scripts/build.mjs'),/'saved-places-sync\.js'/);
 });
@@ -69,4 +69,45 @@ test('#109: a community route requested while the feed is still loading is rende
  assert.match(src,/if\(rendering\)\{renderAgain=true;return;\}/);
  assert.match(src,/finally\{rendering=false;if\(renderAgain\)\{renderAgain=false;queueRender\(\);\}\}/);
  assert.doesNotMatch(src,/if\(rendering\)return;/);
+});
+
+
+test('V2 upgrade recovers V1 pending changes without trusting its initialized marker',()=>{
+ const v1={initialized:true,pending:[{c:'warsaw',p:'azia',s:false,t:2},{c:'krakow',p:'wawel',s:true,t:3}]};
+ const recovered=recoverSyncQueue(null,v1);
+ assert.equal(recovered.initialized,false);
+ assert.deepEqual(recovered.pending.map(x=>[x.c,x.p,x.s]),[['warsaw','azia',false],['krakow','wawel',true]]);
+ assert.deepEqual(recoverSyncQueue({initialized:true,pending:[]},v1),{initialized:true,pending:[]});
+});
+
+test('phone and desktop account bookmark lists converge without deleting either device saves during recovery',()=>{
+ const server=[row('warsaw','barbican')];
+ const phone=mergeSaved({local:{warsaw:['barbican','koszyki']},remote:server,initialized:false});
+ assert.deepEqual(phone.toDelete,[]);
+ const afterPhone=[...server,...phone.toInsert];
+ const desktop=mergeSaved({local:{warsaw:['barbican','azia']},remote:afterPhone,initialized:false});
+ assert.deepEqual(desktop.toDelete,[]);
+ const afterDesktop=[...afterPhone,...desktop.toInsert];
+ const phoneRefresh=mergeSaved({local:phone.byCity,remote:afterDesktop,initialized:true});
+ const desktopRefresh=mergeSaved({local:desktop.byCity,remote:afterDesktop,initialized:true});
+ assert.deepEqual(new Set(phoneRefresh.byCity.warsaw),new Set(['barbican','koszyki','azia']));
+ assert.deepEqual(new Set(desktopRefresh.byCity.warsaw),new Set(['barbican','koszyki','azia']));
+});
+
+test('an explicit offline unsave wins during first account recovery',()=>{
+ const recovered=recoverSyncQueue(null,{initialized:true,pending:[{c:'warsaw',p:'azia',s:false,t:1}]});
+ const result=mergeSaved({local:{warsaw:['azia','koszyki']},remote:[row('warsaw','azia')],pending:recovered.pending,initialized:recovered.initialized});
+ assert.deepEqual(result.toDelete,[row('warsaw','azia')]);
+ assert.deepEqual(result.toInsert,[row('warsaw','koszyki')]);
+ assert.deepEqual(result.byCity.warsaw,['koszyki']);
+});
+
+test('runtime confirms server writes, guards account scope, and exposes status and retry',()=>{
+ const src=read('saved-places-sync.js'),app=read('app.js');
+ for(const token of ['city-route-saved-sync-v2:','city-route-saved-sync-v1:','city-route-saved-before-v2:','BACKUP_PREFIX','sameAccount(userId)','confirmedRefs','cityroute:saved-sync-status','cityroute:saved-sync-request','visibilitychange','setInterval']){
+  assert.ok(src.includes(token),'missing durability/sync behavior: '+token);
+ }
+ assert.match(app,/data-saved-sync-status/);
+ assert.match(app,/retry-saved-sync/);
+ assert.doesNotMatch(src,/setItem\(DATA_KEY/,'the synchronizer must not overwrite app state behind app.js');
 });

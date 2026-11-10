@@ -44,7 +44,7 @@ const TYPES={
 const LEGACY={
  zabytki:['zabytki'],muzea:['muzea'],zielen:['zielen'],widoki:['widoki'],
  woda:['woda'],ulice:['ulice'],okolice:['okolice'],jedzenie:['jedzenie'],
- bary:['nocne'],kluby:['nocne'],aktywnosci:['aktywnosci'],sidequests:['sidequests']
+ bary:['nocne'],kluby:['nocne'],aktywnosci:['aktywnosci'],sidequests:['side','sidequests']
 };
 const ALIASES={
  sightseeing:'zabytki',culture:'muzea',nature:'zielen',views:'widoki',
@@ -103,9 +103,11 @@ export function routeInterestMatch(p,id){
  if(key==='widoki'&&t.cats.includes('widoki'))return true;
  if(key==='woda'&&t.cats.includes('woda'))return true;
  if(key==='okolice'&&(p?.tourist==='local'||contains(t.tags,['hidden_gem','hidden','local','offbeat'])))return true;
- if(key==='sidequests'&&(p?.kind==='quest'||contains(t.tags,['sidequest','side-quest','quest'])))return true;
+ if(key==='sidequests'&&(p?.kind==='quest'||p?.kind==='sidequest'||t.cats.includes('side')||contains(t.tags,['sidequest','side-quest','quest'])))return true;
  if(t.tags.includes(id)||t.tags.includes(key))return true;
- return TYPES[key].includes(t.category)||(!t.category&&contains(t.cats,LEGACY[key]||[]));
+ if(key==='woda'&&contains(t.tags,['water','river','waterfront','seaside','beach']))return true;
+ if(key==='ulice'&&contains(t.tags,['street','pedestrian','alley','walking_street']))return true;
+ return TYPES[key].includes(t.category)||contains(t.cats,LEGACY[key]||[]);
 }
 export const routePreciseMatch=(p,type)=>{
  const t=normalized(p);

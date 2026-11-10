@@ -16,7 +16,7 @@ test('release 029 includes all three feature modules in HTML, build and offline 
   assert.ok(sw.includes(file),'missing offline dependency '+file);
  }
  assert.match(html,/auth-enhancements\.js\?v=23/);
- const communityHubVersion=html.match(/community-hub\\.js\\?(v=\\d+)/)?.[1];
+ const communityHubVersion=html.match(/community-hub\.js\?(v=\d+)/)?.[1];
  assert.ok(communityHubVersion,'community-hub module is in HTML');
  assert.ok(sw.includes('community-hub.js?'+communityHubVersion),'HTML and PWA cache must reference the same community-hub version');
  assert.match(html,/social-routes-enhancements\.js\?v=12/);

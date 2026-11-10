@@ -54,6 +54,7 @@ function cleanPlanner(){
  const transport=field('transport'),food=field('food'),start=field('start'),budget=field('budget'),tourist=field('tourist'),offers=field('offers'),avoid=field('avoid'),preciseTypes=field('preciseTypes');
  const note=form.querySelector('.planner-advanced-body .fine, details.more .fine');
  const submit=form.querySelector('button.primary.big');
+ const feedback=form.querySelector('.route-plan-feedback');
  if(!submit)return;
 
  form.dataset.uxClean='1';
@@ -111,7 +112,7 @@ function cleanPlanner(){
  const social=document.createElement('a');social.href='#routes/community';social.className='ux-text-link';social.textContent='Społeczność';
  alternatives.append(social);
 
- form.replaceChildren(climate.details,primary,submit,alternatives,advanced.details,whenDetails.details);
+ form.replaceChildren(climate.details,primary,...(feedback?[feedback]:[]),submit,alternatives,advanced.details,whenDetails.details);
  updatePlannerSummaries(form);
 }
 

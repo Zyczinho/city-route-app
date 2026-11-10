@@ -14,7 +14,7 @@ test('UX cleanup makes the planner progressively disclose complexity without cha
   assert.match(ux,/disclosure\('Co Cię interesuje\?'/);
  assert.match(ux,/disclosure\('Więcej ustawień'/);
  assert.match(ux,/submit\.textContent='Ułóż mi trasę'/);
-  assert.match(ux,/form\.replaceChildren\(climate\.details,primary,submit,alternatives,advanced\.details,whenDetails\.details\)/);
+  assert.match(ux,/form\.replaceChildren\(climate\.details,primary,\.\.\.\(feedback\?\[feedback\]:\[\]\),submit,alternatives,advanced\.details,whenDetails\.details\)/);
  assert.match(ux,/whenDetails=disclosure\('Kiedy chcesz zwiedzać\?'/);
  assert.match(ux,/manual\.href='#my-route'/);
  assert.match(ux,/form\.before\(choice\)/);

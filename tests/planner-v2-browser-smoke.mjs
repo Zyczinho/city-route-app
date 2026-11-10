@@ -91,6 +91,23 @@ async function runPlannerBrowserSmoke(){
   await page.locator('#build-form button.primary.big').click();
   await page.waitForURL(/#route\/generated$/,{timeout:30000});
   assert.ok(await page.locator('.generated-option').count()>=1,'confirmed address reaches the generator');
+  // Strict thematic intent and budget must remain accessible after mobile UX restructuring.
+  await page.goto(BASE+'/#plan',{waitUntil:'domcontentloaded'});
+  await page.locator('#build-form').waitFor({timeout:15000});
+  await page.locator('input[name="focus"][value="only"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
+  await page.locator('#build-form button.primary.big').click();
+  assert.match(await page.locator('.route-plan-feedback').innerText(),/zaznacz kategorię/,'only-mix is an actionable error, not a fake route');
+  await page.locator('input[name="interests"][value="bary"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
+  assert.equal(await page.locator('input[name="interests"][value="mix"]').isChecked(),false);
+  const only=page.locator('input[name="focus"][value="only"]');
+  assert.equal(await only.isChecked(),true);
+  await page.locator('input[name="preciseTypes"][value="garden"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
+  assert.equal(await only.isChecked(),true,'exact garden forces hard category mode');
+  await page.locator('input[name="focus"][value="prefer"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
+  assert.equal(await page.locator('input[name="preciseTypes"][value="garden"]').isChecked(),false,'switch to soft preferences clears exact type');
+  await page.locator('input[name="budget"][value="custom"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
+  await page.locator('input[name="budgetAmount"]').fill('250');
+  assert.equal(await page.locator('input[name="budgetAmount"]').inputValue(),'250');
   assert.deepEqual(errors,[],'no browser uncaught errors');
   console.log('PLANNER_V2_BROWSER_QA '+JSON.stringify({alternatives:true,fullBudget:true,reroll:true,saved:true,transitLegs:routes,mobile375:true}));
  }finally{

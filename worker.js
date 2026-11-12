@@ -21,6 +21,7 @@ import {ticketmasterQuery,normalizeTicketmaster,dedupe,eventMarket} from './even
 import {enrichPlace} from './place-enrichment.js';
 import {cachedGooglePlaceId,googlePhotoUri,placeIdCacheKey} from './place-thumb.js';
 import {kmBetween} from './geocode.js';
+import {googlePhotoChoice} from './photo-quality.js';
 
 const json=(body,status=200,maxAge=0)=>new Response(JSON.stringify(body),{status,headers:{'content-type':'application/json; charset=utf-8','cache-control':maxAge?`public, max-age=${maxAge}`:'no-store'}});
 
@@ -127,7 +128,7 @@ async function placeThumb(url,env,ctx){
  try{
   const key=env.GOOGLE_PLACES_API_KEY;
   const id=String(url.searchParams.get('googleId')||'')||await cachedGooglePlaceId({name,lat,lng,cityName,languageCode,regionCode,googleKey:key},{cache:caches.default,ctx});
-  const uri=id&&await googlePhotoUri(id,{googleKey:key,maxWidthPx:url.searchParams.get('w')==='800'?800:320});
+  const uri=id&&await googlePhotoUri(id,{googleKey:key,maxWidthPx:url.searchParams.get('w')==='800'?800:320,photoChoice:googlePhotoChoice(url.searchParams.get('gp'))});
   if(!uri)return notFound(id?'no-photo':'no-match');
   return new Response(null,{status:302,headers:{location:uri,'cache-control':'private, max-age=3600','referrer-policy':'no-referrer'}});
  }catch{return notFound('unavailable');}
@@ -244,7 +245,7 @@ export default {
    if(request.method!=='GET')return json({status:'method-not-allowed'},405);
    if(!googleAllowed(env))return json({status:env.GOOGLE_PLACES_API_KEY?'quota':'no-key'},404);
    try{
-    const id=url.searchParams.get('id'),result=id?await placePhotoById(id,{googleKey:env.GOOGLE_PLACES_API_KEY}):await placePhoto(url.searchParams.get('url'),env.GOOGLE_PLACES_API_KEY,fetch,cityFromParams(url.searchParams));
+    const id=url.searchParams.get('id'),result=id?await placePhotoById(id,{googleKey:env.GOOGLE_PLACES_API_KEY,photoChoice:googlePhotoChoice(url.searchParams.get('n'))}):await placePhoto(url.searchParams.get('url'),env.GOOGLE_PLACES_API_KEY,fetch,cityFromParams(url.searchParams));
     return result||json({status:'no-photo'},404);
    }catch{return json({status:'unavailable'},502);}
   }

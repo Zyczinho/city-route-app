@@ -12,4 +12,3 @@
 .auth-import{margin-top:12px;border:1px solid #bfdfff;border-radius:14px;padding:12px;background:#f1f8ff;display:grid;gap:10px}
 .auth-import p{font-size:13px;line-height:1.5;color:#19436a;margin:0}
 .auth-import button{min-height:44px;border-radius:10px;background:#0878c5;border:1px solid #0878c5;color:white;font-weight:800}
-.auth-in-app{display:grid;gap:10px;padding:12px;border-radius:12px;background:#fff7e6;border:1px solid #f5d48a;color:#3d2b00}.auth-in-app p{margin:0;font-size:14px;line-height:1.45}.auth-in-app button{justify-self:start;min-height:44px}

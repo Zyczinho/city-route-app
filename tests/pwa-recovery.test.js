@@ -55,6 +55,6 @@ test('origin release bypasses stale SW module cache without deleting local data'
  for(const asset of ['./app.js?v=227','./core.js?v=224']){
   assert.ok(worker.includes("'"+asset+"'"),'offline cache lacks '+asset);
  }
- assert.match(worker,/city-route-v100/);
+ assert.match(worker,/city-route-v101/);
  assert.match(worker,/e\.request\.mode==='navigate'/);
 });

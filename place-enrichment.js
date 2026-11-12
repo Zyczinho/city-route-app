@@ -2,7 +2,7 @@
 // or Google ratings in Supabase/localStorage. Official API credentials remain on Worker.
 import {kmBetween} from './geocode.js';
 import {lookupContent,contentPhoto,contentReviews} from './tripadvisor-content.js';
-import {bestGooglePhoto} from './photo-quality.js';
+import {bestGooglePhoto,pickGooglePhoto,MAX_GOOGLE_PHOTO_CHOICE} from './photo-quality.js';
 
 const countryOf=city=>/^[A-Z]{2}$/.test(String(city?.countryCode||'').toUpperCase())?String(city.countryCode).toUpperCase():'PL';
 const GOOGLE_MASK='id,displayName,location,rating,userRatingCount,photos,googleMapsUri';
@@ -125,6 +125,13 @@ export async function enrichPlace({name,lat,lng,googlePlaceId='',city=null,googl
    author:String(author?.displayName||'Google Maps'),license:'Zdjęcie Google Maps',via:'Google Maps',
    source:safeUrl(author?.uri)||safeUrl(google.googleMapsUri)||'https://maps.google.com'
   }};
+  // "Inne zdjęcie": authors of the other photos, in the order /api/place-photo?n=1… serves them (same response, no extra call).
+  image.more=[];
+  for(let n=1;n<=MAX_GOOGLE_PHOTO_CHOICE;n++){
+   const p=pickGooglePhoto(google.photos,n)?.photo;if(!p?.name)break;
+   const a=p.authorAttributions?.[0];
+   image.more.push({author:String(a?.displayName||'Google Maps'),source:safeUrl(a?.uri)||safeUrl(google.googleMapsUri)||'https://maps.google.com'});
+  }
  }else if(content?.id){
   image=await contentPhoto({id:content.id,key:contentKey,fetcher,allowCall:allowContent});
   if(image&&content.url)image.credit.source=content.url;

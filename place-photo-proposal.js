@@ -80,6 +80,13 @@ export function enrichmentUrl(place,cityInfo={}){
  const q=new URLSearchParams({name:String(place.name).trim().slice(0,120),lat:String(place.lat),lng:String(place.lng),city:cityInfo.id||'',cityName:cityInfo.name||'',centerLat:String(c.lat),centerLng:String(c.lng),r:String(cityInfo.radiusKm||40),googleId:''});
  return '/api/place-enrichment?'+q.toString();
 }
+// Other Google photos of the same place for an OpenStreetMap / pin / link pick (see image.more in place-enrichment.js).
+export function googleAlternativesFromEnrichment(data,first=googleCandidateFromEnrichment(data)){
+ if(!first)return [];
+ const more=Array.isArray(data?.image?.more)?data.image.more.slice(0,3):[];
+ return more.map((m,i)=>({...first,src:first.src+'&n='+(i+1),author:String(m?.author||'Google Maps').slice(0,120),
+  source:/^https:\/\//i.test(m?.source||'')?m.source:first.source,photoChoice:i+1}));
+}
 export function googleCandidateFromEnrichment(data){
  const image=data?.image,credit=image?.credit||{};
  const m=/^\/api\/place-photo\?id=([A-Za-z0-9_-]{10,300})$/.exec(String(image?.src||''));
@@ -122,7 +129,7 @@ export async function findPlacePhotoCandidates(selection,{city='',cityInfo=null,
   // Cafés, bars and restaurants rarely have a free photo: then ask Google (one Text Search per pick).
   const enrich=!candidates.some(c=>c?.kind==='google'||c?.kind==='wikipedia')&&enrichmentUrl(place,cityInfo);
   if(enrich){
-   try{const r=await fetcher(enrich,{signal,headers:{accept:'application/json'}});const g=googleCandidateFromEnrichment(await r.json());if(g)candidates.push(g);}
+   try{const r=await fetcher(enrich,{signal,headers:{accept:'application/json'}});const data=await r.json(),g=googleCandidateFromEnrichment(data);if(g)candidates.push(g,...googleAlternativesFromEnrichment(data,g));}
    catch(error){if(error?.name==='AbortError')throw error;}
   }
   attempts++;

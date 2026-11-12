@@ -35,7 +35,7 @@ test('planner preserves chosen start through generation, saved routes and sharin
  assert.match(app,/return plan\(prefs,\{lat,lng,id:'custom-origin',name:input\.value\.trim\(\)\}\)/);
  assert.match(app,/start:generationPrefs\.start\|\|null/);
  assert.match(app,/shareRouteButton\(ps,r\.transport,r\.name,own\|\|r\.id==='generated'\?\{kind:'maps',origin:r\.start\|\|null\}/);
- assert.match(app,/\$\{wholeRoute\(ps,r\.transport,r\.start\|\|null\)\}/);
+ assert.match(app,/\$\{mapsRouteButton\(ps,r\.transport,r\.start\|\|null\)\}/);
  assert.match(app,/sourceKind:r\.sourceKind\|\|null,start:r\.start\|\|null/);
  assert.match(app,/transport:r\.transport\|\|'walking',start:r\.start\|\|null/);
  assert.match(app,/routeMapsUrl\(ps,t,origin\)/);

@@ -178,7 +178,9 @@ async function placeSuggest(url,env,ctx){
  const cache=caches.default,cacheKey=new Request(`https://city-route-cache/place-suggest-v1?c=${city.center.lat},${city.center.lng},${city.radiusKm}&q=${encodeURIComponent(q.toLowerCase())}`);
  if(!useGoogle){const hit=await cache.match(cacheKey);if(hit)return hit;}
  try{
-  const result=await suggestPlaces(q,{city,googleKey:env.GOOGLE_PLACES_API_KEY||'',googleAutocomplete:useGoogle,photonUrl:env.PLACE_GEOCODER_URL||'https://photon.komoot.io',sessionToken:sessionOf(url)});
+  const result=await suggestPlaces(q,{city,googleKey:env.GOOGLE_PLACES_API_KEY||'',googleAutocomplete:useGoogle,
+   // Photon down → paid Google autocomplete, counted against the same daily cap. Not for source=osm (Start origin needs coordinates).
+   googleFallback:url.searchParams.get('source')!=='osm'?()=>googleAllowed(env):null,photonUrl:env.PLACE_GEOCODER_URL||'https://photon.komoot.io',sessionToken:sessionOf(url)});
   const cacheable=result.status==='ok'&&result.provider!=='google',res=json(result,result.status==='unavailable'?502:200,cacheable?86400:0);
   if(cacheable)ctx.waitUntil(cache.put(cacheKey,res.clone()));
   return res;

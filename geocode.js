@@ -60,7 +60,7 @@ function photonAddress(p={}){
  return parts.join(', ');
 }
 
-async function photonFeatures(query,fetcher,baseUrl,city,{limit=5,restrict=false}={}){
+async function photonFeatures(query,fetcher,baseUrl,city,{limit=5,restrict=false,timeoutMs=6500}={}){
  let endpoint;
  try{
   const base=new URL(baseUrl||DEFAULT_PHOTON);if(base.protocol!=='https:')return null;
@@ -75,7 +75,7 @@ async function photonFeatures(query,fetcher,baseUrl,city,{limit=5,restrict=false
  endpoint.searchParams.set('lang','default');
  let r;
  try{
-  r=await fetcher(endpoint.href,{headers:{'accept':'application/json','user-agent':'CityRoute/0.2','referer':'https://city-route-app.jakublojek.workers.dev/'},signal:AbortSignal.timeout(6500)});
+  r=await fetcher(endpoint.href,{headers:{'accept':'application/json','user-agent':'CityRoute/0.2','referer':'https://city-route-app.jakublojek.workers.dev/'},signal:AbortSignal.timeout(timeoutMs)});
  }catch{return null;}
  if(!r.ok)return null;
  const data=await r.json().catch(()=>null);
@@ -117,14 +117,23 @@ async function googleAutocomplete(query,key,fetcher,city,sessionToken,limit){
 
 // Type-ahead suggestions. Google results carry only a placeId (coordinates come from placeDetails on selection,
 // inside the same billing session); OSM results carry coordinates directly.
-export async function suggestPlaces(value,{city=WARSAW,googleKey='',googleAutocomplete:useGoogle=false,photonUrl=DEFAULT_PHOTON,fetcher=fetch,sessionToken='',limit=5}={}){
+// googleFallback: optional budget check, asked only when Photon fails, so a Photon outage does not leave search empty.
+export async function suggestPlaces(value,{city=WARSAW,googleKey='',googleAutocomplete:useGoogle=false,googleFallback=null,photonUrl=DEFAULT_PHOTON,fetcher=fetch,sessionToken='',limit=5}={}){
  const query=normalizePlaceQuery(value);if(!query)return {status:'invalid-query',suggestions:[]};
  if(useGoogle&&googleKey){
   const google=await googleAutocomplete(query,googleKey,fetcher,city,sessionToken,limit);
   if(google?.length)return {status:'ok',provider:'google',suggestions:google};
  }
- const features=await photonFeatures(query,fetcher,photonUrl,city,{limit:limit+3,restrict:true});
- if(features===null)return {status:'unavailable',suggestions:[]};
+ const canFallback=!useGoogle&&googleKey&&typeof googleFallback==='function';
+ // With a fallback ready, give up on a slow Photon sooner so the person is not left waiting.
+ const features=await photonFeatures(query,fetcher,photonUrl,city,{limit:limit+3,restrict:true,timeoutMs:canFallback?3500:6500});
+ if(features===null){
+  if(canFallback&&googleFallback()){
+   const google=await googleAutocomplete(query,googleKey,fetcher,city,sessionToken,limit);
+   if(google)return {status:google.length?'ok':'not-found',provider:'google',suggestions:google};
+  }
+  return {status:'unavailable',suggestions:[]};
+ }
  const seen=new Set(),suggestions=[];
  for(const feature of features){
   const place=photonPlace(feature,city);if(!place)continue;

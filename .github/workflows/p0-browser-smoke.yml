@@ -2,6 +2,7 @@ name: P0 browser smoke
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - 'app.js'
       - 'styles.css'
@@ -9,41 +10,71 @@ on:
       - 'map-view.js'
       - 'tests/map-view.test.js'
       - 'place-composer.js'
+      - 'place-photo-gallery.css'
       - 'place-composer-model.js'
       - 'route-optimizer.js'
+      - 'route-planner-v2.js'
+      - 'route-preferences.js'
+      - 'core.js'
+      - 'route-diversity.js'
+      - 'tests/planner-v2-browser-smoke.mjs'
       - 'ux-cleanup.js'
       - 'social-routes-enhancements.js'
       - 'community-hub.js'
       - 'index.html'
       - 'service-worker.js'
+      - 'tests/add-place-pointer-smoke.mjs'
+      - 'tests/add-place-after-photo-smoke.mjs'
       - 'tests/p0-browser-smoke.mjs'
-      - 'tests/place-share-browser-smoke.mjs'
-      - 'tests/dm-notifications-browser-smoke.mjs'
+      - 'tests/integrations-browser-smoke.mjs'
+      - 'tests/places-pagination-browser-smoke.mjs'
       - 'tests/web-push-browser-smoke.mjs'
       - 'web-push-client.js'
-      - 'dm-notifications.js'
-      - 'direct-messages-ui.js'
+      - 'places-pagination.js'
+      - 'places-pagination.css'
       - 'share-links.js'
+      - 'google-saved-import.js'
+      - 'route-export.js'
       - '.github/workflows/p0-browser-smoke.yml'
+
+# Cancel outdated smoke runs when a PR receives newer commits.
+concurrency:
+  group: cityroute-browser-smoke-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
 
 jobs:
   mobile-smoke:
+    # Draft PRs use fast CI; full browser QA starts when ready for review.
+    if: ${{ !github.event.pull_request.draft }}
     runs-on: ubuntu-24.04
-    timeout-minutes: 12
+    # The official Playwright image already bundles Chromium, WebKit and all Linux libraries.
+    # Ubuntu apt installation in "playwright install --with-deps" intermittently hung for
+    # the entire run; avoid it, not the browser tests themselves.
+    container:
+      image: mcr.microsoft.com/playwright:v1.58.2
+    timeout-minutes: 18
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - run: npm run build
       - run: npm install --no-save playwright@1.58.2
-      - run: npx playwright install --with-deps chromium
+      - name: Verify pinned browser availability
+        run: |
+          node -e "const { chromium, webkit } = require('playwright');const fs=require('fs');for(const b of [chromium,webkit]){const path=b.executablePath();if(!fs.existsSync(path))throw Error('Missing '+b.name()+' executable: '+path);console.log(b.name()+': '+path)}"
+      - run: node tests/add-place-pointer-smoke.mjs
+      - run: node tests/add-place-after-photo-smoke.mjs
       - run: node tests/p0-browser-smoke.mjs
-      - run: node tests/place-share-browser-smoke.mjs
-      - run: node tests/dm-notifications-browser-smoke.mjs
+      - run: node tests/planner-v2-browser-smoke.mjs
+      - run: node tests/integrations-browser-smoke.mjs
+      - run: node tests/places-pagination-browser-smoke.mjs
       - run: node tests/web-push-browser-smoke.mjs
       - uses: actions/upload-artifact@v4
         if: always()

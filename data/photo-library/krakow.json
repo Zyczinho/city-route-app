@@ -1,0 +1,1486 @@
+{
+ "version": 1,
+ "city": "krakow",
+ "source": "wikimedia-commons",
+ "photos": {
+  "aviation-museum": {
+   "name": "Muzeum Lotnictwa Polskiego",
+   "lat": 50.0788479,
+   "lng": 19.9905573,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/20180919-DJI_0726.jpg/960px-20180919-DJI_0726.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/20180919-DJI_0726.jpg/330px-20180919-DJI_0726.jpg",
+   "imageCredit": {
+    "author": "Pawelsuder",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:20180919-DJI_0726.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q377904",
+   "file": "File:20180919-DJI 0726.jpg"
+  },
+  "barbican": {
+   "name": "Barbakan Krakowski",
+   "lat": 50.0654585,
+   "lng": 19.9416339,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/00/Barbican%2C_Florian_Gate_and_Planty_Park%2C_Basztowa_Street%2C_Old_Town%2C_Krak%C3%B3w%2C_Poland.jpg/960px-Barbican%2C_Florian_Gate_and_Planty_Park%2C_Basztowa_Street%2C_Old_Town%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/00/Barbican%2C_Florian_Gate_and_Planty_Park%2C_Basztowa_Street%2C_Old_Town%2C_Krak%C3%B3w%2C_Poland.jpg/330px-Barbican%2C_Florian_Gate_and_Planty_Park%2C_Basztowa_Street%2C_Old_Town%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Jeremiah Z. Cockroach",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Barbican,_Florian_Gate_and_Planty_Park,_Basztowa_Street,_Old_Town,_Krak%C3%B3w,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q807309",
+   "file": "File:Barbican, Florian Gate and Planty Park, Basztowa Street, Old Town, Kraków, Poland.jpg"
+  },
+  "bastion-iii-kleparz": {
+   "name": "Bastion III \"Kleparz\"",
+   "lat": 50.0750194,
+   "lng": 19.9378041,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/72/Festung_Krakau_-_Kleparz.JPG/960px-Festung_Krakau_-_Kleparz.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/72/Festung_Krakau_-_Kleparz.JPG/330px-Festung_Krakau_-_Kleparz.JPG",
+   "imageCredit": {
+    "author": "Pudelek",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": null,
+    "source": "https://commons.wikimedia.org/wiki/File:Festung_Krakau_-_Kleparz.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q4868350",
+   "file": "File:Festung Krakau - Kleparz.JPG"
+  },
+  "baszta-pasamonikow": {
+   "name": "Baszta Pasamoników",
+   "lat": 50.0647421,
+   "lng": 19.9422443,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/01/Baszta_Pasamonikow_w_Krakowie.jpg/960px-Baszta_Pasamonikow_w_Krakowie.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/01/Baszta_Pasamonikow_w_Krakowie.jpg/330px-Baszta_Pasamonikow_w_Krakowie.jpg",
+   "imageCredit": {
+    "author": "ImreKiss",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Baszta_Pasamonikow_w_Krakowie.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q9166818",
+   "file": "File:Baszta Pasamonikow w Krakowie.jpg"
+  },
+  "baszta-stolarska": {
+   "name": "Baszta Stolarska",
+   "lat": 50.0650161,
+   "lng": 19.9406375,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/City_Walls_of_Krakow%2C_Carpenters%27_Tower%2C_Old_Town%2C_Krakow%2C_Poland.jpg/960px-City_Walls_of_Krakow%2C_Carpenters%27_Tower%2C_Old_Town%2C_Krakow%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/City_Walls_of_Krakow%2C_Carpenters%27_Tower%2C_Old_Town%2C_Krakow%2C_Poland.jpg/330px-City_Walls_of_Krakow%2C_Carpenters%27_Tower%2C_Old_Town%2C_Krakow%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Zygmunt Put Zetpe0202",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:City_Walls_of_Krakow,_Carpenters%27_Tower,_Old_Town,_Krakow,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q9166827",
+   "file": "File:City Walls of Krakow, Carpenters' Tower, Old Town, Krakow, Poland.jpg"
+  },
+  "bazylika-nawiedzenia-najswietszej-maryi-panny": {
+   "name": "Kościół Karmelitów na Piasku",
+   "lat": 50.0651407,
+   "lng": 19.931944,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/50/Church_of_the_Visitation_of_the_Blessed_Virgin_Mary%2C_facade%2C_19_Karmelicka_street%2C_Krak%C3%B3w%2C_Poland.jpg/960px-Church_of_the_Visitation_of_the_Blessed_Virgin_Mary%2C_facade%2C_19_Karmelicka_street%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/50/Church_of_the_Visitation_of_the_Blessed_Virgin_Mary%2C_facade%2C_19_Karmelicka_street%2C_Krak%C3%B3w%2C_Poland.jpg/330px-Church_of_the_Visitation_of_the_Blessed_Virgin_Mary%2C_facade%2C_19_Karmelicka_street%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Zygmunt Put",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Church_of_the_Visitation_of_the_Blessed_Virgin_Mary,_facade,_19_Karmelicka_street,_Krak%C3%B3w,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q5118073",
+   "file": "File:Church of the Visitation of the Blessed Virgin Mary, facade, 19 Karmelicka street, Kraków, Poland.jpg"
+  },
+  "bednarski-park": {
+   "name": "Park Bednarskiego",
+   "lat": 50.0417372,
+   "lng": 19.9492439,
+   "image": "https://upload.wikimedia.org/wikipedia/commons/2/21/Krakow-Park_Bednarskiego.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/21/Krakow-Park_Bednarskiego.jpg/330px-Krakow-Park_Bednarskiego.jpg",
+   "imageCredit": {
+    "author": "Mariokol at Polish Wikipedia",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "source": "https://commons.wikimedia.org/wiki/File:Krakow-Park_Bednarskiego.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11811613",
+   "file": "File:Krakow-Park Bednarskiego.jpg"
+  },
+  "bernatek-footbridge": {
+   "name": "Kładka Ojca Bernatka",
+   "lat": 50.0465629,
+   "lng": 19.9474985,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/Bernatek_foot-bridge_%28night%29%2CKrakow%2CPoland.jpg/960px-Bernatek_foot-bridge_%28night%29%2CKrakow%2CPoland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/Bernatek_foot-bridge_%28night%29%2CKrakow%2CPoland.jpg/330px-Bernatek_foot-bridge_%28night%29%2CKrakow%2CPoland.jpg",
+   "imageCredit": {
+    "author": "Zygmunt Put",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Bernatek_foot-bridge_(night),Krakow,Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11752074",
+   "file": "File:Bernatek foot-bridge (night),Krakow,Poland.jpg"
+  },
+  "blonia": {
+   "name": "Błonia Krakowskie",
+   "lat": 50.0597168,
+   "lng": 19.9120842,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/65/Krakow_Blonia_%28Meadow%29_view_to_W%2CKrakow%2CPoland.jpg/960px-Krakow_Blonia_%28Meadow%29_view_to_W%2CKrakow%2CPoland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/65/Krakow_Blonia_%28Meadow%29_view_to_W%2CKrakow%2CPoland.jpg/330px-Krakow_Blonia_%28Meadow%29_view_to_W%2CKrakow%2CPoland.jpg",
+   "imageCredit": {
+    "author": "Zygmunt Put Zetpe0202",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Krakow_Blonia_(Meadow)_view_to_W,Krakow,Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q2358590",
+   "file": "File:Krakow Blonia (Meadow) view to W,Krakow,Poland.jpg"
+  },
+  "botanical-garden": {
+   "name": "Ogród Botaniczny UJ",
+   "lat": 50.0625074,
+   "lng": 19.9574802,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bb/Botanical_garden_Krakow_%282006-05-13%29_04.jpg/960px-Botanical_garden_Krakow_%282006-05-13%29_04.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bb/Botanical_garden_Krakow_%282006-05-13%29_04.jpg/330px-Botanical_garden_Krakow_%282006-05-13%29_04.jpg",
+   "imageCredit": {
+    "author": "Iwona Grabska",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+    "source": "https://commons.wikimedia.org/wiki/File:Botanical_garden_Krakow_(2006-05-13)_04.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q2619332",
+   "file": "File:Botanical garden Krakow (2006-05-13) 04.jpg"
+  },
+  "centrum-kultury-podgorza-fort-borek": {
+   "name": "Centrum Kultury Podgórza - Fort Borek",
+   "lat": 50.0005934,
+   "lng": 19.9040157,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/67/Krakow_Fort_52_20070811_0941.jpg/960px-Krakow_Fort_52_20070811_0941.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/67/Krakow_Fort_52_20070811_0941.jpg/330px-Krakow_Fort_52_20070811_0941.jpg",
+   "imageCredit": {
+    "author": "Jakub Hałun",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": null,
+    "source": "https://commons.wikimedia.org/wiki/File:Krakow_Fort_52_20070811_0941.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11698488",
+   "file": "File:Krakow Fort 52 20070811 0941.jpg"
+  },
+  "centrum-kultury-zydowskiej": {
+   "name": "Centrum Kultury Żydowskiej",
+   "lat": 50.0513734,
+   "lng": 19.9443835,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/Krakow_synagogue_20060805_1639.jpg/960px-Krakow_synagogue_20060805_1639.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/Krakow_synagogue_20060805_1639.jpg/330px-Krakow_synagogue_20060805_1639.jpg",
+   "imageCredit": {
+    "author": "Jakub Hałun",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": null,
+    "source": "https://commons.wikimedia.org/wiki/File:Krakow_synagogue_20060805_1639.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q119084",
+   "file": "File:Krakow synagogue 20060805 1639.jpg"
+  },
+  "cloth-hall": {
+   "name": "Sukiennice",
+   "lat": 50.0617002,
+   "lng": 19.9373615,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/Sukiennice_and_Main_Market_Square_Krakow_Poland.JPG/960px-Sukiennice_and_Main_Market_Square_Krakow_Poland.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/Sukiennice_and_Main_Market_Square_Krakow_Poland.JPG/330px-Sukiennice_and_Main_Market_Square_Krakow_Poland.JPG",
+   "imageCredit": {
+    "author": "Jorge Lascar",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Sukiennice_and_Main_Market_Square_Krakow_Poland.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1072350",
+   "file": "File:Sukiennice and Main Market Square Krakow Poland.JPG"
+  },
+  "collegium-maius": {
+   "name": "Collegium Maius",
+   "lat": 50.0616541,
+   "lng": 19.9336997,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/%CE%9C%CE%AD%CE%B3%CE%B1_%CE%9A%CE%BF%CE%BB%CE%BB%CE%AD%CE%B3%CE%B9%CE%BF_%CE%9A%CF%81%CE%B1%CE%BA%CE%BF%CE%B2%CE%AF%CE%B1%CF%82_5508.jpg/960px-%CE%9C%CE%AD%CE%B3%CE%B1_%CE%9A%CE%BF%CE%BB%CE%BB%CE%AD%CE%B3%CE%B9%CE%BF_%CE%9A%CF%81%CE%B1%CE%BA%CE%BF%CE%B2%CE%AF%CE%B1%CF%82_5508.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/%CE%9C%CE%AD%CE%B3%CE%B1_%CE%9A%CE%BF%CE%BB%CE%BB%CE%AD%CE%B3%CE%B9%CE%BF_%CE%9A%CF%81%CE%B1%CE%BA%CE%BF%CE%B2%CE%AF%CE%B1%CF%82_5508.jpg/330px-%CE%9C%CE%AD%CE%B3%CE%B1_%CE%9A%CE%BF%CE%BB%CE%BB%CE%AD%CE%B3%CE%B9%CE%BF_%CE%9A%CF%81%CE%B1%CE%BA%CE%BF%CE%B2%CE%AF%CE%B1%CF%82_5508.jpg",
+   "imageCredit": {
+    "author": "C messier",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:%CE%9C%CE%AD%CE%B3%CE%B1_%CE%9A%CE%BF%CE%BB%CE%BB%CE%AD%CE%B3%CE%B9%CE%BF_%CE%9A%CF%81%CE%B1%CE%BA%CE%BF%CE%B2%CE%AF%CE%B1%CF%82_5508.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q919596",
+   "file": "File:Μέγα Κολλέγιο Κρακοβίας 5508.jpg"
+  },
+  "collegium-sniadeckiego": {
+   "name": "Collegium Śniadeckiego",
+   "lat": 50.0636743,
+   "lng": 19.9559412,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/Collegium%C5%9Aniadeckiego-UlicaKopernika27-POL%2C_Krak%C3%B3w.jpg/960px-Collegium%C5%9Aniadeckiego-UlicaKopernika27-POL%2C_Krak%C3%B3w.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/Collegium%C5%9Aniadeckiego-UlicaKopernika27-POL%2C_Krak%C3%B3w.jpg/330px-Collegium%C5%9Aniadeckiego-UlicaKopernika27-POL%2C_Krak%C3%B3w.jpg",
+   "imageCredit": {
+    "author": "Mach240390",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Collegium%C5%9Aniadeckiego-UlicaKopernika27-POL,_Krak%C3%B3w.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11691335",
+   "file": "File:CollegiumŚniadeckiego-UlicaKopernika27-POL, Kraków.jpg"
+  },
+  "corpus-christi": {
+   "name": "Bazylika Bożego Ciała",
+   "lat": 50.0497673,
+   "lng": 19.9449767,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/Corpus_Christi_Basilica%2C_Krak%C3%B3w.jpg/960px-Corpus_Christi_Basilica%2C_Krak%C3%B3w.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/Corpus_Christi_Basilica%2C_Krak%C3%B3w.jpg/330px-Corpus_Christi_Basilica%2C_Krak%C3%B3w.jpg",
+   "imageCredit": {
+    "author": "Jorge Láscar",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Corpus_Christi_Basilica,_Krak%C3%B3w.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q2084317",
+   "file": "File:Corpus Christi Basilica, Kraków.jpg"
+  },
+  "cricoteka": {
+   "name": "Cricoteka",
+   "lat": 50.0473243,
+   "lng": 19.9512768,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/66/20200826_Cricoteka_w_Krakowie_1819_1345.jpg/960px-20200826_Cricoteka_w_Krakowie_1819_1345.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/66/20200826_Cricoteka_w_Krakowie_1819_1345.jpg/330px-20200826_Cricoteka_w_Krakowie_1819_1345.jpg",
+   "imageCredit": {
+    "author": "Jakub Hałun",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:20200826_Cricoteka_w_Krakowie_1819_1345.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11691646",
+   "file": "File:20200826 Cricoteka w Krakowie 1819 1345.jpg"
+  },
+  "czartoryski-museum": {
+   "name": "Muzeum Książąt Czartoryskich",
+   "lat": 50.0648136,
+   "lng": 19.9402301,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Czartoryski_Palace%2C_17-19_%C5%9Bwi%C4%99tego_Jana_street%2C_Old_Town%2C_Krak%C3%B3w%2C_Poland.jpg/960px-Czartoryski_Palace%2C_17-19_%C5%9Bwi%C4%99tego_Jana_street%2C_Old_Town%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Czartoryski_Palace%2C_17-19_%C5%9Bwi%C4%99tego_Jana_street%2C_Old_Town%2C_Krak%C3%B3w%2C_Poland.jpg/330px-Czartoryski_Palace%2C_17-19_%C5%9Bwi%C4%99tego_Jana_street%2C_Old_Town%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Zygmunt Put",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Czartoryski_Palace,_17-19_%C5%9Bwi%C4%99tego_Jana_street,_Old_Town,_Krak%C3%B3w,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1450630",
+   "file": "File:Czartoryski Palace, 17-19 świętego Jana street, Old Town, Kraków, Poland.jpg"
+  },
+  "czerwony-dom": {
+   "name": "Czerwony Dom",
+   "lat": 50.0317785,
+   "lng": 19.9680039,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/34/WillaKomendantaObozuPlaszow-CzerwonyDom-UlicaHeltmana22-POL%2C_Krak%C3%B3w.jpg/960px-WillaKomendantaObozuPlaszow-CzerwonyDom-UlicaHeltmana22-POL%2C_Krak%C3%B3w.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/34/WillaKomendantaObozuPlaszow-CzerwonyDom-UlicaHeltmana22-POL%2C_Krak%C3%B3w.jpg/330px-WillaKomendantaObozuPlaszow-CzerwonyDom-UlicaHeltmana22-POL%2C_Krak%C3%B3w.jpg",
+   "imageCredit": {
+    "author": "Mach240390",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:WillaKomendantaObozuPlaszow-CzerwonyDom-UlicaHeltmana22-POL,_Krak%C3%B3w.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11732950",
+   "file": "File:WillaKomendantaObozuPlaszow-CzerwonyDom-UlicaHeltmana22-POL, Kraków.jpg"
+  },
+  "dom-jozefa-mehoffera": {
+   "name": "Dom Józefa Mehoffera",
+   "lat": 50.063264,
+   "lng": 19.928418,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/J%C3%B3zef_Mehoffer%27s_House%2C_26_Krupnicza_street%2C_Krak%C3%B3w%2C_Poland.jpg/960px-J%C3%B3zef_Mehoffer%27s_House%2C_26_Krupnicza_street%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/J%C3%B3zef_Mehoffer%27s_House%2C_26_Krupnicza_street%2C_Krak%C3%B3w%2C_Poland.jpg/330px-J%C3%B3zef_Mehoffer%27s_House%2C_26_Krupnicza_street%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Igor123121",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:J%C3%B3zef_Mehoffer%27s_House,_26_Krupnicza_street,_Krak%C3%B3w,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1715072",
+   "file": "File:Józef Mehoffer's House, 26 Krupnicza street, Kraków, Poland.jpg"
+  },
+  "dworek-bialopradnicki": {
+   "name": "Dworek Białoprądnicki",
+   "lat": 50.0928279,
+   "lng": 19.9409203,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/47/DworekBia%C5%82opr%C4%85dnicki-Pr%C4%85dnikBia%C5%82y-POL%2C_Krak%C3%B3w.jpg/960px-DworekBia%C5%82opr%C4%85dnicki-Pr%C4%85dnikBia%C5%82y-POL%2C_Krak%C3%B3w.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/47/DworekBia%C5%82opr%C4%85dnicki-Pr%C4%85dnikBia%C5%82y-POL%2C_Krak%C3%B3w.jpg/330px-DworekBia%C5%82opr%C4%85dnicki-Pr%C4%85dnikBia%C5%82y-POL%2C_Krak%C3%B3w.jpg",
+   "imageCredit": {
+    "author": "Mach240390",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:DworekBia%C5%82opr%C4%85dnicki-Pr%C4%85dnikBia%C5%82y-POL,_Krak%C3%B3w.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q9186321",
+   "file": "File:DworekBiałoprądnicki-PrądnikBiały-POL, Kraków.jpg"
+  },
+  "eagle-pharmacy": {
+   "name": "Apteka pod Orłem",
+   "lat": 50.0462364,
+   "lng": 19.9541481,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/Pharmacy_Pod_Orlem_%28under_the_Eagle%29%2C_18_Bohaterow_Getta_%28Ghetto_Heroes%29_square%2C_Podg%C3%B3rze%2C_Krakow%2C_Poland.jpg/960px-Pharmacy_Pod_Orlem_%28under_the_Eagle%29%2C_18_Bohaterow_Getta_%28Ghetto_Heroes%29_square%2C_Podg%C3%B3rze%2C_Krakow%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/Pharmacy_Pod_Orlem_%28under_the_Eagle%29%2C_18_Bohaterow_Getta_%28Ghetto_Heroes%29_square%2C_Podg%C3%B3rze%2C_Krakow%2C_Poland.jpg/330px-Pharmacy_Pod_Orlem_%28under_the_Eagle%29%2C_18_Bohaterow_Getta_%28Ghetto_Heroes%29_square%2C_Podg%C3%B3rze%2C_Krakow%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Zygmunt Put Zetpe0202",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pharmacy_Pod_Orlem_(under_the_Eagle),_18_Bohaterow_Getta_(Ghetto_Heroes)_square,_Podg%C3%B3rze,_Krakow,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q5101454",
+   "file": "File:Pharmacy Pod Orlem (under the Eagle), 18 Bohaterow Getta (Ghetto Heroes) square, Podgórze, Krakow, Poland.jpg"
+  },
+  "florian-gate": {
+   "name": "Brama Floriańska",
+   "lat": 50.0651968,
+   "lng": 19.9414982,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/24/Floria%C5%84ska_street_%28view_from_N%29%2C_Old_Town%2C_Krakow%2C_Poland.jpg/960px-Floria%C5%84ska_street_%28view_from_N%29%2C_Old_Town%2C_Krakow%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/24/Floria%C5%84ska_street_%28view_from_N%29%2C_Old_Town%2C_Krakow%2C_Poland.jpg/330px-Floria%C5%84ska_street_%28view_from_N%29%2C_Old_Town%2C_Krakow%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Zygmunt Put",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Floria%C5%84ska_street_(view_from_N),_Old_Town,_Krakow,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q9365137",
+   "file": "File:Floriańska street (view from N), Old Town, Krakow, Poland.jpg"
+  },
+  "fort-31-benedykt": {
+   "name": "Fort 31 „Benedykt”",
+   "lat": 50.0427466,
+   "lng": 19.9580588,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Krakow_Fort31_20070413_1756.jpg/960px-Krakow_Fort31_20070413_1756.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Krakow_Fort31_20070413_1756.jpg/330px-Krakow_Fort31_20070413_1756.jpg",
+   "imageCredit": {
+    "author": "Jakub Hałun",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": null,
+    "source": "https://commons.wikimedia.org/wiki/File:Krakow_Fort31_20070413_1756.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q16545690",
+   "file": "File:Krakow Fort31 20070413 1756.jpg"
+  },
+  "fort-49a-dlubnia": {
+   "name": "Fort 49a \"Dłubnia\"",
+   "lat": 50.0983552,
+   "lng": 20.0411241,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/Fort_Dlubnia_Koszary_Szyjowe2.JPG/960px-Fort_Dlubnia_Koszary_Szyjowe2.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/Fort_Dlubnia_Koszary_Szyjowe2.JPG/330px-Fort_Dlubnia_Koszary_Szyjowe2.JPG",
+   "imageCredit": {
+    "author": "Felis domestica",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Fort_Dlubnia_Koszary_Szyjowe2.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q9261742",
+   "file": "File:Fort Dlubnia Koszary Szyjowe2.JPG"
+  },
+  "fort-50-o-kosocice": {
+   "name": "Fort 50½ O \"Kosocice\"",
+   "lat": 49.9947784,
+   "lng": 19.9920668,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f9/Fort_Kosocine_O.jpg/960px-Fort_Kosocine_O.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f9/Fort_Kosocine_O.jpg/330px-Fort_Kosocine_O.jpg",
+   "imageCredit": {
+    "author": "Pawel Swiegoda ( Paberu )",
+    "license": "CC BY-SA 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+    "source": "https://commons.wikimedia.org/wiki/File:Fort_Kosocine_O.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q30161690",
+   "file": "File:Fort Kosocine O.jpg"
+  },
+  "galeria-sztuki-polskiej-xix-wieku": {
+   "name": "Galeria Sztuki Polskiej XIX wieku",
+   "lat": 50.061742,
+   "lng": 19.9375879,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/Sukiennice_1.jpg/960px-Sukiennice_1.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/Sukiennice_1.jpg/330px-Sukiennice_1.jpg",
+   "imageCredit": {
+    "author": "Mateusz Giełczyński",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Sukiennice_1.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q7635861",
+   "file": "File:Sukiennice 1.jpg"
+  },
+  "galicia-jewish-museum": {
+   "name": "Żydowskie Muzeum Galicja",
+   "lat": 50.0508571,
+   "lng": 19.9496775,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c4/Galicia_Jewish_Museum%2C_18_Dajw%C3%B3r_Street%2C_Kazimierz%2C_Krak%C3%B3w%2C_Poland.jpg/960px-Galicia_Jewish_Museum%2C_18_Dajw%C3%B3r_Street%2C_Kazimierz%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c4/Galicia_Jewish_Museum%2C_18_Dajw%C3%B3r_Street%2C_Kazimierz%2C_Krak%C3%B3w%2C_Poland.jpg/330px-Galicia_Jewish_Museum%2C_18_Dajw%C3%B3r_Street%2C_Kazimierz%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Jeremiah Z. Cockroach",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Galicia_Jewish_Museum,_18_Dajw%C3%B3r_Street,_Kazimierz,_Krak%C3%B3w,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q326670",
+   "file": "File:Galicia Jewish Museum, 18 Dajwór Street, Kazimierz, Kraków, Poland.jpg"
+  },
+  "ghetto-heroes-square": {
+   "name": "Plac Bohaterów Getta",
+   "lat": 50.04672,
+   "lng": 19.9544353,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/83/Plac_Bohaterow_Getta_Krak%C3%B3w.jpg/960px-Plac_Bohaterow_Getta_Krak%C3%B3w.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/83/Plac_Bohaterow_Getta_Krak%C3%B3w.jpg/330px-Plac_Bohaterow_Getta_Krak%C3%B3w.jpg",
+   "imageCredit": {
+    "author": "Healy, Sean",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Plac_Bohaterow_Getta_Krak%C3%B3w.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11819019",
+   "file": "File:Plac Bohaterow Getta Kraków.jpg"
+  },
+  "hotel-copernicus": {
+   "name": "Hotel Copernicus",
+   "lat": 50.0562705,
+   "lng": 19.9375835,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/97/Kanonicza_Street_in_Krak%C3%B3w%2C_2023%2C_03.jpg/960px-Kanonicza_Street_in_Krak%C3%B3w%2C_2023%2C_03.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/97/Kanonicza_Street_in_Krak%C3%B3w%2C_2023%2C_03.jpg/330px-Kanonicza_Street_in_Krak%C3%B3w%2C_2023%2C_03.jpg",
+   "imageCredit": {
+    "author": "Chris Olszewski",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kanonicza_Street_in_Krak%C3%B3w,_2023,_03.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q9294055",
+   "file": "File:Kanonicza Street in Kraków, 2023, 03.jpg"
+  },
+  "hotel-floryan": {
+   "name": "Hotel Floryan",
+   "lat": 50.0644376,
+   "lng": 19.940776,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/87/Hotel_Floryan_w_Krakowie.jpg/960px-Hotel_Floryan_w_Krakowie.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/87/Hotel_Floryan_w_Krakowie.jpg/330px-Hotel_Floryan_w_Krakowie.jpg",
+   "imageCredit": {
+    "author": "ImreKiss",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Hotel_Floryan_w_Krakowie.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q16558534",
+   "file": "File:Hotel Floryan w Krakowie.jpg"
+  },
+  "hotel-polonia": {
+   "name": "Hotel Polonia",
+   "lat": 50.064886,
+   "lng": 19.9447502,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/Hotel_Polonia_w_Krakowie1.jpg/960px-Hotel_Polonia_w_Krakowie1.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/Hotel_Polonia_w_Krakowie1.jpg/330px-Hotel_Polonia_w_Krakowie1.jpg",
+   "imageCredit": {
+    "author": "ImreKiss",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Hotel_Polonia_w_Krakowie1.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11710149",
+   "file": "File:Hotel Polonia w Krakowie1.jpg"
+  },
+  "jordan-park": {
+   "name": "Park Jordana",
+   "lat": 50.0627106,
+   "lng": 19.9159858,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/19/Krak%C3%B3w_-_park_jordana%2C%2C.jpg/960px-Krak%C3%B3w_-_park_jordana%2C%2C.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/19/Krak%C3%B3w_-_park_jordana%2C%2C.jpg/330px-Krak%C3%B3w_-_park_jordana%2C%2C.jpg",
+   "imageCredit": {
+    "author": "Magdalia25",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Krak%C3%B3w_-_park_jordana,,.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11811579",
+   "file": "File:Kraków - park jordana,,.jpg"
+  },
+  "kaplica-pw-swietych-jana-chrzciciela-i-jana-ewangelisty": {
+   "name": "Kaplica św. Jana Chrzciciela i Jana Ewangelisty",
+   "lat": 50.0888377,
+   "lng": 19.9697134,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/Kaplica%C5%9AwJanaChrziciela-Pr%C4%85dnikCzerwony-POL%2C_Krak%C3%B3w.jpg/960px-Kaplica%C5%9AwJanaChrziciela-Pr%C4%85dnikCzerwony-POL%2C_Krak%C3%B3w.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/Kaplica%C5%9AwJanaChrziciela-Pr%C4%85dnikCzerwony-POL%2C_Krak%C3%B3w.jpg/330px-Kaplica%C5%9AwJanaChrziciela-Pr%C4%85dnikCzerwony-POL%2C_Krak%C3%B3w.jpg",
+   "imageCredit": {
+    "author": "Mach240390",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kaplica%C5%9AwJanaChrziciela-Pr%C4%85dnikCzerwony-POL,_Krak%C3%B3w.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11735262",
+   "file": "File:KaplicaŚwJanaChrziciela-PrądnikCzerwony-POL, Kraków.jpg"
+  },
+  "kawiarnia-jama-michalika": {
+   "name": "Kawiarnia Jama Michalika",
+   "lat": 50.0640836,
+   "lng": 19.940929,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ad/Kawiarnia_Jama_Michalika_01_AB.jpg/960px-Kawiarnia_Jama_Michalika_01_AB.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ad/Kawiarnia_Jama_Michalika_01_AB.jpg/330px-Kawiarnia_Jama_Michalika_01_AB.jpg",
+   "imageCredit": {
+    "author": "Chepry 💬 ( Andrzej Barabasz ) 📷 🇵🇱",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kawiarnia_Jama_Michalika_01_AB.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q672804",
+   "file": "File:Kawiarnia Jama Michalika 01 AB.jpg"
+  },
+  "klub-studio": {
+   "name": "Klub Studio",
+   "lat": 50.068076,
+   "lng": 19.9082429,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Klub_Studio.png/960px-Klub_Studio.png",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Klub_Studio.png/330px-Klub_Studio.png",
+   "imageCredit": {
+    "author": "Wojtek Kołek",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Klub_Studio.png",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q9137055",
+   "file": "File:Klub Studio.png"
+  },
+  "kopiec-pilsudskiego": {
+   "name": "Kopiec Piłsudskiego",
+   "lat": 50.06005,
+   "lng": 19.8471666,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/KopiecPi%C5%82sudskiego-Sowiniec-POL%2C_Krak%C3%B3w.jpg/960px-KopiecPi%C5%82sudskiego-Sowiniec-POL%2C_Krak%C3%B3w.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/KopiecPi%C5%82sudskiego-Sowiniec-POL%2C_Krak%C3%B3w.jpg/330px-KopiecPi%C5%82sudskiego-Sowiniec-POL%2C_Krak%C3%B3w.jpg",
+   "imageCredit": {
+    "author": "Mach240390",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:KopiecPi%C5%82sudskiego-Sowiniec-POL,_Krak%C3%B3w.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1985405",
+   "file": "File:KopiecPiłsudskiego-Sowiniec-POL, Kraków.jpg"
+  },
+  "kosciol-pw-matki-bozej-czestochowskiej": {
+   "name": "Kościół Matki Bożej Częstochowskiej",
+   "lat": 50.0032955,
+   "lng": 19.8805029,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/Chapel_of_Saint_Mary_from_Czestochowa_in_Cracow_%28Kobierzyn_district%29%2C_Poland.jpg/960px-Chapel_of_Saint_Mary_from_Czestochowa_in_Cracow_%28Kobierzyn_district%29%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/Chapel_of_Saint_Mary_from_Czestochowa_in_Cracow_%28Kobierzyn_district%29%2C_Poland.jpg/330px-Chapel_of_Saint_Mary_from_Czestochowa_in_Cracow_%28Kobierzyn_district%29%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Lelek 2v",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Chapel_of_Saint_Mary_from_Czestochowa_in_Cracow_(Kobierzyn_district),_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q60855874",
+   "file": "File:Chapel of Saint Mary from Czestochowa in Cracow (Kobierzyn district), Poland.jpg"
+  },
+  "kosciol-pw-swietego-krzyza": {
+   "name": "Kościół Świętego Krzyża",
+   "lat": 50.0633711,
+   "lng": 19.9433343,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Church_of_the_Holy_Cross_in_Krak%C3%B3w.JPG/960px-Church_of_the_Holy_Cross_in_Krak%C3%B3w.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Church_of_the_Holy_Cross_in_Krak%C3%B3w.JPG/330px-Church_of_the_Holy_Cross_in_Krak%C3%B3w.JPG",
+   "imageCredit": {
+    "author": "Cancre",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Church_of_the_Holy_Cross_in_Krak%C3%B3w.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11746269",
+   "file": "File:Church of the Holy Cross in Kraków.JPG"
+  },
+  "kosciol-pw-swietego-wojciecha-biskupa-i-meczennika": {
+   "name": "Kościół Świętego Wojciecha",
+   "lat": 50.060888,
+   "lng": 19.9377429,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/Church_of_St._Wojciech_%28St._Adalbert%29%2C_2_Main_Market_Square%2C_Old_Town%2C_Krak%C3%B3w%2C_Poland.jpg/960px-Church_of_St._Wojciech_%28St._Adalbert%29%2C_2_Main_Market_Square%2C_Old_Town%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/Church_of_St._Wojciech_%28St._Adalbert%29%2C_2_Main_Market_Square%2C_Old_Town%2C_Krak%C3%B3w%2C_Poland.jpg/330px-Church_of_St._Wojciech_%28St._Adalbert%29%2C_2_Main_Market_Square%2C_Old_Town%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Jeremiah Z. Cockroach",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Church_of_St._Wojciech_(St._Adalbert),_2_Main_Market_Square,_Old_Town,_Krak%C3%B3w,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q898260",
+   "file": "File:Church of St. Wojciech (St. Adalbert), 2 Main Market Square, Old Town, Kraków, Poland.jpg"
+  },
+  "kosciol-pw-swietej-barbary": {
+   "name": "Kościół Świętej Barbary",
+   "lat": 50.0613121,
+   "lng": 19.9398407,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/Church_of_St._Barbara%2C_9_Little_Market_Square%2C_Old_Town%2C_Krak%C3%B3w%2C_Poland.jpg/960px-Church_of_St._Barbara%2C_9_Little_Market_Square%2C_Old_Town%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/Church_of_St._Barbara%2C_9_Little_Market_Square%2C_Old_Town%2C_Krak%C3%B3w%2C_Poland.jpg/330px-Church_of_St._Barbara%2C_9_Little_Market_Square%2C_Old_Town%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Jeremiah Z. Cockroach",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Church_of_St._Barbara,_9_Little_Market_Square,_Old_Town,_Krak%C3%B3w,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q606281",
+   "file": "File:Church of St. Barbara, 9 Little Market Square, Old Town, Kraków, Poland.jpg"
+  },
+  "kosciuszko-mound": {
+   "name": "Kopiec Kościuszki",
+   "lat": 50.054915,
+   "lng": 19.8933537,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/DJI_0236_Kopiec_Ko%C5%9Bciuszki.jpg/960px-DJI_0236_Kopiec_Ko%C5%9Bciuszki.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/DJI_0236_Kopiec_Ko%C5%9Bciuszki.jpg/330px-DJI_0236_Kopiec_Ko%C5%9Bciuszki.jpg",
+   "imageCredit": {
+    "author": "Pawelsuder",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:DJI_0236_Kopiec_Ko%C5%9Bciuszki.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q641398",
+   "file": "File:DJI 0236 Kopiec Kościuszki.jpg"
+  },
+  "krakus-mound": {
+   "name": "Kopiec Krakusa",
+   "lat": 50.0380822,
+   "lng": 19.958435,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/Kopiec_Kraka-widok_z_po%C5%82udnia-POL%2C_Krak%C3%B3w.jpg/960px-Kopiec_Kraka-widok_z_po%C5%82udnia-POL%2C_Krak%C3%B3w.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/Kopiec_Kraka-widok_z_po%C5%82udnia-POL%2C_Krak%C3%B3w.jpg/330px-Kopiec_Kraka-widok_z_po%C5%82udnia-POL%2C_Krak%C3%B3w.jpg",
+   "imageCredit": {
+    "author": "Mach240390",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kopiec_Kraka-widok_z_po%C5%82udnia-POL,_Krak%C3%B3w.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q722446",
+   "file": "File:Kopiec Kraka-widok z południa-POL, Kraków.jpg"
+  },
+  "malopolski-ogrod-sztuki": {
+   "name": "Małopolski Ogród Sztuki",
+   "lat": 50.0643544,
+   "lng": 19.929697,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/Ma%C5%82opolski_Ogr%C3%B3d_Sztuki_MOS%2C_Krak%C3%B3w%2C_2022%2C_02.jpg/960px-Ma%C5%82opolski_Ogr%C3%B3d_Sztuki_MOS%2C_Krak%C3%B3w%2C_2022%2C_02.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/Ma%C5%82opolski_Ogr%C3%B3d_Sztuki_MOS%2C_Krak%C3%B3w%2C_2022%2C_02.jpg/330px-Ma%C5%82opolski_Ogr%C3%B3d_Sztuki_MOS%2C_Krak%C3%B3w%2C_2022%2C_02.jpg",
+   "imageCredit": {
+    "author": "Chris Olszewski",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Ma%C5%82opolski_Ogr%C3%B3d_Sztuki_MOS,_Krak%C3%B3w,_2022,_02.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11772478",
+   "file": "File:Małopolski Ogród Sztuki MOS, Kraków, 2022, 02.jpg"
+  },
+  "manggha": {
+   "name": "Muzeum Manggha",
+   "lat": 50.0508748,
+   "lng": 19.931658,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/%E2%80%9DManggha%E2%80%9D_Museum_of_Japanese_Art_and_Technology%2C_26_Konopnickiej_Street%2C_Podg%C3%B3rze%2C_Krak%C3%B3w%2C_Poland.jpg/960px-%E2%80%9DManggha%E2%80%9D_Museum_of_Japanese_Art_and_Technology%2C_26_Konopnickiej_Street%2C_Podg%C3%B3rze%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/%E2%80%9DManggha%E2%80%9D_Museum_of_Japanese_Art_and_Technology%2C_26_Konopnickiej_Street%2C_Podg%C3%B3rze%2C_Krak%C3%B3w%2C_Poland.jpg/330px-%E2%80%9DManggha%E2%80%9D_Museum_of_Japanese_Art_and_Technology%2C_26_Konopnickiej_Street%2C_Podg%C3%B3rze%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Jeremiah Z. Cockroach",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:%E2%80%9DManggha%E2%80%9D_Museum_of_Japanese_Art_and_Technology,_26_Konopnickiej_Street,_Podg%C3%B3rze,_Krak%C3%B3w,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q572206",
+   "file": "File:”Manggha” Museum of Japanese Art and Technology, 26 Konopnickiej Street, Podgórze, Kraków, Poland.jpg"
+  },
+  "muzeum-archeologiczne": {
+   "name": "Muzeum Archeologiczne",
+   "lat": 50.0575557,
+   "lng": 19.9362547,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/MuzeumArcheologiczne-WidokOdStronyPlant-POL%2C_Krak%C3%B3w.jpg/960px-MuzeumArcheologiczne-WidokOdStronyPlant-POL%2C_Krak%C3%B3w.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/MuzeumArcheologiczne-WidokOdStronyPlant-POL%2C_Krak%C3%B3w.jpg/330px-MuzeumArcheologiczne-WidokOdStronyPlant-POL%2C_Krak%C3%B3w.jpg",
+   "imageCredit": {
+    "author": "Mach240390",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:MuzeumArcheologiczne-WidokOdStronyPlant-POL,_Krak%C3%B3w.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q3329434",
+   "file": "File:MuzeumArcheologiczne-WidokOdStronyPlant-POL, Kraków.jpg"
+  },
+  "muzeum-armii-krajowej": {
+   "name": "Muzeum Armii Krajowej",
+   "lat": 50.0723886,
+   "lng": 19.9487071,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5f/Muzeum_AK.jpg/960px-Muzeum_AK.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5f/Muzeum_AK.jpg/330px-Muzeum_AK.jpg",
+   "imageCredit": {
+    "author": "Muzeum1942",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Muzeum_AK.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q4793410",
+   "file": "File:Muzeum AK.jpg"
+  },
+  "muzeum-farmacji-uj": {
+   "name": "Muzeum Farmacji UJ",
+   "lat": 50.0632264,
+   "lng": 19.9403302,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/Krak%C3%B3w_Muzeum_Farmacji_CMUJ.JPG/960px-Krak%C3%B3w_Muzeum_Farmacji_CMUJ.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/Krak%C3%B3w_Muzeum_Farmacji_CMUJ.JPG/330px-Krak%C3%B3w_Muzeum_Farmacji_CMUJ.JPG",
+   "imageCredit": {
+    "author": "Reytan",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "source": "https://commons.wikimedia.org/wiki/File:Krak%C3%B3w_Muzeum_Farmacji_CMUJ.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11786965",
+   "file": "File:Kraków Muzeum Farmacji CMUJ.JPG"
+  },
+  "muzeum-i-archiwum-marii-angeli-truszkowskiej": {
+   "name": "Muzeum i Archiwum Marii Angeli Truszkowskiej",
+   "lat": 50.0613744,
+   "lng": 19.9417126,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/92/Convent_of_the_Congregation_of_Felician_Sisters%2C_18_Mikolajska_str%2C_Old_Town%2C_Krakow%2C_Poland.jpg/960px-Convent_of_the_Congregation_of_Felician_Sisters%2C_18_Mikolajska_str%2C_Old_Town%2C_Krakow%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/92/Convent_of_the_Congregation_of_Felician_Sisters%2C_18_Mikolajska_str%2C_Old_Town%2C_Krakow%2C_Poland.jpg/330px-Convent_of_the_Congregation_of_Felician_Sisters%2C_18_Mikolajska_str%2C_Old_Town%2C_Krakow%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Zetpe0202 Zetpe0202",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Convent_of_the_Congregation_of_Felician_Sisters,_18_Mikolajska_str,_Old_Town,_Krakow,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11787298",
+   "file": "File:Convent of the Congregation of Felician Sisters, 18 Mikolajska str, Old Town, Krakow, Poland.jpg"
+  },
+  "muzeum-im-emeryka-hutten-czapskiego": {
+   "name": "Muzeum im. Emeryka Hutten-Czapskiego",
+   "lat": 50.0599089,
+   "lng": 19.930167,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Pa%C5%82acyk_Emeryka_Hutten-Czapskiego_Fotka_062.jpg/960px-Pa%C5%82acyk_Emeryka_Hutten-Czapskiego_Fotka_062.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Pa%C5%82acyk_Emeryka_Hutten-Czapskiego_Fotka_062.jpg/330px-Pa%C5%82acyk_Emeryka_Hutten-Czapskiego_Fotka_062.jpg",
+   "imageCredit": {
+    "author": "Marcin Zieliński",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+    "source": "https://commons.wikimedia.org/wiki/File:Pa%C5%82acyk_Emeryka_Hutten-Czapskiego_Fotka_062.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1338606",
+   "file": "File:Pałacyk Emeryka Hutten-Czapskiego Fotka 062.jpg"
+  },
+  "national-museum": {
+   "name": "Muzeum Narodowe w Krakowie",
+   "lat": 50.0604376,
+   "lng": 19.923608,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e9/Building_of_the_National_Museum_in_Krak%C3%B3w%2C_01.jpg/960px-Building_of_the_National_Museum_in_Krak%C3%B3w%2C_01.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e9/Building_of_the_National_Museum_in_Krak%C3%B3w%2C_01.jpg/330px-Building_of_the_National_Museum_in_Krak%C3%B3w%2C_01.jpg",
+   "imageCredit": {
+    "author": "Chris Olszewski",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Building_of_the_National_Museum_in_Krak%C3%B3w,_01.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q195311",
+   "file": "File:Building of the National Museum in Kraków, 01.jpg"
+  },
+  "nowa-huta-museum": {
+   "name": "Muzeum Nowej Huty",
+   "lat": 50.0699606,
+   "lng": 20.0412156,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/72/Museum_of_Polish_People%27s_Republic_%28former_movie_theater_Swiatowid%29%2C_1_Centrum_E%2C_Nowa_Huta%2C_Krakow%2C_Poland.jpg/960px-Museum_of_Polish_People%27s_Republic_%28former_movie_theater_Swiatowid%29%2C_1_Centrum_E%2C_Nowa_Huta%2C_Krakow%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/72/Museum_of_Polish_People%27s_Republic_%28former_movie_theater_Swiatowid%29%2C_1_Centrum_E%2C_Nowa_Huta%2C_Krakow%2C_Poland.jpg/330px-Museum_of_Polish_People%27s_Republic_%28former_movie_theater_Swiatowid%29%2C_1_Centrum_E%2C_Nowa_Huta%2C_Krakow%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Zygmunt Put Zetpe0202",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Museum_of_Polish_People%27s_Republic_(former_movie_theater_Swiatowid),_1_Centrum_E,_Nowa_Huta,_Krakow,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11787196",
+   "file": "File:Museum of Polish People's Republic (former movie theater Swiatowid), 1 Centrum E, Nowa Huta, Krakow, Poland.jpg"
+  },
+  "nowohuckie-centrum-kultury": {
+   "name": "Nowohuckie Centrum Kultury",
+   "lat": 50.0707971,
+   "lng": 20.0348482,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/58/Nowa_Huta_Cultural_Center%2C_232_Pope_John_Paul_II_Av.%2C_Nowa_Huta%2C_Krakow%2C_Poland.jpg/960px-Nowa_Huta_Cultural_Center%2C_232_Pope_John_Paul_II_Av.%2C_Nowa_Huta%2C_Krakow%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/58/Nowa_Huta_Cultural_Center%2C_232_Pope_John_Paul_II_Av.%2C_Nowa_Huta%2C_Krakow%2C_Poland.jpg/330px-Nowa_Huta_Cultural_Center%2C_232_Pope_John_Paul_II_Av.%2C_Nowa_Huta%2C_Krakow%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Zygmunt Put Zetpe0202",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Nowa_Huta_Cultural_Center,_232_Pope_John_Paul_II_Av.,_Nowa_Huta,_Krakow,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11793745",
+   "file": "File:Nowa Huta Cultural Center, 232 Pope John Paul II Av., Nowa Huta, Krakow, Poland.jpg"
+  },
+  "ogrod-doswiadczen-im-stanislawa-lema": {
+   "name": "Ogród Doświadczeń im. Stanisława Lema",
+   "lat": 50.0681673,
+   "lng": 19.9965944,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Czy%C5%BCyny%2C_Krak%C3%B3w%2C_Poland_-_panoramio_%2831%29.jpg/960px-Czy%C5%BCyny%2C_Krak%C3%B3w%2C_Poland_-_panoramio_%2831%29.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Czy%C5%BCyny%2C_Krak%C3%B3w%2C_Poland_-_panoramio_%2831%29.jpg/330px-Czy%C5%BCyny%2C_Krak%C3%B3w%2C_Poland_-_panoramio_%2831%29.jpg",
+   "imageCredit": {
+    "author": "marek7400",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Czy%C5%BCyny,_Krak%C3%B3w,_Poland_-_panoramio_(31).jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11796751",
+   "file": "File:Czyżyny, Kraków, Poland - panoramio (31).jpg"
+  },
+  "old-synagogue": {
+   "name": "Stara Synagoga",
+   "lat": 50.0513717,
+   "lng": 19.9486129,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Alte_Synagoge_%28Krakau%29.jpg/960px-Alte_Synagoge_%28Krakau%29.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Alte_Synagoge_%28Krakau%29.jpg/330px-Alte_Synagoge_%28Krakau%29.jpg",
+   "imageCredit": {
+    "author": "Marco Almbauer",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Alte_Synagoge_(Krakau).jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q3502453",
+   "file": "File:Alte Synagoge (Krakau).jpg"
+  },
+  "old-town-aparthotel": {
+   "name": "Old Town Aparthotel",
+   "lat": 50.0572594,
+   "lng": 19.9407991,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/13/Aparthotel_Old_Town.jpg/960px-Aparthotel_Old_Town.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/13/Aparthotel_Old_Town.jpg/330px-Aparthotel_Old_Town.jpg",
+   "imageCredit": {
+    "author": "Ivan Ruggiero",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Aparthotel_Old_Town.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q112001014",
+   "file": "File:Aparthotel Old Town.jpg"
+  },
+  "palac-czarkowskich": {
+   "name": "Pałac Czarkowskich",
+   "lat": 50.0595856,
+   "lng": 19.9324834,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/Krak%C3%B3w%2C_Straszewskiego_20_-_fotopolska.eu_%28338599%29.jpg/960px-Krak%C3%B3w%2C_Straszewskiego_20_-_fotopolska.eu_%28338599%29.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/Krak%C3%B3w%2C_Straszewskiego_20_-_fotopolska.eu_%28338599%29.jpg/330px-Krak%C3%B3w%2C_Straszewskiego_20_-_fotopolska.eu_%28338599%29.jpg",
+   "imageCredit": {
+    "author": "KazimierzP",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Krak%C3%B3w,_Straszewskiego_20_-_fotopolska.eu_(338599).jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11814745",
+   "file": "File:Kraków, Straszewskiego 20 - fotopolska.eu (338599).jpg"
+  },
+  "palac-kirchmayerow": {
+   "name": "Pałac Kirchmayerów",
+   "lat": 50.0677305,
+   "lng": 20.107984,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d4/Kirchmayer%27s_Manor%2C_4_Suchy_Jar_street%2C_Pleszow%2C_Nowa_Huta%2C_Krakow%2C_Poland.jpg/960px-Kirchmayer%27s_Manor%2C_4_Suchy_Jar_street%2C_Pleszow%2C_Nowa_Huta%2C_Krakow%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d4/Kirchmayer%27s_Manor%2C_4_Suchy_Jar_street%2C_Pleszow%2C_Nowa_Huta%2C_Krakow%2C_Poland.jpg/330px-Kirchmayer%27s_Manor%2C_4_Suchy_Jar_street%2C_Pleszow%2C_Nowa_Huta%2C_Krakow%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Zygmunt Put Zetpe0202",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kirchmayer%27s_Manor,_4_Suchy_Jar_street,_Pleszow,_Nowa_Huta,_Krakow,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11814783",
+   "file": "File:Kirchmayer's Manor, 4 Suchy Jar street, Pleszow, Nowa Huta, Krakow, Poland.jpg"
+  },
+  "palac-tarnowskich": {
+   "name": "Pałac Tarnowskich",
+   "lat": 50.0704226,
+   "lng": 19.9423036,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/Na_Szlaku_Manor%2C_Krakow%2C_71_Szlak_street%2C_Krakow%2C_Poland.jpg/960px-Na_Szlaku_Manor%2C_Krakow%2C_71_Szlak_street%2C_Krakow%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/Na_Szlaku_Manor%2C_Krakow%2C_71_Szlak_street%2C_Krakow%2C_Poland.jpg/330px-Na_Szlaku_Manor%2C_Krakow%2C_71_Szlak_street%2C_Krakow%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Zygmunt Put Zetpe0202",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Na_Szlaku_Manor,_Krakow,_71_Szlak_street,_Krakow,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11814905",
+   "file": "File:Na Szlaku Manor, Krakow, 71 Szlak street, Krakow, Poland.jpg"
+  },
+  "palac-wolodkowiczow": {
+   "name": "Pałac Wołodkowiczów",
+   "lat": 50.0651603,
+   "lng": 19.9459815,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/33/2025_Krak%C3%B3w%2C_Pa%C5%82ac_Wo%C5%82odkowicz%C3%B3w_w_Krakowie.jpg/960px-2025_Krak%C3%B3w%2C_Pa%C5%82ac_Wo%C5%82odkowicz%C3%B3w_w_Krakowie.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/33/2025_Krak%C3%B3w%2C_Pa%C5%82ac_Wo%C5%82odkowicz%C3%B3w_w_Krakowie.jpg/330px-2025_Krak%C3%B3w%2C_Pa%C5%82ac_Wo%C5%82odkowicz%C3%B3w_w_Krakowie.jpg",
+   "imageCredit": {
+    "author": "Igor123121",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:2025_Krak%C3%B3w,_Pa%C5%82ac_Wo%C5%82odkowicz%C3%B3w_w_Krakowie.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11814887",
+   "file": "File:2025 Kraków, Pałac Wołodkowiczów w Krakowie.jpg"
+  },
+  "park-jalu-kurka": {
+   "name": "Park Jalu Kurka",
+   "lat": 50.0697906,
+   "lng": 19.9419666,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/Park_Jalu_Kurka.jpg/960px-Park_Jalu_Kurka.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/Park_Jalu_Kurka.jpg/330px-Park_Jalu_Kurka.jpg",
+   "imageCredit": {
+    "author": "Sadads",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Park_Jalu_Kurka.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11811345",
+   "file": "File:Park Jalu Kurka.jpg"
+  },
+  "park-krakowski": {
+   "name": "Park Krakowski",
+   "lat": 50.0680746,
+   "lng": 19.9244493,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e8/2025_Krak%C3%B3w%2C_Park_Krakowski%2C_2.jpg/960px-2025_Krak%C3%B3w%2C_Park_Krakowski%2C_2.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e8/2025_Krak%C3%B3w%2C_Park_Krakowski%2C_2.jpg/330px-2025_Krak%C3%B3w%2C_Park_Krakowski%2C_2.jpg",
+   "imageCredit": {
+    "author": "Igor123121",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:2025_Krak%C3%B3w,_Park_Krakowski,_2.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q7137860",
+   "file": "File:2025 Kraków, Park Krakowski, 2.jpg"
+  },
+  "park-reduta": {
+   "name": "Park Reduta",
+   "lat": 50.096562,
+   "lng": 19.9851995,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/93/ParkReduta-Cz%C4%99%C5%9B%C4%87Le%C5%9Bna-POL%2C_Krak%C3%B3w.jpg/960px-ParkReduta-Cz%C4%99%C5%9B%C4%87Le%C5%9Bna-POL%2C_Krak%C3%B3w.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/93/ParkReduta-Cz%C4%99%C5%9B%C4%87Le%C5%9Bna-POL%2C_Krak%C3%B3w.jpg/330px-ParkReduta-Cz%C4%99%C5%9B%C4%87Le%C5%9Bna-POL%2C_Krak%C3%B3w.jpg",
+   "imageCredit": {
+    "author": "Mach240390",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:ParkReduta-Cz%C4%99%C5%9B%C4%87Le%C5%9Bna-POL,_Krak%C3%B3w.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q97186574",
+   "file": "File:ParkReduta-CzęśćLeśna-POL, Kraków.jpg"
+  },
+  "park-rogozinskich": {
+   "name": "Park Rogozińskich",
+   "lat": 50.066531,
+   "lng": 20.0510686,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/Park%2C_M%C5%82odo%C5%9Bci_Estate%2C_Mogi%C5%82a%2C_Nowa_Huta%2C_Krakow%2C_Poland.jpg/960px-Park%2C_M%C5%82odo%C5%9Bci_Estate%2C_Mogi%C5%82a%2C_Nowa_Huta%2C_Krakow%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/Park%2C_M%C5%82odo%C5%9Bci_Estate%2C_Mogi%C5%82a%2C_Nowa_Huta%2C_Krakow%2C_Poland.jpg/330px-Park%2C_M%C5%82odo%C5%9Bci_Estate%2C_Mogi%C5%82a%2C_Nowa_Huta%2C_Krakow%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Zygmunt Put Zetpe0202",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Park,_M%C5%82odo%C5%9Bci_Estate,_Mogi%C5%82a,_Nowa_Huta,_Krakow,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q15505467",
+   "file": "File:Park, Młodości Estate, Mogiła, Nowa Huta, Krakow, Poland.jpg"
+  },
+  "park-strzelecki": {
+   "name": "Park Strzelecki",
+   "lat": 50.0661408,
+   "lng": 19.9500345,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c0/Strzelecki_garden%2C_aerial_view_2025%2C_Krak%C3%B3w%2C_Poland.jpg/960px-Strzelecki_garden%2C_aerial_view_2025%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c0/Strzelecki_garden%2C_aerial_view_2025%2C_Krak%C3%B3w%2C_Poland.jpg/330px-Strzelecki_garden%2C_aerial_view_2025%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Igor123121",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Strzelecki_garden,_aerial_view_2025,_Krak%C3%B3w,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11811515",
+   "file": "File:Strzelecki garden, aerial view 2025, Kraków, Poland.jpg"
+  },
+  "piwnica-pod-baranami": {
+   "name": "Piwnica pod Baranami",
+   "lat": 50.0616022,
+   "lng": 19.9353977,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/Piwnica6.JPG/960px-Piwnica6.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/Piwnica6.JPG/330px-Piwnica6.JPG",
+   "imageCredit": {
+    "author": "Birczanin",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "source": "https://commons.wikimedia.org/wiki/File:Piwnica6.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q448341",
+   "file": "File:Piwnica6.JPG"
+  },
+  "planty": {
+   "name": "Planty",
+   "lat": 50.0612,
+   "lng": 19.9322,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/Planty_Garden%2C_pavilion%2C_Old_Town%2C_Krakow%2C_Poland.JPG/960px-Planty_Garden%2C_pavilion%2C_Old_Town%2C_Krakow%2C_Poland.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/Planty_Garden%2C_pavilion%2C_Old_Town%2C_Krakow%2C_Poland.JPG/330px-Planty_Garden%2C_pavilion%2C_Old_Town%2C_Krakow%2C_Poland.JPG",
+   "imageCredit": {
+    "author": "Zygmunt Put Zetpe0202",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Planty_Garden,_pavilion,_Old_Town,_Krakow,_Poland.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1945780",
+   "file": "File:Planty Garden, pavilion, Old Town, Krakow, Poland.JPG"
+  },
+  "pollera": {
+   "name": "Pollera",
+   "lat": 50.0635367,
+   "lng": 19.9415045,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7e/Poller_Hotel%2C_30_Szpitalna_street%2C_Old_Town%2C_Krakow%2C_Poland.jpg/960px-Poller_Hotel%2C_30_Szpitalna_street%2C_Old_Town%2C_Krakow%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7e/Poller_Hotel%2C_30_Szpitalna_street%2C_Old_Town%2C_Krakow%2C_Poland.jpg/330px-Poller_Hotel%2C_30_Szpitalna_street%2C_Old_Town%2C_Krakow%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Zygmunt Put Zetpe0202",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Poller_Hotel,_30_Szpitalna_street,_Old_Town,_Krakow,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q9294114",
+   "file": "File:Poller Hotel, 30 Szpitalna street, Old Town, Krakow, Poland.jpg"
+  },
+  "qubus": {
+   "name": "Qubus",
+   "lat": 50.0478857,
+   "lng": 19.9529689,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c7/Qubus_Hotel_Krak%C3%B3w.jpg/960px-Qubus_Hotel_Krak%C3%B3w.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c7/Qubus_Hotel_Krak%C3%B3w.jpg/330px-Qubus_Hotel_Krak%C3%B3w.jpg",
+   "imageCredit": {
+    "author": "Pere prlpz",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Qubus_Hotel_Krak%C3%B3w.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q111401112",
+   "file": "File:Qubus Hotel Kraków.jpg"
+  },
+  "remuh-synagogue": {
+   "name": "Synagoga Remuh",
+   "lat": 50.0526539,
+   "lng": 19.9472847,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a4/Remuh_Synagogue%2C_40_Szeroka_street%2C_Kazimierz%2C_Krakow%2C_Poland.jpg/960px-Remuh_Synagogue%2C_40_Szeroka_street%2C_Kazimierz%2C_Krakow%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a4/Remuh_Synagogue%2C_40_Szeroka_street%2C_Kazimierz%2C_Krakow%2C_Poland.jpg/330px-Remuh_Synagogue%2C_40_Szeroka_street%2C_Kazimierz%2C_Krakow%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Zygmunt Put",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Remuh_Synagogue,_40_Szeroka_street,_Kazimierz,_Krakow,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q3618",
+   "file": "File:Remuh Synagogue, 40 Szeroka street, Kazimierz, Krakow, Poland.jpg"
+  },
+  "royal": {
+   "name": "Royal",
+   "lat": 50.0545092,
+   "lng": 19.9393285,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c5/Royal_Hotel_in_Krak%C3%B3w_2014_bk02.jpg/960px-Royal_Hotel_in_Krak%C3%B3w_2014_bk02.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c5/Royal_Hotel_in_Krak%C3%B3w_2014_bk02.jpg/330px-Royal_Hotel_in_Krak%C3%B3w_2014_bk02.jpg",
+   "imageCredit": {
+    "author": "bartek444",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Royal_Hotel_in_Krak%C3%B3w_2014_bk02.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11710152",
+   "file": "File:Royal Hotel in Kraków 2014 bk02.jpg"
+  },
+  "rynek-glowny": {
+   "name": "Rynek Główny",
+   "lat": 50.0614961,
+   "lng": 19.9373512,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/Krakow_-_Cloth_Hall_from_Basilica_-_1.jpg/960px-Krakow_-_Cloth_Hall_from_Basilica_-_1.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/Krakow_-_Cloth_Hall_from_Basilica_-_1.jpg/330px-Krakow_-_Cloth_Hall_from_Basilica_-_1.jpg",
+   "imageCredit": {
+    "author": "Ingo Mehling",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Krakow_-_Cloth_Hall_from_Basilica_-_1.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q770631",
+   "file": "File:Krakow - Cloth Hall from Basilica - 1.jpg"
+  },
+  "rynek-underground": {
+   "name": "Rynek Podziemny",
+   "lat": 50.062005,
+   "lng": 19.9377768,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/Rynek_Underground%2C_2010.jpg/960px-Rynek_Underground%2C_2010.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/Rynek_Underground%2C_2010.jpg/330px-Rynek_Underground%2C_2010.jpg",
+   "imageCredit": {
+    "author": "Robin",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Rynek_Underground,_2010.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q5420576",
+   "file": "File:Rynek Underground, 2010.jpg"
+  },
+  "schindler-factory": {
+   "name": "Fabryka Schindlera",
+   "lat": 50.0474464,
+   "lng": 19.9617019,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Krak%C3%B3w_-_Fabryka_Emalia_Oskara_Schindlera_20240813-02.jpg/960px-Krak%C3%B3w_-_Fabryka_Emalia_Oskara_Schindlera_20240813-02.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Krak%C3%B3w_-_Fabryka_Emalia_Oskara_Schindlera_20240813-02.jpg/330px-Krak%C3%B3w_-_Fabryka_Emalia_Oskara_Schindlera_20240813-02.jpg",
+   "imageCredit": {
+    "author": "Pymouss",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Krak%C3%B3w_-_Fabryka_Emalia_Oskara_Schindlera_20240813-02.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q286522",
+   "file": "File:Kraków - Fabryka Emalia Oskara Schindlera 20240813-02.jpg"
+  },
+  "sheraton": {
+   "name": "Sheraton",
+   "lat": 50.056027,
+   "lng": 19.9308936,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/22/Sheraton_Krakow_Hotel%2C_7_Powi%C5%9Ble_street%2C_Krak%C3%B3w%2C_Poland.jpg/960px-Sheraton_Krakow_Hotel%2C_7_Powi%C5%9Ble_street%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/22/Sheraton_Krakow_Hotel%2C_7_Powi%C5%9Ble_street%2C_Krak%C3%B3w%2C_Poland.jpg/330px-Sheraton_Krakow_Hotel%2C_7_Powi%C5%9Ble_street%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Zygmunt Put",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Sheraton_Krakow_Hotel,_7_Powi%C5%9Ble_street,_Krak%C3%B3w,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q9294147",
+   "file": "File:Sheraton Krakow Hotel, 7 Powiśle street, Kraków, Poland.jpg"
+  },
+  "st-marys-basilica": {
+   "name": "Bazylika Mariacka",
+   "lat": 50.0616547,
+   "lng": 19.9394485,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/Kosciol_mariacki_krakow.jpg/960px-Kosciol_mariacki_krakow.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/Kosciol_mariacki_krakow.jpg/330px-Kosciol_mariacki_krakow.jpg",
+   "imageCredit": {
+    "author": "Pgkos",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kosciol_mariacki_krakow.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1143171",
+   "file": "File:Kosciol mariacki krakow.jpg"
+  },
+  "stained-glass-museum": {
+   "name": "Muzeum Witrażu",
+   "lat": 50.0590085,
+   "lng": 19.9257049,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/62/Museum_of_stained_glass%2C_Krak%C3%B3w.JPG/960px-Museum_of_stained_glass%2C_Krak%C3%B3w.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/62/Museum_of_stained_glass%2C_Krak%C3%B3w.JPG/330px-Museum_of_stained_glass%2C_Krak%C3%B3w.JPG",
+   "imageCredit": {
+    "author": "Cancre",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Museum_of_stained_glass,_Krak%C3%B3w.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q6944430",
+   "file": "File:Museum of stained glass, Kraków.JPG"
+  },
+  "stradom-house": {
+   "name": "Stradom House",
+   "lat": 50.0527837,
+   "lng": 19.940874,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2b/Former_St_Hedwig_of_Andechs_Church_%28apse%29%2CStradom%2CKrakow%2CPoland.JPG/960px-Former_St_Hedwig_of_Andechs_Church_%28apse%29%2CStradom%2CKrakow%2CPoland.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2b/Former_St_Hedwig_of_Andechs_Church_%28apse%29%2CStradom%2CKrakow%2CPoland.JPG/330px-Former_St_Hedwig_of_Andechs_Church_%28apse%29%2CStradom%2CKrakow%2CPoland.JPG",
+   "imageCredit": {
+    "author": "Zygmunt Put Zetpe0202",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Former_St_Hedwig_of_Andechs_Church_(apse),Stradom,Krakow,Poland.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11746727",
+   "file": "File:Former St Hedwig of Andechs Church (apse),Stradom,Krakow,Poland.JPG"
+  },
+  "stylowa": {
+   "name": "Stylowa",
+   "lat": 50.0746969,
+   "lng": 20.0378777,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5e/Stylowa_Restaurant%2C_3_Centrum_C%2CNowa_Huta%2CKrakow%2CPoland.JPG/960px-Stylowa_Restaurant%2C_3_Centrum_C%2CNowa_Huta%2CKrakow%2CPoland.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5e/Stylowa_Restaurant%2C_3_Centrum_C%2CNowa_Huta%2CKrakow%2CPoland.JPG/330px-Stylowa_Restaurant%2C_3_Centrum_C%2CNowa_Huta%2CKrakow%2CPoland.JPG",
+   "imageCredit": {
+    "author": "Zygmunt Put",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Stylowa_Restaurant,_3_Centrum_C,Nowa_Huta,Krakow,Poland.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q9307519",
+   "file": "File:Stylowa Restaurant, 3 Centrum C,Nowa Huta,Krakow,Poland.JPG"
+  },
+  "szary-dom": {
+   "name": "Szary Dom",
+   "lat": 50.0331326,
+   "lng": 19.9663561,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7f/KL_Plaszow_former_german_concentration_camp%2C_Grey_House-prison%28karzer%29%2CKrakow%2CPoland.JPG/960px-KL_Plaszow_former_german_concentration_camp%2C_Grey_House-prison%28karzer%29%2CKrakow%2CPoland.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7f/KL_Plaszow_former_german_concentration_camp%2C_Grey_House-prison%28karzer%29%2CKrakow%2CPoland.JPG/330px-KL_Plaszow_former_german_concentration_camp%2C_Grey_House-prison%28karzer%29%2CKrakow%2CPoland.JPG",
+   "imageCredit": {
+    "author": "Zygmunt Put Zetpe0202",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:KL_Plaszow_former_german_concentration_camp,_Grey_House-prison(karzer),Krakow,Poland.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11732951",
+   "file": "File:KL Plaszow former german concentration camp, Grey House-prison(karzer),Krakow,Poland.JPG"
+  },
+  "teatr-im-juliusza-slowackiego": {
+   "name": "Teatr im. Juliusza Słowackiego",
+   "lat": 50.0639462,
+   "lng": 19.9430484,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/Juliusz_S%C5%82owacki_Theatre%2C_view_in_winter%2C_1_%C5%9Awi%C4%99tego_Ducha_Square%2C_Old_Town%2C_Krak%C3%B3w%2C_Poland.jpg/960px-Juliusz_S%C5%82owacki_Theatre%2C_view_in_winter%2C_1_%C5%9Awi%C4%99tego_Ducha_Square%2C_Old_Town%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/Juliusz_S%C5%82owacki_Theatre%2C_view_in_winter%2C_1_%C5%9Awi%C4%99tego_Ducha_Square%2C_Old_Town%2C_Krak%C3%B3w%2C_Poland.jpg/330px-Juliusz_S%C5%82owacki_Theatre%2C_view_in_winter%2C_1_%C5%9Awi%C4%99tego_Ducha_Square%2C_Old_Town%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Jeremiah Z. Cockroach",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Juliusz_S%C5%82owacki_Theatre,_view_in_winter,_1_%C5%9Awi%C4%99tego_Ducha_Square,_Old_Town,_Krak%C3%B3w,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q3527492",
+   "file": "File:Juliusz Słowacki Theatre, view in winter, 1 Świętego Ducha Square, Old Town, Kraków, Poland.jpg"
+  },
+  "tempel-synagogue": {
+   "name": "Synagoga Tempel",
+   "lat": 50.052938,
+   "lng": 19.9444445,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/Tempel_%28Progressive%29_Synagogue%2C_1860_desig._Ignacy_Hercok%2C_24_Miodowa_street%2C_Kazimierz%2C_Krak%C3%B3w%2C_Poland.jpg/960px-Tempel_%28Progressive%29_Synagogue%2C_1860_desig._Ignacy_Hercok%2C_24_Miodowa_street%2C_Kazimierz%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/Tempel_%28Progressive%29_Synagogue%2C_1860_desig._Ignacy_Hercok%2C_24_Miodowa_street%2C_Kazimierz%2C_Krak%C3%B3w%2C_Poland.jpg/330px-Tempel_%28Progressive%29_Synagogue%2C_1860_desig._Ignacy_Hercok%2C_24_Miodowa_street%2C_Kazimierz%2C_Krak%C3%B3w%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Zygmunt Put",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Tempel_(Progressive)_Synagogue,_1860_desig._Ignacy_Hercok,_24_Miodowa_street,_Kazimierz,_Krak%C3%B3w,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q3354482",
+   "file": "File:Tempel (Progressive) Synagogue, 1860 desig. Ignacy Hercok, 24 Miodowa street, Kazimierz, Kraków, Poland.jpg"
+  },
+  "vis-a-vis": {
+   "name": "Vis-à-vis",
+   "lat": 50.0617776,
+   "lng": 19.9357419,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/12/Vis-%C3%A0-vis_01_AB.jpg/960px-Vis-%C3%A0-vis_01_AB.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/12/Vis-%C3%A0-vis_01_AB.jpg/330px-Vis-%C3%A0-vis_01_AB.jpg",
+   "imageCredit": {
+    "author": "Chepry 💬 ( Andrzej Barabasz ) 📷 🇵🇱",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Vis-%C3%A0-vis_01_AB.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q9368909",
+   "file": "File:Vis-à-vis 01 AB.jpg"
+  },
+  "wawel-castle": {
+   "name": "Zamek Królewski na Wawelu",
+   "lat": 50.0544127,
+   "lng": 19.936564,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b0/Wawel_on_Wisla.JPG/960px-Wawel_on_Wisla.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b0/Wawel_on_Wisla.JPG/330px-Wawel_on_Wisla.JPG",
+   "imageCredit": {
+    "author": "Stanislau 93",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Wawel_on_Wisla.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q18820",
+   "file": "File:Wawel on Wisla.JPG"
+  },
+  "wierzynek": {
+   "name": "Wierzynek",
+   "lat": 50.0603841,
+   "lng": 19.9374073,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Kamienica_Morsztynowska%2C_Krak%C3%B3w.jpg/960px-Kamienica_Morsztynowska%2C_Krak%C3%B3w.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Kamienica_Morsztynowska%2C_Krak%C3%B3w.jpg/330px-Kamienica_Morsztynowska%2C_Krak%C3%B3w.jpg",
+   "imageCredit": {
+    "author": "Cancre",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kamienica_Morsztynowska,_Krak%C3%B3w.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q9373377",
+   "file": "File:Kamienica Morsztynowska, Kraków.jpg"
+  },
+  "wieza-ratuszowa": {
+   "name": "Wieża Ratuszowa",
+   "lat": 50.0614744,
+   "lng": 19.9364146,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/46/Krakau_-_Rathausturm.jpg/960px-Krakau_-_Rathausturm.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/46/Krakau_-_Rathausturm.jpg/330px-Krakau_-_Rathausturm.jpg",
+   "imageCredit": {
+    "author": "Taxiarchos228",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Krakau_-_Rathausturm.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1786361",
+   "file": "File:Krakau - Rathausturm.jpg"
+  },
+  "wyzsze-seminarium-duchowne-archidiecezji-krakowskiej": {
+   "name": "Wyższe Seminarium Duchowne Archidiecezji Krakowskiej",
+   "lat": 50.0601912,
+   "lng": 19.9315219,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/Palace_of_Oginski_and_Potulicki_families%2C_4_Pilsudskiego_street%2C_Krakow%2C_Poland.jpg/960px-Palace_of_Oginski_and_Potulicki_families%2C_4_Pilsudskiego_street%2C_Krakow%2C_Poland.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/Palace_of_Oginski_and_Potulicki_families%2C_4_Pilsudskiego_street%2C_Krakow%2C_Poland.jpg/330px-Palace_of_Oginski_and_Potulicki_families%2C_4_Pilsudskiego_street%2C_Krakow%2C_Poland.jpg",
+   "imageCredit": {
+    "author": "Zygmunt Put Zetpe0202",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Palace_of_Oginski_and_Potulicki_families,_4_Pilsudskiego_street,_Krakow,_Poland.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11814824",
+   "file": "File:Palace of Oginski and Potulicki families, 4 Pilsudskiego street, Krakow, Poland.jpg"
+  }
+ }
+}

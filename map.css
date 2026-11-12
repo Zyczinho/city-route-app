@@ -39,31 +39,37 @@
 /* Place card: bottom sheet on phones, floating card on wider screens; both keep the OSM attribution visible */
 .cr-map-card{position:absolute;left:8px;right:8px;bottom:var(--cr-attribution,34px);z-index:1001;display:grid;gap:6px;padding:12px;background:var(--surface);border-radius:16px;box-shadow:0 -4px 18px #0e1a261c;max-height:44%;overflow:auto;animation:cr-map-up .2s ease-out}
 .cr-map-card[hidden]{display:none}
+.cr-map-card-head{display:grid;grid-template-columns:minmax(0,1fr) 44px;align-items:center;column-gap:8px}
+.cr-map-card-copy{min-width:0}
+.cr-map-card-head.has-photo{grid-template-columns:48px minmax(0,1fr) 44px}
+.cr-map-card-photo{display:block;width:48px;height:48px;border-radius:9px;overflow:hidden;background:var(--line-2)}
+.cr-map-card-photo img{display:block;width:100%;height:100%;object-fit:cover}
+.cr-map-card-head .kicker{margin:0}
+.cr-map-card-head h3{min-width:0;margin:0}
 .cr-map-card-text{font-size:14px;color:var(--ink-2)}
 .cr-map-card-actions{display:flex;flex-wrap:wrap;gap:8px}
 .cr-map-card-actions .primary{flex:1}
-.cr-map-card-close{width:44px;padding:0;font-size:22px}
+.cr-map-card-close{grid-column:-2;grid-row:1;position:static;width:44px;height:44px;min-width:44px;min-height:44px;padding:0;border:0;background:transparent;justify-self:end}
+.cr-map-card-close .i{width:16px;height:16px}
 @keyframes cr-map-up{from{transform:translateY(16px);opacity:.6}}
 @media(max-width:759px){
- .cr-map-card{top:calc(100% - 162px);bottom:auto;left:12px;right:12px;max-height:124px;padding:9px 12px;gap:3px;border-radius:14px}
+ .cr-map-card{top:calc(100% - 162px);bottom:auto;left:12px;right:12px;max-height:124px;padding:8px 10px;gap:2px;border-radius:14px}
  .cr-map-card-head .kicker,.cr-map-card-text{display:none}
- .cr-map-card-head h3{font-size:14px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:22px}
- .cr-map-card-actions{flex-wrap:nowrap;gap:5px}
- .cr-map-card-actions button{font-size:12px;min-height:32px;padding:5px 8px}
- .cr-map-card-actions .primary{flex:1 1 60px}
- .cr-map-card-close{position:absolute;top:5px;right:6px;width:28px;min-height:28px!important;padding:0!important}
+ .cr-map-card-head h3{font-size:14px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:0}
+ .cr-map-card-actions{flex-wrap:wrap;gap:6px}
+ .cr-map-card-actions button{box-sizing:border-box;min-width:44px;min-height:44px;padding:6px 10px;font-size:12px;line-height:1.2;border-radius:10px}
+ .cr-map-card-actions .primary{flex:0 1 auto}
 }
 @media(min-width:760px){.cr-map-card{left:auto;right:12px;bottom:var(--cr-attribution,34px);width:360px;border-radius:18px}}
 @media(prefers-reduced-motion:reduce){.cr-map-card{animation:none}.cr-pin.is-selected{transform:none}}
 
 /* Keep a clear finger-scroll corridor around the map on narrow screens. */
-.places-map-shell{margin:12px 16px 20px}
+/* Room for vertical page scrolling outside a freely draggable map on touch screens. */
+.places-map-shell{margin:12px 20px 20px}
 @media(max-width:759px){
   .cr-map{min-height:0;height:clamp(330px,53svh,460px)}
   .cr-map-toolbar{flex-wrap:wrap}
   .cr-map-toolbar button{flex:1 1 auto;min-width:0;padding:8px 10px;font-size:13px}
 }
-/* Leaflet normally captures one-finger gestures; let page pan-y win until the user opts into map interaction. */
-.cr-map.is-scroll-mode .cr-map-canvas,
-.cr-map.is-scroll-mode .leaflet-container{touch-action:pan-y!important}
+/* Leaflet captures one-finger drag inside the map; the 20px horizontal gutters allow page scrolling. */
 @media(min-width:760px){.places-map-shell{margin:12px 0 18px}}

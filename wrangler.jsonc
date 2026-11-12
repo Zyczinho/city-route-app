@@ -7,8 +7,25 @@
     "directory": "./dist",
     "binding": "ASSETS"
   },
-  // Required by Cloudflare Worker Previews on non-main branches.
-  // Empty: no production secrets/bindings copied into preview environments.
-  "previews": {},
+  // Preview settings are isolated from production; secret values must NEVER be committed.
+  // These are low, per-isolate soft caps only. A provider-side hard quota is required
+  // before enabling paid Google Places calls. Start fail-closed.
+  "previews": {
+    "vars": {
+      "GOOGLE_PLACES_BETA_ENABLED": "off",
+      "GOOGLE_PLACES_DAILY_CAP": "5",
+      "GOOGLE_THUMBS_DAILY_CAP": "5",
+      "GOOGLE_PLACES_AUTOCOMPLETE": "off",
+      "GOOGLE_PLACES_INCLUDE_REVIEWS": "off",
+      "TRIPADVISOR_CONTENT_BETA_ENABLED": "off",
+      "TRIPADVISOR_CONTENT_INCLUDE_REVIEWS": "off",
+      "TRIPADVISOR_TERRA_INCLUDE_REVIEWS": "off"
+    }
+  },
+  // Anonymous funnel counters (metrics.js). Read with:
+  // npx wrangler d1 execute city-route-metrics --remote --command "SELECT day,type,COUNT(*) n,COUNT(DISTINCT device) devices FROM metric_events GROUP BY day,type ORDER BY day DESC"
+  "d1_databases": [
+    {"binding": "METRICS", "database_name": "city-route-metrics", "database_id": "60ab7801-9627-495b-bfbc-d8f69d213c50"}
+  ],
   "workers_dev": true
 }

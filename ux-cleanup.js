@@ -26,9 +26,12 @@ function updatePlannerSummaries(form){
  if(interestTarget)interestTarget.textContent=shortList(interests,'Wszystko po trochu');
  if(advancedTarget){
   const transport=checkedLabel(form,'transport');
-  const budget=checkedLabel(form,'budget');
   const start=checkedLabel(form,'start');
-  const parts=[transport,budget,start==='Stąd, gdzie jestem'?'Start tutaj':start].filter(Boolean);
+  const avoid=checkedLabels(form,'avoid');
+  const coffee=form.querySelector('input[name="coffee"]');
+  const parts=[transport,start==='Stąd, gdzie jestem'?'Start tutaj':start].filter(Boolean);
+  if(coffee&&!coffee.checked)parts.push('Bez przerwy');
+  if(avoid.length)parts.push('Bez: '+shortList(avoid,''));
   advancedTarget.textContent=shortList(parts,'Domyślne');
  }
 }
@@ -47,11 +50,13 @@ function cleanPlanner(){
  const form=document.querySelector('#build-form.planner');
  if(!form||form.dataset.uxClean==='1')return;
  const field=name=>form.querySelector(`input[name="${name}"]`)?.closest('fieldset');
- const time=field('time'),interests=field('interests'),when=field('visitDate'),visitMode=field('visitMode');
+ const time=field('time'),interests=field('interests'),when=field('visitDate');
  if(!time||!interests)return;
- const transport=field('transport'),food=field('food'),start=field('start'),budget=field('budget'),tourist=field('tourist'),offers=field('offers');
+ // Start V3 (planner audit 2026-11-10): viewing mode, strictness, style and exact subtypes are no longer questions.
+ const transport=field('transport'),coffee=field('coffee'),start=field('start'),avoid=field('avoid');
  const note=form.querySelector('.planner-advanced-body .fine, details.more .fine');
  const submit=form.querySelector('button.primary.big');
+ const feedback=form.querySelector('.route-plan-feedback');
  if(!submit)return;
 
  form.dataset.uxClean='1';
@@ -61,25 +66,41 @@ function cleanPlanner(){
  if(head){
   head.classList.add('ux-plan-head');
   const kicker=head.querySelector('.kicker');if(kicker)kicker.hidden=true;
-  const h=head.querySelector('h1');if(h)h.textContent='Odkrywaj miasto po swojemu.';
-  const lead=head.querySelector('.lead');if(lead)lead.textContent='Znajduj wyjątkowe miejsca, układaj własne trasy i odkrywaj polecenia innych. Wybierz czas i zobacz pierwszą propozycję.';
+  const h=head.querySelector('h1');if(h)h.textContent='Twój plan na miasto.';
+  const lead=head.querySelector('.lead');if(lead)lead.textContent='Wybierz, co lubisz i ile masz czasu. City Route przygotuje propozycje trasy.';
  }
 
  const ready=head?.querySelector('a.inline')||null;
  if(ready){ready.textContent='Gotowe trasy';ready.className='ux-text-link';}
  let manual=[...document.querySelectorAll('a[href="#my-route"]')].find(a=>a.closest('#main')&&!a.closest('#navigation'))||null;
- if(manual){manual.textContent='Ułóż ręcznie';manual.className='ux-text-link';}
+ if(manual){
+  const choice=document.createElement('aside');
+  choice.className='ux-plan-manual-entry';
+  choice.setAttribute('aria-label','Samodzielne układanie trasy');
+  const description=document.createElement('span');
+  description.className='ux-plan-manual-copy';
+  const title=document.createElement('strong');title.textContent='Wolisz wybrać przystanki samodzielnie?';
+  const hint=document.createElement('small');hint.textContent='Dodawaj miejsca i układaj je we własnej kolejności.';
+  description.append(title,hint);
+  manual.href='#my-route';
+  manual.textContent='Ułóż sam';
+  manual.className='ux-plan-manual-link';
+  manual.setAttribute('aria-label','Ułóż trasę samodzielnie w Mojej trasie');
+  manual.insertAdjacentHTML('beforeend',UX_CHEVRON);
+  choice.append(description,manual);
+  form.before(choice);
+ }
 
  const primary=document.createElement('section');primary.className='ux-planner-primary';
+ // Date and start time decide which places are open, so they stay visible next to the duration.
  time.classList.add('ux-time');primary.append(time);
- const whenDetails=disclosure('Kiedy chcesz zwiedzać?','data-ux-when-summary','ux-disclosure ux-when');
- if(when)whenDetails.body.append(when);
+ if(when){when.classList.add('ux-when-inline');primary.append(when);}
 
- const climate=disclosure('Klimat trasy','data-ux-interest-summary','ux-disclosure ux-climate');
+ const climate=disclosure('Co Cię interesuje?','data-ux-interest-summary','ux-disclosure ux-climate');climate.details.open=true;
  interests.classList.add('ux-interest-field');climate.body.append(interests);
 
  const advanced=disclosure('Więcej ustawień','data-ux-advanced-summary','ux-disclosure ux-advanced');
- for(const fs of [visitMode,transport,food,start,budget,tourist,offers])if(fs)advanced.body.append(fs);
+ for(const fs of [transport,coffee,start,avoid])if(fs)advanced.body.append(fs);
  if(note){note.textContent='Te ustawienia są opcjonalne.';advanced.body.append(note);}
 
  submit.textContent='Ułóż mi trasę';submit.classList.add('ux-submit');
@@ -87,11 +108,13 @@ function cleanPlanner(){
  const alternatives=document.createElement('nav');alternatives.className='ux-plan-alternatives';
  alternatives.setAttribute('aria-label','Inne sposoby odkrywania miasta');
  if(ready){ready.textContent='Gotowe trasy';alternatives.append(ready);}
- if(manual){manual.href='#places';manual.textContent='Odkrywaj miejsca';manual.className='ux-text-link';alternatives.append(manual);}
- const social=document.createElement('a');social.href='#routes/community';social.className='ux-text-link';social.textContent='Trasy innych';
+ const placesLink=document.createElement('a');
+ placesLink.href='#places';placesLink.textContent='Odkrywaj miejsca';placesLink.className='ux-text-link';
+ alternatives.append(placesLink);
+ const social=document.createElement('a');social.href='#routes/community';social.className='ux-text-link';social.textContent='Społeczność';
  alternatives.append(social);
 
- form.replaceChildren(primary,submit,alternatives,whenDetails.details,climate.details,advanced.details);
+ form.replaceChildren(climate.details,primary,...(feedback?[feedback]:[]),submit,alternatives,advanced.details);
  updatePlannerSummaries(form);
 }
 
@@ -111,7 +134,31 @@ function communityFocus(){
  }
 }
 
-function enhance(){cleanPlanner();communityFocus();}
+function clarifyManualRouteEntry(){
+ if(location.hash!=='#my-route')return;
+ const empty=main()?.querySelector('.empty-state');
+ if(!empty||empty.dataset.uxManualReady==='1')return;
+ empty.dataset.uxManualReady='1';
+ const title=empty.querySelector('h1');
+ if(title)title.textContent='Ułóż trasę samodzielnie.';
+ const lead=empty.querySelector('p');
+ if(lead)lead.textContent='Wybierz miejsca w katalogu, dodaj je do Mojej trasy, ustaw kolejność i zapisz gotowy plan.';
+ const links=empty.querySelector('.stack');
+ if(!links)return;
+ const add=links.querySelector('a[href="#places"]');
+ const ready=links.querySelector('a[href="#routes"]');
+ const automatic=links.querySelector('a[href="#plan"]');
+ const relabel=(element,label)=>{
+  if(!element)return;
+  const icon=element.querySelector('.i');
+  element.replaceChildren(...(icon?[icon]:[]),document.createTextNode(label));
+ };
+ if(add){add.classList.add('primary');relabel(add,'Wybierz pierwsze miejsce');links.prepend(add);}
+ if(ready){ready.classList.remove('primary');relabel(ready,'Zobacz gotowe trasy');}
+ if(automatic)relabel(automatic,'Wolę plan automatyczny');
+}
+
+function enhance(){cleanPlanner();clarifyManualRouteEntry();communityFocus();}
 document.addEventListener('change',e=>{const form=e.target.closest?.('#build-form.ux-planner');if(form)updatePlannerSummaries(form);});
 window.addEventListener('hashchange',()=>setTimeout(enhance,0));
 new MutationObserver(enhance).observe(main()||document.documentElement,{subtree:true,childList:true});

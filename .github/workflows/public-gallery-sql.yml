@@ -5,13 +5,6 @@ on:
       - 'scripts/staged-place-public-gallery-20261105.sql'
       - 'tests/sql/public-gallery-*.sql'
       - '.github/workflows/public-gallery-sql.yml'
-  push:
-    branches:
-      - 'work/public-place-gallery-059-*'
-    paths:
-      - 'scripts/staged-place-public-gallery-20261105.sql'
-      - 'tests/sql/public-gallery-*.sql'
-      - '.github/workflows/public-gallery-sql.yml'
   workflow_dispatch:
 jobs:
   gallery-sql:

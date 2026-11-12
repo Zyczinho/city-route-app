@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {titleMatch,wikiSearchUrl,pickWikiPages,commonsInfoUrl,googleCandidate,findPlacePhotoCandidates,acceptedPhotoRecord,readAcceptedPhoto,acceptedGooglePlaceId,googleCandidateFromEnrichment,enrichmentUrl} from '../place-photo-proposal.js';
+import {titleMatch,wikiSearchUrl,pickWikiPages,commonsInfoUrl,googleCandidate,findPlacePhotoCandidates,acceptedPhotoRecord,readAcceptedPhoto,acceptedGooglePlaceId,googleCandidateFromEnrichment,enrichmentUrl,autoPhotoCandidateIndex} from '../place-photo-proposal.js';
 import {licensedCommonsImage} from '../commons-photo-source.js';
 const read=n=>readFileSync(new URL('../'+n,import.meta.url),'utf8');
 
@@ -90,9 +90,27 @@ test('Google photo is a preview only; only Wikimedia proposals are stored on the
  assert.equal(readAcceptedPhoto('{broken'),null);
 });
 
+test('verified Wikipedia/Google photos are defaulted, but nearby Commons guesses require explicit choice',()=>{
+ const licensed={kind:'wikipedia',src:'https://thumb.wikimedia.org/a.jpg',author:'T',license:'CC BY 4.0',
+  licenseUrl:'https://creativecommons.org/licenses/by/4.0',source:'https://commons.wikimedia.org/wiki/File:a.jpg',via:'Wikimedia Commons'};
+ const nearby={...licensed,kind:'commons'};
+ const google={kind:'google',src:'/api/place-photo?id=ChIJabcdefghijk',via:'Google Maps',googlePlaceId:'ChIJabcdefghijk'};
+ assert.equal(autoPhotoCandidateIndex([nearby,licensed]),1);
+ assert.equal(autoPhotoCandidateIndex([google]),0);
+ assert.equal(autoPhotoCandidateIndex([nearby]),-1,'nearby Commons is not necessarily this venue');
+ assert.equal(autoPhotoCandidateIndex([{...licensed,src:'https://evil.example/a.jpg'}]),-1);
+ assert.equal(autoPhotoCandidateIndex([{...google,googlePlaceId:'bad id'}]),-1);
+ assert.equal(autoPhotoCandidateIndex([]),-1);
+ assert.equal(autoPhotoCandidateIndex(null),-1);
+});
+
 test('composer proposes automatically and the user decides; app.js stores it only without own photos',()=>{
  const composer=read('place-composer.js'),app=read('app.js'),sw=read('service-worker.js'),build=read('scripts/build.mjs');
  assert.match(composer,/proposePhoto\(form,selection\)/,'proposal starts right after a venue is chosen');
+ assert.match(composer,/const autoIndex=autoPhotoCandidateIndex\(result\.candidates\)/,'only verified candidates become automatic defaults');
+ assert.match(composer,/accepted:autoIndex>=0,autoSelected:autoIndex>=0/);
+ assert.match(composer,/Zdjęcie wybrane automatycznie/);
+ assert.match(composer,/proposal\.accepted=false;proposal\.autoSelected=false;proposal\.skipped=true/,'Skip always cancels the auto choice');
  for(const action of ['accept','next','skip','own'])assert.match(composer,new RegExp(`data-pc-photo="${action}"`));
  assert.match(composer,/Nie mamy pewnego zdjęcia tego miejsca/);
  assert.match(app,/const proposed=!localImages\.length&&!draft\.image\?readAcceptedPhoto\(f\.dataset\.pcPhoto\):null/);
@@ -143,7 +161,40 @@ test('Worker Google soft cap defaults to the documented 300 per instance, not 25
 
 test('Add Place never widens the phone layout: file input stays inside its label, photo buttons wrap',()=>{
  const gallery=read('place-photo-gallery.css'),composer=read('place-composer.css');
- assert.match(gallery,/#place-form label\.file\{position:relative;overflow:hidden\}/);
- assert.match(gallery,/#place-form \.file input\[type=file\]\{position:absolute;inset:0;width:100%;height:100%/);
+ assert.match(gallery,/#place-form label\.file\{position:relative;overflow:hidden;cursor:pointer\}/);
+ assert.match(gallery,/#place-form \.file input\[type=file\]\{\s*position:absolute;inset:auto;left:0;top:0;width:1px;height:1px/);
+ assert.match(gallery,/clip-path:inset\(50%\);pointer-events:none/);
  assert.match(composer,/\.pc-photo-actions button\{flex:1 1 130px;min-width:0;/);
+});
+
+test('"Inne zdjęcie": a Google place offers its other photos, each with its own author, and the choice is kept',async()=>{
+ const {pickGooglePhoto}=await import('../photo-quality.js');
+ const {placeDetails}=await import('../geocode.js');
+ const {acceptedGooglePhotoChoice,googleAlternatives}=await import('../place-photo-proposal.js');
+ const g=(name,author)=>({name:'places/X/photos/'+name,widthPx:1600,heightPx:1200,authorAttributions:[{displayName:author,uri:'https://maps.google.com/u/'+author}]});
+ const photos=[g('a','Ling'),g('b','Ola'),g('c','Piotr'),g('d','Kasia'),g('e','Tomek')];
+ // Choice 0 is the best photo; choices 1… are the others in Google's order; out of range is nothing, not a repeat.
+ assert.equal(pickGooglePhoto(photos,0).photo.name,'places/X/photos/a');
+ assert.equal(pickGooglePhoto(photos,1).photo.name,'places/X/photos/b');
+ assert.equal(pickGooglePhoto(photos,3).photo.name,'places/X/photos/d');
+ assert.equal(pickGooglePhoto(photos.slice(0,2),2),null);
+ const fetcher=async()=>new Response(JSON.stringify({id:'ChIJnoodlani123',displayName:{text:'Noodlani'},formattedAddress:'Żurawia 45',location:{latitude:52.22763,longitude:21.011725},types:['restaurant'],photos}),{status:200});
+ const d=await placeDetails('ChIJnoodlani123',{googleKey:'k',fetcher});
+ assert.equal(d.photo.authorName,'Ling');
+ assert.deepEqual(d.photo.more.map(a=>a.authorName),['Ola','Piotr','Kasia']);
+ const selection={...d,source:'google'};
+ const alts=googleAlternatives(selection);
+ assert.deepEqual(alts.map(c=>c.src),['/api/place-photo?id=ChIJnoodlani123&n=1','/api/place-photo?id=ChIJnoodlani123&n=2','/api/place-photo?id=ChIJnoodlani123&n=3']);
+ assert.equal(alts[0].author,'Ola');
+ const r=await findPlacePhotoCandidates(selection,{fetcher:async()=>json({query:{pages:[]}})});
+ assert.equal(r.candidates[0].src,'/api/place-photo?id=ChIJnoodlani123','best photo stays the proposal');
+ assert.ok(r.candidates.length>=4,'"Inne zdjęcie" has something to show');
+ assert.equal(autoPhotoCandidateIndex(r.candidates),0);
+ assert.equal(acceptedGooglePhotoChoice(r.candidates[0]),0);
+ assert.equal(acceptedGooglePhotoChoice(alts[1]),2);
+ // The card shows the chosen photo, not the default one.
+ const app=read('app.js');
+ assert.match(app,/googlePhotoChoice:f\.dataset\.pcGooglePlaceId&&/);
+ assert.match(app,/gp:String\(p\.googlePhotoChoice\)/);
+ assert.match(read('worker.js'),/photoChoice:googlePhotoChoice\(url\.searchParams\.get\('gp'\)\)/);
 });

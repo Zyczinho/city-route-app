@@ -10,9 +10,9 @@ test('PWA cache and entrypoint versions change with navigation hotfix',async()=>
   read('index.html'),read('service-worker.js'),read('scripts/build.mjs'),read('app.js')
  ]);
  assert.match(html,/sw-update\.js\?v=1/);
- assert.match(html,/nav-enhancements\.js\?v=4/);
+ assert.match(html,/nav-enhancements\.js\?v=5/);
  assert.match(worker,/city-route-v\d+/);
- assert.match(worker,/nav-enhancements\.js\?v=4/);
+ assert.match(worker,/nav-enhancements\.js\?v=5/);
  assert.match(worker,/sw-update\.js\?v=1/);
  assert.match(build,/'sw-update\.js'/);
  assert.match(app,/!window\.__cityRouteSwBootstrapped/);
@@ -45,4 +45,16 @@ test('service worker updater runs even when app.js fails and reloads once on rep
  assert.equal(typeof callbacks.controllerchange,'function');
  callbacks.controllerchange();callbacks.controllerchange();
  assert.equal(reloads,1);
+});
+
+
+test('origin release bypasses stale SW module cache without deleting local data',async()=>{
+ const [html,app,worker]=await Promise.all(['index.html','app.js','service-worker.js'].map(read));
+ assert.match(html,/src="\.\/app\.js\?v=227"/);
+ assert.match(app,/from '\.\/core\.js\?v=224'/);
+ for(const asset of ['./app.js?v=227','./core.js?v=224']){
+  assert.ok(worker.includes("'"+asset+"'"),'offline cache lacks '+asset);
+ }
+ assert.match(worker,/city-route-v104/);
+ assert.match(worker,/e\.request\.mode==='navigate'/);
 });

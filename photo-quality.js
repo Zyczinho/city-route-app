@@ -39,6 +39,17 @@ export function bestGooglePhoto(photos=[]){
   .sort((a,b)=>b.score-a.score||a.index-b.index);
  return ranked[0]||(Array.isArray(photos)?photos:[]).map((photo,index)=>({photo,index,score:0})).find(x=>x.photo?.name)||null;
 }
+// "Inne zdjęcie": choice 0 is always the best photo, choices 1… are the other photos in Google's order.
+export const MAX_GOOGLE_PHOTO_CHOICE=3;
+export function googlePhotoChoice(n){
+ const v=Number(n);return Number.isInteger(v)&&v>=0&&v<=MAX_GOOGLE_PHOTO_CHOICE?v:0;
+}
+export function pickGooglePhoto(photos=[],n=0){
+ const best=bestGooglePhoto(photos),choice=googlePhotoChoice(n);
+ if(!best||choice===0)return best;
+ const rest=(Array.isArray(photos)?photos:[]).map((photo,index)=>({photo,index,score:photoQuality(photo)})).filter(x=>x.photo?.name&&x.index!==best.index);
+ return rest[choice-1]||null;
+}
 export function parsePhotoSourceUrl(value){
  try{
   const url=new URL(String(value||'').trim());

@@ -41,3 +41,45 @@
  .top .avatar.sm{width:30px;height:30px}
  .place-list .place>.side .save-place{min-width:84px}
 }
+
+
+/* 2026-11-09 mobile-native audit (Emil Kowalski): platform behavior, not a redesign.
+   Keep specific existing iPhone 13 Pro layout rules above; this section fixes
+   safe tap areas, iOS field focus zoom, small-screen cards and sheet sizing. */
+@media (pointer: coarse) {
+  /* iOS Safari zooms focused editable controls with computed text under 16px.
+     Keep user scaling enabled (viewport meta already allows zoom). */
+  input:not([type="checkbox"]):not([type="radio"]), select, textarea {
+    font-size: max(16px, 1em);
+  }
+  /* Prevent delayed taps without interfering with scrolling or pinch zoom.
+     The drag handle has its own more-specific touch-action: none rule. */
+  button, a, [role="button"], summary, .choice label { touch-action: manipulation; }
+  .search .clear, .sheet .close { min-width: 44px; min-height: 44px; }
+}
+@media (pointer: coarse) and (max-width: 699px) {
+  /* The original 13px city selector can focus-zoom Safari on an iPhone. */
+  .top .city-select select { font-size: 16px; }
+}
+@media (max-width: 759px) {
+  /* Dynamic visual viewport accounts for the iOS Safari address bar. */
+  .sheet { max-height: 92vh; max-height: 92dvh; }
+
+  /* Map card controls retain 44px touch targets; Close owns a header grid cell. */
+  .cr-map-toolbar button { min-height: 44px; }
+  .cr-map-card-actions button { min-height: 44px; }
+  .cr-map-card-close {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    min-height: 44px !important;
+  }
+  .cr-map-card-head h3 { padding-right: 0; }
+
+  /* Actions already have their own row on phones. Give the title its width. */
+  .place-list .place > .info h3 { padding-right: 0; overflow-wrap: anywhere; }
+  .place-list .place > .side .save-place {
+    width: auto;
+    min-height: 44px;
+  }
+}

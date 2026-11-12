@@ -2,10 +2,10 @@ import {supabase} from './supabase-client.js';
 import {iconMarkup} from './ui-icons.js';
 import {avatarUrl} from './profile-avatar-model.js';
 import {SUPABASE_URL} from './supabase-config.js';
-import {createSocialRoutesClient} from './social-routes-client.js';
+import {createSocialRoutesClient,combineSavedRoutes} from './social-routes-client.js';
 import {createFriendsClient,normalizeFriendsError} from './friends-client.js';
-import {directChatHref} from './direct-messages-client.js';
 import {createFollowsClient} from './follows-client.js';
+import {directChatHref} from './direct-messages-client.js';
 
 const api=createSocialRoutesClient({client:supabase});
 const friendApi=createFriendsClient(supabase),followsApi=createFollowsClient(supabase);
@@ -52,7 +52,7 @@ function markRoutesNav(){
 
 function card(route,cover){
  const m=marks.get(route.uuid)||{saved:false,rating:null};
- return `<article class="social-route-card" data-social-route="${esc(route.uuid)}"><a class="social-route-hit" href="#community-route/${esc(route.uuid)}"><div class="social-media">${photo(cover,route.name)}<span class="social-author">@${esc(route.author.nickname)}</span></div><div class="social-body"><h3>${esc(route.name)}</h3>${route.description?`<p>${esc(route.description)}</p>`:''}<p class="social-path">${stopNames(route).map(esc).join(' · ')}</p><div class="social-stats"><span>${route.stopCount} ${plural(route.stopCount,'przystanek','przystanki','przystanków')}</span><span>${esc(route.transport)}</span><span>${stars(route.stats.ratingAvg)} · ${route.stats.ratings}</span><span>${iconMarkup('heart')} ${route.stats.saves}</span>${route.stats.forks?`<span>${iconMarkup('shuffle')} ${route.stats.forks}</span>`:''}</div></div></a><div class="social-card-actions"><button type="button" data-route-share="community" data-route-ref="${esc(route.uuid)}" data-route-title="${esc(route.name)}">${iconMarkup("link")}Udostępnij</button><a href="#social-profile/${esc(route.author.id)}">Profil autora</a><button data-social-action="save" data-route="${esc(route.uuid)}" aria-pressed="${m.saved}">${m.saved?iconMarkup("check"):iconMarkup("bookmark")}${m.saved?'Zapisano':'Zapisz'}</button></div></article>`;
+ return `<article class="social-route-card" data-social-route="${esc(route.uuid)}"><a class="social-route-hit" href="#community-route/${esc(route.uuid)}"><div class="social-media">${photo(cover,route.name)}<span class="social-author">@${esc(route.author.nickname)}</span></div><div class="social-body"><h3>${esc(route.name)}</h3>${route.description?`<p>${esc(route.description)}</p>`:''}<p class="social-path">${stopNames(route).map(esc).join(' · ')}</p><div class="social-stats"><span>${route.stopCount} ${plural(route.stopCount,'przystanek','przystanki','przystanków')}</span><span>${esc(route.transport)}</span><span>${stars(route.stats.ratingAvg)} · ${route.stats.ratings}</span><span>${iconMarkup('heart')} ${route.stats.saves}</span>${route.stats.forks?`<span>${iconMarkup('shuffle')} ${route.stats.forks}</span>`:''}</div></div></a><div class="social-card-actions"><button type="button" class="route-share-trigger" data-route-share="community" data-route-ref="${esc(route.uuid)}" data-route-title="${esc(route.name)}">${iconMarkup("send")}Udostępnij trasę</button><a href="#social-profile/${esc(route.author.id)}">Profil autora</a><button data-social-action="save" data-route="${esc(route.uuid)}" aria-pressed="${m.saved}">${m.saved?iconMarkup("check"):iconMarkup("bookmark")}${m.saved?'Zapisano':'Zapisz'}</button></div></article>`;
 }
 
 async function refreshFeed(){
@@ -130,7 +130,7 @@ async function renderCommunityRoute(id){
  try{
   const route=await api.loadCommunityRoute(id);if(!route){root.innerHTML=`<div class="empty" data-social-route-root="${esc(id)}"><p>Nie znaleziono tej trasy.</p><a class="button" href="#routes">Wróć do tras</a></div>`;return;}
   await loadPlaces(route.cityId);const cover=routeCover(route,reserved);const mark=session?(await api.loadRouteMarks([route.uuid])).get(route.uuid):null;const own=session?.user?.id===route.author.id;const authorFeedback=own?await api.loadAuthorFeedback(route.uuid).catch(()=>[]):[];
-  root.innerHTML=`<section class="social-detail" data-social-route-root="${esc(id)}"><a class="back" href="#routes">${iconMarkup("arrow-left")} Trasy</a><div class="social-detail-cover">${photo(cover,route.name)}</div><p class="kicker">Trasa społeczności</p><h1>${esc(route.name)}</h1><p class="lead">${esc(route.description||'Trasa użytkownika City Route.')}</p><a class="social-author-link" href="#social-profile/${esc(route.author.id)}">Autor: ${esc(route.author.nickname)}</a>${own?'':authorRelationship(route.author.id)}<div class="social-stats large"><span>${route.stopCount} przystanków</span><span>${esc(route.transport)}</span><span>${stars(route.stats.ratingAvg)} · ${route.stats.ratings} ocen</span><span>${iconMarkup('heart')} ${route.stats.saves}</span><span>${iconMarkup('shuffle')} ${route.stats.forks}</span></div>${route.forkedFrom?`<p class="fine">Na bazie: ${esc(route.forkedFrom.name||'innej trasy')}</p>`:''}<div class="detail-actions social-detail-actions"><button class="primary big" data-social-action="fork" data-route="${esc(route.uuid)}">Użyj jako bazę</button><button data-social-action="save" data-route="${esc(route.uuid)}" aria-pressed="${!!mark?.saved}">${mark?.saved?iconMarkup("check"):iconMarkup("bookmark")}${mark?.saved?'Zapisano':'Zapisz trasę'}</button><button type="button" data-route-share="community" data-route-ref="${esc(route.uuid)}" data-route-title="${esc(route.name)}">${iconMarkup("link")}Udostępnij</button>${own?`<button data-social-action="edit" data-route="${esc(route.uuid)}">Edytuj</button><button data-social-action="archive" data-route="${esc(route.uuid)}">Archiwizuj</button><button class="danger" data-social-action="delete" data-route="${esc(route.uuid)}">Usuń</button>`:''}</div>${!own?`<section class="social-rating"><h2>Oceń trasę</h2><div role="group" aria-label="Ocena 1 do 5">${[1,2,3,4,5].map(n=>`<button data-social-action="rate" data-route="${esc(route.uuid)}" data-rating="${n}" aria-pressed="${mark?.rating===n}">${n}${iconMarkup("star")}</button>`).join('')}</div><p class="fine">Ocena jest dobrowolna. Jeśli chcesz zostawić wskazówkę autorowi, najpierw wybierz gwiazdki.</p></section><form class="social-feedback-form" data-social-feedback data-route="${esc(route.uuid)}"><label>Feedback dla autora <span>(opcjonalnie, niepubliczny)</span><textarea name="feedback" rows="3" maxlength="500" placeholder="Co Ci się podobało, co poprawić?"></textarea></label><button type="submit" class="primary" ${mark?.rating?'':'disabled'}>Wyślij wskazówkę</button><p class="social-feedback-status" role="status"></p></form>`:`<section class="social-author-feedback"><h2>Feedback do Twojej trasy</h2>${authorFeedback.length?authorFeedback.map(f=>`<blockquote><span>${iconMarkup("star")} ${f.rating}/5</span><p>${esc(f.feedback)}</p></blockquote>`).join(''):'<p class="fine">Nie ma jeszcze tekstowych opinii.</p>'}</section>`}<h2>Przystanki</h2><ol class="social-stops">${route.stops.map((sid,i)=>{const p=placeIndex.get(String(sid));return `<li><span>${i+1}</span><div>${photo(imageSrc(p),p?.name||sid)}</div><strong>${esc(p?.name||sid)}</strong></li>`;}).join('')}</ol></section>`;
+  root.innerHTML=`<section class="social-detail" data-social-route-root="${esc(id)}"><a class="back" href="#routes">${iconMarkup("arrow-left")} Trasy</a><div class="social-detail-cover">${photo(cover,route.name)}</div><p class="kicker">Trasa społeczności</p><h1>${esc(route.name)}</h1><p class="lead">${esc(route.description||'Trasa użytkownika City Route.')}</p><a class="social-author-link" href="#social-profile/${esc(route.author.id)}">Autor: ${esc(route.author.nickname)}</a>${own?'':authorRelationship(route.author.id)}<div class="social-stats large"><span>${route.stopCount} przystanków</span><span>${esc(route.transport)}</span><span>${stars(route.stats.ratingAvg)} · ${route.stats.ratings} ocen</span><span>${iconMarkup('heart')} ${route.stats.saves}</span><span>${iconMarkup('shuffle')} ${route.stats.forks}</span></div>${route.forkedFrom?`<p class="fine">Na bazie: ${esc(route.forkedFrom.name||'innej trasy')}</p>`:''}<div class="detail-actions social-detail-actions"><button class="primary big" data-social-action="fork" data-route="${esc(route.uuid)}">Użyj jako bazę</button><button data-social-action="save" data-route="${esc(route.uuid)}" aria-pressed="${!!mark?.saved}">${mark?.saved?iconMarkup("check"):iconMarkup("bookmark")}${mark?.saved?'Zapisano':'Zapisz trasę'}</button><button type="button" class="route-share-trigger" data-route-share="community" data-route-ref="${esc(route.uuid)}" data-route-title="${esc(route.name)}">${iconMarkup("send")}Udostępnij trasę</button>${own?`<button data-social-action="edit" data-route="${esc(route.uuid)}">Edytuj</button><button data-social-action="archive" data-route="${esc(route.uuid)}">Archiwizuj</button><button class="danger" data-social-action="delete" data-route="${esc(route.uuid)}">Usuń</button>`:''}</div>${!own?`<section class="social-rating"><h2>Oceń trasę</h2><div role="group" aria-label="Ocena 1 do 5">${[1,2,3,4,5].map(n=>`<button data-social-action="rate" data-route="${esc(route.uuid)}" data-rating="${n}" aria-pressed="${mark?.rating===n}">${n}${iconMarkup("star")}</button>`).join('')}</div><p class="fine">Ocena jest dobrowolna. Jeśli chcesz zostawić wskazówkę autorowi, najpierw wybierz gwiazdki.</p></section><form class="social-feedback-form" data-social-feedback data-route="${esc(route.uuid)}"><label>Feedback dla autora <span>(opcjonalnie, niepubliczny)</span><textarea name="feedback" rows="3" maxlength="500" placeholder="Co Ci się podobało, co poprawić?"></textarea></label><button type="submit" class="primary" ${mark?.rating?'':'disabled'}>Wyślij wskazówkę</button><p class="social-feedback-status" role="status"></p></form>`:`<section class="social-author-feedback"><h2>Feedback do Twojej trasy</h2>${authorFeedback.length?authorFeedback.map(f=>`<blockquote><span>${iconMarkup("star")} ${f.rating}/5</span><p>${esc(f.feedback)}</p></blockquote>`).join(''):'<p class="fine">Nie ma jeszcze tekstowych opinii.</p>'}</section>`}<h2>Przystanki</h2><ol class="social-stops">${route.stops.map((sid,i)=>{const p=placeIndex.get(String(sid));return `<li><span>${i+1}</span><div>${photo(imageSrc(p),p?.name||sid)}</div><strong>${esc(p?.name||sid)}</strong></li>`;}).join('')}</ol></section>`;
   void syncAuthorRelationship(route.author.id);
   void syncAuthorFollow(route.author.id);
    log('community_route_view',{route_id:id});
@@ -235,19 +235,49 @@ async function renderProfile(id){
 }
 
 async function renderSaved(){
- if(authRequired())return;
- const root=main();if(!root)return;
- if(root.querySelector('[data-social-saved-root]'))return;
- markRoutesNav();root.innerHTML='<p class="loading" data-social-saved-loading>Wczytuję zapisane trasy…</p>';
+ // app.js owns the always-visible local archive. A slow/failed Supabase RPC
+ // must never replace its HTML with a blank screen or spinner.
+ const root=main()?.querySelector('[data-social-saved-root]');
+ if(!root||location.hash!=='#social-saved')return;
+ const activeCity=root.dataset.savedCity||cityId(),viewer=session?.user?.id||'guest';
+ if(root.dataset.savedAccount===viewer)return;
+ root.dataset.savedAccount=viewer;
+ const status=root.querySelector('[data-saved-remote-status]');
+ if(!session){
+  if(status)status.textContent='Trasy zapisane na koncie zobaczysz po zalogowaniu. Lokalne zapisy pozostają na tym urządzeniu.';
+  return;
+ }
+ if(status)status.textContent='Wczytuję trasy zapisane na koncie…';
+ let saved;
  try{
-  const activeCity=cityId(),allSaved=await api.loadSavedRoutes(),saved=allSaved.filter(x=>x.cityId===activeCity);
-  root.innerHTML=`<section data-social-saved-root><a class="back" href="#routes">${iconMarkup("arrow-left")} Trasy</a><p class="kicker">Twoje konto</p><h1>Zapisane trasy</h1><p class="fine">Pokazujemy zapisane trasy dla aktywnego miasta. Przełącz miasto, aby zobaczyć pozostałe.</p><div class="cards">${saved.map(x=>`<article class="card"><h3>${esc(x.name)}</h3><p class="muted">${esc(x.cityId)} · ${x.type==='community'?'Społeczność':'City Route'}</p><a class="button" href="${x.type==='community'?`#community-route/${x.routeId}`:`#route/${x.id}`}">Otwórz</a></article>`).join('')||'<div class="empty"><p>Nie masz jeszcze zapisanych tras w tym mieście.</p></div>'}</div></section>`;
- }catch(error){root.innerHTML='<div class="empty" data-social-saved-root><p>Nie udało się wczytać zapisanych tras.</p></div>';console.warn(error);}
+  const allSaved=await api.loadSavedRoutes();
+  saved=allSaved.filter(x=>x.cityId===activeCity);
+ }catch(error){
+  if(root.isConnected&&root.dataset.savedAccount===viewer&&status)status.textContent='Nie udało się wczytać tras z konta. Twoje lokalne trasy pozostają dostępne.';
+  console.warn('Saved routes account',error);return;
+ }
+ // A late response from another account/city/tab cannot overwrite the local view.
+ if(!root.isConnected||location.hash!=='#social-saved'||cityId()!==activeCity||root.dataset.savedAccount!==viewer)return;
+ const localRoutes=readState().myRoutes||[];
+ const merged=combineSavedRoutes({localRoutes,remoteRoutes:saved,cityId:activeCity});
+ const cards=root.querySelector('[data-saved-routes-cards]');
+ if(cards){
+  cards.innerHTML=merged.map(x=>{
+   const label=x.kind==='mine'?'Moja trasa · to urządzenie':
+    x.kind==='editorial-local'?'Redakcja City Route · to urządzenie':
+    x.kind==='community'?'Społeczność · konto':'Redakcja City Route · konto';
+   const trash=x.local?
+    '<button type="button" class="saved-route-trash" data-action="remove-saved-local" data-id="'+esc(x.id)+'" aria-label="Usuń '+esc(x.name)+' z zapisanych tras" title="Usuń z zapisanych tras">'+iconMarkup('trash-2')+'</button>':
+    '<button type="button" class="saved-route-trash" data-saved-unsave="'+esc(x.sourceRef)+'" data-saved-unsave-city="'+esc(activeCity)+'" aria-label="Usuń '+esc(x.name)+' z zapisanych tras" title="Usuń z zapisanych tras">'+iconMarkup('trash-2')+'</button>';
+   return '<article class="card saved-route-card"><h3>'+esc(x.name)+'</h3><p class="muted">'+label+(x.archived?' · Archiwum':'')+'</p><div class="saved-route-actions"><a class="button" href="'+esc(x.href)+'">Otwórz</a>'+trash+'</div></article>';
+  }).join('')||'<div class="empty"><p>Nie masz jeszcze zapisanych tras w tym mieście.</p><a class="button" href="#routes">Przeglądaj trasy</a></div>';
+ }
+ if(status)status.textContent='Trasy zapisane na koncie wczytane.';
 }
 
 function injectMyRoute(){
  if(location.hash.split('/')[0]!=='#my-route')return;const root=main();if(!root||root.querySelector('[data-social-publish-button]'))return;
- const actions=root.querySelector('.detail-actions');if(!actions)return;
+ const actions=root.querySelector('.variant-d-extra-actions');if(!actions)return;
  const draft=currentDraft();if(draft.stops.length<2)return;
  const b=document.createElement('button');b.dataset.socialPublishButton='1';b.dataset.socialAction='publish';b.className='social-publish';b.textContent=session?'Opublikuj trasę':'Zaloguj się i opublikuj';actions.append(b);
 }
@@ -317,6 +347,32 @@ document.addEventListener('cityroute:publish-completed',event=>{
  if(!Array.isArray(d.stops)||d.stops.length<2||d.cityId!==current)return;
  publishDialog({cityId:d.cityId,name:String(d.name||'Ukończona trasa').slice(0,80),transport:d.transport||'walking',stops:d.stops.filter(id=>typeof id==='string')});
 });
+document.addEventListener('click',async e=>{
+ const button=e.target.closest?.('[data-saved-unsave]');
+ if(!button)return;
+ e.preventDefault();
+ if(button.disabled||!session)return;
+ const root=button.closest('[data-social-saved-root]'),card=button.closest('.saved-route-card');
+ const ref=button.dataset.savedUnsave,selectedCity=button.dataset.savedUnsaveCity;
+ if(!root||!card||!ref||selectedCity!==cityId()||location.hash!=='#social-saved')return;
+ if(!confirm('Usunąć tę trasę z zapisanych? Oryginalna trasa autora lub redakcji pozostanie dostępna.'))return;
+ button.disabled=true;
+ try{
+  // unsave_route removes ONLY the account bookmark; never deletes a published route.
+  await api.unsaveRoute(ref,selectedCity);
+  if(!root.isConnected||cityId()!==selectedCity||location.hash!=='#social-saved')return;
+  card.remove();
+  const container=root.querySelector('[data-saved-routes-cards]');
+  if(container&&!container.querySelector('.saved-route-card'))container.innerHTML='<div class="empty"><p>Nie masz jeszcze zapisanych tras w tym mieście.</p><a class="button" href="#routes">Przeglądaj trasy</a></div>';
+  const status=root.querySelector('[data-saved-remote-status]');if(status)status.textContent='Usunięto trasę z zapisanych.';
+  if(marks.has(ref))marks.set(ref,{...marks.get(ref),saved:false});
+  log('community_route_unsave',{route_id:ref,source:'profile_saved_routes'});
+ }catch(error){
+  const status=root?.querySelector('[data-saved-remote-status]');
+  if(status)status.textContent='Nie udało się usunąć zapisu z konta. Spróbuj ponownie.';
+  console.warn('Unsave saved route',error);
+ }finally{if(button.isConnected)button.disabled=false;}
+},true);
 document.addEventListener('click',e=>{const el=e.target.closest?.('[data-social-action]');if(el){e.preventDefault();handleAction(el).catch(console.error);}},true);
 document.addEventListener('change',e=>{if(e.target.matches?.('[data-social-sort]')){sort=e.target.value;const host=document.querySelector('[data-social-feed]');if(host)host.remove();const note=document.querySelector('.community-note');if(note)note.hidden=false;queueRender();}});
 document.addEventListener('submit',async e=>{

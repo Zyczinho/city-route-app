@@ -1,0 +1,1350 @@
+{
+ "version": 1,
+ "city": "lisbon",
+ "source": "wikimedia-commons",
+ "photos": {
+  "osm-node-12029003787": {
+   "name": "Casa Pereira da Conceição",
+   "lat": 38.710166,
+   "lng": -9.1373803,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Casa_Pereira_da_Concei%C3%A7%C3%A3o.jpg/960px-Casa_Pereira_da_Concei%C3%A7%C3%A3o.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Casa_Pereira_da_Concei%C3%A7%C3%A3o.jpg/330px-Casa_Pereira_da_Concei%C3%A7%C3%A3o.jpg",
+   "imageCredit": {
+    "author": "VDT2021",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Casa_Pereira_da_Concei%C3%A7%C3%A3o.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q126948324",
+   "file": "File:Casa Pereira da Conceição.jpg"
+  },
+  "osm-node-12055376184": {
+   "name": "Tavares",
+   "lat": 38.7113524,
+   "lng": -9.1430555,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/Lisboa_-_Tavares_Restaurant_%2853658819719%29.jpg/960px-Lisboa_-_Tavares_Restaurant_%2853658819719%29.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/Lisboa_-_Tavares_Restaurant_%2853658819719%29.jpg/330px-Lisboa_-_Tavares_Restaurant_%2853658819719%29.jpg",
+   "imageCredit": {
+    "author": "_morgado",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Lisboa_-_Tavares_Restaurant_(53658819719).jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q7689027",
+   "file": "File:Lisboa - Tavares Restaurant (53658819719).jpg"
+  },
+  "osm-node-1599340087": {
+   "name": "Clube de Fado",
+   "lat": 38.7096388,
+   "lng": -9.1311988,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a2/ClubedeFado.JPG/960px-ClubedeFado.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a2/ClubedeFado.JPG/330px-ClubedeFado.JPG",
+   "imageCredit": {
+    "author": "69joehawkins",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:ClubedeFado.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1103277",
+   "file": "File:ClubedeFado.JPG"
+  },
+  "osm-node-1606908881": {
+   "name": "Adega das Gravatas",
+   "lat": 38.7605031,
+   "lng": -9.1877489,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/98/Adega_das_Gravatas%2C_Carnide%2C_Lisboa_01.jpg/960px-Adega_das_Gravatas%2C_Carnide%2C_Lisboa_01.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/98/Adega_das_Gravatas%2C_Carnide%2C_Lisboa_01.jpg/330px-Adega_das_Gravatas%2C_Carnide%2C_Lisboa_01.jpg",
+   "imageCredit": {
+    "author": "GualdimG",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Adega_das_Gravatas,_Carnide,_Lisboa_01.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q135153169",
+   "file": "File:Adega das Gravatas, Carnide, Lisboa 01.jpg"
+  },
+  "osm-node-2305795082": {
+   "name": "Martinho da Arcada",
+   "lat": 38.7086891,
+   "lng": -9.1358477,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/Caf%C3%A9_Martinho_da_Arcada_-_2014_%283%29.JPG/960px-Caf%C3%A9_Martinho_da_Arcada_-_2014_%283%29.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/Caf%C3%A9_Martinho_da_Arcada_-_2014_%283%29.JPG/330px-Caf%C3%A9_Martinho_da_Arcada_-_2014_%283%29.JPG",
+   "imageCredit": {
+    "author": "Benoît Prieur",
+    "license": "CC0",
+    "licenseUrl": null,
+    "source": "https://commons.wikimedia.org/wiki/File:Caf%C3%A9_Martinho_da_Arcada_-_2014_(3).JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q10326949",
+   "file": "File:Café Martinho da Arcada - 2014 (3).JPG"
+  },
+  "osm-node-2491785179": {
+   "name": "Museu Nacional de Arqueologia",
+   "lat": 38.6973662,
+   "lng": -9.2070794,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dd/Museo_Nacional_de_Arqueolog%C3%ADa._Lisboa.jpg/960px-Museo_Nacional_de_Arqueolog%C3%ADa._Lisboa.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dd/Museo_Nacional_de_Arqueolog%C3%ADa._Lisboa.jpg/330px-Museo_Nacional_de_Arqueolog%C3%ADa._Lisboa.jpg",
+   "imageCredit": {
+    "author": "Jose Luis Filpo Cabana",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Museo_Nacional_de_Arqueolog%C3%ADa._Lisboa.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1954384",
+   "file": "File:Museo Nacional de Arqueología. Lisboa.jpg"
+  },
+  "osm-node-2503325885": {
+   "name": "Museu da Cerveja",
+   "lat": 38.7083819,
+   "lng": -9.1356141,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1a/01_Museu_da_Cerveja.jpg/960px-01_Museu_da_Cerveja.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1a/01_Museu_da_Cerveja.jpg/330px-01_Museu_da_Cerveja.jpg",
+   "imageCredit": {
+    "author": "Luísa Paulos",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:01_Museu_da_Cerveja.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q48869091",
+   "file": "File:01 Museu da Cerveja.jpg"
+  },
+  "osm-node-2620368934": {
+   "name": "Leitaria A Camponeza",
+   "lat": 38.7117403,
+   "lng": -9.1385979,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8c/Leitaria_A_Camponeza_01.jpg/960px-Leitaria_A_Camponeza_01.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8c/Leitaria_A_Camponeza_01.jpg/330px-Leitaria_A_Camponeza_01.jpg",
+   "imageCredit": {
+    "author": "DiogoBaptista",
+    "license": "CC0",
+    "licenseUrl": null,
+    "source": "https://commons.wikimedia.org/wiki/File:Leitaria_A_Camponeza_01.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q96906908",
+   "file": "File:Leitaria A Camponeza 01.jpg"
+  },
+  "osm-node-3094976712": {
+   "name": "Maria Caxuxa",
+   "lat": 38.7111633,
+   "lng": -9.1444355,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/Maria_Caxuxa_Lisbon_LGBT%2B_Bar_03.jpg/960px-Maria_Caxuxa_Lisbon_LGBT%2B_Bar_03.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/Maria_Caxuxa_Lisbon_LGBT%2B_Bar_03.jpg/330px-Maria_Caxuxa_Lisbon_LGBT%2B_Bar_03.jpg",
+   "imageCredit": {
+    "author": "Ceaseless Watcher",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Maria_Caxuxa_Lisbon_LGBT%2B_Bar_03.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q136697781",
+   "file": "File:Maria Caxuxa Lisbon LGBT+ Bar 03.jpg"
+  },
+  "osm-node-376811896": {
+   "name": "Hard Rock Cafe",
+   "lat": 38.7166133,
+   "lng": -9.141757,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b1/Ancien_cin%C3%A9ma_Condes_Lisbonne_1.jpg/960px-Ancien_cin%C3%A9ma_Condes_Lisbonne_1.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b1/Ancien_cin%C3%A9ma_Condes_Lisbonne_1.jpg/330px-Ancien_cin%C3%A9ma_Condes_Lisbonne_1.jpg",
+   "imageCredit": {
+    "author": "Chabe01",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Ancien_cin%C3%A9ma_Condes_Lisbonne_1.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1092410",
+   "file": "File:Ancien cinéma Condes Lisbonne 1.jpg"
+  },
+  "osm-node-419313189": {
+   "name": "Miradouro de São Pedro de Alcântara",
+   "lat": 38.7154576,
+   "lng": -9.1440371,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/JardimSPedroAlcantara.JPG/960px-JardimSPedroAlcantara.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/JardimSPedroAlcantara.JPG/330px-JardimSPedroAlcantara.JPG",
+   "imageCredit": {
+    "author": "CorreiaPM",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "source": "https://commons.wikimedia.org/wiki/File:JardimSPedroAlcantara.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q6672039",
+   "file": "File:JardimSPedroAlcantara.JPG"
+  },
+  "osm-node-4433136691": {
+   "name": "Confeitaria Nacional",
+   "lat": 38.7131355,
+   "lng": -9.1380797,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/ConfeitariaNacional.png/960px-ConfeitariaNacional.png",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/ConfeitariaNacional.png/330px-ConfeitariaNacional.png",
+   "imageCredit": {
+    "author": "Morgaine",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:ConfeitariaNacional.png",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q90315021",
+   "file": "File:ConfeitariaNacional.png"
+  },
+  "osm-node-4475929290": {
+   "name": "Café Nicola",
+   "lat": 38.7131676,
+   "lng": -9.1398061,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Caf%C3%A9_Nicola.jpg/960px-Caf%C3%A9_Nicola.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Caf%C3%A9_Nicola.jpg/330px-Caf%C3%A9_Nicola.jpg",
+   "imageCredit": {
+    "author": "Boca Dorada",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Caf%C3%A9_Nicola.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q26794408",
+   "file": "File:Café Nicola.jpg"
+  },
+  "osm-node-4711868424": {
+   "name": "Museu Bordalo Pinheiro",
+   "lat": 38.7588988,
+   "lng": -9.154147,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dd/Museu_Bordalo_Pinheiro.jpg/960px-Museu_Bordalo_Pinheiro.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dd/Museu_Bordalo_Pinheiro.jpg/330px-Museu_Bordalo_Pinheiro.jpg",
+   "imageCredit": {
+    "author": "Hipersyl",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Museu_Bordalo_Pinheiro.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q7282050",
+   "file": "File:Museu Bordalo Pinheiro.jpg"
+  },
+  "osm-node-4771391278": {
+   "name": "Miradouro do Torel",
+   "lat": 38.7187379,
+   "lng": -9.1414103,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f8/Jardim_do_Torel_Lisboa_10.jpg/960px-Jardim_do_Torel_Lisboa_10.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f8/Jardim_do_Torel_Lisboa_10.jpg/330px-Jardim_do_Torel_Lisboa_10.jpg",
+   "imageCredit": {
+    "author": "GualdimG",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Jardim_do_Torel_Lisboa_10.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q10306349",
+   "file": "File:Jardim do Torel Lisboa 10.jpg"
+  },
+  "osm-node-4788155560": {
+   "name": "Museu do Centro Científico e Cultural de Macau",
+   "lat": 38.700849,
+   "lng": -9.1824432,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/Macao_Science_and_Culture_Centre%2C_Lisbon.JPG/960px-Macao_Science_and_Culture_Centre%2C_Lisbon.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/Macao_Science_and_Culture_Centre%2C_Lisbon.JPG/330px-Macao_Science_and_Culture_Centre%2C_Lisbon.JPG",
+   "imageCredit": {
+    "author": "The original uploader was Jpbowen at English Wikipedia .",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": null,
+    "source": "https://commons.wikimedia.org/wiki/File:Macao_Science_and_Culture_Centre,_Lisbon.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q17167651",
+   "file": "File:Macao Science and Culture Centre, Lisbon.JPG"
+  },
+  "osm-node-5068486965": {
+   "name": "Museu Arqueológico do Carmo",
+   "lat": 38.712006,
+   "lng": -9.1405862,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Lisbonne_-_Couvent_des_Carles_-_Vue_g%C3%A9n%C3%A9rale.jpg/960px-Lisbonne_-_Couvent_des_Carles_-_Vue_g%C3%A9n%C3%A9rale.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Lisbonne_-_Couvent_des_Carles_-_Vue_g%C3%A9n%C3%A9rale.jpg/330px-Lisbonne_-_Couvent_des_Carles_-_Vue_g%C3%A9n%C3%A9rale.jpg",
+   "imageCredit": {
+    "author": "Jean-Christophe BENOIST",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Lisbonne_-_Couvent_des_Carles_-_Vue_g%C3%A9n%C3%A9rale.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1146790",
+   "file": "File:Lisbonne - Couvent des Carles - Vue générale.jpg"
+  },
+  "osm-node-5088757633": {
+   "name": "Casa Fernando Pessoa",
+   "lat": 38.7166716,
+   "lng": -9.1625191,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/Casa_Fernando_Pessoa.jpg/960px-Casa_Fernando_Pessoa.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/Casa_Fernando_Pessoa.jpg/330px-Casa_Fernando_Pessoa.jpg",
+   "imageCredit": {
+    "author": "Lijealso",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Casa_Fernando_Pessoa.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q5047821",
+   "file": "File:Casa Fernando Pessoa.jpg"
+  },
+  "osm-node-5089643622": {
+   "name": "Museu da Farmácia Lisboa",
+   "lat": 38.7100683,
+   "lng": -9.1472474,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/db/ANF1975.jpg/960px-ANF1975.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/db/ANF1975.jpg/330px-ANF1975.jpg",
+   "imageCredit": {
+    "author": "João Carvalho",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:ANF1975.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q9299839",
+   "file": "File:ANF1975.jpg"
+  },
+  "osm-node-5446794770": {
+   "name": "Miradouro de Santa Luzia",
+   "lat": 38.7117382,
+   "lng": -9.1301295,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/MiradouroSantaLuzia.JPG/960px-MiradouroSantaLuzia.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/MiradouroSantaLuzia.JPG/330px-MiradouroSantaLuzia.JPG",
+   "imageCredit": {
+    "author": "Wikimedia Commons",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "source": "https://commons.wikimedia.org/wiki/File:MiradouroSantaLuzia.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q6837314",
+   "file": "File:MiradouroSantaLuzia.JPG"
+  },
+  "osm-node-6216727635": {
+   "name": "Museu de Marinha",
+   "lat": 38.6971218,
+   "lng": -9.2080263,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/2002-10-26_11-15_%28Andalusien_%26_Lissabon_268%29_Lissabon%2C_Bel%C3%A9m%2C_Mosteiro_dos_Jer%C3%B3nimos.jpg/960px-2002-10-26_11-15_%28Andalusien_%26_Lissabon_268%29_Lissabon%2C_Bel%C3%A9m%2C_Mosteiro_dos_Jer%C3%B3nimos.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/2002-10-26_11-15_%28Andalusien_%26_Lissabon_268%29_Lissabon%2C_Bel%C3%A9m%2C_Mosteiro_dos_Jer%C3%B3nimos.jpg/330px-2002-10-26_11-15_%28Andalusien_%26_Lissabon_268%29_Lissabon%2C_Bel%C3%A9m%2C_Mosteiro_dos_Jer%C3%B3nimos.jpg",
+   "imageCredit": {
+    "author": "Allie_Caulfield",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:2002-10-26_11-15_(Andalusien_%26_Lissabon_268)_Lissabon,_Bel%C3%A9m,_Mosteiro_dos_Jer%C3%B3nimos.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1540177",
+   "file": "File:2002-10-26 11-15 (Andalusien & Lissabon 268) Lissabon, Belém, Mosteiro dos Jerónimos.jpg"
+  },
+  "osm-node-6220668933": {
+   "name": "Mártires da Pátria (Março de 1994)",
+   "lat": 38.7210671,
+   "lng": -9.1402936,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4d/Campo_Santana_05.JPG/960px-Campo_Santana_05.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4d/Campo_Santana_05.JPG/330px-Campo_Santana_05.JPG",
+   "imageCredit": {
+    "author": "Manuel Correia",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "source": "https://commons.wikimedia.org/wiki/File:Campo_Santana_05.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q9678396",
+   "file": "File:Campo Santana 05.JPG"
+  },
+  "osm-relation-11381632": {
+   "name": "Museu de Arte, Arquitetura e Tecnologia (MAAT)",
+   "lat": 38.6959366,
+   "lng": -9.1936178,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Exterior_of_Museu_de_Arte%2C_Arquitetura_e_Tecnologia_67.jpg/960px-Exterior_of_Museu_de_Arte%2C_Arquitetura_e_Tecnologia_67.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Exterior_of_Museu_de_Arte%2C_Arquitetura_e_Tecnologia_67.jpg/330px-Exterior_of_Museu_de_Arte%2C_Arquitetura_e_Tecnologia_67.jpg",
+   "imageCredit": {
+    "author": "Kent Wang",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Exterior_of_Museu_de_Arte,_Arquitetura_e_Tecnologia_67.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q27522479",
+   "file": "File:Exterior of Museu de Arte, Arquitetura e Tecnologia 67.jpg"
+  },
+  "osm-relation-11699003": {
+   "name": "Museu de Lisboa - Teatro Romano",
+   "lat": 38.7105167,
+   "lng": -9.1323876,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/Lisboa_-_Ru%C3%ADnas_do_Teatro_Romano.jpg/960px-Lisboa_-_Ru%C3%ADnas_do_Teatro_Romano.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/Lisboa_-_Ru%C3%ADnas_do_Teatro_Romano.jpg/330px-Lisboa_-_Ru%C3%ADnas_do_Teatro_Romano.jpg",
+   "imageCredit": {
+    "author": "Concierge.2C",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Lisboa_-_Ru%C3%ADnas_do_Teatro_Romano.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q11780",
+   "file": "File:Lisboa - Ruínas do Teatro Romano.jpg"
+  },
+  "osm-relation-12687531": {
+   "name": "Mesquita Central de Lisboa",
+   "lat": 38.7355932,
+   "lng": -9.1585296,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Mesquita_Central_de_Lisboa_Joao_Paulo_Concei%C3%A7ao_2.jpg/960px-Mesquita_Central_de_Lisboa_Joao_Paulo_Concei%C3%A7ao_2.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Mesquita_Central_de_Lisboa_Joao_Paulo_Concei%C3%A7ao_2.jpg/330px-Mesquita_Central_de_Lisboa_Joao_Paulo_Concei%C3%A7ao_2.jpg",
+   "imageCredit": {
+    "author": "Manuelvbotelho",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Mesquita_Central_de_Lisboa_Joao_Paulo_Concei%C3%A7ao_2.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q3115759",
+   "file": "File:Mesquita Central de Lisboa Joao Paulo Conceiçao 2.jpg"
+  },
+  "osm-relation-12988843": {
+   "name": "Tapada das Necessidades",
+   "lat": 38.7090649,
+   "lng": -9.1693713,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c4/Tapada_das_Necessidades_-_Lisboa_-_Portugal_%2823002230779%29.jpg/960px-Tapada_das_Necessidades_-_Lisboa_-_Portugal_%2823002230779%29.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c4/Tapada_das_Necessidades_-_Lisboa_-_Portugal_%2823002230779%29.jpg/330px-Tapada_das_Necessidades_-_Lisboa_-_Portugal_%2823002230779%29.jpg",
+   "imageCredit": {
+    "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Tapada_das_Necessidades_-_Lisboa_-_Portugal_(23002230779).jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q10378127",
+   "file": "File:Tapada das Necessidades - Lisboa - Portugal (23002230779).jpg"
+  },
+  "osm-relation-1396217": {
+   "name": "MUDE - Museu do Design",
+   "lat": 38.7091403,
+   "lng": -9.1366529,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/MUDE_03.jpg/960px-MUDE_03.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/MUDE_03.jpg/330px-MUDE_03.jpg",
+   "imageCredit": {
+    "author": "DiogoBaptista",
+    "license": "CC0",
+    "licenseUrl": null,
+    "source": "https://commons.wikimedia.org/wiki/File:MUDE_03.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1954392",
+   "file": "File:MUDE 03.jpg"
+  },
+  "osm-relation-15482569": {
+   "name": "Museu da Presidência da República",
+   "lat": 38.6975882,
+   "lng": -9.2014943,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/27/Museu_da_Presidencia_da_Rep%C3%BAblica_Palacio_de_Belem_090108.JPG/960px-Museu_da_Presidencia_da_Rep%C3%BAblica_Palacio_de_Belem_090108.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/27/Museu_da_Presidencia_da_Rep%C3%BAblica_Palacio_de_Belem_090108.JPG/330px-Museu_da_Presidencia_da_Rep%C3%BAblica_Palacio_de_Belem_090108.JPG",
+   "imageCredit": {
+    "author": "Jcornelius",
+    "license": "CC BY-SA 2.0 de",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/de/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Museu_da_Presidencia_da_Rep%C3%BAblica_Palacio_de_Belem_090108.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q17167658",
+   "file": "File:Museu da Presidencia da República Palacio de Belem 090108.JPG"
+  },
+  "osm-relation-17988877": {
+   "name": "Parque Recreativo dos Moinhos de Santana",
+   "lat": 38.7087957,
+   "lng": -9.2063842,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/da/Parque_dos_Moinhos_-_Lisboa_-_Portugal_%28403954145%29.jpg/960px-Parque_dos_Moinhos_-_Lisboa_-_Portugal_%28403954145%29.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/da/Parque_dos_Moinhos_-_Lisboa_-_Portugal_%28403954145%29.jpg/330px-Parque_dos_Moinhos_-_Lisboa_-_Portugal_%28403954145%29.jpg",
+   "imageCredit": {
+    "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Parque_dos_Moinhos_-_Lisboa_-_Portugal_(403954145).jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q10331529",
+   "file": "File:Parque dos Moinhos - Lisboa - Portugal (403954145).jpg"
+  },
+  "osm-relation-18302021": {
+   "name": "Museu de Arte Popular",
+   "lat": 38.6936374,
+   "lng": -9.208496,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/Exterior_of_Museu_de_Arte_Popular_%28Lisboa%29_84.jpg/960px-Exterior_of_Museu_de_Arte_Popular_%28Lisboa%29_84.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/Exterior_of_Museu_de_Arte_Popular_%28Lisboa%29_84.jpg/330px-Exterior_of_Museu_de_Arte_Popular_%28Lisboa%29_84.jpg",
+   "imageCredit": {
+    "author": "Kent Wang",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Exterior_of_Museu_de_Arte_Popular_(Lisboa)_84.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q10333771",
+   "file": "File:Exterior of Museu de Arte Popular (Lisboa) 84.jpg"
+  },
+  "osm-relation-19112367": {
+   "name": "Miradouro Sophia de Mello Breyner Andresen",
+   "lat": 38.7163743,
+   "lng": -9.1314599,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/10/Miradouro_da_Gra%C3%A7a.jpg/960px-Miradouro_da_Gra%C3%A7a.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/10/Miradouro_da_Gra%C3%A7a.jpg/330px-Miradouro_da_Gra%C3%A7a.jpg",
+   "imageCredit": {
+    "author": "Filipe Rocha,user:sacavem (pt) http://pt.wikipedia.org/wiki/Usu%C3%A1rio:Sacavem",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Miradouro_da_Gra%C3%A7a.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q2744066",
+   "file": "File:Miradouro da Graça.jpg"
+  },
+  "osm-relation-20308167": {
+   "name": "Convento do Beato",
+   "lat": 38.7349867,
+   "lng": -9.1063299,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/de/Web_Summit_2018_-_Venture_-_November_5_SD5_4262_%2844815235125%29.jpg/960px-Web_Summit_2018_-_Venture_-_November_5_SD5_4262_%2844815235125%29.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/de/Web_Summit_2018_-_Venture_-_November_5_SD5_4262_%2844815235125%29.jpg/330px-Web_Summit_2018_-_Venture_-_November_5_SD5_4262_%2844815235125%29.jpg",
+   "imageCredit": {
+    "author": "Web Summit",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Web_Summit_2018_-_Venture_-_November_5_SD5_4262_(44815235125).jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q15727585",
+   "file": "File:Web Summit 2018 - Venture - November 5 SD5 4262 (44815235125).jpg"
+  },
+  "osm-relation-3239629": {
+   "name": "Palácio do Grilo",
+   "lat": 38.7324989,
+   "lng": -9.1066065,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/62/Pal%C3%A1cio_do_Grilo.jpg/960px-Pal%C3%A1cio_do_Grilo.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/62/Pal%C3%A1cio_do_Grilo.jpg/330px-Pal%C3%A1cio_do_Grilo.jpg",
+   "imageCredit": {
+    "author": "Roger Evain",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pal%C3%A1cio_do_Grilo.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q74473884",
+   "file": "File:Palácio do Grilo.jpg"
+  },
+  "osm-relation-3310878": {
+   "name": "Palácio Belmonte",
+   "lat": 38.7123938,
+   "lng": -9.1315731,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/Pal%C3%A1cio_Belmonte_-_Lisboa_-_Portugal_%2829899100698%29.jpg/960px-Pal%C3%A1cio_Belmonte_-_Lisboa_-_Portugal_%2829899100698%29.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/Pal%C3%A1cio_Belmonte_-_Lisboa_-_Portugal_%2829899100698%29.jpg/330px-Pal%C3%A1cio_Belmonte_-_Lisboa_-_Portugal_%2829899100698%29.jpg",
+   "imageCredit": {
+    "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pal%C3%A1cio_Belmonte_-_Lisboa_-_Portugal_(29899100698).jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q10343928",
+   "file": "File:Palácio Belmonte - Lisboa - Portugal (29899100698).jpg"
+  },
+  "osm-relation-3327251": {
+   "name": "Estufa Fria",
+   "lat": 38.72932,
+   "lng": -9.1553585,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/Estufa_Fr%C3%ADa_%2822181833839%29.jpg/960px-Estufa_Fr%C3%ADa_%2822181833839%29.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/Estufa_Fr%C3%ADa_%2822181833839%29.jpg/330px-Estufa_Fr%C3%ADa_%2822181833839%29.jpg",
+   "imageCredit": {
+    "author": "Bex Walton from London, England",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Estufa_Fr%C3%ADa_(22181833839).jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q8843624",
+   "file": "File:Estufa Fría (22181833839).jpg"
+  },
+  "osm-relation-8131598": {
+   "name": "Jardim do Marquês de Marialva",
+   "lat": 38.7425481,
+   "lng": -9.1452918,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/98/Jardim_Marqu%C3%AAs_de_Marialva.JPG/960px-Jardim_Marqu%C3%AAs_de_Marialva.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/98/Jardim_Marqu%C3%AAs_de_Marialva.JPG/330px-Jardim_Marqu%C3%AAs_de_Marialva.JPG",
+   "imageCredit": {
+    "author": "Hipersyl",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Jardim_Marqu%C3%AAs_de_Marialva.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q10305843",
+   "file": "File:Jardim Marquês de Marialva.JPG"
+  },
+  "osm-relation-8797676": {
+   "name": "Jardim Botânico Tropical",
+   "lat": 38.6997649,
+   "lng": -9.2021712,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/34/Lisboa_Jardim_Bot%C3%A2nico_Tropical_Washingtonia_filifera_19-10-2010_14-58-21.JPG/960px-Lisboa_Jardim_Bot%C3%A2nico_Tropical_Washingtonia_filifera_19-10-2010_14-58-21.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/34/Lisboa_Jardim_Bot%C3%A2nico_Tropical_Washingtonia_filifera_19-10-2010_14-58-21.JPG/330px-Lisboa_Jardim_Bot%C3%A2nico_Tropical_Washingtonia_filifera_19-10-2010_14-58-21.JPG",
+   "imageCredit": {
+    "author": "Paul Hermans",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Lisboa_Jardim_Bot%C3%A2nico_Tropical_Washingtonia_filifera_19-10-2010_14-58-21.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q2249320",
+   "file": "File:Lisboa Jardim Botânico Tropical Washingtonia filifera 19-10-2010 14-58-21.JPG"
+  },
+  "osm-relation-8800175": {
+   "name": "Jardim Botânico da Ajuda",
+   "lat": 38.7062162,
+   "lng": -9.2008118,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/Topiary_in_Jardim_Bot%C3%A2nico_da_Ajuda_73.jpg/960px-Topiary_in_Jardim_Bot%C3%A2nico_da_Ajuda_73.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/Topiary_in_Jardim_Bot%C3%A2nico_da_Ajuda_73.jpg/330px-Topiary_in_Jardim_Bot%C3%A2nico_da_Ajuda_73.jpg",
+   "imageCredit": {
+    "author": "Kent Wang",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Topiary_in_Jardim_Bot%C3%A2nico_da_Ajuda_73.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q107183486",
+   "file": "File:Topiary in Jardim Botânico da Ajuda 73.jpg"
+  },
+  "osm-relation-9227991": {
+   "name": "Jardim da Praça do Império",
+   "lat": 38.6960645,
+   "lng": -9.2060199,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/83/JeronimosView.jpg/960px-JeronimosView.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/83/JeronimosView.jpg/330px-JeronimosView.jpg",
+   "imageCredit": {
+    "author": "Fernando de Sousa from Melbourne, Australia",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:JeronimosView.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1483993",
+   "file": "File:JeronimosView.jpg"
+  },
+  "osm-way-1270557594": {
+   "name": "Norte",
+   "lat": 38.7734149,
+   "lng": -9.0914172,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/Telef%C3%A9rico_-_terminal.jpg/960px-Telef%C3%A9rico_-_terminal.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/Telef%C3%A9rico_-_terminal.jpg/330px-Telef%C3%A9rico_-_terminal.jpg",
+   "imageCredit": {
+    "author": "Filipe Rocha,user:sacavem (pt), Sacavem1 11:23, 16 November 2007 (UTC)",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Telef%C3%A9rico_-_terminal.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q2401546",
+   "file": "File:Teleférico - terminal.jpg"
+  },
+  "osm-way-1270557595": {
+   "name": "Sul",
+   "lat": 38.7623985,
+   "lng": -9.0923069,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/Telef%C3%A9rico_-_terminal.jpg/960px-Telef%C3%A9rico_-_terminal.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/Telef%C3%A9rico_-_terminal.jpg/330px-Telef%C3%A9rico_-_terminal.jpg",
+   "imageCredit": {
+    "author": "Filipe Rocha,user:sacavem (pt), Sacavem1 11:23, 16 November 2007 (UTC)",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Telef%C3%A9rico_-_terminal.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q2401546",
+   "file": "File:Teleférico - terminal.jpg"
+  },
+  "osm-way-141123677": {
+   "name": "Museu Nacional de Etnologia",
+   "lat": 38.7048338,
+   "lng": -9.2084503,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/Lisbon%2C_the_Museu_Nacional_de_Etnologia.JPG/960px-Lisbon%2C_the_Museu_Nacional_de_Etnologia.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/Lisbon%2C_the_Museu_Nacional_de_Etnologia.JPG/330px-Lisbon%2C_the_Museu_Nacional_de_Etnologia.JPG",
+   "imageCredit": {
+    "author": "Dguendel",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Lisbon,_the_Museu_Nacional_de_Etnologia.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q6974467",
+   "file": "File:Lisbon, the Museu Nacional de Etnologia.JPG"
+  },
+  "osm-way-1413022125": {
+   "name": "Cinemateca Portuguesa - Museu do Cinema",
+   "lat": 38.7207424,
+   "lng": -9.1485951,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/Cinemateca_de_Lisboa_-_Portugal_%F0%9F%87%B5%F0%9F%87%B9_%2853664180193%29_%28cropped%29.jpg/960px-Cinemateca_de_Lisboa_-_Portugal_%F0%9F%87%B5%F0%9F%87%B9_%2853664180193%29_%28cropped%29.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/Cinemateca_de_Lisboa_-_Portugal_%F0%9F%87%B5%F0%9F%87%B9_%2853664180193%29_%28cropped%29.jpg/330px-Cinemateca_de_Lisboa_-_Portugal_%F0%9F%87%B5%F0%9F%87%B9_%2853664180193%29_%28cropped%29.jpg",
+   "imageCredit": {
+    "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Cinemateca_de_Lisboa_-_Portugal_%F0%9F%87%B5%F0%9F%87%B9_(53664180193)_(cropped).jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1092464",
+   "file": "File:Cinemateca de Lisboa - Portugal 🇵🇹 (53664180193) (cropped).jpg"
+  },
+  "osm-way-142915549": {
+   "name": "Igreja de Santo Estêvão",
+   "lat": 38.712216,
+   "lng": -9.1278391,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bb/Igreja_de_Santo_Est%C3%AAv%C3%A3o_-_Lisboa_-_Portugal_%2850929982882%29.jpg/960px-Igreja_de_Santo_Est%C3%AAv%C3%A3o_-_Lisboa_-_Portugal_%2850929982882%29.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bb/Igreja_de_Santo_Est%C3%AAv%C3%A3o_-_Lisboa_-_Portugal_%2850929982882%29.jpg/330px-Igreja_de_Santo_Est%C3%AAv%C3%A3o_-_Lisboa_-_Portugal_%2850929982882%29.jpg",
+   "imageCredit": {
+    "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Igreja_de_Santo_Est%C3%AAv%C3%A3o_-_Lisboa_-_Portugal_(50929982882).jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q5994220",
+   "file": "File:Igreja de Santo Estêvão - Lisboa - Portugal (50929982882).jpg"
+  },
+  "osm-way-1451054092": {
+   "name": "Museu Nacional do Azulejo",
+   "lat": 38.7247634,
+   "lng": -9.1139528,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/Convento_da_Madre_de_Deus_-_Lisboa_-_Portugal_%2846913633574%29.jpg/960px-Convento_da_Madre_de_Deus_-_Lisboa_-_Portugal_%2846913633574%29.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/Convento_da_Madre_de_Deus_-_Lisboa_-_Portugal_%2846913633574%29.jpg/330px-Convento_da_Madre_de_Deus_-_Lisboa_-_Portugal_%2846913633574%29.jpg",
+   "imageCredit": {
+    "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Convento_da_Madre_de_Deus_-_Lisboa_-_Portugal_(46913633574).jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q2313815",
+   "file": "File:Convento da Madre de Deus - Lisboa - Portugal (46913633574).jpg"
+  },
+  "osm-way-145116279": {
+   "name": "Jardim do Palácio Marquês de Fronteira",
+   "lat": 38.7390903,
+   "lng": -9.1799511,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Garden_of_Pal%C3%A1cio_dos_Marqueses_de_Fronteira_59.jpg/960px-Garden_of_Pal%C3%A1cio_dos_Marqueses_de_Fronteira_59.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Garden_of_Pal%C3%A1cio_dos_Marqueses_de_Fronteira_59.jpg/330px-Garden_of_Pal%C3%A1cio_dos_Marqueses_de_Fronteira_59.jpg",
+   "imageCredit": {
+    "author": "Kent Wang",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Garden_of_Pal%C3%A1cio_dos_Marqueses_de_Fronteira_59.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1161724",
+   "file": "File:Garden of Palácio dos Marqueses de Fronteira 59.jpg"
+  },
+  "osm-way-145116280": {
+   "name": "Palácio Fronteira",
+   "lat": 38.739969,
+   "lng": -9.1804531,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Garden_of_Pal%C3%A1cio_dos_Marqueses_de_Fronteira_59.jpg/960px-Garden_of_Pal%C3%A1cio_dos_Marqueses_de_Fronteira_59.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Garden_of_Pal%C3%A1cio_dos_Marqueses_de_Fronteira_59.jpg/330px-Garden_of_Pal%C3%A1cio_dos_Marqueses_de_Fronteira_59.jpg",
+   "imageCredit": {
+    "author": "Kent Wang",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Garden_of_Pal%C3%A1cio_dos_Marqueses_de_Fronteira_59.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1161724",
+   "file": "File:Garden of Palácio dos Marqueses de Fronteira 59.jpg"
+  },
+  "osm-way-152327819": {
+   "name": "Padrão dos Descobrimentos",
+   "lat": 38.6935901,
+   "lng": -9.2057202,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/Lisbonne_-_Padr%C3%A3o_dos_Descobrimentos_-_Closeup.jpg/960px-Lisbonne_-_Padr%C3%A3o_dos_Descobrimentos_-_Closeup.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/Lisbonne_-_Padr%C3%A3o_dos_Descobrimentos_-_Closeup.jpg/330px-Lisbonne_-_Padr%C3%A3o_dos_Descobrimentos_-_Closeup.jpg",
+   "imageCredit": {
+    "author": "Jean-Christophe BENOIST",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Lisbonne_-_Padr%C3%A3o_dos_Descobrimentos_-_Closeup.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1133712",
+   "file": "File:Lisbonne - Padrão dos Descobrimentos - Closeup.jpg"
+  },
+  "osm-way-153604081": {
+   "name": "Parque José Gomes Ferreira",
+   "lat": 38.758834,
+   "lng": -9.1330866,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/Parque_Jos%C3%A9_Gomes_Ferreira_2014-06-08.JPG/960px-Parque_Jos%C3%A9_Gomes_Ferreira_2014-06-08.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/Parque_Jos%C3%A9_Gomes_Ferreira_2014-06-08.JPG/330px-Parque_Jos%C3%A9_Gomes_Ferreira_2014-06-08.JPG",
+   "imageCredit": {
+    "author": "Reino Baptista",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Parque_Jos%C3%A9_Gomes_Ferreira_2014-06-08.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q10345167",
+   "file": "File:Parque José Gomes Ferreira 2014-06-08.JPG"
+  },
+  "osm-way-153605598": {
+   "name": "Parque do Vale do Silêncio",
+   "lat": 38.7666788,
+   "lng": -9.117284,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Mata_do_Vale_do_Sil%C3%AAncio.jpg/960px-Mata_do_Vale_do_Sil%C3%AAncio.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Mata_do_Vale_do_Sil%C3%AAncio.jpg/330px-Mata_do_Vale_do_Sil%C3%AAncio.jpg",
+   "imageCredit": {
+    "author": "Hipersyl",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Mata_do_Vale_do_Sil%C3%AAncio.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q10327250",
+   "file": "File:Mata do Vale do Silêncio.jpg"
+  },
+  "osm-way-155449351": {
+   "name": "Fragata Dom Fernando II e Glória",
+   "lat": 38.6865703,
+   "lng": -9.1461634,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a4/Frigate_Dom_Fernando_II_e_Gl%C3%B3ria%2C_1878.jpg/960px-Frigate_Dom_Fernando_II_e_Gl%C3%B3ria%2C_1878.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a4/Frigate_Dom_Fernando_II_e_Gl%C3%B3ria%2C_1878.jpg/330px-Frigate_Dom_Fernando_II_e_Gl%C3%B3ria%2C_1878.jpg",
+   "imageCredit": {
+    "author": "Unknown author Unknown author",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "source": "https://commons.wikimedia.org/wiki/File:Frigate_Dom_Fernando_II_e_Gl%C3%B3ria,_1878.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q5289729",
+   "file": "File:Frigate Dom Fernando II e Glória, 1878.jpg"
+  },
+  "osm-way-172003934": {
+   "name": "Jardim Augusto Gil",
+   "lat": 38.716041,
+   "lng": -9.1310096,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/Lisboa_024_%2825248263525%29.jpg/960px-Lisboa_024_%2825248263525%29.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/Lisboa_024_%2825248263525%29.jpg/330px-Lisboa_024_%2825248263525%29.jpg",
+   "imageCredit": {
+    "author": "Sandra Vallaure from Seville, Spain",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Lisboa_024_(25248263525).jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q10305479",
+   "file": "File:Lisboa 024 (25248263525).jpg"
+  },
+  "osm-way-176257624": {
+   "name": "Capela de São Jerónimo",
+   "lat": 38.7013434,
+   "lng": -9.213653,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/Capela_de_S%C3%A3o_Jer%C3%B3nimo_03.jpg/960px-Capela_de_S%C3%A3o_Jer%C3%B3nimo_03.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/Capela_de_S%C3%A3o_Jer%C3%B3nimo_03.jpg/330px-Capela_de_S%C3%A3o_Jer%C3%B3nimo_03.jpg",
+   "imageCredit": {
+    "author": "GualdimG",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Capela_de_S%C3%A3o_Jer%C3%B3nimo_03.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q9695886",
+   "file": "File:Capela de São Jerónimo 03.jpg"
+  },
+  "osm-way-188143627": {
+   "name": "Museu Calouste Gulbenkian - Centro de Arte Moderna",
+   "lat": 38.7359407,
+   "lng": -9.1536701,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/37/Exterior_of_Centro_de_Arte_Moderna_814.jpg/960px-Exterior_of_Centro_de_Arte_Moderna_814.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/37/Exterior_of_Centro_de_Arte_Moderna_814.jpg/330px-Exterior_of_Centro_de_Arte_Moderna_814.jpg",
+   "imageCredit": {
+    "author": "Kent Wang",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Exterior_of_Centro_de_Arte_Moderna_814.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1054339",
+   "file": "File:Exterior of Centro de Arte Moderna 814.jpg"
+  },
+  "osm-way-19647687": {
+   "name": "Jardim Vasco da Gama",
+   "lat": 38.6962836,
+   "lng": -9.2031942,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/34/Jardim_Vasco_da_Gama%2C_Lisboa%2C_Portugal.jpg/960px-Jardim_Vasco_da_Gama%2C_Lisboa%2C_Portugal.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/34/Jardim_Vasco_da_Gama%2C_Lisboa%2C_Portugal.jpg/330px-Jardim_Vasco_da_Gama%2C_Lisboa%2C_Portugal.jpg",
+   "imageCredit": {
+    "author": "Paulo Juntas",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Jardim_Vasco_da_Gama,_Lisboa,_Portugal.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q10306190",
+   "file": "File:Jardim Vasco da Gama, Lisboa, Portugal.jpg"
+  },
+  "osm-way-19647778": {
+   "name": "Jardim Afonso de Albuquerque",
+   "lat": 38.6966367,
+   "lng": -9.2002748,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/Jardim_Praca_Afonso_de_Albuquerque_04.jpg/960px-Jardim_Praca_Afonso_de_Albuquerque_04.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/Jardim_Praca_Afonso_de_Albuquerque_04.jpg/330px-Jardim_Praca_Afonso_de_Albuquerque_04.jpg",
+   "imageCredit": {
+    "author": "Patrícia",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Jardim_Praca_Afonso_de_Albuquerque_04.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q10305395",
+   "file": "File:Jardim Praca Afonso de Albuquerque 04.jpg"
+  },
+  "osm-way-207662487": {
+   "name": "Palácio Pimenta",
+   "lat": 38.7584705,
+   "lng": -9.1566316,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/aa/Exterior_of_Pal%C3%A1cio_Pimenta_78.jpg/960px-Exterior_of_Pal%C3%A1cio_Pimenta_78.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/aa/Exterior_of_Pal%C3%A1cio_Pimenta_78.jpg/330px-Exterior_of_Pal%C3%A1cio_Pimenta_78.jpg",
+   "imageCredit": {
+    "author": "Kent Wang",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Exterior_of_Pal%C3%A1cio_Pimenta_78.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q7194630",
+   "file": "File:Exterior of Palácio Pimenta 78.jpg"
+  },
+  "osm-way-230062383": {
+   "name": "Jardim Mário Ruivo",
+   "lat": 38.7615095,
+   "lng": -9.0943178,
+   "image": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Jardins_da_%C3%81gua-01.png",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/Jardins_da_%C3%81gua-01.png/330px-Jardins_da_%C3%81gua-01.png",
+   "imageCredit": {
+    "author": "Morgaine",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Jardins_da_%C3%81gua-01.png",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q10306384",
+   "file": "File:Jardins da Água-01.png"
+  },
+  "osm-way-24341353": {
+   "name": "Torre de Belém",
+   "lat": 38.6916021,
+   "lng": -9.2159192,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b5/Belem_Tower_-_April_2019_%282%29.jpg/960px-Belem_Tower_-_April_2019_%282%29.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b5/Belem_Tower_-_April_2019_%282%29.jpg/330px-Belem_Tower_-_April_2019_%282%29.jpg",
+   "imageCredit": {
+    "author": "Rehman Abubakr",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Belem_Tower_-_April_2019_(2).jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q215003",
+   "file": "File:Belem Tower - April 2019 (2).jpg"
+  },
+  "osm-way-272456332": {
+   "name": "Verride Palácio de Santa Catarina",
+   "lat": 38.70963,
+   "lng": -9.1470343,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Lisboa_%28Portugal%29._%2854213352749%29.jpg/960px-Lisboa_%28Portugal%29._%2854213352749%29.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Lisboa_%28Portugal%29._%2854213352749%29.jpg/330px-Lisboa_%28Portugal%29._%2854213352749%29.jpg",
+   "imageCredit": {
+    "author": "Txemari. (Navarra). from Navarra, España",
+    "license": "CC0",
+    "licenseUrl": null,
+    "source": "https://commons.wikimedia.org/wiki/File:Lisboa_(Portugal)._(54213352749).jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q7922575",
+   "file": "File:Lisboa (Portugal). (54213352749).jpg"
+  },
+  "osm-way-307659634": {
+   "name": "Jardim das Francesinhas",
+   "lat": 38.7115329,
+   "lng": -9.154655,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e1/Jardim_de_S%C3%A3o_Bento_Lisboa_2.jpg/960px-Jardim_de_S%C3%A3o_Bento_Lisboa_2.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e1/Jardim_de_S%C3%A3o_Bento_Lisboa_2.jpg/330px-Jardim_de_S%C3%A3o_Bento_Lisboa_2.jpg",
+   "imageCredit": {
+    "author": "GualdimG",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Jardim_de_S%C3%A3o_Bento_Lisboa_2.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q61666885",
+   "file": "File:Jardim de São Bento Lisboa 2.jpg"
+  },
+  "osm-way-309147945": {
+   "name": "Pavilhão 1",
+   "lat": 38.7512622,
+   "lng": -9.1835185,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d7/Different_view_of_Pavilh%C3%A3o_da_Luz_n.%C2%BA1.JPG/960px-Different_view_of_Pavilh%C3%A3o_da_Luz_n.%C2%BA1.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d7/Different_view_of_Pavilh%C3%A3o_da_Luz_n.%C2%BA1.JPG/330px-Different_view_of_Pavilh%C3%A3o_da_Luz_n.%C2%BA1.JPG",
+   "imageCredit": {
+    "author": "Threeohsix",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Different_view_of_Pavilh%C3%A3o_da_Luz_n.%C2%BA1.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q7155861",
+   "file": "File:Different view of Pavilhão da Luz n.º1.JPG"
+  },
+  "osm-way-398581103": {
+   "name": "Ritz Four Seasons Hotel Lisboa",
+   "lat": 38.7258018,
+   "lng": -9.1548781,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/12/Hotel_Ritz_Lisboa_5529.jpg/960px-Hotel_Ritz_Lisboa_5529.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/12/Hotel_Ritz_Lisboa_5529.jpg/330px-Hotel_Ritz_Lisboa_5529.jpg",
+   "imageCredit": {
+    "author": "Manuelvbotelho",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Hotel_Ritz_Lisboa_5529.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q66814366",
+   "file": "File:Hotel Ritz Lisboa 5529.jpg"
+  },
+  "osm-way-40705510": {
+   "name": "Jardim Botânico de Lisboa",
+   "lat": 38.7185132,
+   "lng": -9.1488937,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Jardim_Bot%C3%A2nico_de_Lisboa_-_Portugal_%F0%9F%87%B5%F0%9F%87%B9_%2854210262784%29.jpg/960px-Jardim_Bot%C3%A2nico_de_Lisboa_-_Portugal_%F0%9F%87%B5%F0%9F%87%B9_%2854210262784%29.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Jardim_Bot%C3%A2nico_de_Lisboa_-_Portugal_%F0%9F%87%B5%F0%9F%87%B9_%2854210262784%29.jpg/330px-Jardim_Bot%C3%A2nico_de_Lisboa_-_Portugal_%F0%9F%87%B5%F0%9F%87%B9_%2854210262784%29.jpg",
+   "imageCredit": {
+    "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Jardim_Bot%C3%A2nico_de_Lisboa_-_Portugal_%F0%9F%87%B5%F0%9F%87%B9_(54210262784).jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q943407",
+   "file": "File:Jardim Botânico de Lisboa - Portugal 🇵🇹 (54210262784).jpg"
+  },
+  "osm-way-461436481": {
+   "name": "Memorial de Odivelas",
+   "lat": 38.7904649,
+   "lng": -9.18049,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/OdivelasMemorial.JPG/960px-OdivelasMemorial.JPG",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/OdivelasMemorial.JPG/330px-OdivelasMemorial.JPG",
+   "imageCredit": {
+    "author": "CorreiaPM",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "source": "https://commons.wikimedia.org/wiki/File:OdivelasMemorial.JPG",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1920081",
+   "file": "File:OdivelasMemorial.JPG"
+  },
+  "osm-way-495872178": {
+   "name": "Pavilhão João Rocha",
+   "lat": 38.7634821,
+   "lng": -9.158457,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/73/Interior_do_Pavilh%C3%A3o_Jo%C3%A3o_Rocha.jpg/960px-Interior_do_Pavilh%C3%A3o_Jo%C3%A3o_Rocha.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/73/Interior_do_Pavilh%C3%A3o_Jo%C3%A3o_Rocha.jpg/330px-Interior_do_Pavilh%C3%A3o_Jo%C3%A3o_Rocha.jpg",
+   "imageCredit": {
+    "author": "João Teles",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Interior_do_Pavilh%C3%A3o_Jo%C3%A3o_Rocha.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q28680614",
+   "file": "File:Interior do Pavilhão João Rocha.jpg"
+  },
+  "osm-way-54754721": {
+   "name": "Estádio Universitário de Lisboa",
+   "lat": 38.7539048,
+   "lng": -9.1624084,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Estadio_de_Honra_EUL_2012.jpg/960px-Estadio_de_Honra_EUL_2012.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Estadio_de_Honra_EUL_2012.jpg/330px-Estadio_de_Honra_EUL_2012.jpg",
+   "imageCredit": {
+    "author": "stadionpanorama",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Estadio_de_Honra_EUL_2012.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q2645332",
+   "file": "File:Estadio de Honra EUL 2012.jpg"
+  },
+  "osm-way-579539846": {
+   "name": "Hotel Pestana Palace",
+   "lat": 38.7040887,
+   "lng": -9.1871717,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/Pestana_Palace_Hotel_IMG_2004.jpg/960px-Pestana_Palace_Hotel_IMG_2004.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/Pestana_Palace_Hotel_IMG_2004.jpg/330px-Pestana_Palace_Hotel_IMG_2004.jpg",
+   "imageCredit": {
+    "author": "sohrabah",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pestana_Palace_Hotel_IMG_2004.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q10343981",
+   "file": "File:Pestana Palace Hotel IMG 2004.jpg"
+  },
+  "osm-way-641044080": {
+   "name": "Iberostar Selection Lisboa",
+   "lat": 38.7241221,
+   "lng": -9.1523861,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/Iberostar_Selection_Lisboa%2C_2024.jpg/960px-Iberostar_Selection_Lisboa%2C_2024.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/Iberostar_Selection_Lisboa%2C_2024.jpg/330px-Iberostar_Selection_Lisboa%2C_2024.jpg",
+   "imageCredit": {
+    "author": "JnpoJuwan",
+    "license": "CC0",
+    "licenseUrl": null,
+    "source": "https://commons.wikimedia.org/wiki/File:Iberostar_Selection_Lisboa,_2024.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q111408467",
+   "file": "File:Iberostar Selection Lisboa, 2024.jpg"
+  },
+  "osm-way-663318739": {
+   "name": "Dom José I",
+   "lat": 38.707521,
+   "lng": -9.1364589,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/P3079533_%286251172955%29.jpg/960px-P3079533_%286251172955%29.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/P3079533_%286251172955%29.jpg/330px-P3079533_%286251172955%29.jpg",
+   "imageCredit": {
+    "author": "Philip Sheldrake from London, UK",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:P3079533_(6251172955).jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q18476235",
+   "file": "File:P3079533 (6251172955).jpg"
+  },
+  "osm-way-681518140": {
+   "name": "Carioca",
+   "lat": 38.7132052,
+   "lng": -9.1432145,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Largo_Trindade_Coelho_%28vista_de_conjunto%29_8486.jpg/960px-Largo_Trindade_Coelho_%28vista_de_conjunto%29_8486.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Largo_Trindade_Coelho_%28vista_de_conjunto%29_8486.jpg/330px-Largo_Trindade_Coelho_%28vista_de_conjunto%29_8486.jpg",
+   "imageCredit": {
+    "author": "João Carvalho",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Largo_Trindade_Coelho_(vista_de_conjunto)_8486.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q70104800",
+   "file": "File:Largo Trindade Coelho (vista de conjunto) 8486.jpg"
+  },
+  "osm-way-821784762": {
+   "name": "MEO Arena",
+   "lat": 38.7684695,
+   "lng": -9.0938954,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/Pavilh%C3%A3o_Atl%C3%A2ntico_-_dynamosquito.jpg/960px-Pavilh%C3%A3o_Atl%C3%A2ntico_-_dynamosquito.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/Pavilh%C3%A3o_Atl%C3%A2ntico_-_dynamosquito.jpg/330px-Pavilh%C3%A3o_Atl%C3%A2ntico_-_dynamosquito.jpg",
+   "imageCredit": {
+    "author": "dynamosquito from France",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pavilh%C3%A3o_Atl%C3%A2ntico_-_dynamosquito.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1463929",
+   "file": "File:Pavilhão Atlântico - dynamosquito.jpg"
+  },
+  "osm-way-868522308": {
+   "name": "Jardim das Ondas",
+   "lat": 38.7621057,
+   "lng": -9.092948,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Lisboa%2C_Portugal_%2848813818861%29.jpg/960px-Lisboa%2C_Portugal_%2848813818861%29.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Lisboa%2C_Portugal_%2848813818861%29.jpg/330px-Lisboa%2C_Portugal_%2848813818861%29.jpg",
+   "imageCredit": {
+    "author": "Andrey Filippov 安德烈 from Moscow, Russia",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Lisboa,_Portugal_(48813818861).jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q10306292",
+   "file": "File:Lisboa, Portugal (48813818861).jpg"
+  },
+  "osm-way-9253917": {
+   "name": "Panteão Nacional",
+   "lat": 38.714978,
+   "lng": -9.1246825,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/33/Exterior_of_Igreja_de_Santa_Engr%C3%A1cia_70.jpg/960px-Exterior_of_Igreja_de_Santa_Engr%C3%A1cia_70.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/33/Exterior_of_Igreja_de_Santa_Engr%C3%A1cia_70.jpg/330px-Exterior_of_Igreja_de_Santa_Engr%C3%A1cia_70.jpg",
+   "imageCredit": {
+    "author": "Kent Wang",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Exterior_of_Igreja_de_Santa_Engr%C3%A1cia_70.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1601019",
+   "file": "File:Exterior of Igreja de Santa Engrácia 70.jpg"
+  },
+  "osm-way-96321688": {
+   "name": "Teatro Nacional de São Carlos",
+   "lat": 38.7094109,
+   "lng": -9.1417186,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/Teatro_Nacional_de_S%C3%A3o_Carlos_2021-04-20.png/960px-Teatro_Nacional_de_S%C3%A3o_Carlos_2021-04-20.png",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/Teatro_Nacional_de_S%C3%A3o_Carlos_2021-04-20.png/330px-Teatro_Nacional_de_S%C3%A3o_Carlos_2021-04-20.png",
+   "imageCredit": {
+    "author": "RickMorais",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Teatro_Nacional_de_S%C3%A3o_Carlos_2021-04-20.png",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1146936",
+   "file": "File:Teatro Nacional de São Carlos 2021-04-20.png"
+  },
+  "osm-way-96359446": {
+   "name": "Igreja do Loreto",
+   "lat": 38.710871,
+   "lng": -9.1427635,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/Exterior_of_Igreja_de_Nossa_Senhora_do_Loreto_%28Lisbon%29_58.jpg/960px-Exterior_of_Igreja_de_Nossa_Senhora_do_Loreto_%28Lisbon%29_58.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/Exterior_of_Igreja_de_Nossa_Senhora_do_Loreto_%28Lisbon%29_58.jpg/330px-Exterior_of_Igreja_de_Nossa_Senhora_do_Loreto_%28Lisbon%29_58.jpg",
+   "imageCredit": {
+    "author": "Kent Wang",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Exterior_of_Igreja_de_Nossa_Senhora_do_Loreto_(Lisbon)_58.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1657876",
+   "file": "File:Exterior of Igreja de Nossa Senhora do Loreto (Lisbon) 58.jpg"
+  },
+  "osm-way-96637918": {
+   "name": "Embaixada da República Federal da Alemanha",
+   "lat": 38.7213098,
+   "lng": -9.140768,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5f/German_Embassy_in_Lisbon%2C_Portugal_03.jpg/960px-German_Embassy_in_Lisbon%2C_Portugal_03.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5f/German_Embassy_in_Lisbon%2C_Portugal_03.jpg/330px-German_Embassy_in_Lisbon%2C_Portugal_03.jpg",
+   "imageCredit": {
+    "author": "RicardoFilipePereira",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:German_Embassy_in_Lisbon,_Portugal_03.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q1403220",
+   "file": "File:German Embassy in Lisbon, Portugal 03.jpg"
+  },
+  "osm-way-98656587": {
+   "name": "Museu Nacional de Arte Antiga",
+   "lat": 38.7047843,
+   "lng": -9.161447,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/MNAA.jpg/960px-MNAA.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/MNAA.jpg/330px-MNAA.jpg",
+   "imageCredit": {
+    "author": "Fulviusbsas",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": null,
+    "source": "https://commons.wikimedia.org/wiki/File:MNAA.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q212459",
+   "file": "File:MNAA.jpg"
+  },
+  "osm-way-98669740": {
+   "name": "Cervejaria Portugália",
+   "lat": 38.7309985,
+   "lng": -9.1347742,
+   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Cervejaria_Portug%C3%A1lia%2C_F%C3%A1brica_Portug%C3%A1lia%2C_Arroios%2C_Lisboa_02.jpg/960px-Cervejaria_Portug%C3%A1lia%2C_F%C3%A1brica_Portug%C3%A1lia%2C_Arroios%2C_Lisboa_02.jpg",
+   "imageThumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Cervejaria_Portug%C3%A1lia%2C_F%C3%A1brica_Portug%C3%A1lia%2C_Arroios%2C_Lisboa_02.jpg/330px-Cervejaria_Portug%C3%A1lia%2C_F%C3%A1brica_Portug%C3%A1lia%2C_Arroios%2C_Lisboa_02.jpg",
+   "imageCredit": {
+    "author": "GualdimG",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Cervejaria_Portug%C3%A1lia,_F%C3%A1brica_Portug%C3%A1lia,_Arroios,_Lisboa_02.jpg",
+    "via": "Wikimedia Commons"
+   },
+   "match": "wikidata-p18",
+   "wikidata": "Q123028941",
+   "file": "File:Cervejaria Portugália, Fábrica Portugália, Arroios, Lisboa 02.jpg"
+  }
+ }
+}

@@ -127,6 +127,13 @@
 .activity-alert a{color:#fff;text-decoration:underline}.activity-alert button{color:#fff;background:transparent;border:0;font-size:21px}
 @media(max-width:420px){.activity-entry{gap:8px;padding:10px}.activity-entry time{font-size:10px}.activity-bell{width:36px}}
 
+/* P0 VISUAL-SYSTEM-057 / #170: readable Lucide tabs with thumb-safe targets.
+   Keep five columns, selected state, labels and links; never replace labels with icon-only controls. */
+.community-hub-links>a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:56px;line-height:1.1}
+.community-hub-links>a .community-tab-icon{width:19px;height:19px;flex:none}
+.community-hub-links>a>span:not(.i){display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:359px){.community-hub-links>a{min-height:52px;gap:3px}.community-hub-links>a .community-tab-icon{width:18px;height:18px}}
+
 /* Optional, server-backed Web Push for installed iOS Home Screen PWA and desktop browsers. */
 .webpush-controls{display:grid;gap:7px;padding:14px;border:1px solid #DED0FA;background:#F8F3FF;border-radius:13px}
 .webpush-optin{background:#6D28D9;color:#fff;border:1px solid #6D28D9;justify-self:start;min-height:42px}

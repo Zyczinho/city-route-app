@@ -2,8 +2,12 @@ name: CI
 
 on:
   pull_request:
-  push:
-    branches: [main]
+
+# On main, Production rollout verification runs npm test + build + live checks
+# in one runner instead of starting a second CI job for every merge.
+concurrency:
+  group: cityroute-ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read

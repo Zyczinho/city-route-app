@@ -29,14 +29,14 @@ export const GUIDE_GROUPS = [
       [
         "Uwzględnij godziny otwarcia",
         "Ułóż trasę → Data i godzina",
-        "Unikaj przyjazdu do zamkniętego muzeum.",
+        "Unikaj przyjazdu do zamkniętego miejsca.",
         [
           "Wybierz datę i godzinę rozpoczęcia.",
-          "Określ, czy chcesz wejść do muzeów czy oglądać je z zewnątrz.",
+          "Gdy wybrane miejsca są wtedy zamknięte, dostaniesz propozycję innej godziny.",
           "Po wygenerowaniu przejrzyj harmonogram i ostrzeżenia."
         ],
         "#plan",
-        "Godziny są zweryfikowane tylko dla wybranych atrakcji. Nieznane godziny nie oznaczają otwartego miejsca."
+        "Godziny pochodzą z OpenStreetMap. Gdy ich brak, zakładamy typowe godziny i oznaczamy je do sprawdzenia."
       ],
       [
         "Dopasuj czas, transport i budżet",
@@ -288,7 +288,7 @@ export const GUIDE_GROUPS = [
     ]
   },
   {
-    "title": "Znajomi, grupy, czaty i wydarzenia",
+    "title": "Znajomi, grupy i czaty",
     "icon": "users",
     "items": [
       [
@@ -325,18 +325,6 @@ export const GUIDE_GROUPS = [
         ],
         "#routes/community/groups",
         "Część funkcji grup i czatów wymaga dalszych testów między użytkownikami."
-      ],
-      [
-        "Zobacz wydarzenia",
-        "Miejsca → Wydarzenia",
-        "Znajdź koncert lub inne wydarzenie, które urozmaici pobyt.",
-        [
-          "Otwórz zakładkę wydarzeń.",
-          "Przejrzyj dostępne propozycje.",
-          "Sprawdź datę i stronę organizatora."
-        ],
-        "#events",
-        "Tworzenie wydarzeń i wspólnych spacerów przez użytkowników jest dopiero w przygotowaniu."
       ]
     ]
   },
@@ -345,12 +333,12 @@ export const GUIDE_GROUPS = [
     "icon": "user-round",
     "items": [
       [
-        "Sprawdź rezerwacje, bilety i noclegi",
-        "Zarezerwuj → górna ikona biletu",
-        "Oszczędź czas przy szukaniu noclegu, biletu albo stolika.",
+        "Zarezerwuj stolik",
+        "Zarezerwuj → Stoliki",
+        "Znajdź restaurację i przejdź do jej strony rezerwacji.",
         [
-          "Kliknij ikonę „Zarezerwuj” w górnym pasku.",
-          "Wybierz Noclegi, Bilety lub Stoliki.",
+          "Otwórz zakładkę „Zarezerwuj”.",
+          "Przejrzyj restauracje dostępne w zakładce Stoliki.",
           "Przejdź do dostawcy, aby zobaczyć warunki i sfinalizować rezerwację."
         ],
         "#book",

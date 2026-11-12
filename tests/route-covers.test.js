@@ -51,8 +51,16 @@ test('every editorial route has its own credited main photo, unique across all c
   const keys=new Map(),sources=new Map();
   for(const r of routes){
     assert.ok(r.image,`${r.cityId}/${r.id} has no main photo`);
-    assert.match(r.image,/^route-[a-z0-9-]+\.jpg$/,`${r.id} cover must be a local route-*.jpg file`);
-    await stat(`assets/images/${r.image}`).catch(()=>assert.fail(`${r.id}: assets/images/${r.image} is missing`));
+    // Lisbon P0 has correctly licensed Commons thumbnails as a temporary photo-first fallback.
+    // Other editorial photos must remain local until a verified local cover is curated.
+    if(r.cityId==='lisbon'&&/^https:\/\/thumb\.wikimedia\.org\/wikipedia\/commons\/thumb\//.test(r.image)){
+      assert.equal(r.imageCredit?.via,'Wikimedia Commons',`${r.id} external cover must be a credited Commons photo`);
+      assert.match(r.imageCredit?.source||'',/^https:\/\/commons\.wikimedia\.org\/wiki\/File:/);
+      assert.match(r.imageCredit?.license||'',/^CC BY(?:-SA)? /);
+    }else{
+      assert.match(r.image,/^route-[a-z0-9-]+\.jpg$/,`${r.id} cover must be a local route-*.jpg file`);
+      await stat(`assets/images/${r.image}`).catch(()=>assert.fail(`${r.id}: assets/images/${r.image} is missing`));
+    }
     const c=r.imageCredit||{};
     for(const k of ['author','license','licenseUrl','source'])assert.ok(c[k],`${r.id} cover credit lacks ${k}`);
     assert.ok(r.imageCaption,`${r.id} cover needs a caption`);

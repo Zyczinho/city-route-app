@@ -1,3 +1,4 @@
+import {iconMarkup} from './ui-icons.js';
 // COMMUNITY-HUB-023: lightweight in-section navigation, reusing existing social, group and chat modules.
 // No extra data fetches and no duplicate message state.
 const root=()=>document.querySelector('#main');
@@ -8,9 +9,17 @@ const links=[
  ['#routes/community/friends','Znajomi'],
  ['#social-saved-places','Zapisane']
 ];
+// Five consistent, accessible Lucide tabs; the text remains visible at narrow widths.
+const tabIcons=Object.freeze({
+ '#routes/community':'route',
+ '#routes/community/groups':'users',
+ '#routes/community/chats':'message-circle',
+ '#routes/community/friends':'user-round',
+ '#social-saved-places':'bookmark'
+});
 const communityView=()=>{
  const hash=location.hash;
- if(hash==='#social-saved')return 'saved';
+ if(hash==='#social-saved')return null; // The personal route archive belongs under Profil.
  if(hash==='#social-saved-places')return 'saved-places';
  if(hash.startsWith('#profile/community'))return 'groups';
  if(hash.startsWith('#routes/community')){
@@ -34,7 +43,7 @@ function updateNav(){
   header=document.createElement('header');
   header.className='community-hub-header';
   header.dataset.communityTabs='1';
-  header.innerHTML='<div class="community-hub-title"><h1>Społeczność</h1><p>Trasy, ludzie i wspólne odkrywanie miasta.</p></div><nav class="community-hub-links" aria-label="Sekcje społeczności">'+links.map(([href,label])=>'<a href="'+href+'">'+label+'</a>').join('')+'</nav><a class="community-events-entry" href="#events" aria-label="Otwórz wydarzenia i spacery"><span class="community-events-icon" aria-hidden="true"><span class="i" style="--i:url(./assets/icons/ui/users.svg)"></span></span><span class="community-events-text"><strong>Wydarzenia i wspólne spacery</strong><small>Wydarzenia miejskie · spotkania społecznościowe w przygotowaniu</small></span><span aria-hidden="true" class="community-events-arrow"><span class="i" style="--i:url(./assets/icons/ui/chevron-right.svg)"></span></span></a><nav class="community-saved-switch" data-saved-switch aria-label="Zapisane: wybierz rodzaj" hidden><a href="#social-saved">Trasy</a><a href="#social-saved-places">Miejsca</a></nav>';
+  header.innerHTML='<div class="community-hub-title"><h1>Społeczność</h1><p>Trasy, ludzie i wspólne odkrywanie miasta.</p></div><nav class="community-hub-links" aria-label="Sekcje społeczności">'+links.map(([href,label])=>'<a href="'+href+'">'+iconMarkup(tabIcons[href],'community-tab-icon')+'<span>'+label+'</span></a>').join('')+'</nav><nav class="community-saved-switch" data-saved-switch aria-label="Zapisane: wybierz rodzaj" hidden><a href="#social-saved">Trasy</a><a href="#social-saved-places">Miejsca</a></nav>';
   main.prepend(header);
  }
  for(const a of header.querySelectorAll('nav a')){

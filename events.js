@@ -4,10 +4,20 @@ export const TM_ENDPOINT='https://app.ticketmaster.com/discovery/v2/events.json'
 const KIND={'Music':'koncerty','Arts & Theatre':'teatr','Sports':'sport','Film':'kino'};
 const utc=d=>d.toISOString().replace(/\.\d{3}Z$/,'Z');
 
-// Query for Warsaw events starting between now and `days` ahead.
-export function ticketmasterQuery(key,days=7,now=new Date()){
+// Explicit supported markets: never silently return Warsaw events for another city.
+export const EVENT_MARKETS=Object.freeze({
+ warsaw:{city:'Warsaw',countryCode:'PL'},
+ krakow:{city:'Krakow',countryCode:'PL'},
+ lisbon:{city:'Lisboa',countryCode:'PT'}
+});
+export const eventMarket=id=>Object.hasOwn(EVENT_MARKETS,id)?EVENT_MARKETS[id]:null;
+
+// Ticketmaster results are scoped to the active city and country.
+export function ticketmasterQuery(key,days=7,now=new Date(),cityId='warsaw'){
+ const market=eventMarket(cityId);
+ if(!market)throw Error('unsupported-event-city');
  const end=new Date(now.getTime()+Math.min(Math.max(days,1),31)*864e5);
- return `${TM_ENDPOINT}?${new URLSearchParams({apikey:key,city:'Warsaw',countryCode:'PL',startDateTime:utc(now),endDateTime:utc(end),sort:'date,asc',size:'100',locale:'*'})}`;
+ return `${TM_ENDPOINT}?${new URLSearchParams({apikey:key,city:market.city,countryCode:market.countryCode,startDateTime:utc(now),endDateTime:utc(end),sort:'date,asc',size:'100',locale:'*'})}`;
 }
 
 // Optional Impact affiliate link: a template containing {url}, set as an environment value.

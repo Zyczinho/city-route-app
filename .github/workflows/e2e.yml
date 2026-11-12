@@ -1,0 +1,53 @@
+name: e2e user scenarios
+
+# External runner: e2e (github.com/e2e-inc/e2e), locators and assertions only.
+# No model, no API key, no account: Supabase is blocked inside the test.
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths:
+      - 'app.js'
+      - 'core.js'
+      - 'index.html'
+      - 'saved-places-sync.js'
+      - 'social-routes-client.js'
+      - 'social-routes-enhancements.js'
+      - 'route-builder-model.js'
+      - 'scripts/build.mjs'
+      - 'e2e.config.ts'
+      - 'tests/e2e/**'
+      - '.github/workflows/e2e.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: cityroute-e2e-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  route-save:
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: ubuntu-24.04
+    # Image matches playwright-core used by @e2e-dev/web 0.15.5, so browsers and Linux libraries are preinstalled.
+    container:
+      image: mcr.microsoft.com/playwright:v1.64.1-noble
+    timeout-minutes: 10
+    env:
+      E2E_TELEMETRY_DISABLED: '1'
+      DO_NOT_TRACK: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm run build
+      - run: npm install --no-save --no-audit --no-fund e2e@0.23.0 @e2e-dev/web@0.15.5
+      - run: npx e2e run
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e2e-report
+          path: .e2e/
+          include-hidden-files: true

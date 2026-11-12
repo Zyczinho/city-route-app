@@ -108,12 +108,16 @@ async function hydrateProfile(user){
 }
 
 function setNotice(text){notice=text;renderAuth();}
+// Public Instagram demo: the Google OAuth app is still in "Testing" (only listed testers may sign in)
+// and Google blocks OAuth inside Instagram's in-app browser. Show e-mail sign-in only until
+// the consent screen is published, then set this back to true.
+const GOOGLE_LOGIN_VISIBLE=false;
 
 function signedOutMarkup(){
   return `<section class="auth-card" data-city-auth data-auth-state="out" data-auth-user="" data-auth-notice="${esc(notice)}"><div><p class="kicker">Konto City Route</p><h2>Zaloguj się do City Route</h2></div>
   ${notice?`<p class="auth-notice" role="status">${esc(notice)}</p>`:''}
-  <button type="button" class="google-auth-button" data-auth-action="google"><span class="google-auth-mark" aria-hidden="true">G</span>Kontynuuj z Google</button>
-  <div class="auth-divider" aria-hidden="true"><span>lub zaloguj się e-mailem</span></div>
+  ${GOOGLE_LOGIN_VISIBLE?`<button type="button" class="google-auth-button" data-auth-action="google"><span class="google-auth-mark" aria-hidden="true">G</span>Kontynuuj z Google</button>
+  <div class="auth-divider" aria-hidden="true"><span>lub zaloguj się e-mailem</span></div>`:''}
   <form data-auth-form="login" class="auth-form"><h3>Zaloguj się</h3><label>E-mail<input name="email" type="email" autocomplete="email" required></label><label>Hasło<input name="password" type="password" autocomplete="current-password" minlength="6" required></label><button class="primary">Zaloguj</button></form>
   <details class="auth-signup"><summary>Nie masz konta? Utwórz je</summary><form data-auth-form="signup" class="auth-form"><label>Nazwa<input name="nickname" minlength="2" maxlength="40" autocomplete="nickname" placeholder="Wybierz unikalny nick" required></label><label>E-mail<input name="email" type="email" autocomplete="email" required></label><label>Hasło<input name="password" type="password" autocomplete="new-password" minlength="6" required></label><button class="primary">Utwórz konto</button></form></details></section>`;
 }

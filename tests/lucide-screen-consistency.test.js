@@ -63,13 +63,11 @@ test('PWA includes icon renderer, CSS, missing SVGs and correct module version b
  assert.match(sw,/ui-icons\.css\?v=3/);
  for(const path of ['ui-icons.css','ui-icons.js']){assert.ok(build.includes(path));assert.ok(sw.includes(path));}
  for(const name of ['chevron-down','minus','heart','grip-vertical'])assert.ok(sw.includes('assets/icons/ui/'+name+'.svg'),'missing offline icon '+name);
- for(const file of ['photo-fallback.js','place-composer.js','social-routes-enhancements.js','place-reviews.js','requests-enhancements.js','enhancements.js','ux-cleanup.js','community-enhancements.js','first-launch.js']){
-   const prefix=file+'?v=',suffix=html.split(prefix)[1];
-   assert.ok(/^\d+/.test(suffix||''),'new JS not versioned in HTML: '+file);
-   const version=suffix.match(/^\d+/)[0];
-   assert.ok(sw.includes(prefix+version),'new JS cache version disagrees with HTML: '+file);
-  }
-  for(const path of [...sourceModules,'ui-icons.js'])execFileSync(process.execPath,['--check',path],{stdio:'pipe'});
+ for(const [file,v] of [['photo-fallback.js','2'],['place-composer.js','9'],['social-routes-enhancements.js','12'],['place-reviews.js','3'],['requests-enhancements.js','4'],['enhancements.js','28'],['ux-cleanup.js','7'],['community-enhancements.js','23'],['first-launch.js','2']]){
+  assert.ok(html.includes(file+'?v='+v),'new JS not versioned in HTML: '+file);
+  assert.ok(sw.includes(file+'?v='+v),'new JS not cached: '+file);
+ }
+ for(const path of [...sourceModules,'ui-icons.js'])execFileSync(process.execPath,['--check',path],{stdio:'pipe'});
 });
 
 test('remaining text arrows, drag dots and close crosses render as Lucide icons',()=>{

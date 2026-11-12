@@ -3,6 +3,8 @@
 // © OpenStreetMap contributors; ODbL https://www.openstreetmap.org/copyright
 import {readFile,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
+// Shared category → food style mapping; a separate copy here once marked every café as a sit-down meal.
+import {foodFor} from './city-curation.mjs';
 
 const cityId='lisbon';
 const city=JSON.parse(await readFile('data/cities.json','utf8')).find(x=>x.id===cityId);
@@ -97,7 +99,7 @@ for(const e of payload.elements){
   id:'osm-'+e.type+'-'+e.id,
   name,lat:pt.lat,lng:pt.lng,categoryId:cat,area,
   description:'',minutes:minutes[cat]||30,
-  cost:0,tourist:'balanced',foodStyle:['restaurant','cafe'].includes(cat)?'sit':'none',
+  cost:0,tourist:'balanced',foodStyle:foodFor(cat),
   partner:false,top:false,tags:categoryTags[cat]||[],ratings:[],
   metadata:{
    source:{provider:'openstreetmap',type:e.type,id:e.id,url:'https://www.openstreetmap.org/'+key},

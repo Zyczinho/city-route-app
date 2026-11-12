@@ -1,4 +1,73 @@
+## REVIEW — MVP: hide Hotels and Events (2026-11-10)
+
+[REVIEW] HIDE-FUTURE-SECTIONS — ChatGPT — PR #218, branch `chatgpt/hide-hotels-events-mvp`. Founder's request: temporarily remove visible Hotels and Events sections; do not delete feature code, provider integrations, or catalogue/database records. Places no longer advertises Events; Community events shortcut is hidden; the Guide describes current table bookings only; old `#events` and `#hotels` links redirect to Places. Existing `#book` table reservations stay. PWA cache v93 and community-hub v5; mobile and source tests updated. No Supabase migrations or data write. Restore these features in a future dedicated issue after product approval. Await exact-head CI/browser smoke and production release verification before marking DONE.
+
+## OPEN — planner reliability and Start V3 (audit 2026-11-10)
+
+[OPEN] PLANNER-AUDIT — Claude — branch `claude/planner-reliability-start` — review requested. YELLOW: planner runtime (OSM opening hours, soft break slot, reasons), one engine for transit, asset versions ux-cleanup v7/css v5, enhancements v28. RED part (Start V3 primary flow) was requested by the founder on 2026-11-10 ("wykonaj zalecenia" after the audit). Data: forward migration `028_lisbon_cafe_quick_food_style.sql` must be run in Supabase by the owner; the planner is already correct before it runs. Follow-ups, not in this branch: delete legacy V1 `core.js generate` with its tests; variants that differ by area or pace. Decisions: ADR-012, ADR-013, ADR-014.
+
+## OPEN — P0 #176 stored Google place ids
+
+[OPEN] GPID-176 — Claude — PR `claude/google-place-ids` — review requested (YELLOW: Worker endpoint, precache). Adds zero-cost `GET /api/place-id` (Worker cache read only), `data/google-place-ids/<city>.json` (empty until collected after deploy), `scripts/collect-google-place-ids.mjs` and manual curator fixes for venues Google's check rejects. No DB write, no paid call. Details: `docs/PHOTO_LIBRARY_176_2026-11-10.md`. Last update 2026-11-10.
+
+## OPEN — P0 #176 permanent photo library + Google match language
+
+[DONE] PHOTO-LIB-176 — Claude — PR #211 MERGED `1e694f1`; production sample 64/90 → 86/90 cover-less places with a photo. Earlier text: — ChatGPT review requested (YELLOW: runtime, service-worker precache, Worker). Adds `data/photo-library/<city>.json` (228 exact Wikidata P18 → Commons covers with credit; permanent covers 58 → 286 of 708), applies it in `catalogue-client.js`/`app.js` with fallback to the existing Google thumbnail and tile, and sends city language/country to `/api/place-thumb` (production sample: 29% `no-match`, incl. major landmarks, because Place Details answered in English). No DB write, no paid activation, no new storage. Touches `app.js` photo helpers only; overlaps by file with drafts #207/#208. Language-fix hit rate unmeasured until production deploy. Details: `docs/PHOTO_LIBRARY_176_2026-11-10.md`. Last update 2026-11-10.
+
+## DONE — P0 #200 Add Place Commons click cancellation; incident protocol owner
+
+[DONE] INC-200 — Incident Debugger / QA — founder confirmed Add Place in Lisbon now works after PR #205 (`985137b`). Root cause: accepted Commons metadata on `form[data-pc-photo]` made the delegated click handler treat all form clicks as photo actions and call `preventDefault()`. Exact real-provider production test failed before fix and passed after. Separate #203 corrected Lisbon address geocoding. Durable postmortem: `docs/qa/INCIDENT_2026-11-09_LISBON_ADD_PLACE.md`. New stop rule: `docs/qa/DEBUGGING_PROTOCOL.md`. Further #176 photo catalog work is unblocked; PRs #163 and #183 remain separate drafts. Last update 2026-11-09.
+
 # Agent Coordination — canonical control plane
+
+## Add Place rating / submit pointer regression
+
+DONE — ChatGPT — PR #197 MERGED as `2ee38353fa8fd6eb50bc4710a0e921ff3da639a1` after PR #198 CI optimization `b773c09e4dee6c7cdebf7549053323a39dd3d906`. Scoped rating radio/file input hit targets; composer CSS v4 and PWA v84; corrected stale CSS-version unit tests and relative Playwright locators. Exact-head CI 42691336342 SUCCESS; P0 browser 42691380625 SUCCESS, pointer/save/photo/rating PASS in Chromium 375/1220 and WebKit 375/1220 (four private places saved to isolated test localStorage). Main production rollout 42691843180 SUCCESS with exact app.js SHA check. No DB/schema/user data/paid-provider changes. Actual iPhone Safari/PWA manual acceptance remains open; do not claim device-tested. Last update 2026-11-09.
+
+
+## P0 #176 — persistent licensed Lisbon covers
+
+DONE — ChatGPT — PR #196 MERGED `157a8f1deda597a022b6175682c5f20437e39914`;8 visually verified exact-entity CC covers vendored with visible author/license/source, hashes and JSON/hosted parity. Actual audited first30 permanent coverage8/30; remaining22 unresolved (includes4 flagged venues untouched). Independent content/SQL final review PASS; actual PostgreSQL9/9 guard fixtures PASS. Final-head CI42674967137 SUCCESS (483 tests+build), mobile42674967275 SUCCESS (8decodes,linked credits320/375/390,offline detail reload). Main CI42675243547 and production rollout42675244023 SUCCESS. Live8 JPEG SHA256 hashes match reviewed manifest; cache `city-route-v83-03d9ba0a09` precaches8. Bounded hosted DML APPLIED8/8; all192 unrelated-field hashes and all184 untargeted image fields unchanged; descriptions47/192 retained. Production browser after reload shows8 local covers; A Brasileira detail retains description and visible VDT2021/CC BY-SA4.0/Commons links. Not a real iPhone acceptance claim. No schema/paid-provider/user-data changes. #176 stays OPEN; next exact licensed covers for remaining22 + flagged-record handling and broader city/device acceptance. Last update2026-11-09.
+
+
+## P0 #176 — first30 Lisbon sourced descriptions
+
+REVIEW — ChatGPT — PR #195 MERGED `cf9cfdb3a6c18fee4570464aa135dded3d268776`;24 blank Lisbon descriptions filled with per-place sources (20normal,4 explicit closure/historical/identity warnings). JSON fallback and source manifest agree; PWA v82. Exact-head CI42669952063 and mobile42669952100 SUCCESS; SQL/content review PASS; actual PostgreSQL read-only guard cases4/4PASS. Bounded hosted DML APPLIED after merge:24/24 exact descriptions+sources verified, first30 descriptions30/30, wholecity47/192 (was23); all unrelated catalogue fields/records unchanged against baseline. Main CI42670290601 and rollout42670290364 SUCCESS; live cache `city-route-v82-1e6c5d90d6`. Actual browser A Brasileira had no description before; after reload exact new text visible with Google score/photo. Not a real iPhone acceptance claim. No records hidden/deleted;4 flagged entries remain unresolved as operational/identity issues. Next #176: permanent exact licensed covers and flagged-record handling; #176 stays OPEN. Last update2026-11-09.
+
+
+## P0 #176 — catalogue audit and on-demand ratings
+
+REVIEW — ChatGPT — PR #194 MERGED `5d7b982585a6d36911a04a03fdd232f46fb30d37`. Missing Google scores fetch on detail opening independently of existing image; active country passed to Google/Terra; provider completion preserves underlying page DOM. PWA v81. Unit enrichment11/11 PASS; exact-head CI42667517646, mobile42667517421, provider42667517491 SUCCESS; independent review PASS. Main CI42667803777 and rollout42667803747 SUCCESS. Live cache `city-route-v81-e7392a0e30`; real Lisbon Arco da Rua Augusta enrichment returned ok with Google score/count and image; Tripadvisor Content/Terra no-key. Audit docs/LISBON_PLACES_176_AUDIT_2026-11-09.md: first30 descriptions6,storedcovers0,storedproviderrows0; fullcity192/descriptions23. No DB write, paid activation or automatic bulk enrichment. Next P0 #176:24 sourced descriptions +30 exact licensed permanent covers, source-record validation and real-device repeated-refresh coverage; #176 remains OPEN. Last update: 2026-11-09.
+
+
+## Route action UX parity — editorial and own routes
+
+REVIEW — ChatGPT — PR #193 MERGED `2e4bf9aa608b0ea37d61b18cd359cd56069391b0`. Editorial/generated/saved detail now matches manual builder: Start / blue Save / purple Share / collapsed More / white Add next stop. Extra actions remain inside More; already-saved state preserved. Add next stop copies viewed route to private builder without mutating source or other saved routes. PWA v80. Final-head CI42665408491, provider42665408590, mobile42665409521 SUCCESS; independent review PASS. Mobile tests include 320/375/390 parity, native disclosure visibility, GPX, rename/archive/restore, exact route copy. Main CI42665756793 and rollout42665756852 SUCCESS; live cache `city-route-v80-a6bfb025c5`, app.js exact source parity confirmed. Await founder iPhone visual acceptance. No parallel runtime branch. #176 and historical private-place visibility remain open. Last update: 2026-11-09.
+
+
+## P0.1 Test 4 — sharing / action clarity
+
+REVIEW — ChatGPT — PR #192 MERGED `1c8705d1e468d7e0a03d7d4f3f7e96c7bc1c0333`; removed added-stop toast/See route duplication, dark My Route, branded destinations/purple Copy, native route share deferred, Publish inside More. Save blue/Add stop white retained. Final-head CI 42661087411 SUCCESS, mobile smoke 42661087611 SUCCESS, provider diagnostics 42661087549 SUCCESS; independent review PASS. Main CI 42661415370 and production rollout 42661415357 SUCCESS. Live cache `city-route-v79-308bddc58e`. Await founder iPhone visual acceptance; private-tab recipient opening still not explicitly confirmed, then Test 5/5. #176 content remains open. Last update: 2026-11-09.
+
+
+## P0.1 map card photo thumbnail
+
+REVIEW — ChatGPT — PR #191 MERGED as `a9d1ed888182756e3111923915660f56259a4b2d`; 48px optional photo uses existing place renderer, failed images collapse. PWA v78. Exact-head CI 42658322451 SUCCESS, mobile smoke 42658322363 SUCCESS (photo/no-photo/error at 320/375/390), provider diagnostic 42658322521 SUCCESS; independent review PASS. Founder accepted preceding map controls #190. Next: production asset parity then real iPhone photo-panel acceptance; continue Test 4/5. Missing descriptions/provider ratings remain #176. Last update: 2026-11-09.
+
+## P0.1 Test 3 — map card action overlap
+
+REVIEW — ChatGPT — PR #190 MERGED to main (`4ee78895c382e09152cd9680d380d3430770c959`), PWA v77. Close has a dedicated header cell, compact intrinsic action widths and 44px tap targets. Local map tests 9/9 PASS; exact-head CI 42656919839 SUCCESS and mobile browser smoke 42656915933 SUCCESS (real card geometry/screenshots at 320/375/390); independent final review PASS. Founder confirmed trash, Places list/pagination, detail opening and map interaction. Missing descriptions and Google/Tripadvisor coverage remain OPEN under #176. Production assets verified directly; founder iPhone visual confirmation PASS. Next: requested map thumbnail, then Test 4/5. No parallel runtime branch. Last update: 2026-11-09.
+
+
+## Verified production release baseline — 2026-11-09
+
+**PRODUCTION RELEASED:** PR #184 squash-merged as `52fabc07e44a1124dfdd5d5770e762b8b7c57a1a` into `main`. Production rollout verification GitHub workflow #42633744254 **SUCCESS** on exact release SHA; PR main CI **SUCCESS**. Details and next-chat start point: [docs/RELEASE_LOCK_CITYROUTE_2026-11-09.md](docs/RELEASE_LOCK_CITYROUTE_2026-11-09.md).
+
+**DATA:** hosted Supabase City Route App has three genuine `editorial` (NOT community-authored) Lisbon routes with 6/9/8 stops, 192 published Lisbon places. Data SQL `supabase/migrations/027_seed_lisbon_editorial_routes.sql` applied directly and verified by `catalogue_routes('lisbon')`; SQL data seed is **not** entered in Supabase migration ledger. All overlapping source PRs replaced by #184 were closed as superseded, with no need to merge their branches again. Duplicate preliminary #182 also closed.
+
+**FREEZE / HANDOFF:** only `origin/main` is baseline. Keep one runtime owner, no new broad functionality/parallel UX branches until real iPhone acceptance and P0 photo-first issues are triaged. Keep #163 Web Push **draft**, #183 Commons photo bank **draft** (and BLOCKED: its conflicting `027_accepted_commons_photo_bank.sql` needs a new unique forward migration number), and #115 Start route cards / #176 exact venue photography unresolved. #179 generic illustrative photo fallbacks were closed without integration; do not relabel them as the exact venue photos required by founder. Ensure all PRs pass relevant code/privacy/device review and production verification before completion claims.
+
+---
 
 ## Founder priority lock — 2026-11-05
 

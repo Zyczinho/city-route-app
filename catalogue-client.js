@@ -109,15 +109,44 @@ export function mergeCuratedPhotos(livePlaces=[],curated=[]){
  });
 }
 
-export async function loadCatalogueWithFallback({client,city,fallback}){
+// PHOTO-LIBRARY-176: permanent Wikimedia Commons covers resolved offline by scripts/build-photo-library.mjs.
+// An entry is used only for the same catalogue id with the same name at the same spot, and only with a full credit.
+const WIKIMEDIA_PHOTO=/^https:\/\/(?:upload|thumb)\.wikimedia\.org\/wikipedia\/commons\//;
+export function applyPhotoLibrary(places=[],library=null){
+ const photos=library?.photos&&typeof library.photos==='object'?library.photos:null;
+ if(!photos)return places;
+ return places.map(p=>{
+  const entry=p&&!p.image&&Object.hasOwn(photos,p.id)?photos[p.id]:null,credit=entry?.imageCredit;
+  if(!entry||!WIKIMEDIA_PHOTO.test(entry.image||'')||!credit?.author||!credit?.license||!/^https:\/\/commons\.wikimedia\.org\//.test(credit.source||''))return p;
+  if(fold(entry.name||'')!==fold(p.name||'')||![entry.lat,entry.lng,p.lat,p.lng].every(v=>Number.isFinite(Number(v)))||distance(p,entry)>.18)return p;
+  return {...p,image:entry.image,imageThumb:WIKIMEDIA_PHOTO.test(entry.imageThumb||'')?entry.imageThumb:entry.image,imageCaption:'',
+   imageCredit:{author:credit.author,license:credit.license,licenseUrl:credit.licenseUrl||null,source:credit.source,via:'Wikimedia Commons'},imageFromLibrary:true};
+ });
+}
+
+// GOOGLE-PLACE-IDS-176: permanently stored Google place ids (data/google-place-ids/<city>.json). With an id the Worker
+// skips its name/position lookup for thumbnails and asks Place Details instead of Text Search for ratings.
+// Entries are confirmed matches from the Worker cache or manual curator fixes; both are bound to id + name.
+const GOOGLE_PLACE_ID=/^[A-Za-z0-9_-]{10,300}$/;
+export function applyGooglePlaceIds(places=[],file=null){
+ const ids=file?.places&&typeof file.places==='object'?file.places:null;
+ if(!ids)return places;
+ return places.map(p=>{
+  const entry=p&&!p.googlePlaceId&&Object.hasOwn(ids,p.id)?ids[p.id]:null;
+  if(!entry||!GOOGLE_PLACE_ID.test(String(entry.googlePlaceId||''))||fold(entry.name||'')!==fold(p.name||''))return p;
+  return {...p,googlePlaceId:entry.googlePlaceId};
+ });
+}
+
+export async function loadCatalogueWithFallback({client,city,fallback,photoLibrary=null,placeIds=null}){
  try{
   const result=await loadSupabaseCatalogue(client,city);
   const curated=typeof fallback==='function'?null:fallback;
-  return {...result,places:mergeCuratedPhotos(result.places,curated?.places||[])};
+  return {...result,places:applyGooglePlaceIds(applyPhotoLibrary(mergeCuratedPhotos(result.places,curated?.places||[]),photoLibrary),placeIds)};
  }
  catch(error){
   const value=typeof fallback==='function'?await fallback(error):fallback;
   if(!value)throw error;
-  return {source:'json',places:value.places||[],routes:value.routes||[],error};
+  return {source:'json',places:applyGooglePlaceIds(applyPhotoLibrary(value.places||[],photoLibrary),placeIds),routes:value.routes||[],error};
  }
 }

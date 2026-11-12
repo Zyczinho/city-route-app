@@ -18,7 +18,8 @@ const calls=[];
 const ctx={
  HTMLImageElement:FakeImage,
  all:{'test-place':{name:'Example venue',categoryId:'bar'}},
- catTile:(p,cls)=>{calls.push({p,cls});return '<div class="category '+cls+'">'+(p?.name||'No place')+'</div>';},
+ catTile:(p,cls,geo)=>{calls.push({p,cls,geo});return '<div class="category '+cls+'" '+geo+'>'+ (p?.name||'No place')+'</div>';},
+ commonsAttrs:p=>p?.name?'data-commons-photo="'+p.name+'"':'' ,
  ic:()=>'<svg class="camera"></svg>',
  esc:s=>String(s).replaceAll('&','&amp;').replaceAll('"','&quot;')
 };
@@ -35,7 +36,7 @@ test('Google thumbnail uses category tile, preserves card class and only updates
  assert.equal(img.dataset.failed,'1');
  assert.equal(ctx.handlePhotoError(img),false);
  assert.equal(calls.length,1);
- assert.match(app,/img\.outerHTML=catTile\(p,esc\(img\.dataset\.thumbCls\|\|''\),geo\)/,'Google errors must retry Commons');
+ assert.match(img.outerHTML,/data-commons-photo=/,'thumbnail failure can still discover licensed Commons photo');
 });
 test('ordinary broken image retains neutral camera fallback',()=>{
  const img=new FakeImage();

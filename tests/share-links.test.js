@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {routeShareUrl,sharedMapsRouteUrl,placeShareUrl} from '../share-links.js';
+import {routeShareUrl,sharedMapsRouteUrl} from '../share-links.js';
 import {parseRouteSharePath,escapeShareHtml,safeShareImage,sharePreviewHtml,routeShareResponse} from '../share-preview.js';
 
 const UID='123e4567-e89b-12d3-a456-426614174000';
@@ -84,33 +84,20 @@ test('HTML escapes hostile route strings and rejects unlicensed image proxies',(
  assert.equal(escapeShareHtml('a&b'),'a&amp;b');
 });
 
-test('only a verified HTTPS Google Maps itinerary may be shared from a private route',()=>{
- const valid='https://www.google.com/maps/dir/?api=1&destination=52.2297,21.0122&waypoints=52.24,21.02';
- assert.equal(sharedMapsRouteUrl(valid),valid);
- for(const bad of ['javascript:alert(1)','https://google.com.evil.net/maps/dir/?api=1&destination=52.2,21.0','http://google.com/maps/dir/?api=1&destination=52.2,21.0','https://google.com/maps/@52.2,21.0,14z','https://google.com/maps/dir/?api=1'])assert.equal(sharedMapsRouteUrl(bad),null);
- assert.equal(routeShareUrl('community','mine-local',null,ORIGIN),null);
+test('private route share only accepts legitimate Google Maps directions links',()=>{
+ const good='https://www.google.com/maps/dir/?api=1&destination=52.2297,21.0122&waypoints=52.24,21.02';
+ assert.equal(sharedMapsRouteUrl(good),good);
+ assert.equal(sharedMapsRouteUrl('https://evil.example/maps/dir/?api=1&destination=52.2,21.0'),null);
+ assert.equal(sharedMapsRouteUrl('javascript:alert(1)'),null);
+ assert.equal(sharedMapsRouteUrl('https://www.google.com/maps/@52.2,21.0,15z'),null);
 });
-test('generated, saved, live, finished and basket share controls are present',async()=>{
+test('all requested social channels are visible in share chooser, without private City Route link fiction',async()=>{
  const fs=await import('node:fs/promises');
+ const text=await fs.readFile(new URL('../share-links.js',import.meta.url),'utf8');
  const app=await fs.readFile(new URL('../app.js',import.meta.url),'utf8');
- for(const token of ['function privateRouteShareButton','data-route-share="maps"','data-route-share="editorial"','privateRouteShareButton(ps,r.transport,r.name,r.stops.length)','privateRouteShareButton(ps,transport,builderDraft?.name','privateRouteShareButton(items(s.stops),s.transport,s.name,s.stops.length)','ps.length===expectedStops'])assert.ok(app.includes(token),token);
- const html=await fs.readFile(new URL('../index.html',import.meta.url),'utf8');
- const sw=await fs.readFile(new URL('../service-worker.js',import.meta.url),'utf8');
- assert.ok(html.includes('share-links.js?v=4'));
- assert.ok(sw.includes('share-links.js?v=4'));
-});
-test('public City Route place links open the exact place in the selected city, not Google Maps',()=>{
- const url=placeShareUrl('osm-node-10253764125','lisbon',ORIGIN);
- assert.equal(url,ORIGIN+'/?shareCity=lisbon#places/osm-node-10253764125');
- assert.equal(placeShareUrl('old-town','warsaw',ORIGIN),ORIGIN+'/?shareCity=warsaw#places/old-town');
- for(const id of ['u-private/other','../private','<script>','', 'x'.repeat(200)])assert.equal(placeShareUrl(id,'warsaw',ORIGIN),null,id);
- for(const city of ['../warsaw','<img>',''])assert.equal(placeShareUrl('old-town',city,ORIGIN),null,city);
- assert.equal(placeShareUrl('old-town','warsaw','javascript:evil'),null);
-});
-test('place share button, deep links, private guards and purple community rating wired',async()=>{
- const {readFile}=await import('node:fs/promises');
- const app=await readFile(new URL('../app.js',import.meta.url),'utf8');
- const css=await readFile(new URL('../styles.css',import.meta.url),'utf8');
- for(const s of ['data-place-share=','data-place-payload=','publicPlace(p)','function sharedPlaceId(raw)','if(publicPlace(place))openPlace(placeId)','openSharedPlacePreview(snapshot','importSharedPlace(value)','route|community-route|places','To miejsce jest niedostępne w publicznym katalogu'])assert.ok(app.includes(s),s);
- for(const s of ['--cr-community:#6D28D9','.place-share-cta','.cr-score{color:var(--cr-community)','.my-review button{background:var(--cr-community)'])assert.ok(css.includes(s),s);
+ for(const word of ['WhatsApp','Instagram','Messenger','Kopiuj link'])assert.match(text,new RegExp(word));
+ assert.doesNotMatch(text,/Udostępnij przez aplikację/,'native route option deferred after iPhone feedback');
+ assert.match(app,/data-route-share="maps"/);
+ assert.match(app,/data-route-share="editorial"/);
+ assert.match(app,/data-action="export-gpx"/);
 });

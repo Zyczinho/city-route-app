@@ -6,20 +6,20 @@ const read=p=>readFile(new URL('../'+p,import.meta.url),'utf8');
 
 test('release 029 includes all three feature modules in HTML, build and offline cache',async()=>{
  const [html,build,sw]=await Promise.all(['index.html','scripts/build.mjs','service-worker.js'].map(read));
- for(const id of ['place-contributions.js','friends.js','place-reviews.js']){
-   const prefix=id+'?v=',suffix=html.split(prefix)[1];
-   assert.ok(/^\d+/.test(suffix||''),'missing frontend module '+id);
-   const version=suffix.match(/^\d+/)[0];
-   assert.ok(sw.includes(prefix+version),'missing offline resource '+id);
-   assert.ok(build.includes("'"+id+"'"),'missing production build copy '+id);
-  }
-  for(const file of ['place-contributions-client.js','friends-client.js','place-reviews-client.js','review-source-model.js']){
+ for(const [id,version] of [['place-contributions.js','v=2'],['friends.js','v=3'],['place-reviews.js','v=3']]){
+  assert.ok(html.includes(id+'?'+version),'missing frontend module '+id);
+  assert.ok(sw.includes(id+'?'+version),'missing offline resource '+id);
+  assert.ok(build.includes("'"+id+"'"),'missing production build copy '+id);
+ }
+ for(const file of ['place-contributions-client.js','friends-client.js','place-reviews-client.js','review-source-model.js']){
   assert.ok(build.includes("'"+file+"'"),'missing build dependency '+file);
   assert.ok(sw.includes(file),'missing offline dependency '+file);
  }
  assert.match(html,/auth-enhancements\.js\?v=23/);
- assert.match(html,/community-hub\.js\?v=\d+/);
- assert.match(html,/social-routes-enhancements\.js\?v=\d+/);
+ const communityHubVersion=html.match(/community-hub\.js\?(v=\d+)/)?.[1];
+ assert.ok(communityHubVersion,'community-hub module is in HTML');
+ assert.ok(sw.includes('community-hub.js?'+communityHubVersion),'HTML and PWA cache must reference the same community-hub version');
+ assert.match(html,/social-routes-enhancements\.js\?v=12/);
  assert.match(sw,/city-route-v\d+/);
  assert.ok(!html.includes('city-route-v33'));
 });

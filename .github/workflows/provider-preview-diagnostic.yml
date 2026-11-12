@@ -1,0 +1,35 @@
+name: Provider preview diagnostics (no paid API calls)
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths:
+      - 'worker.js'
+      - 'app.js'
+      - 'place-thumb.js'
+      - 'route-share-ui.css'
+      - 'scripts/check-preview-provider-status.mjs'
+      - '.github/workflows/provider-preview-diagnostic.yml'
+
+concurrency:
+  group: cityroute-provider-preview-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  preview-health:
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm run build
+      - name: Verify exact preview build and provider flags
+        run: node scripts/check-preview-provider-status.mjs
+        env:
+          CITYROUTE_PREVIEW_URL: https://work-external-integrations-mvp-20261107-city-route-app.jakublojek.workers.dev

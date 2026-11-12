@@ -105,6 +105,30 @@ test('Google autocomplete runs only when explicitly switched on',async()=>{
  assert.equal(on.suggestions[0].location,undefined,'coordinates come from details on selection');
 });
 
+test('Google answers when Photon is down, and only then',async()=>{
+ const google=jsonResponse({suggestions:[{placePrediction:{placeId:'ChIJteatrocubano',structuredFormat:{mainText:{text:'Teatro Cubano'},secondaryText:{text:'Fredry 6, Warszawa'}},types:['night_club']}}]});
+ const urls=[];
+ const photonDown=async url=>{urls.push(String(url));if(String(url).includes('googleapis'))return google.clone();throw new Error('timeout');};
+ let asked=0;const fallback=()=>{asked++;return true;};
+ const out=await suggestPlaces('cubano',{city:asCity(WARSAW),googleKey:'k',googleFallback:fallback,fetcher:photonDown});
+ assert.equal(out.status,'ok');
+ assert.equal(out.provider,'google');
+ assert.equal(out.suggestions[0].name,'Teatro Cubano');
+ assert.equal(asked,1);
+ // Photon healthy: no paid call, the budget check is not even consulted.
+ urls.length=0;asked=0;
+ const photonUp=async url=>{urls.push(String(url));return jsonResponse({features:[{properties:{name:'Teatro Cubano',street:'Fredry',housenumber:'6',osm_type:'N',osm_id:1},geometry:{coordinates:[21.0122,52.2397]}}]});};
+ const ok=await suggestPlaces('cubano',{city:asCity(WARSAW),googleKey:'k',googleFallback:fallback,fetcher:photonUp});
+ assert.equal(ok.provider,'photon-osm');
+ assert.equal(asked,0);
+ assert.ok(urls.every(u=>!u.includes('googleapis')));
+ // Budget exhausted: stays "unavailable" without calling Google.
+ urls.length=0;
+ const capped=await suggestPlaces('cubano',{city:asCity(WARSAW),googleKey:'k',googleFallback:()=>false,fetcher:photonDown});
+ assert.equal(capped.status,'unavailable');
+ assert.ok(urls.every(u=>!u.includes('googleapis')));
+});
+
 test('no API and no network still answers instead of throwing',async()=>{
  const down=await suggestPlaces('Sekretny punkt',{city:asCity(KRAKOW),fetcher:async()=>{throw new Error('offline');}});
  assert.equal(down.status,'unavailable');
@@ -174,8 +198,8 @@ test('Google photos are never copied into the user photo upload',async()=>{
 
 test('composer ships, loads after app.js and leaves app.js the only writer of places',async()=>{
  const [html,build,composer]=await Promise.all([read('index.html'),read('scripts/build.mjs'),read('place-composer.js')]);
- assert.match(html,/place-composer\.js\?v=5/);
- assert.match(html,/place-composer\.css\?v=3/);
+ assert.match(html,/place-composer\.js\?v=9/);
+ assert.match(html,/place-composer\.css\?v=\d+/);
  assert.ok(html.indexOf('./app.js')<html.indexOf('place-composer.js'));
  for(const f of ['place-composer.js','place-composer-model.js','place-composer.css'])assert.ok(build.includes(`'${f}'`),`${f} must ship in dist`);
  assert.doesNotMatch(composer,/from '\.\/app\.js'|localStorage\.setItem/,'saving stays in app.js; nothing is published');

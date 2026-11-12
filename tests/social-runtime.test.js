@@ -35,22 +35,22 @@ test('Social Routes UI and navigation modules ship in index, build and PWA cache
  }
  assert.match(index,/social-routes\.css/);
  assert.match(index,/social-routes-enhancements\.js/);
- assert.match(index,/nav-enhancements\.js\?v=4/);
- assert.match(index,/ux-cleanup\.js\?v=5/);
- assert.match(index,/ux-cleanup\.css\?v=2/);
+ assert.match(index,/nav-enhancements\.js\?v=5/);
+ assert.match(index,/ux-cleanup\.js\?v=7/);
+ assert.match(index,/ux-cleanup\.css\?v=5/);
  assert.match(sw,/city-route-v\d+/);
 });
 
-test('Bottom navigation has Community and keeps My Route compact and central',async()=>{
- const [nav,ux]=await Promise.all([read('nav-enhancements.js'),read('ux-cleanup.css')]);
- assert.match(nav,/desiredNav=\['#plan','#routes','#my-route','#routes\/community','#places','#about'\]/);
+test('Bottom navigation has five intent tabs and a separate contextual My Route bar',async()=>{
+ const nav=await read('nav-enhancements.js');
+ assert.match(nav,/desiredNav=\['#plan','#routes','#places','#routes\/community','#profile'\]/);
  assert.match(nav,/Społeczność/);
  assert.match(nav,/users\.svg/);
- assert.match(nav,/book\?\.remove\(\)/);
  assert.match(nav,/dataset\.headerBook/);
- assert.match(nav,/Zobacz trasę/);
- const guideCss=await read('onboarding-guide.css'); assert.match(guideCss,/#navigation\{grid-template-columns:repeat\(6,minmax\(0,1fr\)\)/);
- assert.match(ux,/a\[href="#my-route"\][\s\S]*min-height:56px/);
+ assert.doesNotMatch(nav,/data-toast-my-route|Zobacz trasę/,'single contextual route bar replaces duplicate toast link');
+ assert.match(nav,/variant-d-active-route/);
+ const guideCss=await read('onboarding-guide.css');
+ assert.match(guideCss,/#navigation\{grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);
 });
 
 test('new browser modules are syntax-valid before deployment',()=>{
@@ -60,5 +60,5 @@ test('new browser modules are syntax-valid before deployment',()=>{
 
 test('core router recognizes Social Routes custom hashes',async()=>{
  const app=await read('app.js');
- for(const token of ["'community-route':'routes'","'social-profile':'routes'","'social-saved':'routes'"])assert.match(app,new RegExp(token));
+ for(const token of ["'community-route':'routes/community'","'social-profile':'routes/community'","'social-saved':'profile'"])assert.match(app,new RegExp(token));
 });

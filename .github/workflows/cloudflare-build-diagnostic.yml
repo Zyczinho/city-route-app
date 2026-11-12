@@ -2,6 +2,7 @@ name: Cloudflare Worker build diagnostic
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - 'wrangler.jsonc'
       - 'worker.js'
@@ -10,15 +11,19 @@ on:
       - 'geocode.js'
       - 'events.js'
       - 'scripts/build.mjs'
-      - 'index.html'
       - '.github/workflows/cloudflare-build-diagnostic.yml'
   workflow_dispatch:
+
+concurrency:
+  group: cityroute-worker-diagnostic-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
 
 jobs:
   worker-compile:
+    if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:

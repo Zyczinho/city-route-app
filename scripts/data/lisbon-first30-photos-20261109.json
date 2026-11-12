@@ -1,0 +1,178 @@
+[
+  {
+    "id": "editorial-lisbon-arco-rua-augusta",
+    "image": "lisbon-arco-rua-augusta-commons.jpg",
+    "caption": "Arco da Rua Augusta — widok od Praça do Comércio · miniatura Wikimedia, bez edycji",
+    "credit": {
+      "author": "Diego Delso",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Arco_Triunfal_da_Rua_Augusta,_Plaza_del_Comercio,_Lisboa,_Portugal,_2012-05-12,_DD_02.JPG",
+      "via": "Wikimedia Commons"
+    },
+    "sourceFile": "File:Arco Triunfal da Rua Augusta, Plaza del Comercio, Lisboa, Portugal, 2012-05-12, DD 02.JPG",
+    "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/Arco_Triunfal_da_Rua_Augusta%2C_Plaza_del_Comercio%2C_Lisboa%2C_Portugal%2C_2012-05-12%2C_DD_02.JPG/960px-Arco_Triunfal_da_Rua_Augusta%2C_Plaza_del_Comercio%2C_Lisboa%2C_Portugal%2C_2012-05-12%2C_DD_02.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "identityEvidence": "Facade and arch match the named monument; source explicitly identifies Rua Augusta, Lisbon.",
+    "width": 960,
+    "height": 651,
+    "bytes": 148395,
+    "sha256": "17f76ce1c23e2f9e01e8319b92af989c6a4e0bc10d2f5b1200058b3400638396",
+    "reviewedAt": "2026-11-09",
+    "identityReview": "manual exact-entity verification; not an automatic proximity match",
+    "changes": "Wikimedia-generated 960px thumbnail; downloaded bytes unmodified. UI may crop via CSS."
+  },
+  {
+    "id": "editorial-lisbon-jeronimos",
+    "image": "lisbon-jeronimos-commons.jpg",
+    "caption": "Mosteiro dos Jerónimos — wnętrze kościoła · miniatura Wikimedia, bez edycji",
+    "credit": {
+      "author": "Diego Delso",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Monasterio_de_los_Jer%C3%B3nimos,_Lisboa,_Portugal,_2022-07-24,_DD_38-40_HDR.jpg",
+      "via": "Wikimedia Commons"
+    },
+    "sourceFile": "File:Monasterio de los Jerónimos, Lisboa, Portugal, 2022-07-24, DD 38-40 HDR.jpg",
+    "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Monasterio_de_los_Jer%C3%B3nimos%2C_Lisboa%2C_Portugal%2C_2022-07-24%2C_DD_38-40_HDR.jpg/960px-Monasterio_de_los_Jer%C3%B3nimos%2C_Lisboa%2C_Portugal%2C_2022-07-24%2C_DD_38-40_HDR.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "identityEvidence": "Source explicitly identifies Jerónimos Monastery; visually checked its church nave, not an exterior view.",
+    "width": 960,
+    "height": 838,
+    "bytes": 312642,
+    "sha256": "e0d61a9feaf2d2024ec202b3301a6c13de00760dbd3e59a694f28eebb9463137",
+    "reviewedAt": "2026-11-09",
+    "identityReview": "manual exact-entity verification; not an automatic proximity match",
+    "changes": "Wikimedia-generated 960px thumbnail; downloaded bytes unmodified. UI may crop via CSS."
+  },
+  {
+    "id": "editorial-lisbon-praca-comercio",
+    "image": "lisbon-praca-comercio-commons.jpg",
+    "caption": "Praça do Comércio — widok od Tagu · miniatura Wikimedia, bez edycji",
+    "credit": {
+      "author": "Jakub Hałun",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:View_of_Pra%C3%A7a_do_Com%C3%A9rcio_from_the_Tagus_River_in_Lisbon,_20250604_2038_9656.jpg",
+      "via": "Wikimedia Commons"
+    },
+    "sourceFile": "File:View of Praça do Comércio from the Tagus River in Lisbon, 20250604 2038 9656.jpg",
+    "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b1/View_of_Pra%C3%A7a_do_Com%C3%A9rcio_from_the_Tagus_River_in_Lisbon%2C_20250604_2038_9656.jpg/960px-View_of_Pra%C3%A7a_do_Com%C3%A9rcio_from_the_Tagus_River_in_Lisbon%2C_20250604_2038_9656.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "identityEvidence": "Source names this exact square; river camera is across the water, not a different venue.",
+    "width": 960,
+    "height": 452,
+    "bytes": 139358,
+    "sha256": "b0f24384c64cdad2c9aa6185f15b25308fc404311062124998f1b984173fcc78",
+    "reviewedAt": "2026-11-09",
+    "identityReview": "manual exact-entity verification; not an automatic proximity match",
+    "changes": "Wikimedia-generated 960px thumbnail; downloaded bytes unmodified. UI may crop via CSS."
+  },
+  {
+    "id": "editorial-lisbon-se",
+    "image": "lisbon-se-commons.jpg",
+    "caption": "Sé de Lisboa — fasada · miniatura Wikimedia, bez edycji",
+    "credit": {
+      "author": "Alvesgaspar",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Lisboa_May_2013-1.jpg",
+      "via": "Wikimedia Commons"
+    },
+    "sourceFile": "File:Lisboa May 2013-1.jpg",
+    "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/Lisboa_May_2013-1.jpg/960px-Lisboa_May_2013-1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "identityEvidence": "Source description names Cathedral of Lisbon main facade; visually checked twin towers and rose window.",
+    "width": 960,
+    "height": 1151,
+    "bytes": 315972,
+    "sha256": "b3cb4ebef981d6ac888f8087ea80aadaa4ef73b30858722def59255a62a61a14",
+    "reviewedAt": "2026-11-09",
+    "identityReview": "manual exact-entity verification; not an automatic proximity match",
+    "changes": "Wikimedia-generated 960px thumbnail; downloaded bytes unmodified. UI may crop via CSS."
+  },
+  {
+    "id": "osm-node-489736332",
+    "image": "lisbon-a-brasileira-commons.jpg",
+    "caption": "A Brasileira — wejście do kawiarni w Chiado · miniatura Wikimedia, bez edycji",
+    "credit": {
+      "author": "VDT2021",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:A_BRASILEIRA_DO_CHIADO.jpg",
+      "via": "Wikimedia Commons"
+    },
+    "sourceFile": "File:A BRASILEIRA DO CHIADO.jpg",
+    "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d3/A_BRASILEIRA_DO_CHIADO.jpg/960px-A_BRASILEIRA_DO_CHIADO.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "identityEvidence": "Source names A Brasileira do Chiado; visible signage and entrance at Rua Garrett 120–122 match the Lisbon venue.",
+    "width": 960,
+    "height": 643,
+    "bytes": 195052,
+    "sha256": "ce2bf1b844352996cf0ec8f5a7ba81debdb34af007d2f4645ed402ca2df37e1b",
+    "reviewedAt": "2026-11-09",
+    "identityReview": "manual exact-entity verification; not an automatic proximity match",
+    "changes": "Wikimedia-generated 960px thumbnail; downloaded bytes unmodified. UI may crop via CSS."
+  },
+  {
+    "id": "osm-way-995976870",
+    "image": "lisbon-arco-sao-bento-commons.jpg",
+    "caption": "Arco de São Bento — detal kamiennego łuku · miniatura Wikimedia, bez edycji",
+    "credit": {
+      "author": "Jules Verne Times Two / julesvernex2.com",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Arco_de_S%C3%A3o_Bento,_Pra%C3%A7a_de_Espanha,_Lisbon,_Portugal_julesvernex2.jpg",
+      "via": "Wikimedia Commons"
+    },
+    "sourceFile": "File:Arco de São Bento, Praça de Espanha, Lisbon, Portugal julesvernex2.jpg",
+    "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dd/Arco_de_S%C3%A3o_Bento%2C_Pra%C3%A7a_de_Espanha%2C_Lisbon%2C_Portugal_julesvernex2.jpg/960px-Arco_de_S%C3%A3o_Bento%2C_Pra%C3%A7a_de_Espanha%2C_Lisbon%2C_Portugal_julesvernex2.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail&_=20230724175708",
+    "identityEvidence": "Source and camera location match the relocated arch at Praça de Espanha; photograph is a close detail, explicitly captioned as such.",
+    "width": 960,
+    "height": 571,
+    "bytes": 187625,
+    "sha256": "e77625c25914dbd45dc6f61da030e426f064f68eafefde9cb4d5f82c0bdf8b49",
+    "reviewedAt": "2026-11-09",
+    "identityReview": "manual exact-entity verification; not an automatic proximity match",
+    "changes": "Wikimedia-generated 960px thumbnail; downloaded bytes unmodified. UI may crop via CSS."
+  },
+  {
+    "id": "osm-node-13950436040",
+    "image": "lisbon-aqueduto-commons.jpg",
+    "caption": "Aqueduto das Águas Livres — arkady w dolinie Alcântara · miniatura Wikimedia, bez edycji",
+    "credit": {
+      "author": "Portuguese_eyes / Vitor Oliveira",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Aqueduto_das_%C3%81guas_Livres_-_Lisboa_-_Portugal.jpg",
+      "via": "Wikimedia Commons"
+    },
+    "sourceFile": "File:Aqueduto das Águas Livres - Lisboa - Portugal.jpg",
+    "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Aqueduto_das_%C3%81guas_Livres_-_Lisboa_-_Portugal.jpg/960px-Aqueduto_das_%C3%81guas_Livres_-_Lisboa_-_Portugal.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail&_=20200326180325",
+    "identityEvidence": "Source identifies the exact aqueduct; visible Alcântara arcades belong to this long structure. Camera is not at the catalogue entrance pin.",
+    "width": 960,
+    "height": 611,
+    "bytes": 254259,
+    "sha256": "4e4601cf1f7ca829c4d676429cd3dad726a6a9d1323c4a595d15d3c1b49ef6ce",
+    "reviewedAt": "2026-11-09",
+    "identityReview": "manual exact-entity verification; not an automatic proximity match",
+    "changes": "Wikimedia-generated 960px thumbnail; downloaded bytes unmodified. UI may crop via CSS."
+  },
+  {
+    "id": "osm-way-96359439",
+    "image": "lisbon-estrela-commons.jpg",
+    "caption": "Basílica da Estrela — fasada i kopuła · miniatura Wikimedia, bez edycji",
+    "credit": {
+      "author": "Joaomartinho63",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Bas%C3%ADlica_da_Estrela.jpg",
+      "via": "Wikimedia Commons"
+    },
+    "sourceFile": "File:Basílica da Estrela.jpg",
+    "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Bas%C3%ADlica_da_Estrela.jpg/960px-Bas%C3%ADlica_da_Estrela.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail&_=20110918212533",
+    "identityEvidence": "Source object coordinates 38.713063,-9.160689 match catalogue basilica; visually checked facade and dome.",
+    "width": 960,
+    "height": 640,
+    "bytes": 170773,
+    "sha256": "9bc6376edcdbbb11003d75f3c979e0b446d73f2621be0cca3715376c4c0b32d1",
+    "reviewedAt": "2026-11-09",
+    "identityReview": "manual exact-entity verification; not an automatic proximity match",
+    "changes": "Wikimedia-generated 960px thumbnail; downloaded bytes unmodified. UI may crop via CSS."
+  }
+]

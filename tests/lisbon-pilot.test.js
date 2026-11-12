@@ -42,14 +42,15 @@ test('Lisbon coordinate validation, route titles, source search and city isolati
  assert.deepEqual(forCity(mixed,'warsaw').map(x=>x.id),['waw']);
 });
 
-test('Lisbon fallback datasets are empty and truthful before curation',async()=>{
+test('Lisbon fallback datasets include real editorial pilot routes',async()=>{
  const [places,routes]=await Promise.all([
   read('../data/cities/lisbon/places.json').then(JSON.parse),
   read('../data/cities/lisbon/routes.json').then(JSON.parse)
  ]);
  assert.ok(Array.isArray(places));
  assert.ok(places.length===0||(places.length>=100&&places.length<=200));
- assert.deepEqual(routes,[]);
+ assert.equal(routes.length,3);
+ assert.ok(routes.every(route=>route.routeType==='editorial'));
  assert.match(app,/loadCityFallback\(next\)/);
  assert.match(app,/loadCatalogueWithFallback/);
  assert.match(app,/basketsByCity/);

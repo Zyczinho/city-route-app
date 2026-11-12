@@ -1,1 +1,184 @@
-[]
+[
+  {
+    "id": "lisbon-after-dark-bars-clubs",
+    "name": "Lizbona po zmroku: bary, fado i klub",
+    "description": "Zacznij od kameralnego koktajlu w Príncipe Real, poczuj życie Bairro Alto i Cais do Sodré, a noc zakończ na parkiecie. Najlepiej w piątek lub sobotę.",
+    "transport": "mix",
+    "cats": [
+      "lokalnie",
+      "nightlife"
+    ],
+    "stops": [
+      "osm-node-2501836314",
+      "osm-node-1802158801",
+      "osm-node-3094976712",
+      "osm-node-4405500089",
+      "osm-node-4848686224",
+      "osm-node-2501836316"
+    ],
+    "durationMinutes": 480,
+    "timeWindow": {
+      "start": "19:00",
+      "end": "03:00",
+      "spansMidnight": true
+    },
+    "recommendedDays": [
+      "fri",
+      "sat"
+    ],
+    "routeType": "editorial",
+    "editorialStatus": "desk-researched",
+    "authorLabel": "City Route",
+    "warnings": [
+      "Wieczorne występy fado i koncerty zależą od programu; potwierdź wydarzenie.",
+      "Ostatni przejazd z Cais do Sodré do Príncipe Real najlepiej zaplanować osobno.",
+      "Ostatnia część trasy jest dla pełnoletnich i może wymagać biletu do klubu."
+    ],
+    "stopNotes": {
+      "osm-node-2501836314": "Pierwszy koktajl w barze z klasycznym wnętrzem — dobry start przed spacerem.",
+      "osm-node-1802158801": "Sprawdź, czy tego wieczoru odbywa się sesja fado; lokal bywa pełny.",
+      "osm-node-3094976712": "Przenieś się w gwarną atmosferę barowego Bairro Alto.",
+      "osm-node-4405500089": "Zejdź w kierunku Cais do Sodré i zatrzymaj się w tradycyjnym barze.",
+      "osm-node-4848686224": "Pubowy etap z muzyką — program wydarzeń sprawdź przed wejściem.",
+      "osm-node-2501836316": "Finał na parkiecie: klub znany z widowiskowych nocnych występów."
+    },
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/Lisboa_Bairro_Alto_%2853893930842%29.jpg/960px-Lisboa_Bairro_Alto_%2853893930842%29.jpg",
+    "imageCaption": "Bairro Alto nocą, Lizbona (zdjęcie dzielnicy, nie konkretnego lokalu)",
+    "imageCredit": {
+      "author": "Jorge Franganillo",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Lisboa_Bairro_Alto_(53893930842).jpg",
+      "via": "Wikimedia Commons",
+      "quality": "Photo verified"
+    }
+  },
+  {
+    "id": "lisbon-essentials-full-day",
+    "name": "Lizbona pierwszy raz: klasyki w jeden dzień",
+    "description": "Belém, wielkie zabytki portugalskich odkryć, nabrzeże Tagu, Baixa i Alfama. Całodniowe zwiedzanie z przejazdem między zachodnią częścią miasta i centrum.",
+    "transport": "mix",
+    "cats": [
+      "klasyka",
+      "first-time"
+    ],
+    "stops": [
+      "editorial-lisbon-jeronimos",
+      "osm-way-24341353",
+      "osm-way-152327819",
+      "osm-relation-11381632",
+      "editorial-lisbon-praca-comercio",
+      "editorial-lisbon-arco-rua-augusta",
+      "editorial-lisbon-se",
+      "osm-way-1382432568",
+      "osm-node-5446794770"
+    ],
+    "durationMinutes": 540,
+    "timeWindow": {
+      "start": "09:30",
+      "end": "18:30",
+      "spansMidnight": false
+    },
+    "recommendedDays": [
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+    ],
+    "routeType": "editorial",
+    "editorialStatus": "desk-researched",
+    "authorLabel": "City Route",
+    "warnings": [
+      "Mosteiro dos Jerónimos i Torre de Belém są zamknięte w poniedziałki.",
+      "MAAT jest zamknięte we wtorki; rekomendowany pełny wariant od środy do niedzieli.",
+      "Zimą Castelo de São Jorge zamyka się o 18:00 (ostatnie wejście 17:30); trzeba dotrzeć odpowiednio wcześniej.",
+      "Między Belém a Praça do Comércio wymagany jest przejazd; posiłek i bilety mogą wydłużyć plan."
+    ],
+    "stopNotes": {
+      "editorial-lisbon-jeronimos": "Rozpocznij od manuelińskiego klasztoru UNESCO. Na zwiedzanie wnętrza zarezerwuj czas.",
+      "osm-way-24341353": "Zobacz fortecę nad Tagiem i jej historyczne znaczenie w epoce żeglugi.",
+      "osm-way-152327819": "Podejdź do monumentu odkrywców; to krótki, ale charakterystyczny punkt Belém.",
+      "osm-relation-11381632": "Muzeum nad rzeką z architekturą wartą zobaczenia nawet z zewnątrz.",
+      "editorial-lisbon-praca-comercio": "Po przejeździe do centrum wejdź na wielki plac nad Tagiem.",
+      "editorial-lisbon-arco-rua-augusta": "Przejdź spod łuku na miejską Rua Augusta.",
+      "editorial-lisbon-se": "Zobacz lizbońską katedrę w drodze na wzgórze.",
+      "osm-way-1382432568": "Wejdź na dziedziniec zamku i obejrzyj panoramę miasta przed zamknięciem.",
+      "osm-node-5446794770": "Zakończ na tarasie z pięknym widokiem na Alfamę."
+    },
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f2/Bel%C3%A9m_Tower_in_Lisbon.jpg/960px-Bel%C3%A9m_Tower_in_Lisbon.jpg",
+    "imageCaption": "Torre de Belém nad Tagiem",
+    "imageCredit": {
+      "author": "Lisbon Photoshoots",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Bel%C3%A9m_Tower_in_Lisbon.jpg",
+      "via": "Wikimedia Commons",
+      "quality": "Photo verified"
+    }
+  },
+  {
+    "id": "lisbon-food-and-views",
+    "name": "Lizbona smakuje najlepiej z góry",
+    "description": "Kawa i portugalskie wypieki, nieoczywiste tarasy, lunch w tascce oraz kolacja przy fado w Alfamie. Powolny dzień z widokami zamiast odhaczania zabytków.",
+    "transport": "walking",
+    "cats": [
+      "jedzenie",
+      "lokalnie",
+      "widoki"
+    ],
+    "stops": [
+      "osm-node-4433136691",
+      "osm-node-419313189",
+      "osm-node-4771391278",
+      "osm-node-4808145123",
+      "osm-node-5446794764",
+      "osm-node-2537090840",
+      "osm-relation-19112367",
+      "osm-node-4813682932"
+    ],
+    "durationMinutes": 540,
+    "timeWindow": {
+      "start": "12:00",
+      "end": "21:00",
+      "spansMidnight": false
+    },
+    "recommendedDays": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat"
+    ],
+    "routeType": "editorial",
+    "editorialStatus": "desk-researched",
+    "authorLabel": "City Route",
+    "warnings": [
+      "Zé Dos Cornos ma ograniczone godziny lunchu i bywa zamknięte w niedzielę; kolejność posiłków należy dostosować.",
+      "Lizbona jest pagórkowata — ta trasa obejmuje podejścia pod kilka punktów widokowych.",
+      "A Baiuca to niewielki lokal; potwierdź miejsce na kolację i program fado.",
+      "Godzina zachodu słońca zmienia się sezonowo; widoki po drodze nie gwarantują zachodu."
+    ],
+    "stopNotes": {
+      "osm-node-4433136691": "Zacznij od kawy i klasycznych wypieków w historycznej cukierni.",
+      "osm-node-419313189": "Pierwsza panorama miasta, z zamkiem po drugiej stronie doliny.",
+      "osm-node-4771391278": "Krótkie wyciszenie na mniej zatłoczonym punkcie widokowym.",
+      "osm-node-4808145123": "Prosty portugalski lunch w niewielkiej, lokalnej restauracji.",
+      "osm-node-5446794764": "Odkryj spokojny taras ponad Anjos i fragment Lizbony poza pocztówkami.",
+      "osm-node-2537090840": "Zatrzymaj się na napój w historycznym lokalu na Graça.",
+      "osm-relation-19112367": "Ostatnia szeroka panorama przed zejściem do Alfamy.",
+      "osm-node-4813682932": "Kolacja i kameralne fado jako kulinarno-muzyczne zakończenie dnia."
+    },
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/Lissabon_-_Sao_Pedro_de_Alcantara.jpg/960px-Lissabon_-_Sao_Pedro_de_Alcantara.jpg",
+    "imageCaption": "Panorama Lizbony z Miradouro de São Pedro de Alcântara",
+    "imageCredit": {
+      "author": "Ingo Mehling",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Lissabon_-_Sao_Pedro_de_Alcantara.jpg",
+      "via": "Wikimedia Commons",
+      "quality": "Quality image"
+    }
+  }
+]

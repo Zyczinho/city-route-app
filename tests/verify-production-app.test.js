@@ -80,3 +80,11 @@ test('main deployment workflow builds dist and verifies exact app.js before its 
  const source=await readFile('scripts/build.mjs','utf8');
  assert.match(source,/['"]app\.js['"]/);
 });
+
+
+test('production release verification includes exact core.js (Maps origin dependency)',async()=>{
+ const [script,workflow]=await Promise.all([readFile('scripts/verify-production-app.mjs','utf8'),readFile('.github/workflows/production-smoke.yml','utf8')]);
+ assert.ok(script.includes("const paths=['index.html','core.js'"));
+ assert.ok(script.includes('SHA-256 mismatch'));
+ assert.ok(workflow.includes('node scripts/verify-production-app.mjs'));
+});

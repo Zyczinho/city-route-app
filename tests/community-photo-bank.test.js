@@ -66,7 +66,7 @@ test('shared licensed photo upload reuses secured bucket and attaches verified m
 });
 
 test('only moderator-approved public places show banked image, attribution survives publishing',()=>{
- const sql=read('supabase/migrations/027_accepted_commons_photo_bank.sql');
+ const sql=read('supabase/migrations/032_accepted_commons_photo_bank.sql');
  assert.match(sql,/alter table public\.place_submissions[\s\S]*licensed_photo_credit jsonb/);
  assert.match(sql,/p_credit->>'via' <> 'Wikimedia Commons'/);
  assert.match(sql,/storage\.objects where bucket_id='city-route-place-photos'/);

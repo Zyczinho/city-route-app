@@ -71,3 +71,28 @@
 
 /* Never let the composer push the page wider than the phone. */
 .pc-preview,.pc-photo-slot,.pc-photo,.pc-photo-actions{min-width:0;max-width:100%}
+
+
+/* Add Place pointer targets: the form's text-field selector also matches radios.
+   Keep invisible inputs within their own 44px choice, not across neighbouring controls. */
+#place-form .choice{align-items:flex-start}
+#place-form .choice label{
+ position:relative;display:inline-flex;flex:0 0 auto;max-width:100%;
+ min-width:0;isolation:isolate;cursor:pointer;
+}
+#place-form .choice label>span{
+ display:inline-flex;max-width:100%;min-height:44px;
+}
+#place-form .choice input[type="radio"]{
+ position:absolute;inset:0;z-index:1;display:block;
+ width:100%;height:100%;min-width:0;box-sizing:border-box;
+ margin:0;padding:0;border:0;opacity:0;cursor:pointer;
+}
+#place-form .choice input[type="radio"]:focus-visible+span{
+ outline:3px solid var(--blue);outline-offset:2px;
+}
+/* Keep the upload hit area inside its own label after the form is rearranged. */
+#place-form label.file{isolation:isolate}
+#place-form label.file input[type="file"]{
+ box-sizing:border-box;padding:0;margin:0;border:0;z-index:1;
+}

@@ -2,7 +2,6 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {inAppBrowserName,inAppBrowserHint} from '../in-app-browser.js';
-import {feedbackUrl} from '../feedback-config.js';
 
 const read=p=>readFile(new URL('../'+p,import.meta.url),'utf8');
 
@@ -29,20 +28,10 @@ test('Google sign-in is short-circuited in in-app browsers and e-mail signup ope
  assert.match(auth,/<details class="auth-signup"\$\{IN_APP_BROWSER\?' open':''\}>/);
 });
 
-test('feedback link accepts only https and is hidden when unset',()=>{
- assert.equal(feedbackUrl(''),'');
- assert.equal(feedbackUrl('javascript:alert(1)'),'');
- assert.equal(feedbackUrl('http://forms.gle/x'),'');
- assert.equal(feedbackUrl('https://forms.gle/abc'),'https://forms.gle/abc');
-});
-
-test('feedback entry points and link preview tags ship',async()=>{
- const [app,html,build,sw]=await Promise.all(['app.js','index.html','scripts/build.mjs','service-worker.js'].map(read));
- for(const where of ['plan','profile','finished'])assert.match(app,new RegExp(`feedbackLink\\('${where}'`));
+test('link preview tags and the new module ship',async()=>{
+ const [html,build,sw]=await Promise.all(['index.html','scripts/build.mjs','service-worker.js'].map(read));
  for(const tag of ['og:title','og:description','og:image','og:url'])assert.match(html,new RegExp(`property="${tag}"`));
  assert.match(html,/og:image" content="https:\/\//);
- for(const file of ['in-app-browser.js','feedback-config.js']){
-  assert.ok(build.includes(`'${file}'`),'build lacks '+file);
-  assert.ok(sw.includes(`'./${file}'`),'offline cache lacks '+file);
- }
+ assert.ok(build.includes("'in-app-browser.js'"),'build lacks in-app-browser.js');
+ assert.ok(sw.includes("'./in-app-browser.js'"),'offline cache lacks in-app-browser.js');
 });

@@ -5,7 +5,7 @@
 //   2. photo: Place Details `photos` (Essentials IDs Only, free) and Place Photo media (the only paid call per
 //      thumbnail). The browser is redirected to Google's short-lived photoUri; no photo bytes or ratings are stored.
 import {isSamePlace} from './place-enrichment.js';
-import {bestGooglePhoto} from './photo-quality.js';
+import {pickGooglePhoto} from './photo-quality.js';
 
 const GOOGLE='https://places.googleapis.com/v1/';
 const ID_RE=/^[A-Za-z0-9_-]{10,300}$/;
@@ -51,10 +51,10 @@ export async function cachedGooglePlaceId(params,{cache,ctx}){
 }
 
 // Short-lived Google photo URL for a place id, sized for list thumbnails.
-export async function googlePhotoUri(placeId,{googleKey,fetcher=fetch,maxWidthPx=320}){
+export async function googlePhotoUri(placeId,{googleKey,fetcher=fetch,maxWidthPx=320,photoChoice=0}){
  if(!googleKey||!ID_RE.test(String(placeId||'')))return null;
  const d=await call(fetcher,GOOGLE+'places/'+placeId,{headers:{'x-goog-api-key':googleKey,'x-goog-fieldmask':'photos'}});
- const photo=bestGooglePhoto(d?.photos)?.photo;if(!photo?.name)return null;
+ const photo=pickGooglePhoto(d?.photos,photoChoice)?.photo;if(!photo?.name)return null;
  const media=await call(fetcher,`${GOOGLE}${photo.name}/media?key=${encodeURIComponent(googleKey)}&maxWidthPx=${maxWidthPx}&skipHttpRedirect=true`,{});
  const uri=String(media?.photoUri||'');
  return /^https:\/\/[a-z0-9.-]+\.(googleusercontent|google)\.com\//i.test(uri)?uri:null;

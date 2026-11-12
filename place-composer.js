@@ -4,7 +4,7 @@
 import {iconMarkup} from './ui-icons.js';
 import {MIN_QUERY,SUGGEST_DELAY_MS,classifyInput,formatCoords,normalizeQuery,keepsSelection,cityCheck,activeCity,cityParams,catalogueMatches,findDuplicate,categoryFromTypes,SOURCE_LABEL,latestOnly,sessionToken} from './place-composer-model.js';
 import {loadLeaflet} from './map-view.js';
-import {findPlacePhotoCandidates,acceptedPhotoRecord,acceptedGooglePlaceId,autoPhotoCandidateIndex} from './place-photo-proposal.js';
+import {findPlacePhotoCandidates,acceptedPhotoRecord,acceptedGooglePlaceId,acceptedGooglePhotoChoice,autoPhotoCandidateIndex} from './place-photo-proposal.js';
 
 const STATE_KEY='city-route-v1';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -112,7 +112,7 @@ function writeLocation(form,location){
 // Forget the previous pick: its coordinates (only if the composer wrote them), preview, map and auto-filled name.
 // Bumping `generation` also discards picks that are still resolving.
 function resetSelection(form){
- selection=null;generation++;delete form.dataset.pcGooglePlaceId;
+ selection=null;generation++;delete form.dataset.pcGooglePlaceId;delete form.dataset.pcGooglePhoto;
  const where=$('input[name="where"]',form),name=$('input[name="name"]',form);
  if(where&&(where.value===form.dataset.pcWhere||!where.value)){if(where.value)staleWhere=where.value;where.value='';delete form.dataset.placeResolved;delete form.dataset.pcWhere;}
  if(name?.dataset.pcAuto==='1'){name.value='';delete name.dataset.pcAuto;}
@@ -168,11 +168,13 @@ function syncAccepted(form){
  if(record)form.dataset.pcPhoto=JSON.stringify(record);else delete form.dataset.pcPhoto;
  // An accepted Google photo is not copied: the place keeps its Google id and shows the photo through the proxy.
  form.dataset.pcGooglePlaceId=validGoogleId(selection?.placeId)||acceptedGooglePlaceId(c);
+ // Which Google photo the person chose (0 = best); cards show the same one.
+ const choice=acceptedGooglePhotoChoice(c);if(choice)form.dataset.pcGooglePhoto=String(choice);else delete form.dataset.pcGooglePhoto;
 }
 
 function clearProposal(form){
  proposalController?.abort();proposalController=null;proposal=null;
- if(form)delete form.dataset.pcPhoto;
+ if(form){delete form.dataset.pcPhoto;delete form.dataset.pcGooglePhoto;}
 }
 
 async function proposePhoto(form,sel){
@@ -214,12 +216,12 @@ function renderProposal(form){
   <figcaption><strong>${proposal.accepted?icon('check')+(proposal.autoSelected?'Zdjęcie wybrane automatycznie':'Zdjęcie wybrane'):'Proponowane zdjęcie'}</strong><span>${creditLine(c)}</span>${many?`<span class="pc-photo-count">${proposal.index+1} z ${proposal.candidates.length}</span>`:''}</figcaption>
  </figure>
  <div class="pc-photo-actions">${proposal.accepted
-  ?`${many?'<button type="button" data-pc-photo="next">'+icon('shuffle')+'Inne</button>':''}<button type="button" data-pc-photo="skip">${icon('x')}Usuń</button>`
-  :`<button type="button" class="primary" data-pc-photo="accept">${icon('check')}Użyj zdjęcia</button>${many?'<button type="button" data-pc-photo="next">'+icon('shuffle')+'Inne</button>':own}<button type="button" data-pc-photo="skip">${icon('x')}Pomiń</button>`}</div>
+  ?`${many?'<button type="button" data-pc-photo="next">'+icon('shuffle')+'Inne zdjęcie</button>':''}<button type="button" data-pc-photo="skip">${icon('x')}Usuń</button>`
+  :`<button type="button" class="primary" data-pc-photo="accept">${icon('check')}Użyj zdjęcia</button>${many?'<button type="button" data-pc-photo="next">'+icon('shuffle')+'Inne zdjęcie</button>':own}<button type="button" data-pc-photo="skip">${icon('x')}Pomiń</button>`}</div>
  ${proposal.accepted?'<p class="fine pc-photo-note">Jeśli dodasz własne zdjęcia, okładką będzie Twoje.</p>':''}`;
  slot.querySelector('img')?.addEventListener('error',()=>{
   if(!proposal||currentCandidate()!==c)return;
-  proposal.candidates=proposal.candidates.filter(x=>x!==c);proposal.index=0;proposal.accepted=false;proposal.autoSelected=false;
+  proposal.candidates=proposal.candidates.filter(x=>x!==c);proposal.index=proposal.candidates.length?proposal.index%proposal.candidates.length:0;proposal.accepted=false;proposal.autoSelected=false;
   if(!proposal.candidates.length)proposal.status='none';
   renderProposal(formOf()||form);
  },{once:true});

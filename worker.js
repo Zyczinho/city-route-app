@@ -22,6 +22,7 @@ import {enrichPlace} from './place-enrichment.js';
 import {cachedGooglePlaceId,googlePhotoUri,placeIdCacheKey} from './place-thumb.js';
 import {kmBetween} from './geocode.js';
 import {googlePhotoChoice} from './photo-quality.js';
+import {recordMetric} from './metrics.js';
 
 const json=(body,status=200,maxAge=0)=>new Response(JSON.stringify(body),{status,headers:{'content-type':'application/json; charset=utf-8','cache-control':maxAge?`public, max-age=${maxAge}`:'no-store'}});
 
@@ -241,6 +242,7 @@ export default {
    if(request.method!=='GET')return json({status:'method-not-allowed'},405);
    return placeDetail(url,env);
   }
+  if(pathname==='/api/metric')return recordMetric(request,env,ctx);
   if(pathname==='/api/place-photo'){
    if(request.method!=='GET')return json({status:'method-not-allowed'},405);
    if(!googleAllowed(env))return json({status:env.GOOGLE_PLACES_API_KEY?'quota':'no-key'},404);

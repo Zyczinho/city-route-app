@@ -45,6 +45,18 @@ export function parsePastedList(text,{limit=MAX_PASTED_PLACES}={}){
  return {items:out,skipped};
 }
 
+// "Plac Bohaterów Getta" ≠ "Dawny ratusz miasta Podgórza": a search hit counts only when one name contains
+// the other, or every distinctive word of the pasted name appears in the hit.
+const STOP_WORDS=new Set(['the','and','bar','cafe','kawiarnia','restauracja','restaurant','klub','club','pub','w','na','i','z','do','de','da','la','le']);
+const words=s=>fold(s).replace(/[^\p{L}\p{N} ]+/gu,' ').split(' ').filter(w=>w.length>=3&&!STOP_WORDS.has(w));
+export function sameNamedPlace(pasted,found){
+ const a=fold(pasted).replace(/[^\p{L}\p{N} ]+/gu,' ').replace(/\s+/g,' ').trim(),b=fold(found).replace(/[^\p{L}\p{N} ]+/gu,' ').replace(/\s+/g,' ').trim();
+ if(!a||!b)return false;
+ if(a===b||b.includes(a)||a.includes(b)&&b.length>=4)return true;
+ const need=words(pasted),have=new Set(words(found));
+ return need.length>0&&need.every(w=>have.has(w));
+}
+
 async function getJson(fetcher,url){
  const r=await fetcher(url,{headers:{accept:'application/json'}});
  return r.ok?r.json().catch(()=>null):null;
@@ -63,7 +75,8 @@ export async function resolvePastedItem(item,{cityQuery='',session='',fetcher=fe
   if(!item.name)return null;
  }
  const s=await getJson(fetcher,'/api/place-suggest?q='+encodeURIComponent(item.name)+sep+'&session='+encodeURIComponent(session)).catch(()=>null);
- const hit=s?.suggestions?.[0];if(!hit)return null;
+ // Better to skip a place than to add a different one: the hit must carry the pasted name.
+ const hit=(s?.suggestions||[]).find(x=>sameNamedPlace(item.name,x?.name));if(!hit)return null;
  if(Number.isFinite(hit.location?.lat)&&Number.isFinite(hit.location?.lng))return {name:hit.name||item.name,lat:hit.location.lat,lng:hit.location.lng,url:item.url||'',placeId:''};
  if(hit.provider==='google'&&hit.placeId){
   const d=await getJson(fetcher,'/api/place-details?id='+encodeURIComponent(hit.placeId)+sep+'&session='+encodeURIComponent(session)).catch(()=>null);

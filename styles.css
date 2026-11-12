@@ -430,3 +430,4 @@ body.has-variant-d-route-bar main{padding-bottom:190px}
 .paste-list label[for="paste-list"]{font-weight:600;font-size:14px}
 .paste-list textarea{width:100%;box-sizing:border-box;min-height:140px;padding:10px 12px;font-size:16px;line-height:1.4;border:1px solid var(--line);border-radius:12px;background:var(--surface);resize:vertical}
 .paste-list .fine{margin:0}
+.variant-d-route-actions .variant-d-maps-route{grid-column:1/-1}

@@ -89,3 +89,26 @@ test('metrics: only allow-listed anonymous events, hashed device, production hos
  assert.match(read('worker.js'),/pathname==='\/api\/metric'\)return recordMetric\(request,env,ctx\)/);
  assert.match(read('app.js'),/navigator\.sendBeacon\('\/api\/metric'/);
 });
+
+test('"Cała trasa w Google Maps" is always visible under "Rozpocznij trasę", also for transit',()=>{
+ const app=read('app.js');
+ assert.match(app,/data-action="start" data-id="basket">\$\{ic\('play'\)\}Rozpocznij trasę<\/button>\$\{mapsRouteButton\(ps,transport\)\}/);
+ assert.match(app,/Rozpocznij trasę<\/button>\$\{mapsRouteButton\(ps,r\.transport,r\.start\|\|null\)\}/);
+ // Transit keeps its per-leg links in "Więcej opcji", but the main button still opens all stops in Google Maps.
+ assert.match(app,/t==='transit'\?'https:\/\/www\.google\.com\/maps\/dir\/'\+pts\.join\('\/'\)/);
+ assert.match(read('styles.css'),/\.variant-d-route-actions \.variant-d-maps-route\{grid-column:1\/-1\}/);
+});
+
+test('a search hit with a different name is skipped, not added in place of the pasted one',async()=>{
+ const {sameNamedPlace}=await import('../paste-list.js');
+ assert.equal(sameNamedPlace('Plac Bohaterów Getta','Dawny ratusz miasta Podgórza'),false);
+ assert.equal(sameNamedPlace('Pomnik Chopina','Pomnik Fryderyka Chopina'),true);
+ assert.equal(sameNamedPlace('Hala Koszyki','Koszyki'),true);
+ const fetcher=async url=>new Response(JSON.stringify(url.startsWith('/api/place-suggest')?{status:'ok',suggestions:[{provider:'photon-osm',name:'Dawny ratusz miasta Podgórza',location:{lat:50.04,lng:19.95}},{provider:'photon-osm',name:'Plac Bohaterów Getta',location:{lat:50.0447,lng:19.9547}}]}:{}),{status:200});
+ const hit=await resolvePastedItem({name:'Plac Bohaterów Getta',url:''},{fetcher});
+ assert.equal(hit.name,'Plac Bohaterów Getta');
+ const none=await resolvePastedItem({name:'Plac Bohaterów Getta',url:''},{fetcher:async()=>new Response(JSON.stringify({status:'ok',suggestions:[{provider:'photon-osm',name:'Dawny ratusz miasta Podgórza',location:{lat:50.04,lng:19.95}}]}),{status:200})});
+ assert.equal(none,null);
+ // Catalogues without cityId on each place still match by name in the active city.
+ assert.match(read('app.js'),/withCity=p=>p\.cityId\?p:\{\.\.\.p,cityId:c\.id\}/);
+});

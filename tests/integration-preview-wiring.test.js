@@ -17,7 +17,7 @@ test('integration 177: planner V2 and legacy route share / GPX / 30 per page sur
  assert.match(app,/planRoutesV2\(candidates/);
  assert.match(app,/data-action="export-gpx"/);
  assert.match(app,/shareRouteButton\(/);
- assert.match(app,/wholeRoute\(ps,transport\)/);
+ assert.match(app,/mapsRouteButton\(ps,transport\)/);
  assert.match(app,/function transitLegLinks\(ps,origin=null\)/);
  assert.match(build,/route-planner-v2\.js/);
  assert.match(sw,/route-planner-v2\.js/);

@@ -424,3 +424,9 @@ body.has-variant-d-route-bar main{padding-bottom:190px}
 .saved-route-trash{display:inline-flex;align-items:center;justify-content:center;flex:0 0 44px;width:44px;height:44px;min-height:44px;padding:0;border:1px solid #f3cbd0;background:#fff7f8;border-radius:12px;color:var(--live)}
 .saved-route-trash:hover{background:var(--live-soft);border-color:#e6a3aa}
 .saved-route-trash .i{width:19px;height:19px}
+/* "Wklej listę" (Moja trasa): paste a list from a chat or Google Maps */
+.paste-list{text-align:left;max-width:520px;margin:16px auto 0;width:100%}
+.paste-list .profile-more-content{display:grid;gap:10px;padding:12px 14px 14px;background:var(--surface);border:1px solid var(--line);border-top:0;border-radius:0 0 14px 14px}
+.paste-list label[for="paste-list"]{font-weight:600;font-size:14px}
+.paste-list textarea{width:100%;box-sizing:border-box;min-height:140px;padding:10px 12px;font-size:16px;line-height:1.4;border:1px solid var(--line);border-radius:12px;background:var(--surface);resize:vertical}
+.paste-list .fine{margin:0}

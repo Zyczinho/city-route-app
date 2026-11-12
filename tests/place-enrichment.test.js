@@ -125,3 +125,20 @@ test('country-scoped provider search follows Lisbon, with legacy Poland default'
   assert.equal(new URL(terraCall.url).searchParams.get('country_code'),countryCode||'PL');
  }
 });
+
+test('"Inne zdjęcie" for an OpenStreetMap pick (e.g. Bar Studio): enrichment lists the other Google photos and the proposal offers them',async()=>{
+ const g=(n,a)=>({name:'places/ChIJbarstudio123/photos/'+n,widthPx:1600,heightPx:1200,authorAttributions:[{displayName:a,uri:'https://maps.google.com/contrib/'+n}]});
+ const place={...google,id:'ChIJbarstudio123',displayName:{text:'Bar Studio'},photos:[g('a','Bar Studio'),g('b','Ola'),g('c','Piotr'),g('d','Kasia'),g('e','Tomek')]};
+ const r=await enrichPlace({...point,name:'Bar Studio',googleKey:'k',googlePlaceId:place.id,fetcher:async()=>reply(place)});
+ assert.equal(r.image.credit.author,'Bar Studio');
+ assert.deepEqual(r.image.more.map(m=>m.author),['Ola','Piotr','Kasia']);
+ const {findPlacePhotoCandidates}=await import('../place-photo-proposal.js');
+ // OSM selection: no Google placeId on the pick, so the photo comes through /api/place-enrichment.
+ const selection={name:'Bar Studio',location:{lat:52.2326125,lng:21.0067525},source:'photon-osm'};
+ const cityInfo={id:'warsaw',name:'Warszawa',center:{lat:52.2297,lng:21.0122},radiusKm:40};
+ const fetcher=async url=>String(url).startsWith('/api/place-enrichment')?reply(r):reply({query:{pages:[]}});
+ const out=await findPlacePhotoCandidates(selection,{city:'Warszawa',cityInfo,fetcher});
+ assert.equal(out.candidates[0].src,'/api/place-photo?id=ChIJbarstudio123');
+ assert.deepEqual(out.candidates.filter(c=>c.photoChoice).map(c=>[c.src,c.author]),[
+  ['/api/place-photo?id=ChIJbarstudio123&n=1','Ola'],['/api/place-photo?id=ChIJbarstudio123&n=2','Piotr'],['/api/place-photo?id=ChIJbarstudio123&n=3','Kasia']]);
+});

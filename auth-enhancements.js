@@ -1,5 +1,7 @@
 import { supabase,SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY } from './supabase-client.js';
 import {activateLocalScope,guestImportAvailable,importGuestActivity,friendlyNickname} from './account-scope.js';
+import {inAppBrowserName,inAppBrowserHint} from './in-app-browser.js';
+const IN_APP_BROWSER=inAppBrowserName(navigator.userAgent);
 
 const STORAGE_KEY='city-route-v1';
 let session=null;
@@ -112,10 +114,11 @@ function setNotice(text){notice=text;renderAuth();}
 function signedOutMarkup(){
   return `<section class="auth-card" data-city-auth data-auth-state="out" data-auth-user="" data-auth-notice="${esc(notice)}"><div><p class="kicker">Konto City Route</p><h2>Zaloguj się do City Route</h2></div>
   ${notice?`<p class="auth-notice" role="status">${esc(notice)}</p>`:''}
+  ${IN_APP_BROWSER?`<div class="auth-in-app" data-in-app-browser="${esc(IN_APP_BROWSER)}"><p>${esc(inAppBrowserHint(IN_APP_BROWSER))}</p><button type="button" data-auth-action="copy-link">Skopiuj link</button></div>`:''}
   <button type="button" class="google-auth-button" data-auth-action="google"><span class="google-auth-mark" aria-hidden="true">G</span>Kontynuuj z Google</button>
   <div class="auth-divider" aria-hidden="true"><span>lub zaloguj się e-mailem</span></div>
   <form data-auth-form="login" class="auth-form"><h3>Zaloguj się</h3><label>E-mail<input name="email" type="email" autocomplete="email" required></label><label>Hasło<input name="password" type="password" autocomplete="current-password" minlength="6" required></label><button class="primary">Zaloguj</button></form>
-  <details class="auth-signup"><summary>Nie masz konta? Utwórz je</summary><form data-auth-form="signup" class="auth-form"><label>Nazwa<input name="nickname" minlength="2" maxlength="40" autocomplete="nickname" placeholder="Wybierz unikalny nick" required></label><label>E-mail<input name="email" type="email" autocomplete="email" required></label><label>Hasło<input name="password" type="password" autocomplete="new-password" minlength="6" required></label><button class="primary">Utwórz konto</button></form></details></section>`;
+  <details class="auth-signup"${IN_APP_BROWSER?' open':''}><summary>Nie masz konta? Utwórz je</summary><form data-auth-form="signup" class="auth-form"><label>Nazwa<input name="nickname" minlength="2" maxlength="40" autocomplete="nickname" placeholder="Wybierz unikalny nick" required></label><label>E-mail<input name="email" type="email" autocomplete="email" required></label><label>Hasło<input name="password" type="password" autocomplete="new-password" minlength="6" required></label><button class="primary">Utwórz konto</button></form></details></section>`;
 }
 
 function signedInMarkup(){
@@ -171,9 +174,18 @@ document.addEventListener('submit',e=>{
 
 document.addEventListener('click',async e=>{
   const action=e.target.closest?.('[data-auth-action]')?.dataset.authAction;
+  if(action==='copy-link'){
+    e.preventDefault();
+    const link=location.origin+location.pathname;
+    try{await navigator.clipboard.writeText(link);setNotice('Link skopiowany. Wklej go w Safari lub Chrome.');}
+    catch{setNotice('Skopiuj ten adres do Safari lub Chrome: '+link);}
+    return;
+  }
   if(action==='google'){
     e.preventDefault();
     if(session)return;
+    // Google returns 403 disallowed_useragent inside Instagram/Facebook/TikTok browsers.
+    if(IN_APP_BROWSER){setNotice('Logowanie Google nie działa w przeglądarce '+IN_APP_BROWSER+'a. Otwórz link w Safari lub Chrome albo załóż konto e-mailem.');return;}
     const button=e.target.closest('[data-auth-action="google"]');
     if(button.disabled)return;
     button.disabled=true;

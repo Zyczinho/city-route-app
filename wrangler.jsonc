@@ -22,5 +22,10 @@
       "TRIPADVISOR_TERRA_INCLUDE_REVIEWS": "off"
     }
   },
+  // Anonymous funnel counters (metrics.js). Read with:
+  // npx wrangler d1 execute city-route-metrics --remote --command "SELECT day,type,COUNT(*) n,COUNT(DISTINCT device) devices FROM metric_events GROUP BY day,type ORDER BY day DESC"
+  "d1_databases": [
+    {"binding": "METRICS", "database_name": "city-route-metrics", "database_id": "60ab7801-9627-495b-bfbc-d8f69d213c50"}
+  ],
   "workers_dev": true
 }

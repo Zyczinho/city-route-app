@@ -344,14 +344,11 @@ try{
   {label:'Zapisane',href:'#social-saved-places'}
  ]);
  assert.ok(await page.locator('[data-community-tabs]').isVisible(),'inner community tabs must not be hidden by feed focus');
- const eventsEntry=page.locator('[data-community-tabs] .community-events-entry[href="#events"]');
- await eventsEntry.waitFor({timeout:10000});
- await eventsEntry.click();
- await page.locator('h1').getByText('Co się dzieje w Warszawie?').waitFor({timeout:10000});
- await page.locator('[data-action="ev-scope"][data-value="community"]').click();
- await page.getByText('Spacery grupowe, spotkania i wydarzenia od społeczności').waitFor({timeout:10000});
- assert.ok(await page.getByText('Obecnie nie można jeszcze utworzyć publicznego wydarzenia',{exact:false}).isVisible(),
-  'do not promise RSVP/creator actions without a live backend');
+ assert.equal(await page.locator('[data-community-tabs] .community-events-entry').count(),0,'Community does not promote paused Events');
+ await page.goto(BASE+'/#events',{waitUntil:'domcontentloaded'});
+ await page.waitForURL(/#places$/,{timeout:10000});
+ await page.goto(BASE+'/#hotels',{waitUntil:'domcontentloaded'});
+ await page.waitForURL(/#places$/,{timeout:10000});
  await page.locator('#navigation a[href="#routes/community"]').click();
  await page.locator('[data-community-tabs] .community-hub-links').waitFor({timeout:10000});
 
@@ -404,11 +401,11 @@ try{
  await page.locator('#main .start-guide-menu').waitFor({timeout:10000});
  assert.equal(new URL(page.url()).hash,'#about');
  assert.equal(await page.locator('#navigation a[href="#profile"]').getAttribute('aria-current'),'page','Profil is active when viewing the Guide');
- assert.equal(await page.locator('#main .guide-feature').count(),34,'every important feature should have a standalone explanation');
+ assert.equal(await page.locator('#main .guide-feature').count(),33,'every important feature should have a standalone explanation');
  assert.equal(await page.locator('#main .guide-group').count(),6,'guide groups should cover each core area');
  await page.locator('#main #guide-search').fill('znajomego');
  assert.ok(await page.locator('#main .guide-feature:not([hidden])').count()>=1,'search finds relevant feature');
- assert.ok(await page.locator('#main .guide-feature:not([hidden])').count()<34,'guide search filters unrelated items');
+ assert.ok(await page.locator('#main .guide-feature:not([hidden])').count()<33,'guide search filters unrelated items');
  await page.locator('#main #guide-search').fill('brak-takiej-funkcji-001');
  assert.ok(await page.locator('[data-guide-count]').textContent().then(s=>s.includes('Nie znaleziono tematu')));
  await page.locator('#main #guide-search').fill('');
@@ -432,21 +429,26 @@ try{
  assert.equal(await page.locator('#build-form .ux-time input[name="time"]:checked').inputValue(),'120','2h must remain one-tap default');
  assert.equal(await page.locator('#build-form button.ux-submit').textContent(),'Ułóż mi trasę');
  const fastPlanOrder=await page.locator('#build-form').evaluate(form=>{
-  const time=form.querySelector('.ux-time'),submit=form.querySelector('.ux-submit'),when=form.querySelector('.ux-when');
-  const rows=[...form.children];return {t:rows.indexOf(time?.parentElement),submit:rows.indexOf(submit),when:rows.indexOf(when)};
+  const primary=form.querySelector('.ux-planner-primary'),submit=form.querySelector('.ux-submit'),advanced=form.querySelector('.ux-advanced');
+  const rows=[...form.children];
+  return {timeVisible:!!primary?.querySelector('.ux-time'),whenVisible:!!primary?.querySelector('.planner-when'),
+   primary:rows.indexOf(primary),submit:rows.indexOf(submit),advanced:rows.indexOf(advanced)};
  });
- assert.ok(fastPlanOrder.submit<fastPlanOrder.when,'quick generation must come before date and advanced options: '+JSON.stringify(fastPlanOrder));
+ assert.ok(fastPlanOrder.timeVisible&&fastPlanOrder.whenVisible&&fastPlanOrder.primary<fastPlanOrder.submit&&fastPlanOrder.submit<fastPlanOrder.advanced,
+  'Start V3 keeps duration and visible date/time above Generate, advanced options after: '+JSON.stringify(fastPlanOrder));
  const shortcutHrefs=await page.locator('#build-form .ux-plan-alternatives a').evaluateAll(els=>els.map(a=>a.getAttribute('href')));
  assert.ok(shortcutHrefs.includes('#places')&&shortcutHrefs.includes('#routes/community'),'manual discovery and community are visible');
  assert.equal(await page.locator('#navigation a[href="#my-route"]').count(),0,'My Route is not a bottom tab');
   assert.ok(await page.locator('#active-route-bar').isVisible(),'existing 11-stop basket has a contextual bar');
-  await page.locator('#build-form .ux-when > summary').click();
+  assert.ok(await page.locator('#build-form .planner-when').isVisible(),'Start V3 date/time are visible without expanding settings');
  const iphoneDateLayout=await page.locator('#build-form .planner-when-fields').evaluate(box=>{
   const date=box.querySelector('input[type="date"]').getBoundingClientRect(),time=box.querySelector('input[type="time"]').getBoundingClientRect();
-  return {firstRight:date.right,secondLeft:time.left,firstBottom:date.bottom,secondTop:time.top,containerRight:box.getBoundingClientRect().right,scrollWidth:document.documentElement.scrollWidth,width:innerWidth};
+  const separated=date.right<=time.left+1||time.right<=date.left+1||date.bottom<=time.top+1||time.bottom<=date.top+1;
+  return {separated,dateRight:date.right,timeRight:time.right,containerRight:box.getBoundingClientRect().right,scrollWidth:document.documentElement.scrollWidth,width:innerWidth};
  });
- assert.ok(iphoneDateLayout.firstBottom<=iphoneDateLayout.secondTop+1,'iPhone date/time fields cannot overlap: '+JSON.stringify(iphoneDateLayout));
- assert.ok(iphoneDateLayout.firstRight<=iphoneDateLayout.containerRight+1&&iphoneDateLayout.scrollWidth<=iphoneDateLayout.width+1,'iPhone date input must fit card: '+JSON.stringify(iphoneDateLayout));
+ assert.ok(iphoneDateLayout.separated,'iPhone date/time fields cannot overlap: '+JSON.stringify(iphoneDateLayout));
+ assert.ok(iphoneDateLayout.dateRight<=iphoneDateLayout.containerRight+1&&iphoneDateLayout.timeRight<=iphoneDateLayout.containerRight+1&&iphoneDateLayout.scrollWidth<=iphoneDateLayout.width+1,
+  'iPhone date and time inputs must fit the visible card: '+JSON.stringify(iphoneDateLayout));
 
  const compactTime=await page.locator('#build-form .ux-time .choice span').first().evaluate(el=>el.getBoundingClientRect().width);
  assert.ok(compactTime<85,'1 h choice uses only its intrinsic width, not a full grid column: '+compactTime);

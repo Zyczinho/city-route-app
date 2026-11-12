@@ -166,3 +166,35 @@ test('Add Place never widens the phone layout: file input stays inside its label
  assert.match(gallery,/clip-path:inset\(50%\);pointer-events:none/);
  assert.match(composer,/\.pc-photo-actions button\{flex:1 1 130px;min-width:0;/);
 });
+
+test('"Inne zdjęcie": a Google place offers its other photos, each with its own author, and the choice is kept',async()=>{
+ const {pickGooglePhoto}=await import('../photo-quality.js');
+ const {placeDetails}=await import('../geocode.js');
+ const {acceptedGooglePhotoChoice,googleAlternatives}=await import('../place-photo-proposal.js');
+ const g=(name,author)=>({name:'places/X/photos/'+name,widthPx:1600,heightPx:1200,authorAttributions:[{displayName:author,uri:'https://maps.google.com/u/'+author}]});
+ const photos=[g('a','Ling'),g('b','Ola'),g('c','Piotr'),g('d','Kasia'),g('e','Tomek')];
+ // Choice 0 is the best photo; choices 1… are the others in Google's order; out of range is nothing, not a repeat.
+ assert.equal(pickGooglePhoto(photos,0).photo.name,'places/X/photos/a');
+ assert.equal(pickGooglePhoto(photos,1).photo.name,'places/X/photos/b');
+ assert.equal(pickGooglePhoto(photos,3).photo.name,'places/X/photos/d');
+ assert.equal(pickGooglePhoto(photos.slice(0,2),2),null);
+ const fetcher=async()=>new Response(JSON.stringify({id:'ChIJnoodlani123',displayName:{text:'Noodlani'},formattedAddress:'Żurawia 45',location:{latitude:52.22763,longitude:21.011725},types:['restaurant'],photos}),{status:200});
+ const d=await placeDetails('ChIJnoodlani123',{googleKey:'k',fetcher});
+ assert.equal(d.photo.authorName,'Ling');
+ assert.deepEqual(d.photo.more.map(a=>a.authorName),['Ola','Piotr','Kasia']);
+ const selection={...d,source:'google'};
+ const alts=googleAlternatives(selection);
+ assert.deepEqual(alts.map(c=>c.src),['/api/place-photo?id=ChIJnoodlani123&n=1','/api/place-photo?id=ChIJnoodlani123&n=2','/api/place-photo?id=ChIJnoodlani123&n=3']);
+ assert.equal(alts[0].author,'Ola');
+ const r=await findPlacePhotoCandidates(selection,{fetcher:async()=>json({query:{pages:[]}})});
+ assert.equal(r.candidates[0].src,'/api/place-photo?id=ChIJnoodlani123','best photo stays the proposal');
+ assert.ok(r.candidates.length>=4,'"Inne zdjęcie" has something to show');
+ assert.equal(autoPhotoCandidateIndex(r.candidates),0);
+ assert.equal(acceptedGooglePhotoChoice(r.candidates[0]),0);
+ assert.equal(acceptedGooglePhotoChoice(alts[1]),2);
+ // The card shows the chosen photo, not the default one.
+ const app=read('app.js');
+ assert.match(app,/googlePhotoChoice:f\.dataset\.pcGooglePlaceId&&/);
+ assert.match(app,/gp:String\(p\.googlePhotoChoice\)/);
+ assert.match(read('worker.js'),/photoChoice:googlePhotoChoice\(url\.searchParams\.get\('gp'\)\)/);
+});

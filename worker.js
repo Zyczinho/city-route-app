@@ -17,23 +17,28 @@ import {createRestRpcClient} from './catalogue-client.js';
 import {SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY} from './supabase-config.js';
 import {placePreview,placePhoto} from './maps-preview.js';
 import {searchPlaceAddress,suggestPlaces,placeDetails,placePhotoById,cityFromParams} from './geocode.js';
-import {ticketmasterQuery,normalizeTicketmaster,dedupe} from './events.js';
+import {ticketmasterQuery,normalizeTicketmaster,dedupe,eventMarket} from './events.js';
 import {enrichPlace} from './place-enrichment.js';
 import {cachedGooglePlaceId,googlePhotoUri,placeIdCacheKey} from './place-thumb.js';
 import {kmBetween} from './geocode.js';
+import {googlePhotoChoice} from './photo-quality.js';
+import {recordMetric} from './metrics.js';
 
 const json=(body,status=200,maxAge=0)=>new Response(JSON.stringify(body),{status,headers:{'content-type':'application/json; charset=utf-8','cache-control':maxAge?`public, max-age=${maxAge}`:'no-store'}});
 
 async function events(request,env,ctx){
- const days=Number(new URL(request.url).searchParams.get('days'))||7;
- if(!env.TICKETMASTER_API_KEY)return json({status:'no-key',events:[],sources:[]});
- const cache=caches.default,cacheKey=new Request(`https://city-route-cache/events?days=${days}`);
+ const params=new URL(request.url).searchParams;
+ const cityId=String(params.get('city')||'warsaw').trim().toLowerCase();
+ if(!eventMarket(cityId))return json({status:'invalid-city',events:[],sources:[]},422);
+ const days=Math.max(1,Math.min(31,Math.trunc(Number(params.get('days'))||7)));
+ if(!env.TICKETMASTER_API_KEY)return json({status:'no-key',cityId,events:[],sources:[]});
+ const cache=caches.default,cacheKey=new Request(`https://city-route-cache/events?city=${cityId}&days=${days}`);
  const hit=await cache.match(cacheKey);if(hit)return hit;
  try{
-  const r=await fetch(ticketmasterQuery(env.TICKETMASTER_API_KEY,days));
+  const r=await fetch(ticketmasterQuery(env.TICKETMASTER_API_KEY,days,new Date(),cityId));
   if(!r.ok)return json({status:'source-error',code:r.status,events:[],sources:['ticketmaster']},502);
   const list=dedupe(normalizeTicketmaster(await r.json(),{affiliate:env.TICKETMASTER_AFFILIATE}));
-  const res=json({status:'ok',updatedAt:new Date().toISOString(),events:list,sources:['ticketmaster']},200,3600);
+  const res=json({status:'ok',cityId,updatedAt:new Date().toISOString(),events:list,sources:['ticketmaster']},200,3600);
   ctx.waitUntil(cache.put(cacheKey,res.clone()));return res;
  }catch{return json({status:'source-error',events:[],sources:['ticketmaster']},502);}
 }
@@ -114,6 +119,7 @@ async function placeThumb(url,env,ctx){
  const cityName=String(url.searchParams.get('cityName')||'Warszawa').replace(/\s+/g,' ').trim().slice(0,60);
  const center={lat:Number(url.searchParams.get('centerLat')),lng:Number(url.searchParams.get('centerLng'))};
  const radiusKm=Math.min(50,Number(url.searchParams.get('r'))||40);
+ const languageCode=String(url.searchParams.get('lang')||'pl').slice(0,2),regionCode=String(url.searchParams.get('cc')||'PL').slice(0,2);
  // A cap or provider hiccup is retried after a minute; a real "no match / no photo" answer is kept for ten.
  const notFound=status=>new Response(null,{status:404,headers:{'cache-control':`private, max-age=${['quota','unavailable','disabled','no-key'].includes(status)?60:600}`,'x-thumb-status':status}});
  if(name.length<2||![lat,lng,center.lat,center.lng].every(Number.isFinite)||kmBetween({lat,lng},center)>radiusKm)return notFound('invalid');
@@ -122,8 +128,8 @@ async function placeThumb(url,env,ctx){
   if(!thumbAllowed(env))return notFound('quota');
  try{
   const key=env.GOOGLE_PLACES_API_KEY;
-  const id=String(url.searchParams.get('googleId')||'')||await cachedGooglePlaceId({name,lat,lng,cityName,googleKey:key},{cache:caches.default,ctx});
-  const uri=id&&await googlePhotoUri(id,{googleKey:key,maxWidthPx:url.searchParams.get('w')==='800'?800:320});
+  const id=String(url.searchParams.get('googleId')||'')||await cachedGooglePlaceId({name,lat,lng,cityName,languageCode,regionCode,googleKey:key},{cache:caches.default,ctx});
+  const uri=id&&await googlePhotoUri(id,{googleKey:key,maxWidthPx:url.searchParams.get('w')==='800'?800:320,photoChoice:googlePhotoChoice(url.searchParams.get('gp'))});
   if(!uri)return notFound(id?'no-photo':'no-match');
   return new Response(null,{status:302,headers:{location:uri,'cache-control':'private, max-age=3600','referrer-policy':'no-referrer'}});
  }catch{return notFound('unavailable');}
@@ -131,6 +137,16 @@ async function placeThumb(url,env,ctx){
 async function peekGooglePlaceId(name,lat,lng,cache){
  if(!name||![lat,lng].every(Number.isFinite))return '';
  try{const hit=await cache.match(new Request(placeIdCacheKey(name,lat,lng)));const v=hit&&await hit.json();return typeof v?.id==='string'?v.id:'';}catch{return '';}
+}
+// /api/place-id: the Google place_id this Worker has already confirmed for a catalogue place, read from its cache only.
+// Never calls Google, so it costs nothing; scripts/collect-google-place-ids.mjs uses it to store ids permanently
+// (Google allows keeping place_id indefinitely, unlike photos or ratings).
+async function placeIdFromCache(url){
+ const name=String(url.searchParams.get('name')||'').replace(/\s+/g,' ').trim().slice(0,120);
+ const lat=Number(url.searchParams.get('lat')),lng=Number(url.searchParams.get('lng'));
+ if(name.length<2||![lat,lng].every(Number.isFinite)||Math.abs(lat)>90||Math.abs(lng)>180)return json({status:'invalid',id:null},422);
+ const id=await peekGooglePlaceId(name,lat,lng,caches.default);
+ return json({status:id?'ok':'unknown',id:/^[A-Za-z0-9_-]{10,300}$/.test(id)?id:null});
 }
 async function placeEnrichment(url,env,ctx){
  const name=String(url.searchParams.get('name')||'').replace(/\s+/g,' ').trim().slice(0,120);
@@ -159,12 +175,14 @@ async function placeEnrichment(url,env,ctx){
 async function placeSuggest(url,env,ctx){
  const q=String(url.searchParams.get('q')||'').replace(/\s+/g,' ').trim();
  if(q.length<3||q.length>120)return json({status:'invalid-query',suggestions:[]},422);
- const city=cityFromParams(url.searchParams),useGoogle=env.GOOGLE_PLACES_AUTOCOMPLETE==='on'&&googleAllowed(env);
+ const city=cityFromParams(url.searchParams),useGoogle=url.searchParams.get('source')!=='osm'&&env.GOOGLE_PLACES_AUTOCOMPLETE==='on'&&googleAllowed(env);
  // OSM results may be cached; Google predictions are never cached (Places terms).
  const cache=caches.default,cacheKey=new Request(`https://city-route-cache/place-suggest-v1?c=${city.center.lat},${city.center.lng},${city.radiusKm}&q=${encodeURIComponent(q.toLowerCase())}`);
  if(!useGoogle){const hit=await cache.match(cacheKey);if(hit)return hit;}
  try{
-  const result=await suggestPlaces(q,{city,googleKey:env.GOOGLE_PLACES_API_KEY||'',googleAutocomplete:useGoogle,photonUrl:env.PLACE_GEOCODER_URL||'https://photon.komoot.io',sessionToken:sessionOf(url)});
+  const result=await suggestPlaces(q,{city,googleKey:env.GOOGLE_PLACES_API_KEY||'',googleAutocomplete:useGoogle,
+   // Photon down → paid Google autocomplete, counted against the same daily cap. Not for source=osm (Start origin needs coordinates).
+   googleFallback:url.searchParams.get('source')!=='osm'?()=>googleAllowed(env):null,photonUrl:env.PLACE_GEOCODER_URL||'https://photon.komoot.io',sessionToken:sessionOf(url)});
   const cacheable=result.status==='ok'&&result.provider!=='google',res=json(result,result.status==='unavailable'?502:200,cacheable?86400:0);
   if(cacheable)ctx.waitUntil(cache.put(cacheKey,res.clone()));
   return res;
@@ -216,15 +234,20 @@ export default {
    if(request.method!=='GET')return json({status:'method-not-allowed'},405);
    return placeThumb(url,env,ctx);
   }
+  if(pathname==='/api/place-id'){
+   if(request.method!=='GET')return json({status:'method-not-allowed'},405);
+   return placeIdFromCache(url);
+  }
   if(pathname==='/api/place-details'){
    if(request.method!=='GET')return json({status:'method-not-allowed'},405);
    return placeDetail(url,env);
   }
+  if(pathname==='/api/metric')return recordMetric(request,env,ctx);
   if(pathname==='/api/place-photo'){
    if(request.method!=='GET')return json({status:'method-not-allowed'},405);
    if(!googleAllowed(env))return json({status:env.GOOGLE_PLACES_API_KEY?'quota':'no-key'},404);
    try{
-    const id=url.searchParams.get('id'),result=id?await placePhotoById(id,{googleKey:env.GOOGLE_PLACES_API_KEY}):await placePhoto(url.searchParams.get('url'),env.GOOGLE_PLACES_API_KEY,fetch,cityFromParams(url.searchParams));
+    const id=url.searchParams.get('id'),result=id?await placePhotoById(id,{googleKey:env.GOOGLE_PLACES_API_KEY,photoChoice:googlePhotoChoice(url.searchParams.get('n'))}):await placePhoto(url.searchParams.get('url'),env.GOOGLE_PLACES_API_KEY,fetch,cityFromParams(url.searchParams));
     return result||json({status:'no-photo'},404);
    }catch{return json({status:'unavailable'},502);}
   }

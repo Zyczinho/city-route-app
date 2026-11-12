@@ -54,8 +54,61 @@ async function runPlannerBrowserSmoke(){
   await page.locator('summary').filter({hasText:'Komunikacja miejska — sprawdź odcinki'}).waitFor({timeout:10000});
   const routes=await page.locator('details[aria-label="Komunikacja miejska etapami"] a[href*="travelmode=transit"]').count();
   assert.ok(routes>=1,'transit navigation has independently routable A→B legs');
+  // Exact point of departure is a deliberate search + confirmation, never a silent fallback.
+  await page.goto(BASE+'/#plan',{waitUntil:'domcontentloaded'});
+  await page.locator('#build-form').waitFor({timeout:10000});
+  await page.locator('details.ux-advanced > summary').click();
+  await page.locator('input[name="start"][value="custom"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
+  const origin=page.locator('#planner-origin-input');
+  await origin.waitFor({state:'visible'});
+  await ctx.route('**/api/place-suggest?**',route=>{
+   const u=new URL(route.request().url());
+   assert.equal(u.searchParams.get('city'),'warsaw');
+   assert.equal(u.searchParams.get('source'),'osm','origin autocomplete must not incur paid Google suggestions');
+   return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({
+    status:'ok',provider:'photon-osm',suggestions:[{
+     id:'osm:castle',name:'Plac Zamkowy',address:'Stare Miasto, Warszawa',
+     location:{lat:52.2475,lng:21.0137}
+    }]
+   })});
+  });
+  await origin.fill('Plac Zamkowy, Warszawa');
+  await page.locator('input[name="time"][value="240"]').evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
+  await page.locator('.planner-origin-option').filter({hasText:'Plac Zamkowy'}).waitFor({timeout:10000});
+  await page.locator('.planner-origin-option').filter({hasText:'Plac Zamkowy'}).first().click();
+  await page.waitForFunction(()=>document.querySelector('#build-form')?.dataset.originConfirmed==='1',{timeout:10000});
+  assert.equal(await page.locator('.planner-origin-selected').isVisible(),true);
+  assert.match(await page.locator('.planner-origin-selected').innerText(),/Wybrany punkt startowy/);
+  await origin.fill('Niepotwierdzony adres');
+  await page.locator('#build-form button.primary.big').click();
+  assert.ok(page.url().endsWith('#plan'),'editing an origin must invalidate prior confirmation');
+  assert.match(await page.locator('.planner-origin-status').innerText(),/Wybierz punkt/);
+  await origin.fill('Plac Zamkowy, Warszawa');
+  await page.locator('.planner-origin-option').filter({hasText:'Plac Zamkowy'}).waitFor({timeout:10000});
+  await origin.press('ArrowDown');
+  await origin.press('Enter');
+  await page.waitForFunction(()=>document.querySelector('#build-form')?.dataset.originConfirmed==='1',{timeout:10000});
+  await page.locator('#build-form button.primary.big').click();
+  await page.waitForURL(/#route\/generated$/,{timeout:30000});
+  assert.ok(await page.locator('.generated-option').count()>=1,'confirmed address reaches the generator');
+  // Start V3: selecting a category is exact by default; legacy focus/precise questions are gone.
+  await page.goto(BASE+'/#plan',{waitUntil:'domcontentloaded'});
+  await page.locator('#build-form').waitFor({timeout:15000});
+  assert.ok(await page.locator('#build-form .planner-when').isVisible(),'date and time are visible immediately in Start V3');
+  const category=page.locator('input[name="interests"]:not([value="mix"])').first();
+  await category.waitFor({state:'attached',timeout:10000});
+  await category.evaluate(el=>{el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
+  assert.equal(await category.isChecked(),true,'an available city category is selected');
+  assert.equal(await page.locator('input[name="interests"][value="mix"]').isChecked(),false,'specific category replaces mix');
+  assert.equal(await page.locator('input[name="focus"]').count(),0,'strictness question was removed');
+  assert.equal(await page.locator('input[name="preciseTypes"]').count(),0,'temples and gardens are ordinary category chips');
+  assert.equal(await page.locator('input[name="budget"]').count(),0,'unsupported global budget is absent');
+  assert.equal(await page.locator('input[name="food"]').count(),0,'old food radio question was removed');
+  const coffee=page.locator('input[name="coffee"]');
+  assert.equal(await coffee.count(),1,'coffee has one simple toggle');
+  assert.equal(await coffee.isChecked(),true,'automatic coffee is enabled by default for qualifying daytime plans');
   assert.deepEqual(errors,[],'no browser uncaught errors');
-  console.log('PLANNER_V2_BROWSER_QA '+JSON.stringify({alternatives:true,fullBudget:true,reroll:true,saved:true,transitLegs:routes,mobile375:true}));
+  console.log('PLANNER_V2_BROWSER_QA '+JSON.stringify({alternatives:true,budgetRemoved:true,reroll:true,saved:true,transitLegs:routes,mobile375:true}));
  }finally{
   await browser?.close();server.kill('SIGTERM');
  }

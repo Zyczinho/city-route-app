@@ -1,3 +1,4 @@
+import {sharedStopFraction} from '../route-diversity.js';
 import test from 'node:test';
 import {readFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
@@ -74,4 +75,13 @@ test('actual Warsaw OSM layer participates in route generation alongside the edi
   }));
   assert.ok(chosen.length>0,'route should be feasible');
   assert.ok(chosen.some(p=>ids.has(p.id)),'the generated route should use some of the newly imported Warsaw layer');
+});
+
+test('V1 rejects an alternative that is a subset of another route',()=>{
+ assert.equal(sharedStopFraction(['a','b'],['a','b','c','d']),1);
+ const all=Array.from({length:16},(_,i)=>point('v-'+i,['park','landmark','garden','viewpoint'][i%4],{lat:52.23+(i%4)*0.0004,lng:21.01+Math.floor(i/4)*0.0004}));
+ const routes=generateAlternatives(all,prefs({time:100,interests:['mix']}),{count:3});
+ assert.ok(routes.length>=2);
+ for(let i=0;i<routes.length;i++)for(let j=i+1;j<routes.length;j++)
+  assert.ok(sharedStopFraction(routes[i],routes[j])<=0.55);
 });

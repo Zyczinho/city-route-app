@@ -7,15 +7,16 @@ const read=p=>readFile(p,'utf8');
 
 test('PLAN-UI-MOBILE-006 keeps planner semantics and adds progressive disclosure',async()=>{
  const [app,enhancements]=await Promise.all([read('app.js'),read('enhancements.js')]);
- for(const name of ['time','transport','food','start','budget','tourist','offers']){
+ for(const name of ['time','transport','start']){
   assert.match(app,new RegExp(`radio\\('${name}'`),`core planner must keep ${name}`);
  }
+ assert.match(app,/name="coffee"/,'the break stays as one toggle');
  assert.match(app,/name="interests"/,'core planner must keep interests');
  assert.match(enhancements,/function simplifyPlanner\(\)/);
  assert.match(enhancements,/planner-primary/);
  assert.match(enhancements,/planner-advanced/);
  assert.match(enhancements,/data-planner-summary/);
- assert.match(enhancements,/\['transport','food','start'\]/);
+ assert.match(enhancements,/\['transport','coffee','start'\]/);
  assert.match(enhancements,/details\.className='planner-advanced'/);
  assert.match(enhancements,/form\.insertAdjacentElement\('afterend',manual\)/);
  assert.match(enhancements,/overflow-x:auto/,'primary mobile choices should stay compact instead of stacking vertically');

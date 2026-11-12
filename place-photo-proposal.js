@@ -9,7 +9,7 @@
 import {commonsTokens,licensedCommonsImage,findCommonsPhotos,distanceM} from './commons-photo-source.js';
 
 export const MAX_WIKI_METERS=350;
-export const MAX_CANDIDATES=4;
+export const MAX_CANDIDATES=6;
 const GENERIC=new Set(['muzeum','museum','budynek','obiekt','hotel','restauracja','restaurant','kawiarnia','cafe','park','plac','square','ulica','street','kosciol','church','palac','palace','hala','brama','gate','zamek','castle','synagoga','synagogue','pomnik','bar','pub','klub','club','galeria','gallery','centrum','dom','house']);
 const stem=t=>t.slice(0,5);
 const same=(a,b)=>a===b||(a.length>=5&&b.length>=5&&stem(a)===stem(b));
@@ -62,6 +62,16 @@ export function googleCandidate(selection){
  return {src:'/api/place-photo?id='+encodeURIComponent(id),author,license:'Google Maps',licenseUrl:null,source:authorUri||'https://www.google.com/maps/place/?q=place_id:'+encodeURIComponent(id),via:'Google Maps',kind:'google',googlePlaceId:id};
 }
 
+// "Inne zdjęcie": the other Google photos of the same place, each with its own author (from place details).
+export function googleAlternatives(selection){
+ const first=googleCandidate(selection);if(!first)return [];
+ const more=Array.isArray(selection.photo.more)?selection.photo.more.slice(0,3):[];
+ return more.map((a,i)=>{
+  const n=i+1,authorUri=/^https:\/\//i.test(a?.authorUri||'')?a.authorUri:null;
+  return {...first,src:first.src+'&n='+n,author:String(a?.authorName||'Google Maps').slice(0,120),source:authorUri||first.source,photoChoice:n};
+ });
+}
+
 // For an OSM / pin / Maps-link pick: ask the Worker (Google Text Search, same-place check ≤300 m + name)
 // for the Google photo of THIS venue. Only runs when the Worker has a Google key; otherwise 'no-key'.
 export function enrichmentUrl(place,cityInfo={}){
@@ -69,6 +79,13 @@ export function enrichmentUrl(place,cityInfo={}){
  if(!c||!Number.isFinite(Number(place?.lat))||!Number.isFinite(Number(place?.lng))||String(place?.name||'').trim().length<3)return null;
  const q=new URLSearchParams({name:String(place.name).trim().slice(0,120),lat:String(place.lat),lng:String(place.lng),city:cityInfo.id||'',cityName:cityInfo.name||'',centerLat:String(c.lat),centerLng:String(c.lng),r:String(cityInfo.radiusKm||40),googleId:''});
  return '/api/place-enrichment?'+q.toString();
+}
+// Other Google photos of the same place for an OpenStreetMap / pin / link pick (see image.more in place-enrichment.js).
+export function googleAlternativesFromEnrichment(data,first=googleCandidateFromEnrichment(data)){
+ if(!first)return [];
+ const more=Array.isArray(data?.image?.more)?data.image.more.slice(0,3):[];
+ return more.map((m,i)=>({...first,src:first.src+'&n='+(i+1),author:String(m?.author||'Google Maps').slice(0,120),
+  source:/^https:\/\//i.test(m?.source||'')?m.source:first.source,photoChoice:i+1}));
 }
 export function googleCandidateFromEnrichment(data){
  const image=data?.image,credit=image?.credit||{};
@@ -90,7 +107,7 @@ async function getJson(url,{fetcher,signal}){
 // which the UI reports differently from a genuine "no photo of this place".
 export async function findPlacePhotoCandidates(selection,{city='',cityInfo=null,fetcher=fetch,signal}={}){
  const place={id:selection?.placeId||selection?.osmId||'',name:selection?.name,lat:selection?.location?.lat,lng:selection?.location?.lng};
- const candidates=[googleCandidate(selection)];
+ const candidates=[googleCandidate(selection),...googleAlternatives(selection)];
  let failures=0,attempts=0;
  if(String(place.name||'').trim().length>=3&&Number.isFinite(Number(place.lat))&&Number.isFinite(Number(place.lng))){
   for(const lang of ['pl','en']){
@@ -112,15 +129,16 @@ export async function findPlacePhotoCandidates(selection,{city='',cityInfo=null,
   // Cafés, bars and restaurants rarely have a free photo: then ask Google (one Text Search per pick).
   const enrich=!candidates.some(c=>c?.kind==='google'||c?.kind==='wikipedia')&&enrichmentUrl(place,cityInfo);
   if(enrich){
-   try{const r=await fetcher(enrich,{signal,headers:{accept:'application/json'}});const g=googleCandidateFromEnrichment(await r.json());if(g)candidates.push(g);}
+   try{const r=await fetcher(enrich,{signal,headers:{accept:'application/json'}});const data=await r.json(),g=googleCandidateFromEnrichment(data);if(g)candidates.push(g,...googleAlternativesFromEnrichment(data,g));}
    catch(error){if(error?.name==='AbortError')throw error;}
   }
   attempts++;
   try{for(const c of await findCommonsPhotos(place,{fetcher,signal}))candidates.push({...c,kind:'commons'});}
   catch(error){if(error?.name==='AbortError')throw error;failures++;}
  }
- const rank={wikipedia:0,google:1,commons:2};
- const list=dedupe(candidates).sort((a,b)=>(rank[a.kind]??3)-(rank[b.kind]??3)).slice(0,MAX_CANDIDATES);
+ // Other Google photos of the same place come last: they are alternatives, not the proposal.
+ const rank=c=>c.kind==='google'&&c.photoChoice?3:({wikipedia:0,google:1,commons:2}[c.kind]??4);
+ const list=dedupe(candidates).sort((a,b)=>rank(a)-rank(b)).slice(0,MAX_CANDIDATES);
  return {status:list.length?'ok':failures&&failures===attempts?'error':'none',candidates:list};
 }
 
@@ -146,6 +164,7 @@ export function readAcceptedPhoto(json){
 // What app.js stores on the new place when the user accepts a proposal. Only freely licensed
 // Wikimedia files are stored; a Google photo stays a preview (Google terms) and keeps showing
 // through the place's googlePlaceId and the Worker proxy.
+export const acceptedGooglePhotoChoice=candidate=>acceptedGooglePlaceId(candidate)&&Number.isInteger(candidate.photoChoice)&&candidate.photoChoice>0&&candidate.photoChoice<=3?candidate.photoChoice:0;
 export const acceptedGooglePlaceId=candidate=>candidate?.via==='Google Maps'&&/^[A-Za-z0-9_-]{10,300}$/.test(String(candidate.googlePlaceId||''))?candidate.googlePlaceId:'';
 export function acceptedPhotoRecord(candidate){
  if(!candidate||typeof candidate.src!=='string'||candidate.via!=='Wikimedia Commons')return null;

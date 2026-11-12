@@ -5,13 +5,13 @@ import {planRoutesV2} from '../route-planner-v2.js';
 
 const source=path=>readFileSync(new URL('../'+path,import.meta.url),'utf8');
 
-test('V2 is imported and selected for walking/bike/mix, transit remains explicitly legacy',()=>{
+test('one engine: Start and the variant reroll use V2 for every transport (planner audit P2)',()=>{
  const app=source('app.js');
  assert.match(app,/import \{planRoutesV2\} from '\.\/route-planner-v2\.js'/);
- assert.match(app,/const isV2=prefs\.transport!=='transit'/);
- assert.match(app,/new URLSearchParams\(location\.search\)\.get\('planner'\)!=='v1'/);
  assert.match(app,/planRoutesV2\(candidates,chosenPrefs/);
- assert.match(app,/engine:isV2\?'v2':'v1'/);
+ assert.match(app,/const fresh=planRoutesV2\(candidates,generationPrefs/);
+ assert.match(app,/engine:'v2'/);
+ assert.doesNotMatch(app,/generateAlternatives\(|const isV2=|get\('planner'\)!=='v1'/,'the legacy V1 generator is no longer reachable from Start');
 });
 
 test('V2 time breakdown, rests and unknown-hours disclosure are visible to users',()=>{
@@ -27,9 +27,9 @@ test('V2 time breakdown, rests and unknown-hours disclosure are visible to users
 
 test("Transit multi-stop Google Maps export uses valid two-point links, not transit waypoints",()=>{
  const app=source('app.js');
- assert.match(app,/function transitLegLinks\(ps\)/);
- assert.match(app,/origin=\$\{ps\[i\]\.lat\},\$\{ps\[i\]\.lng\}&destination=\$\{p\.lat\},\$\{p\.lng\}&travelmode=transit/);
- assert.match(app,/if\(t==='transit'\)return transitLegLinks\(ps\)/);
+ assert.match(app,/function transitLegLinks\(ps,origin=null\)/);
+ assert.match(app,/origin=\$\{legs\[i\]\.lat\},\$\{legs\[i\]\.lng\}&destination=\$\{p\.lat\},\$\{p\.lng\}&travelmode=transit/);
+ assert.match(app,/if\(t==='transit'\)return transitLegLinks\(ps,origin\)/);
 });
 
 test('PWA build and service worker cache include V2 engine',()=>{

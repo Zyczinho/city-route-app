@@ -42,7 +42,7 @@ try{
   return {labels:buttons.map(n=>n.textContent.trim()),colors:buttons.map(n=>getComputedStyle(n).backgroundColor)};
  });
  const manualActions=manualStyle.labels;
- assert.deepEqual(manualActions,['Rozpocznij trasę','Zapisz trasę','Udostępnij trasę'],'manual action order');
+ assert.deepEqual(manualActions,['Rozpocznij trasę','Cała trasa w Google Maps','Zapisz trasę','Udostępnij trasę'],'manual action order');
  const publish=page.locator('.variant-d-extra-actions [data-social-publish-button]');
  await publish.waitFor({state:'attached',timeout:15000});
  assert.equal(await publish.isVisible(),false,'Publish stays inside collapsed More options');
@@ -129,7 +129,7 @@ try{
   });
   assert.deepEqual(parity.labels,manualActions,'editorial and manual action order match at '+width);
   assert.deepEqual(parity.colors,manualStyle.colors,'editorial colors match manual Start/Save/Share');
-  assert.deepEqual(parity.colors.slice(1),['rgb(10, 102, 194)','rgb(109, 40, 217)'],'Save blue / Share purple');
+  assert.deepEqual(parity.colors.slice(2),['rgb(10, 102, 194)','rgb(109, 40, 217)'],'Save blue / Share purple');
   assert.equal(parity.moreOpen,false);
   assert.equal(parity.editInsideMore,true,'editorial editing is inside More options');
   assert.equal(await page.locator('[data-action="save-route"]').isVisible(),false,'editorial editing is collapsed initially');

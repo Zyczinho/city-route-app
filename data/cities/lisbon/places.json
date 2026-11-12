@@ -564,7 +564,7 @@
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "sit",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [
@@ -619,7 +619,7 @@
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "sit",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [
@@ -667,7 +667,7 @@
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "sit",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [
@@ -715,7 +715,7 @@
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "sit",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [
@@ -763,7 +763,7 @@
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "sit",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [
@@ -810,7 +810,7 @@
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "sit",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [
@@ -858,7 +858,7 @@
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "sit",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [
@@ -896,7 +896,7 @@
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "sit",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [
@@ -934,7 +934,7 @@
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "sit",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [
@@ -971,7 +971,7 @@
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "sit",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [
@@ -1009,7 +1009,7 @@
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "sit",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [
@@ -1046,7 +1046,7 @@
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "sit",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [
@@ -1084,7 +1084,7 @@
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "sit",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [
@@ -1122,7 +1122,7 @@
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "sit",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [
@@ -1160,7 +1160,7 @@
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "sit",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [
@@ -1198,7 +1198,7 @@
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "sit",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [
@@ -1235,7 +1235,7 @@
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "sit",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [
@@ -1273,7 +1273,7 @@
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "sit",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [
@@ -1310,7 +1310,7 @@
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "sit",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [
@@ -1348,7 +1348,7 @@
     "minutes": 40,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "sit",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [
@@ -1390,7 +1390,7 @@
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "sit",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [
@@ -1428,7 +1428,7 @@
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "sit",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [
@@ -1465,7 +1465,7 @@
     "minutes": 35,
     "cost": 0,
     "tourist": "balanced",
-    "foodStyle": "sit",
+    "foodStyle": "quick",
     "partner": false,
     "top": false,
     "tags": [

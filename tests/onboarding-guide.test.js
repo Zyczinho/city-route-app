@@ -7,7 +7,7 @@ import {guideView,filterGuide} from '../onboarding-guide.js';
 
 test('the permanent guide explains what City Route is and every live core section',()=>{
  assert.equal(GUIDE_GROUPS.length,6);
- assert.equal(GUIDE_TOPIC_COUNT,34,'founder requested every major feature');
+ assert.equal(GUIDE_TOPIC_COUNT,33,'founder requested every major feature');
  const html=guideView();
  for(const s of ['Po co jest City Route?','Poradnik City Route','GDZIE TO JEST?',
   'Ważne na etapie beta','data-guide-topic','guide-search','Zarezerwuj',
@@ -21,7 +21,7 @@ test('the permanent guide explains what City Route is and every live core sectio
 test('each feature explains reason, precise location, steps and a real destination',()=>{
  const valid=new Set(['#plan','#places','#my-route','#routes','#routes/community',
   '#social-saved','#add-place','#sources','#routes/community/friends',
-  '#routes/community/groups','#events','#book','#profile']);
+  '#routes/community/groups','#book','#profile']);
  for(const group of GUIDE_GROUPS){
   assert.ok(group.title&&group.items.length);
   for(const [name,where,why,steps,href] of group.items){
@@ -65,7 +65,7 @@ test('guide assets are present in build and offline cache; navbar has exactly fi
   assert.ok(sw.includes(name),'not offline: '+name);
  }
  assert.match(index,/onboarding-guide\.css\?v=2/);
- assert.match(index,/nav-enhancements\.js\?v=4/);
+ assert.match(index,/nav-enhancements\.js\?v=5/);
  assert.match(sw,/city-route-v\d+/);
  assert.match(css,/#navigation\{grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);
  assert.match(css,/guide-group\[hidden\].*display:none/);

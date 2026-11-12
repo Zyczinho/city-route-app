@@ -13,7 +13,7 @@ test('route share CTA is rendered consistently across all major view states',asy
   'generated, saved and editorial route detail share CTA stays visible');
  assert.match(app,/shareRouteButton\(ps,transport,builderDraft\?\.name/,
   'basket share CTA does not disappear for transit and mixed transport');
- assert.match(app,/shareRouteButton\(items\(s\.stops\),s\.transport,s\.name\)/,
+ assert.match(app,/shareRouteButton\(items\(s\.stops\),s\.transport,s\.name,\{origin:s\.start\|\|null\}\)/,
   'finished and live route share CTA available');
  const communityButtons=social.match(/class="route-share-trigger" data-route-share="community"/g)||[];
  assert.equal(communityButtons.length,2,'community list and detail both have share buttons');

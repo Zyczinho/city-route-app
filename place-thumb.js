@@ -5,7 +5,7 @@
 //   2. photo: Place Details `photos` (Essentials IDs Only, free) and Place Photo media (the only paid call per
 //      thumbnail). The browser is redirected to Google's short-lived photoUri; no photo bytes or ratings are stored.
 import {isSamePlace} from './place-enrichment.js';
-import {bestGooglePhoto} from './photo-quality.js';
+import {pickGooglePhoto} from './photo-quality.js';
 
 const GOOGLE='https://places.googleapis.com/v1/';
 const ID_RE=/^[A-Za-z0-9_-]{10,300}$/;
@@ -17,13 +17,19 @@ async function call(fetcher,url,init){
 }
 
 // Returns a confirmed Google place id or null. Never returns an id whose name and position do not match.
-export async function findGooglePlaceId({name,lat,lng,cityName='Warszawa',googleKey,fetcher=fetch}){
+// Names are compared in the city's own language: the catalogue (OSM) says "Panteão Nacional" or "Muzeum Powstania
+// Warszawskiego", while Place Details without languageCode answers in English ("National Pantheon") and the venue
+// was rejected as a different place.
+const langOf=v=>/^[a-z]{2}$/.test(String(v||''))?String(v):'pl';
+const regionOf=v=>/^[A-Z]{2}$/.test(String(v||''))?String(v):'PL';
+export async function findGooglePlaceId({name,lat,lng,cityName='Warszawa',languageCode='pl',regionCode='PL',googleKey,fetcher=fetch}){
+ const lang=langOf(languageCode),region=regionOf(regionCode);
  if(!googleKey||String(name||'').trim().length<2||![lat,lng].every(Number.isFinite))return null;
  const search=await call(fetcher,GOOGLE+'places:searchText',{method:'POST',headers:{'content-type':'application/json','x-goog-api-key':googleKey,'x-goog-fieldmask':'places.id'},
-  body:JSON.stringify({textQuery:`${name}, ${cityName}`,languageCode:'pl',regionCode:'PL',maxResultCount:3,locationBias:{circle:{center:{latitude:lat,longitude:lng},radius:300}}})});
+  body:JSON.stringify({textQuery:`${name}, ${cityName}`,languageCode:lang,regionCode:region,maxResultCount:3,locationBias:{circle:{center:{latitude:lat,longitude:lng},radius:300}}})});
  for(const candidate of (search?.places||[]).slice(0,2)){
   if(!ID_RE.test(String(candidate?.id||'')))continue;
-  const d=await call(fetcher,GOOGLE+'places/'+candidate.id,{headers:{'x-goog-api-key':googleKey,'x-goog-fieldmask':'id,displayName,location'}});
+  const d=await call(fetcher,GOOGLE+'places/'+candidate.id+'?languageCode='+lang,{headers:{'x-goog-api-key':googleKey,'x-goog-fieldmask':'id,displayName,location'}});
   if(d&&isSamePlace({requestedName:name,requestedLat:lat,requestedLng:lng,candidateName:d.displayName?.text,candidateLat:d.location?.latitude,candidateLng:d.location?.longitude}))return candidate.id;
  }
  return null;
@@ -45,10 +51,10 @@ export async function cachedGooglePlaceId(params,{cache,ctx}){
 }
 
 // Short-lived Google photo URL for a place id, sized for list thumbnails.
-export async function googlePhotoUri(placeId,{googleKey,fetcher=fetch,maxWidthPx=320}){
+export async function googlePhotoUri(placeId,{googleKey,fetcher=fetch,maxWidthPx=320,photoChoice=0}){
  if(!googleKey||!ID_RE.test(String(placeId||'')))return null;
  const d=await call(fetcher,GOOGLE+'places/'+placeId,{headers:{'x-goog-api-key':googleKey,'x-goog-fieldmask':'photos'}});
- const photo=bestGooglePhoto(d?.photos)?.photo;if(!photo?.name)return null;
+ const photo=pickGooglePhoto(d?.photos,photoChoice)?.photo;if(!photo?.name)return null;
  const media=await call(fetcher,`${GOOGLE}${photo.name}/media?key=${encodeURIComponent(googleKey)}&maxWidthPx=${maxWidthPx}&skipHttpRedirect=true`,{});
  const uri=String(media?.photoUri||'');
  return /^https:\/\/[a-z0-9.-]+\.(googleusercontent|google)\.com\//i.test(uri)?uri:null;

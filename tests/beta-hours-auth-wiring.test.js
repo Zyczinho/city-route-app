@@ -7,13 +7,13 @@ const read=p=>readFile(p,'utf8');
 test('single-day date/time and museum entrance mode survive compact planner cleanup',async()=>{
  const [app,ux,core]=await Promise.all([read('app.js'),read('ux-cleanup.js'),read('core.js')]);
  for(const field of ['visitDate','startTime'])assert.match(app,new RegExp('name="'+field+'"'));
- assert.match(app,/radio\('visitMode'/);
+ assert.match(app,/prefs\.visitMode='mix'/,'museum entry vs facade is decided by the planner');
  assert.match(ux,/when=field\('visitDate'\)/);
- assert.match(ux,/whenDetails\.body\.append\(when\)/);
- assert.match(ux,/visitMode,transport/);
+ assert.match(ux,/primary\.append\(when\)/);
+ assert.match(ux,/\[transport,coffee,start,avoid\]/);
  assert.match(core,/timeFeasible\(\[\.\.\.result,p\]\)/);
  assert.match(app,/generatedTimingView\(ps\)/);
- assert.match(app,/maxMinutes:Number\(chosenPrefs.time\)/);
+ assert.match(app,/planRoutesV2\(candidates,chosenPrefs,\{count:3/,'the time budget is enforced by V2 for every transport');
 });
 test('Google signin retains existing password auth, uses Supabase OAuth with PKCE and explicit redirect',async()=>{
  const [auth,client]=await Promise.all([read('auth-enhancements.js'),read('supabase-client.js')]);

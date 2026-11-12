@@ -10,7 +10,7 @@ const QUICK=[
  ['map-pin','Miejsca','Odkrywaj i zapisuj lokalizacje','#places'],
  ['navigation','Moja trasa','Twoje przystanki i nawigacja','#my-route'],
  ['users','Społeczność','Odkrycia innych i znajomi','#routes/community'],
- ['ticket-percent','Zarezerwuj','Noclegi, bilety i stoliki','#book']
+ ['ticket-percent','Zarezerwuj','Rezerwacje stolików','#book']
 ];
 const GROUP_ICONS=['compass','map-pin','navigation','map','users','user-round'];
 // Menu paths are written "Miejsca → Mapa" in content; render the separator as a Lucide chevron, not a glyph.

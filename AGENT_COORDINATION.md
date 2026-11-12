@@ -1,3 +1,19 @@
+## REVIEW — MVP: hide Hotels and Events (2026-11-10)
+
+[REVIEW] HIDE-FUTURE-SECTIONS — ChatGPT — PR #218, branch `chatgpt/hide-hotels-events-mvp`. Founder's request: temporarily remove visible Hotels and Events sections; do not delete feature code, provider integrations, or catalogue/database records. Places no longer advertises Events; Community events shortcut is hidden; the Guide describes current table bookings only; old `#events` and `#hotels` links redirect to Places. Existing `#book` table reservations stay. PWA cache v93 and community-hub v5; mobile and source tests updated. No Supabase migrations or data write. Restore these features in a future dedicated issue after product approval. Await exact-head CI/browser smoke and production release verification before marking DONE.
+
+## OPEN — planner reliability and Start V3 (audit 2026-11-10)
+
+[OPEN] PLANNER-AUDIT — Claude — branch `claude/planner-reliability-start` — review requested. YELLOW: planner runtime (OSM opening hours, soft break slot, reasons), one engine for transit, asset versions ux-cleanup v7/css v5, enhancements v28. RED part (Start V3 primary flow) was requested by the founder on 2026-11-10 ("wykonaj zalecenia" after the audit). Data: forward migration `028_lisbon_cafe_quick_food_style.sql` must be run in Supabase by the owner; the planner is already correct before it runs. Follow-ups, not in this branch: delete legacy V1 `core.js generate` with its tests; variants that differ by area or pace. Decisions: ADR-012, ADR-013, ADR-014.
+
+## OPEN — P0 #176 stored Google place ids
+
+[OPEN] GPID-176 — Claude — PR `claude/google-place-ids` — review requested (YELLOW: Worker endpoint, precache). Adds zero-cost `GET /api/place-id` (Worker cache read only), `data/google-place-ids/<city>.json` (empty until collected after deploy), `scripts/collect-google-place-ids.mjs` and manual curator fixes for venues Google's check rejects. No DB write, no paid call. Details: `docs/PHOTO_LIBRARY_176_2026-11-10.md`. Last update 2026-11-10.
+
+## OPEN — P0 #176 permanent photo library + Google match language
+
+[DONE] PHOTO-LIB-176 — Claude — PR #211 MERGED `1e694f1`; production sample 64/90 → 86/90 cover-less places with a photo. Earlier text: — ChatGPT review requested (YELLOW: runtime, service-worker precache, Worker). Adds `data/photo-library/<city>.json` (228 exact Wikidata P18 → Commons covers with credit; permanent covers 58 → 286 of 708), applies it in `catalogue-client.js`/`app.js` with fallback to the existing Google thumbnail and tile, and sends city language/country to `/api/place-thumb` (production sample: 29% `no-match`, incl. major landmarks, because Place Details answered in English). No DB write, no paid activation, no new storage. Touches `app.js` photo helpers only; overlaps by file with drafts #207/#208. Language-fix hit rate unmeasured until production deploy. Details: `docs/PHOTO_LIBRARY_176_2026-11-10.md`. Last update 2026-11-10.
+
 ## DONE — P0 #200 Add Place Commons click cancellation; incident protocol owner
 
 [DONE] INC-200 — Incident Debugger / QA — founder confirmed Add Place in Lisbon now works after PR #205 (`985137b`). Root cause: accepted Commons metadata on `form[data-pc-photo]` made the delegated click handler treat all form clicks as photo actions and call `preventDefault()`. Exact real-provider production test failed before fix and passed after. Separate #203 corrected Lisbon address geocoding. Durable postmortem: `docs/qa/INCIDENT_2026-11-09_LISBON_ADD_PLACE.md`. New stop rule: `docs/qa/DEBUGGING_PROTOCOL.md`. Further #176 photo catalog work is unblocked; PRs #163 and #183 remain separate drafts. Last update 2026-11-09.

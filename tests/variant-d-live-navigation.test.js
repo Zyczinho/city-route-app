@@ -53,7 +53,7 @@ test('route has exactly 3 visible actions, others remain in disclosure, with no 
  assert.match(app,/class="variant-d-more"/);
  assert.match(app,/data-action="optimize"/);
  assert.match(app,/data-action="clear-builder"/);
- assert.match(app,/\$\{wholeRoute\(ps,transport\)\}/);
+ assert.match(app,/\$\{mapsRouteButton\(ps,transport\)\}/);
  assert.match(css,/\.variant-d-extra-actions/);
  assert.match(css,/\.variant-d-active-route\[hidden\]\{display:none!important\}/);
 });
@@ -69,7 +69,7 @@ test('Places retains existing live map with deliberate filter behavior',()=>{
 });
 test('Start has preferences before generating, without falsely claiming hard exclusions are active',()=>{
  assert.match(ux,/climate\.details\.open=true/);
- assert.match(ux,/form\.replaceChildren\(climate\.details,primary,submit/);
+ assert.match(ux,/form\.replaceChildren\(climate\.details,primary,\.\.\.\(feedback\?\[feedback\]:\[\]\),submit/);
  assert.doesNotMatch(ux,/excludeCategories|negativePreferences/);
  assert.match(app,/form id="build-form"/);
 });

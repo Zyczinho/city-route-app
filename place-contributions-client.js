@@ -1,3 +1,4 @@
+import {licensedPhotoCredit} from './community-photo-bank.js';
 // P0 PLACE-COMMUNITY-019. Pure shared-place client; all writes go through checked Supabase RPCs.
 export const BUCKET='city-route-place-photos';
 const ALIASES={zabytki:'landmark',muzea:'museum',zielen:'park',widoki:'viewpoint',okolice:'neighborhood',jedzenie:'restaurant'};
@@ -69,6 +70,23 @@ export function createPlaceContributionsClient({client}={}){
    if(error)throw contributionError(error);
    await rpc('attach_place_submission_photo',{p_submission_id:submissionId,p_image_path:path,p_confirm_rights:true});
    return {uploaded:true,path};
+  },
+  // User accepted a Commons image of this exact venue. The JPEG is prepared
+  // locally and uploaded to the existing shared photo bank for moderation.
+  async uploadLicensedCommonsPhoto(userId,submissionId,dataUrl,place){
+   const credit=licensedPhotoCredit(place);
+   if(!credit)throw new PlaceContributionError('photo-rights-required');
+   const blob=await jpegBlob(dataUrl);
+   const path=photoPath(userId,submissionId);
+   const {error}=await client.storage.from(BUCKET).upload(path,blob,{contentType:'image/jpeg',upsert:false});
+   // Retry can follow an interrupted upload. RPC still verifies object ownership
+   // and pending status; a duplicate cannot overwrite an existing stored photo.
+   if(error&&!/(already exists|duplicate|409)/i.test(String(error.message||'')))
+    throw contributionError(error);
+   await rpc('attach_place_submission_licensed_photo',{
+    p_submission_id:submissionId,p_image_path:path,p_credit:credit
+   });
+   return {uploaded:true,path,credit};
   },
   async uploadGalleryPhotos(userId,submissionId,images=[],confirmed,alreadyUploaded=[]){
    if(!confirmed||!Array.isArray(images)||images.length<2)return {uploaded:[],failed:[]};

@@ -28,6 +28,8 @@ on:
       - 'tests/p0-browser-smoke.mjs'
       - 'tests/integrations-browser-smoke.mjs'
       - 'tests/places-pagination-browser-smoke.mjs'
+      - 'tests/web-push-browser-smoke.mjs'
+      - 'web-push-client.js'
       - 'places-pagination.js'
       - 'places-pagination.css'
       - 'share-links.js'
@@ -73,6 +75,7 @@ jobs:
       - run: node tests/planner-v2-browser-smoke.mjs
       - run: node tests/integrations-browser-smoke.mjs
       - run: node tests/places-pagination-browser-smoke.mjs
+      - run: node tests/web-push-browser-smoke.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

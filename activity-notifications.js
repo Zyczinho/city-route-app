@@ -2,6 +2,7 @@
 // Body content is intentionally absent; only safe, generated internal paths are opened.
 import {supabase} from './supabase-client.js';
 import {activityLabel,activityTarget} from './activity-notifications-model.js';
+import {webPushControls} from './web-push-client.js';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let me=null,feedChannel=null,unread=0,initialized=false,lastItems=[],filter='all';
 const root=()=>document.querySelector('#main');
@@ -80,7 +81,7 @@ export async function renderActivityCenter({session,shell}){
    '<span class="activity-copy"><strong>'+esc(info.label)+'</strong><small>'+esc(info.detail)+'</small></span>'+
    '<time>'+esc(date(item.created_at))+'</time>'+(unread?'<span class="activity-dot" aria-label="Nieprzeczytane"></span>':'')+'</a>';
  }).join('');
- shell('Powiadomienia','<div class="activity-controls"><p class="lead">Wiadomości, grupy i znajomi — wszystko w jednym miejscu.</p>'+
+ shell('Powiadomienia','<div class="activity-controls">'+webPushControls()+'<p class="lead">Wiadomości, grupy i znajomi — wszystko w jednym miejscu.</p>'+
   '<div class="activity-filter"><button type="button" data-activity-filter="all" aria-pressed="'+(filter==='all')+'">Wszystkie</button>'+
   '<button type="button" data-activity-filter="unread" aria-pressed="'+(filter==='unread')+'">Nieprzeczytane</button></div>'+
   '<button type="button" class="button" data-activity-read-all '+(lastItems.some(x=>!x.read_at)?'':'disabled')+'>Oznacz wszystkie jako przeczytane</button></div>'+

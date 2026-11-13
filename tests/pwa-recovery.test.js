@@ -50,11 +50,11 @@ test('service worker updater runs even when app.js fails and reloads once on rep
 
 test('origin release bypasses stale SW module cache without deleting local data',async()=>{
  const [html,app,worker]=await Promise.all(['index.html','app.js','service-worker.js'].map(read));
- assert.match(html,/src="\.\/app\.js\?v=227"/);
+ assert.match(html,/src="\.\/app\.js\?v=228"/);
  assert.match(app,/from '\.\/core\.js\?v=224'/);
- for(const asset of ['./app.js?v=227','./core.js?v=224']){
+ for(const asset of ['./app.js?v=228','./core.js?v=224']){
   assert.ok(worker.includes("'"+asset+"'"),'offline cache lacks '+asset);
  }
- assert.match(worker,/city-route-v101/);
+ assert.match(worker,/city-route-v102/);
  assert.match(worker,/e\.request\.mode==='navigate'/);
 });

@@ -21,7 +21,7 @@ import {MAX_PLACE_PHOTOS,photoFileProblem,photoCropDefaults,sanitizePhotoCrop,cr
 import {readAcceptedPhoto} from './place-photo-proposal.js';
 import {downloadRouteGpx} from './route-export.js';
 import {parseGoogleSaved,planGoogleSavedImport} from './google-saved-import.js';
-import {parsePastedList,resolvePastedList,MAX_PASTED_PLACES} from './paste-list.js';
+import {parsePastedList,resolvePastedList,MAX_PASTED_PLACES,MAX_PASTED_LOOKUPS} from './paste-list.js';
 import {cityParams} from './place-composer-model.js';
 import {paginatePlaces,paginationWindow,compareRecommendedPlaces} from './places-pagination.js';
 import {combineSavedRoutes} from './social-routes-client.js';
@@ -960,7 +960,7 @@ function saveImportedPlaces({matched,created},{area='Import z Google Maps',descr
 let pasteBusy=false;
 async function pasteList(){
  if(pasteBusy)return;if(isLive())return toast('Najpierw zakończ aktywną trasę.');
- const text=$('#paste-list')?.value||'',{items,skipped}=parsePastedList(text);
+ const text=$('#paste-list')?.value||'',{items}=parsePastedList(text);
  if(!items.length)return toast('Nie widzę tu nazw miejsc ani linków do Google Maps.');
  pasteBusy=true;const button=$('[data-action="paste-list"]'),status=$('#paste-list-status');
  const say=s=>{if(status)status.textContent=s;};
@@ -970,14 +970,18 @@ async function pasteList(){
   const c=city(),withCity=p=>p.cityId?p:{...p,cityId:c.id},known={cities:[c],catalogue:places.map(withCity),ownPlaces:myPlaces().map(withCity)};
   // Names that are already in City Route need no lookup (and no paid call).
   const local=planGoogleSavedImport(items.filter(i=>!i.url).map(i=>({name:i.name})),known);
+  // The limit counts places that were found. Headers and sentences that slipped through the parser do not
+  // take a slot; the lookup budget keeps a paste full of prose from spending the paid search.
+  local.matched=local.matched.slice(0,MAX_PASTED_PLACES);
   const localNames=new Set(local.matched.map(m=>m.name));
   const toResolve=items.filter(i=>i.url||!localNames.has(i.name));
-  say(`Szukam ${toResolve.length} miejsc w: ${c.name}…`);
-  const resolved=await resolvePastedList(toResolve,{cityQuery:cityParams(c),session:uuid(),onProgress:(d,n)=>say(`Szukam miejsc w: ${c.name}… ${d} z ${n}`)});
+  say(`Szukam miejsc w: ${c.name}…`);
+  const resolved=await resolvePastedList(toResolve,{maxFound:MAX_PASTED_PLACES-local.matched.length,maxLookups:MAX_PASTED_LOOKUPS,cityQuery:cityParams(c),session:uuid(),onProgress:(d,n)=>say(`Szukam miejsc w: ${c.name}… ${d} z ${n}`)});
   const entries=resolved.filter(r=>r.place).map(r=>r.place);
   const remote=planGoogleSavedImport(entries,known);
   const matched=[...local.matched,...remote.matched],created=remote.created;
-  const missing=items.length-matched.length-created.length;
+  const skipped=resolved.filter(r=>!r.tried).length;
+  const missing=Math.max(0,items.length-skipped-matched.length-created.length);
   log('list_paste',{lines:items.length,found:matched.length+created.length,missing});
   if(!matched.length&&!created.length){say(`Nie znaleźliśmy tych miejsc w: ${c.name}. Sprawdź, czy lista dotyczy tego miasta.`);return;}
   const {ids}=saveImportedPlaces({matched,created},{area:'Z wklejonej listy',description:'Prywatne miejsce z wklejonej listy.'});

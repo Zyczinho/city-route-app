@@ -79,8 +79,8 @@ async function throttleDirectSearch(){
 
 const fold=s=>String(s||'').toLowerCase().replace(/ł/g,'l').normalize('NFD').replace(/[̀-ͯ]/g,'');
 function queryWithCity(query,city){
- const localName=city.id==='lisbon'?'Lisboa':city.name;
- const country=city.countryCode==='PT'?'Portugal':(city.country||'Polska');
+ const localName=({lisbon:'Lisboa'})[city.id]||city.name;
+ const country=({PT:'Portugal',DE:'Deutschland'})[city.countryCode]||city.country||'Polska';
  const hasName=[localName,city.name].some(name=>name&&fold(query).includes(fold(name)));
  return hasName?query:[query,localName,country].filter(Boolean).join(', ');
 }

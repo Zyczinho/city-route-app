@@ -8,7 +8,8 @@ const utc=d=>d.toISOString().replace(/\.\d{3}Z$/,'Z');
 export const EVENT_MARKETS=Object.freeze({
  warsaw:{city:'Warsaw',countryCode:'PL'},
  krakow:{city:'Krakow',countryCode:'PL'},
- lisbon:{city:'Lisboa',countryCode:'PT'}
+ lisbon:{city:'Lisboa',countryCode:'PT'},
+ berlin:{city:'Berlin',countryCode:'DE'}
 });
 export const eventMarket=id=>Object.hasOwn(EVENT_MARKETS,id)?EVENT_MARKETS[id]:null;
 

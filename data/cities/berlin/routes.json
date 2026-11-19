@@ -1,0 +1,124 @@
+[
+  {
+    "id": "berlin-essentials-full-day",
+    "name": "Berlin pierwszy raz: klasyki w jeden dzień",
+    "description": "Kopuła Reichstagu, Brama Brandenburska, ślady muru i Wyspa Muzeów, a na koniec widok z wieży telewizyjnej. Cały dzień pieszo przez Mitte.",
+    "transport": "walk",
+    "cats": [
+      "klasyka",
+      "first-time",
+      "historia"
+    ],
+    "stops": [
+      "osm-node-2432753840",
+      "osm-way-518071791",
+      "osm-way-172234733",
+      "osm-node-417346627",
+      "osm-way-844740667",
+      "osm-way-18578139",
+      "osm-way-313670734",
+      "osm-node-1802913071",
+      "osm-way-337201828",
+      "osm-way-556435241"
+    ],
+    "durationMinutes": 480,
+    "timeWindow": {
+      "start": "09:30",
+      "end": "17:30",
+      "spansMidnight": false
+    },
+    "recommendedDays": [
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+    ],
+    "routeType": "editorial",
+    "editorialStatus": "desk-researched",
+    "authorLabel": "City Route",
+    "warnings": [
+      "Wejście na kopułę Reichstagu jest bezpłatne, ale wymaga wcześniejszej rejestracji na stronie Bundestagu; weź dokument tożsamości.",
+      "Neues Museum jest zamknięte w poniedziałki; bilety na konkretną godzinę warto kupić online.",
+      "Na wieżę telewizyjną (Fernsehturm) najlepiej kupić bilet z godziną wejścia; w weekend kolejki bywają długie.",
+      "W listopadzie zmierzch zapada około 16:00, więc widok z wieży o zmroku to dobry finał."
+    ],
+    "stopNotes": {
+      "osm-node-2432753840": "Zacznij rano od szklanej kopuły nad salą obrad. Spiralna rampa i widok na Tiergarten.",
+      "osm-way-518071791": "Dwie minuty pieszo: symbol podzielonego i zjednoczonego miasta.",
+      "osm-way-172234733": "Pomnik Pomordowanych Żydów Europy. Wejdź między betonowe bloki; pod spodem jest bezpłatne centrum informacji.",
+      "osm-node-417346627": "Dawne przejście graniczne między sektorami. Krótki przystanek, dużo historii.",
+      "osm-way-844740667": "Jeden z najładniejszych placów Berlina, z dwiema katedrami i salą koncertową.",
+      "osm-way-18578139": "Na Wyspie Muzeów: popiersie Nefertiti i zbiory egipskie. Zaplanuj około półtorej godziny.",
+      "osm-way-313670734": "Katedra nad Szprewą. Kopuła z galerią widokową jest w cenie biletu.",
+      "osm-node-1802913071": "Późny obiad w starej berlińskiej knajpie w Nikolaiviertel.",
+      "osm-way-337201828": "Połączone podwórza secesyjnych kamienic, małe sklepy i kawiarnie.",
+      "osm-way-556435241": "Finał na wysokości ponad 200 metrów, najlepiej o zmierzchu."
+    },
+    "image": "route-berlin-classics.jpg",
+    "imageCaption": "Kwadryga na Bramie Brandenburskiej",
+    "imageCredit": {
+      "author": "Dietmar Rabich",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Berlin,_Brandenburger_Tor_--_2019_--_6335.jpg",
+      "via": "Wikimedia Commons",
+      "quality": "Photo verified"
+    }
+  },
+  {
+    "id": "berlin-kreuzberg-friedrichshain",
+    "name": "Kreuzberg i Friedrichshain: mur, hala i dach",
+    "description": "Najdłuższy zachowany fragment muru, most nad Szprewą, hala targowa z jedzeniem i wieczór na dachu w Neukölln. Luźne popołudnie po wschodniej stronie.",
+    "transport": "mix",
+    "cats": [
+      "lokalnie",
+      "jedzenie",
+      "wisla"
+    ],
+    "stops": [
+      "osm-relation-6807791",
+      "osm-way-288514442",
+      "osm-relation-9503840",
+      "osm-way-15740772",
+      "osm-node-2941462114"
+    ],
+    "durationMinutes": 360,
+    "timeWindow": {
+      "start": "12:00",
+      "end": "20:00",
+      "spansMidnight": false
+    },
+    "recommendedDays": [
+      "thu",
+      "fri",
+      "sat"
+    ],
+    "routeType": "editorial",
+    "editorialStatus": "desk-researched",
+    "authorLabel": "City Route",
+    "warnings": [
+      "Godziny Markthalle Neun różnią się w zależności od dnia; sprawdź je przed wyjściem.",
+      "Klunkerkranich otwiera się po południu, a zimą program i godziny bywają skrócone; potwierdź na stronie lokalu.",
+      "Z Görlitzer Park do Klunkerkranich najszybciej dojechać U-Bahnem (U7 lub U8) albo autobusem."
+    ],
+    "stopNotes": {
+      "osm-relation-6807791": "Ponad kilometr muralu na murze berlińskim wzdłuż Szprewy. Idź w stronę mostu.",
+      "osm-way-288514442": "Ceglany most z wieżyczkami między Friedrichshain a Kreuzbergiem.",
+      "osm-relation-9503840": "Hala targowa: lokalne jedzenie, kawa i coś słodkiego na późny lunch.",
+      "osm-way-15740772": "Kreuzberski park na krótki odpoczynek, najlepiej za dnia.",
+      "osm-node-2941462114": "Bar na dachu parkingu w Neukölln, z widokiem na miasto o zmroku."
+    },
+    "image": "route-berlin-kreuzberg.jpg",
+    "imageCaption": "Mural na East Side Gallery",
+    "imageCredit": {
+      "author": "Ank Kumar",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Berlin_East_Side_Gallery_(Ank_Kumar,_INFOSYS_Limited)_05.jpg",
+      "via": "Wikimedia Commons",
+      "quality": "Photo verified"
+    }
+  }
+]

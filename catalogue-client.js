@@ -142,6 +142,8 @@ export async function loadCatalogueWithFallback({client,city,fallback,photoLibra
  try{
   const result=await loadSupabaseCatalogue(client,city);
   const curated=typeof fallback==='function'?null:fallback;
+  // A city shipped as files before it is seeded in Supabase (Berlin) gets an empty live answer: use the files.
+  if(!result.places.length&&curated?.places?.length)return {source:'json',places:applyGooglePlaceIds(applyPhotoLibrary(curated.places,photoLibrary),placeIds),routes:curated.routes||[]};
   return {...result,places:applyGooglePlaceIds(applyPhotoLibrary(mergeCuratedPhotos(result.places,curated?.places||[]),photoLibrary),placeIds)};
  }
  catch(error){

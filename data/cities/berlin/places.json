@@ -1,0 +1,7228 @@
+[
+  {
+    "id": "osm-way-337201828",
+    "name": "Hackesche Höfe",
+    "lat": 52.524536,
+    "lng": 13.4016361,
+    "categoryId": "architecture",
+    "area": "",
+    "description": "",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 337201828,
+        "url": "https://www.openstreetmap.org/way/337201828"
+      },
+      "osmTags": {
+        "wikidata": "Q736425",
+        "wikipedia": "de:Hackesche Höfe",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-way-288514442",
+    "name": "Oberbaumbrücke",
+    "lat": 52.5017334,
+    "lng": 13.4456613,
+    "categoryId": "architecture",
+    "area": "",
+    "description": "",
+    "minutes": 15,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 288514442,
+        "url": "https://www.openstreetmap.org/way/288514442"
+      },
+      "osmTags": {
+        "wikidata": "Q695082",
+        "wikipedia": "de:Oberbaumbrücke",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-node-9823829856",
+    "name": "800A",
+    "lat": 52.553832,
+    "lng": 13.3873281,
+    "categoryId": "bar",
+    "area": "",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 9823829856,
+        "url": "https://www.openstreetmap.org/node/9823829856"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Th-Sa 19:30-24:00+",
+        "cuisine": null,
+        "website": "https://www.800aberlin.com/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.800aberlin.com/"
+  },
+  {
+    "id": "osm-node-4172803384",
+    "name": "8MM",
+    "lat": 52.5312243,
+    "lng": 13.4115684,
+    "categoryId": "bar",
+    "area": "Prenzlauer Berg",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4172803384,
+        "url": "https://www.openstreetmap.org/node/4172803384"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 19:00-04:00",
+        "cuisine": null,
+        "website": "https://www.8mmbar.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.8mmbar.de/"
+  },
+  {
+    "id": "osm-node-3922914841",
+    "name": "A-Trane",
+    "lat": 52.5073394,
+    "lng": 13.3200854,
+    "categoryId": "bar",
+    "area": "Charlottenburg",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3922914841,
+        "url": "https://www.openstreetmap.org/node/3922914841"
+      },
+      "osmTags": {
+        "wikidata": "Q277982",
+        "wikipedia": null,
+        "opening_hours": "Mo-Tu 21:00-02:00, Fr-Su 21:00+",
+        "cuisine": null,
+        "website": "https://www.a-trane.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.a-trane.de/"
+  },
+  {
+    "id": "osm-node-1607815772",
+    "name": "Ajpnia",
+    "lat": 52.4868332,
+    "lng": 13.3430245,
+    "categoryId": "bar",
+    "area": "Schöneberg",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1607815772,
+        "url": "https://www.openstreetmap.org/node/1607815772"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "We 19:00+; Sa 20:00+",
+        "cuisine": null,
+        "website": "https://www.ajpnia.berlin/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.ajpnia.berlin/"
+  },
+  {
+    "id": "osm-node-3769343186",
+    "name": "alphonse",
+    "lat": 52.4921107,
+    "lng": 13.4234179,
+    "categoryId": "bar",
+    "area": "Neukölln",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3769343186,
+        "url": "https://www.openstreetmap.org/node/3769343186"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Tu-Sa 17:00+",
+        "cuisine": null,
+        "website": "https://alphonse.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://alphonse.de/"
+  },
+  {
+    "id": "osm-node-4959707324",
+    "name": "Botanical Affairs - Gin&Tonic Bar & Shop",
+    "lat": 52.529821,
+    "lng": 13.4047968,
+    "categoryId": "bar",
+    "area": "",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4959707324,
+        "url": "https://www.openstreetmap.org/node/4959707324"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Th 15:00-24:00, Fr-Sa 15:00-02:00, Su 18:00-24:00",
+        "cuisine": null,
+        "website": "https://www.botanical-affairs.com/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.botanical-affairs.com/"
+  },
+  {
+    "id": "osm-node-3184975056",
+    "name": "Café Keese",
+    "lat": 52.5120173,
+    "lng": 13.3165894,
+    "categoryId": "bar",
+    "area": "Charlottenburg",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3184975056,
+        "url": "https://www.openstreetmap.org/node/3184975056"
+      },
+      "osmTags": {
+        "wikidata": "Q91133693",
+        "wikipedia": "de:Café Keese (Berlin)",
+        "opening_hours": "Tu 19:00+, We[1] 19:30+, Fr-Sa 19:30+, Su 14:30+; Mo,Th off",
+        "cuisine": null,
+        "website": "http://www.cafekeese.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://www.cafekeese.de/"
+  },
+  {
+    "id": "osm-way-432763459",
+    "name": "Club der Visionaere",
+    "lat": 52.4967958,
+    "lng": 13.4504805,
+    "categoryId": "bar",
+    "area": "",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 432763459,
+        "url": "https://www.openstreetmap.org/way/432763459"
+      },
+      "osmTags": {
+        "wikidata": "Q5136437",
+        "wikipedia": "de:Club der Visionaere",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://clubdervisionaere.com/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://clubdervisionaere.com/"
+  },
+  {
+    "id": "osm-node-966975630",
+    "name": "Frannz Club",
+    "lat": 52.5382108,
+    "lng": 13.4126884,
+    "categoryId": "bar",
+    "area": "Prenzlauer Berg",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 966975630,
+        "url": "https://www.openstreetmap.org/node/966975630"
+      },
+      "osmTags": {
+        "wikidata": "Q1445759",
+        "wikipedia": "de:Franz-Club",
+        "opening_hours": "Mo-Su 17:00-18:00+",
+        "cuisine": null,
+        "website": "http://www.frannz.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://www.frannz.de/"
+  },
+  {
+    "id": "osm-node-4619327772",
+    "name": "Hafen",
+    "lat": 52.4979722,
+    "lng": 13.3492092,
+    "categoryId": "bar",
+    "area": "Schöneberg",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4619327772,
+        "url": "https://www.openstreetmap.org/node/4619327772"
+      },
+      "osmTags": {
+        "wikidata": "Q96891591",
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 20:00-24:00",
+        "cuisine": null,
+        "website": "https://hafen-berlin.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://hafen-berlin.de/"
+  },
+  {
+    "id": "osm-node-1731268880",
+    "name": "Kunstfabrik Schlot",
+    "lat": 52.5302814,
+    "lng": 13.385162,
+    "categoryId": "bar",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1731268880,
+        "url": "https://www.openstreetmap.org/node/1731268880"
+      },
+      "osmTags": {
+        "wikidata": "Q1254654",
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://kunstfabrik-schlot.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://kunstfabrik-schlot.de/"
+  },
+  {
+    "id": "osm-node-2727229961",
+    "name": "Monkey Bar",
+    "lat": 52.5056642,
+    "lng": 13.3376934,
+    "categoryId": "bar",
+    "area": "",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 2727229961,
+        "url": "https://www.openstreetmap.org/node/2727229961"
+      },
+      "osmTags": {
+        "wikidata": "Q122924810",
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://monkeybarberlin.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://monkeybarberlin.de/"
+  },
+  {
+    "id": "osm-node-891502072",
+    "name": "Schokoladen",
+    "lat": 52.5297369,
+    "lng": 13.3971786,
+    "categoryId": "bar",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 891502072,
+        "url": "https://www.openstreetmap.org/node/891502072"
+      },
+      "osmTags": {
+        "wikidata": "Q105762302",
+        "wikipedia": null,
+        "opening_hours": "Tu-Th 19:00-02:00, Fr-Sa 19:00-03:00",
+        "cuisine": "juice;coffee_shop",
+        "website": "https://schokoladen-mitte.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://schokoladen-mitte.de/"
+  },
+  {
+    "id": "osm-node-4931223880",
+    "name": "The Wall Comedy Club Berlin",
+    "lat": 52.5108674,
+    "lng": 13.4614853,
+    "categoryId": "bar",
+    "area": "",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4931223880,
+        "url": "https://www.openstreetmap.org/node/4931223880"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Tu-Su 20:00-01:00",
+        "cuisine": null,
+        "website": "https://thewallcomedy.com"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://thewallcomedy.com"
+  },
+  {
+    "id": "osm-node-2640326880",
+    "name": "19grams",
+    "lat": 52.5071296,
+    "lng": 13.4685959,
+    "categoryId": "cafe",
+    "area": "Friedrichshain",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 2640326880,
+        "url": "https://www.openstreetmap.org/node/2640326880"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 08:00-18:00; Sa,Su 09:00-18:00",
+        "cuisine": "coffee_shop",
+        "website": "https://19grams.coffee/de/ueber-19grams/unsere-cafes/tres-cabezas-cafe"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://19grams.coffee/de/ueber-19grams/unsere-cafes/tres-cabezas-cafe"
+  },
+  {
+    "id": "osm-node-4358916930",
+    "name": "19grams",
+    "lat": 52.5331293,
+    "lng": 13.3801916,
+    "categoryId": "cafe",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4358916930,
+        "url": "https://www.openstreetmap.org/node/4358916930"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 08:00-17:00; Sa-Su 09:00-17:00",
+        "cuisine": "coffee_shop",
+        "website": "https://19grams.coffee/pages/19grams-chaussee"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://19grams.coffee/pages/19grams-chaussee"
+  },
+  {
+    "id": "osm-node-5827057077",
+    "name": "19grams Alex",
+    "lat": 52.5227551,
+    "lng": 13.4074446,
+    "categoryId": "cafe",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 5827057077,
+        "url": "https://www.openstreetmap.org/node/5827057077"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 08:00-17:00; Sa-Su 09:00-18:00",
+        "cuisine": "coffee_shop",
+        "website": "https://19grams.coffee/pages/19grams-alex-cafe-und-roesterei"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://19grams.coffee/pages/19grams-alex-cafe-und-roesterei"
+  },
+  {
+    "id": "osm-node-6268406950",
+    "name": "19grams Schlesi",
+    "lat": 52.4998466,
+    "lng": 13.4446784,
+    "categoryId": "cafe",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 6268406950,
+        "url": "https://www.openstreetmap.org/node/6268406950"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 08:00-17:00; Sa-Su 10:00-17:00",
+        "cuisine": "coffee_shop",
+        "website": "https://19grams.coffee/pages/19grams-schlesi"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://19grams.coffee/pages/19grams-schlesi"
+  },
+  {
+    "id": "osm-node-5528648746",
+    "name": "Always Together",
+    "lat": 52.5239553,
+    "lng": 13.3996161,
+    "categoryId": "cafe",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 5528648746,
+        "url": "https://www.openstreetmap.org/node/5528648746"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 12:00-20:00",
+        "cuisine": "coffee_shop;ice_cream;asian",
+        "website": "https://cafealwaystogether.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://cafealwaystogether.de/"
+  },
+  {
+    "id": "osm-node-565649878",
+    "name": "Bio Company",
+    "lat": 52.523162,
+    "lng": 13.4041367,
+    "categoryId": "cafe",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 565649878,
+        "url": "https://www.openstreetmap.org/node/565649878"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Sa 08:00-21:00",
+        "cuisine": null,
+        "website": "http://biocompany.de"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://biocompany.de"
+  },
+  {
+    "id": "osm-node-1412218896",
+    "name": "Cafe Einstein",
+    "lat": 52.517102,
+    "lng": 13.3859461,
+    "categoryId": "cafe",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1412218896,
+        "url": "https://www.openstreetmap.org/node/1412218896"
+      },
+      "osmTags": {
+        "wikidata": "Q1025595",
+        "wikipedia": "de:Café Einstein Unter den Linden",
+        "opening_hours": "Mo-Su 07:00-22:00",
+        "cuisine": "international",
+        "website": "http://www.einstein-udl.com"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://www.einstein-udl.com"
+  },
+  {
+    "id": "osm-node-1332424262",
+    "name": "Café Sibylle",
+    "lat": 52.5171831,
+    "lng": 13.436985,
+    "categoryId": "cafe",
+    "area": "Friedrichshain",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1332424262,
+        "url": "https://www.openstreetmap.org/node/1332424262"
+      },
+      "osmTags": {
+        "wikidata": "Q56651120",
+        "wikipedia": "de:Café Sibylle",
+        "opening_hours": "We-Su 10:00-18:00",
+        "cuisine": null,
+        "website": "https://cafe-sibylle.org"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://cafe-sibylle.org"
+  },
+  {
+    "id": "osm-node-1737166686",
+    "name": "Dach der liebe",
+    "lat": 52.5350289,
+    "lng": 13.4163414,
+    "categoryId": "cafe",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1737166686,
+        "url": "https://www.openstreetmap.org/node/1737166686"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 09:00-18:00",
+        "cuisine": "pizza;coffee_shop;italian;chicken;seafood;noodle;brunch;european;bistro;pastry;bagel;dessert;pancake;fish;breakfast;cake;pasta;salad;juice;sandwich;tea",
+        "website": "https://dachderliebe.de"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://dachderliebe.de"
+  },
+  {
+    "id": "osm-way-83809031",
+    "name": "DB Lounge",
+    "lat": 52.5246846,
+    "lng": 13.368966,
+    "categoryId": "cafe",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 83809031,
+        "url": "https://www.openstreetmap.org/way/83809031"
+      },
+      "osmTags": {
+        "wikidata": "Q1152059",
+        "wikipedia": null,
+        "opening_hours": "Mo-Su,PH 06:00-22:00",
+        "cuisine": "no",
+        "website": "https://www.bahn.de/service/zug/db-lounge"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.bahn.de/service/zug/db-lounge"
+  },
+  {
+    "id": "osm-way-429271489",
+    "name": "DB Premium Lounge",
+    "lat": 52.5244047,
+    "lng": 13.3704074,
+    "categoryId": "cafe",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 429271489,
+        "url": "https://www.openstreetmap.org/way/429271489"
+      },
+      "osmTags": {
+        "wikidata": "Q134324860",
+        "wikipedia": null,
+        "opening_hours": "Mo-Su,PH 06:00-22:00",
+        "cuisine": null,
+        "website": "https://www.bahn.de/service/zug/db-lounge"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.bahn.de/service/zug/db-lounge"
+  },
+  {
+    "id": "osm-node-2196151350",
+    "name": "Dujardin",
+    "lat": 52.5508274,
+    "lng": 13.3735134,
+    "categoryId": "cafe",
+    "area": "Gesundbrunnen",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 2196151350,
+        "url": "https://www.openstreetmap.org/node/2196151350"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Th 16:00-22:00+; Fr-Su 11:00-22:00+",
+        "cuisine": null,
+        "website": "http://www.cafedujardin.de"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://www.cafedujardin.de"
+  },
+  {
+    "id": "osm-node-4373603313",
+    "name": "Kater und Goldfisch",
+    "lat": 52.5534862,
+    "lng": 13.3764874,
+    "categoryId": "cafe",
+    "area": "Gesundbrunnen",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4373603313,
+        "url": "https://www.openstreetmap.org/node/4373603313"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Sa 15:00-00:00",
+        "cuisine": "sandwich",
+        "website": "https://www.katerundgoldfisch.com/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.katerundgoldfisch.com/"
+  },
+  {
+    "id": "osm-node-2102541972",
+    "name": "Konditorei & Café Buchwald",
+    "lat": 52.521226,
+    "lng": 13.3476767,
+    "categoryId": "cafe",
+    "area": "Hansaviertel",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 2102541972,
+        "url": "https://www.openstreetmap.org/node/2102541972"
+      },
+      "osmTags": {
+        "wikidata": "Q90406921",
+        "wikipedia": "de:Konditorei Buchwald",
+        "opening_hours": "Mo-Su 11:00-18:00",
+        "cuisine": "cake;coffee_shop;german;tea",
+        "website": "http://www.konditorei-buchwald.de"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://www.konditorei-buchwald.de"
+  },
+  {
+    "id": "osm-node-3644083393",
+    "name": "Maracay Coffee",
+    "lat": 52.5036466,
+    "lng": 13.3839735,
+    "categoryId": "cafe",
+    "area": "Kreuzberg",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3644083393,
+        "url": "https://www.openstreetmap.org/node/3644083393"
+      },
+      "osmTags": {
+        "wikidata": "Q55061771",
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 09:00-19:00",
+        "cuisine": "breakfast;coffee_shop",
+        "website": "https://maracaycoffee.de"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://maracaycoffee.de"
+  },
+  {
+    "id": "osm-node-9371078317",
+    "name": "Mataró",
+    "lat": 52.5358889,
+    "lng": 13.4215137,
+    "categoryId": "cafe",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 9371078317,
+        "url": "https://www.openstreetmap.org/node/9371078317"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Tu-Su 08:00-18:00",
+        "cuisine": "cake;coffee_shop",
+        "website": "https://www.cafe-mataro.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.cafe-mataro.de/"
+  },
+  {
+    "id": "osm-node-1552051681",
+    "name": "Oslo Kaffebar",
+    "lat": 52.5310103,
+    "lng": 13.3868181,
+    "categoryId": "cafe",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1552051681,
+        "url": "https://www.openstreetmap.org/node/1552051681"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 08:00-19:00; Sa-Su 10:00-17:00",
+        "cuisine": "coffee_shop",
+        "website": "https://www.oslokaffebar.co/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.oslokaffebar.co/"
+  },
+  {
+    "id": "osm-node-2121663158",
+    "name": "Roca",
+    "lat": 52.505405,
+    "lng": 13.3333868,
+    "categoryId": "cafe",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 2121663158,
+        "url": "https://www.openstreetmap.org/node/2121663158"
+      },
+      "osmTags": {
+        "wikidata": "Q28861375",
+        "wikipedia": null,
+        "opening_hours": "12:00-21:00",
+        "cuisine": null,
+        "website": "https://waldorfastoriaberlin.de/dine/roca-restaurant/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://waldorfastoriaberlin.de/dine/roca-restaurant/"
+  },
+  {
+    "id": "osm-node-330264334",
+    "name": "St. Oberholz",
+    "lat": 52.5295304,
+    "lng": 13.4017825,
+    "categoryId": "cafe",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 330264334,
+        "url": "https://www.openstreetmap.org/node/330264334"
+      },
+      "osmTags": {
+        "wikidata": "Q24229388",
+        "wikipedia": null,
+        "opening_hours": "Mo-Th 08:00-24:00, Fr 08:00-03:00, Sa 09:00-03:00, Su 09:00-24:00",
+        "cuisine": "coffee_shop",
+        "website": "https://sanktoberholz.de/standorte/rosenthaler/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://sanktoberholz.de/standorte/rosenthaler/"
+  },
+  {
+    "id": "osm-way-65425822",
+    "name": "Südblock",
+    "lat": 52.4985484,
+    "lng": 13.4168312,
+    "categoryId": "cafe",
+    "area": "Kreuzberg",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 65425822,
+        "url": "https://www.openstreetmap.org/way/65425822"
+      },
+      "osmTags": {
+        "wikidata": "Q140937108",
+        "wikipedia": null,
+        "opening_hours": "Mo-Sa 17:00-23:00; Su 15:00-23:00",
+        "cuisine": "salad;german;burger",
+        "website": "https://www.suedblock.org/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.suedblock.org/"
+  },
+  {
+    "id": "osm-node-3903346162",
+    "name": "Tadshikische Teestube",
+    "lat": 52.5250846,
+    "lng": 13.3950698,
+    "categoryId": "cafe",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3903346162,
+        "url": "https://www.openstreetmap.org/node/3903346162"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo 16:00-21:00; Tu-Fr 16:00-22:00; Sa 12:00-22:00; Su 12:00-21:00",
+        "cuisine": "russian",
+        "website": "https://www.tadshikische-teestube.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.tadshikische-teestube.de/"
+  },
+  {
+    "id": "osm-node-5336742122",
+    "name": "The Digital Eatery",
+    "lat": 52.5168089,
+    "lng": 13.3904178,
+    "categoryId": "cafe",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food",
+      "coffee"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 5336742122,
+        "url": "https://www.openstreetmap.org/node/5336742122"
+      },
+      "osmTags": {
+        "wikidata": "Q117323106",
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 10:00-16:00",
+        "cuisine": null,
+        "website": "https://www.microsoft.com/de-de/berlin/digital-eatery.aspx"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.microsoft.com/de-de/berlin/digital-eatery.aspx"
+  },
+  {
+    "id": "osm-node-5906879511",
+    "name": "://about blank",
+    "lat": 52.5024767,
+    "lng": 13.466302,
+    "categoryId": "club",
+    "area": "Friedrichshain",
+    "description": "",
+    "minutes": 90,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife",
+      "music"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 5906879511,
+        "url": "https://www.openstreetmap.org/node/5906879511"
+      },
+      "osmTags": {
+        "wikidata": "Q23906461",
+        "wikipedia": "de:About Blank",
+        "opening_hours": "Fr,Sa,Su,PH \"je nach Veranstaltung\"",
+        "cuisine": null,
+        "website": "https://aboutblank.li"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://aboutblank.li"
+  },
+  {
+    "id": "osm-node-1820069776",
+    "name": "b-flat",
+    "lat": 52.5235538,
+    "lng": 13.4069893,
+    "categoryId": "club",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 90,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife",
+      "music"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1820069776,
+        "url": "https://www.openstreetmap.org/node/1820069776"
+      },
+      "osmTags": {
+        "wikidata": "Q795132",
+        "wikipedia": "de:B-flat",
+        "opening_hours": "Mo-Su 20:00-01:00",
+        "cuisine": null,
+        "website": "http://b-flat-berlin.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://b-flat-berlin.de/"
+  },
+  {
+    "id": "osm-node-6341225967",
+    "name": "Berghain",
+    "lat": 52.5111669,
+    "lng": 13.4430356,
+    "categoryId": "club",
+    "area": "Friedrichshain",
+    "description": "",
+    "minutes": 90,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife",
+      "music"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 6341225967,
+        "url": "https://www.openstreetmap.org/node/6341225967"
+      },
+      "osmTags": {
+        "wikidata": "Q136975",
+        "wikipedia": "de:Berghain",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://www.berghain.de"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.berghain.de"
+  },
+  {
+    "id": "osm-node-339749949",
+    "name": "Matrix",
+    "lat": 52.5046782,
+    "lng": 13.4490212,
+    "categoryId": "club",
+    "area": "Friedrichshain",
+    "description": "",
+    "minutes": 90,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife",
+      "music"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 339749949,
+        "url": "https://www.openstreetmap.org/node/339749949"
+      },
+      "osmTags": {
+        "wikidata": "Q552863",
+        "wikipedia": "en:Matrix (club)",
+        "opening_hours": "Mo-Su 22:00-07:00",
+        "cuisine": null,
+        "website": "https://www.matrix-berlin.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.matrix-berlin.de/"
+  },
+  {
+    "id": "osm-way-379305718",
+    "name": "Metropol",
+    "lat": 52.4989536,
+    "lng": 13.3527039,
+    "categoryId": "club",
+    "area": "",
+    "description": "",
+    "minutes": 90,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife",
+      "music"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 379305718,
+        "url": "https://www.openstreetmap.org/way/379305718"
+      },
+      "osmTags": {
+        "wikidata": "Q1724204",
+        "wikipedia": "de:Metropol (Berlin)",
+        "opening_hours": "\"zu Veranstaltungen\"",
+        "cuisine": null,
+        "website": "https://metropol-berlin.de"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://metropol-berlin.de"
+  },
+  {
+    "id": "osm-node-979969868",
+    "name": "Ritter Butzke",
+    "lat": 52.5030121,
+    "lng": 13.4081361,
+    "categoryId": "club",
+    "area": "Kreuzberg",
+    "description": "",
+    "minutes": 90,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife",
+      "music"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 979969868,
+        "url": "https://www.openstreetmap.org/node/979969868"
+      },
+      "osmTags": {
+        "wikidata": "Q21036533",
+        "wikipedia": "de:Ritter Butzke",
+        "opening_hours": "\"siehe Website\"",
+        "cuisine": null,
+        "website": "https://club.ritterbutzke.com"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://club.ritterbutzke.com"
+  },
+  {
+    "id": "osm-node-4034138645",
+    "name": "SO36",
+    "lat": 52.5003909,
+    "lng": 13.4221612,
+    "categoryId": "club",
+    "area": "Kreuzberg",
+    "description": "",
+    "minutes": 90,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife",
+      "music"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4034138645,
+        "url": "https://www.openstreetmap.org/node/4034138645"
+      },
+      "osmTags": {
+        "wikidata": "Q561850",
+        "wikipedia": "de:SO36",
+        "opening_hours": "\"Je nach Programm\"",
+        "cuisine": null,
+        "website": "https://www.so36.de"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.so36.de"
+  },
+  {
+    "id": "osm-node-485640732",
+    "name": "Zur Wilden Renate",
+    "lat": 52.4973901,
+    "lng": 13.4653065,
+    "categoryId": "club",
+    "area": "Friedrichshain",
+    "description": "",
+    "minutes": 90,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife",
+      "music"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 485640732,
+        "url": "https://www.openstreetmap.org/node/485640732"
+      },
+      "osmTags": {
+        "wikidata": "Q21036513",
+        "wikipedia": "de:Wilde Renate",
+        "opening_hours": "Th 18:00+; Fr 16:00+; Sa 14:00+",
+        "cuisine": null,
+        "website": "https://www.renate.cc"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.renate.cc"
+  },
+  {
+    "id": "osm-node-2671311400",
+    "name": "Berlin Dungeon",
+    "lat": 52.5214137,
+    "lng": 13.4034811,
+    "categoryId": "experience",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 50,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "experience"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 2671311400,
+        "url": "https://www.openstreetmap.org/node/2671311400"
+      },
+      "osmTags": {
+        "wikidata": "Q13438845",
+        "wikipedia": "en:Berlin Dungeon",
+        "opening_hours": "Mo-Su,PH 10:00-18:00",
+        "cuisine": null,
+        "website": "http://www.thedungeons.com/berlin/de"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://www.thedungeons.com/berlin/de"
+  },
+  {
+    "id": "osm-relation-3007958",
+    "name": "Berliner Schloss",
+    "lat": 52.5172157,
+    "lng": 13.4016085,
+    "categoryId": "experience",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 50,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "experience"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 3007958,
+        "url": "https://www.openstreetmap.org/relation/3007958"
+      },
+      "osmTags": {
+        "wikidata": "Q170119",
+        "wikipedia": "de:Berliner Schloss",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://berliner-schloss.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://berliner-schloss.de/"
+  },
+  {
+    "id": "osm-way-157390075",
+    "name": "Bundeskanzleramt",
+    "lat": 52.5201598,
+    "lng": 13.3681638,
+    "categoryId": "experience",
+    "area": "Tiergarten",
+    "description": "",
+    "minutes": 50,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "experience"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 157390075,
+        "url": "https://www.openstreetmap.org/way/157390075"
+      },
+      "osmTags": {
+        "wikidata": "Q317027",
+        "wikipedia": "de:Bundeskanzleramt (Deutschland)",
+        "opening_hours": "\"Nur mit Termin\"",
+        "cuisine": null,
+        "website": "http://www.bundesregierung.de/Webs/Breg/DE/Bundesregierung/Bundeskanzleramt/bundeskanzleramt.html"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://www.bundesregierung.de/Webs/Breg/DE/Bundesregierung/Bundeskanzleramt/bundeskanzleramt.html"
+  },
+  {
+    "id": "osm-way-28248283",
+    "name": "Französischer Dom",
+    "lat": 52.5143976,
+    "lng": 13.3923631,
+    "categoryId": "experience",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 50,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "experience"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 28248283,
+        "url": "https://www.openstreetmap.org/way/28248283"
+      },
+      "osmTags": {
+        "wikidata": "Q315694",
+        "wikipedia": "de:Französischer Dom",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://franzoesischer-dom.berlin"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://franzoesischer-dom.berlin"
+  },
+  {
+    "id": "osm-node-771225710",
+    "name": "Neuer Berliner Kunstverein",
+    "lat": 52.5279121,
+    "lng": 13.3860465,
+    "categoryId": "experience",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 50,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "experience"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 771225710,
+        "url": "https://www.openstreetmap.org/node/771225710"
+      },
+      "osmTags": {
+        "wikidata": "Q1980109",
+        "wikipedia": "en:Neuer Berliner Kunstverein",
+        "opening_hours": "Tu, We, Fr-Su 12:00-18:00; Th 12:00-20:00",
+        "cuisine": null,
+        "website": "https://www.nbk.org/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.nbk.org/"
+  },
+  {
+    "id": "osm-relation-4211905",
+    "name": "Rotes Rathaus",
+    "lat": 52.5182744,
+    "lng": 13.4085553,
+    "categoryId": "experience",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 50,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "experience"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 4211905,
+        "url": "https://www.openstreetmap.org/relation/4211905"
+      },
+      "osmTags": {
+        "wikidata": "Q155210",
+        "wikipedia": "de:Rotes Rathaus",
+        "opening_hours": "Mo-Fr 09:00-18:00",
+        "cuisine": null,
+        "website": "https://www.berlin.de/rbmskzl/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.berlin.de/rbmskzl/"
+  },
+  {
+    "id": "osm-node-272406395",
+    "name": "Schaubühne am Lehniner Platz",
+    "lat": 52.4986606,
+    "lng": 13.3022747,
+    "categoryId": "experience",
+    "area": "Wilmersdorf",
+    "description": "",
+    "minutes": 50,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "experience"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 272406395,
+        "url": "https://www.openstreetmap.org/node/272406395"
+      },
+      "osmTags": {
+        "wikidata": "Q569461",
+        "wikipedia": "de:Schaubühne am Lehniner Platz",
+        "opening_hours": "Mo-Sa 11:00-18:30; Su 15:00-18:30",
+        "cuisine": null,
+        "website": "https://www.schaubuehne.de"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.schaubuehne.de"
+  },
+  {
+    "id": "osm-way-329262981",
+    "name": "Zeiss-Großplanetarium",
+    "lat": 52.5430513,
+    "lng": 13.4280579,
+    "categoryId": "experience",
+    "area": "Prenzlauer Berg",
+    "description": "",
+    "minutes": 50,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "experience"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 329262981,
+        "url": "https://www.openstreetmap.org/way/329262981"
+      },
+      "osmTags": {
+        "wikidata": "Q184985",
+        "wikipedia": "de:Zeiss-Großplanetarium",
+        "opening_hours": "Tu 09:00-14:00; We,Th 09:00-14:00,15:00-20:00; Fr 09:00-12:30,15:00-22:00; Sa 11:30-22:00; Su 10:00-20:00",
+        "cuisine": null,
+        "website": "https://www.planetarium.berlin/zeiss-grossplanetarium"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.planetarium.berlin/zeiss-grossplanetarium"
+  },
+  {
+    "id": "osm-relation-9503840",
+    "name": "Markthalle Neun",
+    "lat": 52.5021685,
+    "lng": 13.4314938,
+    "categoryId": "food_hall",
+    "area": "Kreuzberg",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": true,
+    "tags": [],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 9503840,
+        "url": "https://www.openstreetmap.org/relation/9503840"
+      },
+      "osmTags": {
+        "wikidata": "Q1226563",
+        "wikipedia": "de:Markthalle IX",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://markthalleneun.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://markthalleneun.de/"
+  },
+  {
+    "id": "osm-way-29053886",
+    "name": "Capitain Petzel",
+    "lat": 52.5198575,
+    "lng": 13.4251885,
+    "categoryId": "gallery",
+    "area": "",
+    "description": "",
+    "minutes": 40,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "art"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 29053886,
+        "url": "https://www.openstreetmap.org/way/29053886"
+      },
+      "osmTags": {
+        "wikidata": "Q131395444",
+        "wikipedia": null,
+        "opening_hours": "Tu-Sa 11:00-18:00",
+        "cuisine": null,
+        "website": "https://www.capitainpetzel.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.capitainpetzel.de/"
+  },
+  {
+    "id": "osm-relation-6807791",
+    "name": "East Side Gallery",
+    "lat": 52.5055242,
+    "lng": 13.4403289,
+    "categoryId": "gallery",
+    "area": "",
+    "description": "",
+    "minutes": 45,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "culture",
+      "art"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 6807791,
+        "url": "https://www.openstreetmap.org/relation/6807791"
+      },
+      "osmTags": {
+        "wikidata": "Q313746",
+        "wikipedia": "en:East Side Gallery",
+        "opening_hours": "24/7",
+        "cuisine": null,
+        "website": "http://www.eastsidegallery-berlin.de"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://www.eastsidegallery-berlin.de"
+  },
+  {
+    "id": "osm-node-5618342956",
+    "name": "Galerie Futura",
+    "lat": 52.497163,
+    "lng": 13.4516001,
+    "categoryId": "gallery",
+    "area": "Alt-Treptow",
+    "description": "",
+    "minutes": 40,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "art"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 5618342956,
+        "url": "https://www.openstreetmap.org/node/5618342956"
+      },
+      "osmTags": {
+        "wikidata": "Q29015582",
+        "wikipedia": "de:Alpha nova & galerie futura",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "http://www.alpha-nova-kulturwerkstatt.de/galerie/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://www.alpha-nova-kulturwerkstatt.de/galerie/"
+  },
+  {
+    "id": "osm-node-1860480265",
+    "name": "Hamburger Bahnhof - Nationalgalerie der Gegenwart",
+    "lat": 52.52844,
+    "lng": 13.3720386,
+    "categoryId": "gallery",
+    "area": "",
+    "description": "",
+    "minutes": 40,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "art"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1860480265,
+        "url": "https://www.openstreetmap.org/node/1860480265"
+      },
+      "osmTags": {
+        "wikidata": "Q584756",
+        "wikipedia": "de:Hamburger Bahnhof – Museum für Gegenwart",
+        "opening_hours": "Tu-We,Fr 10:00-18:00; Th 10:00-20:00; Sa-Su 11:00-18:00",
+        "cuisine": null,
+        "website": "https://www.smb.museum/museen-einrichtungen/hamburger-bahnhof/home/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.smb.museum/museen-einrichtungen/hamburger-bahnhof/home/"
+  },
+  {
+    "id": "osm-way-24304736",
+    "name": "Haus am Kleistpark",
+    "lat": 52.490608,
+    "lng": 13.3572868,
+    "categoryId": "gallery",
+    "area": "Schöneberg",
+    "description": "",
+    "minutes": 40,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "art"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 24304736,
+        "url": "https://www.openstreetmap.org/way/24304736"
+      },
+      "osmTags": {
+        "wikidata": "Q61768864",
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://www.hausamkleistpark.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.hausamkleistpark.de/"
+  },
+  {
+    "id": "osm-node-5839747834",
+    "name": "Hošek Contemporary",
+    "lat": 52.5136681,
+    "lng": 13.41187,
+    "categoryId": "gallery",
+    "area": "",
+    "description": "",
+    "minutes": 40,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "art"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 5839747834,
+        "url": "https://www.openstreetmap.org/node/5839747834"
+      },
+      "osmTags": {
+        "wikidata": "Q112610133",
+        "wikipedia": "en:Hošek Contemporary",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://www.hosekcontemporary.com/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.hosekcontemporary.com/"
+  },
+  {
+    "id": "osm-node-1478259435",
+    "name": "Kunstraum Kreuzberg/Bethanien",
+    "lat": 52.5045518,
+    "lng": 13.4237552,
+    "categoryId": "gallery",
+    "area": "",
+    "description": "",
+    "minutes": 40,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "art"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1478259435,
+        "url": "https://www.openstreetmap.org/node/1478259435"
+      },
+      "osmTags": {
+        "wikidata": "Q1310526",
+        "wikipedia": "de:Kunstraum Kreuzberg/Bethanien",
+        "opening_hours": "Mo-Su 10:00-20:00",
+        "cuisine": null,
+        "website": "https://kunstraumkreuzberg.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://kunstraumkreuzberg.de/"
+  },
+  {
+    "id": "osm-node-3641040703",
+    "name": "KW Institute for Contemporary Art",
+    "lat": 52.5271636,
+    "lng": 13.3948218,
+    "categoryId": "gallery",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 40,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "art"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3641040703,
+        "url": "https://www.openstreetmap.org/node/3641040703"
+      },
+      "osmTags": {
+        "wikidata": "Q1792296",
+        "wikipedia": "de:KW Institute for Contemporary Art",
+        "opening_hours": "Fr-Mo 12:00-19:00; Th 12:00-21:00; We 12:00-19:00",
+        "cuisine": null,
+        "website": "https://www.kw-berlin.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.kw-berlin.de/"
+  },
+  {
+    "id": "osm-node-6355366085",
+    "name": "PalaisPopulaire",
+    "lat": 52.5171465,
+    "lng": 13.3961451,
+    "categoryId": "gallery",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 40,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "art"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 6355366085,
+        "url": "https://www.openstreetmap.org/node/6355366085"
+      },
+      "osmTags": {
+        "wikidata": "Q56765306",
+        "wikipedia": "de:PalaisPopulaire",
+        "opening_hours": "Mo,We,Fr-Su 11:00-18:00; Th 11:00-21:00; Tu closed",
+        "cuisine": null,
+        "website": "https://palaispopulaire.db.com"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://palaispopulaire.db.com"
+  },
+  {
+    "id": "osm-node-4219262248",
+    "name": "Sammlung Boros",
+    "lat": 52.523509,
+    "lng": 13.38404,
+    "categoryId": "gallery",
+    "area": "",
+    "description": "",
+    "minutes": 40,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "art"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4219262248,
+        "url": "https://www.openstreetmap.org/node/4219262248"
+      },
+      "osmTags": {
+        "wikidata": "Q15126890",
+        "wikipedia": "de:Sammlung Boros",
+        "opening_hours": "Fr-Su 10:30-19:30",
+        "cuisine": null,
+        "website": "https://www.sammlung-boros.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.sammlung-boros.de/"
+  },
+  {
+    "id": "osm-way-61191254",
+    "name": "Comenius-Garten",
+    "lat": 52.4749982,
+    "lng": 13.4428694,
+    "categoryId": "garden",
+    "area": "Neukölln",
+    "description": "",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature",
+      "walk"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 61191254,
+        "url": "https://www.openstreetmap.org/way/61191254"
+      },
+      "osmTags": {
+        "wikidata": "Q1114099",
+        "wikipedia": "de:Comenius-Garten",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "http://comenius-garten.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://comenius-garten.de/"
+  },
+  {
+    "id": "osm-way-580412167",
+    "name": "Fuchsiengarten",
+    "lat": 52.5169566,
+    "lng": 13.3506373,
+    "categoryId": "garden",
+    "area": "",
+    "description": "",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature",
+      "walk"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 580412167,
+        "url": "https://www.openstreetmap.org/way/580412167"
+      },
+      "osmTags": {
+        "wikidata": "Q131341266",
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-way-25390454",
+    "name": "Himmelbeet",
+    "lat": 52.5412814,
+    "lng": 13.3789335,
+    "categoryId": "garden",
+    "area": "",
+    "description": "",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature",
+      "walk"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 25390454,
+        "url": "https://www.openstreetmap.org/way/25390454"
+      },
+      "osmTags": {
+        "wikidata": "Q23786112",
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 10:00-19:00",
+        "cuisine": null,
+        "website": "https://himmelbeet.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://himmelbeet.de/"
+  },
+  {
+    "id": "osm-way-61399924",
+    "name": "Prinzessinnengarten",
+    "lat": 52.5030206,
+    "lng": 13.4111373,
+    "categoryId": "garden",
+    "area": "Kreuzberg",
+    "description": "",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature",
+      "walk"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 61399924,
+        "url": "https://www.openstreetmap.org/way/61399924"
+      },
+      "osmTags": {
+        "wikidata": "Q2110731",
+        "wikipedia": "de:Prinzessinnengärten",
+        "opening_hours": "Mo 10:00-12:00; Tu 18:00-20:00; We 12:00-15:00; Th 13:00-16:00; Fr 14:00-19:00; Sa 14:00-18:00; Su 12:00-00:00",
+        "cuisine": null,
+        "website": "http://prinzessinnengarten.net/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://prinzessinnengarten.net/"
+  },
+  {
+    "id": "osm-way-119369411",
+    "name": "Rosengarten",
+    "lat": 52.5138144,
+    "lng": 13.3569522,
+    "categoryId": "garden",
+    "area": "",
+    "description": "",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature",
+      "walk"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 119369411,
+        "url": "https://www.openstreetmap.org/way/119369411"
+      },
+      "osmTags": {
+        "wikidata": "Q15126365",
+        "wikipedia": "de:Rosengarten im Großen Tiergarten",
+        "opening_hours": "Apr 01-Oct 31: 07:00-21:00",
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-way-504517040",
+    "name": "Steppengarten",
+    "lat": 52.5142823,
+    "lng": 13.3711598,
+    "categoryId": "garden",
+    "area": "",
+    "description": "",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature",
+      "walk"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 504517040,
+        "url": "https://www.openstreetmap.org/way/504517040"
+      },
+      "osmTags": {
+        "wikidata": "Q140363391",
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://steppengarten.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://steppengarten.de/"
+  },
+  {
+    "id": "osm-node-872308129",
+    "name": "Comebackpackers",
+    "lat": 52.4999681,
+    "lng": 13.4178492,
+    "categoryId": "hostel",
+    "area": "Kreuzberg",
+    "description": "",
+    "minutes": 10,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 872308129,
+        "url": "https://www.openstreetmap.org/node/872308129"
+      },
+      "osmTags": {
+        "wikidata": "Q111118510",
+        "wikipedia": null,
+        "opening_hours": "24/7",
+        "cuisine": null,
+        "website": "http://www.comebackpackers.com/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://www.comebackpackers.com/"
+  },
+  {
+    "id": "osm-node-68363380",
+    "name": "Grand Hostel Berlin Urban",
+    "lat": 52.4874625,
+    "lng": 13.425758,
+    "categoryId": "hostel",
+    "area": "Neukölln",
+    "description": "",
+    "minutes": 10,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 68363380,
+        "url": "https://www.openstreetmap.org/node/68363380"
+      },
+      "osmTags": {
+        "wikidata": "Q111118495",
+        "wikipedia": null,
+        "opening_hours": "24/7",
+        "cuisine": null,
+        "website": "https://grandhostel-berlin.de/urban/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://grandhostel-berlin.de/urban/"
+  },
+  {
+    "id": "osm-node-69226092",
+    "name": "Grand Hyatt Berlin",
+    "lat": 52.5081971,
+    "lng": 13.3724841,
+    "categoryId": "hotel",
+    "area": "Tiergarten",
+    "description": "",
+    "minutes": 10,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 69226092,
+        "url": "https://www.openstreetmap.org/node/69226092"
+      },
+      "osmTags": {
+        "wikidata": "Q111388147",
+        "wikipedia": "de:Grand Hyatt Berlin",
+        "opening_hours": "24/7",
+        "cuisine": null,
+        "website": "https://www.booking.com/hotel/de/grand-hyatt-berlin.en.html?aid=8134623&no_rooms=1&group_adults=2"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.booking.com/hotel/de/grand-hyatt-berlin.en.html?aid=8134623&no_rooms=1&group_adults=2"
+  },
+  {
+    "id": "osm-node-1598987141",
+    "name": "Hotel de Rome",
+    "lat": 52.5157914,
+    "lng": 13.3940671,
+    "categoryId": "hotel",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 10,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1598987141,
+        "url": "https://www.openstreetmap.org/node/1598987141"
+      },
+      "osmTags": {
+        "wikidata": "Q47523608",
+        "wikipedia": "de:Rocco Forte Hotel de Rome",
+        "opening_hours": "24/7",
+        "cuisine": null,
+        "website": "http://www.hotelderome.de"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://www.hotelderome.de"
+  },
+  {
+    "id": "osm-relation-4073531",
+    "name": "InterContinental Berlin",
+    "lat": 52.5072545,
+    "lng": 13.3454112,
+    "categoryId": "hotel",
+    "area": "",
+    "description": "",
+    "minutes": 10,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "stay"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 4073531,
+        "url": "https://www.openstreetmap.org/relation/4073531"
+      },
+      "osmTags": {
+        "wikidata": "Q1665793",
+        "wikipedia": "de:InterContinental Berlin",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "http://www.berlin.intercontinental.com"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://www.berlin.intercontinental.com"
+  },
+  {
+    "id": "osm-node-278706498",
+    "name": "Albrecht von Roon",
+    "lat": 52.5153179,
+    "lng": 13.3491608,
+    "categoryId": "landmark",
+    "area": "",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 278706498,
+        "url": "https://www.openstreetmap.org/node/278706498"
+      },
+      "osmTags": {
+        "wikidata": "Q20745510",
+        "wikipedia": "en:Statue of Albrecht von Roon",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-way-783052052",
+    "name": "Alexanderplatz",
+    "lat": 52.5219785,
+    "lng": 13.4131949,
+    "categoryId": "landmark",
+    "area": "",
+    "description": "",
+    "minutes": 15,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 783052052,
+        "url": "https://www.openstreetmap.org/way/783052052"
+      },
+      "osmTags": {
+        "wikidata": "Q152783",
+        "wikipedia": "de:Alexanderplatz",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-way-24247420",
+    "name": "Altes Palais",
+    "lat": 52.5168925,
+    "lng": 13.3928008,
+    "categoryId": "landmark",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 24247420,
+        "url": "https://www.openstreetmap.org/way/24247420"
+      },
+      "osmTags": {
+        "wikidata": "Q439297",
+        "wikipedia": "de:Altes Palais (Berlin)",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-node-276956108",
+    "name": "Beethoven-Haydn-Mozart-Denkmal",
+    "lat": 52.5137454,
+    "lng": 13.370336,
+    "categoryId": "landmark",
+    "area": "",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 276956108,
+        "url": "https://www.openstreetmap.org/node/276956108"
+      },
+      "osmTags": {
+        "wikidata": "Q814127",
+        "wikipedia": "en:Beethoven–Haydn–Mozart Memorial",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-way-556435241",
+    "name": "Berliner Fernsehturm",
+    "lat": 52.5208198,
+    "lng": 13.4094213,
+    "categoryId": "landmark",
+    "area": "",
+    "description": "",
+    "minutes": 45,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 556435241,
+        "url": "https://www.openstreetmap.org/way/556435241"
+      },
+      "osmTags": {
+        "wikidata": "Q151356",
+        "wikipedia": "de:Berliner Fernsehturm",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://www.tv-turm.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.tv-turm.de/"
+  },
+  {
+    "id": "osm-way-518071791",
+    "name": "Brandenburger Tor",
+    "lat": 52.5162749,
+    "lng": 13.3777025,
+    "categoryId": "landmark",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 518071791,
+        "url": "https://www.openstreetmap.org/way/518071791"
+      },
+      "osmTags": {
+        "wikidata": "Q82425",
+        "wikipedia": "de:Brandenburger Tor",
+        "opening_hours": "24/7",
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-node-417346627",
+    "name": "Checkpoint Charlie",
+    "lat": 52.5074321,
+    "lng": 13.3903814,
+    "categoryId": "landmark",
+    "area": "",
+    "description": "",
+    "minutes": 15,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 417346627,
+        "url": "https://www.openstreetmap.org/node/417346627"
+      },
+      "osmTags": {
+        "wikidata": "Q68689",
+        "wikipedia": "de:Checkpoint Charlie",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://www.berlin.de/en/attractions-and-sights/3560059-3104052-checkpoint-charlie.en.html"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.berlin.de/en/attractions-and-sights/3560059-3104052-checkpoint-charlie.en.html"
+  },
+  {
+    "id": "osm-way-172234733",
+    "name": "Denkmal für die ermordeten Juden Europas",
+    "lat": 52.5138996,
+    "lng": 13.378714,
+    "categoryId": "landmark",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 172234733,
+        "url": "https://www.openstreetmap.org/way/172234733"
+      },
+      "osmTags": {
+        "wikidata": "Q160700",
+        "wikipedia": "de:Denkmal für die ermordeten Juden Europas",
+        "opening_hours": "24/7",
+        "cuisine": null,
+        "website": "https://www.stiftung-denkmal.de"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.stiftung-denkmal.de"
+  },
+  {
+    "id": "osm-way-106845803",
+    "name": "Denkmal für die im Nationalsozialismus ermordeten Sinti und Roma Europas",
+    "lat": 52.5172965,
+    "lng": 13.3760448,
+    "categoryId": "landmark",
+    "area": "",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 106845803,
+        "url": "https://www.openstreetmap.org/way/106845803"
+      },
+      "osmTags": {
+        "wikidata": "Q151785",
+        "wikipedia": "de:Denkmal für die im Nationalsozialismus ermordeten Sinti und Roma Europas",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-way-117220640",
+    "name": "Denkmal für die im Nationalsozialismus verfolgten Homosexuellen",
+    "lat": 52.5132577,
+    "lng": 13.3761369,
+    "categoryId": "landmark",
+    "area": "",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 117220640,
+        "url": "https://www.openstreetmap.org/way/117220640"
+      },
+      "osmTags": {
+        "wikidata": "Q568945",
+        "wikipedia": "de:Denkmal für die im Nationalsozialismus verfolgten Homosexuellen",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "http://www.stiftung-denkmal.de/denkmaeler/denkmal-fuer-die-verfolgten-homosexuellen.html#c948"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://www.stiftung-denkmal.de/denkmaeler/denkmal-fuer-die-verfolgten-homosexuellen.html#c948"
+  },
+  {
+    "id": "osm-node-437140233",
+    "name": "Fahne der Einheit",
+    "lat": 52.5184194,
+    "lng": 13.3747951,
+    "categoryId": "landmark",
+    "area": "",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 437140233,
+        "url": "https://www.openstreetmap.org/node/437140233"
+      },
+      "osmTags": {
+        "wikidata": "Q1392131",
+        "wikipedia": "de:Fahne der Einheit",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-way-28505496",
+    "name": "Friedhof der Märzgefallenen",
+    "lat": 52.5245763,
+    "lng": 13.4366961,
+    "categoryId": "landmark",
+    "area": "",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 28505496,
+        "url": "https://www.openstreetmap.org/way/28505496"
+      },
+      "osmTags": {
+        "wikidata": "Q1457472",
+        "wikipedia": "de:Friedhof der Märzgefallenen",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://forum1848.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://forum1848.de/"
+  },
+  {
+    "id": "osm-relation-14375945",
+    "name": "Gedenkstätte Berliner Mauer",
+    "lat": 52.5366326,
+    "lng": 13.3961789,
+    "categoryId": "landmark",
+    "area": "",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 14375945,
+        "url": "https://www.openstreetmap.org/relation/14375945"
+      },
+      "osmTags": {
+        "wikidata": "Q95517",
+        "wikipedia": "de:Gedenkstätte Berliner Mauer",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://www.stiftung-berliner-mauer.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.stiftung-berliner-mauer.de/"
+  },
+  {
+    "id": "osm-way-844740667",
+    "name": "Gendarmenmarkt",
+    "lat": 52.5136123,
+    "lng": 13.3922889,
+    "categoryId": "landmark",
+    "area": "",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 844740667,
+        "url": "https://www.openstreetmap.org/way/844740667"
+      },
+      "osmTags": {
+        "wikidata": "Q170103",
+        "wikipedia": "de:Gendarmenmarkt",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-relation-4284350",
+    "name": "Kronprinzenpalais",
+    "lat": 52.5170702,
+    "lng": 13.3969541,
+    "categoryId": "landmark",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 4284350,
+        "url": "https://www.openstreetmap.org/relation/4284350"
+      },
+      "osmTags": {
+        "wikidata": "Q530930",
+        "wikipedia": "de:Kronprinzenpalais (Berlin)",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-way-43081520",
+    "name": "Palais Podewils",
+    "lat": 52.5174313,
+    "lng": 13.4127016,
+    "categoryId": "landmark",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 43081520,
+        "url": "https://www.openstreetmap.org/way/43081520"
+      },
+      "osmTags": {
+        "wikidata": "Q16642113",
+        "wikipedia": "de:Palais Podewils",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://www.berlin.de/sehenswuerdigkeiten/3561378-3558930-palais-podewil.html"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.berlin.de/sehenswuerdigkeiten/3561378-3558930-palais-podewil.html"
+  },
+  {
+    "id": "osm-node-1226265142",
+    "name": "Reiterstandbild des Großen Kurfürsten",
+    "lat": 52.5205461,
+    "lng": 13.2957684,
+    "categoryId": "landmark",
+    "area": "",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1226265142,
+        "url": "https://www.openstreetmap.org/node/1226265142"
+      },
+      "osmTags": {
+        "wikidata": "Q21130084",
+        "wikipedia": "de:Reiterstandbild des Großen Kurfürsten",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-node-262455591",
+    "name": "Reiterstandbild Friedrich II. von Preußen",
+    "lat": 52.5172596,
+    "lng": 13.3927444,
+    "categoryId": "landmark",
+    "area": "",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 262455591,
+        "url": "https://www.openstreetmap.org/node/262455591"
+      },
+      "osmTags": {
+        "wikidata": "Q881611",
+        "wikipedia": "de:Reiterstandbild Friedrichs des Großen",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-node-956647501",
+    "name": "Rudolf-Virchow-Denkmal",
+    "lat": 52.5227101,
+    "lng": 13.3793601,
+    "categoryId": "landmark",
+    "area": "",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 956647501,
+        "url": "https://www.openstreetmap.org/node/956647501"
+      },
+      "osmTags": {
+        "wikidata": "Q22330282",
+        "wikipedia": "en:Rudolf Virchow Monument",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://bildhauerei-in-berlin.de/bildwerk/rudolf-virchow-denkmal/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://bildhauerei-in-berlin.de/bildwerk/rudolf-virchow-denkmal/"
+  },
+  {
+    "id": "osm-way-186517395",
+    "name": "Schloss Charlottenburg",
+    "lat": 52.5206457,
+    "lng": 13.2953429,
+    "categoryId": "landmark",
+    "area": "Charlottenburg",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 186517395,
+        "url": "https://www.openstreetmap.org/way/186517395"
+      },
+      "osmTags": {
+        "wikidata": "Q154996",
+        "wikipedia": "de:Schloss Charlottenburg",
+        "opening_hours": "Apr-Oct Tu-Su 10:00-17:30; Nov-Mar Tu-Su 10:00-16:30",
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-way-718035022",
+    "name": "Siegessäule",
+    "lat": 52.5145112,
+    "lng": 13.3501105,
+    "categoryId": "landmark",
+    "area": "",
+    "description": "",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 718035022,
+        "url": "https://www.openstreetmap.org/way/718035022"
+      },
+      "osmTags": {
+        "wikidata": "Q154987",
+        "wikipedia": "de:Siegessäule (Berlin)",
+        "opening_hours": "Nov-Mar: Mo-Fr 10:00-17:00; Sa,Su 10:00-17:30; Apr-Oct: Mo-Fr 09:30-18:30; Sa,Su 09:30-19:00",
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-way-442879072",
+    "name": "Sowjetisches Ehrenmal",
+    "lat": 52.4877361,
+    "lng": 13.469118,
+    "categoryId": "landmark",
+    "area": "",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 442879072,
+        "url": "https://www.openstreetmap.org/way/442879072"
+      },
+      "osmTags": {
+        "wikidata": "Q48441",
+        "wikipedia": "en:Soviet War Memorial (Treptower Park)",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-way-41368167",
+    "name": "Sowjetisches Ehrenmal Tiergarten",
+    "lat": 52.5166394,
+    "lng": 13.3719488,
+    "categoryId": "landmark",
+    "area": "",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 41368167,
+        "url": "https://www.openstreetmap.org/way/41368167"
+      },
+      "osmTags": {
+        "wikidata": "Q32660126",
+        "wikipedia": "de:Sowjetisches Ehrenmal (Tiergarten)",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-way-313670733",
+    "name": "Alte Nationalgalerie",
+    "lat": 52.5208337,
+    "lng": 13.3983173,
+    "categoryId": "museum",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 70,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "museum"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 313670733,
+        "url": "https://www.openstreetmap.org/way/313670733"
+      },
+      "osmTags": {
+        "wikidata": "Q162111",
+        "wikipedia": "de:Alte Nationalgalerie",
+        "opening_hours": "Mo off; Tu-Su 10:00-18:00; PH 10:00-18:00; Dec 24 off; Dec 31 off",
+        "cuisine": null,
+        "website": "https://www.smb.museum/en/museums-institutions/alte-nationalgalerie/home/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.smb.museum/en/museums-institutions/alte-nationalgalerie/home/"
+  },
+  {
+    "id": "osm-relation-3619",
+    "name": "Altes Museum",
+    "lat": 52.5194531,
+    "lng": 13.3987873,
+    "categoryId": "museum",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 70,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "museum"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 3619,
+        "url": "https://www.openstreetmap.org/relation/3619"
+      },
+      "osmTags": {
+        "wikidata": "Q156722",
+        "wikipedia": "de:Altes Museum",
+        "opening_hours": "Mo off; Tu-Fr 10:00-17:00; Sa-Su 10:00-18:00; PH 10:00-18:00; Dec 24 off; Dec 31 off",
+        "cuisine": null,
+        "website": "https://www.smb.museum/museen-einrichtungen/altes-museum/home/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.smb.museum/museen-einrichtungen/altes-museum/home/"
+  },
+  {
+    "id": "osm-node-369037135",
+    "name": "Anti-Kriegs-Museum",
+    "lat": 52.5460206,
+    "lng": 13.3479549,
+    "categoryId": "museum",
+    "area": "",
+    "description": "",
+    "minutes": 70,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "museum"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 369037135,
+        "url": "https://www.openstreetmap.org/node/369037135"
+      },
+      "osmTags": {
+        "wikidata": "Q574690",
+        "wikipedia": "de:Anti-Kriegs-Museum",
+        "opening_hours": "Mo-Su,PH 16:00-20:00",
+        "cuisine": null,
+        "website": "https://anti-kriegs-museum.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://anti-kriegs-museum.de/"
+  },
+  {
+    "id": "osm-way-182566447",
+    "name": "asisi Panorama Berlin Die Mauer",
+    "lat": 52.5078991,
+    "lng": 13.3894357,
+    "categoryId": "museum",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 70,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "museum"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 182566447,
+        "url": "https://www.openstreetmap.org/way/182566447"
+      },
+      "osmTags": {
+        "wikidata": "Q15992093",
+        "wikipedia": "de:Asisi Panorama Berlin",
+        "opening_hours": "Mo-Su 10:00-18:00",
+        "cuisine": null,
+        "website": "https://www.asisi.de/de/austellungsorte/berlin-thewall/service.html"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.asisi.de/de/austellungsorte/berlin-thewall/service.html"
+  },
+  {
+    "id": "osm-node-2033362563",
+    "name": "Berliner Medizinhistorisches Museum der Charité",
+    "lat": 52.526136,
+    "lng": 13.3745186,
+    "categoryId": "museum",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 70,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "museum"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 2033362563,
+        "url": "https://www.openstreetmap.org/node/2033362563"
+      },
+      "osmTags": {
+        "wikidata": "Q821643",
+        "wikipedia": "de:Berliner Medizinhistorisches Museum",
+        "opening_hours": "Mo off; Tu,Th-Fr,Su 10:00-17:00; We,Sa 10:00-19:00",
+        "cuisine": null,
+        "website": "https://www.bmm-charite.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.bmm-charite.de/"
+  },
+  {
+    "id": "osm-relation-4211594",
+    "name": "Bode-Museum",
+    "lat": 52.5216547,
+    "lng": 13.3950226,
+    "categoryId": "museum",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 70,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "museum"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 4211594,
+        "url": "https://www.openstreetmap.org/relation/4211594"
+      },
+      "osmTags": {
+        "wikidata": "Q157825",
+        "wikipedia": "de:Bode-Museum",
+        "opening_hours": "Mo off; Tu-Fr 10:00-17:00; Sa-Su 10:00-18:00; PH 10:00-18:00; Dec 24 off; Dec 31 off",
+        "cuisine": null,
+        "website": "https://www.smb.museum/museen-und-einrichtungen/bode-museum/home.html"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.smb.museum/museen-und-einrichtungen/bode-museum/home.html"
+  },
+  {
+    "id": "osm-way-93942770",
+    "name": "Bröhan-Museum",
+    "lat": 52.5186505,
+    "lng": 13.2953497,
+    "categoryId": "museum",
+    "area": "Charlottenburg",
+    "description": "",
+    "minutes": 70,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "museum"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 93942770,
+        "url": "https://www.openstreetmap.org/way/93942770"
+      },
+      "osmTags": {
+        "wikidata": "Q568767",
+        "wikipedia": "de:Bröhan-Museum",
+        "opening_hours": "Tu-Su,PH 10:00-18:00; Dec 24,Dec 31 off",
+        "cuisine": null,
+        "website": "http://www.broehan-museum.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://www.broehan-museum.de/"
+  },
+  {
+    "id": "osm-node-2959465154",
+    "name": "C/O Berlin",
+    "lat": 52.5065947,
+    "lng": 13.3306266,
+    "categoryId": "museum",
+    "area": "",
+    "description": "",
+    "minutes": 70,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "museum"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 2959465154,
+        "url": "https://www.openstreetmap.org/node/2959465154"
+      },
+      "osmTags": {
+        "wikidata": "Q1022620",
+        "wikipedia": "de:C/O Berlin",
+        "opening_hours": "Mo-Su 11:00-20:00; PH 11:00-20:00",
+        "cuisine": null,
+        "website": "https://www.co-berlin.org"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.co-berlin.org"
+  },
+  {
+    "id": "osm-node-1270188822",
+    "name": "Computerspielemuseum",
+    "lat": 52.517579,
+    "lng": 13.4419522,
+    "categoryId": "museum",
+    "area": "Friedrichshain",
+    "description": "",
+    "minutes": 70,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "museum"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1270188822,
+        "url": "https://www.openstreetmap.org/node/1270188822"
+      },
+      "osmTags": {
+        "wikidata": "Q825232",
+        "wikipedia": "de:Computerspielemuseum Berlin",
+        "opening_hours": "Mo-Su 10:00-20:00",
+        "cuisine": null,
+        "website": "https://www.computerspielemuseum.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.computerspielemuseum.de/"
+  },
+  {
+    "id": "osm-node-3203167561",
+    "name": "Deutsches Historisches Museum",
+    "lat": 52.5177477,
+    "lng": 13.3970225,
+    "categoryId": "museum",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 70,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "museum"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3203167561,
+        "url": "https://www.openstreetmap.org/node/3203167561"
+      },
+      "osmTags": {
+        "wikidata": "Q688335",
+        "wikipedia": "de:Deutsches Historisches Museum",
+        "opening_hours": "Mo-Su 10:00-18:00; Dec 24 off",
+        "cuisine": null,
+        "website": "https://www.dhm.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.dhm.de/"
+  },
+  {
+    "id": "osm-node-3749451170",
+    "name": "Deutsches Spionagemuseum",
+    "lat": 52.5090125,
+    "lng": 13.3792937,
+    "categoryId": "museum",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 70,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "museum"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3749451170,
+        "url": "https://www.openstreetmap.org/node/3749451170"
+      },
+      "osmTags": {
+        "wikidata": "Q20971579",
+        "wikipedia": "de:Deutsches Spionagemuseum",
+        "opening_hours": "10:00-20:00",
+        "cuisine": null,
+        "website": "https://www.deutsches-spionagemuseum.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.deutsches-spionagemuseum.de/"
+  },
+  {
+    "id": "osm-way-31622818",
+    "name": "Deutsches Technikmuseum",
+    "lat": 52.4972059,
+    "lng": 13.376498,
+    "categoryId": "museum",
+    "area": "Kreuzberg",
+    "description": "",
+    "minutes": 70,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "museum"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 31622818,
+        "url": "https://www.openstreetmap.org/way/31622818"
+      },
+      "osmTags": {
+        "wikidata": "Q706530",
+        "wikipedia": "de:Deutsches Technikmuseum",
+        "opening_hours": "Tu-Fr 09:00-17:30; Sa-Su 10:00-18:00; PH 10:00-18:00",
+        "cuisine": null,
+        "website": "https://technikmuseum.berlin"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://technikmuseum.berlin"
+  },
+  {
+    "id": "osm-node-73696610",
+    "name": "Gedenkstätte Deutscher Widerstand",
+    "lat": 52.5076051,
+    "lng": 13.3629858,
+    "categoryId": "museum",
+    "area": "",
+    "description": "",
+    "minutes": 70,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "museum"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 73696610,
+        "url": "https://www.openstreetmap.org/node/73696610"
+      },
+      "osmTags": {
+        "wikidata": "Q880798",
+        "wikipedia": "de:Gedenkstätte Deutscher Widerstand",
+        "opening_hours": "Mo-Fr 09:00-18:00; Sa,Su,PH 10:00-18:00",
+        "cuisine": null,
+        "website": "https://www.gdw-berlin.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.gdw-berlin.de/"
+  },
+  {
+    "id": "osm-way-1065864180",
+    "name": "Haus der Kulturen der Welt",
+    "lat": 52.518739,
+    "lng": 13.3648516,
+    "categoryId": "museum",
+    "area": "Tiergarten",
+    "description": "",
+    "minutes": 70,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "museum"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 1065864180,
+        "url": "https://www.openstreetmap.org/way/1065864180"
+      },
+      "osmTags": {
+        "wikidata": "Q704933",
+        "wikipedia": "de:Haus der Kulturen der Welt",
+        "opening_hours": "We-Mo 11:00-19:00",
+        "cuisine": null,
+        "website": "https://www.hkw.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.hkw.de/"
+  },
+  {
+    "id": "osm-way-302942554",
+    "name": "Jüdisches Museum",
+    "lat": 52.5019417,
+    "lng": 13.3962431,
+    "categoryId": "museum",
+    "area": "Kreuzberg",
+    "description": "",
+    "minutes": 70,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "museum"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 302942554,
+        "url": "https://www.openstreetmap.org/way/302942554"
+      },
+      "osmTags": {
+        "wikidata": "Q157003",
+        "wikipedia": "de:Jüdisches Museum Berlin",
+        "opening_hours": "Tu-Su 10:00-18:00",
+        "cuisine": null,
+        "website": "https://www.jmberlin.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.jmberlin.de/"
+  },
+  {
+    "id": "osm-way-24649550",
+    "name": "Jüdisches Museum Berlin",
+    "lat": 52.5022844,
+    "lng": 13.395421,
+    "categoryId": "museum",
+    "area": "",
+    "description": "",
+    "minutes": 120,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "culture",
+      "museum"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 24649550,
+        "url": "https://www.openstreetmap.org/way/24649550"
+      },
+      "osmTags": {
+        "wikidata": "Q157003",
+        "wikipedia": "en:Jewish Museum Berlin",
+        "opening_hours": "Mo 10:00-22:00; Tu-Su 10:00-20:00",
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-node-9979815161",
+    "name": "Käthe-Kollwitz-Museum Berlin",
+    "lat": 52.5205395,
+    "lng": 13.2920852,
+    "categoryId": "museum",
+    "area": "",
+    "description": "",
+    "minutes": 70,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "museum"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 9979815161,
+        "url": "https://www.openstreetmap.org/node/9979815161"
+      },
+      "osmTags": {
+        "wikidata": "Q20892625",
+        "wikipedia": "de:Käthe-Kollwitz-Museum Berlin",
+        "opening_hours": "PH,Mo-Su 11:00-18:00",
+        "cuisine": null,
+        "website": "https://www.kaethe-kollwitz.berlin/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.kaethe-kollwitz.berlin/"
+  },
+  {
+    "id": "osm-way-87646457",
+    "name": "Museum Berggruen",
+    "lat": 52.5191024,
+    "lng": 13.2949985,
+    "categoryId": "museum",
+    "area": "Charlottenburg",
+    "description": "",
+    "minutes": 70,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "museum"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 87646457,
+        "url": "https://www.openstreetmap.org/way/87646457"
+      },
+      "osmTags": {
+        "wikidata": "Q641630",
+        "wikipedia": "de:Museum Berggruen",
+        "opening_hours": "Temporär geschlossen; Temporarily closed",
+        "cuisine": null,
+        "website": "https://www.smb.museum/museen-und-einrichtungen/museum-berggruen/home.html"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.smb.museum/museen-und-einrichtungen/museum-berggruen/home.html"
+  },
+  {
+    "id": "osm-way-11544256",
+    "name": "Neuer Pavillon",
+    "lat": 52.5213224,
+    "lng": 13.2992273,
+    "categoryId": "museum",
+    "area": "",
+    "description": "",
+    "minutes": 70,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "museum"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 11544256,
+        "url": "https://www.openstreetmap.org/way/11544256"
+      },
+      "osmTags": {
+        "wikidata": "Q1980210",
+        "wikipedia": "de:Neuer Pavillon",
+        "opening_hours": "Apr-Oct Su 10:00-17:30",
+        "cuisine": null,
+        "website": "https://www.spsg.de/schloesser-gaerten/objekt/neuer-pavillon-im-schlossgarten-charlottenburg/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.spsg.de/schloesser-gaerten/objekt/neuer-pavillon-im-schlossgarten-charlottenburg/"
+  },
+  {
+    "id": "osm-way-18578139",
+    "name": "Neues Museum",
+    "lat": 52.520184,
+    "lng": 13.3977404,
+    "categoryId": "museum",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 90,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "culture",
+      "museum"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 18578139,
+        "url": "https://www.openstreetmap.org/way/18578139"
+      },
+      "osmTags": {
+        "wikidata": "Q157316",
+        "wikipedia": "de:Neues Museum (Berlin)",
+        "opening_hours": "Mo off; Tu-Su 10:00-18:00; PH 10:00-18:00; Dec 24 off; Dec 31 off",
+        "cuisine": null,
+        "website": "https://www.smb.museum/museen-einrichtungen/neues-museum/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.smb.museum/museen-einrichtungen/neues-museum/"
+  },
+  {
+    "id": "osm-relation-14395502",
+    "name": "Ernst-Thälmann-Park",
+    "lat": 52.5402394,
+    "lng": 13.4317199,
+    "categoryId": "park",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature",
+      "walk"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 14395502,
+        "url": "https://www.openstreetmap.org/relation/14395502"
+      },
+      "osmTags": {
+        "wikidata": "Q689324",
+        "wikipedia": "de:Ernst-Thälmann-Park",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://cityplot.org/stadtpflanzen"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://cityplot.org/stadtpflanzen"
+  },
+  {
+    "id": "osm-way-498278335",
+    "name": "Geschichtspark Ehemaliges Zellengefängnis Moabit",
+    "lat": 52.5269866,
+    "lng": 13.3660773,
+    "categoryId": "park",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature",
+      "walk"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 498278335,
+        "url": "https://www.openstreetmap.org/way/498278335"
+      },
+      "osmTags": {
+        "wikidata": "Q15111585",
+        "wikipedia": "de:Geschichtspark Ehemaliges Zellengefängnis Moabit",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://www.berlin.de/tourismus/parks-und-gaerten/4216129-1740419-geschichtspark-zellengefaengnis-moabit.html"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.berlin.de/tourismus/parks-und-gaerten/4216129-1740419-geschichtspark-zellengefaengnis-moabit.html"
+  },
+  {
+    "id": "osm-way-15740772",
+    "name": "Görlitzer Park",
+    "lat": 52.4966005,
+    "lng": 13.4381185,
+    "categoryId": "park",
+    "area": "",
+    "description": "",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "nature",
+      "walk"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 15740772,
+        "url": "https://www.openstreetmap.org/way/15740772"
+      },
+      "osmTags": {
+        "wikidata": "Q896816",
+        "wikipedia": "de:Görlitzer Park",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-relation-7643526",
+    "name": "Großer Tiergarten",
+    "lat": 52.5144585,
+    "lng": 13.3543751,
+    "categoryId": "park",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature",
+      "walk"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 7643526,
+        "url": "https://www.openstreetmap.org/relation/7643526"
+      },
+      "osmTags": {
+        "wikidata": "Q694020",
+        "wikipedia": "de:Großer Tiergarten",
+        "opening_hours": "24/7",
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-way-24515082",
+    "name": "Helmholtzplatz",
+    "lat": 52.543007,
+    "lng": 13.4190326,
+    "categoryId": "park",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature",
+      "walk"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 24515082,
+        "url": "https://www.openstreetmap.org/way/24515082"
+      },
+      "osmTags": {
+        "wikidata": "Q1569157",
+        "wikipedia": "de:Helmholtzplatz",
+        "opening_hours": "24/7",
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-way-1089402877",
+    "name": "Krausnickpark",
+    "lat": 52.5246612,
+    "lng": 13.3973444,
+    "categoryId": "park",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature",
+      "walk"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 1089402877,
+        "url": "https://www.openstreetmap.org/way/1089402877"
+      },
+      "osmTags": {
+        "wikidata": "Q1786871",
+        "wikipedia": "de:Krausnickpark",
+        "opening_hours": "Jun-Aug: 09:00-21:00; 10:00-20:00",
+        "cuisine": null,
+        "website": "https://www.berliner-stadtplan.com/poi/32310_Krausnickpark-Berlin-Mitte"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.berliner-stadtplan.com/poi/32310_Krausnickpark-Berlin-Mitte"
+  },
+  {
+    "id": "osm-way-190274684",
+    "name": "Leisepark",
+    "lat": 52.5305898,
+    "lng": 13.420942,
+    "categoryId": "park",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature",
+      "walk"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 190274684,
+        "url": "https://www.openstreetmap.org/way/190274684"
+      },
+      "osmTags": {
+        "wikidata": "Q26254879",
+        "wikipedia": "de:Leise-Park",
+        "opening_hours": "Mar-Oct: Mo-Su 08:00-20:00; Nov-Feb: Mo-Su 08:00-17:00",
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-way-16872940",
+    "name": "Marx-Engels-Forum",
+    "lat": 52.5184916,
+    "lng": 13.4046975,
+    "categoryId": "park",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature",
+      "walk"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 16872940,
+        "url": "https://www.openstreetmap.org/way/16872940"
+      },
+      "osmTags": {
+        "wikidata": "Q31752",
+        "wikipedia": "de:Marx-Engels-Forum",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-way-233994267",
+    "name": "Mauerpark",
+    "lat": 52.5437682,
+    "lng": 13.4022743,
+    "categoryId": "park",
+    "area": "",
+    "description": "",
+    "minutes": 45,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "nature",
+      "walk"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 233994267,
+        "url": "https://www.openstreetmap.org/way/233994267"
+      },
+      "osmTags": {
+        "wikidata": "Q639887",
+        "wikipedia": "de:Mauerpark",
+        "opening_hours": "24/7",
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-way-27206853",
+    "name": "Pappelplatz",
+    "lat": 52.5326139,
+    "lng": 13.3951614,
+    "categoryId": "park",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature",
+      "walk"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 27206853,
+        "url": "https://www.openstreetmap.org/way/27206853"
+      },
+      "osmTags": {
+        "wikidata": "Q26254851",
+        "wikipedia": "de:Pappelplatz",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://www.stadtentwicklung.berlin.de/staedtebau/foerderprogramme/denkmalschutz/de/foerdervorhaben/rosenthaler_vorstadt/pappelplatz.shtml"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.stadtentwicklung.berlin.de/staedtebau/foerderprogramme/denkmalschutz/de/foerdervorhaben/rosenthaler_vorstadt/pappelplatz.shtml"
+  },
+  {
+    "id": "osm-relation-3582343",
+    "name": "Park am Gleisdreieck – Ostpark",
+    "lat": 52.4950061,
+    "lng": 13.376395,
+    "categoryId": "park",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature",
+      "walk"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 3582343,
+        "url": "https://www.openstreetmap.org/relation/3582343"
+      },
+      "osmTags": {
+        "wikidata": "Q2052591",
+        "wikipedia": "de:Park am Gleisdreieck",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://www.parkamgleisdreieck.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.parkamgleisdreieck.de/"
+  },
+  {
+    "id": "osm-way-31624685",
+    "name": "Park am Gleisdreieck – Westpark",
+    "lat": 52.4986448,
+    "lng": 13.3712757,
+    "categoryId": "park",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature",
+      "walk"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 31624685,
+        "url": "https://www.openstreetmap.org/way/31624685"
+      },
+      "osmTags": {
+        "wikidata": "Q2052591",
+        "wikipedia": "de:Park am Gleisdreieck",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://www.parkamgleisdreieck.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.parkamgleisdreieck.de/"
+  },
+  {
+    "id": "osm-way-4413796",
+    "name": "Preußenpark",
+    "lat": 52.4925367,
+    "lng": 13.3125063,
+    "categoryId": "park",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature",
+      "walk"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 4413796,
+        "url": "https://www.openstreetmap.org/way/4413796"
+      },
+      "osmTags": {
+        "wikidata": "Q21777340",
+        "wikipedia": "de:Preußenpark",
+        "opening_hours": "24/7",
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-way-42906433",
+    "name": "Stadtpark Lichtenberg",
+    "lat": 52.5183287,
+    "lng": 13.4770221,
+    "categoryId": "park",
+    "area": "",
+    "description": "",
+    "minutes": 35,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nature",
+      "walk"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 42906433,
+        "url": "https://www.openstreetmap.org/way/42906433"
+      },
+      "osmTags": {
+        "wikidata": "Q1793017",
+        "wikipedia": "de:Stadtpark Lichtenberg",
+        "opening_hours": "24/7",
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-relation-7317281",
+    "name": "Tempelhofer Feld",
+    "lat": 52.4744537,
+    "lng": 13.4032897,
+    "categoryId": "park",
+    "area": "",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "nature",
+      "walk"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 7317281,
+        "url": "https://www.openstreetmap.org/relation/7317281"
+      },
+      "osmTags": {
+        "wikidata": "Q2402748",
+        "wikipedia": "de:Tempelhofer Feld",
+        "opening_hours": "Jan,Dec 07:30-17:00; Feb,Nov 07:00-18:00; Mar 06:00-19:00; Apr 06:00-20:30; May 01-15 06:00-21:30; May 16-31 06:00-22:00; Jun,Jul 06:00-23:00; Aug 06:00-22:30; Sep 06:30-21:30; Oct 07:00-19:00",
+        "cuisine": null,
+        "website": "https://gruen-berlin.de/tempelhofer-feld"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://gruen-berlin.de/tempelhofer-feld"
+  },
+  {
+    "id": "osm-relation-3099987",
+    "name": "Volkspark Friedrichshain",
+    "lat": 52.5271625,
+    "lng": 13.4351896,
+    "categoryId": "park",
+    "area": "",
+    "description": "",
+    "minutes": 40,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "nature",
+      "walk"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 3099987,
+        "url": "https://www.openstreetmap.org/relation/3099987"
+      },
+      "osmTags": {
+        "wikidata": "Q648023",
+        "wikipedia": "de:Volkspark Friedrichshain",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-node-508861523",
+    "name": "Alois S.",
+    "lat": 52.5437564,
+    "lng": 13.4235822,
+    "categoryId": "pub",
+    "area": "Prenzlauer Berg",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 508861523,
+        "url": "https://www.openstreetmap.org/node/508861523"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 18:00-01:00, Sa 17:00-01:00, Su 16:00-00:00",
+        "cuisine": "spanish",
+        "website": "https://www.aloiss.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.aloiss.de/"
+  },
+  {
+    "id": "osm-node-521198001",
+    "name": "Alte Wäscherei",
+    "lat": 52.5436637,
+    "lng": 13.4382938,
+    "categoryId": "pub",
+    "area": "Prenzlauer Berg",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 521198001,
+        "url": "https://www.openstreetmap.org/node/521198001"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 16:00-24:00; Sa 14:00-24:00; Su 14:00-22:00",
+        "cuisine": null,
+        "website": "http://altewäscherei.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://altewäscherei.de/"
+  },
+  {
+    "id": "osm-node-441734646",
+    "name": "Alter Roter Löwe Rein",
+    "lat": 52.4756695,
+    "lng": 13.4433589,
+    "categoryId": "pub",
+    "area": "Neukölln",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 441734646,
+        "url": "https://www.openstreetmap.org/node/441734646"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Th 18:00-02:00, Fr 18:00-04:00, Sa 16:00-04:00, Su 16:00-24:00",
+        "cuisine": null,
+        "website": "https://redlion.berlin/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://redlion.berlin/"
+  },
+  {
+    "id": "osm-node-480747489",
+    "name": "Capital Beach",
+    "lat": 52.5225871,
+    "lng": 13.3711572,
+    "categoryId": "pub",
+    "area": "",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 480747489,
+        "url": "https://www.openstreetmap.org/node/480747489"
+      },
+      "osmTags": {
+        "wikidata": "Q130456809",
+        "wikipedia": null,
+        "opening_hours": "\"Es wurde nachgefragt, sie haben variable schliesszeiten nach kundenverkehr.\"",
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-node-1306931828",
+    "name": "Kirk",
+    "lat": 52.500884,
+    "lng": 13.4404044,
+    "categoryId": "pub",
+    "area": "Kreuzberg",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1306931828,
+        "url": "https://www.openstreetmap.org/node/1306931828"
+      },
+      "osmTags": {
+        "wikidata": "Q111533978",
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 18:00-03:00+, Sa,Su 19:00-03:00+",
+        "cuisine": null,
+        "website": "http://www.kirkbar-berlin.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://www.kirkbar-berlin.de/"
+  },
+  {
+    "id": "osm-node-1746938767",
+    "name": "Metzer Eck",
+    "lat": 52.5317831,
+    "lng": 13.4162151,
+    "categoryId": "pub",
+    "area": "Prenzlauer Berg",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1746938767,
+        "url": "https://www.openstreetmap.org/node/1746938767"
+      },
+      "osmTags": {
+        "wikidata": "Q123096908",
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 16:00-24:00, Sa 18:00-24:00",
+        "cuisine": null,
+        "website": "http://www.metzer-eck.de"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://www.metzer-eck.de"
+  },
+  {
+    "id": "osm-node-3379296155",
+    "name": "Möve im Felsenkeller",
+    "lat": 52.4865023,
+    "lng": 13.3557868,
+    "categoryId": "pub",
+    "area": "Schöneberg",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "nightlife"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3379296155,
+        "url": "https://www.openstreetmap.org/node/3379296155"
+      },
+      "osmTags": {
+        "wikidata": "Q18026243",
+        "wikipedia": "de:Möve im Felsenkeller",
+        "opening_hours": "Mo-Sa 16:00+",
+        "cuisine": "german",
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-way-313670734",
+    "name": "Berliner Dom",
+    "lat": 52.5190862,
+    "lng": 13.4010278,
+    "categoryId": "religious_site",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 45,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 313670734,
+        "url": "https://www.openstreetmap.org/way/313670734"
+      },
+      "osmTags": {
+        "wikidata": "Q154563",
+        "wikipedia": "de:Berliner Dom",
+        "opening_hours": "Mo-Fr 09:00-18:00; Sa 09:00-17:00; Su,PH 12:00-17:00; Jun-Aug Mo-Sa 09:00-19:00; Jun-Aug Su,PH 12:00-19:00",
+        "cuisine": null,
+        "website": "https://www.berlinerdom.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.berlinerdom.de/"
+  },
+  {
+    "id": "osm-way-23495060",
+    "name": "Gethsemane-Kirche",
+    "lat": 52.5477205,
+    "lng": 13.416114,
+    "categoryId": "religious_site",
+    "area": "Prenzlauer Berg",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 23495060,
+        "url": "https://www.openstreetmap.org/way/23495060"
+      },
+      "osmTags": {
+        "wikidata": "Q32664282",
+        "wikipedia": "de:Gethsemanekirche (Berlin)",
+        "opening_hours": "Mo-Fr 11:00-18:00",
+        "cuisine": null,
+        "website": "https://ekpn.de/vier-kirchen/gethsemane/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://ekpn.de/vier-kirchen/gethsemane/"
+  },
+  {
+    "id": "osm-way-37533771",
+    "name": "Heilandskirche",
+    "lat": 52.5260598,
+    "lng": 13.339898,
+    "categoryId": "religious_site",
+    "area": "Moabit",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 37533771,
+        "url": "https://www.openstreetmap.org/way/37533771"
+      },
+      "osmTags": {
+        "wikidata": "Q1594750",
+        "wikipedia": "de:Heilandskirche (Berlin)",
+        "opening_hours": "We 12:00-15:00",
+        "cuisine": null,
+        "website": "https://www.ev-gemeinde-tiergarten.de/page/9/heilandskirche"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.ev-gemeinde-tiergarten.de/page/9/heilandskirche"
+  },
+  {
+    "id": "osm-way-30154983",
+    "name": "Heilig-Kreuz-Kirche",
+    "lat": 52.4821098,
+    "lng": 13.3279617,
+    "categoryId": "religious_site",
+    "area": "Wilmersdorf",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 30154983,
+        "url": "https://www.openstreetmap.org/way/30154983"
+      },
+      "osmTags": {
+        "wikidata": "Q1594930",
+        "wikipedia": "de:Heilig-Kreuz-Kirche (Berlin-Wilmersdorf)",
+        "opening_hours": "Mo-Su 08:00-18:00",
+        "cuisine": null,
+        "website": "https://www.sankthelena.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.sankthelena.de/"
+  },
+  {
+    "id": "osm-way-217618282",
+    "name": "Immanuelkirche",
+    "lat": 52.5331594,
+    "lng": 13.4214724,
+    "categoryId": "religious_site",
+    "area": "Prenzlauer Berg",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 217618282,
+        "url": "https://www.openstreetmap.org/way/217618282"
+      },
+      "osmTags": {
+        "wikidata": "Q1659952",
+        "wikipedia": "de:Immanuelkirche (Berlin)",
+        "opening_hours": "Fr-Sa 11:00-14:00; Su 12:00-15:00",
+        "cuisine": null,
+        "website": "https://immanuelgemeinde.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://immanuelgemeinde.de/"
+  },
+  {
+    "id": "osm-way-24054915",
+    "name": "Neue Synagoge",
+    "lat": 52.5249867,
+    "lng": 13.3943198,
+    "categoryId": "religious_site",
+    "area": "",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 24054915,
+        "url": "https://www.openstreetmap.org/way/24054915"
+      },
+      "osmTags": {
+        "wikidata": "Q246474",
+        "wikipedia": "de:Neue Synagoge (Berlin)",
+        "opening_hours": "Apr-Sep: Mo-Fr 10:00-18:00; Su 10:00-19:00; Oct-Mar: Su-Th 10:00-18:00; Fr 10:00-15:00",
+        "cuisine": null,
+        "website": "https://centrumjudaicum.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://centrumjudaicum.de/"
+  },
+  {
+    "id": "osm-way-58608090",
+    "name": "St. Hedwigs-Kathedrale Berlin",
+    "lat": 52.5157591,
+    "lng": 13.3948424,
+    "categoryId": "religious_site",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 58608090,
+        "url": "https://www.openstreetmap.org/way/58608090"
+      },
+      "osmTags": {
+        "wikidata": "Q170123",
+        "wikipedia": "de:St.-Hedwigs-Kathedrale",
+        "opening_hours": "Mo-Sa 10:00-17:00; Su 13:00-17:00; PH off",
+        "cuisine": null,
+        "website": "https://www.hedwigs-kathedrale.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.hedwigs-kathedrale.de/"
+  },
+  {
+    "id": "osm-way-474111581",
+    "name": "St. Marienkirche",
+    "lat": 52.5205491,
+    "lng": 13.4072178,
+    "categoryId": "religious_site",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "culture",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 474111581,
+        "url": "https://www.openstreetmap.org/way/474111581"
+      },
+      "osmTags": {
+        "wikidata": "Q679101",
+        "wikipedia": "de:Marienkirche (Berlin-Mitte)",
+        "opening_hours": "Mo-Su 10:00-18:00",
+        "cuisine": null,
+        "website": "https://marienkirche-berlin.de"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://marienkirche-berlin.de"
+  },
+  {
+    "id": "osm-way-235843126",
+    "name": "Anhalt",
+    "lat": 52.4971285,
+    "lng": 13.4500071,
+    "categoryId": "restaurant",
+    "area": "Kreuzberg",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 235843126,
+        "url": "https://www.openstreetmap.org/way/235843126"
+      },
+      "osmTags": {
+        "wikidata": "Q21036450",
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 12:00-16:00",
+        "cuisine": null,
+        "website": "http://www.kulturarena-berlin.de/anhalt.aspx"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://www.kulturarena-berlin.de/anhalt.aspx"
+  },
+  {
+    "id": "osm-node-542575908",
+    "name": "Austernbank",
+    "lat": 52.5159201,
+    "lng": 13.3917462,
+    "categoryId": "restaurant",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 542575908,
+        "url": "https://www.openstreetmap.org/node/542575908"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Th-Sa 17:00-01:00",
+        "cuisine": "seafood",
+        "website": "https://www.austernbank-berlin.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.austernbank-berlin.de/"
+  },
+  {
+    "id": "osm-node-561521206",
+    "name": "Baraka",
+    "lat": 52.4997424,
+    "lng": 13.429924,
+    "categoryId": "restaurant",
+    "area": "Kreuzberg",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 561521206,
+        "url": "https://www.openstreetmap.org/node/561521206"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Th, Su 11:00-24:00; Fr, Sa 11:00-01:00",
+        "cuisine": "arab;moroccan",
+        "website": "http://restaurant-baraka.com/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://restaurant-baraka.com/"
+  },
+  {
+    "id": "osm-node-86001794",
+    "name": "Bocca di Bacco",
+    "lat": 52.5151119,
+    "lng": 13.3889084,
+    "categoryId": "restaurant",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 86001794,
+        "url": "https://www.openstreetmap.org/node/86001794"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Sa 12:00-24:00",
+        "cuisine": "italian",
+        "website": "http://www.boccadibacco.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://www.boccadibacco.de/"
+  },
+  {
+    "id": "osm-node-438098471",
+    "name": "China-Restaurant Hua Ting",
+    "lat": 52.517794,
+    "lng": 13.428828,
+    "categoryId": "restaurant",
+    "area": "Friedrichshain",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 438098471,
+        "url": "https://www.openstreetmap.org/node/438098471"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 12:00-22:00; Tu off",
+        "cuisine": "chinese",
+        "website": "https://www.huating.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.huating.de/"
+  },
+  {
+    "id": "osm-node-4558350909",
+    "name": "Clärchens Ballhaus",
+    "lat": 52.526614,
+    "lng": 13.3968635,
+    "categoryId": "restaurant",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4558350909,
+        "url": "https://www.openstreetmap.org/node/4558350909"
+      },
+      "osmTags": {
+        "wikidata": "Q1103846",
+        "wikipedia": "en:Clärchens Ballroom",
+        "opening_hours": "Tu-Fr 17:00-23:00; Sa-Su 14:00-23:00",
+        "cuisine": "german",
+        "website": "https://claerchensball.haus/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://claerchensball.haus/"
+  },
+  {
+    "id": "osm-node-1310749383",
+    "name": "Gaffel Haus Berlin",
+    "lat": 52.5184631,
+    "lng": 13.3864563,
+    "categoryId": "restaurant",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1310749383,
+        "url": "https://www.openstreetmap.org/node/1310749383"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Sa 12:00-24:00",
+        "cuisine": "german",
+        "website": "https://www.gaffel-haus-berlin.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.gaffel-haus-berlin.de/"
+  },
+  {
+    "id": "osm-node-1732747168",
+    "name": "Jeta Ime",
+    "lat": 52.5205841,
+    "lng": 13.4474068,
+    "categoryId": "restaurant",
+    "area": "Friedrichshain",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1732747168,
+        "url": "https://www.openstreetmap.org/node/1732747168"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "We-Fr 17:00-23:00; Sa 10:00-15:00, 17:00-23:00;Su 10:00-16:00",
+        "cuisine": "eastern_european",
+        "website": "https://jetaime-Berlin.de"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://jetaime-Berlin.de"
+  },
+  {
+    "id": "osm-node-3773392706",
+    "name": "Käfer Dachgarten-Restaurant im Deutschen Bundestag",
+    "lat": 52.5185938,
+    "lng": 13.3766755,
+    "categoryId": "restaurant",
+    "area": "",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 3773392706,
+        "url": "https://www.openstreetmap.org/node/3773392706"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 09:00-17:00,19:00-23:00",
+        "cuisine": "international;german",
+        "website": "https://www.feinkost-kaefer.de/berlin"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.feinkost-kaefer.de/berlin"
+  },
+  {
+    "id": "osm-node-5109099523",
+    "name": "La Paz",
+    "lat": 52.5474483,
+    "lng": 13.4531451,
+    "categoryId": "restaurant",
+    "area": "",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 5109099523,
+        "url": "https://www.openstreetmap.org/node/5109099523"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 12:00-24:00",
+        "cuisine": "mexican",
+        "website": "https://www.lapaz.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.lapaz.de/"
+  },
+  {
+    "id": "osm-node-11161925005",
+    "name": "La Pecadille",
+    "lat": 52.5092694,
+    "lng": 13.4656482,
+    "categoryId": "restaurant",
+    "area": "",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 11161925005,
+        "url": "https://www.openstreetmap.org/node/11161925005"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Fr 18:00-22:00; Sa 18:00-22:00",
+        "cuisine": "french;spanish;tapas",
+        "website": "https://www.lapeccadille.de"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.lapeccadille.de"
+  },
+  {
+    "id": "osm-node-260769037",
+    "name": "Lindenbräu",
+    "lat": 52.5102921,
+    "lng": 13.3726675,
+    "categoryId": "restaurant",
+    "area": "Tiergarten",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 260769037,
+        "url": "https://www.openstreetmap.org/node/260769037"
+      },
+      "osmTags": {
+        "wikidata": "Q55077848",
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 11:30-01:30",
+        "cuisine": "german",
+        "website": "https://www.bier-genuss.berlin/de/lindenbraeu-am-potsdamer-platz"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.bier-genuss.berlin/de/lindenbraeu-am-potsdamer-platz"
+  },
+  {
+    "id": "osm-node-11845385301",
+    "name": "Maiyarap",
+    "lat": 52.4998764,
+    "lng": 13.4239616,
+    "categoryId": "restaurant",
+    "area": "",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 11845385301,
+        "url": "https://www.openstreetmap.org/node/11845385301"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 12:00-22:00",
+        "cuisine": "noodles;thai",
+        "website": "https://www.tossakan-berlin.de/maiyarap"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.tossakan-berlin.de/maiyarap"
+  },
+  {
+    "id": "osm-node-10296984871",
+    "name": "Papillon",
+    "lat": 52.5082473,
+    "lng": 13.3334047,
+    "categoryId": "restaurant",
+    "area": "",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 10296984871,
+        "url": "https://www.openstreetmap.org/node/10296984871"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Sa 18:00-02:00",
+        "cuisine": "international",
+        "website": "https://www.papillon-berlin.com/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.papillon-berlin.com/"
+  },
+  {
+    "id": "osm-node-768872004",
+    "name": "Pho 39",
+    "lat": 52.4774025,
+    "lng": 13.2875429,
+    "categoryId": "restaurant",
+    "area": "Schmargendorf",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 768872004,
+        "url": "https://www.openstreetmap.org/node/768872004"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Tu-Su 12:00-22:00",
+        "cuisine": "asian",
+        "website": "https://www.pho39-restaurant-berlin.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.pho39-restaurant-berlin.de/"
+  },
+  {
+    "id": "osm-node-86001798",
+    "name": "Restaurant Borchardt",
+    "lat": 52.5150034,
+    "lng": 13.3903882,
+    "categoryId": "restaurant",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 86001798,
+        "url": "https://www.openstreetmap.org/node/86001798"
+      },
+      "osmTags": {
+        "wikidata": "Q1386375",
+        "wikipedia": "de:F. W. Borchardt",
+        "opening_hours": "11:30-24:00",
+        "cuisine": null,
+        "website": "https://www.borchardt-restaurant.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.borchardt-restaurant.de/"
+  },
+  {
+    "id": "osm-way-1214875610",
+    "name": "Restaurantschiff Patio",
+    "lat": 52.5220992,
+    "lng": 13.3479449,
+    "categoryId": "restaurant",
+    "area": "Moabit",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 1214875610,
+        "url": "https://www.openstreetmap.org/way/1214875610"
+      },
+      "osmTags": {
+        "wikidata": "Q56697335",
+        "wikipedia": null,
+        "opening_hours": "Tu-Sa 16:00-22:00",
+        "cuisine": null,
+        "website": "https://www.patio-berlin.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.patio-berlin.de/"
+  },
+  {
+    "id": "osm-node-262462062",
+    "name": "Ristorante a Mano",
+    "lat": 52.5193726,
+    "lng": 13.4275085,
+    "categoryId": "restaurant",
+    "area": "Friedrichshain",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 262462062,
+        "url": "https://www.openstreetmap.org/node/262462062"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 12:00-23:00",
+        "cuisine": "italian",
+        "website": "https://www.amano-ristorante.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.amano-ristorante.de/"
+  },
+  {
+    "id": "osm-node-313285295",
+    "name": "Ristorante Italiano",
+    "lat": 52.5278248,
+    "lng": 13.4517323,
+    "categoryId": "restaurant",
+    "area": "Prenzlauer Berg",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 313285295,
+        "url": "https://www.openstreetmap.org/node/313285295"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 11:30-24:00",
+        "cuisine": "italian",
+        "website": "https://italiano-ristorante.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://italiano-ristorante.de/"
+  },
+  {
+    "id": "osm-node-269712300",
+    "name": "Schleusenkrug",
+    "lat": 52.5112754,
+    "lng": 13.335988,
+    "categoryId": "restaurant",
+    "area": "Tiergarten",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 269712300,
+        "url": "https://www.openstreetmap.org/node/269712300"
+      },
+      "osmTags": {
+        "wikidata": "Q139585538",
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 11:00-23:00",
+        "cuisine": "german",
+        "website": "http://www.schleusenkrug.de"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://www.schleusenkrug.de"
+  },
+  {
+    "id": "osm-node-2440682459",
+    "name": "spindler & klatt",
+    "lat": 52.5058141,
+    "lng": 13.4347954,
+    "categoryId": "restaurant",
+    "area": "Kreuzberg",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 2440682459,
+        "url": "https://www.openstreetmap.org/node/2440682459"
+      },
+      "osmTags": {
+        "wikidata": "Q116142643",
+        "wikipedia": null,
+        "opening_hours": "20:00-06:00",
+        "cuisine": "asian",
+        "website": "https://spindlerklatt.com/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://spindlerklatt.com/"
+  },
+  {
+    "id": "osm-node-332554285",
+    "name": "Ständige Vertretung",
+    "lat": 52.5212101,
+    "lng": 13.3853311,
+    "categoryId": "restaurant",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 332554285,
+        "url": "https://www.openstreetmap.org/node/332554285"
+      },
+      "osmTags": {
+        "wikidata": "Q2360197",
+        "wikipedia": "de:Ständige Vertretung (Gastronomiebetrieb)",
+        "opening_hours": "10:30-01:00",
+        "cuisine": "german",
+        "website": "https://www.staev.de"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.staev.de"
+  },
+  {
+    "id": "osm-way-124850918",
+    "name": "Tomasa",
+    "lat": 52.4894675,
+    "lng": 13.3802093,
+    "categoryId": "restaurant",
+    "area": "Kreuzberg",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 124850918,
+        "url": "https://www.openstreetmap.org/way/124850918"
+      },
+      "osmTags": {
+        "wikidata": "Q15726464",
+        "wikipedia": null,
+        "opening_hours": "Su-Th 09:00-01:00, Fr-Sa 09:00-02:00",
+        "cuisine": null,
+        "website": "http://www.tomasa.de/tomasa-restaurant/tomasa-villa-kreuzberg-berlin"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://www.tomasa.de/tomasa-restaurant/tomasa-villa-kreuzberg-berlin"
+  },
+  {
+    "id": "osm-node-269676264",
+    "name": "Zollpackhof",
+    "lat": 52.5212821,
+    "lng": 13.3668503,
+    "categoryId": "restaurant",
+    "area": "Moabit",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 269676264,
+        "url": "https://www.openstreetmap.org/node/269676264"
+      },
+      "osmTags": {
+        "wikidata": "Q106000273",
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 11:00-00:00",
+        "cuisine": "german",
+        "website": "https://zollpackhof.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://zollpackhof.de/"
+  },
+  {
+    "id": "osm-node-1802913071",
+    "name": "Zum Nußbaum",
+    "lat": 52.5171542,
+    "lng": 13.4071,
+    "categoryId": "restaurant",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1802913071,
+        "url": "https://www.openstreetmap.org/node/1802913071"
+      },
+      "osmTags": {
+        "wikidata": "Q228993",
+        "wikipedia": "en:Zum Nußbaum",
+        "opening_hours": "12:00-24:00",
+        "cuisine": "german",
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-node-411728139",
+    "name": "Zur Letzten Instanz",
+    "lat": 52.5174527,
+    "lng": 13.4137758,
+    "categoryId": "restaurant",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "sit",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "food"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 411728139,
+        "url": "https://www.openstreetmap.org/node/411728139"
+      },
+      "osmTags": {
+        "wikidata": "Q230377",
+        "wikipedia": null,
+        "opening_hours": "Mo-Sa 17:30+",
+        "cuisine": "regional",
+        "website": "http://www.zurletzteninstanz.de"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://www.zurletzteninstanz.de"
+  },
+  {
+    "id": "osm-way-131391811",
+    "name": "Sommerbad Neukölln",
+    "lat": 52.4795772,
+    "lng": 13.4156219,
+    "categoryId": "sport",
+    "area": "Neukölln",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sport"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 131391811,
+        "url": "https://www.openstreetmap.org/way/131391811"
+      },
+      "osmTags": {
+        "wikidata": "Q108382034",
+        "wikipedia": "de:Sommerbad Neukölln",
+        "opening_hours": "May 11-Sep 15: Mo-Su,PH 07:00-20:00",
+        "cuisine": null,
+        "website": "https://www.berlinerbaeder.de/baeder/sommerbad-neukoelln/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.berlinerbaeder.de/baeder/sommerbad-neukoelln/"
+  },
+  {
+    "id": "osm-relation-5758790",
+    "name": "Stadtbad Mitte",
+    "lat": 52.5295439,
+    "lng": 13.3931612,
+    "categoryId": "sport",
+    "area": "Mitte",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sport"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "relation",
+        "id": 5758790,
+        "url": "https://www.openstreetmap.org/relation/5758790"
+      },
+      "osmTags": {
+        "wikidata": "Q1292740",
+        "wikipedia": "de:Stadtbad Mitte (Berlin)",
+        "opening_hours": "Mo-We 06:30-21:30; Th 06:30-14:00; Fr 12:00-21:30; Sa 14:30-21:30; Su 10:00-17:00",
+        "cuisine": null,
+        "website": "https://www.berlinerbaeder.de/baeder/stadtbad-mitte/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.berlinerbaeder.de/baeder/stadtbad-mitte/"
+  },
+  {
+    "id": "osm-way-132238037",
+    "name": "Stadtbad Neukölln",
+    "lat": 52.4791797,
+    "lng": 13.4398773,
+    "categoryId": "sport",
+    "area": "Neukölln",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "sport"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 132238037,
+        "url": "https://www.openstreetmap.org/way/132238037"
+      },
+      "osmTags": {
+        "wikidata": "Q2326618",
+        "wikipedia": "de:Stadtbad Neukölln",
+        "opening_hours": "Sa, Su 10:00-22:30; Tu, Th 14:00-22:30; We 11:00-22:30; Fr 13:00-22:30; Mo 12:00-22:30",
+        "cuisine": null,
+        "website": "https://berlinerbaeder.de/baeder/detail/stadtbad-neukoelln/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://berlinerbaeder.de/baeder/detail/stadtbad-neukoelln/"
+  },
+  {
+    "id": "osm-node-30022140",
+    "name": "Curry 36",
+    "lat": 52.4934924,
+    "lng": 13.3876866,
+    "categoryId": "street_food",
+    "area": "Kreuzberg",
+    "description": "",
+    "minutes": 20,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": true,
+    "tags": [],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 30022140,
+        "url": "https://www.openstreetmap.org/node/30022140"
+      },
+      "osmTags": {
+        "wikidata": "Q1144909",
+        "wikipedia": "de:Curry 36",
+        "opening_hours": "Mo-Su,PH 09:00-05:00",
+        "cuisine": "sausage",
+        "website": "https://curry36.de/mehringdamm/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://curry36.de/mehringdamm/"
+  },
+  {
+    "id": "osm-node-7060011377",
+    "name": "Mustafa's Gemüse Kebap",
+    "lat": 52.4934492,
+    "lng": 13.3885243,
+    "categoryId": "street_food",
+    "area": "Kreuzberg",
+    "description": "",
+    "minutes": 30,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "quick",
+    "partner": false,
+    "top": true,
+    "tags": [],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 7060011377,
+        "url": "https://www.openstreetmap.org/node/7060011377"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Th 10:00-01:00, Fr 13:00-03:00, Sa 10:00-02:00, Su 10:00-01:00",
+        "cuisine": "kebab",
+        "website": "http://www.mustafas.de"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "http://www.mustafas.de"
+  },
+  {
+    "id": "osm-way-48124228",
+    "name": "Berlin Hi-Flyer",
+    "lat": 52.5079054,
+    "lng": 13.3861142,
+    "categoryId": "viewpoint",
+    "area": "",
+    "description": "",
+    "minutes": 15,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "views",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 48124228,
+        "url": "https://www.openstreetmap.org/way/48124228"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://air-service-berlin.de/weltballon/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://air-service-berlin.de/weltballon/"
+  },
+  {
+    "id": "osm-node-1826443697",
+    "name": "Blick auf Schloss Charlottenburg",
+    "lat": 52.5264112,
+    "lng": 13.2948344,
+    "categoryId": "viewpoint",
+    "area": "",
+    "description": "",
+    "minutes": 15,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "views",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1826443697,
+        "url": "https://www.openstreetmap.org/node/1826443697"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-node-2188497873",
+    "name": "Brommybalkon",
+    "lat": 52.5053306,
+    "lng": 13.4360114,
+    "categoryId": "viewpoint",
+    "area": "",
+    "description": "",
+    "minutes": 15,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "views",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 2188497873,
+        "url": "https://www.openstreetmap.org/node/2188497873"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-node-10651702805",
+    "name": "Dachterrasse Humboldt Forum",
+    "lat": 52.5172643,
+    "lng": 13.4005396,
+    "categoryId": "viewpoint",
+    "area": "",
+    "description": "",
+    "minutes": 15,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "views",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 10651702805,
+        "url": "https://www.openstreetmap.org/node/10651702805"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://www.humboldtforum.org/de/programm/dauerangebot/must-see/dachterrasse-34092"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.humboldtforum.org/de/programm/dauerangebot/must-see/dachterrasse-34092"
+  },
+  {
+    "id": "osm-node-2941462114",
+    "name": "Klunkerkranich",
+    "lat": 52.4820706,
+    "lng": 13.4313317,
+    "categoryId": "viewpoint",
+    "area": "Neukölln",
+    "description": "",
+    "minutes": 15,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "views",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 2941462114,
+        "url": "https://www.openstreetmap.org/node/2941462114"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-We 17:00-00:00; Th 16:00-02:00; Fr-Sa 16:00-03:00; Su 16:00-00:00",
+        "cuisine": "sandwich",
+        "website": "https://klunkerkranich.org/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://klunkerkranich.org/"
+  },
+  {
+    "id": "osm-node-1578634748",
+    "name": "Kreuzberg",
+    "lat": 52.4877388,
+    "lng": 13.3815238,
+    "categoryId": "viewpoint",
+    "area": "",
+    "description": "",
+    "minutes": 15,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "views",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 1578634748,
+        "url": "https://www.openstreetmap.org/node/1578634748"
+      },
+      "osmTags": {
+        "wikidata": "Q523663",
+        "wikipedia": "de:Kreuzberg (Berlin)",
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-node-773640801",
+    "name": "Panoramapunkt",
+    "lat": 52.5089912,
+    "lng": 13.3751245,
+    "categoryId": "viewpoint",
+    "area": "Tiergarten",
+    "description": "",
+    "minutes": 15,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "views",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 773640801,
+        "url": "https://www.openstreetmap.org/node/773640801"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": "Mo-Su 10:00-19:00",
+        "cuisine": null,
+        "website": "https://www.panoramapunkt.de/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.panoramapunkt.de/"
+  },
+  {
+    "id": "osm-node-2432753840",
+    "name": "Reichstagskuppel",
+    "lat": 52.5185931,
+    "lng": 13.3761064,
+    "categoryId": "viewpoint",
+    "area": "Tiergarten",
+    "description": "",
+    "minutes": 60,
+    "cost": 0,
+    "tourist": "must",
+    "foodStyle": "none",
+    "partner": false,
+    "top": true,
+    "tags": [
+      "views",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 2432753840,
+        "url": "https://www.openstreetmap.org/node/2432753840"
+      },
+      "osmTags": {
+        "wikidata": "Q4809837",
+        "wikipedia": "en:Reichstag dome",
+        "opening_hours": "08:00-21:45; Dec 24 off; Dec 31 08:00-13:00",
+        "cuisine": null,
+        "website": "https://www.bundestag.de/besuche/architektur/reichstag/kuppel"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.bundestag.de/besuche/architektur/reichstag/kuppel"
+  },
+  {
+    "id": "osm-node-11179147737",
+    "name": "Sundowner",
+    "lat": 52.476865,
+    "lng": 13.4179685,
+    "categoryId": "viewpoint",
+    "area": "",
+    "description": "",
+    "minutes": 15,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "views",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 11179147737,
+        "url": "https://www.openstreetmap.org/node/11179147737"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-node-14116119861",
+    "name": "Sunset Point",
+    "lat": 52.5048513,
+    "lng": 13.439192,
+    "categoryId": "viewpoint",
+    "area": "",
+    "description": "",
+    "minutes": 15,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "views",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 14116119861,
+        "url": "https://www.openstreetmap.org/node/14116119861"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  },
+  {
+    "id": "osm-way-1416928765",
+    "name": "THF Tower Dachterrasse",
+    "lat": 52.4771762,
+    "lng": 13.3874299,
+    "categoryId": "viewpoint",
+    "area": "",
+    "description": "",
+    "minutes": 15,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "views",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "way",
+        "id": 1416928765,
+        "url": "https://www.openstreetmap.org/way/1416928765"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null,
+        "website": "https://www.thf-berlin.de/ihr-besuch/thf-tower#/"
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    },
+    "website": "https://www.thf-berlin.de/ihr-besuch/thf-tower#/"
+  },
+  {
+    "id": "osm-node-4558493785",
+    "name": "Uferplattform",
+    "lat": 52.4945632,
+    "lng": 13.4251441,
+    "categoryId": "viewpoint",
+    "area": "",
+    "description": "",
+    "minutes": 15,
+    "cost": 0,
+    "tourist": "balanced",
+    "foodStyle": "none",
+    "partner": false,
+    "top": false,
+    "tags": [
+      "views",
+      "sightseeing"
+    ],
+    "ratings": [],
+    "metadata": {
+      "source": {
+        "provider": "openstreetmap",
+        "type": "node",
+        "id": 4558493785,
+        "url": "https://www.openstreetmap.org/node/4558493785"
+      },
+      "osmTags": {
+        "wikidata": null,
+        "wikipedia": null,
+        "opening_hours": null,
+        "cuisine": null,
+        "website": null
+      },
+      "costUnknown": true,
+      "sourceSnapshot": "2026-11-19T09:42:02Z"
+    }
+  }
+]

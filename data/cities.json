@@ -42,6 +42,20 @@
     "status": "next"
   },
   {
+    "id": "berlin",
+    "slug": "berlin",
+    "name": "Berlin",
+    "country": "Niemcy",
+    "countryCode": "DE",
+    "locale": "de-DE",
+    "currency": "EUR",
+    "timezone": "Europe/Berlin",
+    "center": {"lat": 52.5200, "lng": 13.4050},
+    "defaultZoom": 12,
+    "radiusKm": 25,
+    "status": "next"
+  },
+  {
     "id": "gdansk",
     "slug": "gdansk",
     "name": "Gdańsk",

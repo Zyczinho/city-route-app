@@ -65,7 +65,7 @@ main{max-width:1080px;margin:0 auto;padding:22px 16px 128px;min-height:80vh}main
 
 /* Bottom sheet */
 .sheet{padding:0;border:0;width:100%;max-width:560px;max-height:92vh;margin:auto auto 0;border-radius:24px 24px 0 0;background:var(--surface);color:var(--ink);overflow:auto;overscroll-behavior:contain}
-.sheet::backdrop{background:#0e1a2673;backdrop-filter:blur(2px)}.sheet[open]{animation:up .22s ease-out}@keyframes up{from{transform:translateY(24px)}}
+.sheet::backdrop{background:#0e1a2673;backdrop-filter:blur(2px)}
 .sheet-media{position:relative;aspect-ratio:16/10;background:var(--line-2)}.sheet-photo,.sheet-media .ph{width:100%;height:100%;object-fit:cover;display:block}
 .sheet-media form{position:absolute;top:12px;right:12px;margin:0}.close{width:42px;height:42px;min-height:42px;padding:0;border-radius:50%;border:0;background:#ffffffe6;box-shadow:var(--shadow)}
 .sheet-body{padding:18px 18px calc(24px + env(safe-area-inset-bottom));display:grid;gap:12px}.sheet-body h2{font-size:24px;line-height:1.15}.sheet-body>.muted{display:flex;gap:6px;align-items:center}.sheet-body>.muted .i{width:16px;height:16px}
@@ -431,3 +431,38 @@ body.has-variant-d-route-bar main{padding-bottom:190px}
 .paste-list textarea{width:100%;box-sizing:border-box;min-height:140px;padding:10px 12px;font-size:16px;line-height:1.4;border:1px solid var(--line);border-radius:12px;background:var(--surface);resize:vertical}
 .paste-list .fine{margin:0}
 .variant-d-route-actions .variant-d-maps-route{grid-column:1/-1}
+
+/* MOTION-DIALOGS-2026-11 (emil-design-eng): interruptible enter/exit for sheets, dialogs and the toast.
+   Enter uses @starting-style, exit keeps the element rendered with display/overlay allow-discrete.
+   Browsers without support simply show and hide instantly, as before. */
+:root{--ease-out:cubic-bezier(.23,1,.32,1);--ease-drawer:cubic-bezier(.32,.72,0,1)}
+/* Place sheet on phones: a drawer from the bottom edge, exit faster than enter. */
+.sheet{transform:translateY(100%);transition:transform .2s var(--ease-out),display .2s allow-discrete,overlay .2s allow-discrete}
+.sheet[open]{transform:none;transition-duration:.38s;transition-timing-function:var(--ease-drawer)}
+@starting-style{.sheet[open]{transform:translateY(100%)}}
+/* Every other dialog stays centered: a small scale + fade, never from scale(0). */
+dialog:not(.sheet){opacity:0;transform:scale(.96);transition:opacity .15s ease,transform .15s var(--ease-out),display .15s allow-discrete,overlay .15s allow-discrete}
+dialog:not(.sheet)[open]{opacity:1;transform:none;transition-duration:.2s}
+@starting-style{dialog:not(.sheet)[open]{opacity:0;transform:scale(.96)}}
+dialog::backdrop{opacity:0;transition:opacity .2s ease,display .2s allow-discrete,overlay .2s allow-discrete}
+dialog[open]::backdrop{opacity:1}
+@starting-style{dialog[open]::backdrop{opacity:0}}
+/* Toast: rises 8px and fades in (Sonner's 400ms ease), leaves in 200ms. */
+#toast{opacity:0;transform:translate(-50%,8px);transition:opacity .2s ease,transform .2s var(--ease-out),display .2s allow-discrete}
+#toast.show{opacity:1;transform:translate(-50%,0);transition-duration:.4s;transition-timing-function:ease}
+@starting-style{#toast.show{opacity:0;transform:translate(-50%,8px)}}
+/* Live route progress: clip from the previous stop to the current one instead of jumping. */
+.progress span{width:100%;clip-path:inset(0 calc((1 - var(--to,0))*100%) 0 0 round 6px);transition:clip-path .3s var(--ease-out)}
+@starting-style{.progress span{clip-path:inset(0 calc((1 - var(--from,0))*100%) 0 0 round 6px)}}
+@media(min-width:700px){
+ .sheet{transform:scale(.96);opacity:0;transition:opacity .15s ease,transform .15s var(--ease-out),display .15s allow-discrete,overlay .15s allow-discrete}
+ .sheet[open]{transform:none;opacity:1;transition-duration:.2s;transition-timing-function:var(--ease-out)}
+ @starting-style{.sheet[open]{transform:scale(.96);opacity:0}}
+}
+/* Reduced motion: keep the fades, drop all movement. */
+@media(prefers-reduced-motion:reduce){
+ .sheet,.sheet[open],dialog:not(.sheet),dialog:not(.sheet)[open]{transform:none!important;transition:opacity .2s ease,display .2s allow-discrete,overlay .2s allow-discrete!important}
+ .sheet{opacity:0}.sheet[open]{opacity:1}
+ @starting-style{.sheet[open],dialog:not(.sheet)[open]{opacity:0}}
+ #toast,#toast.show{transform:translate(-50%,0)!important;transition:opacity .2s ease,display .2s allow-discrete!important}
+}

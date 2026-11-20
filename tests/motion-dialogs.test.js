@@ -11,7 +11,7 @@ test('sheets, dialogs and toast enter with @starting-style and keep an exit tran
   assert.ok(css.includes('@starting-style{'+sel),'missing entry state for '+sel);
  assert.match(css,/\.sheet\{transform:translateY\(100%\);transition:[^}]*display \.2s allow-discrete/);
  assert.match(css,/dialog:not\(\.sheet\)\{opacity:0;transform:scale\(\.96\)/,'centered dialogs never start from scale(0)');
- assert.match(css,/prefers-reduced-motion:reduce\)\{\n \.sheet,[^}]*transform:none!important/);
+ assert.match(css,/prefers-reduced-motion:reduce\)\{\r?\n \.sheet,[^}]*transform:none!important/);
 });
 
 test('live progress bar animates from the previous stop only when the stop changes', async()=>{

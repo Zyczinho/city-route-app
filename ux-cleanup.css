@@ -119,8 +119,9 @@
 /* PLAN-CENTER-2026-11: the whole planner is one centered column on desktop and phone.
    The paste entry, manual entry, disclosures and form share the same width. */
 #main:has(>#build-form){--plan-col:640px}
-#main:has(>#build-form)>:is(.page-head,.start-here,.live-banner,[data-paste-entry],.ux-plan-manual-entry,#build-form){box-sizing:border-box;width:100%;max-width:var(--plan-col)!important;margin-left:auto!important;margin-right:auto!important}
-#main:has(>#build-form)>[data-paste-entry]{display:flex;margin-bottom:10px;border-radius:15px;white-space:normal;text-align:center}
+#main:has(>#build-form)>:is(.page-head,.start-here,.live-banner,[data-paste-entry],.ux-plan-manual-entry,.planner-manual,#build-form){box-sizing:border-box;width:100%;max-width:var(--plan-col)!important;margin-left:auto!important;margin-right:auto!important}
+#main:has(>#build-form)>:is([data-paste-entry],.planner-manual){display:flex;margin-bottom:10px;border-radius:15px;white-space:normal;text-align:center}
+#main:has(>#build-form)>.planner-manual{margin-top:10px;text-align:left;justify-content:space-between}
 #main:has(>#build-form) .ux-plan-head h1,#main:has(>#build-form) .ux-plan-head .lead{max-width:none}
 
 /* MOTION-POLISH-2026-11 (emil-design-eng): press feedback on every tap target (100-160 ms ease-out),

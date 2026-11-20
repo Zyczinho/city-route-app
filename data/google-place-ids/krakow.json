@@ -1,5 +1,156 @@
 {
  "version": 1,
  "city": "krakow",
- "places": {}
+ "places": {
+  "artemis": {
+   "name": "Artemis",
+   "googlePlaceId": "ChIJ2w3_jhRbFkcRjxmyZ0VBZNI",
+   "source": "confirmed"
+  },
+  "barbican": {
+   "name": "Barbakan Krakowski",
+   "googlePlaceId": "ChIJjUf7MRBbFkcRg9Ls9752tqU",
+   "source": "confirmed"
+  },
+  "baszta-stolarska": {
+   "name": "Baszta Stolarska",
+   "googlePlaceId": "ChIJg4uKMABbFkcR9n7uMUBxYPA",
+   "source": "confirmed"
+  },
+  "bednarski-park": {
+   "name": "Park Bednarskiego",
+   "googlePlaceId": "ChIJ12hvZVtbFkcRfpDYbW520Ww",
+   "source": "confirmed"
+  },
+  "bernatek-footbridge": {
+   "name": "Kładka Ojca Bernatka",
+   "googlePlaceId": "ChIJ5URSqkNbFkcRabLySxVUxmk",
+   "source": "confirmed"
+  },
+  "blossom-coffee-food": {
+   "name": "Blossom Coffee & Food",
+   "googlePlaceId": "ChIJCVcVThlbFkcRhVr_zFJ238s",
+   "source": "confirmed"
+  },
+  "bussola-coffee": {
+   "name": "Bussola Coffee",
+   "googlePlaceId": "ChIJw9N87BRbFkcR81ZsEYkO9Ao",
+   "source": "confirmed"
+  },
+  "cloth-hall": {
+   "name": "Sukiennice",
+   "googlePlaceId": "ChIJ3Q97Bw5bFkcRc3GzJiVsH9A",
+   "source": "confirmed"
+  },
+  "collegium-sniadeckiego": {
+   "name": "Collegium Śniadeckiego",
+   "googlePlaceId": "ChIJrWfX-BdbFkcRGhMU1twm02o",
+   "source": "confirmed"
+  },
+  "czajownia": {
+   "name": "Czajownia",
+   "googlePlaceId": "ChIJudfozkFbFkcR3PCD1RAji14",
+   "source": "confirmed"
+  },
+  "dworek-bialopradnicki": {
+   "name": "Dworek Białoprądnicki",
+   "googlePlaceId": "ChIJffOKIllaFkcRFyQwRfCJG5Y",
+   "source": "confirmed"
+  },
+  "fort-50-o-kosocice": {
+   "name": "Fort 50½ O \"Kosocice\"",
+   "googlePlaceId": "ChIJl0w0Iw9DFkcR2SHpNmdFYCM",
+   "source": "confirmed"
+  },
+  "ghetto-heroes-square": {
+   "name": "Plac Bohaterów Getta",
+   "googlePlaceId": "ChIJ06NyN0RbFkcRwUIAzV0lj_s",
+   "source": "confirmed"
+  },
+  "hala-targowa": {
+   "name": "Hala Targowa",
+   "googlePlaceId": "ChIJSY2rwBVbFkcRUUqrCqBKpoY",
+   "source": "confirmed"
+  },
+  "hotel-copernicus": {
+   "name": "Hotel Copernicus",
+   "googlePlaceId": "ChIJQY8qLW1bFkcRuAv4L-VpWIk",
+   "source": "confirmed"
+  },
+  "jarema": {
+   "name": "Jarema",
+   "googlePlaceId": "ChIJJxilrxpbFkcRq6zYXByb6qw",
+   "source": "confirmed"
+  },
+  "klub-studio": {
+   "name": "Klub Studio",
+   "googlePlaceId": "ChIJ77IDa7tbFkcRY4xtg-kKCdg",
+   "source": "confirmed"
+  },
+  "kosciol-pw-swietego-wojciecha-biskupa-i-meczennika": {
+   "name": "Kościół Świętego Wojciecha",
+   "googlePlaceId": "ChIJ4SEG9RFbFkcRkW2ZNBs6c9s",
+   "source": "confirmed"
+  },
+  "mala-baszta": {
+   "name": "Mała Baszta",
+   "googlePlaceId": "ChIJRV1Tl21bFkcRIUA3WLAcoRA",
+   "source": "confirmed"
+  },
+  "mo-ja-cafe-bistro": {
+   "name": "Mo-Ja Cafe & Bistro",
+   "googlePlaceId": "ChIJLcwqhhRbFkcRll9vRItrMcw",
+   "source": "confirmed"
+  },
+  "muzeum-armii-krajowej": {
+   "name": "Muzeum Armii Krajowej",
+   "googlePlaceId": "ChIJIwORYhxbFkcRriIbGxAedaU",
+   "source": "confirmed"
+  },
+  "nowa-huta-museum": {
+   "name": "Muzeum Nowej Huty",
+   "googlePlaceId": "ChIJP2oY_w9FFkcRXANAjJucpG0",
+   "source": "confirmed"
+  },
+  "nowohuckie-centrum-kultury": {
+   "name": "Nowohuckie Centrum Kultury",
+   "googlePlaceId": "ChIJl7rbDRpFFkcRIdY3pRcAsZU",
+   "source": "confirmed"
+  },
+  "padre": {
+   "name": "Padre",
+   "googlePlaceId": "ChIJnzjeug1bFkcRozdqs6CPhWY",
+   "source": "confirmed"
+  },
+  "park-strzelecki": {
+   "name": "Park Strzelecki",
+   "googlePlaceId": "ChIJVTyrjBlbFkcR5Y44DVtsmU4",
+   "source": "confirmed"
+  },
+  "pizzeria-trzy-papryczki": {
+   "name": "Pizzeria Trzy Papryczki",
+   "googlePlaceId": "ChIJLxPU-hJbFkcRAXB-EILew_E",
+   "source": "confirmed"
+  },
+  "podgorze-market-square": {
+   "name": "Rynek Podgórski",
+   "googlePlaceId": "ChIJf88ZWkNbFkcRpsxD6Dk7sus",
+   "source": "confirmed"
+  },
+  "posiadowka": {
+   "name": "Posiadówka",
+   "googlePlaceId": "ChIJnQ9FPuFbFkcRBluTJw7pgo4",
+   "source": "confirmed"
+  },
+  "regale-bar-restaurant": {
+   "name": "Regale Bar & Restaurant",
+   "googlePlaceId": "ChIJ4XQTF0tbFkcRbOvWAEF4pAY",
+   "source": "confirmed"
+  },
+  "stare-miasto": {
+   "name": "Stare Miasto",
+   "googlePlaceId": "ChIJ424XcxJbFkcR5h51sunKV54",
+   "source": "confirmed"
+  }
+ }
 }

@@ -1,5 +1,711 @@
 {
  "version": 1,
  "city": "lisbon",
- "places": {}
+ "places": {
+  "editorial-lisbon-arco-rua-augusta": {
+   "name": "Arco da Rua Augusta",
+   "googlePlaceId": "ChIJ5fcMh3k0GQ0RsEli_Fck5sQ",
+   "source": "confirmed"
+  },
+  "editorial-lisbon-praca-comercio": {
+   "name": "Praça do Comércio",
+   "googlePlaceId": "ChIJY0ulMHo0GQ0RROAoa18vUzA",
+   "source": "confirmed"
+  },
+  "osm-node-10180371699": {
+   "name": "Galeria Resistência",
+   "googlePlaceId": "ChIJZ43y-ywzGQ0RHpq4H8mttJw",
+   "source": "confirmed"
+  },
+  "osm-node-10293661913": {
+   "name": "A Flor da Selva",
+   "googlePlaceId": "ChIJt8JeBoM0GQ0RvjQCzSyTQ6E",
+   "source": "confirmed"
+  },
+  "osm-node-10786611305": {
+   "name": "Dois Corvos Cervejaria",
+   "googlePlaceId": "ChIJm_nyBLAzGQ0R-myWXv5qfBI",
+   "source": "confirmed"
+  },
+  "osm-node-11349053272": {
+   "name": "Mirage Lounge",
+   "googlePlaceId": "ChIJz-d4NV4tGQ0RXFjGynztnU4",
+   "source": "confirmed"
+  },
+  "osm-node-11350619739": {
+   "name": "Bar Na Colina",
+   "googlePlaceId": "ChIJvXuKVVU1GQ0Rt6wLKZNeWLc",
+   "source": "confirmed"
+  },
+  "osm-node-11364974600": {
+   "name": "Quimera Brewpub",
+   "googlePlaceId": "ChIJp5J316M0GQ0RvIE3wmZWJkQ",
+   "source": "confirmed"
+  },
+  "osm-node-11866440783": {
+   "name": "Belcanto",
+   "googlePlaceId": "ChIJITj75340GQ0RXULVgWMFloA",
+   "source": "confirmed"
+  },
+  "osm-node-11876777518": {
+   "name": "100 Montaditos",
+   "googlePlaceId": "ChIJua6AVR3LHg0RSKB4cjO1X9Y",
+   "source": "confirmed"
+  },
+  "osm-node-11881981488": {
+   "name": "Cafetaria O Cantinho Dos Crepes",
+   "googlePlaceId": "ChIJrdKvKj0yGQ0RGqVE9NH9ezI",
+   "source": "confirmed"
+  },
+  "osm-node-11883941035": {
+   "name": "Mestre da Cerveja | Craft Beer Bar",
+   "googlePlaceId": "ChIJ8xu_dR4zGQ0RWIFO0vyknwk",
+   "source": "confirmed"
+  },
+  "osm-node-11887681402": {
+   "name": "Cafetaria Lima",
+   "googlePlaceId": "ChIJG5EtDdkyGQ0RQ7pmjS_XgaI",
+   "source": "confirmed"
+  },
+  "osm-node-11893103024": {
+   "name": "A Cigarrinha",
+   "googlePlaceId": "ChIJQa-TvdkyGQ0RPAv9GhO2bYY",
+   "source": "confirmed"
+  },
+  "osm-node-12029003787": {
+   "name": "Casa Pereira da Conceição",
+   "googlePlaceId": "ChIJsSo5CHk0GQ0RXnnOWD8YpS8",
+   "source": "confirmed"
+  },
+  "osm-node-12055376184": {
+   "name": "Tavares",
+   "googlePlaceId": "ChIJ5T6ep380GQ0R2Q9dG0E-4E8",
+   "source": "confirmed"
+  },
+  "osm-node-12138561244": {
+   "name": "Noir",
+   "googlePlaceId": "ChIJVZugzHk0GQ0RQW9Qtw_OQqk",
+   "source": "confirmed"
+  },
+  "osm-node-12323774404": {
+   "name": "A20 - Speaciality Coffee & Food",
+   "googlePlaceId": "ChIJQ5DUKwAzGQ0RIGtD7H54vqs",
+   "source": "confirmed"
+  },
+  "osm-node-12849869103": {
+   "name": "Babylon 360",
+   "googlePlaceId": "ChIJR3lB3Y0xGQ0R2xzPBwc2pFc",
+   "source": "confirmed"
+  },
+  "osm-node-12873422766": {
+   "name": "Ramen Chef Rossio",
+   "googlePlaceId": "ChIJl5J95EszGQ0RsEE-qvqqxos",
+   "source": "confirmed"
+  },
+  "osm-node-1302891328": {
+   "name": "Kremlin",
+   "googlePlaceId": "ChIJjYmAWps0GQ0R5VUVJHx1le4",
+   "source": "confirmed"
+  },
+  "osm-node-13140700803": {
+   "name": "Friends Bairro Alto",
+   "googlePlaceId": "ChIJNwP2_H80GQ0RjoBbeRPqSrY",
+   "source": "confirmed"
+  },
+  "osm-node-13256809838": {
+   "name": "Gardenias Lisboa",
+   "googlePlaceId": "ChIJ6_bqVwAzGQ0RkzV7AvMl8gQ",
+   "source": "confirmed"
+  },
+  "osm-node-13495882502": {
+   "name": "Double Deuce Billiards",
+   "googlePlaceId": "ChIJkZN58qAzGQ0ResHq_Iv00WM",
+   "source": "confirmed"
+  },
+  "osm-node-13950436040": {
+   "name": "Aqueduto das Águas Livres",
+   "googlePlaceId": "ChIJw3OwjmkzGQ0RS6X9CykgE4Y",
+   "source": "confirmed"
+  },
+  "osm-node-13975233499": {
+   "name": "Oficina Marques",
+   "googlePlaceId": "ChIJlfLUBoA0GQ0RnFUv6ztnECU",
+   "source": "confirmed"
+  },
+  "osm-node-14136993901": {
+   "name": "Albå",
+   "googlePlaceId": "ChIJP_Z5xVUzGQ0R3f8FIBFzFUY",
+   "source": "confirmed"
+  },
+  "osm-node-14143368301": {
+   "name": "A Gaúcha",
+   "googlePlaceId": "ChIJo8YnA_41GQ0Rge781xNghPE",
+   "source": "confirmed"
+  },
+  "osm-node-14321660401": {
+   "name": "Lisboa Rio",
+   "googlePlaceId": "ChIJQ7nwnX00GQ0RuvBDPFlCpgs",
+   "source": "confirmed"
+  },
+  "osm-node-1511487957": {
+   "name": "Café Império",
+   "googlePlaceId": "ChIJUxBBMb0zGQ0R6_pbtzhi0Vw",
+   "source": "confirmed"
+  },
+  "osm-node-1599340087": {
+   "name": "Clube de Fado",
+   "googlePlaceId": "ChIJV-jS2nY0GQ0Rl2LL675xCYE",
+   "source": "confirmed"
+  },
+  "osm-node-1606908881": {
+   "name": "Adega das Gravatas",
+   "googlePlaceId": "ChIJ2wPmjdIyGQ0RP4WPPh6mWlw",
+   "source": "confirmed"
+  },
+  "osm-node-1719291892": {
+   "name": "Casual Lounge Caffe",
+   "googlePlaceId": "ChIJL3uYSGjLHg0RlJWTsj-uGRM",
+   "source": "confirmed"
+  },
+  "osm-node-1802158801": {
+   "name": "A Tasca do Chico",
+   "googlePlaceId": "ChIJk0fmv380GQ0RHFIjl0TMddc",
+   "source": "confirmed"
+  },
+  "osm-node-2305795082": {
+   "name": "Martinho da Arcada",
+   "googlePlaceId": "ChIJIcori3k0GQ0RquwgxxH1IN0",
+   "source": "confirmed"
+  },
+  "osm-node-2491785179": {
+   "name": "Museu Nacional de Arqueologia",
+   "googlePlaceId": "ChIJDyweSkPLHg0ReG3cGunYnTU",
+   "source": "confirmed"
+  },
+  "osm-node-2501836314": {
+   "name": "Foxtrot",
+   "googlePlaceId": "ChIJHRyx3H0zGQ0ROjSrT9MayEQ",
+   "source": "confirmed"
+  },
+  "osm-node-2501836316": {
+   "name": "Finalmente Clube",
+   "googlePlaceId": "ChIJxcc6Z34zGQ0RIMDHDlBsJhY",
+   "source": "confirmed"
+  },
+  "osm-node-2503325885": {
+   "name": "Museu da Cerveja",
+   "googlePlaceId": "ChIJS4DQH3o0GQ0RyPE9goj6YQg",
+   "source": "confirmed"
+  },
+  "osm-node-2537090840": {
+   "name": "Botequim",
+   "googlePlaceId": "ChIJE6fgookzGQ0RdCRfG0FPNhk",
+   "source": "confirmed"
+  },
+  "osm-node-2620368934": {
+   "name": "Leitaria A Camponeza",
+   "googlePlaceId": "ChIJ4WSp6Xg0GQ0Rd2DdRa8mrG0",
+   "source": "confirmed"
+  },
+  "osm-node-2620372118": {
+   "name": "Café Gelo",
+   "googlePlaceId": "ChIJtdiZtIAzGQ0Rcs-V5644mgg",
+   "source": "confirmed"
+  },
+  "osm-node-2885739701": {
+   "name": "Restaurante Pizzeria Casanova",
+   "googlePlaceId": "ChIJCQ-EHL3HGw0R-PNsKnw048o",
+   "source": "confirmed"
+  },
+  "osm-node-3037180563": {
+   "name": "Verso Branco",
+   "googlePlaceId": "ChIJkwCPbIE0GQ0R3DDEBjJxTy0",
+   "source": "confirmed"
+  },
+  "osm-node-3094976712": {
+   "name": "Maria Caxuxa",
+   "googlePlaceId": "ChIJrY_wxn80GQ0R0HajjwqcPWI",
+   "source": "confirmed"
+  },
+  "osm-node-3724793425": {
+   "name": "Al-Café",
+   "googlePlaceId": "ChIJCy2xPp8zGQ0RzTbhfK9MTB4",
+   "source": "confirmed"
+  },
+  "osm-node-376811896": {
+   "name": "Hard Rock Cafe",
+   "googlePlaceId": "ChIJUV-0EIEzGQ0RLeFpT8uLavk",
+   "source": "confirmed"
+  },
+  "osm-node-419313189": {
+   "name": "Miradouro de São Pedro de Alcântara",
+   "googlePlaceId": "ChIJYQgAN4AzGQ0RoeNtM3J56xs",
+   "source": "confirmed"
+  },
+  "osm-node-4231507539": {
+   "name": "Duque Brewpub",
+   "googlePlaceId": "ChIJF4d0W380GQ0RnOu8behMOFQ",
+   "source": "confirmed"
+  },
+  "osm-node-4298966091": {
+   "name": "Dois Corvos - Tap Room",
+   "googlePlaceId": "ChIJC0lcFd4zGQ0RDLF11OoDX5k",
+   "source": "confirmed"
+  },
+  "osm-node-4391504305": {
+   "name": "Casa Independente",
+   "googlePlaceId": "ChIJx3N2iIUzGQ0ROsa_StTlgNo",
+   "source": "confirmed"
+  },
+  "osm-node-4405500089": {
+   "name": "British Bar",
+   "googlePlaceId": "ChIJycQVyX00GQ0R2QWl-ZxNd20",
+   "source": "confirmed"
+  },
+  "osm-node-4433136691": {
+   "name": "Confeitaria Nacional",
+   "googlePlaceId": "ChIJvYd_nHg0GQ0R4705aijT_s4",
+   "source": "confirmed"
+  },
+  "osm-node-4475929290": {
+   "name": "Café Nicola",
+   "googlePlaceId": "ChIJ78-FqXg0GQ0RR53qyHIQh80",
+   "source": "confirmed"
+  },
+  "osm-node-4524682909": {
+   "name": "Gandhi Palace",
+   "googlePlaceId": "ChIJg-KIh3g0GQ0Rysrrd9KqdIY",
+   "source": "confirmed"
+  },
+  "osm-node-4702114064": {
+   "name": "Hot Club Portugal",
+   "googlePlaceId": "ChIJ-SEzq3gzGQ0ROiygfA58uec",
+   "source": "confirmed"
+  },
+  "osm-node-4711868424": {
+   "name": "Museu Bordalo Pinheiro",
+   "googlePlaceId": "ChIJoVefZPwyGQ0Ry6tWiAFKI-A",
+   "source": "confirmed"
+  },
+  "osm-node-4771391278": {
+   "name": "Miradouro do Torel",
+   "googlePlaceId": "ChIJPb726IMzGQ0RIfPIJ0M-fRk",
+   "source": "confirmed"
+  },
+  "osm-node-4784930125": {
+   "name": "Pastelaria Aloma",
+   "googlePlaceId": "ChIJz-ogR2czGQ0R7KejjDrMTnE",
+   "source": "confirmed"
+  },
+  "osm-node-4788155560": {
+   "name": "Museu do Centro Científico e Cultural de Macau",
+   "googlePlaceId": "ChIJj58LOK40GQ0Rd1l0h60l5sA",
+   "source": "confirmed"
+  },
+  "osm-node-4803639821": {
+   "name": "O Tasco do Vigário",
+   "googlePlaceId": "ChIJwQ2lwUI1GQ0RAh2PRr61DfE",
+   "source": "confirmed"
+  },
+  "osm-node-4808145123": {
+   "name": "Restaurante Zé Dos Cornos",
+   "googlePlaceId": "ChIJRxo1jIczGQ0RDCxIdB3fPfU",
+   "source": "confirmed"
+  },
+  "osm-node-4813682932": {
+   "name": "A Baiuca",
+   "googlePlaceId": "ChIJJwFCg3Y0GQ0RdQW6UopIQJY",
+   "source": "confirmed"
+  },
+  "osm-node-4848686224": {
+   "name": "O'Gilins",
+   "googlePlaceId": "ChIJW7H2w300GQ0REe8GRr8got8",
+   "source": "confirmed"
+  },
+  "osm-node-489736332": {
+   "name": "A Brasileira",
+   "googlePlaceId": "ChIJ6QQiHX80GQ0RU5XEIRyTjvQ",
+   "source": "confirmed"
+  },
+  "osm-node-4904509847": {
+   "name": "PSI Restaurante Vegetariano",
+   "googlePlaceId": "ChIJI1Q1b4MzGQ0RrSiv6fEiddI",
+   "source": "confirmed"
+  },
+  "osm-node-5088757633": {
+   "name": "Casa Fernando Pessoa",
+   "googlePlaceId": "ChIJ7wPpVGEzGQ0Rpt1XNNNvVrk",
+   "source": "confirmed"
+  },
+  "osm-node-5089643622": {
+   "name": "Museu da Farmácia Lisboa",
+   "googlePlaceId": "ChIJdwqU9IA0GQ0R5yoN8toJkxg",
+   "source": "confirmed"
+  },
+  "osm-node-5170427521": {
+   "name": "Galeria Underdogs",
+   "googlePlaceId": "ChIJj0f3lWIxGQ0R4Tx06HQIx_Q",
+   "source": "confirmed"
+  },
+  "osm-node-5203365221": {
+   "name": "TR3S Lisboa",
+   "googlePlaceId": "ChIJn2Y6aH4zGQ0RkTxwPKTN34I",
+   "source": "confirmed"
+  },
+  "osm-node-5324784522": {
+   "name": "Barrio Latino",
+   "googlePlaceId": "ChIJe2_I54Q0GQ0RG_Wsy347RgE",
+   "source": "confirmed"
+  },
+  "osm-node-5446794764": {
+   "name": "Miradouro do Monte Agudo",
+   "googlePlaceId": "ChIJQzXGs5EzGQ0RAytgn6leEcM",
+   "source": "confirmed"
+  },
+  "osm-node-5446794767": {
+   "name": "Miradouro da Penha de França",
+   "googlePlaceId": "ChIJCVNj4JYzGQ0ROfbkDLq_kcg",
+   "source": "confirmed"
+  },
+  "osm-node-5446794770": {
+   "name": "Miradouro de Santa Luzia",
+   "googlePlaceId": "ChIJx-Rwl4QzGQ0RaSfN7SE7IEE",
+   "source": "confirmed"
+  },
+  "osm-node-5446794774": {
+   "name": "Miradouro da Rocha de Conde de Óbidos",
+   "googlePlaceId": "ChIJLZJmepk0GQ0RIHStkdNe7cI",
+   "source": "confirmed"
+  },
+  "osm-node-5457851239": {
+   "name": "Luís de Camões",
+   "googlePlaceId": "ChIJXV2qrX80GQ0RXr5cIDF9VgE",
+   "source": "confirmed"
+  },
+  "osm-node-5485222121": {
+   "name": "Copenhagen Coffee Lab",
+   "googlePlaceId": "ChIJsx2s5HU0GQ0R9dRHbAJPf3E",
+   "source": "confirmed"
+  },
+  "osm-node-5760208371": {
+   "name": "Galeria de Arte Beltrão Coelho",
+   "googlePlaceId": "ChIJAVkdcrkzGQ0RAfHhTrp8lgA",
+   "source": "confirmed"
+  },
+  "osm-node-6076381469": {
+   "name": "Epur",
+   "googlePlaceId": "ChIJ4R_1UOU1GQ0RwgigGauVvPs",
+   "source": "confirmed"
+  },
+  "osm-node-6171680985": {
+   "name": "Velho Mecado",
+   "googlePlaceId": "ChIJNSbwEng0GQ0RJZqJC6w1hYU",
+   "source": "confirmed"
+  },
+  "osm-node-6216727635": {
+   "name": "Museu de Marinha",
+   "googlePlaceId": "ChIJublmJ0PLHg0RM4CZ-KMulGA",
+   "source": "confirmed"
+  },
+  "osm-node-6220668933": {
+   "name": "Mártires da Pátria (Março de 1994)",
+   "googlePlaceId": "ChIJ6eYVnYQzGQ0RuxI3GljnUMI",
+   "source": "confirmed"
+  },
+  "osm-node-6268265385": {
+   "name": "Alma (closed)",
+   "googlePlaceId": "ChIJj6yD2340GQ0RM137RrwiBao",
+   "source": "confirmed"
+  },
+  "osm-node-6366304914": {
+   "name": "Brew",
+   "googlePlaceId": "ChIJo7rIDyk1GQ0RPUToVJP614E",
+   "source": "confirmed"
+  },
+  "osm-node-6617379754": {
+   "name": "Oitava Graça",
+   "googlePlaceId": "ChIJ6aNHEq8zGQ0RmO10_hrUbao",
+   "source": "confirmed"
+  },
+  "osm-node-6960282085": {
+   "name": "É um Restaurante, do Crescer",
+   "googlePlaceId": "ChIJc9l3L0gzGQ0RQDZADZCGyPk",
+   "source": "confirmed"
+  },
+  "osm-node-8321839453": {
+   "name": "1001 Nights",
+   "googlePlaceId": "ChIJpfpOsKgzGQ0RiXVq0HmMQko",
+   "source": "confirmed"
+  },
+  "osm-node-8703001217": {
+   "name": "Centro Yoga Lumiar",
+   "googlePlaceId": "ChIJB7PkdZMyGQ0RfZ-vEj2i2iI",
+   "source": "confirmed"
+  },
+  "osm-node-8744233326": {
+   "name": "100 Montaditos",
+   "googlePlaceId": "ChIJ39OxA2UzGQ0RpCxYHGn7vPY",
+   "source": "confirmed"
+  },
+  "osm-node-8815106518": {
+   "name": "Casa do Capitão",
+   "googlePlaceId": "ChIJuz8ygn0zGQ0RzvwKXdghJlg",
+   "source": "confirmed"
+  },
+  "osm-node-9720295642": {
+   "name": "Braancafé",
+   "googlePlaceId": "ChIJe6VmsnAzGQ0Rzctl5Tf5gzM",
+   "source": "confirmed"
+  },
+  "osm-relation-11084075": {
+   "name": "Miradouro de Santo Amaro",
+   "googlePlaceId": "ChIJNUuNX640GQ0RcSg5vR0sSq8",
+   "source": "confirmed"
+  },
+  "osm-relation-11699003": {
+   "name": "Museu de Lisboa - Teatro Romano",
+   "googlePlaceId": "ChIJWRVOGHc0GQ0R6ZxQZEW5Ens",
+   "source": "confirmed"
+  },
+  "osm-relation-1396217": {
+   "name": "MUDE - Museu do Design",
+   "googlePlaceId": "ChIJT7G7nHk0GQ0R8HLe2fxpkvw",
+   "source": "confirmed"
+  },
+  "osm-relation-15475183": {
+   "name": "Palácio Nacional de Belém",
+   "googlePlaceId": "ChIJY_eFwk_LHg0RLzD1N-8r3Fg",
+   "source": "confirmed"
+  },
+  "osm-relation-15482569": {
+   "name": "Museu da Presidência da República",
+   "googlePlaceId": "ChIJbw3HuDrLHg0RgJZHsNPeTLk",
+   "source": "confirmed"
+  },
+  "osm-relation-17988877": {
+   "name": "Parque Recreativo dos Moinhos de Santana",
+   "googlePlaceId": "ChIJAY6sTqfMHg0RHpgTdsrfah0",
+   "source": "confirmed"
+  },
+  "osm-relation-20308167": {
+   "name": "Convento do Beato",
+   "googlePlaceId": "ChIJqwBa4OAzGQ0RNDKdxIF2tBo",
+   "source": "confirmed"
+  },
+  "osm-relation-3239629": {
+   "name": "Palácio do Grilo",
+   "googlePlaceId": "ChIJPVAGRZ4zGQ0RIj9bGcIgaN0",
+   "source": "confirmed"
+  },
+  "osm-relation-3327251": {
+   "name": "Estufa Fria",
+   "googlePlaceId": "ChIJK1EHgXEzGQ0Rd9aoMO-WTsY",
+   "source": "confirmed"
+  },
+  "osm-relation-8800175": {
+   "name": "Jardim Botânico da Ajuda",
+   "googlePlaceId": "ChIJt5TvyVDLHg0R9lQJAG6f-fs",
+   "source": "confirmed"
+  },
+  "osm-relation-9227991": {
+   "name": "Jardim da Praça do Império",
+   "googlePlaceId": "ChIJs5HEV0PLHg0RlS1C-XSH7rY",
+   "source": "confirmed"
+  },
+  "osm-way-105233056": {
+   "name": "Fábrica Braço de Prata",
+   "googlePlaceId": "ChIJNWUIEmIxGQ0R8STmXshtJCg",
+   "source": "confirmed"
+  },
+  "osm-way-1382432568": {
+   "name": "Castelo de São Jorge",
+   "googlePlaceId": "ChIJm8MOtHc0GQ0R1zPkmUFwwLQ",
+   "source": "confirmed"
+  },
+  "osm-way-141123677": {
+   "name": "Museu Nacional de Etnologia",
+   "googlePlaceId": "ChIJo00_317LHg0R_9LwtHvVpFM",
+   "source": "confirmed"
+  },
+  "osm-way-1413022125": {
+   "name": "Cinemateca Portuguesa - Museu do Cinema",
+   "googlePlaceId": "ChIJf8OGrnkzGQ0RxTEqUE7P5WA",
+   "source": "confirmed"
+  },
+  "osm-way-142915549": {
+   "name": "Igreja de Santo Estêvão",
+   "googlePlaceId": "ChIJV2bOyHU0GQ0Rrwpgzf93sXo",
+   "source": "confirmed"
+  },
+  "osm-way-1432087006": {
+   "name": "Estudio Arroz",
+   "googlePlaceId": "ChIJKwD6gIUzGQ0R8mfux6wps7o",
+   "source": "confirmed"
+  },
+  "osm-way-1451054092": {
+   "name": "Museu Nacional do Azulejo",
+   "googlePlaceId": "ChIJX6FT2ugzGQ0RKLxFhkpvHbM",
+   "source": "confirmed"
+  },
+  "osm-way-145116279": {
+   "name": "Jardim do Palácio Marquês de Fronteira",
+   "googlePlaceId": "ChIJq6rqbDAzGQ0RsQiWbUlQ7qc",
+   "source": "confirmed"
+  },
+  "osm-way-152327819": {
+   "name": "Padrão dos Descobrimentos",
+   "googlePlaceId": "ChIJScpeDUTLHg0RGeb5iw7wSH8",
+   "source": "confirmed"
+  },
+  "osm-way-153604081": {
+   "name": "Parque José Gomes Ferreira",
+   "googlePlaceId": "ChIJUVjZDFIyGQ0RrEcY4IvjgnI",
+   "source": "confirmed"
+  },
+  "osm-way-153605598": {
+   "name": "Parque do Vale do Silêncio",
+   "googlePlaceId": "ChIJJeHtEzcyGQ0R4dtDhrLzaSo",
+   "source": "confirmed"
+  },
+  "osm-way-155449351": {
+   "name": "Fragata Dom Fernando II e Glória",
+   "googlePlaceId": "ChIJ0cGou6Idd0AR7B3yg5jgxnE",
+   "source": "confirmed"
+  },
+  "osm-way-168883152": {
+   "name": "Eleven",
+   "googlePlaceId": "ChIJ96p6xHIzGQ0RtYUUxlDMpT0",
+   "source": "confirmed"
+  },
+  "osm-way-188143627": {
+   "name": "Museu Calouste Gulbenkian - Centro de Arte Moderna",
+   "googlePlaceId": "ChIJVU5dqg0zGQ0RsL9LHPrbOsE",
+   "source": "confirmed"
+  },
+  "osm-way-19647687": {
+   "name": "Jardim Vasco da Gama",
+   "googlePlaceId": "ChIJqTQ2H0XLHg0R8-uVaAYxsjE",
+   "source": "confirmed"
+  },
+  "osm-way-19647778": {
+   "name": "Jardim Afonso de Albuquerque",
+   "googlePlaceId": "ChIJhWRFkk_LHg0R-QHQecoXreU",
+   "source": "confirmed"
+  },
+  "osm-way-230062383": {
+   "name": "Jardim Mário Ruivo",
+   "googlePlaceId": "ChIJm9uRrYMxGQ0Rxb7SouxrMig",
+   "source": "confirmed"
+  },
+  "osm-way-238360065": {
+   "name": "Pavilhão Multiusos de Odivelas",
+   "googlePlaceId": "ChIJ8yKVUqsyGQ0R1mQllj3UHtw",
+   "source": "confirmed"
+  },
+  "osm-way-24341353": {
+   "name": "Torre de Belém",
+   "googlePlaceId": "ChIJS5zCw0LLHg0RP1FSz63cAjA",
+   "source": "confirmed"
+  },
+  "osm-way-272456332": {
+   "name": "Verride Palácio de Santa Catarina",
+   "googlePlaceId": "ChIJH9ht8YA0GQ0RhtMWd1uWoIk",
+   "source": "confirmed"
+  },
+  "osm-way-307659634": {
+   "name": "Jardim das Francesinhas",
+   "googlePlaceId": "ChIJ4ULr6Is1GQ0R9_asejn56oE",
+   "source": "confirmed"
+  },
+  "osm-way-454490420": {
+   "name": "Arte Graça",
+   "googlePlaceId": "ChIJXYdfkY4zGQ0ROx00eB29CCs",
+   "source": "confirmed"
+  },
+  "osm-way-461436481": {
+   "name": "Memorial de Odivelas",
+   "googlePlaceId": "ChIJXfzG9agyGQ0RGst66qJ-ixs",
+   "source": "confirmed"
+  },
+  "osm-way-495872178": {
+   "name": "Pavilhão João Rocha",
+   "googlePlaceId": "ChIJEW0jYuUyGQ0R7OY9z8-ZRyU",
+   "source": "confirmed"
+  },
+  "osm-way-502179764": {
+   "name": "Lisbon Marriott Hotel",
+   "googlePlaceId": "ChIJZdYoMhkzGQ0RNI8RvyLbEJ0",
+   "source": "confirmed"
+  },
+  "osm-way-54754721": {
+   "name": "Estádio Universitário de Lisboa",
+   "googlePlaceId": "ChIJC-s1KRwzGQ0R25aUXs84HEM",
+   "source": "confirmed"
+  },
+  "osm-way-579539846": {
+   "name": "Hotel Pestana Palace",
+   "googlePlaceId": "ChIJORNNYaw0GQ0R-z0fvfM9joo",
+   "source": "confirmed"
+  },
+  "osm-way-690768766": {
+   "name": "Carpintarias de São Lázaro",
+   "googlePlaceId": "ChIJv6BvcYYzGQ0RaBiXcL1Z3RY",
+   "source": "confirmed"
+  },
+  "osm-way-727424336": {
+   "name": "Miradouro Amoreiras 360º Panoramic View",
+   "googlePlaceId": "ChIJH1dSp9tSzpQROFvFiXlCrdw",
+   "source": "confirmed"
+  },
+  "osm-way-821784762": {
+   "name": "MEO Arena",
+   "googlePlaceId": "ChIJYzupcIUxGQ0RQi6E3FtfRhw",
+   "source": "confirmed"
+  },
+  "osm-way-868522308": {
+   "name": "Jardim das Ondas",
+   "googlePlaceId": "ChIJgxbrCYMxGQ0R5tNvoEYLPZw",
+   "source": "confirmed"
+  },
+  "osm-way-9253917": {
+   "name": "Panteão Nacional",
+   "googlePlaceId": "ChIJfZ_qo4ozGQ0RN07tPE-K274",
+   "source": "confirmed"
+  },
+  "osm-way-96321688": {
+   "name": "Teatro Nacional de São Carlos",
+   "googlePlaceId": "ChIJ-QEkvn40GQ0R0DoAO5d9ptY",
+   "source": "confirmed"
+  },
+  "osm-way-96359439": {
+   "name": "Basílica da Estrela",
+   "googlePlaceId": "ChIJg8lWNmIzGQ0RzBEswUM3JuY",
+   "source": "confirmed"
+  },
+  "osm-way-96359446": {
+   "name": "Igreja do Loreto",
+   "googlePlaceId": "ChIJtRWJAH80GQ0RdCjyLe2StUk",
+   "source": "confirmed"
+  },
+  "osm-way-96637918": {
+   "name": "Embaixada da República Federal da Alemanha",
+   "googlePlaceId": "ChIJkadLeIMzGQ0R8AMbVgH8Zvo",
+   "source": "confirmed"
+  },
+  "osm-way-986086418": {
+   "name": "Caricato",
+   "googlePlaceId": "ChIJRfD3h6_NHg0RjV0RUuMfMoQ",
+   "source": "confirmed"
+  },
+  "osm-way-98669740": {
+   "name": "Cervejaria Portugália",
+   "googlePlaceId": "ChIJbx-q45kzGQ0RltA4cYtZVxM",
+   "source": "confirmed"
+  },
+  "osm-way-995976870": {
+   "name": "Arco de São Bento",
+   "googlePlaceId": "ChIJ4__Q9REzGQ0RByhasLLU7Uk",
+   "source": "confirmed"
+  }
+ }
 }

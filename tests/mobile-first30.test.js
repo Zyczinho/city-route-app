@@ -44,8 +44,8 @@ test('mobile CSS guards iPhone native date/time width and route nav active statu
  assert.match(sw,/city-route-v\d+/);
  assert.match(sw,/mobile-first30\.css\?v=1/);
  assert.match(index,/mobile-first30\.css\?v=1/);
- assert.match(index,/ux-cleanup\.js\?v=7/);
- assert.match(sw,/ux-cleanup\.js\?v=7/);
+ assert.match(index,/ux-cleanup\.js\?v=8/);
+ assert.match(sw,/ux-cleanup\.js\?v=8/);
  assert.ok(build.includes("'mobile-first30.css'"));
  for(const file of ['app.js','ux-cleanup.js'])execFileSync(process.execPath,['--check',file],{stdio:'pipe'});
 });

@@ -160,6 +160,8 @@ function clarifyManualRouteEntry(){
 
 function enhance(){cleanPlanner();clarifyManualRouteEntry();communityFocus();}
 document.addEventListener('change',e=>{const form=e.target.closest?.('#build-form.ux-planner');if(form)updatePlannerSummaries(form);});
+// MOTION-POLISH-2026-11: reveal animation only after a real tap, never on first render.
+document.addEventListener('click',e=>{const d=e.target.closest?.('.ux-disclosure>summary')?.parentElement;if(d)d.dataset.uxTouched='1';});
 window.addEventListener('hashchange',()=>setTimeout(enhance,0));
 new MutationObserver(enhance).observe(main()||document.documentElement,{subtree:true,childList:true});
 enhance();

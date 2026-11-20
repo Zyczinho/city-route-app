@@ -17,21 +17,21 @@ https://maps.app.goo.gl/ZZZ999
 
 test('a list pasted from ChatGPT becomes names and Maps links, without headers or descriptions',()=>{
  const {items,skipped}=parsePastedList(CHAT);
- assert.deepEqual(items,[
+ // "3. Teatro Cubano" repeats the first line: one place, one lookup (#232).
+ assert.deepEqual(items.map(({name,url})=>({name,url})),[
   {name:'Teatro Cubano',url:'https://maps.app.goo.gl/AbCd123'},
   {name:'Noodlani',url:'https://www.google.com/maps/place/Noodlani/@52.2276,21.0117,17z'},
   {name:'Hala Koszyki',url:''},
-  {name:'',url:'https://maps.app.goo.gl/ZZZ999'},
-  {name:'Teatro Cubano',url:''}
+  {name:'',url:'https://maps.app.goo.gl/ZZZ999'}
  ]);
  assert.equal(skipped,0);
  assert.ok(isMapsUrl('https://www.google.pl/maps/place/X'));
  assert.ok(!isMapsUrl('https://example.com/maps/place/X'));
  assert.equal(nameFromMapsUrl('https://www.google.com/maps/place/K%C4%85pielisko+Red%C5%82owo/@54,18,17z'),'Kąpielisko Redłowo');
  const many=Array.from({length:20},(_,i)=>'Miejsce numer '+(i+1)).join('\n');
- const capped=parsePastedList(many);
- assert.equal(capped.items.length,MAX_PASTED_PLACES);
- assert.equal(capped.skipped,20-MAX_PASTED_PLACES);
+ // The limit of 15 counts places that were found, not pasted lines (#232): the parser keeps every candidate.
+ assert.equal(parsePastedList(many).items.length,20);
+ assert.equal(MAX_PASTED_PLACES,15);
 });
 
 test('pasted items resolve through the city-scoped endpoints: link → preview, name → suggest → details',async()=>{

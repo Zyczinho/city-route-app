@@ -115,3 +115,36 @@
 /* Start V3 (planner audit 2026-11-10): date and start time sit visibly under the duration; repairs are touch-sized. */
 .ux-planner-primary .ux-when-inline{margin-top:14px!important}
 .planner-repair{min-height:44px;display:inline-flex;align-items:center;padding:0 2px;font-weight:650;font-size:inherit}
+
+/* PLAN-CENTER-2026-11: the whole planner is one centered column on desktop and phone.
+   The paste entry, manual entry, disclosures and form share the same width. */
+#main:has(>#build-form){--plan-col:640px}
+#main:has(>#build-form)>:is(.page-head,.start-here,.live-banner,[data-paste-entry],.ux-plan-manual-entry,#build-form){box-sizing:border-box;width:100%;max-width:var(--plan-col)!important;margin-left:auto!important;margin-right:auto!important}
+#main:has(>#build-form)>[data-paste-entry]{display:flex;margin-bottom:10px;border-radius:15px;white-space:normal;text-align:center}
+#main:has(>#build-form) .ux-plan-head h1,#main:has(>#build-form) .ux-plan-head .lead{max-width:none}
+
+/* MOTION-POLISH-2026-11 (Emil Kowalski rules): strong ease-out, under 250 ms, transform/opacity only,
+   press feedback on every tap target, hover only for real pointers, nothing animates for reduced motion. */
+:root{--ease-out:cubic-bezier(.23,1,.32,1)}
+button,.button{transition:background-color .15s var(--ease-out),border-color .15s var(--ease-out),color .15s var(--ease-out),transform .16s var(--ease-out)}
+button:active:not(:disabled),.button:active{transform:scale(.97)}
+.choice span{-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;transition:background-color .15s var(--ease-out),border-color .15s var(--ease-out),color .15s var(--ease-out),transform .16s var(--ease-out)}
+.choice label:active span{transform:scale(.96)}
+.ux-disclosure>summary{-webkit-tap-highlight-color:transparent;transition:background-color .15s var(--ease-out)}
+.ux-disclosure .ux-chevron{transition:transform .2s var(--ease-out)}
+.ux-disclosure[data-ux-touched][open]>.ux-disclosure-body{animation:ux-reveal .22s var(--ease-out)}
+@keyframes ux-reveal{from{opacity:0;transform:translateY(-4px)}}
+.ux-plan-manual-link{transition:background-color .15s var(--ease-out),transform .16s var(--ease-out)}
+.ux-plan-manual-link:active{transform:scale(.97)}
+.ux-plan-manual-link .i,.start-here>.i:last-child{transition:transform .2s var(--ease-out)}
+.planner-when-fields input{font-variant-numeric:tabular-nums;transition:border-color .15s var(--ease-out),box-shadow .15s var(--ease-out)}
+.planner-when-fields input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #0a66c21f}
+#navigation a{-webkit-tap-highlight-color:transparent}
+#navigation a .i{transition:transform .16s var(--ease-out)}
+#navigation a:active .i{transform:scale(.88)}
+@media(hover:hover) and (pointer:fine){
+ .choice input:not(:checked)+span:hover{background:var(--line-2);border-color:#cfd7e1}
+ .ux-disclosure>summary:hover{background:#fafbfc}
+ .ux-plan-manual-link:hover .i,.start-here:hover>.i:last-child{transform:translateX(2px)}
+}
+@media(prefers-reduced-motion:reduce){.ux-disclosure[data-ux-touched][open]>.ux-disclosure-body{animation:none}button:active,.button:active,.choice label:active span,#navigation a:active .i{transform:none}}

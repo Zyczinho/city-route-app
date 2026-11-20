@@ -123,28 +123,36 @@
 #main:has(>#build-form)>[data-paste-entry]{display:flex;margin-bottom:10px;border-radius:15px;white-space:normal;text-align:center}
 #main:has(>#build-form) .ux-plan-head h1,#main:has(>#build-form) .ux-plan-head .lead{max-width:none}
 
-/* MOTION-POLISH-2026-11 (Emil Kowalski rules): strong ease-out, under 250 ms, transform/opacity only,
-   press feedback on every tap target, hover only for real pointers, nothing animates for reduced motion. */
-:root{--ease-out:cubic-bezier(.23,1,.32,1)}
-button,.button{transition:background-color .15s var(--ease-out),border-color .15s var(--ease-out),color .15s var(--ease-out),transform .16s var(--ease-out)}
+/* MOTION-POLISH-2026-11 (emil-design-eng): press feedback on every tap target (100-160 ms ease-out),
+   colour changes use plain ease, on-screen rotation uses ease-in-out, reveals are interruptible
+   transitions with @starting-style, hover only for real pointers, reduced motion keeps fades only. */
+:root{--ease-out:cubic-bezier(.23,1,.32,1);--ease-in-out:cubic-bezier(.77,0,.175,1)}
+button,.button{transition:background-color .15s ease,border-color .15s ease,color .15s ease,transform .16s var(--ease-out)}
 button:active:not(:disabled),.button:active{transform:scale(.97)}
-.choice span{-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;transition:background-color .15s var(--ease-out),border-color .15s var(--ease-out),color .15s var(--ease-out),transform .16s var(--ease-out)}
+.choice span{-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;transition:background-color .15s ease,border-color .15s ease,color .15s ease,transform .16s var(--ease-out)}
 .choice label:active span{transform:scale(.96)}
-.ux-disclosure>summary{-webkit-tap-highlight-color:transparent;transition:background-color .15s var(--ease-out)}
-.ux-disclosure .ux-chevron{transition:transform .2s var(--ease-out)}
-.ux-disclosure[data-ux-touched][open]>.ux-disclosure-body{animation:ux-reveal .22s var(--ease-out)}
-@keyframes ux-reveal{from{opacity:0;transform:translateY(-4px)}}
-.ux-plan-manual-link{transition:background-color .15s var(--ease-out),transform .16s var(--ease-out)}
+.ux-disclosure>summary{-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;transition:background-color .15s ease}
+.ux-disclosure .ux-chevron{transition:transform .22s var(--ease-in-out)}
+.ux-disclosure[data-ux-touched][open]>.ux-disclosure-body{opacity:1;transform:none;transition:opacity .2s var(--ease-out),transform .2s var(--ease-out)}
+@starting-style{.ux-disclosure[data-ux-touched][open]>.ux-disclosure-body{opacity:0;transform:translateY(-4px)}}
+.ux-plan-manual-link{-webkit-tap-highlight-color:transparent;transition:background-color .15s ease,transform .16s var(--ease-out)}
 .ux-plan-manual-link:active{transform:scale(.97)}
+.start-here{-webkit-tap-highlight-color:transparent;transition:transform .16s var(--ease-out)}
+.start-here:active{transform:scale(.98)}
 .ux-plan-manual-link .i,.start-here>.i:last-child{transition:transform .2s var(--ease-out)}
-.planner-when-fields input{font-variant-numeric:tabular-nums;transition:border-color .15s var(--ease-out),box-shadow .15s var(--ease-out)}
+/* 16px stops iOS Safari from zooming the page when the date/time field gets focus. */
+.planner-when-fields input{font-size:16px!important;font-variant-numeric:tabular-nums;transition:border-color .15s ease,box-shadow .15s ease}
 .planner-when-fields input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #0a66c21f}
-#navigation a{-webkit-tap-highlight-color:transparent}
-#navigation a .i{transition:transform .16s var(--ease-out)}
-#navigation a:active .i{transform:scale(.88)}
+#navigation a{-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+#navigation a .i{transition:transform .14s var(--ease-out)}
+#navigation a:active .i{transform:scale(.94)}
 @media(hover:hover) and (pointer:fine){
  .choice input:not(:checked)+span:hover{background:var(--line-2);border-color:#cfd7e1}
  .ux-disclosure>summary:hover{background:#fafbfc}
  .ux-plan-manual-link:hover .i,.start-here:hover>.i:last-child{transform:translateX(2px)}
 }
-@media(prefers-reduced-motion:reduce){.ux-disclosure[data-ux-touched][open]>.ux-disclosure-body{animation:none}button:active,.button:active,.choice label:active span,#navigation a:active .i{transform:none}}
+@media(prefers-reduced-motion:reduce){
+ .ux-disclosure[data-ux-touched][open]>.ux-disclosure-body{transform:none}
+ @starting-style{.ux-disclosure[data-ux-touched][open]>.ux-disclosure-body{transform:none}}
+ button:active,.button:active,.choice label:active span,.start-here:active,#navigation a:active .i{transform:none}
+}

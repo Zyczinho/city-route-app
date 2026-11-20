@@ -16,7 +16,8 @@ test('sheets, dialogs and toast enter with @starting-style and keep an exit tran
 
 test('live progress bar animates from the previous stop only when the stop changes', async()=>{
  const app=await read('app.js');
- assert.match(app,/--from:\$\{progressFrom\(s\)\/s\.stops\.length\};--to:\$\{s\.index\/s\.stops\.length\}/);
+ assert.match(app,/from=progressFrom\(s\)/);
+ assert.match(app,/--from:\$\{from\/s\.stops\.length\};--to:\$\{s\.index\/s\.stops\.length\}/);
  const src=app.match(/let progressSeen=\{id:null,index:null\};function progressFrom\(s\)\{[^\n]*\}/)[0];
  const progressFrom=new Function(src+';return progressFrom;')();
  assert.equal(progressFrom({id:'a',index:0}),0,'first render does not animate');

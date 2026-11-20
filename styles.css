@@ -466,3 +466,22 @@ dialog[open]::backdrop{opacity:1}
  @starting-style{.sheet[open],dialog:not(.sheet)[open]{opacity:0}}
  #toast,#toast.show{transform:translate(-50%,0)!important;transition:opacity .2s ease,display .2s allow-discrete!important}
 }
+
+/* MOTION-LIVE-2026-11 (emil-design-eng / choreograph): live route moments.
+   Next stop: the new card rises 8px and fades in, only when the stop index changes.
+   Finish: one celebration per route; the flag pops with a light overshoot, then kicker,
+   headline and counts follow with short, non-uniform delays. Nothing blocks taps. */
+.now.is-entering{transition:opacity .24s var(--ease-out),transform .24s var(--ease-out)}
+@starting-style{.now.is-entering{opacity:0;transform:translateY(8px)}}
+.finished.is-celebrating .badge-big{transition:transform .45s cubic-bezier(.34,1.36,.64,1),opacity .2s ease}
+@starting-style{.finished.is-celebrating .badge-big{transform:scale(.9);opacity:0}}
+.finished.is-celebrating>:where(.kicker,h1,h1+p){transition:opacity .3s var(--ease-out),transform .3s var(--ease-out)}
+.finished.is-celebrating>.kicker{transition-delay:60ms}
+.finished.is-celebrating>h1{transition-delay:110ms}
+.finished.is-celebrating>h1+p{transition-delay:150ms}
+@starting-style{.finished.is-celebrating>:is(.kicker,h1,h1+p){opacity:0;transform:translateY(6px)}}
+/* Reduced motion: the same moments as a plain fade, no movement or overshoot. */
+@media(prefers-reduced-motion:reduce){
+ .now.is-entering,.finished.is-celebrating .badge-big,.finished.is-celebrating>:is(.kicker,h1,h1+p){transform:none!important;transition:opacity .2s ease!important}
+ @starting-style{.now.is-entering,.finished.is-celebrating .badge-big,.finished.is-celebrating>:is(.kicker,h1,h1+p){transform:none}}
+}
